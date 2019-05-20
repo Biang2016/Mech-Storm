@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Principal;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -91,6 +92,37 @@ public class SideEffectBundle : IClone<SideEffectBundle>
             }
         }
 
+        res = FirstLetterOfSentenceUpper(res);
+
+        return res;
+    }
+
+    private string FirstLetterOfSentenceUpper(string src)
+    {
+        StringBuilder sb = new StringBuilder();
+        bool dot = true;
+        src = src.ToLower().Replace("</color>", "@");
+        for (int i = 0; i < src.Length; i++)
+        {
+            char c = src[i];
+            if (c == '.' || c == ':' || c == ';')
+            {
+                dot = true;
+                sb.Append(c);
+            }
+            else if (dot && (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+            {
+                sb.Append(c.ToString().ToUpper());
+                dot = false;
+            }
+            else
+            {
+                sb.Append(c);
+            }
+        }
+
+        string res = sb.ToString();
+        res = res.Replace("@", "</color>");
         return res;
     }
 

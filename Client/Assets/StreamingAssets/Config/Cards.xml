@@ -1123,9 +1123,7 @@
         <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
           <Buff name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime" triggerTime="OnBeginRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="0" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="3">
             <SideEffect name="Damage" TargetSelect="All" TargetRange="Heroes" ChoiceCount="1" Damage="0" />
-            <SideEffect name="Damage" TargetSelect="All" TargetRange="Heroes" ChoiceCount="1" Damage="0" />
             <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="3" />
-            <SideEffect name="Damage" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" Damage="2" />
           </Buff>
         </SideEffect>
       </SideEffectExecute>

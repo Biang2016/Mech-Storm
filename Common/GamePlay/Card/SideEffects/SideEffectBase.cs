@@ -118,7 +118,7 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
     {
     }
 
-    protected static string HighlightStringFormat(string src, params object[] args)
+    public static string HighlightStringFormat(string src, params object[] args)
     {
         string[] colorStrings = new string[args.Length];
         for (int i = 0; i < args.Length; i++)
@@ -128,8 +128,8 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
 
         return string.Format(src, colorStrings);
     }
-    
-    protected static string HighlightStringFormat(string src,bool[] needTint, params object[] args)
+
+    public static string HighlightStringFormat(string src,bool[] needTint, params object[] args)
     {
         string[] colorStrings = new string[args.Length];
         for (int i = 0; i < args.Length; i++)

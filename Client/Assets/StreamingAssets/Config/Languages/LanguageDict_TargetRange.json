@@ -79,19 +79,19 @@
 	},
 	"TargetRange_Single_Soldiers": {
 		"zh": "一个士兵",
-		"en": "A SoldierMech "
+		"en": "A SoldierMech"
 	},
 	"TargetRange_Single_SelfSoldiers": {
 		"zh": "一个我方士兵",
-		"en": "One of Your SoldierMechs "
+		"en": "One of Your SoldierMechs"
 	},
 	"TargetRange_Single_EnemySoldiers": {
 		"zh": "一个敌方士兵",
-		"en": "An Enemy's SoldierMech "
+		"en": "An Enemy's SoldierMech"
 	},
 	"TargetRange_Single_SelfShip": {
 		"zh": "我方战舰",
-		"en": "Your Spaceship "
+		"en": "Your Spaceship"
 	},
 	"TargetRange_Single_EnemyShip": {
 		"zh": "敌方战舰",

@@ -18,7 +18,7 @@
 	},
 
 	"TriggerTime_Disposable": {
-		"zh": "移除,",
+		"zh": "移除",
 		"en": "Disposable. "
 	},
 
@@ -39,7 +39,7 @@
 		"en": "Dodge"
 	},
 	"KeyWords_PRValue": {
-		"zh": "概率: {0}, ",
+		"zh": "概率: {0}. ",
 		"en": "PR: {0}. "
 	},
 	"KeyWords_Armor": {
@@ -75,11 +75,11 @@
 		"en": "Attack"
 	},
 	"KeyWords_AttackPlus": {
-		"zh": "攻击 +{0}, ",
+		"zh": "攻击 +{0}. ",
 		"en": "Attack +{0}. "
 	},
 	"KeyWords_ChargePlus": {
-		"zh": "充能 {0}, ",
+		"zh": "充能 {0}. ",
 		"en": "Charge {0}. "
 	},
 	"KeyWords_Gun": {
@@ -87,11 +87,11 @@
 		"en": "Gun"
 	},
 	"KeyWords_ShootAttackPlus": {
-		"zh": "每发伤害 +{0}, ",
+		"zh": "每发伤害 +{0}. ",
 		"en": "ShootAttack +{0}. "
 	},
 	"KeyWords_Bullets": {
-		"zh": "弹药 {0}, ",
+		"zh": "弹药 {0}. ",
 		"en": "Bullets {0}. "
 	},
 	"KeyWords_SniperGun": {
@@ -99,11 +99,11 @@
 		"en": "SniperGun"
 	},
 	"KeyWords_SniperBulletAttackPlus": {
-		"zh": "弹丸伤害: {0} 点, ",
+		"zh": "弹丸伤害: {0} 点. ",
 		"en": "Bullet +{0} attack. "
 	},
 	"KeyWords_SniperBulletPlus": {
-		"zh": "弹药: {0}, ",
+		"zh": "弹药: {0}. ",
 		"en": "Add +{0} bullets. "
 	},
 
@@ -142,11 +142,11 @@
 
 
 	"KeyWords_DefenseDamage": {
-		"zh": "阻挡 {0} 点伤害, ",
+		"zh": "阻挡 {0} 点伤害. ",
 		"en": "Defence {0} damage. "
 	},
 	"KeyWords_ReduceDamage": {
-		"zh": "受到每次伤害减少 {0} 点, ",
+		"zh": "受到每次伤害减少 {0} 点. ",
 		"en": "Reduce damage per attack by {0}. "
 	}
 

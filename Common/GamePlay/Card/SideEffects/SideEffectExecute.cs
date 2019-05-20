@@ -384,8 +384,20 @@ public class SideEffectExecute : IClone<SideEffectExecute>
 
         foreach (SideEffectBase se in SideEffectBases)
         {
-            res += se.GenerateDesc();
+            string sebDesc = se.GenerateDesc();
+            sebDesc = sebDesc.TrimEnd("，。;,.;/n ".ToCharArray());
+            if (sebDesc.EndsWith("</color>"))
+            {
+                sebDesc = sebDesc.Remove(sebDesc.LastIndexOf("</color>"));
+                sebDesc = sebDesc.TrimEnd("，。;,.;/n ".ToCharArray());
+                sebDesc += "</color>";
+            }
+
+            sebDesc = sebDesc.TrimEnd("，。;,.;/n ".ToCharArray());
+            res += sebDesc + ". ";
         }
+
+        res = res.TrimEnd("，。;,.;/n ".ToCharArray());
 
         if (res.EndsWith("</color>"))
         {
@@ -541,50 +553,50 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
-                {TriggerTime.OnBeginRound, "When {0} turn starts, "},
-                {TriggerTime.OnDrawCard, "When {0} draws, "},
-                {TriggerTime.OnPlayCard, "When {0} plays a card, "},
+                {TriggerTime.OnBeginRound, "when {0} turn starts, "},
+                {TriggerTime.OnDrawCard, "when {0} draws, "},
+                {TriggerTime.OnPlayCard, "when {0} plays a card, "},
 
-                {TriggerTime.OnMechSummon, "When {0} Mech summoned, "},
-                {TriggerTime.OnHeroSummon, "When {0} HeroMech summoned, "},
-                {TriggerTime.OnSoldierSummon, "When {0} SoldierMech summoned, "},
+                {TriggerTime.OnMechSummon, "when {0} Mech summoned, "},
+                {TriggerTime.OnHeroSummon, "when {0} HeroMech summoned, "},
+                {TriggerTime.OnSoldierSummon, "when {0} SoldierMech summoned, "},
 
-                {TriggerTime.OnMechAttack, "When {0} Mech attacks, "},
-                {TriggerTime.OnHeroAttack, "When {0} HeroMech attacks, "},
-                {TriggerTime.OnSoldierAttack, "When {0} SoldierMech attacks, "},
+                {TriggerTime.OnMechAttack, "when {0} Mech attacks, "},
+                {TriggerTime.OnHeroAttack, "when {0} HeroMech attacks, "},
+                {TriggerTime.OnSoldierAttack, "when {0} SoldierMech attacks, "},
 
-                {TriggerTime.OnMechInjured, "When {0} Mech damaged, "},
-                {TriggerTime.OnHeroInjured, "When {0} HeroMech damaged, "},
-                {TriggerTime.OnSoldierInjured, "When {0} SoldierMech damaged, "},
+                {TriggerTime.OnMechInjured, "when {0} Mech damaged, "},
+                {TriggerTime.OnHeroInjured, "when {0} HeroMech damaged, "},
+                {TriggerTime.OnSoldierInjured, "when {0} SoldierMech damaged, "},
 
-                {TriggerTime.OnMechKill, "When {0} Mech kill enemy, "},
-                {TriggerTime.OnHeroKill, "When {0} HeroMech kill enemy, "},
-                {TriggerTime.OnSoldierKill, "When {0} SoldierMech kill enemy, "},
+                {TriggerTime.OnMechKill, "when {0} Mech kill enemy, "},
+                {TriggerTime.OnHeroKill, "when {0} HeroMech kill enemy, "},
+                {TriggerTime.OnSoldierKill, "when {0} SoldierMech kill enemy, "},
 
-                {TriggerTime.OnMechMakeDamage, "When {0} Mech make damage, "},
-                {TriggerTime.OnHeroMakeDamage, "When {0} HeroMech make damage, "},
-                {TriggerTime.OnSoldierMakeDamage, "When {0} SoldierMech make damage, "},
+                {TriggerTime.OnMechMakeDamage, "when {0} Mech make damage, "},
+                {TriggerTime.OnHeroMakeDamage, "when {0} HeroMech make damage, "},
+                {TriggerTime.OnSoldierMakeDamage, "when {0} SoldierMech make damage, "},
 
-                {TriggerTime.OnMechBeHealed, "When {0} Mech is healed, "},
-                {TriggerTime.OnHeroBeHealed, "When {0} HeroMech is healed, "},
-                {TriggerTime.OnSoldierBeHealed, "When {0} SoldierMech is healed, "},
+                {TriggerTime.OnMechBeHealed, "when {0} Mech is healed, "},
+                {TriggerTime.OnHeroBeHealed, "when {0} HeroMech is healed, "},
+                {TriggerTime.OnSoldierBeHealed, "when {0} SoldierMech is healed, "},
 
-                {TriggerTime.OnMechDie, "When {0} Mech died, "},
-                {TriggerTime.OnHeroDie, "When {0} HeroMech died, "},
-                {TriggerTime.OnSoldierDie, "When {0} SoldierMech died, "},
+                {TriggerTime.OnMechDie, "when {0} Mech died, "},
+                {TriggerTime.OnHeroDie, "when {0} HeroMech died, "},
+                {TriggerTime.OnSoldierDie, "when {0} SoldierMech died, "},
 
-                {TriggerTime.OnEquipDie, "When {0} Equipment broken, "},
+                {TriggerTime.OnEquipDie, "when {0} Equipment broken, "},
 
-                {TriggerTime.OnMakeDamage, "When {0} deal damage, "},
-                {TriggerTime.OnMakeSpellDamage, "When {0} deal spell damage, "},
+                {TriggerTime.OnMakeDamage, "when {0} deal damage, "},
+                {TriggerTime.OnMakeSpellDamage, "when {0} deal spell damage, "},
 
-                {TriggerTime.OnPlayerGetEnergy, "When {0} get energy, "},
-                {TriggerTime.OnPlayerUseEnergy, "When {0} consume energy, "},
-                {TriggerTime.OnPlayerAddLife, "When {0} get healed, "},
-                {TriggerTime.OnPlayerLostLife, "When {0} lost life, "},
-                {TriggerTime.OnEndRound, "When {0} turn ends, "},
+                {TriggerTime.OnPlayerGetEnergy, "when {0} get energy, "},
+                {TriggerTime.OnPlayerUseEnergy, "when {0} consume energy, "},
+                {TriggerTime.OnPlayerAddLife, "when {0} get healed, "},
+                {TriggerTime.OnPlayerLostLife, "when {0} lost life, "},
+                {TriggerTime.OnEndRound, "when {0} turn ends, "},
 
-                {TriggerTime.OnUseMetal, "When {0} consume metal, "},
+                {TriggerTime.OnUseMetal, "when {0} consume metal, "},
             }
         }
     };
@@ -649,50 +661,50 @@ public class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
-                {TriggerTime.OnBeginRound, "Before {1} next {0}th turn starts, "},
-                {TriggerTime.OnDrawCard, "Before {1}'s next {0}th draw, "},
-                {TriggerTime.OnPlayCard, "Before {1}'s next {0}th playing card, "},
+                {TriggerTime.OnBeginRound, "before {1} next {0}th turn starts, "},
+                {TriggerTime.OnDrawCard, "before {1}'s next {0}th draw, "},
+                {TriggerTime.OnPlayCard, "before {1}'s next {0}th playing card, "},
 
-                {TriggerTime.OnMechSummon, "Before {1} next {0}th Mech-summon, "},
-                {TriggerTime.OnHeroSummon, "Before {1} next {0}th HeroMech-summon, "},
-                {TriggerTime.OnSoldierSummon, "Before {1} next {0}th SoldierMech-summon, "},
+                {TriggerTime.OnMechSummon, "before {1} next {0}th Mech-summon, "},
+                {TriggerTime.OnHeroSummon, "before {1} next {0}th HeroMech-summon, "},
+                {TriggerTime.OnSoldierSummon, "before {1} next {0}th SoldierMech-summon, "},
 
-                {TriggerTime.OnMechAttack, "Before {1} next {0}th Mech-attack, "},
-                {TriggerTime.OnHeroAttack, "Before {1} next {0}th HeroMech-attack, "},
-                {TriggerTime.OnSoldierAttack, "Before {1} next {0}th SoldierMech-attack, "},
+                {TriggerTime.OnMechAttack, "before {1} next {0}th Mech-attack, "},
+                {TriggerTime.OnHeroAttack, "before {1} next {0}th HeroMech-attack, "},
+                {TriggerTime.OnSoldierAttack, "before {1} next {0}th SoldierMech-attack, "},
 
-                {TriggerTime.OnMechInjured, "Before {1} next {0}th Mech-injured, "},
-                {TriggerTime.OnHeroInjured, "Before {1} next {0}th HeroMech-injured, "},
-                {TriggerTime.OnSoldierInjured, "Before {1} next {0}th SoldierMech-injured, "},
+                {TriggerTime.OnMechInjured, "before {1} next {0}th Mech-injured, "},
+                {TriggerTime.OnHeroInjured, "before {1} next {0}th HeroMech-injured, "},
+                {TriggerTime.OnSoldierInjured, "before {1} next {0}th SoldierMech-injured, "},
 
-                {TriggerTime.OnMechKill, "Before {1} next {0}th Mech-kills-enemy, "},
-                {TriggerTime.OnHeroKill, "Before {1} next {0}th HeroMech-kills-enemy, "},
-                {TriggerTime.OnSoldierKill, "Before {1} next {0}th SoldierMech-kills-enemy, "},
+                {TriggerTime.OnMechKill, "before {1} next {0}th Mech-kills-enemy, "},
+                {TriggerTime.OnHeroKill, "before {1} next {0}th HeroMech-kills-enemy, "},
+                {TriggerTime.OnSoldierKill, "before {1} next {0}th SoldierMech-kills-enemy, "},
 
-                {TriggerTime.OnMechMakeDamage, "Before {1} next {0}th Mech-make-damage, "},
-                {TriggerTime.OnHeroMakeDamage, "Before {1} next {0}th HeroMech-make-damage, "},
-                {TriggerTime.OnSoldierMakeDamage, "Before {1} next {0}th SoldierMech-make-damage, "},
+                {TriggerTime.OnMechMakeDamage, "before {1} next {0}th Mech-make-damage, "},
+                {TriggerTime.OnHeroMakeDamage, "before {1} next {0}th HeroMech-make-damage, "},
+                {TriggerTime.OnSoldierMakeDamage, "before {1} next {0}th SoldierMech-make-damage, "},
 
-                {TriggerTime.OnMechBeHealed, "Before {1} next {0}th Mech-healed, "},
-                {TriggerTime.OnHeroBeHealed, "Before {1} next {0}th HeroMech-healed, "},
-                {TriggerTime.OnSoldierBeHealed, "Before {1} next {0}th SoldierMech-healed, "},
+                {TriggerTime.OnMechBeHealed, "before {1} next {0}th Mech-healed, "},
+                {TriggerTime.OnHeroBeHealed, "before {1} next {0}th HeroMech-healed, "},
+                {TriggerTime.OnSoldierBeHealed, "before {1} next {0}th SoldierMech-healed, "},
 
-                {TriggerTime.OnMechDie, "Before {1} next {0}th Mech-die, "},
-                {TriggerTime.OnHeroDie, "Before {1} next {0}th HeroMech-die, "},
-                {TriggerTime.OnSoldierDie, "Before {1} next {0}th SoldierMech-die, "},
+                {TriggerTime.OnMechDie, "before {1} next {0}th Mech-die, "},
+                {TriggerTime.OnHeroDie, "before {1} next {0}th HeroMech-die, "},
+                {TriggerTime.OnSoldierDie, "before {1} next {0}th SoldierMech-die, "},
 
-                {TriggerTime.OnEquipDie, "Before {1} next {0}th Equip-broken, "},
+                {TriggerTime.OnEquipDie, "before {1} next {0}th Equip-broken, "},
 
-                {TriggerTime.OnMakeDamage, "Before {1} next {0}th deal damage, "},
-                {TriggerTime.OnMakeSpellDamage, "Before {1} next {0}th deal spell damage, "},
+                {TriggerTime.OnMakeDamage, "before {1} next {0}th deal damage, "},
+                {TriggerTime.OnMakeSpellDamage, "before {1} next {0}th deal spell damage, "},
 
-                {TriggerTime.OnPlayerGetEnergy, "Before {1} next {0}th get energy, "},
-                {TriggerTime.OnPlayerUseEnergy, "Before {1} next {0}th use energy, "},
-                {TriggerTime.OnPlayerAddLife, "Before {1} next {0}th Spaceship-healed, "},
-                {TriggerTime.OnPlayerLostLife, "Before {1} next {0}th Spaceship-damaged, "},
-                {TriggerTime.OnEndRound, "Before {1} next {0}th turn-ends, "},
+                {TriggerTime.OnPlayerGetEnergy, "before {1} next {0}th get energy, "},
+                {TriggerTime.OnPlayerUseEnergy, "before {1} next {0}th use energy, "},
+                {TriggerTime.OnPlayerAddLife, "before {1} next {0}th Spaceship-healed, "},
+                {TriggerTime.OnPlayerLostLife, "before {1} next {0}th Spaceship-damaged, "},
+                {TriggerTime.OnEndRound, "before {1} next {0}th turn-ends, "},
 
-                {TriggerTime.OnUseMetal, "Before {1} next {0}th use metal, "},
+                {TriggerTime.OnUseMetal, "before {1} next {0}th use metal, "},
             }
         }
     };
@@ -762,6 +774,17 @@ public class SideEffectExecute : IClone<SideEffectExecute>
     {
         string str_tt = TriggerTimeDesc_ForRemoveTriggerTime[LanguageManager_Common.GetCurrentLanguage()][removeTriggerTime];
         string str_tr = TriggerRangeDesc[LanguageManager_Common.GetCurrentLanguage()][tr];
-        return string.Format(str_tt, removeTriggerTimes, str_tr);
+        return SideEffectBase.HighlightStringFormat(str_tt, removeTriggerTimes, str_tr);
+    }
+
+    private static Dictionary<string, string> EachTimeDesc = new Dictionary<string, string>
+    {
+        {"zh", "每"},
+        {"en", "each time "},
+    };
+
+    public static string GetEachTimeDesc()
+    {
+        return EachTimeDesc[LanguageManager_Common.GetCurrentLanguage()];
     }
 }

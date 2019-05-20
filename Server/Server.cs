@@ -50,17 +50,20 @@ internal class Server
 
         //Here to test cards, sideEffects, buffs
 
-//        CardInfo_Base ci = AllCards.GetCard(50);
-//        string text;
-//        using (StreamReader sr = new StreamReader(ServerConsole.ServerRoot + "Config/Cards.xml"))
-//        {
-//            text = sr.ReadToEnd();
-//        }
-//
-//        XmlDocument doc = new XmlDocument();
-//        doc.LoadXml(text);
-//        XmlElement allCards = doc.DocumentElement;
-//        ci.BaseExportToXML(allCards);
+        //LanguageManager_Common.GetCurrentLanguage = LanguageDebug;
+
+        //CardInfo_Base ci = AllCards.GetCard(50272);
+        //string a = ci.GetCardDescShow();
+        //        string text;
+        //        using (StreamReader sr = new StreamReader(ServerConsole.ServerRoot + "Config/Cards.xml"))
+        //        {
+        //            text = sr.ReadToEnd();
+        //        }
+        //
+        //        XmlDocument doc = new XmlDocument();
+        //        doc.LoadXml(text);
+        //        XmlElement allCards = doc.DocumentElement;
+        //        ci.BaseExportToXML(allCards);
 
         //End
 
@@ -68,6 +71,11 @@ internal class Server
         OnRestartProtocols();
         OnRestartSideEffects();
         StartSeverSocket();
+    }
+
+    public string LanguageDebug()
+    {
+        return "en";
     }
 
     private void OnRestartProtocols()
