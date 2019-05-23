@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Story desc="本文档记录单人模式的NPC和奖励配置">
+  <StartBuildInfo BuildName="Story1" />
+  <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="10" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
+  <Chapter ChapterID="0">
+    <CommonBonus>
+      <BonusGroupInfo type="Always">
+        <BonusInfo name="Budget" value="50"></BonusInfo>
+        <BonusInfo name="LifeUpperLimit" value="1"></BonusInfo>
+      </BonusGroupInfo>
+      <BonusGroupInfo type="Optional" probability="70" singleton="False">
+        <BonusInfo name="UnlockCardByLevelNum" value="0"></BonusInfo>
+      </BonusGroupInfo>
+    </CommonBonus>
+    <EnemyInfos>
+      <EnemyInfo name="Mind the mines" picID="53">
+        <EnemyTypeInfo type="Soldier" BuildName="MechMine_Soldier_Lv0">
+          <BonusGroupInfo type="Always">
+            <BonusInfo name="UnlockCardByID" value="5301"></BonusInfo>
+          </BonusGroupInfo>
+        </EnemyTypeInfo>
+        <EnemyTypeInfo type="Elite" BuildName="MechMine_Elite_Lv0">
+          <BonusGroupInfo type="Always">
+            <BonusInfo name="UnlockCardByID" value="5308"></BonusInfo>
+          </BonusGroupInfo>
+        </EnemyTypeInfo>
+        <EnemyTypeInfo type="Boss" BuildName="MechMine_Boss_Lv0">
+          <BonusGroupInfo type="Always">
+            <BonusInfo name="UnlockCardByID" value="5309"></BonusInfo>
+          </BonusGroupInfo>
+        </EnemyTypeInfo>
+      </EnemyInfo>
+    </EnemyInfos>
+    <ShopInfos>
+
+    </ShopInfos>
+  </Chapter>
+</Story>

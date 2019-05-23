@@ -715,7 +715,7 @@
 
 	"CardEditorWindow_CardEditorWindowText": {
 		"zh": "卡牌编辑器",
-		"en": "Card Editor Window"
+		"en": "Card Editor"
 	},
 	"CardEditorWindow_CardTotalCountText": {
 		"zh": "卡牌总数: ",
@@ -985,5 +985,67 @@
 	"CardEditorWindow_RemoveTriggerTimes": {
 		"zh": "效果移除触发次数",
 		"en": "Remove Trigger Times"
+	},
+
+
+	"LevelEditorWindow_LevelEditorWindowText": {
+		"zh": "关卡编辑器",
+		"en": "Level Editor"
+	},
+	"LevelEditorWindow_SaveLevelButtonText": {
+		"zh": "保存更改",
+		"en": "Save Changes"
+	},
+	"LevelEditorWindow_ResetLevelButtonText": {
+		"zh": "重置关卡",
+		"en": "Reset"
+	},
+	"LevelEditorWindow_ResetLevelNotice": {
+		"zh": "重置关卡(ID: {0})",
+		"en": "Reset level (ID: {0})"
+	},
+	"LevelEditorWindow_LevelType": {
+		"zh": "重置关卡(ID: {0})",
+		"en": "Reset level (ID: {0})"
+	},
+	"LevelEditorWindow_LevelType": {
+		"zh": "关卡类型",
+		"en": "Level Type"
+	},
+	"LevelEditorWindow_LevelIDLabelText": {
+		"zh": "关卡ID",
+		"en": "Level ID"
+	},
+	"LevelEditorWindow_LevelPicIDLabelText": {
+		"zh": "关卡图片ID",
+		"en": "Level Pic ID"
+	},
+	"LevelEditorWindow_LevelNameLabelText_zh": {
+		"zh": "关卡中文名称",
+		"en": "ChineseName"
+	},
+	"LevelEditorWindow_LevelNameLabelText_en": {
+		"zh": "关卡英文名称",
+		"en": "EnglishName"
+	},
+	"LevelEditorWindow_EnemyType": {
+		"zh": "敌人类型",
+		"en": "Enemy Type"
+	},
+	"LevelEditorWindow_EnemyDrawCardNum": {
+		"zh": "敌人抽牌数",
+		"en": "Draw Cards Number"
+	},
+	"LevelEditorWindow_EnemyLife": {
+		"zh": "敌人生命值",
+		"en": "Life"
+	},
+	"LevelEditorWindow_EnemyEnergy": {
+		"zh": "敌人能量值",
+		"en": "Energy"
+	},
+	"LevelEditorWindow_EnemyBeginMetal": {
+		"zh": "敌人初始金属",
+		"en": "Initial Metal"
 	},
 }

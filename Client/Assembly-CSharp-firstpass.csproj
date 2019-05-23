@@ -347,9 +347,6 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
-    <Reference Include="MyCardGameCommon">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
-    </Reference>
     <Reference Include="TextMeshPro-2017.3-Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
@@ -731,9 +728,21 @@
       <Project>{97C57F31-373C-EFFE-AAD8-03EE13BF3BC9}</Project>
       <Name>OutGameLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="InGameLogic.csproj">
-      <Project>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</Project>
-      <Name>InGameLogic</Name>
+    <ProjectReference Include="Server.csproj">
+      <Project>{6FF4F0B1-A046-7D07-31A8-84E6EFE374D6}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="Core.csproj">
+      <Project>{7F24B9D5-CA2C-D3DF-6105-8036A13F501D}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="Network.csproj">
+      <Project>{5C9396A4-DE3C-951F-0062-8D31DDECEBF4}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="Client.csproj">
+      <Project>{F37325C5-33E2-B21F-F37E-D72BA7227AEE}</Project>
+      <Name>Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

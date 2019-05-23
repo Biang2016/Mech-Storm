@@ -54,14 +54,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\OutGame\Download\DownloadItem.cs" />
-    <Compile Include="Assets\Scripts\OutGame\Download\HttpDownloadItem.cs" />
-    <Compile Include="Assets\Scripts\OutGame\Download\WWWDownloadItem.cs" />
-    <Compile Include="Assets\Scripts\OutGame\FileUtils.cs" />
-    <Compile Include="Assets\Scripts\OutGame\OutGameInitialization.cs" />
-    <Compile Include="Assets\Scripts\OutGame\OutGameManage_Update.cs" />
-    <Compile Include="Assets\Scripts\OutGame\OutGameManager.cs" />
-    <Compile Include="Assets\Scripts\OutGame\OutGameMonoSingleton.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\Download\DownloadItem.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\Download\HttpDownloadItem.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\Download\WWWDownloadItem.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\FileUtils.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\OutGameInitialization.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\OutGameManage_Update.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\OutGameManager.cs" />
+    <Compile Include="Assets\Scripts\Client\OutGame\OutGameMonoSingleton.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -295,9 +295,6 @@
     </Reference>
     <Reference Include="UnityEditor.OSXStandalone.Extensions">
       <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="MyCardGameCommon">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
     </Reference>
     <Reference Include="TextMeshPro-2017.3-Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>

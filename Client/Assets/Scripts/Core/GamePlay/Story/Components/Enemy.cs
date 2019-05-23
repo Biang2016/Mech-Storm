@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor;
+
+public class Enemy : Level
+{
+    public BuildInfo BuildInfo;
+    public EnemyType EnemyType;
+    private int hardFactor;
+    public List<BonusGroup> AlwaysBonusGroup;
+    public List<BonusGroup> OptionalBonusGroup;
+
+    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int hardFactor, List<BonusGroup> alwaysBonusGroup, List<BonusGroup> optionalBonusGroup)
+        : base(LevelType.Enemy, levelPicID, levelNames)
+    {
+        BuildInfo = buildInfo;
+        EnemyType = enemyType;
+        this.hardFactor = hardFactor;
+        AlwaysBonusGroup = alwaysBonusGroup;
+        OptionalBonusGroup = optionalBonusGroup;
+    }
+
+    public override Level Clone()
+    {
+        return new Enemy(LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo, EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
+    }
+
+    public override Level Variant()
+    {
+        //TODO
+        return null;
+    }
+
+    public override void Serialize(DataStream writer)
+    {
+        base.Serialize(writer);
+        BuildInfo.Serialize(writer);
+        writer.WriteSInt32((int) EnemyType);
+        writer.WriteSInt32(hardFactor);
+
+        writer.WriteSInt32(AlwaysBonusGroup.Count);
+        foreach (BonusGroup bonus in AlwaysBonusGroup)
+        {
+            bonus.Serialize(writer);
+        }
+
+        writer.WriteSInt32(OptionalBonusGroup.Count);
+        foreach (BonusGroup bonus in OptionalBonusGroup)
+        {
+            bonus.Serialize(writer);
+        }
+    }
+
+    public static Enemy Deserialize(DataStream reader)
+    {
+        BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
+        EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
+        int hardFactor = reader.ReadSInt32();
+
+        int alwaysBonusCount = reader.ReadSInt32();
+        List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
+        for (int i = 0; i < alwaysBonusCount; i++)
+        {
+            AlwaysBonusGroup.Add(BonusGroup.Deserialize(reader));
+        }
+
+        int optionalBonusCount = reader.ReadSInt32();
+        List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
+        for (int i = 0; i < optionalBonusCount; i++)
+        {
+            OptionalBonusGroup.Add(BonusGroup.Deserialize(reader));
+        }
+
+        return new Enemy(0, null, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
+    }
+}
