@@ -49,6 +49,7 @@ public partial class SelectBuildPanel
         InitAddAllCards();
         InitializeOnlineCardLimitDict();
     }
+
     void Init_Cards()
     {
     }
@@ -251,36 +252,24 @@ public partial class SelectBuildPanel
                 CardBase cb = allCards[CardID];
                 cb.ChangeCardSelectLimit(CardLimitCount);
 
-                if (Client.Instance.Proxy.IsSuperAccount)
+                if (!allShownCards.ContainsKey(CardID))
                 {
-                    if (!allShownCards.ContainsKey(CardID))
+                    if (CardLimitCount > 0)
                     {
                         allShownCards.Add(CardID, cb);
-                    }
-
-                    allCardContainers[CardID].gameObject.SetActive(true);
-                }
-                else
-                {
-                    if (!allShownCards.ContainsKey(CardID))
-                    {
-                        if (CardLimitCount > 0)
-                        {
-                            allShownCards.Add(CardID, cb);
-                            allCardContainers[CardID].gameObject.SetActive(true);
-                        }
-                        else
-                        {
-                            allCardContainers[CardID].gameObject.SetActive(false);
-                        }
+                        allCardContainers[CardID].gameObject.SetActive(true);
                     }
                     else
                     {
-                        if (CardLimitCount == 0)
-                        {
-                            allCardContainers[CardID].gameObject.SetActive(false);
-                            allShownCards.Remove(CardID);
-                        }
+                        allCardContainers[CardID].gameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    if (CardLimitCount == 0)
+                    {
+                        allCardContainers[CardID].gameObject.SetActive(false);
+                        allShownCards.Remove(CardID);
                     }
                 }
             }
@@ -294,22 +283,19 @@ public partial class SelectBuildPanel
     /// </summary>
     private void HideNoLimitCards()
     {
-        if (!Client.Instance.Proxy.IsSuperAccount)
+        List<int> removeCards = new List<int>();
+        foreach (KeyValuePair<int, CardBase> kv in allShownCards)
         {
-            List<int> removeCards = new List<int>();
-            foreach (KeyValuePair<int, CardBase> kv in allShownCards)
+            if (kv.Value.CardInfo.BaseInfo.LimitNum == 0)
             {
-                if (kv.Value.CardInfo.BaseInfo.LimitNum == 0)
-                {
-                    removeCards.Add(kv.Key);
-                }
+                removeCards.Add(kv.Key);
             }
+        }
 
-            foreach (int cardID in removeCards)
-            {
-                allCardContainers[cardID].gameObject.SetActive(false);
-                allShownCards.Remove(cardID);
-            }
+        foreach (int cardID in removeCards)
+        {
+            allCardContainers[cardID].gameObject.SetActive(false);
+            allShownCards.Remove(cardID);
         }
     }
 
@@ -395,7 +381,7 @@ public partial class SelectBuildPanel
             allCardContainers[changeCardID].gameObject.SetActive(true);
             allShownCards.Add(changeCardID, changeCard);
         }
-       
+
         previewCard.ChangeCardSelectLimit(previewCard.CardInfo.BaseInfo.LimitNum - 1);
         changeCard.ChangeCardSelectLimit(changeCard.CardInfo.BaseInfo.LimitNum + 1);
         CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[previewCard.CardInfo.CardID].CardSelectUpperLimit--;

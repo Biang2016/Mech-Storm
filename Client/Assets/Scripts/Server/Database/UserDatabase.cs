@@ -16,15 +16,15 @@ public class UserDatabase
         if (!isExistUsername(username))
         {
             UsernamePasswordTable.Add(username, password);
-//            if (!isSuperAccount) //每个玩家都有几个默认卡组
-//            {
-//                foreach (int playerDefaultBuildID in SpecialBuildsDict["PlayerAdmin"].Builds.Values)
-//                {
-//                    BuildInfo newBI = BuildInfoDict[playerDefaultBuildID].Clone();
-//                    BuildInfoDict.Add(newBI.BuildID, newBI);
-//                    AddOrModifyBuild(username, newBI);
-//                }
-//            }
+            if (!isSuperAccount) //每个玩家都有几个默认卡组
+            {
+                foreach (int playerDefaultBuildID in BuildStoryDatabase.Instance.BuildGroupDict["OnlineBuilds"].Builds.Values)
+                {
+                    BuildInfo newBI = BuildStoryDatabase.Instance.BuildInfoDict[playerDefaultBuildID].Clone();
+                    BuildStoryDatabase.Instance.BuildInfoDict.Add(newBI.BuildID, newBI);
+                    BuildStoryDatabase.Instance.AddOrModifyBuild(username, newBI);
+                }
+            }
 
             return true;
         }

@@ -54,67 +54,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Server\Card\Cards\ServerCardBase.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Cards\ServerCardEquip.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Cards\ServerCardMech.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Cards\ServerCardSpell.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Modules\ServerModuleBase.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Modules\ServerModuleMA.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Modules\ServerModuleMech.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Modules\ServerModulePack.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Modules\ServerModuleShield.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\Modules\ServerModuleWeapon.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\CardRelatedSideEffects\AddTempCardToDeck.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\CardRelatedSideEffects\AddTempCardToEnemyDeck.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\CardRelatedSideEffects\CopyNextDrawCard.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\CardRelatedSideEffects\DrawCards.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\CardRelatedSideEffects\DrawTypeCards.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\HandCardRelatedSideEffects\GetHandCardCopy.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\HandCardRelatedSideEffects\TriggerHandCard.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\HandCardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenAttack.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenRoundBegin.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\AddEnergyWhenUseMetal.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\AddPlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\DamageEnemyShipWhenUseCards.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\PlayerBuffSideEffects\NextSpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\SummonMech.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\EquipBased\BreakEquip.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\LifeBased\AddLife.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\LifeBased\Damage.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\LifeBased\Heal.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\LifeBased\Kill.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\AddArmor.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\AddAttack.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\AddShield.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\AddWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\Cooperation.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\Degenerate.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\HalfShield.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\IllusionToOne.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\RunAway.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\Sacrifice.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\StealEnergyByMechCount.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\MechBased\SummonMechByMechCount.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TargetSideEffects\ShipBased\AddEnergy.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TriggerTriggerSideEffects\DoubleEnergy.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TriggerTriggerSideEffects\Exile.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\Server\Card\SideEffects\UseAllEnergyDamageShip.cs" />
+    <Compile Include="Assets\Scripts\Server\ClientProxy.cs" />
     <Compile Include="Assets\Scripts\Server\Database\UserDatabase.cs" />
-    <Compile Include="Assets\Scripts\Server\EventManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ClientProxy.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ClientProxyAI.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerAISystem.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerBattleGroundManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerCardDeckManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerGameManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerGameManager_TargetSelect.cs" />
     <Compile Include="Assets\Scripts\Server\GamePlay\ServerGameMatchManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerHandManager.cs" />
-    <Compile Include="Assets\Scripts\Server\GamePlay\ServerPlayer.cs" />
     <Compile Include="Assets\Scripts\Server\Server.cs" />
     <Compile Include="Assets\Scripts\Server\ServerConsole.cs" />
     <Compile Include="Assets\Scripts\Server\ServerLog.cs" />
@@ -745,6 +687,10 @@
     <ProjectReference Include="Network.csproj">
       <Project>{5C9396A4-DE3C-951F-0062-8D31DDECEBF4}</Project>
       <Name>Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="Battle.csproj">
+      <Project>{B6ECBA40-F44E-6C66-A8DA-AB3738882650}</Project>
+      <Name>Battle</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

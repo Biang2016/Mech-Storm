@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 
-internal static class ServerLog
+internal class ServerLog : ILog
 {
-    static Queue<Log> LogQueue = new Queue<Log>();
+    public static ServerLog Instance = new ServerLog();
 
-    internal static ServerLogVerbosity ServerLogVerbosity;
+    private ServerLog()
+    {
+        LogQueue = new Queue<Log>();
+    }
 
-    private static void Print(string logStr, ConsoleColor consoleColor)
+    private Queue<Log> LogQueue { get; set; }
+
+    internal ServerLogVerbosity ServerLogVerbosity;
+
+    private void Print(string logStr, ConsoleColor consoleColor)
     {
         Log log = new Log(logStr, consoleColor);
         LogQueue.Enqueue(log);
         DoPrint();
     }
 
-    private static void DoPrint()
+    public void DoPrint()
     {
         if (LogQueue.Count > 0)
         {
@@ -27,7 +34,7 @@ internal static class ServerLog
         }
     }
 
-    public static void Print(string logStr)
+    public void Print(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.Normal) == ServerLogVerbosity.Normal)
         {
@@ -35,7 +42,7 @@ internal static class ServerLog
         }
     }
 
-    public static void PrintWarning(string logStr)
+    public void PrintWarning(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.Warning) == ServerLogVerbosity.Warning)
         {
@@ -43,7 +50,7 @@ internal static class ServerLog
         }
     }
 
-    public static void PrintError(string logStr)
+    public void PrintError(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.Error) == ServerLogVerbosity.Error)
         {
@@ -51,7 +58,7 @@ internal static class ServerLog
         }
     }
 
-    public static void PrintClientStates(string logStr)
+    public void PrintClientStates(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.ClientState) == ServerLogVerbosity.ClientState)
         {
@@ -59,7 +66,7 @@ internal static class ServerLog
         }
     }
 
-    public static void PrintServerStates(string logStr)
+    public void PrintServerStates(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.ServerState) == ServerLogVerbosity.ServerState)
         {
@@ -67,7 +74,7 @@ internal static class ServerLog
         }
     }
 
-    public static void PrintReceive(string logStr)
+    public void PrintReceive(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.Receive) == ServerLogVerbosity.Receive)
         {
@@ -75,7 +82,7 @@ internal static class ServerLog
         }
     }
 
-    public static void PrintSend(string logStr)
+    public void PrintSend(string logStr)
     {
         if ((ServerLogVerbosity & ServerLogVerbosity.Send) == ServerLogVerbosity.Send)
         {
@@ -84,17 +91,15 @@ internal static class ServerLog
     }
 }
 
-internal class Log
+public class Log : LogBase
 {
-    public string LogStr;
     public ConsoleColor ConsoleColor;
-    public string Time;
 
     public Log(string logStr, ConsoleColor consoleColor)
     {
         LogStr = logStr;
         ConsoleColor = consoleColor;
-        Time = System.DateTime.Now.ToLongTimeString();
+        Time = DateTime.Now.ToLongTimeString();
     }
 }
 

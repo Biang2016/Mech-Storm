@@ -25,6 +25,7 @@ public class LoginPanel : BaseUIForm
     [SerializeField] private Button QuitButton;
     [SerializeField] private Button RegisterButton;
     [SerializeField] private Button LoginButton;
+    [SerializeField] private Button OfflinePlayButton;
 
     void Awake()
     {
@@ -41,6 +42,7 @@ public class LoginPanel : BaseUIForm
         RegisterButton.onClick.AddListener(OnRegisterButtonClick);
         LoginButton.onClick.AddListener(OnLoginButtonClick);
         QuitButton.onClick.AddListener(OnQuitButtonClick);
+        OfflinePlayButton.onClick.AddListener(OnOfflinePlayButtonClick);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -164,6 +166,11 @@ public class LoginPanel : BaseUIForm
                 OnChangeServer(ServerDropdown.value);
             }
         }
+    }
+
+    public void OnOfflinePlayButtonClick()
+    {
+        NetworkManager.Instance.TerminateConnection();
     }
 
     public void OnQuitButtonClick()

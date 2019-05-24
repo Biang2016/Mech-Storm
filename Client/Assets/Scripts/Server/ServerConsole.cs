@@ -29,7 +29,7 @@ internal class ServerConsole
 
     static void Main(string[] args)
     {
-        ServerLog.ServerLogVerbosity = ServerLogVerbosity.All;
+        ServerLog.Instance.ServerLogVerbosity = ServerLogVerbosity.All;
         StreamReader sr;
         FileInfo fi_formal = new FileInfo(ServerRoot + "Config/ServerSwitch.txt");
         FileInfo fi_develop = new FileInfo("./Config/ServerSwitch.txt");
@@ -50,7 +50,7 @@ internal class ServerConsole
         {
             case DEVELOP.DEVELOP:
             {
-                ServerLog.ServerLogVerbosity = ServerLogVerbosity.All;
+                ServerLog.Instance.ServerLogVerbosity = ServerLogVerbosity.All;
                 Server.SV = new Server("127.0.0.1", 9999);
 
                 if (Directory.Exists("./Config"))
@@ -63,25 +63,26 @@ internal class ServerConsole
                 Utils.CopyDirectory("../../../Client/Assets/StreamingAssets/Config", "./Config/");
                 Utils.CopyDirectory("../../Config", "./Config/");
 
-                ServerLog.Print("DEVELOP SERVER");
+                ServerLog.Instance.Print("DEVELOP SERVER");
                 break;
             }
             case DEVELOP.TEST:
             {
-                ServerLog.ServerLogVerbosity = ServerLogVerbosity.All;
-                ServerLog.Print("TEST SERVER");
+                ServerLog.Instance.ServerLogVerbosity = ServerLogVerbosity.All;
+                ServerLog.Instance.Print("TEST SERVER");
                 Server.SV = new Server("127.0.0.1", 9999);
                 break;
             }
             case DEVELOP.FORMAL:
             {
-                ServerLog.ServerLogVerbosity = ServerLogVerbosity.States;
-                ServerLog.Print("FORMAL SERVER");
+                ServerLog.Instance.ServerLogVerbosity = ServerLogVerbosity.States;
+                ServerLog.Instance.Print("FORMAL SERVER");
                 Server.SV = new Server("95.169.26.10", 9999);
                 break;
             }
         }
-        ServerLog.Print("ServerVersion: " + Server.ServerVersion);
+
+        ServerLog.Instance.Print("ServerVersion: " + Server.ServerVersion);
         Server.SV.Start();
         while (Console.ReadLine() != "Exit")
         {

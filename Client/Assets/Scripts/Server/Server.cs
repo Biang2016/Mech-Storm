@@ -38,10 +38,12 @@ internal class Server
 
     public void Start()
     {
-        Utils.DebugLog = ServerLog.PrintError;
+        Utils.DebugLog = ServerLog.Instance.PrintError;
+        AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Server));
+        AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Server));
         LoadAllBasicXMLFiles.Load(ServerConsole.ServerRoot + "Config/");
 
-        ServerLog.PrintServerStates("CardDeck Loaded");
+        ServerLog.Instance.PrintServerStates("CardDeck Loaded");
 
         //Here to test cards, sideEffects, buffs
 
@@ -118,7 +120,7 @@ internal class Server
             //为服务器sokect添加监听
             SeverSocket.Listen(200);
 
-            ServerLog.PrintServerStates("------------------ Server Start ------------------\n");
+            ServerLog.Instance.PrintServerStates("------------------ Server Start ------------------\n");
 
             //开始服务器时 一般接受一个服务就会被挂起所以要用多线程来解决
             Thread threadAccept = new Thread(Accept);
@@ -127,8 +129,8 @@ internal class Server
         }
         catch (Exception e)
         {
-            ServerLog.PrintError(e.Message);
-            ServerLog.PrintError("Server start failed!");
+            ServerLog.Instance.PrintError(e.Message);
+            ServerLog.Instance.PrintError("Server start failed!");
         }
     }
 
@@ -147,7 +149,7 @@ internal class Server
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
 
-        ServerLog.PrintClientStates("New client connection " + point.Address + ":" + point.Port + "  Clients count: " + ClientsDict.Count);
+        ServerLog.Instance.PrintClientStates("New client connection " + point.Address + ":" + point.Port + "  Clients count: " + ClientsDict.Count);
 
         Thread threadReceive = new Thread(ReceiveSocket);
         threadReceive.IsBackground = true;
@@ -162,7 +164,7 @@ internal class Server
             ClientProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
-                ServerLog.PrintClientStates("Client " + clientProxy.ClientId + " quit");
+                ServerLog.Instance.PrintClientStates("Client " + clientProxy.ClientId + " quit");
 
                 ClientProxyClose(clientProxy);
             }
@@ -184,7 +186,7 @@ internal class Server
             {
                 //与客户端连接失败跳出循环  
 
-                ServerLog.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                ServerLog.Instance.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
 
                 ClientProxyClose(clientProxy);
                 break;
@@ -196,7 +198,7 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    ServerLog.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
+                    ServerLog.Instance.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
 
                     ClientProxyClose(clientProxy);
                     break;
@@ -213,7 +215,7 @@ internal class Server
             }
             catch (Exception e)
             {
-                ServerLog.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
+                ServerLog.Instance.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
 
                 ClientProxyClose(clientProxy);
                 break;
@@ -242,7 +244,7 @@ internal class Server
     {
         if (r is ClientRequestBase)
         {
-            ServerLog.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocol() + "> " + r.DeserializeLog());
+            ServerLog.Instance.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocol() + "> " + r.DeserializeLog());
 
             ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
@@ -262,21 +264,21 @@ internal class Server
         SendMsg sendMsg = (SendMsg) obj;
         if (sendMsg == null)
         {
-            ServerLog.PrintError("SendMsg is null");
+            ServerLog.Instance.PrintError("SendMsg is null");
 
             return;
         }
 
         if (sendMsg.Client == null)
         {
-            ServerLog.PrintError("Client socket is null");
+            ServerLog.Instance.PrintError("Client socket is null");
 
             return;
         }
 
         if (!sendMsg.Client.Connected)
         {
-            ServerLog.PrintError("Not connected to client socket");
+            ServerLog.Instance.PrintError("Not connected to client socket");
 
             sendMsg.Client.Close();
             return;
@@ -299,49 +301,23 @@ internal class Server
             bool success = asyncSend.AsyncWaitHandle.WaitOne(1000, true);
             if (!success)
             {
-                ServerLog.PrintError("Send failed");
+                ServerLog.Instance.PrintError("Send failed");
             }
 
             string log = "SendTo clientId: " + sendMsg.ClientId + sendMsg.Req.DeserializeLog();
 
-            ServerLog.PrintSend(log);
+            ServerLog.Instance.PrintSend(log);
         }
         catch (Exception e)
         {
-            ServerLog.PrintError("Send Exception : " + e);
+            ServerLog.Instance.PrintError("Send Exception : " + e);
         }
     }
 
     private void SendCallback(IAsyncResult asyncConnect)
     {
-        //ServerLog.Print("发送信息成功");
+        //ServerLog.Instance.Print("发送信息成功");
     }
 
     #endregion
-}
-
-internal class SendMsg
-{
-    public SendMsg(Socket client, RequestBase req, int clientId)
-    {
-        Client = client;
-        Req = req;
-        ClientId = clientId;
-    }
-
-    public Socket Client;
-    public RequestBase Req;
-    public int ClientId;
-}
-
-internal struct ReceiveSocketData
-{
-    public Socket Socket;
-    public byte[] Data;
-
-    public ReceiveSocketData(Socket socket, byte[] data)
-    {
-        Socket = socket;
-        Data = data;
-    }
 }

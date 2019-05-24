@@ -18,12 +18,9 @@ public class CardBaseEditor : Editor
     public static void ReloadConfigs()
     {
         Utils.DebugLog = Debug.Log;
-        AllColors.AddAllColors(Application.streamingAssetsPath + "/Config/Colors.xml");
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(CardBase));
-        AllSideEffects.AddAllSideEffects(Application.streamingAssetsPath + "/Config/SideEffects.xml");
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(CardBase));
-        AllBuffs.AddAllBuffs(Application.streamingAssetsPath + "/Config/Buffs.xml");
-        AllCards.AddAllCards(Application.streamingAssetsPath + "/Config/Cards.xml");
+        LoadAllBasicXMLFiles.Load(Application.streamingAssetsPath + "/Config/");
         Debug.Log("Success Load Configs");
     }
 
@@ -48,7 +45,7 @@ public class CardBaseEditor : Editor
 
     protected CardBase CardBase;
 
-    protected virtual void OnEnable()
+    protected void OnEnable()
     {
         CardBase = target as CardBase;
     }

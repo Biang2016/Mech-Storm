@@ -8,7 +8,7 @@ using System.Xml;
 /// </summary>
 public static class AllCards
 {
-    public static string CardsXMLFile => Utils.GetConfigFolderPath() + "/Basic/Cards.xml";
+    public static string CardsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath + "/Basic/Cards.xml";
 
     public static SortedDictionary<int, CardInfo_Base> CardDict = new SortedDictionary<int, CardInfo_Base>();
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict = new SortedDictionary<int, List<CardInfo_Base>>();

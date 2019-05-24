@@ -736,6 +736,10 @@
       <Project>{6FF4F0B1-A046-7D07-31A8-84E6EFE374D6}</Project>
       <Name>Server</Name>
     </ProjectReference>
+    <ProjectReference Include="Battle.csproj">
+      <Project>{B6ECBA40-F44E-6C66-A8DA-AB3738882650}</Project>
+      <Name>Battle</Name>
+    </ProjectReference>
     <ProjectReference Include="Core.csproj">
       <Project>{7F24B9D5-CA2C-D3DF-6105-8036A13F501D}</Project>
       <Name>Core</Name>

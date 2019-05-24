@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Reflection;
 using UnityEngine;
 
 public class RootManager : MonoSingleton<RootManager>
@@ -12,6 +13,8 @@ public class RootManager : MonoSingleton<RootManager>
     void Awake()
     {
         Utils.DebugLog = ClientLog.Instance.PrintError;
+        AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(CardBase));
+        AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(CardBase));
         LoadAllBasicXMLFiles.Load(Application.streamingAssetsPath + "/Config/");
     }
 

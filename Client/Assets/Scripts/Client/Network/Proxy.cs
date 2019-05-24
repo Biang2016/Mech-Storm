@@ -30,8 +30,6 @@ public class Proxy : ProxyBase
 
     public static ClientStateEventHandler OnClientStateChange;
 
-    public bool IsSuperAccount = false;
-
     public Proxy(Socket socket, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
     {
     }
@@ -138,7 +136,6 @@ public class Proxy : ProxyBase
                         case LoginResultRequest.StateCodes.Success:
                         {
                             Username = request.username;
-                            IsSuperAccount = Username == "ServerAdmin" || Username == "StoryAdmin";
                             ClientState = ClientStates.Login;
                             NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LoginSuccess"), 0, 0.5f);
                             UIManager.Instance.CloseUIForm<LoginPanel>();

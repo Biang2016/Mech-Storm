@@ -7,7 +7,7 @@ using System.Xml;
 
 public static class AllBuffs
 {
-    public static string BuffsXMLFile => Utils.GetConfigFolderPath() + "/Basic/Buffs.xml";
+    public static string BuffsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath+ "/Basic/Buffs.xml";
 
     public static Dictionary<string, PlayerBuffSideEffects> BuffDict = new Dictionary<string, PlayerBuffSideEffects>();
 
@@ -39,7 +39,6 @@ public static class AllBuffs
             text = sr.ReadToEnd();
         }
 
-        if (CurrentAssembly == null) CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement node_AllBuffs = doc.DocumentElement;

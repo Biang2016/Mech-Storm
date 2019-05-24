@@ -1,7 +1,8 @@
 {
     "name": "Battle",
     "references": [
-        "Core"
+        "Core",
+        "Network"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientLog : MonoSingleton<ClientLog>
+public class ClientLog : MonoSingleton<ClientLog>, ILog
 {
-    private ClientLog()
-    {
-        LogMessages = new Queue<Log>();
-    }
+    private Queue<Log> LogQueue { get; set; }
 
     void Awake()
     {
+        LogQueue = new Queue<Log>();
         //sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", false);
         //sw.Close();
     }
@@ -20,17 +18,15 @@ public class ClientLog : MonoSingleton<ClientLog>
         DoPrint();
     }
 
-    Queue<Log> LogMessages;
-
     public void Print(string logStr)
     {
         Print(logStr, Color.white);
     }
 
-    public void Print(string logStr, Color color)
+    private void Print(string logStr, Color color)
     {
         Log log = new Log(logStr, color);
-        LogMessages.Enqueue(log);
+        LogQueue.Enqueue(log);
     }
 
     //private static StreamWriter sw;
@@ -41,9 +37,9 @@ public class ClientLog : MonoSingleton<ClientLog>
         //sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", true);
 #endif
 
-        if (LogMessages.Count > 0)
+        if (LogQueue.Count > 0)
         {
-            Log log = LogMessages.Dequeue();
+            Log log = LogQueue.Dequeue();
             if (log != null)
             {
                 if (RootManager.Instance.ShowClientLogs)
@@ -101,11 +97,9 @@ public class ClientLog : MonoSingleton<ClientLog>
     }
 }
 
-internal class Log
+public class Log : LogBase
 {
-    public string LogStr;
     public string Color;
-    public string Time;
 
     public Log(string logStr, Color color)
     {

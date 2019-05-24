@@ -129,6 +129,24 @@ public class BuildStoryDatabase
         return buildInfos;
     }
 
+    public List<int> RemovePlayerStory(string username)
+    {
+        List<int> removeBuildIDs = new List<int>();
+        if (PlayerStoryStates.ContainsKey(username))
+        {
+            Story story = PlayerStoryStates[username];
+            foreach (int removeBuildID in story.PlayerBuildInfos.Keys)
+            {
+                removeBuildIDs.Add(removeBuildID);
+                BuildInfoDict.Remove(removeBuildID);
+            }
+
+            PlayerStoryStates.Remove(username);
+        }
+
+        return removeBuildIDs;
+    }
+
     #endregion
 
     #region SingleMode

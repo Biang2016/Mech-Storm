@@ -7,11 +7,11 @@ using System.Xml;
 
 public class AllBuilds
 {
-    public static string BuildDirectory => Utils.GetConfigFolderPath() + "/Builds/";
+    public static string BuildDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Builds/";
 
     public static void AddAllBuilds()
     {
-        foreach (string path in Directory.GetFiles(BuildDirectory))
+        foreach (string path in Directory.GetFiles(BuildDirectory, "*.xml"))
         {
             FileInfo fi = new FileInfo(path);
             string pureName = fi.Name.Substring(0, fi.Name.LastIndexOf("."));

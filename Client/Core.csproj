@@ -155,6 +155,7 @@
     <Compile Include="Assets\Scripts\Core\Utils\DataStream\DataHolder.cs" />
     <Compile Include="Assets\Scripts\Core\Utils\DataStream\DataStream.cs" />
     <Compile Include="Assets\Scripts\Core\Utils\IClone.cs" />
+    <Compile Include="Assets\Scripts\Core\Utils\ILog.cs" />
     <Compile Include="Assets\Scripts\Core\Utils\IVariant.cs" />
     <Compile Include="Assets\Scripts\Core\Utils\LanguageDefine.cs" />
     <Compile Include="Assets\Scripts\Core\Utils\RandomNumberGenerator.cs" />

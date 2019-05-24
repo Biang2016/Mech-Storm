@@ -291,7 +291,7 @@ public partial class SelectBuildPanel
         if (selectCards.ContainsKey(card.CardInfo.CardID))
         {
             SelectCard sc = selectCards[card.CardInfo.CardID];
-            if (!Client.Instance.Proxy.IsSuperAccount && sc.Count >= card.CardInfo.BaseInfo.LimitNum)
+            if (sc.Count >= card.CardInfo.BaseInfo.LimitNum)
             {
                 if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod)
                 {

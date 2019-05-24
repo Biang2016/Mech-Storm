@@ -6,7 +6,7 @@ using System.Xml;
 
 public static class AllSideEffects
 {
-    public static string SideEffectsXMLFile => Utils.GetConfigFolderPath() + "/Basic/SideEffects.xml";
+    public static string SideEffectsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath+ "/Basic/SideEffects.xml";
 
     public static Dictionary<string, SideEffectBase> SideEffectsNameDict = new Dictionary<string, SideEffectBase>();
 
@@ -50,7 +50,6 @@ public static class AllSideEffects
             text = sr.ReadToEnd();
         }
 
-        if (CurrentAssembly == null) CurrentAssembly = Assembly.GetCallingAssembly(); // 获取当前程序集 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement node_AllSideEffects = doc.DocumentElement;

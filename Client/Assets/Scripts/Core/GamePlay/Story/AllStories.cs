@@ -5,11 +5,11 @@ using System.Xml;
 
 public class AllStories
 {
-    public static string StoriesDirectory => Utils.GetConfigFolderPath() + "/Stories/";
+    public static string StoriesDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/";
 
     public static void AddAllStories()
     {
-        foreach (string path in Directory.GetFiles(StoriesDirectory))
+        foreach (string path in Directory.GetFiles(StoriesDirectory,"*.xml"))
         {
             FileInfo fi = new FileInfo(path);
             string pureName = fi.Name.Substring(0, fi.Name.LastIndexOf("."));
@@ -29,7 +29,7 @@ public class AllStories
             int playerDefaultBuildId = BuildStoryDatabase.Instance.BuildGroupDict["StoryBuilds"].GetBuildInfo(buildName).BuildID;
 
             //初始解锁卡片
-            XmlNode gpsNode = story.ChildNodes.Item(2);
+            XmlNode gpsNode = story.ChildNodes.Item(1);
             int DrawCardPerRound = int.Parse(gpsNode.Attributes["DrawCardPerRound"].Value);
 
             int DefaultCoin = int.Parse(gpsNode.Attributes["DefaultCoin"].Value);

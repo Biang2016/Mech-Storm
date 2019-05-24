@@ -2,7 +2,8 @@
     "name": "Server",
     "references": [
         "Core",
-        "Network"
+        "Network",
+        "Battle"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

@@ -57,6 +57,8 @@
     <Compile Include="Assets\Scripts\Network\Protocol\NetProtocols.cs" />
     <Compile Include="Assets\Scripts\Network\Protocol\ProtoManager.cs" />
     <Compile Include="Assets\Scripts\Network\Protocol\ProxyBase.cs" />
+    <Compile Include="Assets\Scripts\Network\Protocol\ReceiveSocketData.cs" />
+    <Compile Include="Assets\Scripts\Network\Protocol\SendMsg.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\ClientRequestBase.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\GamePlayOperations\EndBattleRequest.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\GamePlayOperations\EndRoundRequest.cs" />

@@ -208,7 +208,5 @@ public partial class Utils
         }
     }
 
-    public delegate string GetConfigFolderPathDelegate();
-
-    public static GetConfigFolderPathDelegate GetConfigFolderPath;
+    
 }
