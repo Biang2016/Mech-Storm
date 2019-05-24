@@ -25,7 +25,6 @@ public class LoginPanel : BaseUIForm
     [SerializeField] private Button QuitButton;
     [SerializeField] private Button RegisterButton;
     [SerializeField] private Button LoginButton;
-    [SerializeField] private Button OfflinePlayButton;
 
     void Awake()
     {
@@ -42,7 +41,6 @@ public class LoginPanel : BaseUIForm
         RegisterButton.onClick.AddListener(OnRegisterButtonClick);
         LoginButton.onClick.AddListener(OnLoginButtonClick);
         QuitButton.onClick.AddListener(OnQuitButtonClick);
-        OfflinePlayButton.onClick.AddListener(OnOfflinePlayButtonClick);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -68,22 +66,11 @@ public class LoginPanel : BaseUIForm
 
     void Start()
     {
-        string playerPrefServer = PlayerPrefs.GetString("PreferServer");
-        if (string.IsNullOrEmpty(playerPrefServer))
-        {
-            playerPrefServer = ServerTypes.FormalServer.ToString();
-        }
-
-        ServerTypes defaultServerType = (ServerTypes) Enum.Parse(typeof(ServerTypes), playerPrefServer);
-        ServerDropdown.value = (int) defaultServerType;
-        ServerDropdown.onValueChanged.AddListener(OnChangeServer);
-        NetworkManager.Instance.ConnectToServer(defaultServerType);
-        UserNameInputField.ActivateInputField();
     }
 
     void Update()
     {
-        if (gameObject.activeInHierarchy)
+        if (!Client.Instance.IsStandalone)
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
@@ -95,6 +82,34 @@ public class LoginPanel : BaseUIForm
     public override void Display()
     {
         base.Display();
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            "是否要联网?",
+            "是",
+            "否",
+            delegate
+            {
+                Client.Instance.SetNetwork(true);
+                string playerPrefServer = PlayerPrefs.GetString("PreferServer");
+                if (string.IsNullOrEmpty(playerPrefServer))
+                {
+                    playerPrefServer = ServerTypes.FormalServer.ToString();
+                }
+
+                ServerTypes defaultServerType = (ServerTypes) Enum.Parse(typeof(ServerTypes), playerPrefServer);
+                ServerDropdown.value = (int) defaultServerType;
+                ServerDropdown.onValueChanged.AddListener(OnChangeServer);
+                NetworkManager.Instance.ConnectToServer(defaultServerType);
+                UserNameInputField.ActivateInputField();
+                cp.CloseUIForm();
+            },
+            delegate
+            {
+                cp.CloseUIForm();
+                Client.Instance.SetNetwork(false);
+
+            });
+
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
         SelectBuildManager.Instance.CurrentGameMode = SelectBuildManager.GameMode.None;
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Login_0", "bgm/Login_1"});
@@ -128,14 +143,14 @@ public class LoginPanel : BaseUIForm
 
     public void OnRegisterButtonClick()
     {
-        if (Client.Instance.IsConnect())
+        if (NetworkManager.Instance.IsConnect())
         {
             RegisterRequest request = new RegisterRequest(Client.Instance.Proxy.ClientId, UserNameInputField.text, PasswordInputField.text);
             Client.Instance.Proxy.SendMessage(request);
         }
         else
         {
-            if (Client.Instance.ClientInvalid)
+            if (NetworkManager.Instance.ClientInvalid)
             {
                 ShowUpdateConfirmPanel();
             }
@@ -149,14 +164,14 @@ public class LoginPanel : BaseUIForm
 
     public void OnLoginButtonClick()
     {
-        if (Client.Instance.IsConnect())
+        if (NetworkManager.Instance.IsConnect())
         {
             LoginRequest request = new LoginRequest(Client.Instance.Proxy.ClientId, UserNameInputField.text, PasswordInputField.text);
             Client.Instance.Proxy.SendMessage(request);
         }
         else
         {
-            if (Client.Instance.ClientInvalid)
+            if (NetworkManager.Instance.ClientInvalid)
             {
                 ShowUpdateConfirmPanel();
             }
@@ -166,11 +181,6 @@ public class LoginPanel : BaseUIForm
                 OnChangeServer(ServerDropdown.value);
             }
         }
-    }
-
-    public void OnOfflinePlayButtonClick()
-    {
-        NetworkManager.Instance.TerminateConnection();
     }
 
     public void OnQuitButtonClick()

@@ -3,7 +3,10 @@
     "references": [
         "Core",
         "Network",
-        "Battle"
+        "GameProxy",
+        "BattleProxy",
+        "BuildProxy",
+        "StoryProxy"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

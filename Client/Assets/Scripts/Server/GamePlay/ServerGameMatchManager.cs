@@ -4,9 +4,9 @@ internal class ServerGameMatchManager
 {
     List<Battle> Battles = new List<Battle>();
     Dictionary<int, Battle> clientBattleMapping = new Dictionary<int, Battle>();
-    List<ClientProxy> matchingClients = new List<ClientProxy>();
+    List<ServerProxy> matchingClients = new List<ServerProxy>();
 
-    public void OnClientMatchGames(ClientProxy clientProxy)
+    public void OnClientMatchGames(ServerProxy clientProxy)
     {
         matchingClients.Add(clientProxy);
 
@@ -14,11 +14,11 @@ internal class ServerGameMatchManager
 
         if (matchingClients.Count == 2)
         {
-            ClientProxy clientA = matchingClients[0];
-            ClientProxy clientB = matchingClients[1];
+            ServerProxy clientA = matchingClients[0];
+            ServerProxy clientB = matchingClients[1];
             matchingClients.Remove(clientA);
             matchingClients.Remove(clientB);
-            Battle battle = new Battle(clientA.BattleClientProxy, clientB.BattleClientProxy, Server.SV.DoSendToClient);
+            Battle battle = new Battle(clientA.GameProxy.BattleProxy, clientB.GameProxy.BattleProxy);
             Battles.Add(battle);
             clientBattleMapping.Add(clientA.ClientId, battle);
             clientBattleMapping.Add(clientB.ClientId, battle);
@@ -27,7 +27,7 @@ internal class ServerGameMatchManager
         }
     }
 
-    public void OnClientCancelMatch(ClientProxy clientProxy)
+    public void OnClientCancelMatch(ServerProxy clientProxy)
     {
         if (matchingClients.Contains(clientProxy))
         {
@@ -37,14 +37,14 @@ internal class ServerGameMatchManager
         }
     }
 
-    public void RemoveGame(ClientProxy client)
+    public void RemoveGame(ServerProxy client)
     {
         if (clientBattleMapping.ContainsKey(client.ClientId))
         {
-            Battle batle = clientBattleMapping[client.ClientId];
-            Battles.Remove(batle);
-            int a = batle.ClientA.ClientId;
-            int b = batle.ClientB.ClientId;
+            Battle battle = clientBattleMapping[client.ClientId];
+            Battles.Remove(battle);
+            int a = battle.ClientA.ClientId;
+            int b = battle.ClientB.ClientId;
             clientBattleMapping.Remove(a);
             clientBattleMapping.Remove(b);
 

@@ -1,0 +1,12 @@
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\ServerConsole.pdb
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\MyCardGameCommon.dll
+G:\项目\CardGame\MyFirstCardGame\Server\obj\Debug\Server.csprojAssemblyReference.cache
+G:\项目\CardGame\MyFirstCardGame\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+G:\项目\CardGame\MyFirstCardGame\Server\obj\Debug\Server.csproj.CopyComplete
+G:\项目\CardGame\MyFirstCardGame\Server\obj\Debug\ServerConsole.pdb
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\MyCardGameCommon.pdb
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\Newtonsoft.Json.dll
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\Newtonsoft.Json.pdb
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\Newtonsoft.Json.xml
+G:\项目\CardGame\MyFirstCardGame\Server\bin\Debug\ServerConsole.exe
+G:\项目\CardGame\MyFirstCardGame\Server\obj\Debug\ServerConsole.exe

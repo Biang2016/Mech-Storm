@@ -1,0 +1,153 @@
+{
+	"TriggerTime_BattleCry": {
+		"zh": "战吼",
+		"en": "BattleCry"
+	},
+	"TriggerTime_Die": {
+		"zh": "亡语",
+		"en": "Die"
+	},
+
+	"TriggerTime_WhenAttack": {
+		"zh": "进攻时,",
+		"en": "When attacks, "
+	},
+	"TriggerTime_WhenKill": {
+		"zh": "杀敌时,",
+		"en": "When kills, "
+	},
+
+	"TriggerTime_Disposable": {
+		"zh": "移除,",
+		"en": "Disposable. "
+	},
+
+	"KeyWords_Frenzy": {
+		"zh": "狂暴",
+		"en": "Frenzy"
+	},
+	"KeyWords_Sentry": {
+		"zh": "哨戒",
+		"en": "Sentry"
+	},
+	"KeyWords_Defense": {
+		"zh": "嘲讽",
+		"en": "Defense"
+	},
+	"KeyWords_Dodge": {
+		"zh": "闪避",
+		"en": "Dodge"
+	},
+	"KeyWords_PRValue": {
+		"zh": "概率: {0}, ",
+		"en": "PR: {0}. "
+	},
+	"KeyWords_Armor": {
+		"zh": "护甲",
+		"en": "Armor"
+	},
+	"KeyWords_Shield": {
+		"zh": "护盾",
+		"en": "Shield"
+	},
+	"KeyWords_Mixed": {
+		"zh": "复合盾",
+		"en": "MixedShield"
+	},
+	"KeyWords_Sniper": {
+		"zh": "狙击",
+		"en": "Sniper"
+	},
+	"KeyWords_Sword": {
+		"zh": "刀剑",
+		"en": "Sword"
+	},
+	"KeyWords_Charger": {
+		"zh": "冲锋",
+		"en": "Charger"
+	},
+	"KeyWords_Frenzy": {
+		"zh": "狂暴",
+		"en": "Frenzy"
+	},
+	"KeyWords_AttackValue": {
+		"zh": "攻击",
+		"en": "Attack"
+	},
+	"KeyWords_AttackPlus": {
+		"zh": "攻击 +{0}, ",
+		"en": "Attack +{0}. "
+	},
+	"KeyWords_ChargePlus": {
+		"zh": "充能 {0}, ",
+		"en": "Charge {0}. "
+	},
+	"KeyWords_Gun": {
+		"zh": "枪",
+		"en": "Gun"
+	},
+	"KeyWords_ShootAttackPlus": {
+		"zh": "每发伤害 +{0}, ",
+		"en": "ShootAttack +{0}. "
+	},
+	"KeyWords_Bullets": {
+		"zh": "弹药 {0}, ",
+		"en": "Bullets {0}. "
+	},
+	"KeyWords_SniperGun": {
+		"zh": "狙击枪",
+		"en": "SniperGun"
+	},
+	"KeyWords_SniperBulletAttackPlus": {
+		"zh": "弹丸伤害: {0} 点, ",
+		"en": "Bullet +{0} attack. "
+	},
+	"KeyWords_SniperBulletPlus": {
+		"zh": "弹药: {0}, ",
+		"en": "Add +{0} bullets. "
+	},
+
+	"KeyWords_CardEquip_Sword": {
+		"zh": "装备牌(刀剑)",
+		"en": "EQ(Sword)"
+	},
+	"KeyWords_CardEquip_Gun": {
+		"zh": "装备牌(枪)",
+		"en": "EQ(Gun)"
+	},
+	"KeyWords_CardEquip_SniperGun": {
+		"zh": "装备牌(狙击枪)",
+		"en": "EQ(SnpGun)"
+	},
+	"KeyWords_CardEquip_Shield": {
+		"zh": "装备牌(防具)",
+		"en": "EQ(Shield)"
+	},
+	"KeyWords_CardEquip_Pack": {
+		"zh": "装备牌(背包)",
+		"en": "EQ(Pack)"
+	},
+	"KeyWords_CardEquip_MA": {
+		"zh": "装备牌(堡垒)",
+		"en": "EQ(MA)"
+	},
+	"KeyWords_CardMech_Soldier": {
+		"zh": "士兵",
+		"en": "Soldier"
+	},
+	"KeyWords_CardMech_Hero": {
+		"zh": "英雄",
+		"en": "Hero"
+	},
+
+
+	"KeyWords_DefenseDamage": {
+		"zh": "阻挡 {0} 点伤害, ",
+		"en": "Defence {0} damage. "
+	},
+	"KeyWords_ReduceDamage": {
+		"zh": "受到每次伤害减少 {0} 点, ",
+		"en": "Reduce damage per attack by {0}. "
+	}
+
+}

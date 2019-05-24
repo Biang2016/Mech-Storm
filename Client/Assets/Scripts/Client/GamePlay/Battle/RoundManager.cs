@@ -144,7 +144,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
         }
-        else if (!Client.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
+        else if (!NetworkManager.Instance.IsConnect() && !Client.Instance.IsLogin() && !Client.Instance.IsPlaying())
         {
             UIManager.Instance.CloseUIForm<SelectBuildPanel>();
             UIManager.Instance.ShowUIForms<LoginPanel>();

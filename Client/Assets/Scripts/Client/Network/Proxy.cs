@@ -73,23 +73,53 @@ public class Proxy : ProxyBase
 
     #region 收发基础组件
 
-    public void Send() //每帧调用
+    private ParameterizedThreadStart SendRequest;
+
+    public void Send() // 每帧调用
     {
         if (SendRequestsQueue.Count > 0)
         {
             ClientRequestBase request = SendRequestsQueue.Dequeue();
-            Thread thread = new Thread(Client.Instance.Send);
+            Thread thread = new Thread(SendRequest);
             thread.IsBackground = true;
             thread.Start(request);
         }
     }
 
-    public void SendMessage(ClientRequestBase request)
+    public delegate void SendMessageDelegate(ClientRequestBase request);
+
+    public SendMessageDelegate SendMessage;
+
+    public enum MessageTarget
+    {
+        LocalGameProxy,
+        Server,
+    }
+
+    public void SwitchSendMessageTarget(MessageTarget messageTarget, ParameterizedThreadStart sendRequest)
+    {
+        SendRequest = sendRequest;
+        if (messageTarget == MessageTarget.LocalGameProxy)
+        {
+            SendMessage = SendMessageToLocalGameProxy;
+        }
+        else if (messageTarget == MessageTarget.Server)
+        {
+            SendMessage = SendMessageToServer;
+        }
+    }
+
+    private void SendMessageToServer(ClientRequestBase request)
     {
         SendRequestsQueue.Enqueue(request);
     }
 
-    public void Response(Socket socket, RequestBase r)
+    private void SendMessageToLocalGameProxy(ClientRequestBase request)
+    {
+        SendRequest(request);
+    }
+
+    public void Response(RequestBase r)
     {
         ClientLog.Instance.PrintReceive("Server: " + r.DeserializeLog());
         if (!(r is ResponseBundleBase))
@@ -100,8 +130,8 @@ public class Proxy : ProxyBase
                 {
                     ClientIdRequest request = (ClientIdRequest) r;
                     ClientId = request.givenClientId;
-                    Client.ServerVersion = request.serverVersion;
-                    if (Client.Instance.ClientInvalid)
+                    NetworkManager.ServerVersion = request.serverVersion;
+                    if (NetworkManager.Instance.ClientInvalid)
                     {
                         UIManager.Instance.GetBaseUIForm<LoginPanel>().ShowUpdateConfirmPanel();
                     }
@@ -240,7 +270,7 @@ public class Proxy : ProxyBase
                 }
             }
         }
-        else
+        else // 战斗内行为全部交由RoundManager处理
         {
             ResponseBundleBase request = (ResponseBundleBase) r;
             if (request is GameStart_ResponseBundle)

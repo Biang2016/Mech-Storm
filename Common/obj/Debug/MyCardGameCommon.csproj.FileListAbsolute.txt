@@ -1,0 +1,8 @@
+G:\项目\CardGame\MyFirstCardGame\Common\obj\Debug\MyCardGameCommon.csprojAssemblyReference.cache
+G:\项目\CardGame\MyFirstCardGame\Common\obj\Debug\MyCardGameCommon.csproj.CoreCompileInputs.cache
+G:\项目\CardGame\MyFirstCardGame\Common\bin\Debug\MyCardGameCommon.dll
+G:\项目\CardGame\MyFirstCardGame\Common\bin\Debug\MyCardGameCommon.pdb
+G:\项目\CardGame\MyFirstCardGame\Common\bin\Debug\UnityEngine.xml
+G:\项目\CardGame\MyFirstCardGame\Common\obj\Debug\MyCardGameCommon.csproj.CopyComplete
+G:\项目\CardGame\MyFirstCardGame\Common\obj\Debug\MyCardGameCommon.dll
+G:\项目\CardGame\MyFirstCardGame\Common\obj\Debug\MyCardGameCommon.pdb

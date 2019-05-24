@@ -31,7 +31,7 @@ internal class Server
     public int Port;
     public static string ServerVersion = "1.0.1";
     private Socket SeverSocket;
-    public Dictionary<int, ClientProxy> ClientsDict = new Dictionary<int, ClientProxy>();
+    public Dictionary<int, ServerProxy> ClientsDict = new Dictionary<int, ServerProxy>();
     private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();
 
     public ServerGameMatchManager SGMM;
@@ -101,7 +101,7 @@ internal class Server
     /// 所有的客户端提前异常退出、正常退出都走此方法
     /// </summary>
     /// <param name="clientProxy"></param>
-    public void ClientProxyClose(ClientProxy clientProxy)
+    public void ClientProxyClose(ServerProxy clientProxy)
     {
         SGMM.OnClientCancelMatch(clientProxy);
         SGMM.RemoveGame(clientProxy);
@@ -145,7 +145,7 @@ internal class Server
     {
         Socket socket = SeverSocket.Accept();
         int clientId = GenerateClientId();
-        ClientProxy clientProxy = new ClientProxy(socket, clientId, false);
+        ServerProxy clientProxy = new ServerProxy(socket, clientId, false);
         ClientsDict.Add(clientId, clientProxy);
         IPEndPoint point = socket.RemoteEndPoint as IPEndPoint;
 
@@ -159,9 +159,9 @@ internal class Server
 
     public void Stop()
     {
-        foreach (KeyValuePair<int, ClientProxy> kv in ClientsDict)
+        foreach (KeyValuePair<int, ServerProxy> kv in ClientsDict)
         {
-            ClientProxy clientProxy = kv.Value;
+            ServerProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
                 ServerLog.Instance.PrintClientStates("Client " + clientProxy.ClientId + " quit");
@@ -178,7 +178,7 @@ internal class Server
     //接收客户端Socket连接请求
     private void ReceiveSocket(object obj)
     {
-        ClientProxy clientProxy = obj as ClientProxy;
+        ServerProxy clientProxy = obj as ServerProxy;
         clientProxy.DataHolder.Reset();
         while (!clientProxy.IsStopReceive)
         {
@@ -240,13 +240,12 @@ internal class Server
         }
     }
 
-    private void Response(Socket socket, RequestBase r)
+    private void Response(RequestBase r)
     {
-        if (r is ClientRequestBase)
+        if (r is ClientRequestBase request)
         {
-            ServerLog.Instance.PrintReceive("GetFrom clientId: " + ((ClientRequestBase) r).clientId + " <" + r.GetProtocol() + "> " + r.DeserializeLog());
+            ServerLog.Instance.PrintReceive("GetFrom clientId: " + request.clientId + " <" + request.GetProtocol() + "> " + request.DeserializeLog());
 
-            ClientRequestBase request = (ClientRequestBase) r;
             if (ClientsDict.ContainsKey(request.clientId))
             {
                 ClientsDict[request.clientId].ReceiveMessage(request);

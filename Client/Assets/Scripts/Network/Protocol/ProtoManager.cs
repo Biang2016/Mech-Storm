@@ -9,7 +9,7 @@ namespace Common
     {
         private static Dictionary<int, Func<DataStream, RequestBase>> mProtocolMapping;
 
-        public delegate void requestDelegate(Socket socket, RequestBase requestBase);
+        public delegate void requestDelegate(RequestBase requestBase);
 
         private static Dictionary<int, List<requestDelegate>> mDelegateMapping;
 
@@ -101,7 +101,7 @@ namespace Common
                         List<requestDelegate> dels = mDelegateMapping[protocol];
                         foreach (requestDelegate del in dels)
                         {
-                            del(socket, requestBase);
+                            del(requestBase);
                         }
                     }
                 }

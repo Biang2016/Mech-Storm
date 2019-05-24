@@ -1,0 +1,989 @@
+{
+	"Null": {
+		"zh": "",
+		"en": ""
+	},
+	"Common_Yes": {
+		"zh": "是",
+		"en": "Yes"
+	},
+	"Common_No": {
+		"zh": "否",
+		"en": "No"
+	},
+	"Common_Confirm": {
+		"zh": "确认",
+		"en": "Confirm"
+	},
+	"Common_Cancel": {
+		"zh": "取消",
+		"en": "Cancel"
+	},
+	"Common_Continue": {
+		"zh": "继续",
+		"en": "Consume"
+	},
+	"Common_GoAhead": {
+		"zh": "继续",
+		"en": "Go Ahead"
+	},
+	"Common_Edit": {
+		"zh": "编辑",
+		"en": "Edit"
+	},
+
+	"SettingMenu_ChangeLanguageNotice": {
+		"zh": "更改语言成功",
+		"en": "Language changed successfully!"
+	},
+	"SettingMenu_Settings": {
+		"zh": "设置",
+		"en": "Settings"
+	},
+	"SettingMenu_Languages": {
+		"zh": "语言",
+		"en": "Language"
+	},
+	"SettingMenu_MasterSliderText": {
+		"zh": "主音量",
+		"en": "Master"
+	},
+	"SettingMenu_SoundSliderText": {
+		"zh": "音效",
+		"en": "Sound"
+	},
+	"SettingMenu_BGMSliderText": {
+		"zh": "背景音乐",
+		"en": "BGM"
+	},
+
+
+	"StartMenu_OnlineMode": {
+		"zh": "在线对战",
+		"en": "Online Mode"
+	},
+	"StartMenu_SingleMode": {
+		"zh": "单人模式",
+		"en": "Single Mode"
+	},
+	"StartMenu_CustomizeBattle": {
+		"zh": "自定义人机",
+		"en": "Customize Battle"
+	},
+	"StartMenu_Settings": {
+		"zh": "游戏设置",
+		"en": "Settings"
+	},
+	"StartMenu_AboutMe": {
+		"zh": "制作人员",
+		"en": "About Me"
+	},
+	"StartMenu_Designer": {
+		"zh": "制作人: 薛炳晟",
+		"en": "Designer\nXue Bingsheng"
+	},
+	"StartMenu_Back": {
+		"zh": "返回",
+		"en": "Back"
+	},
+	"StartMenu_QuitGame": {
+		"zh": "退出游戏",
+		"en": "Quit Game"
+	},
+
+	"StartMenu_OnlineStart": {
+		"zh": "开始匹配",
+		"en": "Start Matching"
+	},
+	"StartMenu_CancelMatch": {
+		"zh": "取消匹配",
+		"en": "Cancel Matching"
+	},
+	"StartMenu_OnlineDeck": {
+		"zh": "我的卡组",
+		"en": "My Decks"
+	},
+
+	"StartMenu_SingleStart": {
+		"zh": "新的游戏",
+		"en": "New Story"
+	},
+	"StartMenu_SingleResume": {
+		"zh": "继续游戏",
+		"en": "Resume"
+	},
+	"StartMenu_SingleDeck": {
+		"zh": "我的卡组",
+		"en": "My Decks"
+	},
+
+	"StartMenu_SingleCustomStart": {
+		"zh": "开始对战",
+		"en": "Begin Fighting"
+	},
+	"StartMenu_SingleCustomDeck": {
+		"zh": "我的卡组",
+		"en": "My Decks"
+	},
+
+	"StartMenu_OnlineMenuTipText": {
+		"zh": "通过互联网与其他玩家自由对战,全卡组开放",
+		"en": "Play against players through the Internet with all cards available."
+	},
+	"StartMenu_SingleMenuTipText": {
+		"zh": "进行单人Rouge-like模式",
+		"en": "Play in a Rouge-like story mode and collect cards gradually."
+	},
+	"StartMenu_SingleCustomBattleTipText": {
+		"zh": "与电脑AI对战,全卡组开放",
+		"en": "Play against computer AI with all cards available."
+	},
+	"StartMenu_SettingTipText": {
+		"zh": "音频与语言设置",
+		"en": "Audio and language settings."
+	},
+	"StartMenu_BackTipText": {
+		"zh": "回到主菜单",
+		"en": "Back to main menu."
+	},
+	"StartMenu_DeckTipText": {
+		"zh": "打开牌库,进行生命值、能量值和卡片的挑选",
+		"en": "(TAB) Open deck editor where life, energy and cards can be modified."
+	},
+	"StartMenu_SingleResumeTipText": {
+		"zh": "继续之前的游戏",
+		"en": "Resume last story."
+	},
+
+	"StartMenu_DeckAbstractText_DeckName": {
+		"zh": "无卡组",
+		"en": "No Deck"
+	},
+	"StartMenu_DeckAbstractText_Cards": {
+		"zh": "卡牌数:",
+		"en": "Cards"
+	},
+	"StartMenu_DeckAbstractText_CardNum": {
+		"zh": "",
+		"en": ""
+	},
+	"StartMenu_DeckAbstractText_Life": {
+		"zh": "生命值:",
+		"en": "Life"
+	},
+	"StartMenu_DeckAbstractText_LifeNum": {
+		"zh": "",
+		"en": ""
+	},
+	"StartMenu_DeckAbstractText_Energy": {
+		"zh": "能量上限:",
+		"en": "Energy"
+	},
+	"StartMenu_DeckAbstractText_EnergyNum": {
+		"zh": "",
+		"en": ""
+	},
+	"StartMenu_DeckAbstractText_Draws": {
+		"zh": "抽牌数:",
+		"en": "Draws"
+	},
+	"StartMenu_DeckAbstractText_DrawNum": {
+		"zh": "",
+		"en": ""
+	},
+	"StartMenu_BeginMatching": {
+		"zh": "开始匹配",
+		"en": "Begin matching"
+	},
+	"StartMenu_Matching": {
+		"zh": "匹配中",
+		"en": "Matching"
+	},
+	"StartMenu_BeginSingleMode": {
+		"zh": "开始单人模式",
+		"en": "Begin single mode"
+	},
+	"StartMenu_BeginCustomMode": {
+		"zh": "开始自定义人机模式",
+		"en": "Begin single custom mode"
+	},
+	"StartMenu_NewCardTipText": {
+		"zh": "新卡片",
+		"en": "New!"
+	},
+
+	"Notice_StartMenu_DoYouWantToStartANewSingleGame": {
+		"zh": "是否开始一个新的游戏？",
+		"en": "Do you want to start a new Single Game?"
+	},
+	"Notice_StartMenu_CurrentGameWillBeRemoved": {
+		"zh": " 当前游戏将被清除。",
+		"en": " It will remove your current game."
+	},
+	"Notice_StartMenu_NoCardInDeck": {
+		"zh": " 您的卡组中没有卡牌。",
+		"en": " Your deck is empty"
+	},
+	"Notice_StartMenu_CardEnergyOverYourEnergy": {
+		"zh": " 您的卡组中有些牌的能量消耗大于您的能量上限，是否继续？",
+		"en": " Some cards consume more energy than your upper limit."
+	},
+	"Notice_StartMenu_QuitGameConfirm": {
+		"zh": " 退出游戏?",
+		"en": " Are you sure to Quick the game?"
+	},
+
+
+	"ExitMenu_SettingMenuText": {
+		"zh": "设置",
+		"en": "Settings"
+	},
+	"ExitMenu_SurrenderText": {
+		"zh": "认输",
+		"en": "Surrender"
+	},
+	"ExitMenu_ConsumeText": {
+		"zh": "继续游戏",
+		"en": "Consume"
+	},
+	"ExitMenu_QuitText": {
+		"zh": "退出游戏",
+		"en": "Quit"
+	},
+	"ExitMenu_SureToSurrender": {
+		"zh": "您确定要认输吗?",
+		"en": "Are you sure to surrender?"
+	},
+	"ExitMenu_YouHaveQuitGame": {
+		"zh": "您已退出比赛",
+		"en": "You have quit the game"
+	},
+
+
+	"LoginMenu_ServerText": {
+		"zh": "服务器: ",
+		"en": "Server: "
+	},
+	"LoginMenu_UserNameText": {
+		"zh": "用户名: ",
+		"en": "Username: "
+	},
+	"LoginMenu_PasswordText": {
+		"zh": "密码: ",
+		"en": "Password: "
+	},
+	"LoginMenu_RegisterText": {
+		"zh": "注册",
+		"en": "Register"
+	},
+	"LoginMenu_LoginText": {
+		"zh": "登录",
+		"en": "Login"
+	},
+	"LoginMenu_Disconnected": {
+		"zh": "已断开连接.",
+		"en": "Disconnected"
+	},
+	"LoginMenu_Connected": {
+		"zh": "已连接.",
+		"en": "Connected"
+	},
+	"LoginMenu_Connecting": {
+		"zh": "正在连接服务器",
+		"en": "Connecting"
+	},
+	"Notice_LoginMenu_ClientNeedUpdate": {
+		"zh": "您的客户端需要更新,是否在浏览器中打开下载页面?",
+		"en": "Your client needs update! Open the download page in browser?"
+	},
+
+	"Server_FormalServer": {
+		"zh": "正式服",
+		"en": "Formal Server"
+	},
+	"Server_TestServer": {
+		"zh": "测试服",
+		"en": "Test Server"
+	},
+
+	"Notice_NetworkManager_Disconnecting": {
+		"zh": "正在断开连接",
+		"en": "Disconnecting"
+	},
+	"Notice_NetworkManager_Disconnected": {
+		"zh": "已断开连接",
+		"en": "Disconnected."
+	},
+	"Notice_NetworkManager_Connected": {
+		"zh": "连接服务器成功",
+		"en": "Connected."
+	},
+	"Notice_NetworkManager_Connecting": {
+		"zh": "正在连接服务器",
+		"en": "Connecting"
+	},
+	"Notice_NetworkManager_MatchSuccess": {
+		"zh": "匹配成功，开始比赛",
+		"en": "Match success! Game begin!"
+	},
+
+
+	"BigBonusItem_ToUnlockThisCard": {
+		"zh": "解锁该卡片",
+		"en": "To unlock this card"
+	},
+
+	"ModuleMech_DecreaseDamageNumberFly": {
+		"zh": "阻挡 -",
+		"en": "Dec -"
+	},
+	"ModuleMech_LifeNumberFly": {
+		"zh": "生命 ",
+		"en": "Life "
+	},
+	"ModuleMech_AttackChangeNumberFly": {
+		"zh": "伤害 ",
+		"en": "Attack "
+	},
+	"ModuleMech_ArmorChangeNumberFly": {
+		"zh": "护甲 ",
+		"en": "Armor "
+	},
+	"ModuleMech_ShieldChangeNumberFly": {
+		"zh": "护盾 ",
+		"en": "Shield "
+	},
+	"ModuleMech_ShouldAttackDefenderFirst": {
+		"zh": "您必须先攻击嘲讽机甲",
+		"en": "You should attack the Defenders first."
+	},
+	"ModuleMech_ShouldAttackMechsFirst": {
+		"zh": "您必须先攻击场上机甲",
+		"en": "You should attack the Mechs first."
+	},
+
+
+	"Proxy_RegisterSuccess": {
+		"zh": "注册成功",
+		"en": "Register Success"
+	},
+	"Proxy_UserNameUsed": {
+		"zh": "该用户名已被注册",
+		"en": "This username has been used"
+	},
+	"Proxy_LoginSuccess": {
+		"zh": "登录成功",
+		"en": "Login Success"
+	},
+	"Proxy_WrongPassword": {
+		"zh": "您的密码有误",
+		"en": "Wrong Password"
+	},
+	"Proxy_UserNameNotExisted": {
+		"zh": "该用户名不存在",
+		"en": "Username does not Exist"
+	},
+	"Proxy_AlreadyLogin": {
+		"zh": "该账号已登录",
+		"en": "The account is logged in"
+	},
+	"Proxy_LogOutSuccess": {
+		"zh": "退出成功",
+		"en": "Logout Success"
+	},
+	"Proxy_LogOutFailed": {
+		"zh": "退出失败",
+		"en": "Logout Failed"
+	},
+
+	"InGameUIManager_EndTurn": {
+		"zh": "结束回合",
+		"en": "End Turn"
+	},
+	"InGameUIManager_EnemyTurn": {
+		"zh": "敌方回合",
+		"en": "Enemy's Turn"
+	},
+
+	"RoundManager_EndedByServerError": {
+		"zh": "由于服务器错误导致游戏结束",
+		"en": "Sorry, game ended due to a Server Error."
+	},
+	"RoundManager_YourTurn": {
+		"zh": "您的回合",
+		"en": "Your Turn Begins"
+	},
+	"RoundManager_EnemyTurn": {
+		"zh": "敌方回合",
+		"en": "Enemy's Turn"
+	},
+	"RoundManager_YouAreOffline": {
+		"zh": "您已离线",
+		"en": "Disconnected"
+	},
+	"RoundManager_JustGotANewCard": {
+		"zh": "刚刚获得了新卡片，是否去卡组看一看?",
+		"en": "You have got some new cards just now! Do you want to adjust your deck?"
+	},
+	"RoundManager_GoToDeck": {
+		"zh": "去牌库",
+		"en": "Go to deck"
+	},
+	"RoundManager_GotIt": {
+		"zh": "知道了",
+		"en": "Got it."
+	},
+
+	"HandManager_TotalCards": {
+		"zh": "共有{0}张手牌",
+		"en": "{0} cards in total."
+	},
+
+	"WinLostPanelManager_WinText": {
+		"zh": "您赢了！",
+		"en": "You win!"
+	},
+	"WinLostPanelManager_LostText": {
+		"zh": "您输了...",
+		"en": "You lost ..."
+	},
+	"WinLostPanelManager_OnlineWinText": {
+		"zh": "您赢了！",
+		"en": "You win!"
+	},
+	"WinLostPanelManager_OnlineLostText": {
+		"zh": "您输了...",
+		"en": "You lost ..."
+	},
+	"WinLostPanelManager_LostTipTitle": {
+		"zh": "提示: ",
+		"en": "Tips: "
+	},
+	"WinLostPanelManager_RewardsTitleText": {
+		"zh": "奖励",
+		"en": "Rewards"
+	},
+	"WinLostPanelManager_NoRewardText": {
+		"zh": "设计师是个吝啬鬼，这里没有任何奖励",
+		"en": "The designer is so mean that here isn't any reward."
+	},
+	"WinLostPanelManager_FixedBonusText": {
+		"zh": "固定\n奖励",
+		"en": "Fixed Bonus"
+	},
+	"WinLostPanelManager_ConfirmButtonText": {
+		"zh": "确认",
+		"en": "Confirm"
+	},
+	"WinLostPanelManager_GoAheadButtonText": {
+		"zh": "继续游戏",
+		"en": "Go ahead"
+	},
+	"WinLostPanelManager_CardUpgradeUnlockText": {
+		"zh": "卡片升级!",
+		"en": "Card Upgraded!"
+	},
+	"WinLostPanelManager_CardUpgradeUnlockDescText": {
+		"zh": "现在可以在牌库中升级该卡片了!",
+		"en": "You can upgrade this card in your deck now."
+	},
+	"WinLostPanelManager_YouNeedToChooseACard": {
+		"zh": "您需要选择一个奖励,不要客气!",
+		"en": "Come on, you should select one reward!"
+	},
+
+	"SelectBuildManagerBuild_NewDeck": {
+		"zh": "新卡组",
+		"en": "New Deck"
+	},
+	"SelectBuildManagerBuild_CreateNewDeck": {
+		"zh": "创建新卡组",
+		"en": "New Deck"
+	},
+	"SelectBuildManagerBuild_CannotDeleteLastBuild": {
+		"zh": "您至少需要一个卡组",
+		"en": "You need at least one deck!"
+	},
+	"SelectBuildManagerBuild_NoDeckSelected": {
+		"zh": "未选择卡组",
+		"en": "No deck is selected"
+	},
+	"SelectBuildManagerBuild_YourDeckIsSaved": {
+		"zh": "已保存卡组",
+		"en": "Your deck is saved."
+	},
+	"SelectBuildManagerBuild_BudgetLimitedChooseFewerCards": {
+		"zh": "预算不足,考虑少选一些卡牌哦~",
+		"en": "Budget is Limited. Please consider choosing fewer cards."
+	},
+	"SelectBuildManagerBuild_RenameBuild_NoNameWarning": {
+		"zh": "卡组名称不能为空",
+		"en": "Build name cannot be empty."
+	},
+	"SelectBuildManagerBuild_RenameBuild_TitleText": {
+		"zh": "卡组命名",
+		"en": "Rename Build"
+	},
+	"SelectBuildManagerBuild_RenameBuild_PlaceHolderText": {
+		"zh": "输入卡组名",
+		"en": "Input build name here.."
+	},
+
+	"SelectBuildManagerPreviewUpgrade_UpgradeText": {
+		"zh": "升级",
+		"en": "Upgrade"
+	},
+	"SelectBuildManagerPreviewUpgrade_DegradeText": {
+		"zh": "降级",
+		"en": "Degrade"
+	},
+
+	"SelectBuildManagerSelect_CardDeckText": {
+		"zh": "卡 组",
+		"en": "Decks"
+	},
+	"SelectBuildManagerSelect_DeleteCardDeckText": {
+		"zh": "删除卡组",
+		"en": "Delete"
+	},
+	"SelectBuildManagerSelect_LifeText": {
+		"zh": "生命值",
+		"en": "Life"
+	},
+	"SelectBuildManagerSelect_EnergyText": {
+		"zh": "能量",
+		"en": "Energy"
+	},
+	"SelectBuildManagerSelect_BudgetText": {
+		"zh": "预算",
+		"en": "Budget"
+	},
+
+	"SelectBuildManagerSelect_DrawCardNumText": {
+		"zh": "每回合抽牌数",
+		"en": "Number of Draws Per Round"
+	},
+	"SelectBuildManagerSelect_AllCardDeckText": {
+		"zh": "牌 库",
+		"en": "Card Library"
+	},
+
+	"SelectBuildManagerSelect_SelectAllCardText": {
+		"zh": "全选",
+		"en": "Select All"
+	},
+	"SelectBuildManagerSelect_UnSelectAllCardText": {
+		"zh": "清除选择",
+		"en": "Unselect All"
+	},
+	"SelectBuildManagerSelect_ConfirmSelectText": {
+		"zh": "确认出战",
+		"en": "Confirm"
+	},
+	"SelectBuildManagerSelect_CloseText": {
+		"zh": "关闭(Tab)",
+		"en": "Close (Tab)"
+	},
+
+	"SelectBuildManagerSelect_HeroesCardText": {
+		"zh": "英 雄 随 从",
+		"en": "HeroMech"
+	},
+	"SelectBuildManagerSelect_OtherCardText": {
+		"zh": "其 他 卡 片",
+		"en": "Other Cards"
+	},
+	"SelectBuildManagerSelect_HeroesCardCountText": {
+		"zh": "总计",
+		"en": "Total:"
+	},
+	"SelectBuildManagerSelect_OtherCardCountText": {
+		"zh": "数量",
+		"en": "Total:"
+	},
+
+	"SelectBuildManagerSelect_LeftMouseButtonClickTipText": {
+		"zh": "选择",
+		"en": "Select"
+	},
+	"SelectBuildManagerSelect_RightMouseButtonClickTipText": {
+		"zh": "升级",
+		"en": "Upgrade"
+	},
+	"SelectBuildManagerSelect_ESCTipText": {
+		"zh": "关闭",
+		"en": "Close"
+	},
+
+	"SelectBuildManagerLifeMagicCoinCardnum_UnsafeIfLifeLow": {
+		"zh": "生命过低可不安全哦~",
+		"en": "It's unsafe if your life is too low."
+	},
+
+	"Ship_LifeText": {
+		"zh": "战舰生命",
+		"en": "LIFE"
+	},
+	"Ship_EnergyText": {
+		"zh": "战舰能量",
+		"en": "ENERGY"
+	},
+
+
+	"Notice_SelectBuildManagerSelect_CannotEditWhenMatching": {
+		"zh": "您不能在匹配时编辑卡组",
+		"en": "You cannot edit your build when Matching."
+	},
+	"Notice_SelectBuildManagerSelect_CannotEditWhenPlaying": {
+		"zh": "您不能在战斗时编辑卡组",
+		"en": "You cannot edit your build when Playing."
+	},
+	"Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards": {
+		"zh": "已创建卡组，请挑选卡片",
+		"en": "Card group created. You can choose cards now."
+	},
+	"Notice_SelectBuildManagerSelect_BudgetLimited": {
+		"zh": "预算不足",
+		"en": "Budget is Limited"
+	},
+	"Notice_SelectBuildManagerSelect_HeroesNumberUpperLimit": {
+		"zh": "可携带英雄卡牌数量已达上限",
+		"en": "The number of HeroMeches reaches the upper limit."
+	},
+	"Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards": {
+		"zh": "该卡牌只能携带{0}张",
+		"en": "You can only take %s copy of this card."
+	},
+	"Notice_SelectBuildManagerSelect_UpdateDeckSuccess": {
+		"zh": "更新卡组成功",
+		"en": "Update your deck successfully"
+	},
+	"Notice_SelectBuildManagerPreviewUpgrade_CreateANewDeck": {
+		"zh": "请先创建一个卡组",
+		"en": "Please create a new deck first."
+	},
+	"Notice_SelectBuildManagerPreviewUpgrade_PleaseCreateDeck": {
+		"zh": "请创建卡组!",
+		"en": "Please create your deck."
+	},
+	"Notice_SelectBuildManagerPreviewUpgrade_NotEnoughBudget": {
+		"zh": "预算不足",
+		"en": "Not enough budget."
+	},
+	"Notice_SelectBuildManagerPreviewUpgrade_CreateDeckAuto": {
+		"zh": "已自动为您创建第一个卡组",
+		"en": "First deck is created automatically."
+	},
+
+
+	"Notice_CardEquip_SniperGunOnlySniper": {
+		"zh": "狙击枪只能装在狙击手上",
+		"en": "Sniper gun can only be equiped on snipers."
+	},
+
+	"Notice_CardEquip_MANeedAllEquiped": {
+		"zh": "其他所有插槽都有装备时才能装备MA",
+		"en": "MA can only be equiped when all other slots are equiped."
+	},
+	"Notice_CardEquip_SelectCorrectSlot": {
+		"zh": "请选择正确的插槽装备",
+		"en": "You should select a right Slot to Equip."
+	},
+
+
+	"CardBase_NewCardBanner": {
+		"zh": "新卡片",
+		"en": "New!"
+	},
+	"CardBase_Upgradable": {
+		"zh": "可升级",
+		"en": "Upgrade!"
+	},
+	"CardSpell_SelectCorrectMech": {
+		"zh": "请选择正确的机甲",
+		"en": "You should select a correct mech!"
+	},
+	"CardSpell_SelectCorrectEquip": {
+		"zh": "请选择正确的装备",
+		"en": "You should select a correct equip!"
+	},
+	"CardSpell_SelectCorrectShip": {
+		"zh": "请选择正确的战舰",
+		"en": "You should select a correct ship!"
+	},
+
+
+	"CardEditorWindow_CardEditorWindowText": {
+		"zh": "卡牌编辑器",
+		"en": "Card Editor Window"
+	},
+	"CardEditorWindow_CardTotalCountText": {
+		"zh": "卡牌总数: ",
+		"en": "Total Cards: "
+	},
+	"CardEditorWindow_CardPreviewButtonHideText": {
+		"zh": "隐",
+		"en": "H"
+	},
+	"CardEditorWindow_SaveCardButtonText": {
+		"zh": "保存更改",
+		"en": "Save Changes"
+	},
+	"CardEditorWindow_ResetCardButtonText": {
+		"zh": " 重置卡片",
+		"en": "Reset"
+	},
+	"CardEditorWindow_ResetCardNotice": {
+		"zh": " 重置卡片(ID: {0})",
+		"en": "Reset card (ID: {0})"
+	},
+	"CardEditorWindow_DeleteCardButtonText": {
+		"zh": "删除卡片",
+		"en": "Delete Card"
+	},
+	"CardEditorPanel_SaveCardUpgradeIDNotExists": {
+		"zh": "升级卡牌ID错误，不存在该卡牌",
+		"en": "No card in library has the Upgrade Card ID."
+	},
+	"CardEditorPanel_SaveCardDegradeIDNotExists": {
+		"zh": "降级卡牌ID错误，不存在该卡牌",
+		"en": "No card in library has the Degrade Card ID."
+	},
+	"CardEditorPanel_SaveCardUpgradeIDIdenticalInvalid": {
+		"zh": "升级卡牌ID不能与卡牌ID相同",
+		"en": "Upgrade Card ID cannot be the same as Card ID."
+	},
+	"CardEditorPanel_SaveCardDegradeIDIdenticalInvalid": {
+		"zh": "降级卡牌ID不能与卡牌ID相同",
+		"en": "Degrade Card ID cannot be the same as Card ID."
+	},
+	"CardEditorPanel_SaveCardUpgradeIDInvalid": {
+		"zh": "错误的升级卡牌ID导致升级链出现循环！请修改",
+		"en": "Invalid upgrade card ID causes cycle in card upgrade chain! Please use another upgradeID."
+	},
+	"CardEditorPanel_SaveCardDegradeIDInvalid": {
+		"zh": "错误的降级卡牌ID导致升级链出现循环！请修改",
+		"en": "Invalid degrade card ID causes cycle in card upgrade chain! Please use another degradeID."
+	},
+	"CardEditorPanel_ConfirmSaveCard": {
+		"zh": "是否将该更改保存至ID为{0}的卡牌中？",
+		"en": "Save the changes to the card with ID {0}?"
+	},
+	"CardEditorPanel_ConfirmCreateNewCard": {
+		"zh": "是否新建此卡牌(ID: {0})？",
+		"en": "Create a new card with ID {0}?"
+	},
+	"CardEditorPanel_SaveCardSuccess": {
+		"zh": "保存成功",
+		"en": "Save successfully."
+	},
+	"CardEditorPanel_EmptyCardID": {
+		"zh": "卡牌ID为空，请填写完整",
+		"en": "Please input Card ID."
+	},
+	"CardEditorPanel_ConfirmDeleteCard": {
+		"zh": "是否删除ID为{0}的卡牌？",
+		"en": "Delete the card with ID {0}?"
+	},
+	"CardEditorPanel_DeleteCardSuccess": {
+		"zh": "删除成功",
+		"en": "Delete successfully."
+	},
+	"CardEditorWindow_CardPreviewButtonTempText": {
+		"zh": "临",
+		"en": "T"
+	},
+	"CardEditorWindow_SideEffectBundleText": {
+		"zh": "卡牌效果",
+		"en": "Card Effects"
+	},
+	"CardEditorWindow_CardType": {
+		"zh": "卡牌类型",
+		"en": "Card Type"
+	},
+	"CardEditorWindow_CardIDLabelText": {
+		"zh": "卡牌ID",
+		"en": "Card ID"
+	},
+	"CardEditorWindow_CardPicIDLabelText": {
+		"zh": "图片ID",
+		"en": "Picture ID"
+	},
+	"CardEditorWindow_CardUpgradeIDLabelText": {
+		"zh": "升级卡牌ID",
+		"en": "UpCardID"
+	},
+	"CardEditorWindow_CardDegradeIDLabelText": {
+		"zh": "降级卡牌ID",
+		"en": "DeCardID"
+	},
+	"CardEditorWindow_CardNameLabelText_zh": {
+		"zh": "卡牌中文名称",
+		"en": "ChineseName"
+	},
+	"CardEditorWindow_CardNameLabelText_en": {
+		"zh": "卡牌英文名称",
+		"en": "EnglishName"
+	},
+	"CardEditorWindow_CardCoinCostLabelText": {
+		"zh": "预算",
+		"en": "Coin Cost",
+	},
+	"CardEditorWindow_CardMetalCostLabelText": {
+		"zh": "金属消耗",
+		"en": "Metal Cost",
+	},
+	"CardEditorWindow_CardEnergyCostLabelText": {
+		"zh": "能量消耗",
+		"en": "Energy Cost"
+	},
+	"CardEditorWindow_CardSelectLimitLabelText": {
+		"zh": "卡牌上限",
+		"en": "Select Limit"
+	},
+	"CardEditorWindow_CardIsTempLabelText": {
+		"zh": "临时卡",
+		"en": "Temp"
+	},
+	"CardEditorWindow_CardIsHideLabelText": {
+		"zh": "隐藏卡",
+		"en": "Hide"
+	},
+	"CardEditorWindow_MechLifeLabelText": {
+		"zh": "生命值",
+		"en": "Life"
+	},
+	"CardEditorWindow_MechAttackLabelText": {
+		"zh": "基础攻击",
+		"en": "Basic Attack"
+	},
+	"CardEditorWindow_MechArmorLabelText": {
+		"zh": "基础护甲",
+		"en": "Basic Armor"
+	},
+	"CardEditorWindow_MechShieldLabelText": {
+		"zh": "基础护盾",
+		"en": "Basic Shield"
+	},
+	"CardEditorWindow_SlotType": {
+		"zh": "装备类型",
+		"en": "Equip Type"
+	},
+	"CardEditorWindow_MechIsSoldierLabelText": {
+		"zh": "士兵",
+		"en": "Is Soldier"
+	},
+	"CardEditorWindow_MechIsDefenseLabelText": {
+		"zh": "嘲讽",
+		"en": "Is Defense"
+	},
+	"CardEditorWindow_MechIsSniperLabelText": {
+		"zh": "狙击",
+		"en": "Is Sniper"
+	},
+	"CardEditorWindow_MechIsChargerLabelText": {
+		"zh": "冲锋",
+		"en": "Is Charger"
+	},
+	"CardEditorWindow_MechIsFrenzyLabelText": {
+		"zh": "狂暴",
+		"en": "Is Frenzy"
+	},
+	"CardEditorWindow_MechWeaponSlotLabelText": {
+		"zh": "武器槽",
+		"en": "Weapon Slot"
+	},
+	"CardEditorWindow_MechShieldSlotLabelText": {
+		"zh": "防具槽",
+		"en": "Shield Slot"
+	},
+	"CardEditorWindow_MechPackSlotLabelText": {
+		"zh": "背包槽",
+		"en": "Pack Slot"
+	},
+	"CardEditorWindow_MechMASlotLabelText": {
+		"zh": "MA槽",
+		"en": "MA Slot"
+	},
+	"CardEditorWindow_WeaponTypeLabelText": {
+		"zh": "武器类型",
+		"en": "Weaoon Type"
+	},
+	"CardEditorWindow_WeaponSwordAttackLabelText": {
+		"zh": "剑攻击力",
+		"en": "Sword Attack"
+	},
+	"CardEditorWindow_WeaponSwordEnergyLabelText": {
+		"zh": "初始充能",
+		"en": "Energy"
+	},
+	"CardEditorWindow_WeaponSwordMaxEnergyLabelText": {
+		"zh": "最大能量",
+		"en": "Energy Max"
+	},
+	"CardEditorWindow_WeaponGunAttackLabelText": {
+		"zh": "子弹伤害",
+		"en": "Bullet Damage"
+	},
+	"CardEditorWindow_WeaponGunBulletLabelText": {
+		"zh": "初始弹药",
+		"en": "Default Ammo"
+	},
+	"CardEditorWindow_WeaponGunMaxBulletLabelText": {
+		"zh": "弹夹容量",
+		"en": "Clip Size"
+	},
+	"CardEditorWindow_ShieldTypeLabelText": {
+		"zh": "防具类型",
+		"en": "Shield Type"
+	},
+	"CardEditorWindow_ShieldBasicArmorLabelText": {
+		"zh": "基础护甲",
+		"en": "Basic Armor"
+	},
+	"CardEditorWindow_ShieldBasicShieldLabelText": {
+		"zh": "基础护盾",
+		"en": "Basic Shield"
+	},
+	"CardEditorWindow_NoSuchCard": {
+		"zh": "无此ID对应的卡片",
+		"en": "No Card has this ID."
+	},
+	"CardEditorWindow_SideEffectType": {
+		"zh": "卡牌效果",
+		"en": "Effect"
+	},
+
+	"CardEditorWindow_SideEffectBundle": {
+		"zh": "出牌效果",
+		"en": "Playout Effects"
+	},
+	"CardEditorWindow_TriggerTime": {
+		"zh": "触发时机",
+		"en": "Trigger Time"
+	},
+	"CardEditorWindow_TriggerRange": {
+		"zh": "对象范围",
+		"en": "Trigger Range"
+	},
+	"CardEditorWindow_TriggerDelayTimes": {
+		"zh": "延迟触发次数",
+		"en": "Trigger Delay Times"
+	},
+	"CardEditorWindow_TriggerTimes": {
+		"zh": "触发次数",
+		"en": "Trigger Times"
+	},
+	"CardEditorWindow_RemoveTriggerTime": {
+		"zh": "效果移除时机",
+		"en": "Remove Trigger Time"
+	},
+	"CardEditorWindow_RemoveTriggerRange": {
+		"zh": "效果移除触发范围",
+		"en": "Remove Trigger Range"
+	},
+	"CardEditorWindow_RemoveTriggerTimes": {
+		"zh": "效果移除触发次数",
+		"en": "Remove Trigger Times"
+	},
+}
