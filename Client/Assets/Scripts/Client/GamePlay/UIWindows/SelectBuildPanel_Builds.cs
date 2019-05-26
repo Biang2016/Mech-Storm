@@ -259,6 +259,10 @@ public partial class SelectBuildPanel
     public void RefreshSomeBuild(BuildInfo buildInfo)
     {
         if (CurrentBuildButtons.ContainsKey(buildInfo.BuildID)) CurrentBuildButtons[buildInfo.BuildID].Initialize(buildInfo);
-        if (CurrentEditBuildButton.BuildInfo.BuildID == buildInfo.BuildID && !CurrentEditBuildButton.BuildInfo.EqualsTo(buildInfo)) SelectCardsByBuildInfo(buildInfo);
+        if (CurrentEditBuildButton.BuildInfo.BuildID == buildInfo.BuildID && !CurrentEditBuildButton.BuildInfo.EqualsTo(buildInfo))
+        {
+            SelectCardsByBuildInfo(buildInfo);
+            SelectBuildManager.Instance.OnSaveBuildInfo(buildInfo);
+        }
     }
 }

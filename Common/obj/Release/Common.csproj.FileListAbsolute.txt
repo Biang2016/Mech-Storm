@@ -1,9 +1,0 @@
-G:\项目\CardGame\MyFirstCardGame\Common\bin\Release\MyCardGameCommon.dll
-G:\项目\CardGame\MyFirstCardGame\Common\bin\Release\MyCardGameCommon.pdb
-G:\项目\CardGame\MyFirstCardGame\Common\obj\Release\Common.csproj.CoreCompileInputs.cache
-G:\项目\CardGame\MyFirstCardGame\Common\obj\Release\MyCardGameCommon.dll
-G:\项目\CardGame\MyFirstCardGame\Common\obj\Release\MyCardGameCommon.pdb
-G:\项目\CardGame\MyFirstCardGame\Common\bin\Release\Newtonsoft.Json.dll
-G:\项目\CardGame\MyFirstCardGame\Common\bin\Release\Newtonsoft.Json.pdb
-G:\项目\CardGame\MyFirstCardGame\Common\bin\Release\Newtonsoft.Json.xml
-G:\项目\CardGame\MyFirstCardGame\Common\obj\Release\Common.csproj.CopyComplete

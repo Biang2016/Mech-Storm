@@ -275,7 +275,7 @@ internal class BattleResultPanel : BaseUIForm
 
     public void OnConfirmButtonClick()
     {
-        if (OnConfirmButtonClickHandler != null) OnConfirmButtonClickHandler();
+        OnConfirmButtonClickHandler?.Invoke();
         if (OptionalBonusGroup.Count != 0 && OnConfirmButtonClickHandler == null)
         {
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("WinLostPanelManager_YouNeedToChooseACard"), 0, 0.8f);

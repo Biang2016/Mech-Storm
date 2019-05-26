@@ -44,7 +44,10 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
     public Chapter Variant()
     {
         SortedDictionary<int, Level> New_ChapterAllStoryPaces = CloneVariantUtils.SortedDictionary(ChapterAllLevels, CloneVariantUtils.OperationType.Variant);
-
+        foreach (KeyValuePair<int, Level> kv in New_ChapterAllStoryPaces)
+        {
+            kv.Value.LevelID = kv.Key;
+        }
         //TODO 各pace之间的连接关系Variant，以及入口关卡设置
 
         return new Chapter(ChapterID, New_ChapterAllStoryPaces);
@@ -53,7 +56,10 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
     public Chapter Clone()
     {
         SortedDictionary<int, Level> New_ChapterAllStoryPaces = CloneVariantUtils.SortedDictionary(ChapterAllLevels);
-
+        foreach (KeyValuePair<int, Level> kv in New_ChapterAllStoryPaces)
+        {
+            kv.Value.LevelID = kv.Key;
+        }
         //TODO 各pace之间的连接关系Clone
 
         return new Chapter(ChapterID, New_ChapterAllStoryPaces);

@@ -37,20 +37,38 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public Story Variant() //变换关卡
     {
+        SortedDictionary<int, BuildInfo> newPlayerBuildInfos = CloneVariantUtils.SortedDictionary(PlayerBuildInfos);
+        foreach (KeyValuePair<int, BuildInfo> kv in newPlayerBuildInfos)
+        {
+            kv.Value.BuildID = kv.Key;
+        }
+
+        SortedDictionary<int, Chapter> newChapters = CloneVariantUtils.SortedDictionary(Chapters, CloneVariantUtils.OperationType.Variant);
+        foreach (KeyValuePair<int, Chapter> kv in newChapters)
+        {
+            kv.Value.ChapterID = kv.Key;
+        }
+
         Story newStory = new Story(
             StoryName,
-            CloneVariantUtils.SortedDictionary(Chapters, CloneVariantUtils.OperationType.Variant),
+            newChapters,
             CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
-            CloneVariantUtils.SortedDictionary(PlayerBuildInfos),
+            newPlayerBuildInfos,
             StoryGamePlaySettings.Clone());
         return newStory;
     }
 
     public Story Clone()
     {
+        SortedDictionary<int, Chapter> newChapters = CloneVariantUtils.SortedDictionary(Chapters);
+        foreach (KeyValuePair<int, Chapter> kv in newChapters)
+        {
+            kv.Value.ChapterID = kv.Key;
+        }
+
         Story newStory = new Story(
             StoryName,
-            CloneVariantUtils.SortedDictionary(Chapters),
+            newChapters,
             CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
             PlayerBuildInfos, StoryGamePlaySettings.Clone());
         return newStory;

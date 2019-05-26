@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<AllBuffs>
-  <Buff name="DoSthWhenTrigger_RemoveBySomeTime" desc_zh="{0}{1}{2}{3}" desc_en="{0}{1}{2}{3}"/>
-</AllBuffs>
