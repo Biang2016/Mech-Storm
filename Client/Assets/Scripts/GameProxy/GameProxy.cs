@@ -140,6 +140,30 @@ public class GameProxy
                 SendMessage(response);
                 break;
             }
+            case MatchStandAloneRequest r:
+
+                DebugLog.PrintClientStates("Client " + ClientID + " state: " + ClientState);
+
+                if (ClientState != ProxyBase.ClientStates.Login)
+                {
+                    ClientState = ProxyBase.ClientStates.Login;
+                }
+
+                if (ClientState == ProxyBase.ClientStates.Login)
+                {
+                    CurrentBuildInfo = Database.Instance.GetBuildInfoByID(r.BuildID);
+                    ClientState = ProxyBase.ClientStates.Matching;
+                    if (r.StoryPaceID == -1)
+                    {
+                        Server.SV.SGMM.OnClientMatchStandAloneCustomGames(this);
+                    }
+                    else
+                    {
+                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, r.StoryPaceID);
+                    }
+                }
+
+                break;
             case BonusGroupRequest r:
             {
                 Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
