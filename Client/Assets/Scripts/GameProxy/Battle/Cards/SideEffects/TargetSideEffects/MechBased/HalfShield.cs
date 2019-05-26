@@ -1,9 +1,16 @@
 ﻿namespace SideEffects
 {
-    public class HalfShield : HalfShield_Base
+    public class HalfShield : TargetSideEffect
     {
         public HalfShield()
         {
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
         public override void Execute(ExecutorInfo executorInfo)

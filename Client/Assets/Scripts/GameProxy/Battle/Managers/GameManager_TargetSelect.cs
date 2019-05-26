@@ -74,9 +74,9 @@ internal partial class GameManager
     public int CountAliveMechExcept(List<BattlePlayer> players, MechTypes mechType, int exceptMechId)
     {
         int count = 0;
-        foreach (BattlePlayer serverPlayer in players)
+        foreach (BattlePlayer battlePlayer in players)
         {
-            count += serverPlayer.BattleGroundManager.CountAliveMechExcept(mechType, exceptMechId);
+            count += battlePlayer.BattleGroundManager.CountAliveMechExcept(mechType, exceptMechId);
         }
 
         return count;
@@ -85,18 +85,18 @@ internal partial class GameManager
     public List<ModuleMech> GetMechsByType(List<BattlePlayer> players, MechTypes mechType)
     {
         List<ModuleMech> mechs = new List<ModuleMech>();
-        foreach (BattlePlayer ServerPlayer in players)
+        foreach (BattlePlayer BattlePlayer in players)
         {
             switch (mechType)
             {
                 case MechTypes.All:
-                    mechs.AddRange(ServerPlayer.BattleGroundManager.Mechs.ToArray());
+                    mechs.AddRange(BattlePlayer.BattleGroundManager.Mechs.ToArray());
                     break;
                 case MechTypes.Soldier:
-                    mechs.AddRange(ServerPlayer.BattleGroundManager.Soldiers.ToArray());
+                    mechs.AddRange(BattlePlayer.BattleGroundManager.Soldiers.ToArray());
                     break;
                 case MechTypes.Hero:
-                    mechs.AddRange(ServerPlayer.BattleGroundManager.Heroes.ToArray());
+                    mechs.AddRange(BattlePlayer.BattleGroundManager.Heroes.ToArray());
                     break;
             }
         }
@@ -308,13 +308,13 @@ internal partial class GameManager
 
     public void SideEffect_MechAction(Action<ModuleMech> action, BattlePlayer callerPlayer, int count, List<int> mechIds, TargetRange targetRange, TargetSelect targetSelect, int exceptMechId = -1)
     {
-        List<BattlePlayer> serverPlayers = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
+        List<BattlePlayer> battlePlayers = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
         MechTypes mechType = GetMechTypeByTargetRange(targetRange);
         switch (targetSelect)
         {
             case TargetSelect.All:
             {
-                foreach (ModuleMech mech in GetMechsByType(serverPlayers, mechType).ToArray())
+                foreach (ModuleMech mech in GetMechsByType(battlePlayers, mechType).ToArray())
                 {
                     action(mech);
                 }
@@ -332,7 +332,7 @@ internal partial class GameManager
             }
             case TargetSelect.MultipleRandom:
             {
-                foreach (ModuleMech mech in Utils.GetRandomFromList(GetMechsByType(serverPlayers, mechType), count))
+                foreach (ModuleMech mech in Utils.GetRandomFromList(GetMechsByType(battlePlayers, mechType), count))
                 {
                     action(mech);
                 }
@@ -346,7 +346,7 @@ internal partial class GameManager
             }
             case TargetSelect.SingleRandom:
             {
-                action(GetRandomMech(serverPlayers, mechType, exceptMechId));
+                action(GetRandomMech(battlePlayers, mechType, exceptMechId));
                 break;
             }
         }
@@ -375,13 +375,13 @@ internal partial class GameManager
 
     public void KillMechs(int count, List<int> mechIds, BattlePlayer callerPlayer, TargetRange targetRange, TargetSelect targetSelect, int exceptMechId = -1)
     {
-        List<BattlePlayer> serverPlayers = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
+        List<BattlePlayer> battlePlayers = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
         MechTypes mechType = GetMechTypeByTargetRange(targetRange);
         switch (targetSelect)
         {
             case TargetSelect.All:
             {
-                KillMechs(GetMechsByType(serverPlayers, mechType));
+                KillMechs(GetMechsByType(battlePlayers, mechType));
                 break;
             }
             case TargetSelect.Multiple:
@@ -399,7 +399,7 @@ internal partial class GameManager
             case TargetSelect.MultipleRandom:
             {
                 List<ModuleMech> mechs = new List<ModuleMech>();
-                foreach (ModuleMech mech in Utils.GetRandomFromList(GetMechsByType(serverPlayers, mechType), count))
+                foreach (ModuleMech mech in Utils.GetRandomFromList(GetMechsByType(battlePlayers, mechType), count))
                 {
                     mechs.Add(mech);
                 }
@@ -415,7 +415,7 @@ internal partial class GameManager
             }
             case TargetSelect.SingleRandom:
             {
-                KillMechs(new List<ModuleMech> {GetRandomMech(serverPlayers, mechType, exceptMechId)});
+                KillMechs(new List<ModuleMech> {GetRandomMech(battlePlayers, mechType, exceptMechId)});
                 break;
             }
         }

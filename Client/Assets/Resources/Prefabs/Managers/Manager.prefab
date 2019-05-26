@@ -1170,7 +1170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9be8ee7b2247bda978e047ddac7323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowClientLogs: 0
+  ShowClientLogs: 1
   ImageEffectBlurBox: {fileID: 8468670075267149003}
 --- !u!1 &6963317526605397886
 GameObject:

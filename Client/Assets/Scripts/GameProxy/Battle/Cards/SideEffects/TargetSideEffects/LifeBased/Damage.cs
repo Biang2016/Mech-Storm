@@ -1,9 +1,34 @@
 ﻿namespace SideEffects
 {
-    public class Damage : Damage_Base
+    public class Damage : TargetSideEffect, IDamage
     {
         public Damage()
         {
+        }
+
+        protected override void InitSideEffectParam()
+        {
+            base.InitSideEffectParam();
+            M_SideEffectParam.SetParam_MultipliedInt("Damage", 0);
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.LifeBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+                GetDescOfTargetRange(),
+                M_SideEffectParam.GetParam_MultipliedInt("Damage"));
+        }
+
+        public int CalculateDamage()
+        {
+            return M_SideEffectParam.GetParam_MultipliedInt("Damage");
+        }
+
+        public IDamageType IDamageType
+        {
+            get { return IDamageType.Known; }
         }
 
         public override void Execute(ExecutorInfo executorInfo)

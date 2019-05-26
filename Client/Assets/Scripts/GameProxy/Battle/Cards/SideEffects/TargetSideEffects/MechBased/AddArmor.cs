@@ -1,9 +1,25 @@
 ﻿namespace SideEffects
 {
-    public class AddArmor : AddArmor_Base
+    public class AddArmor : TargetSideEffect
     {
         public AddArmor()
         {
+        }
+
+        protected override void InitSideEffectParam()
+        {
+            base.InitSideEffectParam();
+            M_SideEffectParam.SetParam_MultipliedInt("ArmorValue", 0);
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(
+                DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+                GetDescOfTargetRange(),
+                M_SideEffectParam.GetParam_MultipliedInt("ArmorValue"));
         }
 
         public override void Execute(ExecutorInfo executorInfo)

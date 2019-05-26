@@ -1,15 +1,15 @@
-﻿public class MatchStandAloneRequest : ClientRequestBase
+﻿public class MatchStandaloneRequest : ClientRequestBase
 {
     public int ClientID;
     public int BuildID;
     public int LevelID;
 
 
-    public MatchStandAloneRequest()
+    public MatchStandaloneRequest()
     {
     }
 
-    public MatchStandAloneRequest(int clientID, int buildID, int levelID) : base(clientID)
+    public MatchStandaloneRequest(int clientID, int buildID, int levelID) : base(clientID)
     {
         ClientID = clientID;
         BuildID = buildID;

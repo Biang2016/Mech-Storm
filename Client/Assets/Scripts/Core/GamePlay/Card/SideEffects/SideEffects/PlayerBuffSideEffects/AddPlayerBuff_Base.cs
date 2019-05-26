@@ -1,50 +1,57 @@
 ﻿using System.Collections.Generic;
 
-public class AddPlayerBuff_Base : SideEffectBase
+namespace SideEffects
 {
-    public SideEffectExecute AttachedBuffSEE = new SideEffectExecute(
-        SideEffectExecute.SideEffectFrom.Buff,
-        new List<SideEffectBase>(),
-        new SideEffectExecute.ExecuteSetting());
-
-    public string BuffName
+    public class AddPlayerBuff_Base : SideEffectBase
     {
-        get { return M_SideEffectParam.GetParam_String("BuffName"); }
-        set
+        public AddPlayerBuff_Base()
         {
-            AttachedBuffSEE.SideEffectBases.Clear();
-            PlayerBuffSideEffects buff = AllBuffs.GetBuff(value);
-            buff.MyBuffSEE = AttachedBuffSEE;
-            AttachedBuffSEE.SideEffectBases.Add(buff);
-            M_SideEffectParam.SetParam_String("BuffName", value);
-        }
-    }
-
-    protected override void InitSideEffectParam()
-    {
-        M_SideEffectParam.SetParam_String("BuffName", "");
-    }
-
-    public override string GenerateDesc()
-    {
-        string desc = "";
-        foreach (SideEffectBase se in AttachedBuffSEE.SideEffectBases)
-        {
-            desc += se.GenerateDesc() + ",";
         }
 
-        return desc.TrimEnd(",".ToCharArray());
-    }
+        public SideEffectExecute AttachedBuffSEE = new SideEffectExecute(
+            SideEffectExecute.SideEffectFrom.Buff,
+            new List<SideEffectBase>(),
+            new SideEffectExecute.ExecuteSetting());
 
-    public override SideEffectBase Clone()
-    {
-        AddPlayerBuff_Base copy = (AddPlayerBuff_Base) base.Clone();
-        copy.AttachedBuffSEE = AttachedBuffSEE.Clone();
-        foreach (SideEffectBase se in copy.AttachedBuffSEE.SideEffectBases)
+        public string BuffName
         {
-            ((PlayerBuffSideEffects) se).MyBuffSEE = copy.AttachedBuffSEE;
+            get { return M_SideEffectParam.GetParam_String("BuffName"); }
+            set
+            {
+                AttachedBuffSEE.SideEffectBases.Clear();
+                PlayerBuffSideEffects buff = AllBuffs.GetBuff(value);
+                buff.MyBuffSEE = AttachedBuffSEE;
+                AttachedBuffSEE.SideEffectBases.Add(buff);
+                M_SideEffectParam.SetParam_String("BuffName", value);
+            }
         }
 
-        return copy;
+        protected override void InitSideEffectParam()
+        {
+            M_SideEffectParam.SetParam_String("BuffName", "");
+        }
+
+        public override string GenerateDesc()
+        {
+            string desc = "";
+            foreach (SideEffectBase se in AttachedBuffSEE.SideEffectBases)
+            {
+                desc += se.GenerateDesc() + ",";
+            }
+
+            return desc.TrimEnd(",".ToCharArray());
+        }
+
+        public override SideEffectBase Clone()
+        {
+            AddPlayerBuff_Base copy = (AddPlayerBuff_Base) base.Clone();
+            copy.AttachedBuffSEE = AttachedBuffSEE.Clone();
+            foreach (SideEffectBase se in copy.AttachedBuffSEE.SideEffectBases)
+            {
+                ((PlayerBuffSideEffects) se).MyBuffSEE = copy.AttachedBuffSEE;
+            }
+
+            return copy;
+        }
     }
 }

@@ -28,6 +28,7 @@ public class TargetSelector
         LifeBased,
         ShipBased,
         EquipBased,
+        DeckBased,
     }
 
     public static Dictionary<TargetSelectorTypes, Dictionary<TargetSelect, List<TargetRange>>> TargetSelectorPresets =>
@@ -38,6 +39,7 @@ public class TargetSelector
             {TargetSelectorTypes.LifeBased, LifeBasedSelector},
             {TargetSelectorTypes.ShipBased, ShipBasedSelector},
             {TargetSelectorTypes.EquipBased, EquipBasedSelector},
+            {TargetSelectorTypes.DeckBased, DeckBasedSelector},
         };
 
     public static Dictionary<TargetSelect, List<TargetRange>> MechBasedSelector =>
@@ -272,6 +274,30 @@ public class TargetSelector
                     TargetRange.EnemyHeroes,
                     TargetRange.EnemySoldiers,
                     TargetRange.EnemyMechs,
+                }
+            },
+        };
+    public static Dictionary<TargetSelect, List<TargetRange>> DeckBasedSelector =>
+        new Dictionary<TargetSelect, List<TargetRange>>
+        {
+            {
+                TargetSelect.All, new List<TargetRange>
+                {
+                    TargetRange.Decks,
+                }
+            },
+            {
+                TargetSelect.Single, new List<TargetRange>
+                {
+                    TargetRange.SelfDeck,
+                    TargetRange.EnemyDeck,
+                    TargetRange.Decks,
+                }
+            },
+            {
+                TargetSelect.SingleRandom, new List<TargetRange>
+                {
+                    TargetRange.Decks,
                 }
             },
         };

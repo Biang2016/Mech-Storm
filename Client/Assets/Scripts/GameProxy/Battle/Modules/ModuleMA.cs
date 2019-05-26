@@ -12,9 +12,9 @@
         {
             foreach (SideEffectBase se in see.SideEffectBases)
             {
-                se.Player = ServerPlayer;
+                se.Player = BattlePlayer;
                 se.M_ExecutorInfo = new ExecutorInfo(
-                    clientId: ServerPlayer.ClientId,
+                    clientId: BattlePlayer.ClientId,
                     sideEffectExecutorID: see.ID,
                     mechId: M_ModuleMech.M_MechID,
                     equipId: M_EquipID

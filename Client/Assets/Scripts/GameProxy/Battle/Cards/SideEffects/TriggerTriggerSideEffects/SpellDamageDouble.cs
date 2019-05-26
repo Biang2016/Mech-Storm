@@ -1,8 +1,12 @@
 ﻿namespace SideEffects
 {
-    public class SpellDamageDouble : SpellDamageDouble_Base
+    public class SpellDamageDouble : TriggerTriggerSideEffects
     {
         public SpellDamageDouble()
+        {
+        }
+
+        protected override void InitSideEffectParam()
         {
         }
 

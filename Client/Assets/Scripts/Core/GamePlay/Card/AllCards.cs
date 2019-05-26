@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using SideEffects;
 
 /// <summary>
 /// 卡片字典，其中记录的值不轻易更改

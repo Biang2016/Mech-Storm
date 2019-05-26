@@ -1,18 +1,18 @@
 ﻿internal abstract class ModuleBase
 {
-    internal BattlePlayer ServerPlayer;
+    internal BattlePlayer BattlePlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
     protected bool isInitialized = false;
 
-    public void Initiate(CardInfo_Base cardInfo, BattlePlayer serverPlayer)
+    public void Initiate(CardInfo_Base cardInfo, BattlePlayer battlePlayer)
     {
-        ServerPlayer = serverPlayer;
+        BattlePlayer = battlePlayer;
         CardInfo = cardInfo.Clone();
         Stars = CardInfo.UpgradeInfo.CardLevel;
         InitializeSideEffects();
         Initiate();
         isInitialized = true;
-        ServerPlayer.GameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);
     }
 
     protected abstract void Initiate();
@@ -21,7 +21,7 @@
 
     public void UnRegisterSideEffect()
     {
-        ServerPlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();

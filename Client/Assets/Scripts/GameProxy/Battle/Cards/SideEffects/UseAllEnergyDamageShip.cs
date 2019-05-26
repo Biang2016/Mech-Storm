@@ -1,9 +1,20 @@
 ﻿namespace SideEffects
 {
-    public class UseAllEnergyDamageShip : UseAllEnergyDamageShip_Base
+    public class UseAllEnergyDamageShip : SideEffectBase
     {
         public UseAllEnergyDamageShip()
         {
+        }
+
+        protected override void InitSideEffectParam()
+        {
+            M_SideEffectParam.SetParam_MultipliedInt("Value", 0);
+            M_SideEffectParam.SetParam_MultipliedInt("ValuePlus", 0);
+        }
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("Value"), M_SideEffectParam.GetParam_MultipliedInt("ValuePlus"));
         }
 
         public override void Execute(ExecutorInfo executorInfo)

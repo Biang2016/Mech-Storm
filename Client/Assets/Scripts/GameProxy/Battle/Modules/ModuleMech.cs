@@ -22,9 +22,9 @@ internal class ModuleMech : ModuleBase, ILife
         {
             foreach (SideEffectBase se in see.SideEffectBases)
             {
-                se.Player = ServerPlayer;
+                se.Player = BattlePlayer;
                 se.M_ExecutorInfo = new ExecutorInfo(
-                    ServerPlayer.ClientId,
+                    BattlePlayer.ClientId,
                     sideEffectExecutorID: see.ID,
                     mechId: M_MechID
                 );
@@ -79,8 +79,8 @@ internal class ModuleMech : ModuleBase, ILife
         {
             if (m_ImmuneLeftRounds != value)
             {
-                MechImmuneStateRequest request = new MechImmuneStateRequest(ServerPlayer.ClientId, M_MechID, value);
-                ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+                MechImmuneStateRequest request = new MechImmuneStateRequest(BattlePlayer.ClientId, M_MechID, value);
+                BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
             m_ImmuneLeftRounds = value;
@@ -96,8 +96,8 @@ internal class ModuleMech : ModuleBase, ILife
         {
             if (m_InactivityRounds != value)
             {
-                MechInactivityStateRequest request = new MechInactivityStateRequest(ServerPlayer.ClientId, M_MechID, value);
-                ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+                MechInactivityStateRequest request = new MechInactivityStateRequest(BattlePlayer.ClientId, M_MechID, value);
+                BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
                 m_InactivityRounds = value;
                 CheckCanAttack();
             }
@@ -106,8 +106,8 @@ internal class ModuleMech : ModuleBase, ILife
 
     protected virtual void OnLifeChanged(int change, bool isOverflow)
     {
-        MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addLeftLife: change);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addLeftLife: change);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     protected virtual void OnHeal(int change, bool isOverflow)
@@ -120,8 +120,8 @@ internal class ModuleMech : ModuleBase, ILife
 
     protected virtual void OnMaxLifeChanged(int change)
     {
-        MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addMaxLife: change);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addMaxLife: change);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     protected virtual void OnMaxLifeIncrease(int change)
@@ -252,8 +252,8 @@ internal class ModuleMech : ModuleBase, ILife
 
             if (isInitialized && before != m_MechAttack)
             {
-                MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addAttack: m_MechAttack - before);
-                ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+                MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addAttack: m_MechAttack - before);
+                BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
             CheckCanAttack();
@@ -290,8 +290,8 @@ internal class ModuleMech : ModuleBase, ILife
                         m_MechAttack = CardInfo.BattleInfo.BasicAttack + (M_Weapon?.CardInfo.WeaponInfo.Attack ?? 0);
                     }
 
-                    MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addAttack: m_MechAttack - beforeAttack, addWeaponEnergy: m_MechWeaponEnergy - before);
-                    ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+                    MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addAttack: m_MechAttack - beforeAttack, addWeaponEnergy: m_MechWeaponEnergy - before);
+                    BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
                 }
 
                 CheckCanAttack();
@@ -318,8 +318,8 @@ internal class ModuleMech : ModuleBase, ILife
 
                 if (isInitialized && before != m_MechWeaponEnergyMax)
                 {
-                    MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addWeaponEnergyMax: m_MechWeaponEnergyMax - before);
-                    ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+                    MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addWeaponEnergyMax: m_MechWeaponEnergyMax - before);
+                    BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
                 }
 
                 CheckCanAttack();
@@ -343,8 +343,8 @@ internal class ModuleMech : ModuleBase, ILife
 
             if (isInitialized && before != m_MechArmor)
             {
-                MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addArmor: m_MechArmor - before);
-                ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+                MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addArmor: m_MechArmor - before);
+                BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
             if (M_Shield != null)
@@ -379,8 +379,8 @@ internal class ModuleMech : ModuleBase, ILife
 
             if (isInitialized && before != m_MechShield)
             {
-                MechAttributesChangeRequest request = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addShield: m_MechShield - before);
-                ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+                MechAttributesChangeRequest request = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addShield: m_MechShield - before);
+                BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             }
 
             if (M_Shield != null)
@@ -443,12 +443,12 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (m_Weapon != null)
         {
-            if (!M_Weapon.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
+            if (!M_Weapon.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
             m_Weapon.UnRegisterSideEffect();
 
-            EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, null, M_MechID, m_Weapon.M_EquipID);
-            ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+            EquipWeaponServerRequest request = new EquipWeaponServerRequest(BattlePlayer.ClientId, null, M_MechID, m_Weapon.M_EquipID);
+            BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Weapon = null;
 
             int att_before = m_MechAttack;
@@ -459,17 +459,17 @@ internal class ModuleMech : ModuleBase, ILife
             m_MechWeaponEnergy = 0;
             m_MechWeaponEnergyMax = 0;
 
-            MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addAttack: m_MechAttack - att_before, addWeaponEnergy: m_MechWeaponEnergy - we_before, addWeaponEnergyMax: m_MechWeaponEnergyMax - weMax_before);
-            ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
+            MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addAttack: m_MechAttack - att_before, addWeaponEnergy: m_MechWeaponEnergy - we_before, addWeaponEnergyMax: m_MechWeaponEnergyMax - weMax_before);
+            BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
         }
     }
 
     void On_WeaponEquiped(ModuleWeapon newWeapon)
     {
         m_Weapon = newWeapon;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_MechID, m_Weapon.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_MechID, m_Weapon.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         RefreshAttackTime();
         int att_before = m_MechAttack;
@@ -480,22 +480,22 @@ internal class ModuleMech : ModuleBase, ILife
         m_MechWeaponEnergy += newWeapon.CardInfo.WeaponInfo.Energy;
         if (m_MechWeaponEnergy == 0) m_MechAttack = CardInfo.BattleInfo.BasicAttack;
 
-        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addAttack: m_MechAttack - att_before, addWeaponEnergy: m_MechWeaponEnergy - we_before, addWeaponEnergyMax: m_MechWeaponEnergyMax - weMax_before);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
+        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addAttack: m_MechAttack - att_before, addWeaponEnergy: m_MechWeaponEnergy - we_before, addWeaponEnergyMax: m_MechWeaponEnergyMax - weMax_before);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void On_WeaponChanged(ModuleWeapon newWeapon)
     {
         if (m_Weapon != null)
         {
-            if (!M_Weapon.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
+            if (!M_Weapon.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
             m_Weapon.UnRegisterSideEffect();
         }
 
         m_Weapon = newWeapon;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
-        EquipWeaponServerRequest request = new EquipWeaponServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_MechID, m_Weapon.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
+        EquipWeaponServerRequest request = new EquipWeaponServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_MechID, m_Weapon.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         RefreshAttackTime();
         int att_before = m_MechAttack;
@@ -506,8 +506,8 @@ internal class ModuleMech : ModuleBase, ILife
         m_MechWeaponEnergy = newWeapon.CardInfo.WeaponInfo.Energy;
         if (m_MechWeaponEnergy == 0) m_MechAttack = CardInfo.BattleInfo.BasicAttack;
 
-        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addAttack: m_MechAttack - att_before, addWeaponEnergy: m_MechWeaponEnergy - we_before, addWeaponEnergyMax: m_MechWeaponEnergyMax - weMax_before);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
+        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addAttack: m_MechAttack - att_before, addWeaponEnergy: m_MechWeaponEnergy - we_before, addWeaponEnergyMax: m_MechWeaponEnergyMax - weMax_before);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void RefreshAttackTime()
@@ -557,12 +557,12 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (m_Shield != null)
         {
-            if (!M_Shield.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
+            if (!M_Shield.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
             m_Shield.UnRegisterSideEffect();
 
-            EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, null, M_MechID, m_Shield.M_EquipID);
-            ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+            EquipShieldServerRequest request = new EquipShieldServerRequest(BattlePlayer.ClientId, null, M_MechID, m_Shield.M_EquipID);
+            BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Shield = null;
 
             int addShield = 0;
@@ -577,47 +577,47 @@ internal class ModuleMech : ModuleBase, ILife
                 addArmor = CardInfo.BattleInfo.BasicArmor - m_MechArmor;
             }
 
-            MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addShield: addShield, addArmor: addArmor);
-            ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
+            MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addShield: addShield, addArmor: addArmor);
+            BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
         }
     }
 
     void On_ShieldEquiped(ModuleShield newShield)
     {
         m_Shield = newShield;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_MechID, m_Shield.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
+        EquipShieldServerRequest request = new EquipShieldServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_MechID, m_Shield.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         int shield_before = m_MechShield;
         int armor_before = m_MechArmor;
         m_MechArmor += newShield.CardInfo.ShieldInfo.Armor;
         m_MechShield += newShield.CardInfo.ShieldInfo.Shield;
 
-        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addShield: m_MechShield - shield_before, addArmor: m_MechArmor - armor_before);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
+        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addShield: m_MechShield - shield_before, addArmor: m_MechArmor - armor_before);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     void On_ShieldChanged(ModuleShield newShield) //更换防具时机体基础护甲护盾恢复
     {
         if (m_Shield != null)
         {
-            if (!M_Shield.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
+            if (!M_Shield.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
             m_Shield.UnRegisterSideEffect();
         }
 
         m_Shield = newShield;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
-        EquipShieldServerRequest request = new EquipShieldServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_MechID, m_Shield.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
+        EquipShieldServerRequest request = new EquipShieldServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_MechID, m_Shield.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         int shield_before = m_MechShield;
         int armor_before = m_MechArmor;
         m_MechShield = CardInfo.BattleInfo.BasicShield + newShield.CardInfo.ShieldInfo.Shield;
         m_MechArmor = CardInfo.BattleInfo.BasicArmor + newShield.CardInfo.ShieldInfo.Armor;
 
-        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(ServerPlayer.ClientId, M_MechID, addShield: m_MechShield - shield_before, addArmor: m_MechArmor - armor_before);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
+        MechAttributesChangeRequest request2 = new MechAttributesChangeRequest(BattlePlayer.ClientId, M_MechID, addShield: m_MechShield - shield_before, addArmor: m_MechArmor - armor_before);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request2);
     }
 
     #endregion
@@ -652,12 +652,12 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (m_Pack != null)
         {
-            if (!M_Pack.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
+            if (!M_Pack.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
             m_Pack.UnRegisterSideEffect();
 
-            EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, null, M_MechID, m_Pack.M_EquipID);
-            ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+            EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, null, M_MechID, m_Pack.M_EquipID);
+            BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Pack = null;
         }
     }
@@ -665,23 +665,23 @@ internal class ModuleMech : ModuleBase, ILife
     void On_PackEquiped(ModulePack newPack)
     {
         m_Pack = newPack;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
-        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
+        EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     void On_PackChanged(ModulePack newPack)
     {
         if (m_Pack != null)
         {
-            if (!M_Pack.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
+            if (!M_Pack.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
             m_Pack.UnRegisterSideEffect();
         }
 
         m_Pack = newPack;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
-        EquipPackServerRequest request = new EquipPackServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
+        EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     #endregion
@@ -716,12 +716,12 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (m_MA != null)
         {
-            if (!M_MA.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
+            if (!M_MA.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
             m_MA.UnRegisterSideEffect();
 
-            EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, null, M_MechID, m_MA.M_EquipID);
-            ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+            EquipMAServerRequest request = new EquipMAServerRequest(BattlePlayer.ClientId, null, M_MechID, m_MA.M_EquipID);
+            BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_MA = null;
         }
     }
@@ -729,23 +729,23 @@ internal class ModuleMech : ModuleBase, ILife
     void On_MAEquiped(ModuleMA newMA)
     {
         m_MA = newMA;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
-        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_MechID, m_MA.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
+        EquipMAServerRequest request = new EquipMAServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_MechID, m_MA.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     void On_MAChanged(ModuleMA newMA)
     {
         if (m_MA != null)
         {
-            if (!M_MA.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
+            if (!M_MA.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
             m_MA.UnRegisterSideEffect();
         }
 
         m_MA = newMA;
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(ServerPlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
-        EquipMAServerRequest request = new EquipMAServerRequest(ServerPlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_MechID, m_MA.M_EquipID);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
+        EquipMAServerRequest request = new EquipMAServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_MechID, m_MA.M_EquipID);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     #endregion
@@ -813,19 +813,19 @@ internal class ModuleMech : ModuleBase, ILife
         {
             if (canAttack && !value)
             {
-                ServerPlayer.BattleGroundManager.CanAttackMechs.Remove(M_MechID);
+                BattlePlayer.BattleGroundManager.CanAttackMechs.Remove(M_MechID);
             }
 
             if (!canAttack && value)
             {
-                ServerPlayer.BattleGroundManager.CanAttackMechs.Add(M_MechID);
+                BattlePlayer.BattleGroundManager.CanAttackMechs.Add(M_MechID);
             }
 
             if (canAttack != value)
             {
                 canAttack = value;
-                MechCanAttackRequest request = new MechCanAttackRequest(ServerPlayer.ClientId, M_MechID, value);
-                ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+                MechCanAttackRequest request = new MechCanAttackRequest(BattlePlayer.ClientId, M_MechID, value);
+                BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -834,7 +834,7 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (M_ImmuneLeftRounds != 0) return false;
         if (attackMech.M_Weapon != null && attackMech.M_Weapon.M_WeaponType == WeaponTypes.SniperGun && attackMech.M_MechWeaponEnergy != 0) return true; //狙击枪可以越过嘲讽机甲，其他武器只能攻击嘲讽机甲
-        if (ServerPlayer.BattleGroundManager.HasDefenseMech && !IsDefender) return false;
+        if (BattlePlayer.BattleGroundManager.HasDefenseMech && !IsDefender) return false;
         return true;
     }
 
@@ -877,7 +877,7 @@ internal class ModuleMech : ModuleBase, ILife
     private void CheckCanAttack()
     {
         bool res = true;
-        res &= ServerPlayer.GameManager.CurrentPlayer == ServerPlayer;
+        res &= BattlePlayer.GameManager.CurrentPlayer == BattlePlayer;
         res &= !IsFirstRound || (IsFirstRound && CanCharge);
         res &= (M_InactivityRounds == 0);
         res &= (!CannotAttackBecauseDie);
@@ -967,8 +967,8 @@ internal class ModuleMech : ModuleBase, ILife
 
     private void ShieldDefenseDamage(int decreaseValue, int shieldValue)
     {
-        MechShieldDefenseRequest request = new MechShieldDefenseRequest(ServerPlayer.ClientId, M_MechID, decreaseValue, shieldValue);
-        ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+        MechShieldDefenseRequest request = new MechShieldDefenseRequest(BattlePlayer.ClientId, M_MechID, decreaseValue, shieldValue);
+        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     private void OnBeAttacked()
@@ -977,8 +977,8 @@ internal class ModuleMech : ModuleBase, ILife
 
     public void OnDodge()
     {
-        MechDodgeRequest request = new MechDodgeRequest(ServerPlayer.ClientId, M_MechID);
-        ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+        MechDodgeRequest request = new MechDodgeRequest(BattlePlayer.ClientId, M_MechID);
+        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     private enum AttackLevel
@@ -1008,14 +1008,14 @@ internal class ModuleMech : ModuleBase, ILife
 
     void OnAttack(WeaponTypes weaponType, int targetMechId)
     {
-        MechOnAttackRequest request = new MechOnAttackRequest(ServerPlayer.ClientId, M_MechID, targetMechId, weaponType);
-        ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+        MechOnAttackRequest request = new MechOnAttackRequest(BattlePlayer.ClientId, M_MechID, targetMechId, weaponType);
+        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     void OnAttackShip(WeaponTypes weaponType, int targetClientId)
     {
-        MechOnAttackShipRequest request = new MechOnAttackShipRequest(ServerPlayer.ClientId, M_MechID, targetClientId, weaponType);
-        ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+        MechOnAttackShipRequest request = new MechOnAttackShipRequest(BattlePlayer.ClientId, M_MechID, targetClientId, weaponType);
+        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
     public void Attack(ModuleMech targetMech, bool isCounterAttack) //服务器客户单分别计算
@@ -1141,9 +1141,9 @@ internal class ModuleMech : ModuleBase, ILife
         else if (M_MechLeftLife != 0 && targetMech.M_MechLeftLife == 0) //反击方挂了
         {
             targetMech.OnDieTogether();
-            ExecutorInfo ei = new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID, targetMechIds: new List<int> {targetMech.M_MechID});
-            if (CardInfo.MechInfo.IsSoldier) ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierKill, ei);
-            else ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroKill, ei);
+            ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID, targetMechIds: new List<int> {targetMech.M_MechID});
+            if (CardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierKill, ei);
+            else BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroKill, ei);
         }
         else if (M_MechLeftLife == 0 && targetMech.M_MechLeftLife == 0) //全挂了
         {
@@ -1168,28 +1168,28 @@ internal class ModuleMech : ModuleBase, ILife
         M_Shield = null;
         M_Pack = null;
         M_MA = null;
-        ServerPlayer.GameManager.AddDieTogetherMechsInfo(M_MechID);
-        ExecutorInfo info = new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID);
-        if (CardInfo.MechInfo.IsSoldier) ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierDie, info);
-        else ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroDie, info);
+        BattlePlayer.GameManager.AddDieTogetherMechsInfo(M_MechID);
+        ExecutorInfo info = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
+        if (CardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierDie, info);
+        else BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroDie, info);
     }
 
     public void UnregisterEvent()
     {
-        ServerPlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
     }
 
     private void OnMakeDamage(int damage)
     {
-        ExecutorInfo ei = new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
 
         if (CardInfo.MechInfo.IsSoldier)
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierMakeDamage, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierMakeDamage, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
         }
         else
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroMakeDamage, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroMakeDamage, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
         }
     }
 
@@ -1197,11 +1197,11 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (CardInfo.MechInfo.IsSoldier)
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierInjured, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierInjured, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
         }
         else
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroInjured, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroInjured, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
         }
     }
 
@@ -1209,11 +1209,11 @@ internal class ModuleMech : ModuleBase, ILife
     {
         if (CardInfo.MechInfo.IsSoldier)
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierBeHealed, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierBeHealed, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
         }
         else
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroBeHealed, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroBeHealed, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
         }
     }
 
@@ -1271,14 +1271,14 @@ internal class ModuleMech : ModuleBase, ILife
 
     private void OnAttack()
     {
-        ExecutorInfo ei = new ExecutorInfo(clientId: ServerPlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo ei = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID);
         if (CardInfo.MechInfo.IsSoldier)
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierAttack, ei);
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierAttack, ei);
         }
         else
         {
-            ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroAttack, ei);
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroAttack, ei);
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
+using SideEffects;
 
 public class CardInfo_Base : IClone<CardInfo_Base>
 {

@@ -60,15 +60,15 @@ internal class BattleGroundManager
         }
     }
 
-    public BattlePlayer ServerPlayer;
+    public BattlePlayer BattlePlayer;
     public List<ModuleMech> Mechs = new List<ModuleMech>();
     public List<ModuleMech> Heroes = new List<ModuleMech>();
     public List<ModuleMech> Soldiers = new List<ModuleMech>();
     public HashSet<int> CanAttackMechs = new HashSet<int>();
 
-    public BattleGroundManager(BattlePlayer serverPlayer)
+    public BattleGroundManager(BattlePlayer battlePlayer)
     {
-        ServerPlayer = serverPlayer;
+        BattlePlayer = battlePlayer;
     }
 
     #region SideEffects
@@ -104,11 +104,9 @@ internal class BattleGroundManager
         int battleGroundIndex = Mechs.IndexOf(mech);
         if (battleGroundIndex == -1)
         {
-            BattleLog.Instance.Log.PrintWarning("BattleGroundRemoveMech not exist mech：" + mech.M_MechID);
-
+            BattlePlayer.GameManager.DebugLog.PrintWarning("BattleGroundRemoveMech not exist mech：" + mech.M_MechID);
             return;
         }
-
         Mechs.Remove(mech);
         MechCount = Mechs.Count;
         if (mech.CardInfo.MechInfo.IsSoldier)
@@ -122,7 +120,7 @@ internal class BattleGroundManager
             HeroCount = Heroes.Count;
         }
 
-        if (!mech.CardInfo.BaseInfo.IsTemp) ServerPlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(mech.OriginCardInstanceId);
+        if (!mech.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(mech.OriginCardInstanceId);
         mech.UnRegisterSideEffect();
     }
 
@@ -142,23 +140,23 @@ internal class BattleGroundManager
     public void AddMech(CardInfo_Mech mechCardInfo, int mechPlaceIndex, int targetMechId, int clientMechTempId, int handCardInstanceId)
     {
         if (BattleGroundIsFull) return;
-        int mechId = ServerPlayer.GameManager.GenerateNewMechId();
-        BattleGroundAddMechRequest request = new BattleGroundAddMechRequest(ServerPlayer.ClientId, mechCardInfo, mechPlaceIndex, mechId, clientMechTempId);
-        ServerPlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
+        int mechId = BattlePlayer.GameManager.GenerateNewMechId();
+        BattleGroundAddMechRequest request = new BattleGroundAddMechRequest(BattlePlayer.ClientId, mechCardInfo, mechPlaceIndex, mechId, clientMechTempId);
+        BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
         ModuleMech mech = new ModuleMech();
         mech.M_MechID = mechId;
         mech.M_UsedClientMechTempId = clientMechTempId;
         mech.OriginCardInstanceId = handCardInstanceId;
-        mech.Initiate(mechCardInfo, ServerPlayer);
+        mech.Initiate(mechCardInfo, BattlePlayer);
 
-        ServerPlayer.CardDeckManager.CardDeck.AddCardInstanceId(mechCardInfo.CardID, handCardInstanceId);
+        BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(mechCardInfo.CardID, handCardInstanceId);
 
         BattleGroundAddMech(mechPlaceIndex, mech);
 
-        ExecutorInfo info = new ExecutorInfo(clientId: ServerPlayer.ClientId, mechId: mechId, targetMechIds: new List<int> {targetMechId});
-        if (mechCardInfo.MechInfo.IsSoldier) ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierSummon, info);
-        else ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroSummon, info);
+        ExecutorInfo info = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: mechId, targetMechIds: new List<int> {targetMechId});
+        if (mechCardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierSummon, info);
+        else BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroSummon, info);
     }
 
     public void EquipWeapon(EquipWeaponRequest r, CardInfo_Base cardInfo)
@@ -167,11 +165,11 @@ internal class BattleGroundManager
         CardInfo_Equip cardInfo_Weapon = (CardInfo_Equip) cardInfo;
         ModuleMech mech = GetMech(r.mechId);
         weapon.M_ModuleMech = mech;
-        weapon.M_EquipID = ServerPlayer.GameManager.GenerateNewEquipId();
-        weapon.Initiate(cardInfo_Weapon, ServerPlayer);
+        weapon.M_EquipID = BattlePlayer.GameManager.GenerateNewEquipId();
+        weapon.Initiate(cardInfo_Weapon, BattlePlayer);
         weapon.OriginCardInstanceId = r.handCardInstanceId;
         mech.M_Weapon = weapon;
-        ServerPlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipShield(EquipShieldRequest r, CardInfo_Base cardInfo)
@@ -180,11 +178,11 @@ internal class BattleGroundManager
         CardInfo_Equip cardInfo_Shield = (CardInfo_Equip) cardInfo;
         ModuleMech mech = GetMech(r.mechID);
         shield.M_ModuleMech = mech;
-        shield.M_EquipID = ServerPlayer.GameManager.GenerateNewEquipId();
-        shield.Initiate(cardInfo_Shield, ServerPlayer);
+        shield.M_EquipID = BattlePlayer.GameManager.GenerateNewEquipId();
+        shield.Initiate(cardInfo_Shield, BattlePlayer);
         shield.OriginCardInstanceId = r.handCardInstanceId;
         mech.M_Shield = shield;
-        ServerPlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipPack(EquipPackRequest r, CardInfo_Base cardInfo)
@@ -193,11 +191,11 @@ internal class BattleGroundManager
         CardInfo_Equip cardInfo_Pack = (CardInfo_Equip) cardInfo;
         ModuleMech mech = GetMech(r.mechID);
         pack.M_ModuleMech = mech;
-        pack.M_EquipID = ServerPlayer.GameManager.GenerateNewEquipId();
-        pack.Initiate(cardInfo_Pack, ServerPlayer);
+        pack.M_EquipID = BattlePlayer.GameManager.GenerateNewEquipId();
+        pack.Initiate(cardInfo_Pack, BattlePlayer);
         pack.OriginCardInstanceId = r.handCardInstanceId;
         mech.M_Pack = pack;
-        ServerPlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     public void EquipMA(EquipMARequest r, CardInfo_Base cardInfo)
@@ -206,11 +204,11 @@ internal class BattleGroundManager
         CardInfo_Equip cardInfo_MA = (CardInfo_Equip) cardInfo;
         ModuleMech mech = GetMech(r.mechID);
         ma.M_ModuleMech = mech;
-        ma.M_EquipID = ServerPlayer.GameManager.GenerateNewEquipId();
-        ma.Initiate(cardInfo_MA, ServerPlayer);
+        ma.M_EquipID = BattlePlayer.GameManager.GenerateNewEquipId();
+        ma.Initiate(cardInfo_MA, BattlePlayer);
         ma.OriginCardInstanceId = r.handCardInstanceId;
         mech.M_MA = ma;
-        ServerPlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
+        BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(cardInfo.CardID, r.handCardInstanceId);
     }
 
     #region Utils
@@ -231,7 +229,7 @@ internal class BattleGroundManager
         int countDieMech = 0;
         for (int i = 0; i < battleGroundIndex; i++)
         {
-            if (ServerPlayer.GameManager.DieMechList.Contains(Mechs[i].M_MechID))
+            if (BattlePlayer.GameManager.DieMechList.Contains(Mechs[i].M_MechID))
             {
                 countDieMech++;
             }
@@ -311,7 +309,7 @@ internal class BattleGroundManager
 
     internal void BeginRound()
     {
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnBeginRound, new ExecutorInfo(clientId: ServerPlayer.ClientId));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnBeginRound, new ExecutorInfo(clientId: BattlePlayer.ClientId));
         foreach (ModuleMech mech in Mechs)
         {
             mech.OnBeginRound();
@@ -320,13 +318,13 @@ internal class BattleGroundManager
 
     internal void EndRound()
     {
-        ServerPlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEndRound, new ExecutorInfo(clientId: ServerPlayer.ClientId));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEndRound, new ExecutorInfo(clientId: BattlePlayer.ClientId));
         foreach (ModuleMech mech in Mechs)
         {
             mech.OnEndRound();
         }
 
-        foreach (ModuleMech mech in ServerPlayer.MyEnemyPlayer.BattleGroundManager.Mechs)
+        foreach (ModuleMech mech in BattlePlayer.MyEnemyPlayer.BattleGroundManager.Mechs)
         {
             if (mech.M_ImmuneLeftRounds > 0) mech.M_ImmuneLeftRounds--;
             if (mech.M_InactivityRounds > 0) mech.M_InactivityRounds--;

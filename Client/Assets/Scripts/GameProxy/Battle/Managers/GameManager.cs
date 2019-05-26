@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 internal partial class GameManager
 {
+    public Battle Battle;
     public BattleProxy ClientA;
     public BattleProxy ClientB;
     public BattlePlayer CurrentPlayer;
@@ -14,8 +15,11 @@ internal partial class GameManager
 
     public RandomNumberGenerator RandomNumberGenerator;
 
-    public GameManager(BattleProxy clientA, BattleProxy clientB)
+    public ILog DebugLog => Battle.DebugLog;
+
+    public GameManager(Battle battle, BattleProxy clientA, BattleProxy clientB)
     {
+        Battle = battle;
         ClientA = clientA;
         ClientB = clientB;
 
@@ -60,7 +64,7 @@ internal partial class GameManager
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
-        BattleLog.Instance.Log.Print("StartGameSuccess! Between: " + ClientA.ClientID + " and " + ClientB.ClientID);
+        DebugLog.Print("StartGameSuccess! Between: " + ClientA.ClientID + " and " + ClientB.ClientID);
 
         SyncRandomNumber();
 
@@ -420,12 +424,16 @@ internal partial class GameManager
         if (IsStopped)
         {
             if (ClientA == null)
-                BattleLog.Instance.Log.Print(ClientA.ClientID + "   ClientA==null");
+            {
+                DebugLog.Print(ClientA.ClientID + "   ClientA==null");
+            }
 
             ClientA.ClientState = ProxyBase.ClientStates.Login;
 
             if (ClientB == null)
-                BattleLog.Instance.Log.Print(ClientB.ClientID + "   ClientB==null");
+            {
+                DebugLog.Print(ClientB.ClientID + "   ClientB==null");
+            }
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
@@ -437,7 +445,7 @@ internal partial class GameManager
 
             EventManager.ClearAllEvents();
 
-            BattleLog.Instance.Log.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
+            DebugLog.PrintClientStates("GameStopSucBetween: " + PlayerA.ClientId + ", " + PlayerB.ClientId);
         }
 
         IsStopped = false;

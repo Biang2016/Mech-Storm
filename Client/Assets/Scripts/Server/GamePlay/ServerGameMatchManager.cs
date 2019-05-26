@@ -18,7 +18,8 @@ internal class ServerGameMatchManager
             ServerProxy clientB = matchingClients[1];
             matchingClients.Remove(clientA);
             matchingClients.Remove(clientB);
-            Battle battle = new Battle(clientA.GameProxy.BattleProxy, clientB.GameProxy.BattleProxy);
+            Battle battle = new Battle(clientA.GameProxy.BattleProxy, clientB.GameProxy.BattleProxy, ServerLog.Instance);
+
             Battles.Add(battle);
             clientBattleMapping.Add(clientA.ClientID, battle);
             clientBattleMapping.Add(clientB.ClientID, battle);

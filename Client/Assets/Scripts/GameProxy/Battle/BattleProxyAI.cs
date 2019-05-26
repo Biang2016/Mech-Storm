@@ -5,9 +5,9 @@
 /// AI不需要任何Socket有关的功能
 /// 固定PlayerA为玩家，PlayerB为AI
 /// </summary>
-internal class BattleProxyAI : BattleProxy
+public class BattleProxyAI : BattleProxy
 {
-    public BattleProxyAI(int clientId, string userName, SendMessageDelegate sendMessage, ILog debugLog) : base(clientId, userName, null, sendMessage, debugLog)
+    public BattleProxyAI(int clientId, string userName) : base(clientId, userName, null, null)
     {
         SendMessage = sendMessage;
     }
@@ -306,9 +306,9 @@ internal class BattleProxyAI : BattleProxy
         return mech;
     }
 
-    public bool CheckMechCanEquipMe(ModuleMech mech, CardInfo_Equip equipInfo)
+    internal bool CheckMechCanEquipMe(ModuleMech mech, CardInfo_Equip equipInfo)
     {
-        if (MyPlayer == mech.ServerPlayer && mech.CardInfo.MechInfo.HasSlotType(equipInfo.EquipInfo.SlotType) && !mech.M_IsDead)
+        if (MyPlayer == mech.BattlePlayer && mech.CardInfo.MechInfo.HasSlotType(equipInfo.EquipInfo.SlotType) && !mech.M_IsDead)
         {
             if (equipInfo.EquipInfo.SlotType == SlotTypes.Weapon && equipInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
             {

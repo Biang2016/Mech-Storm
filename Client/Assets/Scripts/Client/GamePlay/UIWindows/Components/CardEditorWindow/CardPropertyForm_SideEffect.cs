@@ -405,7 +405,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                 {
                     if (sev.Name.Equals("BuffName"))
                     {
-                        AddPlayerBuff addBuffSE = (AddPlayerBuff) se;
+                        AddPlayerBuff_Base addBuffSE = (AddPlayerBuff_Base) se;
                         SideEffectValue_String s = (SideEffectValue_String) sev;
                         PropertyFormRow row = PropertyFormRow.BaseInitialize(
                             type: PropertyFormRow.CardPropertyFormRowType.Dropdown,

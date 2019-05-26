@@ -4,24 +4,24 @@ using System.Net.Sockets;
 
 public class BattleProxy
 {
-    public ILog DebugLog;
+    public ILog DebugLog => Battle.DebugLog;
     public SendMessageDelegate SendMessage;
 
     public int ClientID;
     public BuildInfo BuildInfo;
     public string UserName;
 
-    public BattleProxy(int clientId, string userName, BuildInfo buildInfo, SendMessageDelegate sendMessage, ILog debugLog)
+    public BattleProxy(int clientId, string userName, BuildInfo buildInfo, SendMessageDelegate sendMessage)
     {
         UserName = userName;
         BuildInfo = buildInfo;
         ClientID = clientId;
         SendMessage = sendMessage;
-        DebugLog = debugLog;
     }
 
     public ProxyBase.ClientStates ClientState;
 
+    internal Battle Battle;
     internal GameManager BattleGameManager;
     internal BattlePlayer MyPlayer;
     internal BattlePlayer EnemyPlayer;
@@ -121,7 +121,7 @@ public class BattleProxy
             }
             catch (Exception e)
             {
-                BattleLog.Instance.Log.PrintError(e.ToString());
+                DebugLog.PrintError(e.ToString());
 
                 if (BattleGameManager != null && !BattleGameManager.IsStopped)
                 {

@@ -26,7 +26,7 @@ public class AllStories
 
             //初始卡组
             string buildName = story.ChildNodes.Item(0).Attributes["BuildName"].Value;
-            int playerDefaultBuildId = BuildStoryDatabase.Instance.BuildGroupDict["StoryBuilds"].GetBuildInfo(buildName).BuildID;
+            int playerDefaultBuildId = BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.StoryBuilds].GetBuildInfo(buildName).BuildID;
 
             //初始解锁卡片
             XmlNode gpsNode = story.ChildNodes.Item(1);
@@ -96,7 +96,7 @@ public class AllStories
                         XmlNode enemyTypeInfo = enemyInfo.ChildNodes.Item(m);
                         EnemyType enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), enemyTypeInfo.Attributes["type"].Value);
                         string enemyBuildName = enemyTypeInfo.Attributes["BuildName"].Value;
-                        BuildInfo enemyBuildInfo = BuildStoryDatabase.Instance.BuildGroupDict["EnemyBuilds"].GetBuildInfo(enemyBuildName).Clone();
+                        BuildInfo enemyBuildInfo = BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.EnemyBuilds].GetBuildInfo(enemyBuildName).Clone();
                         List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
                         List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
                         Enemy Enemy = new Enemy(EnemyPicID, new SortedDictionary<string, string> {{"zh", Name_zh}, {"en", Name_en}}, enemyBuildInfo, enemyType, 100, AlwaysBonusGroup, OptionalBonusGroup);

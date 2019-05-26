@@ -2,10 +2,17 @@
 
 namespace SideEffects
 {
-    public class RunAway : RunAway_Base
+    public class RunAway : TargetSideEffect
     {
         public RunAway()
         {
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
         public override void Execute(ExecutorInfo executorInfo)

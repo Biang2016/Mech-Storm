@@ -65,10 +65,9 @@ public class Proxy : ProxyBase
 
     public void OnBeginSingleMode(int storyPaceID)
     {
-        ClientRequestBase req = null;
-        req = new MatchStandAloneRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, storyPaceID);
-        SendMessage(req);
         ClientState = ClientStates.Matching;
+        ClientRequestBase req = new MatchStandaloneRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, storyPaceID);
+        SendMessage(req);
     }
 
     #region 收发基础组件

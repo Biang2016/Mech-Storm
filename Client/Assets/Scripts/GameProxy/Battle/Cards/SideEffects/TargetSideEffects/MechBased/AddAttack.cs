@@ -1,9 +1,24 @@
 ﻿namespace SideEffects
 {
-    public class AddAttack : AddAttack_Base
+    public class AddAttack : TargetSideEffect
     {
         public AddAttack()
         {
+        }
+
+        protected override void InitSideEffectParam()
+        {
+            base.InitSideEffectParam();
+            M_SideEffectParam.SetParam_MultipliedInt("AttackValue", 0);
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+                GetDescOfTargetRange(),
+                M_SideEffectParam.GetParam_MultipliedInt("AttackValue"));
         }
 
         public override void Execute(ExecutorInfo executorInfo)

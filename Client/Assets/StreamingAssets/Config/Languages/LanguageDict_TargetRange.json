@@ -52,6 +52,10 @@
 		"zh": "所有敌方角色",
 		"en": "All Enemy's Objects "
 	},
+	"TargetRange_All_Decks": {
+		"zh": "敌我卡组",
+		"en": "Both enemy's and your decks"
+	},
 
 	"TargetRange_Single_Mechs": {
 		"zh": "一个机甲",
@@ -117,6 +121,18 @@
 		"zh": "自身",
 		"en": "Self "
 	},
+	"TargetRange_Single_Decks": {
+		"zh": "一个卡组",
+		"en": "a Deck "
+	},
+	"TargetRange_Single_SelfDeck": {
+		"zh": "卡组",
+		"en": "Deck "
+	},
+	"TargetRange_Single_EnemyDeck": {
+		"zh": "敌方卡组",
+		"en": "Enemy's deck "
+	},
 
 	"TargetRange_SingleRandom_Mechs": {
 		"zh": "一个随机机甲",
@@ -169,6 +185,10 @@
 	"TargetRange_SingleRandom_EnemyLife": {
 		"zh": "一个随机敌方角色",
 		"en": "A Random Enemy's Object "
+	},
+	"TargetRange_SingleRandom_Decks": {
+		"zh": "随机一个敌我卡组",
+		"en": "Random deck of enemy's or yours "
 	},
 
 	"TargetRange_Multiple_Mechs": {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,11 @@ public class AllBuilds
         {
             FileInfo fi = new FileInfo(path);
             string pureName = fi.Name.Substring(0, fi.Name.LastIndexOf("."));
-            if (!BuildStoryDatabase.Instance.BuildGroupDict.ContainsKey(pureName))
+            BuildGroups bgType = (BuildGroups) Enum.Parse(typeof(BuildGroups), pureName);
+            if (!BuildStoryDatabase.Instance.BuildGroupDict.ContainsKey(bgType))
             {
                 BuildGroup sb = new BuildGroup(pureName);
-                BuildStoryDatabase.Instance.BuildGroupDict.Add(pureName, sb);
+                BuildStoryDatabase.Instance.BuildGroupDict.Add(bgType, sb);
             }
 
             string text;
@@ -69,7 +71,7 @@ public class AllBuilds
                 }
 
                 BuildStoryDatabase.Instance.AddOrModifyBuild(pureName, buildInfo);
-                BuildStoryDatabase.Instance.BuildGroupDict[pureName].AddBuild(buildInfo.BuildName, buildInfo.BuildID);
+                BuildStoryDatabase.Instance.BuildGroupDict[bgType].AddBuild(buildInfo.BuildName, buildInfo.BuildID);
             }
         }
     }

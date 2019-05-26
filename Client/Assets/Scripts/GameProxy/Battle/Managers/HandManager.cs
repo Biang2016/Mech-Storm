@@ -149,7 +149,7 @@ internal class Battle_HandManager
 
         if (onlyTriggerNotUse)
         {
-            CardBase copyCard = CardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.ServerPlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
+            CardBase copyCard = CardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.BattlePlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayCard,
                 new ExecutorInfo(
                     clientId: BattlePlayer.ClientId,

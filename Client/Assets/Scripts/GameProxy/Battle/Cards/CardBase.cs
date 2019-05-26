@@ -1,9 +1,9 @@
 ﻿internal abstract class CardBase
 {
-    internal BattlePlayer ServerPlayer;
+    internal BattlePlayer BattlePlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
-    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, BattlePlayer serverPlayer, int cardInstanceId)
+    public static CardBase InstantiateCardByCardInfo(CardInfo_Base cardInfo, BattlePlayer battlePlayer, int cardInstanceId)
     {
         CardBase newCard;
         switch (cardInfo.BaseInfo.CardType)
@@ -25,14 +25,14 @@
                 break;
         }
 
-        newCard.Initiate(cardInfo, serverPlayer, cardInstanceId);
+        newCard.Initiate(cardInfo, battlePlayer, cardInstanceId);
         return newCard;
     }
 
-    public virtual void Initiate(CardInfo_Base cardInfo, BattlePlayer serverPlayer, int cardInstanceId)
+    public virtual void Initiate(CardInfo_Base cardInfo, BattlePlayer battlePlayer, int cardInstanceId)
     {
         isInitialized = false;
-        ServerPlayer = serverPlayer;
+        BattlePlayer = battlePlayer;
         CardInfo = cardInfo.Clone();
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
@@ -44,22 +44,22 @@
         {
             foreach (SideEffectBase se in see.SideEffectBases)
             {
-                se.Player = ServerPlayer;
+                se.Player = BattlePlayer;
                 if (se is HandCardRelatedSideEffect)
                 {
                     ((HandCardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
                 }
 
-                se.M_ExecutorInfo = new ExecutorInfo(clientId: ServerPlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
+                se.M_ExecutorInfo = new ExecutorInfo(clientId: BattlePlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
             }
         }
 
-        ServerPlayer.GameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);
     }
 
     public void UnRegisterSideEffect()
     {
-        ServerPlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
     }
 
     #region 属性
@@ -77,8 +77,8 @@
             m_Metal = value;
             if (isInitialized)
             {
-                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, m_Metal - before, 0, m_EffectFactor);
-                ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(BattlePlayer.ClientId, M_CardInstanceId, m_Metal - before, 0, m_EffectFactor);
+                BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -94,8 +94,8 @@
             m_Energy = value;
             if (isInitialized)
             {
-                CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, m_Energy - before, m_EffectFactor);
-                ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+                CardAttributeChangeRequest request = new CardAttributeChangeRequest(BattlePlayer.ClientId, M_CardInstanceId, 0, m_Energy - before, m_EffectFactor);
+                BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
             }
         }
     }
@@ -112,8 +112,8 @@
                 m_EffectFactor = value;
                 if (isInitialized)
                 {
-                    CardAttributeChangeRequest request = new CardAttributeChangeRequest(ServerPlayer.ClientId, M_CardInstanceId, 0, 0, m_EffectFactor);
-                    ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+                    CardAttributeChangeRequest request = new CardAttributeChangeRequest(BattlePlayer.ClientId, M_CardInstanceId, 0, 0, m_EffectFactor);
+                    BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
                 }
             }
         }
@@ -137,12 +137,12 @@
         {
             if (usable && !value)
             {
-                ServerPlayer.HandManager.UsableCards.Remove(M_CardInstanceId);
+                BattlePlayer.HandManager.UsableCards.Remove(M_CardInstanceId);
             }
 
             if (!usable && value)
             {
-                ServerPlayer.HandManager.UsableCards.Add(M_CardInstanceId);
+                BattlePlayer.HandManager.UsableCards.Add(M_CardInstanceId);
             }
 
             usable = value;

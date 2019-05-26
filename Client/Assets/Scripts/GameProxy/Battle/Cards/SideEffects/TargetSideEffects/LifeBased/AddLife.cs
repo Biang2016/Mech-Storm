@@ -1,9 +1,24 @@
 ﻿namespace SideEffects
 {
-    public class AddLife : AddLife_Base
+    public class AddLife : TargetSideEffect
     {
         public AddLife()
         {
+        }
+
+        protected override void InitSideEffectParam()
+        {
+            base.InitSideEffectParam();
+            M_SideEffectParam.SetParam_MultipliedInt("LifeValue", 0);
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.LifeBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+                GetDescOfTargetRange(),
+                M_SideEffectParam.GetParam_MultipliedInt("LifeValue"));
         }
 
         public override void Execute(ExecutorInfo executorInfo)

@@ -50,11 +50,6 @@ public class BuildStoryDatabase
 
     public void DeleteBuild(string username, int buildID, bool isSingle = false)
     {
-        if (BuildGroupDict.ContainsKey(username))
-        {
-            BuildGroupDict[username].Builds.Remove(BuildInfoDict[buildID].BuildName);
-        }
-
         if (BuildInfoDict.ContainsKey(buildID))
         {
             BuildInfoDict.Remove(buildID);
@@ -76,11 +71,6 @@ public class BuildStoryDatabase
             {
                 PlayerStoryStates[username].PlayerBuildInfos.Remove(buildID);
             }
-        }
-
-        if (BuildGroupDict.ContainsKey(username))
-        {
-            AllBuilds.ExportBuilds(BuildGroupDict[username]);
         }
     }
 
@@ -150,7 +140,14 @@ public class BuildStoryDatabase
 
     #region SpecialBuilds
 
-    public Dictionary<string, BuildGroup> BuildGroupDict = new Dictionary<string, BuildGroup>();
+    public Dictionary<BuildGroups, BuildGroup> BuildGroupDict = new Dictionary<BuildGroups, BuildGroup>();
 
     #endregion
+}
+
+public enum BuildGroups
+{
+    EnemyBuilds = 1,
+    OnlineBuilds = 2,
+    StoryBuilds = 3
 }

@@ -1,9 +1,16 @@
 ﻿namespace SideEffects
 {
-    public class Cooperation : Cooperation_Base
+    public class Cooperation : TargetSideEffect
     {
         public Cooperation()
         {
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
         public override void Execute(ExecutorInfo executorInfo)

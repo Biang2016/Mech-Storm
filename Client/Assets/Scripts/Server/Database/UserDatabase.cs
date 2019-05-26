@@ -18,7 +18,7 @@ public class UserDatabase
             UsernamePasswordTable.Add(username, password);
             if (!isSuperAccount) //每个玩家都有几个默认卡组
             {
-                foreach (int playerDefaultBuildID in BuildStoryDatabase.Instance.BuildGroupDict["OnlineBuilds"].Builds.Values)
+                foreach (int playerDefaultBuildID in BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.OnlineBuilds].Builds.Values)
                 {
                     BuildInfo newBI = BuildStoryDatabase.Instance.BuildInfoDict[playerDefaultBuildID].Clone();
                     BuildStoryDatabase.Instance.BuildInfoDict.Add(newBI.BuildID, newBI);

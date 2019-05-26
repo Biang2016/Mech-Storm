@@ -111,7 +111,7 @@ public class EventManager
     /// Invoker info can be found in executorInfo.
     /// TriggerTime enum is Flag. Master trigger can be triggered by Sub trigger -> e.g. OnHeroInjured also triggers OnMechInjured
     /// This method is often used in game logic.
-    /// (e.g. ServerPlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new ExecutorInfo(ServerPlayer.ClientId, mechId: M_MechID, targetMechId: targetMech.M_MechID));)
+    /// (e.g. BattlePlayer.MyGameManager.EventManager.Invoke(SideEffectBundle.TriggerTime.OnSoldierKill, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID, targetMechId: targetMech.M_MechID));)
     /// </summary>
     /// <param name="tt"></param>
     /// <param name="executorInfo"></param>

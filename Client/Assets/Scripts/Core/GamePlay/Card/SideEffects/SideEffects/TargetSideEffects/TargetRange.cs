@@ -25,6 +25,11 @@ public enum TargetRange
     Ships = SelfShip | EnemyShip,
     SelfShip = 16,
     EnemyShip = 32,
-    Self = 64, //该物体自身，如出牌效果、战吼、亡语等
+
+    Decks = SelfDeck | EnemyDeck,
+    SelfDeck = 64,
+    EnemyDeck = 128,
+
+    Self = 256, //该物体自身，如出牌效果、战吼、亡语等
     None = 0,
 }

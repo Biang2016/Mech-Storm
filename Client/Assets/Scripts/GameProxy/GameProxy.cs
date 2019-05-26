@@ -14,6 +14,7 @@ public class GameProxy
     public SendMessageDelegate SendMessage;
 
     public BattleProxy BattleProxy;
+    public Battle CurrentBattle;
 
     public int ClientID;
     public string UserName;
@@ -28,7 +29,7 @@ public class GameProxy
         {
             ProxyBase.ClientStates before = ClientState;
             clientState = value;
-            BattleProxy.ClientState = value;
+            if (BattleProxy != null) BattleProxy.ClientState = value;
             DebugLog.PrintClientStates("Client " + ClientID + " state change: " + before + " -> " + ClientState);
         }
     }
@@ -40,7 +41,7 @@ public class GameProxy
         ServerVersion = serverVersion;
         SendMessage = sendMessageDelegate;
         DebugLog = debugLog;
-        BattleProxy = new BattleProxy(clientID, userName, null, sendMessageDelegate, debugLog);
+        BattleProxy = new BattleProxy(clientID, userName, null, sendMessageDelegate);
         ClientState = ProxyBase.ClientStates.Offline;
     }
 
@@ -140,7 +141,7 @@ public class GameProxy
                 SendMessage(response);
                 break;
             }
-            case MatchStandAloneRequest r:
+            case MatchStandaloneRequest r:
 
                 DebugLog.PrintClientStates("Client " + ClientID + " state: " + ClientState);
 
@@ -151,15 +152,35 @@ public class GameProxy
 
                 if (ClientState == ProxyBase.ClientStates.Login)
                 {
-                    CurrentBuildInfo = Database.Instance.GetBuildInfoByID(r.BuildID);
+                    BattleProxy.BuildInfo = BuildStoryDatabase.Instance.GetBuildInfoByID(r.BuildID);
                     ClientState = ProxyBase.ClientStates.Matching;
-                    if (r.StoryPaceID == -1)
+                    if (r.LevelID == -1)
                     {
-                        Server.SV.SGMM.OnClientMatchStandAloneCustomGames(this);
+                        DebugLog.PrintServerStates("Player " + ClientID + " begin standalone custom game.");
+
+                        BattleProxy clientA = BattleProxy;
+
+                        int AI_ClientId = 998;
+                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
+                        clientB.BuildInfo = BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.EnemyBuilds].GetBuildInfo("CustomBattle").Clone();
+
+                        CurrentBattle = new Battle(clientA, clientB, DebugLog);
+
+                        DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
                     }
                     else
                     {
-                        Server.SV.SGMM.OnClientMatchStandAloneGames(this, r.StoryPaceID);
+                        DebugLog.PrintServerStates("Player " + ClientID + " begin standalone game.");
+
+                        BattleProxy clientA = BattleProxy;
+
+                        int AI_ClientId = 998;
+                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
+                        clientB.BuildInfo = ((Enemy) BuildStoryDatabase.Instance.PlayerStoryStates[UserName].StoryLevels[r.LevelID]).BuildInfo.Clone();
+
+                        CurrentBattle = new Battle(clientA, clientB, DebugLog);
+
+                        DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
                     }
                 }
 
@@ -251,6 +272,19 @@ public class GameProxy
                 BuildStoryDatabase.Instance.DeleteBuild(UserName, r.buildID, r.isSingle);
                 DeleteBuildRequestResponse response = new DeleteBuildRequestResponse(r.buildID);
                 SendMessage(response);
+                break;
+            }
+
+            default:
+            {
+                if (BattleProxy != null)
+                {
+                    BattleProxy.Response(request);
+                    }
+                    else
+                {
+                        DebugLog.PrintWarning("BattleProxy is Empty!");
+                }
                 break;
             }
         }

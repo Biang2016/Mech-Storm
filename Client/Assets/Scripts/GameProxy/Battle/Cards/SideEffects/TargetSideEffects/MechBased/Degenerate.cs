@@ -2,10 +2,17 @@
 
 namespace SideEffects
 {
-    public class Degenerate : Degenerate_Base
+    public class Degenerate : TargetSideEffect
     {
         public Degenerate()
         {
+        }
+
+        public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
+
+        public override string GenerateDesc()
+        {
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
         public override void Execute(ExecutorInfo executorInfo)
@@ -76,8 +83,8 @@ namespace SideEffects
                 }
             }
 
-            MechCardInfoSyncRequest request = new MechCardInfoSyncRequest(mech.ServerPlayer.ClientId, mech.M_MechID, mech.CardInfo.Clone());
-            mech.ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
+            MechCardInfoSyncRequest request = new MechCardInfoSyncRequest(mech.BattlePlayer.ClientId, mech.M_MechID, mech.CardInfo.Clone());
+            mech.BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
         }
     }
 }

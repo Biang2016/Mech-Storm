@@ -5,11 +5,11 @@
 /// </summary>
 internal class CardDeckManager
 {
-    public BattlePlayer ServerPlayer;
+    public BattlePlayer BattlePlayer;
 
-    public CardDeckManager(BattlePlayer serverPlayer)
+    public CardDeckManager(BattlePlayer battlePlayer)
     {
-        ServerPlayer = serverPlayer;
+        BattlePlayer = battlePlayer;
     }
 
     public CardDeck CardDeck;
@@ -76,11 +76,11 @@ internal class CardDeckManager
 
     public void OnUpdatePlayerCoolDownCard(CardDeck.CoolingDownCard cdc)
     {
-        ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(new PlayerCoolDownCardUpdateRequest(ServerPlayer.ClientId, cdc));
+        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(new PlayerCoolDownCardUpdateRequest(BattlePlayer.ClientId, cdc));
     }
 
     public void OnRemovePlayerCoolDownCard(CardDeck.CoolingDownCard cdc)
     {
-        ServerPlayer.GameManager.Broadcast_AddRequestToOperationResponse(new PlayerCoolDownCardRemoveRequest(ServerPlayer.ClientId, cdc));
+        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(new PlayerCoolDownCardRemoveRequest(BattlePlayer.ClientId, cdc));
     }
 }
