@@ -42,3 +42,5 @@ public abstract class RequestBase
         return "[" + ProtocolName + "]:\n" + JsonConvert.SerializeObject(this, Formatting.None, Utils.JsonSettings);
     }
 }
+
+public delegate void SendMessageDelegate(ServerRequestBase request);

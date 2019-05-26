@@ -30,7 +30,7 @@ public class BattleUIPanel : MonoBehaviour
 
     public void DirectlyWin()
     {
-        WinDirectlyRequest request = new WinDirectlyRequest(Client.Instance.Proxy.ClientId);
+        WinDirectlyRequest request = new WinDirectlyRequest(Client.Instance.Proxy.ClientID);
         Client.Instance.Proxy.SendMessage(request);
     }
 }

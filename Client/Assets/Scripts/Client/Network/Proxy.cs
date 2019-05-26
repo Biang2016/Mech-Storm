@@ -4,15 +4,15 @@ using System.Threading;
 
 public class Proxy : ProxyBase
 {
-    private Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
-
     protected override void Response()
     {
     }
 
     public string Username;
 
-    public override ClientStates ClientState
+    private ClientStates clientState;
+
+    public ClientStates ClientState
     {
         get { return clientState; }
         set
@@ -36,21 +36,21 @@ public class Proxy : ProxyBase
 
     public void CancelMatch()
     {
-        CancelMatchRequest request = new CancelMatchRequest(ClientId);
+        CancelMatchRequest request = new CancelMatchRequest(ClientID);
         SendMessage(request);
         ClientState = ClientStates.Login;
     }
 
     public void LeaveGame()
     {
-        LeaveGameRequest request = new LeaveGameRequest(ClientId);
+        LeaveGameRequest request = new LeaveGameRequest(ClientID);
         SendMessage(request);
         ClientState = ClientStates.Login;
     }
 
     public void OnSendBuildInfo(BuildInfo buildInfo)
     {
-        BuildRequest req = new BuildRequest(ClientId, buildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
+        BuildRequest req = new BuildRequest(ClientID, buildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
         SendMessage(req);
         ClientState = ClientStates.Login;
     }
@@ -58,7 +58,7 @@ public class Proxy : ProxyBase
     public void OnBeginMatch()
     {
         ClientRequestBase req = null;
-        req = new MatchRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID);
+        req = new MatchRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
@@ -66,12 +66,14 @@ public class Proxy : ProxyBase
     public void OnBeginSingleMode(int storyPaceID)
     {
         ClientRequestBase req = null;
-        req = new MatchStandAloneRequest(ClientId, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, storyPaceID);
+        req = new MatchStandAloneRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, storyPaceID);
         SendMessage(req);
         ClientState = ClientStates.Matching;
     }
 
     #region 收发基础组件
+
+    private Queue<ClientRequestBase> SendRequestsQueue = new Queue<ClientRequestBase>();
 
     private ParameterizedThreadStart SendRequest;
 
@@ -129,7 +131,7 @@ public class Proxy : ProxyBase
                 case NetProtocols.CLIENT_ID_REQUEST:
                 {
                     ClientIdRequest request = (ClientIdRequest) r;
-                    ClientId = request.givenClientId;
+                    ClientID = request.givenClientId;
                     NetworkManager.ServerVersion = request.serverVersion;
                     if (NetworkManager.Instance.ClientInvalid)
                     {
@@ -137,9 +139,15 @@ public class Proxy : ProxyBase
                     }
                     else
                     {
-                        ClientVersionValidRequest validRequest = new ClientVersionValidRequest(ClientId);
-                        SendMessage(validRequest);
                         ClientState = ClientStates.GetId;
+                        ClientVersionValidRequest validRequest = new ClientVersionValidRequest(ClientID);
+                        SendMessage(validRequest);
+
+                        if (Client.Instance.IsStandalone)
+                        {
+                            LoginRequest request1 = new LoginRequest(Client.Instance.Proxy.ClientID, "Player", "");
+                            SendMessage(request1);
+                        }
                     }
 
                     break;
@@ -168,8 +176,15 @@ public class Proxy : ProxyBase
                             Username = request.username;
                             ClientState = ClientStates.Login;
                             NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("Proxy_LoginSuccess"), 0, 0.5f);
-                            UIManager.Instance.CloseUIForm<LoginPanel>();
-                            UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Main);
+                            if (Client.Instance.IsStandalone)
+                            {
+                                UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Main_Standalone);
+                            }
+                            else
+                            {
+                                UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Main_Online);
+                            }
+
                             break;
                         }
                         case LoginResultRequest.StateCodes.WrongPassword:
@@ -280,7 +295,7 @@ public class Proxy : ProxyBase
 
             if (request is EndRoundRequest_ResponseBundle)
             {
-                if (ClientId == ((EndRoundRequest_ResponseBundle) request).ClientID)
+                if (ClientID == ((EndRoundRequest_ResponseBundle) request).ClientID)
                 {
                     RoundManager.Instance.EndRound();
                 }

@@ -6,26 +6,17 @@ public abstract class ProxyBase
 {
     //发包读包基础
     public Socket Socket;
-    public int ClientId;
+    public int ClientID;
     public BuildInfo CurrentBuildInfo;
     public DataHolder DataHolder = new DataHolder();
     public bool IsStopReceive;
 
-    protected ClientStates clientState;
-
-    public virtual ClientStates ClientState
-    {
-        get { return clientState; }
-        set { clientState = value; }
-    }
-
-    protected ProxyBase(Socket socket, int clientId, bool isStopReceive)
+    protected ProxyBase(Socket socket, int clientID, bool isStopReceive)
     {
         Socket = socket;
-        ClientId = clientId;
+        ClientID = clientID;
         IsStopReceive = isStopReceive;
     }
-
 
     protected abstract void Response();
 

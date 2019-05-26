@@ -30,7 +30,8 @@
             NetworkManager.Instance.TerminateConnection();
             Proxy.Socket = null;
             Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxy);
-            GameProxy = new GameProxy(999, NetworkManager.ClientVersion, SendFromLocalGameProxyToClient);
+            GameProxy = new GameProxy(999, "Player1", NetworkManager.ClientVersion, SendFromLocalGameProxyToClient, ClientLog.Instance);
+            GameProxy.SendClientIDRequest();
         }
     }
 
@@ -44,7 +45,7 @@
         Proxy.Response(request);
     }
 
-    public bool IsStandalone => Proxy.Socket != null;
+    public bool IsStandalone => Proxy.Socket == null;
 
     public bool IsLogin() //登录且未开始游戏，包括单机、在线状态
     {

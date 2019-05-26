@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-public class BattleProxy : ProxyBase
+public class BattleProxy
 {
-    protected Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
-    protected Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();
+    public ILog DebugLog;
+    public SendMessageDelegate SendMessage;
 
-    private bool clientVersionValid = false;
-    private string username = "";
+    public int ClientID;
+    public BuildInfo BuildInfo;
+    public string UserName;
 
-    internal string UserName
+    public BattleProxy(int clientId, string userName, BuildInfo buildInfo, SendMessageDelegate sendMessage, ILog debugLog)
     {
-        get { return username; }
+        UserName = userName;
+        BuildInfo = buildInfo;
+        ClientID = clientId;
+        SendMessage = sendMessage;
+        DebugLog = debugLog;
     }
 
-    public BattleProxy(Socket socket, string serverVersion, int clientId, bool isStopReceive) : base(socket, clientId, isStopReceive)
-    {
-        ClientIdRequest request = new ClientIdRequest(clientId, serverVersion);
-        SendMessage(request);
-    }
+    public ProxyBase.ClientStates ClientState;
 
     internal GameManager BattleGameManager;
     internal BattlePlayer MyPlayer;
@@ -27,7 +28,7 @@ public class BattleProxy : ProxyBase
 
     internal void InitGameInfo()
     {
-        MyPlayer = BattleGameManager.GetPlayerByClientId(ClientId);
+        MyPlayer = BattleGameManager.GetPlayerByClientId(ClientID);
         EnemyPlayer = MyPlayer.MyEnemyPlayer;
     }
 
@@ -36,44 +37,8 @@ public class BattleProxy : ProxyBase
     public void OnClose()
     {
         if (isClosed) return;
-
-        BattleGameManager?.OnLeaveGame(ClientId); //先结束对应的游戏
-
-        Socket?.Close();
-
-        SendRequestsQueue.Clear();
-        ReceiveRequestsQueue.Clear();
-
+        BattleGameManager?.OnLeaveGame(ClientID); //先结束对应的游戏
         isClosed = true;
-    }
-
-    public virtual void SendMessage(ServerRequestBase request)
-    {
-        if (isClosed) return;
-        SendRequestsQueue.Enqueue(request);
-        if (SendRequestsQueue.Count > 0)
-        {
-            try
-            {
-                SendMsg msg = new SendMsg(Socket, SendRequestsQueue.Dequeue(), ClientId);
-                DoSendToClient(msg);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-    }
-
-    public delegate void DoSendToClientDelegate(SendMsg msg);
-
-    public DoSendToClientDelegate DoSendToClient;
-
-    public virtual void ReceiveMessage(ClientRequestBase request)
-    {
-        if (isClosed) return;
-        ReceiveRequestsQueue.Enqueue(request);
-        Response();
     }
 
     internal ResponseBundleBase CurrentClientRequestResponseBundle;
@@ -82,92 +47,89 @@ public class BattleProxy : ProxyBase
     /// Dispose of all request received before game start
     /// ServerGameManager will dispose of others during games.
     /// </summary>
-    protected override void Response()
+    public void Response(ClientRequestBase r)
     {
+        if (isClosed) return;
         if (BattleGameManager != null && BattleGameManager.IsStopped)
         {
             BattleGameManager.StopGame();
         }
 
-        while (ReceiveRequestsQueue.Count > 0)
+        if (ClientState == ProxyBase.ClientStates.Playing)
         {
-            ClientRequestBase r = ReceiveRequestsQueue.Dequeue();
-            if (ClientState == ClientStates.Playing)
+            if (BattleGameManager == null) return;
+
+            try
             {
-                if (BattleGameManager == null) return;
-
-                try
+                if (BattleGameManager.CurrentPlayer == BattleGameManager.GetPlayerByClientId(ClientID))
                 {
-                    if (BattleGameManager.CurrentPlayer == BattleGameManager.GetPlayerByClientId(ClientId))
+                    switch (r)
                     {
-                        switch (r)
-                        {
-                            case WinDirectlyRequest req:
-                                BattleGameManager?.OnWinDirectlyRequest(req, MyPlayer);
-                                break;
-                            case EndRoundRequest req:
-                                BattleGameManager?.OnEndRoundRequest(req);
-                                break;
-                            case SummonMechRequest req:
-                                BattleGameManager?.OnClientSummonMechRequest(req);
-                                break;
-                            case EquipWeaponRequest req:
-                                BattleGameManager?.OnClientEquipWeaponRequest(req);
-                                break;
-                            case EquipShieldRequest req:
-                                BattleGameManager?.OnClientEquipShieldRequest(req);
-                                break;
-                            case EquipPackRequest req:
-                                BattleGameManager?.OnClientEquipPackRequest(req);
-                                break;
-                            case EquipMARequest req:
-                                BattleGameManager?.OnClientEquipMARequest(req);
-                                break;
-                            case UseSpellCardRequest req:
-                                BattleGameManager?.OnClientUseSpellCardRequest(req);
-                                break;
-                            case UseSpellCardToMechRequest req:
-                                BattleGameManager?.OnClientUseSpellCardToMechRequest(req);
-                                break;
-                            case UseSpellCardToShipRequest req:
-                                BattleGameManager?.OnClientUseSpellCardToShipRequest(req);
-                                break;
-                            case UseSpellCardToEquipRequest req:
-                                BattleGameManager?.OnClientUseSpellCardToEquipRequest(req);
-                                break;
-                            case LeaveGameRequest req: //quit game normally
-                                BattleGameManager?.OnLeaveGameRequest(req);
-                                break;
-                            case MechAttackMechRequest req:
-                                BattleGameManager?.OnClientMechAttackMechRequest(req);
-                                break;
-                            case MechAttackShipRequest req:
-                                BattleGameManager?.OnClientMechAttackShipRequest(req);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        switch (r)
-                        {
-                            case LeaveGameRequest req: //quit game normally
-                                BattleGameManager?.OnLeaveGameRequest(req);
-                                break;
-                        }
+                        case WinDirectlyRequest req:
+                            BattleGameManager?.OnWinDirectlyRequest(req, MyPlayer);
+                            break;
+                        case EndRoundRequest req:
+                            BattleGameManager?.OnEndRoundRequest(req);
+                            break;
+                        case SummonMechRequest req:
+                            BattleGameManager?.OnClientSummonMechRequest(req);
+                            break;
+                        case EquipWeaponRequest req:
+                            BattleGameManager?.OnClientEquipWeaponRequest(req);
+                            break;
+                        case EquipShieldRequest req:
+                            BattleGameManager?.OnClientEquipShieldRequest(req);
+                            break;
+                        case EquipPackRequest req:
+                            BattleGameManager?.OnClientEquipPackRequest(req);
+                            break;
+                        case EquipMARequest req:
+                            BattleGameManager?.OnClientEquipMARequest(req);
+                            break;
+                        case UseSpellCardRequest req:
+                            BattleGameManager?.OnClientUseSpellCardRequest(req);
+                            break;
+                        case UseSpellCardToMechRequest req:
+                            BattleGameManager?.OnClientUseSpellCardToMechRequest(req);
+                            break;
+                        case UseSpellCardToShipRequest req:
+                            BattleGameManager?.OnClientUseSpellCardToShipRequest(req);
+                            break;
+                        case UseSpellCardToEquipRequest req:
+                            BattleGameManager?.OnClientUseSpellCardToEquipRequest(req);
+                            break;
+                        case LeaveGameRequest req: //quit game normally
+                            BattleGameManager?.OnLeaveGameRequest(req);
+                            break;
+                        case MechAttackMechRequest req:
+                            BattleGameManager?.OnClientMechAttackMechRequest(req);
+                            break;
+                        case MechAttackShipRequest req:
+                            BattleGameManager?.OnClientMechAttackShipRequest(req);
+                            break;
                     }
                 }
-                catch (Exception e)
+                else
                 {
-                    BattleLog.Instance.Log.PrintError(e.ToString());
-
-                    if (BattleGameManager != null && !BattleGameManager.IsStopped)
+                    switch (r)
                     {
-                        BattleGameManager.OnEndGameByServerError();
-                        BattleGameManager.StopGame();
+                        case LeaveGameRequest req: //quit game normally
+                            BattleGameManager?.OnLeaveGameRequest(req);
+                            break;
                     }
-
-                    BattleGameManager = null;
                 }
+            }
+            catch (Exception e)
+            {
+                BattleLog.Instance.Log.PrintError(e.ToString());
+
+                if (BattleGameManager != null && !BattleGameManager.IsStopped)
+                {
+                    BattleGameManager.OnEndGameByServerError();
+                    BattleGameManager.StopGame();
+                }
+
+                BattleGameManager = null;
             }
         }
     }

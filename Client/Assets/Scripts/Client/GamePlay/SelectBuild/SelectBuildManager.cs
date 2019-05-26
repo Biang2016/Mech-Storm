@@ -100,7 +100,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     {
         if (lastSaveBuildInfo == null || !lastSaveBuildInfo.EqualsTo(buildInfo))
         {
-            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, buildInfo, CurrentGameMode == GameMode.Single);
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, buildInfo, CurrentGameMode == GameMode.Single);
             Client.Instance.Proxy.SendMessage(request);
 
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_YourDeckIsSaved"), 0f, 0.5f);

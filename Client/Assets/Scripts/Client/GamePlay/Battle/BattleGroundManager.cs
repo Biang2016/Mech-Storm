@@ -344,7 +344,7 @@ public class BattleGroundManager : MonoBehaviour
             if (battleGroundIndex != -1)
             {
                 mech.M_ClientTempMechID = GenerateClientMechTempId();
-                SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientId, cardInstanceId, battleGroundIndex, targetMechId, isClientMechTempId, mech.M_ClientTempMechID);
+                SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, cardInstanceId, battleGroundIndex, targetMechId, isClientMechTempId, mech.M_ClientTempMechID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }

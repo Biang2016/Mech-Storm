@@ -46,17 +46,6 @@ public class BuildStoryDatabase
                 }
             }
         }
-
-        if (BuildGroupDict.ContainsKey(username))
-        {
-            BuildGroup sb = BuildGroupDict[username];
-            if (!sb.Builds.ContainsKey(buildInfo.BuildName))
-            {
-                sb.Builds.Add(buildInfo.BuildName, buildInfo.BuildID);
-            }
-
-            AllBuilds.ExportBuilds(sb);
-        }
     }
 
     public void DeleteBuild(string username, int buildID, bool isSingle = false)

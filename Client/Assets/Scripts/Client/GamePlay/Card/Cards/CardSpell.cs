@@ -263,7 +263,7 @@ public class CardSpell : CardBase
 
     private void summonSpellRequest(Vector3 dragLastPosition)
     {
-        UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId);
+        UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }
@@ -272,12 +272,12 @@ public class CardSpell : CardBase
     {
         if (targetModuleMech.M_ClientTempMechID != Const.CLIENT_TEMP_MECH_ID_NORMAL)
         {
-            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetModuleMech.M_MechID, true, targetModuleMech.M_ClientTempMechID);
+            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetModuleMech.M_MechID, true, targetModuleMech.M_ClientTempMechID);
             Client.Instance.Proxy.SendMessage(request);
         }
         else
         {
-            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetModuleMech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
+            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetModuleMech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
             Client.Instance.Proxy.SendMessage(request);
         }
 
@@ -286,7 +286,7 @@ public class CardSpell : CardBase
 
     private void summonSpellRequestToEquip(ModuleEquip targetEquip, Vector3 dragLastPosition)
     {
-        UseSpellCardToEquipRequest request = new UseSpellCardToEquipRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetEquip.M_EquipID);
+        UseSpellCardToEquipRequest request = new UseSpellCardToEquipRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetEquip.M_EquipID);
         Client.Instance.Proxy.SendMessage(request);
 
         Usable = false;
@@ -294,7 +294,7 @@ public class CardSpell : CardBase
 
     private void summonSpellRequestToShip(Ship targetShip, Vector3 dragLastPosition)
     {
-        UseSpellCardToShipRequest request = new UseSpellCardToShipRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, targetShip.ClientPlayer.ClientId);
+        UseSpellCardToShipRequest request = new UseSpellCardToShipRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetShip.ClientPlayer.ClientId);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }

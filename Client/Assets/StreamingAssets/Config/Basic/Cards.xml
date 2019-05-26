@@ -5,7 +5,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="3" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
         <SideEffect name="Kill" TargetSelect="All" TargetRange="EnemySoldiers" ChoiceCount="1" />
@@ -29,7 +29,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="6" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="6" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
         <SideEffect name="DrawCards" CardCount="2" />
@@ -53,7 +53,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
         <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="2" />
@@ -77,7 +77,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="51" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
         <SideEffect name="SummonMech" SummonCardID="51" />
@@ -105,7 +105,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="16" totalLife="16" />
-    <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="90">
@@ -113,7 +113,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="4" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="4" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="110">
@@ -133,7 +133,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="110" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
-    <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
         <SideEffect name="AddAttack" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
@@ -145,7 +145,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="121" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="2" basicArmor="3" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="121">
@@ -153,7 +153,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="120" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="2" basicArmor="3" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="130">
@@ -161,7 +161,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="131" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="4" basicArmor="3" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="4" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="131">
@@ -169,7 +169,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="130" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="4" basicArmor="3" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="4" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="140">
@@ -177,7 +177,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="141" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
         <SideEffect name="AddSelfWeaponEnergy" Energy="2" />
@@ -189,7 +189,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="140" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
-    <CardInfo name="battleInfo" basicAttack="4" basicShield="2" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="4" basicShield="1" basicArmor="2" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
         <SideEffect name="AddSelfWeaponEnergy" Energy="1" />
@@ -201,7 +201,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="6" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="6" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5011">
@@ -293,7 +293,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="2" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5050">
@@ -322,7 +322,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5080">
@@ -350,7 +350,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5100">
@@ -366,7 +366,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="5" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="5" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5120">
@@ -398,7 +398,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="4" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5160">
@@ -406,7 +406,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="4" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5171">
@@ -414,7 +414,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="5172" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5172">
@@ -422,7 +422,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="5173" degradeCardID="5171" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="2" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="5173">
@@ -430,7 +430,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5172" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="3" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="3" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
   </Card>
   <Card id="10011">

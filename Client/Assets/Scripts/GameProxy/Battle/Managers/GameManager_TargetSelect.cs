@@ -521,11 +521,11 @@ internal partial class GameManager
 
     public BattleProxy GetClientProxyByClientId(int clientId)
     {
-        if (ClientA.ClientId == clientId)
+        if (ClientA.ClientID == clientId)
         {
             return ClientA;
         }
-        else if (ClientB.ClientId == clientId)
+        else if (ClientB.ClientID == clientId)
         {
             return ClientB;
         }
@@ -535,11 +535,11 @@ internal partial class GameManager
 
     public BattleProxy GetEnemyClientProxyByClientId(int clientId)
     {
-        if (ClientA.ClientId == clientId)
+        if (ClientA.ClientID == clientId)
         {
             return ClientB;
         }
-        else if (ClientB.ClientId == clientId)
+        else if (ClientB.ClientID == clientId)
         {
             return ClientA;
         }

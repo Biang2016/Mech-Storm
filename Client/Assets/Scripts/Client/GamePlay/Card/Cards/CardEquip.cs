@@ -86,25 +86,25 @@ public class CardEquip : CardBase
         {
             case SlotTypes.Weapon:
             {
-                EquipWeaponRequest request = new EquipWeaponRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleMech.M_MechID);
+                EquipWeaponRequest request = new EquipWeaponRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, moduleMech.M_MechID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
             case SlotTypes.Shield:
             {
-                EquipShieldRequest request = new EquipShieldRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleMech.M_MechID);
+                EquipShieldRequest request = new EquipShieldRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, moduleMech.M_MechID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
             case SlotTypes.Pack:
             {
-                EquipPackRequest request = new EquipPackRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleMech.M_MechID);
+                EquipPackRequest request = new EquipPackRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, moduleMech.M_MechID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
             case SlotTypes.MA:
             {
-                EquipMARequest request = new EquipMARequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, moduleMech.M_MechID);
+                EquipMARequest request = new EquipMARequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, moduleMech.M_MechID);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }

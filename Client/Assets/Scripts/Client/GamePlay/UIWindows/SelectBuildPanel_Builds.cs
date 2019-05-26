@@ -169,7 +169,7 @@ public partial class SelectBuildPanel
         BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards("New deck", new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
             CurrentGamePlaySettings.DefaultEnergy,
             0, false, CurrentGamePlaySettings);
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientId, bi, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, bi, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
         Client.Instance.Proxy.SendMessage(request);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
@@ -201,7 +201,7 @@ public partial class SelectBuildPanel
         }
         if (CurrentEditBuildButton)
         {
-            DeleteBuildRequest request = new DeleteBuildRequest(Client.Instance.Proxy.ClientId, CurrentEditBuildButton.BuildInfo.BuildID, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
+            DeleteBuildRequest request = new DeleteBuildRequest(Client.Instance.Proxy.ClientID, CurrentEditBuildButton.BuildInfo.BuildID, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
             Client.Instance.Proxy.SendMessage(request);
         }
         else

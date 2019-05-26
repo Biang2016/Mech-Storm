@@ -569,7 +569,7 @@ public class ModuleMech : ModuleBase
             {
                 if (ship.CheckModuleMechCanAttackMe(this) != 0)
                 {
-                    MechAttackShipRequest request = new MechAttackShipRequest(Client.Instance.Proxy.ClientId, M_MechID);
+                    MechAttackShipRequest request = new MechAttackShipRequest(Client.Instance.Proxy.ClientID, M_MechID);
                     Client.Instance.Proxy.SendMessage(request);
                 }
                 else

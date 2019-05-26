@@ -136,7 +136,7 @@ public class CardMech : CardBase
         }
 
         int aliveIndex = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePositionInAliveMechs(dragLastPosition);
-        SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientId, M_CardInstanceId, aliveIndex, targetMechId, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
+        SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, aliveIndex, targetMechId, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }

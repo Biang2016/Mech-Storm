@@ -7,17 +7,12 @@
 /// </summary>
 internal class BattleProxyAI : BattleProxy
 {
-    public override ClientStates ClientState
+    public BattleProxyAI(int clientId, string userName, SendMessageDelegate sendMessage, ILog debugLog) : base(clientId, userName, null, sendMessage, debugLog)
     {
-        get => clientState;
-        set => clientState = value;
+        SendMessage = sendMessage;
     }
 
-    public BattleProxyAI(int clientId, string serverVersion, bool isStopReceive) : base(null, serverVersion, clientId, isStopReceive)
-    {
-    }
-
-    public override void SendMessage(ServerRequestBase request)
+    private void sendMessage(ServerRequestBase request)
     {
         if (request is ResponseBundleBase r)
         {
@@ -25,7 +20,7 @@ internal class BattleProxyAI : BattleProxy
             {
                 if (req is PlayerTurnRequest ptr) //只监听回合开始
                 {
-                    if (ptr.clientId == ClientId)
+                    if (ptr.clientId == ClientID)
                     {
                         AIOperation();
                     }
@@ -34,11 +29,11 @@ internal class BattleProxyAI : BattleProxy
         }
     }
 
-    public override void ReceiveMessage(ClientRequestBase request)
+    public void ReceiveMessage(ClientRequestBase request)
     {
     }
 
-    protected override void Response()
+    protected void Response()
     {
     }
 
@@ -105,7 +100,7 @@ internal class BattleProxyAI : BattleProxy
             if (failedAgain) break;
         }
 
-        BattleGameManager.OnEndRoundRequest(new EndRoundRequest(ClientId));
+        BattleGameManager.OnEndRoundRequest(new EndRoundRequest(ClientID));
     }
 
     /// <summary>
@@ -119,7 +114,7 @@ internal class BattleProxyAI : BattleProxy
         {
             if (ti.HasNoTarget)
             {
-                BattleGameManager.OnClientUseSpellCardRequest(new UseSpellCardRequest(ClientId, card.M_CardInstanceId));
+                BattleGameManager.OnClientUseSpellCardRequest(new UseSpellCardRequest(ClientID, card.M_CardInstanceId));
                 return true;
             }
             else if (ti.HasTargetMech)
@@ -127,7 +122,7 @@ internal class BattleProxyAI : BattleProxy
                 ModuleMech mech = GetTargetMechByTargetInfo(ti);
                 if (mech != null)
                 {
-                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientId, card.M_CardInstanceId, mech.M_MechID, false, 0));
+                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, mech.M_MechID, false, 0));
                     return true;
                 }
             }
@@ -137,12 +132,12 @@ internal class BattleProxyAI : BattleProxy
                 {
                     case TargetRange.EnemyShip:
                     {
-                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientId, card.M_CardInstanceId, BattleGameManager.PlayerA.ClientId));
+                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, BattleGameManager.PlayerA.ClientId));
                         return true;
                     }
                     case TargetRange.SelfShip:
                     {
-                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientId, card.M_CardInstanceId, ClientId));
+                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, ClientID));
                         return true;
                     }
                 }
@@ -194,7 +189,7 @@ internal class BattleProxyAI : BattleProxy
 
             if (canSummonDirectly)
             {
-                BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientId, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, Const.TARGET_MECH_SELECT_NONE, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
+                BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, Const.TARGET_MECH_SELECT_NONE, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
                 return true;
             }
 
@@ -203,7 +198,7 @@ internal class BattleProxyAI : BattleProxy
                 ModuleMech mech = GetTargetMechByTargetInfo(ti);
                 if (mech != null)
                 {
-                    BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientId, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, mech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
+                    BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, mech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
                     return true;
                 }
             }
@@ -227,22 +222,22 @@ internal class BattleProxyAI : BattleProxy
                 {
                     case SlotTypes.Weapon:
                     {
-                        BattleGameManager.OnClientEquipWeaponRequest(new EquipWeaponRequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
+                        BattleGameManager.OnClientEquipWeaponRequest(new EquipWeaponRequest(ClientID, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                     case SlotTypes.Shield:
                     {
-                        BattleGameManager.OnClientEquipShieldRequest(new EquipShieldRequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
+                        BattleGameManager.OnClientEquipShieldRequest(new EquipShieldRequest(ClientID, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                     case SlotTypes.Pack:
                     {
-                        BattleGameManager.OnClientEquipPackRequest(new EquipPackRequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
+                        BattleGameManager.OnClientEquipPackRequest(new EquipPackRequest(ClientID, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                     case SlotTypes.MA:
                     {
-                        BattleGameManager.OnClientEquipMARequest(new EquipMARequest(ClientId, card.M_CardInstanceId, mech.M_MechID));
+                        BattleGameManager.OnClientEquipMARequest(new EquipMARequest(ClientID, card.M_CardInstanceId, mech.M_MechID));
                         return true;
                     }
                 }
@@ -256,7 +251,7 @@ internal class BattleProxyAI : BattleProxy
     {
         if (EnemyPlayer.CheckModuleMechCanAttackMe(mech)) //优先打脸
         {
-            BattleGameManager.OnClientMechAttackShipRequest(new MechAttackShipRequest(ClientId, mech.M_MechID));
+            BattleGameManager.OnClientMechAttackShipRequest(new MechAttackShipRequest(ClientID, mech.M_MechID));
             return true;
         }
 
@@ -264,7 +259,7 @@ internal class BattleProxyAI : BattleProxy
         {
             if (targetMech.CheckMechCanAttackMe(mech))
             {
-                BattleGameManager.OnClientMechAttackMechRequest(new MechAttackMechRequest(ClientId, mech.M_MechID, EnemyPlayer.ClientId, targetMech.M_MechID));
+                BattleGameManager.OnClientMechAttackMechRequest(new MechAttackMechRequest(ClientID, mech.M_MechID, EnemyPlayer.ClientId, targetMech.M_MechID));
                 return true;
             }
         }

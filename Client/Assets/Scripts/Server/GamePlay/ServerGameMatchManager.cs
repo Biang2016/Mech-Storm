@@ -10,7 +10,7 @@ internal class ServerGameMatchManager
     {
         matchingClients.Add(clientProxy);
 
-        ServerLog.Instance.PrintServerStates("Player " + clientProxy.ClientId + " begin matching. Currently " + matchingClients.Count + " people are matching");
+        ServerLog.Instance.PrintServerStates("Player " + clientProxy.ClientID + " begin matching. Currently " + matchingClients.Count + " people are matching");
 
         if (matchingClients.Count == 2)
         {
@@ -20,10 +20,10 @@ internal class ServerGameMatchManager
             matchingClients.Remove(clientB);
             Battle battle = new Battle(clientA.GameProxy.BattleProxy, clientB.GameProxy.BattleProxy);
             Battles.Add(battle);
-            clientBattleMapping.Add(clientA.ClientId, battle);
-            clientBattleMapping.Add(clientB.ClientId, battle);
+            clientBattleMapping.Add(clientA.ClientID, battle);
+            clientBattleMapping.Add(clientB.ClientID, battle);
 
-            ServerLog.Instance.PrintServerStates("Player " + clientA.ClientId + " and " + clientB.ClientId + " begin game, currently " + clientBattleMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
+            ServerLog.Instance.PrintServerStates("Player " + clientA.ClientID + " and " + clientB.ClientID + " begin game, currently " + clientBattleMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
 
@@ -33,18 +33,18 @@ internal class ServerGameMatchManager
         {
             matchingClients.Remove(clientProxy);
 
-            ServerLog.Instance.PrintServerStates("Player " + clientProxy.ClientId + " cancels matching. Currently " + clientBattleMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
+            ServerLog.Instance.PrintServerStates("Player " + clientProxy.ClientID + " cancels matching. Currently " + clientBattleMapping.Count + " people are in games," + matchingClients.Count + " people are matching");
         }
     }
 
     public void RemoveGame(ServerProxy client)
     {
-        if (clientBattleMapping.ContainsKey(client.ClientId))
+        if (clientBattleMapping.ContainsKey(client.ClientID))
         {
-            Battle battle = clientBattleMapping[client.ClientId];
+            Battle battle = clientBattleMapping[client.ClientID];
             Battles.Remove(battle);
-            int a = battle.ClientA.ClientId;
-            int b = battle.ClientB.ClientId;
+            int a = battle.ClientA.ClientID;
+            int b = battle.ClientB.ClientID;
             clientBattleMapping.Remove(a);
             clientBattleMapping.Remove(b);
 

@@ -94,7 +94,7 @@ internal class BonusButton : PoolObject
     public void OnConfirmButtonClickDelegate()
     {
         UIManager.Instance.GetBaseUIForm<BattleResultPanel>().GetBonusBuildChangeInfo(BonusGroup);
-        BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, BonusGroup);
+        BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, BonusGroup);
         Client.Instance.Proxy.SendMessage(request);
         foreach (Bonus bgBonus in BonusGroup.Bonuses)
         {

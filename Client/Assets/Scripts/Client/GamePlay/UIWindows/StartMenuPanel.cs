@@ -44,7 +44,8 @@ public class StartMenuPanel : BaseUIForm
         AddButton("SingleCustomStart", "StartMenu_SingleCustomStart", null, OnSingleCustomStartButtonClick);
         AddButton("SingleCustomDeck", "StartMenu_SingleCustomDeck", "StartMenu_DeckTipText", OnSingleCustomDeckButtonClick, StartMenuButton.TipImageType.NewCard);
 
-        StateMenuButtonListDict.Add(States.Show_Main, new List<string> {"OnlineMenu", "SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
+        StateMenuButtonListDict.Add(States.Show_Main_Standalone, new List<string> {"SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
+        StateMenuButtonListDict.Add(States.Show_Main_Online, new List<string> {"OnlineMenu", "SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
         StateMenuButtonListDict.Add(States.Show_Online, new List<string> {"OnlineStart", "OnlineDeck", "Back"});
         StateMenuButtonListDict.Add(States.Show_Online_Matching, new List<string> {"CancelMatch", "OnlineDeck", "Back"});
         StateMenuButtonListDict.Add(States.Show_Single, new List<string> {"SingleStart", "Back"});
@@ -64,7 +65,7 @@ public class StartMenuPanel : BaseUIForm
                 {
                     OnBackButtonClick();
                 }
-                else if (state == States.Show_Main)
+                else if ((state & States.Show_FirstMenu) == state)
                 {
                     UIManager.Instance.ShowUIForms<ExitMenuPanel>();
                 }
@@ -121,7 +122,15 @@ public class StartMenuPanel : BaseUIForm
             case ProxyBase.ClientStates.Login:
                 UIManager.Instance.ShowUIForms<StartMenuPanel>();
                 BackGroundManager.Instance.ChangeBoardBG();
-                SetState(States.Show_Main);
+                if (Client.Instance.IsStandalone)
+                {
+                    SetState(States.Show_Main_Standalone);
+                }
+                else
+                {
+                    SetState(States.Show_Main_Online);
+                }
+
                 break;
             case ProxyBase.ClientStates.Matching:
                 if (state == States.Show_Online) SetState(States.Show_Online_Matching);
@@ -137,12 +146,14 @@ public class StartMenuPanel : BaseUIForm
     [Flags]
     public enum States
     {
-        Show_Main = 1,
-        Show_Online = 2,
-        Show_Online_Matching = 4,
-        Show_Single = 8,
-        Show_Single_HasStory = 16,
-        Show_SingleCustom = 32,
+        Show_Main_Standalone = 1,
+        Show_Main_Online = 2,
+        Show_Online = 4,
+        Show_Online_Matching = 8,
+        Show_Single = 16,
+        Show_Single_HasStory = 32,
+        Show_SingleCustom = 64,
+        Show_FirstMenu = Show_Main_Standalone | Show_Main_Online,
         Show_SecondaryMenu = Show_Online | Show_Single | Show_Single_HasStory | Show_SingleCustom,
     }
 
@@ -268,7 +279,14 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnBackButtonClick()
     {
-        SetState(States.Show_Main);
+        if (Client.Instance.IsStandalone)
+        {
+            SetState(States.Show_Main_Standalone);
+        }
+        else
+        {
+            SetState(States.Show_Main_Online);
+        }
         if (Client.Instance.IsMatching()) OnCancelMatchGameButtonClick();
         BackGroundManager.Instance.ChangeBoardBG();
     }
@@ -322,16 +340,15 @@ public class StartMenuPanel : BaseUIForm
 
     private void StartNewStory()
     {
-        StartNewStoryRequest request = new StartNewStoryRequest(Client.Instance.Proxy.ClientId);
+        StartNewStoryRequest request = new StartNewStoryRequest(Client.Instance.Proxy.ClientID);
         Client.Instance.Proxy.SendMessage(request);
     }
 
     public void OnSingleResumeButtonClick()
     {
-        
     }
 
-    public void StartGameCore(RoundManager.PlayMode playMode, int storyPaceID=-1)
+    public void StartGameCore(RoundManager.PlayMode playMode, int storyPaceID = -1)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -436,7 +453,7 @@ public class StartMenuPanel : BaseUIForm
             LanguageManager.Instance.GetText("Common_Cancel"),
             delegate
             {
-                LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientId, Client.Instance.Proxy.Username);
+                LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientID, Client.Instance.Proxy.Username);
                 Client.Instance.Proxy.SendMessage(request);
                 cp.CloseUIForm();
             },

@@ -286,7 +286,7 @@ internal class BattleResultPanel : BaseUIForm
             ShowCardsUpgrade();
         }
 
-        EndBattleRequest request = new EndBattleRequest(Client.Instance.Proxy.ClientId);
+        EndBattleRequest request = new EndBattleRequest(Client.Instance.Proxy.ClientID);
         Client.Instance.Proxy.SendMessage(request);
     }
 
@@ -297,7 +297,7 @@ internal class BattleResultPanel : BaseUIForm
         foreach (BonusGroup bg in AlwaysBonusGroup)
         {
             GetBonusBuildChangeInfo(bg);
-            BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientId, bg);
+            BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, bg);
             Client.Instance.Proxy.SendMessage(request);
             foreach (Bonus bgBonus in bg.Bonuses)
             {

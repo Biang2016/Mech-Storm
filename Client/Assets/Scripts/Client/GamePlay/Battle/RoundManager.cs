@@ -60,7 +60,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     private void InitializePlayers(SetPlayerRequest r)
     {
-        if (r.clientId == Client.Instance.Proxy.ClientId)
+        if (r.clientId == Client.Instance.Proxy.ClientID)
         {
             SelfClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
@@ -199,7 +199,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         if (CurrentClientPlayer == SelfClientPlayer)
         {   
-            EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientId);
+            EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientID);
             Client.Instance.Proxy.SendMessage(request);
             BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(false);
         }

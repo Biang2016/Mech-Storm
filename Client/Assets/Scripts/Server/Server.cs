@@ -106,8 +106,8 @@ internal class Server
         SGMM.OnClientCancelMatch(clientProxy);
         SGMM.RemoveGame(clientProxy);
         clientProxy.OnClose();
-        ClientsDict.Remove(clientProxy.ClientId);
-        UserDatabase.Instance.RemoveLoginUser(clientProxy.ClientId);
+        ClientsDict.Remove(clientProxy.ClientID);
+        UserDatabase.Instance.RemoveLoginUser(clientProxy.ClientID);
     }
 
     public void StartSeverSocket()
@@ -164,7 +164,7 @@ internal class Server
             ServerProxy clientProxy = kv.Value;
             if (clientProxy.Socket != null && clientProxy.Socket.Connected)
             {
-                ServerLog.Instance.PrintClientStates("Client " + clientProxy.ClientId + " quit");
+                ServerLog.Instance.PrintClientStates("Client " + clientProxy.ClientID + " quit");
 
                 ClientProxyClose(clientProxy);
             }
@@ -186,7 +186,7 @@ internal class Server
             {
                 //与客户端连接失败跳出循环  
 
-                ServerLog.Instance.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint);
+                ServerLog.Instance.PrintClientStates("Client connect failed, ID: " + clientProxy.ClientID + " IP: " + clientProxy.Socket.RemoteEndPoint);
 
                 ClientProxyClose(clientProxy);
                 break;
@@ -198,7 +198,7 @@ internal class Server
                 int i = clientProxy.Socket.Receive(bytes);
                 if (i <= 0)
                 {
-                    ServerLog.Instance.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientId + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
+                    ServerLog.Instance.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientID + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
 
                     ClientProxyClose(clientProxy);
                     break;
@@ -215,7 +215,7 @@ internal class Server
             }
             catch (Exception e)
             {
-                ServerLog.Instance.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientId + " Error:" + e.ToString());
+                ServerLog.Instance.PrintError("Failed to ServerSocket error,ID: " + clientProxy.ClientID + " Error:" + e.ToString());
 
                 ClientProxyClose(clientProxy);
                 break;

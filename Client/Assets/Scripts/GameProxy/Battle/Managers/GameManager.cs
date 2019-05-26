@@ -60,23 +60,23 @@ internal partial class GameManager
         ClientA.ClientState = ProxyBase.ClientStates.Playing;
         ClientB.ClientState = ProxyBase.ClientStates.Playing;
 
-        BattleLog.Instance.Log.Print("StartGameSuccess! Between: " + ClientA.ClientId + " and " + ClientB.ClientId);
+        BattleLog.Instance.Log.Print("StartGameSuccess! Between: " + ClientA.ClientID + " and " + ClientB.ClientID);
 
         SyncRandomNumber();
 
-        int PA_LIFE = ClientA.CurrentBuildInfo.Life;
-        int PA_MAGIC = ClientA.CurrentBuildInfo.Energy;
-        int PA_BEGINMETAL = ClientA.CurrentBuildInfo.BeginMetal;
-        int PB_LIFE = ClientB.CurrentBuildInfo.Life;
-        int PB_MAGIC = ClientB.CurrentBuildInfo.Energy;
-        int PB_BEGINMETAL = ClientB.CurrentBuildInfo.BeginMetal;
+        int PA_LIFE = ClientA.BuildInfo.Life;
+        int PA_MAGIC = ClientA.BuildInfo.Energy;
+        int PA_BEGINMETAL = ClientA.BuildInfo.BeginMetal;
+        int PB_LIFE = ClientB.BuildInfo.Life;
+        int PB_MAGIC = ClientB.BuildInfo.Energy;
+        int PB_BEGINMETAL = ClientB.BuildInfo.BeginMetal;
 
-        PlayerA = new BattlePlayer(ClientA.UserName, ClientA.ClientId, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
-        PlayerA.CardDeckManager.CardDeck = new CardDeck(ClientA.CurrentBuildInfo, PlayerA.OnCardDeckLeftChange, PlayerA.CardDeckManager.OnUpdatePlayerCoolDownCard, PlayerA.CardDeckManager.OnRemovePlayerCoolDownCard);
+        PlayerA = new BattlePlayer(ClientA.UserName, ClientA.ClientID, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC, this);
+        PlayerA.CardDeckManager.CardDeck = new CardDeck(ClientA.BuildInfo, PlayerA.OnCardDeckLeftChange, PlayerA.CardDeckManager.OnUpdatePlayerCoolDownCard, PlayerA.CardDeckManager.OnRemovePlayerCoolDownCard);
         PlayerA.MyClientProxy = ClientA;
 
-        PlayerB = new BattlePlayer(ClientB.UserName, ClientB.ClientId, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
-        PlayerB.CardDeckManager.CardDeck = new CardDeck(ClientB.CurrentBuildInfo, PlayerB.OnCardDeckLeftChange, PlayerB.CardDeckManager.OnUpdatePlayerCoolDownCard, PlayerB.CardDeckManager.OnRemovePlayerCoolDownCard);
+        PlayerB = new BattlePlayer(ClientB.UserName, ClientB.ClientID, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC, this);
+        PlayerB.CardDeckManager.CardDeck = new CardDeck(ClientB.BuildInfo, PlayerB.OnCardDeckLeftChange, PlayerB.CardDeckManager.OnUpdatePlayerCoolDownCard, PlayerB.CardDeckManager.OnRemovePlayerCoolDownCard);
         PlayerB.MyClientProxy = ClientB;
 
         PlayerA.MyEnemyPlayer = PlayerB;
@@ -88,9 +88,9 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientId, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
+        SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientID, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
-        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientId, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC);
+        SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientID, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC);
         Broadcast_AddRequestToOperationResponse(request2);
 
         GameBegin();
@@ -420,12 +420,12 @@ internal partial class GameManager
         if (IsStopped)
         {
             if (ClientA == null)
-                BattleLog.Instance.Log.Print(ClientA.ClientId + "   ClientA==null");
+                BattleLog.Instance.Log.Print(ClientA.ClientID + "   ClientA==null");
 
             ClientA.ClientState = ProxyBase.ClientStates.Login;
 
             if (ClientB == null)
-                BattleLog.Instance.Log.Print(ClientB.ClientId + "   ClientB==null");
+                BattleLog.Instance.Log.Print(ClientB.ClientID + "   ClientB==null");
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 

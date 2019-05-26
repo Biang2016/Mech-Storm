@@ -6,7 +6,7 @@ public partial class RoundManager
 {
     public void OnGameStopByLeave(GameStopByLeaveRequest r)
     {
-        if (r.clientId == Client.Instance.Proxy.ClientId)
+        if (r.clientId == Client.Instance.Proxy.ClientID)
         {
             ClientLog.Instance.PrintClientStates("你 " + r.clientId + " 退出了比赛");
         }
@@ -22,7 +22,7 @@ public partial class RoundManager
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
         BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
-        if (r.winnerClientId == Client.Instance.Proxy.ClientId)
+        if (r.winnerClientId == Client.Instance.Proxy.ClientID)
         {
             ClientLog.Instance.PrintClientStates("你赢了");
             brp.WinGame();
@@ -282,8 +282,8 @@ public partial class RoundManager
 
     IEnumerator Co_SetPlayerTurn(PlayerTurnRequest r)
     {
-        CurrentClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? SelfClientPlayer : EnemyClientPlayer;
-        IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientId ? EnemyClientPlayer : SelfClientPlayer;
+        CurrentClientPlayer = r.clientId == Client.Instance.Proxy.ClientID ? SelfClientPlayer : EnemyClientPlayer;
+        IdleClientPlayer = r.clientId == Client.Instance.Proxy.ClientID ? EnemyClientPlayer : SelfClientPlayer;
         if (CurrentClientPlayer == SelfClientPlayer)
         {
             BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(true);

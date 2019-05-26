@@ -107,7 +107,6 @@ public class LoginPanel : BaseUIForm
             {
                 cp.CloseUIForm();
                 Client.Instance.SetNetwork(false);
-
             });
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
@@ -145,7 +144,7 @@ public class LoginPanel : BaseUIForm
     {
         if (NetworkManager.Instance.IsConnect())
         {
-            RegisterRequest request = new RegisterRequest(Client.Instance.Proxy.ClientId, UserNameInputField.text, PasswordInputField.text);
+            RegisterRequest request = new RegisterRequest(Client.Instance.Proxy.ClientID, UserNameInputField.text, PasswordInputField.text);
             Client.Instance.Proxy.SendMessage(request);
         }
         else
@@ -166,7 +165,7 @@ public class LoginPanel : BaseUIForm
     {
         if (NetworkManager.Instance.IsConnect())
         {
-            LoginRequest request = new LoginRequest(Client.Instance.Proxy.ClientId, UserNameInputField.text, PasswordInputField.text);
+            LoginRequest request = new LoginRequest(Client.Instance.Proxy.ClientID, UserNameInputField.text, PasswordInputField.text);
             Client.Instance.Proxy.SendMessage(request);
         }
         else
