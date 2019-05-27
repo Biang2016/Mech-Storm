@@ -126,14 +126,14 @@ public class MechEquipSystemComponent : MechComponentBase
 
     private void On_WeaponEquipped()
     {
-        M_Weapon.OnWeaponEquipped();
+        M_Weapon.OnEquipped();
         Mech.MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
 
     private void On_WeaponChanged()
     {
-        M_Weapon.OnWeaponEquipped();
+        M_Weapon.OnEquipped();
         Mech.MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipWeapon");
     }
@@ -187,14 +187,14 @@ public class MechEquipSystemComponent : MechComponentBase
 
     private void On_ShieldEquipped()
     {
-        M_Shield.OnShieldEquipped();
+        M_Shield.OnEquipped();
         Mech.MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
 
     private void On_ShieldChanged()
     {
-        M_Shield.OnShieldEquipped();
+        M_Shield.OnEquipped();
         Mech.MechAttrShapesComponent.OnAttrShapeShow();
         AudioManager.Instance.SoundPlay("sfx/OnEquipShield");
     }
@@ -247,13 +247,13 @@ public class MechEquipSystemComponent : MechComponentBase
 
     private void On_PackEquipped()
     {
-        M_Pack.OnPackEquipped();
+        M_Pack.OnEquipped();
         AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
     }
 
     private void On_PackChanged()
     {
-        M_Pack.OnPackEquipped();
+        M_Pack.OnEquipped();
         AudioManager.Instance.SoundPlay("sfx/OnEquipPack");
     }
 
@@ -306,14 +306,14 @@ public class MechEquipSystemComponent : MechComponentBase
 
     private void On_MAEquipped()
     {
-        M_MA.OnMAEquipped();
+        M_MA.OnEquipped();
         Mech.MechSwordShieldArmorComponent.MA_BG.SetActive(true);
         AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 
     private void On_MAChanged()
     {
-        M_MA.OnMAEquipped();
+        M_MA.OnEquipped();
         AudioManager.Instance.SoundPlay("sfx/OnEquipMA");
     }
 

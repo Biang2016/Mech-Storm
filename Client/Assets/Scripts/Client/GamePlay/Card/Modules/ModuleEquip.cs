@@ -38,6 +38,8 @@ public abstract class ModuleEquip : ModuleBase
         M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
 
+    public abstract void OnEquipped();
+
     #region Preview Details
 
     public abstract CardInfo_Equip GetCurrentCardInfo();

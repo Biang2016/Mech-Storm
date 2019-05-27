@@ -55,6 +55,11 @@ public class ModuleWeapon : ModuleEquip
 
     #region 属性
 
+    public override void OnEquipped()
+    {
+        EquipAnim.SetTrigger("Equipped");
+    }
+
     public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
@@ -132,9 +137,4 @@ public class ModuleWeapon : ModuleEquip
     }
 
     #endregion
-
-    public void OnWeaponEquipped()
-    {
-        EquipAnim.SetTrigger("WeaponEquipped");
-    }
 }

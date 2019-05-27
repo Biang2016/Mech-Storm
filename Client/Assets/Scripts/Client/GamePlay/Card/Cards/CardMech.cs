@@ -76,6 +76,24 @@ public class CardMech : CardBase
     internal ModulePack Pack;
     internal ModuleMA MA;
 
+    [SerializeField] private Transform[] EquipPivots;
+
+    public void SetEquipInPlace()
+    {
+        if (Weapon) Weapon.transform.position = EquipPivots[0].position;
+        if (Shield) Shield.transform.position = EquipPivots[1].position;
+        if (Pack) Pack.transform.position = EquipPivots[2].position;
+        if (MA) MA.transform.position = EquipPivots[3].position;
+    }
+
+    public void ShowEquipCardBloom()
+    {
+       CardSlotsComponent.ShowSlot(SlotTypes.Weapon, !Weapon);
+       CardSlotsComponent.ShowSlot(SlotTypes.Shield, !Shield);
+       CardSlotsComponent.ShowSlot(SlotTypes.Pack, !Pack);
+       CardSlotsComponent.ShowSlot(SlotTypes.MA, !MA);
+    }
+
     # endregion
 
     public override void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Vector3 dragLastPosition)

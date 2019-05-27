@@ -10,7 +10,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     public Dictionary<CardComponentTypes, CardComponentBase> CardComponents = new Dictionary<CardComponentTypes, CardComponentBase>();
     public DragComponent DragComponent;
-    public BoxCollider M_BoxCollider;
+    public BoxCollider BoxCollider;
 
     public override void PoolRecycle()
     {
@@ -148,7 +148,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         transform.Rotate(Vector3.up, 180);
         Usable = false;
         if (DragComponent) DragComponent.enabled = true;
-        M_BoxCollider.enabled = true;
+        BoxCollider.enabled = true;
         M_Metal = CardInfo.BaseInfo.Metal;
         M_Energy = CardInfo.BaseInfo.Energy;
         M_Coin = CardInfo.BaseInfo.Coin;
@@ -275,7 +275,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     [SerializeField] private CardStarsComponent CardStarsComponent;
     [SerializeField] private CardNoticeComponent CardNoticeComponent;
     [SerializeField] private CardCoinComponent CardCoinComponent;
-    [SerializeField] private CardSlotsComponent CardSlotsComponent;
+    public CardSlotsComponent CardSlotsComponent;
     [SerializeField] private CardLifeComponent CardLifeComponent;
 
     public void ShowCardBackBloom(bool isShow)
@@ -524,9 +524,9 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
 
     internal void ResetColliderAndReplace()
     {
-        if (M_BoxCollider)
+        if (BoxCollider)
         {
-            M_BoxCollider.enabled = true;
+            BoxCollider.enabled = true;
         }
 
         if (MyColliderReplace)

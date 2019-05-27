@@ -18,8 +18,8 @@ public class CardBaseEditor : Editor
     public static void ReloadConfigs()
     {
         Utils.DebugLog = Debug.Log;
-        AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(CardBase));
-        AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(CardBase));
+        AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
+        AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         LoadAllBasicXMLFiles.Load(Application.streamingAssetsPath + "/Config/");
         Debug.Log("Success Load Configs");
     }

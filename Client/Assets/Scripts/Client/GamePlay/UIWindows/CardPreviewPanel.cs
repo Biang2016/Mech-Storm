@@ -123,7 +123,7 @@ public class CardPreviewPanel : BaseUIForm
         PreviewCard.ShowCardBloom(true);
         PreviewCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFDD8C"), 2);
         PreviewCard.BeBrightColor();
-        PreviewCard.M_BoxCollider.enabled = false;
+        PreviewCard.BoxCollider.enabled = false;
         PreviewCard.ShowAllSlotBlooms(true);
 
         bool hasUpgradeCard = false;
@@ -171,7 +171,7 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardUpgrade.ShowCardBloom(true);
             PreviewCardUpgrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FD5400"), 2);
             PreviewCardUpgrade.BeBrightColor();
-            PreviewCardUpgrade.M_BoxCollider.enabled = false;
+            PreviewCardUpgrade.BoxCollider.enabled = false;
             PreviewCardUpgrade.ShowAllSlotBlooms(true);
             PreviewCardUpgrade.RefreshCardTextLanguage();
         }
@@ -215,7 +215,7 @@ public class CardPreviewPanel : BaseUIForm
             PreviewCardDegrade.ShowCardBloom(true);
             PreviewCardDegrade.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#0CE9FF"), 2);
             PreviewCardDegrade.BeBrightColor();
-            PreviewCardDegrade.M_BoxCollider.enabled = false;
+            PreviewCardDegrade.BoxCollider.enabled = false;
             PreviewCardDegrade.ShowAllSlotBlooms(true);
             PreviewCardDegrade.RefreshCoinPosition();
 

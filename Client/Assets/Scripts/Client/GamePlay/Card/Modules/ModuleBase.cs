@@ -7,8 +7,8 @@ public abstract class ModuleBase : PoolObject, IDragComponent, IMouseHoverCompon
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
 
     public DragComponent DragComponent;
-    [SerializeField] private MouseHoverComponent MouseHoverComponent;
-    [SerializeField] private BoxCollider BoxCollider;
+    public MouseHoverComponent MouseHoverComponent;
+    public BoxCollider BoxCollider;
 
     public override void PoolRecycle()
     {

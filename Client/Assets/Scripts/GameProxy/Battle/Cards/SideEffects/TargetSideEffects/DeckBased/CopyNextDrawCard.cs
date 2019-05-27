@@ -8,6 +8,7 @@
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("CardCount", 0);
         }
 
@@ -24,15 +25,24 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             BattlePlayer player = (BattlePlayer) Player;
-            CardInfo_Base ci = player.CardDeckManager.CardDeck.GetFirstCardInfo();
-            if (ci != null)
-            {
-                player.HandManager.DrawCards(1);
-                for (int i = 0; i < M_SideEffectParam.GetParam_MultipliedInt("CardCount"); i++)
+            player.GameManager.SideEffect_ShipAction(
+                delegate(BattlePlayer sp)
                 {
-                    player.HandManager.GetACardByID(ci.CardID);
-                }
-            }
+                    CardInfo_Base ci = sp.CardDeckManager.CardDeck.GetFirstCardInfo();
+                    if (ci != null)
+                    {
+                        sp.HandManager.DrawCards(1);
+                        for (int i = 0; i < M_SideEffectParam.GetParam_MultipliedInt("CardCount"); i++)
+                        {
+                            sp.HandManager.GetACardByID(ci.CardID);
+                        }
+                    }
+                },
+                player,
+                ChoiceCount,
+                TargetRange,
+                TargetSelect,
+                executorInfo.TargetClientIds);
         }
     }
 }

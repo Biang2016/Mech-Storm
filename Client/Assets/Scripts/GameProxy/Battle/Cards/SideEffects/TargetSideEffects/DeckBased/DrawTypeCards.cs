@@ -8,6 +8,7 @@
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("CardCount", 0);
             M_SideEffectParam.SetParam_ConstInt("DrawCardType", (int) CardTypes.Energy, typeof(CardTypes));
         }
@@ -27,7 +28,13 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             BattlePlayer player = (BattlePlayer) Player;
-            player.HandManager.DrawCardsByType((CardTypes) M_SideEffectParam.GetHashCode(), M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
+            player.GameManager.SideEffect_ShipAction(
+                delegate(BattlePlayer sp) { sp.HandManager.DrawCardsByType((CardTypes) M_SideEffectParam.GetHashCode(), M_SideEffectParam.GetParam_MultipliedInt("CardCount")); },
+                player,
+                ChoiceCount,
+                TargetRange,
+                TargetSelect,
+                executorInfo.TargetClientIds);
         }
     }
 }

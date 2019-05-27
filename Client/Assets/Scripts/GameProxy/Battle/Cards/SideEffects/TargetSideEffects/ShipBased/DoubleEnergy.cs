@@ -8,6 +8,7 @@
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
         }
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.ShipBased;

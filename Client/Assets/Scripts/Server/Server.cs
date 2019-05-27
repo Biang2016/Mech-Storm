@@ -39,8 +39,8 @@ internal class Server
     public void Start()
     {
         Utils.DebugLog = ServerLog.Instance.PrintError;
-        AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Server));
-        AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Server));
+        AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
+        AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         LoadAllBasicXMLFiles.Load(ServerConsole.ServerRoot + "Config/");
 
         ServerLog.Instance.PrintServerStates("CardDeck Loaded");

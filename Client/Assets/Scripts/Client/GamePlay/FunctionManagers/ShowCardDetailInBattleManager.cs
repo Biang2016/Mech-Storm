@@ -13,7 +13,13 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
     private float DETAIL_EQUIPMENT_CARD_SIZE = 0.25f;
     private float DETAIL_MECH_CARD_SIZE = 0.4f;
     private readonly Vector3 DETAIL_ROTATION = new Vector3(-90, -180, 0);
-    private readonly Vector3 DETAIL_POSITION = new Vector3(0, 6f, 0);
+
+    [SerializeField] private Transform DetailMechCardPivot;
+    [SerializeField] private Transform DetailMechWeaponCardPivot;
+    [SerializeField] private Transform DetailMechShieldCardPivot;
+    [SerializeField] private Transform DetailMechPackCardPivot;
+    [SerializeField] private Transform DetailMechMACardPivot;
+    [SerializeField] private Transform DetailOtherCardPivot;
 
     public void ShowCardDetail(ModuleBase moduleBase) //鼠标悬停放大查看原卡牌信息
     {
@@ -23,10 +29,9 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
             case CardTypes.Mech:
                 detailCard = (CardMech) CardBase.InstantiateCardByCardInfo(CardInfo, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                 detailCard.transform.localScale = Vector3.one * DETAIL_MECH_CARD_SIZE;
-                detailCard.transform.position = DETAIL_POSITION;
-                detailCard.transform.Translate(Vector3.left * 5f);
-                detailCard.GetComponent<BoxCollider>().enabled = false;
-                detailCard.GetComponent<DragComponent>().enabled = false;
+                detailCard.transform.position = DetailMechCardPivot.position;
+                detailCard.BoxCollider.enabled = false;
+                detailCard.DragComponent.enabled = false;
                 detailCard.BeBrightColor();
                 detailCard.CardOrder = 200;
 
@@ -41,20 +46,18 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     }
 
                     CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_Weapon.CardInfo;
+
                     cardMech.Weapon.M_ModuleMech = (ModuleMech) moduleBase;
                     cardMech.Weapon.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_Weapon.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardMech.Weapon.GetComponent<DragComponent>().enabled = false;
-                    cardMech.Weapon.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.Weapon.DragComponent.enabled = false;
+                    cardMech.Weapon.MouseHoverComponent.enabled = false;
                     cardMech.Weapon.SetPreview();
 
                     detailCard_Weapon = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Weapon.transform.rotation = Quaternion.Euler(DETAIL_ROTATION.x, DETAIL_ROTATION.y, DETAIL_ROTATION.z);
                     detailCard_Weapon.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
-                    detailCard_Weapon.transform.position = DETAIL_POSITION;
-                    detailCard_Weapon.transform.Translate(Vector3.right * 0.5f);
-                    detailCard_Weapon.transform.Translate(Vector3.back * 3f);
-                    detailCard_Weapon.transform.Translate(Vector3.up * 7f);
-                    detailCard_Weapon.GetComponent<BoxCollider>().enabled = false;
+                    detailCard_Weapon.transform.position = DetailMechWeaponCardPivot.position;
+                    detailCard_Weapon.BoxCollider.enabled = false;
                     detailCard_Weapon.BeBrightColor();
                     detailCard_Weapon.ShowCardBloom(true);
                     detailCard_Weapon.CardOrder = 200;
@@ -70,18 +73,15 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_Shield.CardInfo;
                     cardMech.Shield.M_ModuleMech = (ModuleMech) moduleBase;
                     cardMech.Shield.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_Shield.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardMech.Shield.GetComponent<DragComponent>().enabled = false;
-                    cardMech.Shield.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.Shield.DragComponent.enabled = false;
+                    cardMech.Shield.MouseHoverComponent.enabled = false;
                     cardMech.Shield.SetPreview();
 
                     detailCard_Shield = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Shield.transform.rotation = Quaternion.Euler(DETAIL_ROTATION.x, DETAIL_ROTATION.y, DETAIL_ROTATION.z);
                     detailCard_Shield.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
-                    detailCard_Shield.transform.position = DETAIL_POSITION;
-                    detailCard_Shield.transform.Translate(Vector3.right * 0.5f);
-                    detailCard_Shield.transform.Translate(Vector3.forward * 3f);
-                    detailCard_Shield.transform.Translate(Vector3.up * 7f);
-                    detailCard_Shield.GetComponent<BoxCollider>().enabled = false;
+                    detailCard_Shield.transform.position = DetailMechShieldCardPivot.position;
+                    detailCard_Shield.BoxCollider.enabled = false;
                     detailCard_Shield.BeBrightColor();
                     detailCard_Shield.ShowCardBloom(true);
                     detailCard_Shield.CardOrder = 200;
@@ -97,18 +97,15 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_Pack.CardInfo;
                     cardMech.Pack.M_ModuleMech = (ModuleMech) moduleBase;
                     cardMech.Pack.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_Pack.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardMech.Pack.GetComponent<DragComponent>().enabled = false;
-                    cardMech.Pack.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.Pack.DragComponent.enabled = false;
+                    cardMech.Pack.MouseHoverComponent.enabled = false;
                     cardMech.Pack.SetPreview();
 
                     detailCard_Pack = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_Pack.transform.rotation = Quaternion.Euler(DETAIL_ROTATION.x, DETAIL_ROTATION.y, DETAIL_ROTATION.z);
                     detailCard_Pack.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
-                    detailCard_Pack.transform.position = DETAIL_POSITION;
-                    detailCard_Pack.transform.Translate(Vector3.left * 10.5f);
-                    detailCard_Pack.transform.Translate(Vector3.back * 3f);
-                    detailCard_Pack.transform.Translate(Vector3.up * 7f);
-                    detailCard_Pack.GetComponent<BoxCollider>().enabled = false;
+                    detailCard_Pack.transform.position = DetailMechPackCardPivot.position;
+                    detailCard_Pack.BoxCollider.enabled = false;
                     detailCard_Pack.BeBrightColor();
                     detailCard_Pack.ShowCardBloom(true);
                     detailCard_Pack.CardOrder = 200;
@@ -124,31 +121,28 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
                     CardInfo_Base cw = ((ModuleMech) moduleBase).MechEquipSystemComponent.M_MA.CardInfo;
                     cardMech.MA.M_ModuleMech = (ModuleMech) moduleBase;
                     cardMech.MA.Initiate(((ModuleMech) moduleBase).MechEquipSystemComponent.M_MA.GetCurrentCardInfo(), moduleBase.ClientPlayer);
-                    cardMech.MA.GetComponent<DragComponent>().enabled = false;
-                    cardMech.MA.GetComponent<MouseHoverComponent>().enabled = false;
+                    cardMech.MA.DragComponent.enabled = false;
+                    cardMech.MA.MouseHoverComponent.enabled = false;
                     cardMech.MA.SetPreview();
 
                     detailCard_MA = (CardEquip) CardBase.InstantiateCardByCardInfo(cw, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                     detailCard_MA.transform.rotation = Quaternion.Euler(DETAIL_ROTATION.x, DETAIL_ROTATION.y, DETAIL_ROTATION.z);
                     detailCard_MA.transform.localScale = Vector3.one * DETAIL_EQUIPMENT_CARD_SIZE;
-                    detailCard_MA.transform.position = DETAIL_POSITION;
-                    detailCard_MA.transform.Translate(Vector3.left * 10.5f);
-                    detailCard_MA.transform.Translate(Vector3.forward * 3f);
-                    detailCard_MA.transform.Translate(Vector3.up * 7f);
-                    detailCard_MA.GetComponent<BoxCollider>().enabled = false;
+                    detailCard_MA.transform.position = DetailMechMACardPivot.position;
+                    detailCard_MA.BoxCollider.enabled = false;
                     detailCard_MA.BeBrightColor();
                     detailCard_MA.ShowCardBloom(true);
                     detailCard_MA.CardOrder = 200;
                 }
 
+                cardMech.SetEquipInPlace();
+
                 break;
             case CardTypes.Equip:
                 detailCard = (CardEquip) CardBase.InstantiateCardByCardInfo(CardInfo, BattleManager.Instance.ShowCardDetailInBattleManager.transform, CardBase.CardShowMode.CardPreviewBattle, RoundManager.Instance.SelfClientPlayer);
                 detailCard.transform.localScale = Vector3.one * DETAIL_SINGLE_CARD_SIZE;
-                detailCard.transform.position = DETAIL_POSITION;
-                detailCard.transform.Translate(Vector3.left * 3.5f);
-                detailCard.transform.Translate(Vector3.up * 5f);
-                detailCard.GetComponent<BoxCollider>().enabled = false;
+                detailCard.transform.position = DetailOtherCardPivot.position;
+                detailCard.BoxCollider.enabled = false;
                 detailCard.BeBrightColor();
                 detailCard.CardOrder = 200;
                 break;
@@ -156,6 +150,8 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
 
         detailCard.transform.rotation = Quaternion.Euler(DETAIL_ROTATION.x, DETAIL_ROTATION.y, DETAIL_ROTATION.z);
         detailCard.ShowCardBloom(true);
+        if (detailCard is CardMech mechCard) mechCard.ShowEquipCardBloom();
+
         List<CardInfo_Base> cardInfos = new List<CardInfo_Base>();
         if (detailCard != null) cardInfos.Add(detailCard.CardInfo);
         if (detailCard_Weapon != null) cardInfos.Add(detailCard_Weapon.CardInfo);
@@ -202,7 +198,7 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
         }
 
         detailCard.transform.position = targetPos;
-        detailCard.GetComponent<BoxCollider>().enabled = false;
+        detailCard.BoxCollider.enabled = false;
         detailCard.BeBrightColor();
         detailCard.CardOrder = 200;
         detailCard.ShowCardBloom(true);

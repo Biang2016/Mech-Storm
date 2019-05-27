@@ -8,6 +8,7 @@
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_ConstInt("SummonCardID", 0, typeof(CardDeck));
         }
 

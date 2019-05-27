@@ -36,6 +36,11 @@ public class ModuleShield : ModuleEquip
 
     #region 属性
 
+    public override void OnEquipped()
+    {
+        EquipAnim.SetTrigger("Equipped");
+    }
+
     public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
@@ -62,7 +67,7 @@ public class ModuleShield : ModuleEquip
         set
         {
             m_ShieldArmor = value;
-            ArmorText.text = m_ShieldArmor.ToString();
+            if (ArmorText) ArmorText.text = m_ShieldArmor.ToString();
         }
     }
 
@@ -75,14 +80,9 @@ public class ModuleShield : ModuleEquip
         set
         {
             m_ShieldShield = value;
-            ShieldText.text = m_ShieldShield.ToString();
+            if (ShieldText) ShieldText.text = m_ShieldShield.ToString();
         }
     }
 
     #endregion
-
-    public void OnShieldEquipped()
-    {
-        EquipAnim.SetTrigger("ShieldEquipped");
-    }
 }

@@ -32,7 +32,7 @@
 
   <SideEffect name="Sacrifice" desc_zh="摧毁{0},对敌方全体造成{1}点伤害,该机甲每拥有一个装备,造成的伤害+{2}, " desc_en="destroy {0} and deal {1} damage to all enemy's mechs. for every equip it has, deal {2} additional damage. "></SideEffect>
   <SideEffect name="HalfShield" desc_zh="使{0}的护盾值减半, " desc_en="half the shield of {0}. "></SideEffect>
-  <SideEffect name="Degenerate" desc_zh="使{0}丢去全部装备,每丢弃一个,随机获得一项基础属性提升, " desc_en="discard all {0}'s equips, for every equip discarded, add random basic attribute for it. "></SideEffect>
+  <SideEffect name="Degenerate" desc_zh="使{0}丢弃全部装备,每丢弃一个,随机获得一项基础属性提升, " desc_en="discard {0}'s equips, for every equip discarded, add random basic attribute for it. "></SideEffect>
   <SideEffect name="Cooperation" desc_zh="牺牲{0},使一个我方生命值最少的英雄获得其生命、护盾和护甲, " desc_en="sacrifice {0} then add its life, armor and shield to your hero with least life. "></SideEffect>
   <SideEffect name="Illusion" desc_zh="使{0}免疫伤害且无法主动攻击,持续{1}回合, " desc_en="{0} get immune to damage but cannot attack, which lasts {1} rounds. "></SideEffect>
 

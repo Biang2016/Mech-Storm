@@ -20,7 +20,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="DrawCards" CardCount="2" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -32,7 +32,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="6" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="DrawCards" CardCount="2" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -80,7 +80,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="SummonMech" SummonCardID="51" />
+        <SideEffect name="SummonMech" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" SummonCardID="51" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -304,8 +304,8 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="SummonMech" SummonCardID="5060" />
-        <SideEffect name="SummonMech" SummonCardID="5070" />
+        <SideEffect name="SummonMech" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" SummonCardID="5060" />
+        <SideEffect name="SummonMech" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" SummonCardID="5070" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -333,7 +333,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="SummonMech" SummonCardID="5081" />
+        <SideEffect name="SummonMech" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" SummonCardID="5081" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -615,8 +615,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawCards" CardCount="1" />
-        <SideEffect name="AddTempCardToDeck" CardID="50031" CardCount="1" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
+        <SideEffect name="AddTempCardToDeck" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="50031" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -625,8 +625,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawCards" CardCount="1" />
-        <SideEffect name="AddTempCardToDeck" CardID="50032" CardCount="1" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
+        <SideEffect name="AddTempCardToDeck" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="50032" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -635,8 +635,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawCards" CardCount="1" />
-        <SideEffect name="AddTempCardToDeck" CardID="50060" CardCount="1" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
+        <SideEffect name="AddTempCardToDeck" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="50060" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -654,7 +654,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="CopyNextDrawCard" CardCount="1" />
+        <SideEffect name="CopyNextDrawCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -672,7 +672,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawCards" CardCount="2" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -798,7 +798,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="Damage" TargetSelect="Single" TargetRange="Mechs" ChoiceCount="1" Damage="10" />
-        <SideEffect name="DrawTypeCards" DrawCardType="Equip" CardCount="2" />
+        <SideEffect name="DrawTypeCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DrawCardType="Equip" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -807,7 +807,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddTempCardToEnemyDeck" CardID="0" CardCount="3" />
+        <SideEffect name="AddTempCardToDeck" TargetSelect="Single" TargetRange="EnemyDeck" ChoiceCount="1" CardID="0" CardCount="3" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1030,7 +1030,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="3" />
-        <SideEffect name="DrawCards" CardCount="1" />
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1039,8 +1039,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60031" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawTypeCards" DrawCardType="Energy" CardCount="1" />
-        <SideEffect name="DrawTypeCards" DrawCardType="Spell" CardCount="1" />
+        <SideEffect name="DrawTypeCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DrawCardType="Energy" CardCount="1" />
+        <SideEffect name="DrawTypeCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DrawCardType="Spell" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1079,7 +1079,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="Exile" />
-        <SideEffect name="DoubleEnergy" />
+        <SideEffect name="DoubleEnergy" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -1109,7 +1109,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="10" />
-        <SideEffect name="DoubleEnergy" />
+        <SideEffect name="DoubleEnergy" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>

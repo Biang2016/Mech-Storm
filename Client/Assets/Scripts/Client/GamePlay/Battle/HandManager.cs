@@ -293,7 +293,7 @@ public class HandManager : MonoBehaviour
         newCardBase.transform.rotation = srcTran.rotation;
         newCardBase.transform.localScale = Vector3.one * HAND_CARD_SIZE;
 
-        newCardBase.M_BoxCollider.enabled = false;
+        newCardBase.BoxCollider.enabled = false;
 
         Vector3[] path = new Vector3[DrawCardPivots.Length];
         for (int i = 1; i < DrawCardPivots.Length; i++)
@@ -317,7 +317,7 @@ public class HandManager : MonoBehaviour
         seq.Append(newCardBase.transform.DORotateQuaternion(tarRotation, duration / DrawCardPivots.Length).SetEase(Ease.Linear));
         seq.Play();
         yield return new WaitForSeconds(duration);
-        newCardBase.M_BoxCollider.enabled = true;
+        newCardBase.BoxCollider.enabled = true;
         yield return null;
     }
 
@@ -522,7 +522,7 @@ public class HandManager : MonoBehaviour
         focusCard.transform.rotation = DefaultCardPivot.rotation;
         focusCard.transform.position = new Vector3(focusCard.transform.position.x, focusCard.transform.position.y, focusCard.transform.position.z + PULL_OUT_CARD_OFFSET);
         //Disenable the card's boxcollider
-        focusCard.M_BoxCollider.enabled = false;
+        focusCard.BoxCollider.enabled = false;
         focusCard.CardOrder = 200;
         isEnlarge = true;
     }

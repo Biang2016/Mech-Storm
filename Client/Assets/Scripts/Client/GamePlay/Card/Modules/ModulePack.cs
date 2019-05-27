@@ -21,6 +21,11 @@
 
     #region 属性
 
+    public override void OnEquipped()
+    {
+        EquipAnim.SetTrigger("Equipped");
+    }
+
     public override CardInfo_Equip GetCurrentCardInfo()
     {
         CardInfo_Equip currentCI = (CardInfo_Equip) CardInfo.Clone();
@@ -28,9 +33,4 @@
     }
 
     #endregion
-
-    public void OnPackEquipped()
-    {
-        EquipAnim.SetTrigger("PackEquipped");
-    }
 }

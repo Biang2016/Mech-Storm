@@ -129,19 +129,37 @@ public class SideEffectBundle : IClone<SideEffectBundle>
     {
         StringBuilder sb = new StringBuilder();
         bool dot = true;
-        src = src.ToLower().Replace("</color>", "@");
+        bool colorStart = false;
+        src = src.Replace("</color>", "@");
         for (int i = 0; i < src.Length; i++)
         {
             char c = src[i];
-            if (c == '.' || c == ':' || c == ';')
+            if (c == '<' && i < src.Length - 1 && src[i + 1] == '#' && !colorStart)
             {
-                dot = true;
                 sb.Append(c);
+                colorStart = true;
             }
-            else if (dot && (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+            else if (c == '>' && colorStart)
             {
-                sb.Append(c.ToString().ToUpper());
-                dot = false;
+                sb.Append(c);
+                colorStart = false;
+            }
+            else if (!colorStart)
+            {
+                if (c == '.' || c == ':' || c == ';' || c == '[')
+                {
+                    dot = true;
+                    sb.Append(c);
+                }
+                else if (dot && (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+                {
+                    sb.Append(c.ToString().ToUpper());
+                    dot = false;
+                }
+                else
+                {
+                    sb.Append(c);
+                }
             }
             else
             {

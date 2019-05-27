@@ -21,7 +21,7 @@ public class PropertyFormRow_Dropdown : PropertyFormRow
         }
 
         Dropdown.onValueChanged.RemoveAllListeners();
-        Dropdown.value = 0;
+        Dropdown.value = -1;
         Dropdown.RefreshShownValue();
         Dropdown.onValueChanged.AddListener(delegate { onValueChangeAction(Dropdown.options[Dropdown.value].text); });
     }

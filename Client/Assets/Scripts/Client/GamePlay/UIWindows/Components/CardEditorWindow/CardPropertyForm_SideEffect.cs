@@ -207,21 +207,21 @@ public class CardPropertyForm_SideEffect : PoolObject
                                     onValueChangeAction: delegate(string value_str)
                                     {
                                         s.Value = (int) Enum.Parse(s.EnumType, value_str);
-                                        PropertyFormRow triggerRangeRow = null;
+                                        PropertyFormRow targetRangeRow = null;
                                         foreach (PropertyFormRow cardPropertyFormRow in CardPropertyFormRows)
                                         {
-                                            if (cardPropertyFormRow.LabelStrKey.Equals("TargetRange"))
+                                            if (cardPropertyFormRow.LabelStrKey.Equals(sev_Prefix + "TargetRange"))
                                             {
-                                                triggerRangeRow = cardPropertyFormRow;
+                                                targetRangeRow = cardPropertyFormRow;
                                                 break;
                                             }
                                         }
 
-                                        if (triggerRangeRow)
+                                        if (targetRangeRow)
                                         {
-                                            int siblingIndex = triggerRangeRow.transform.GetSiblingIndex();
-                                            triggerRangeRow.PoolRecycle();
-                                            CardPropertyFormRows.Remove(triggerRangeRow);
+                                            int siblingIndex = targetRangeRow.transform.GetSiblingIndex();
+                                            targetRangeRow.PoolRecycle();
+                                            CardPropertyFormRows.Remove(targetRangeRow);
 
                                             Dictionary<TargetSelect, List<TargetRange>> dict = TargetSelector.TargetSelectorPresets[t_se1.TargetSelectorType];
                                             List<string> enumList_TargetRange = new List<string>();
@@ -245,6 +245,7 @@ public class CardPropertyForm_SideEffect : PoolObject
                                                     },
                                                     out UnityAction<string> _setValue,
                                                     enumList_TargetRange);
+                                                targetRangeSEV.SetValue(enumList_TargetRange[0]);
                                                 _setValue(Enum.GetName(targetRangeSEV.EnumType, targetRangeSEV.Value));
                                                 onRefreshText?.Invoke();
                                                 CardPropertyFormRows.Add(new_TargetRangeRow);
