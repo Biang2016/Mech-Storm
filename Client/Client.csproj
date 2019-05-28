@@ -139,6 +139,7 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\FunctionManagers\ShowCardDetailInBattleManager.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\Online\OnlineManager.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\CardEditorManager.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\EffectManager.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\RootManager.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\BuildButton.cs" />
@@ -164,6 +165,7 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectBundle.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectExecute.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PicPreviewButton.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PicSelectPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow_Dropdown.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow_InputField.cs" />

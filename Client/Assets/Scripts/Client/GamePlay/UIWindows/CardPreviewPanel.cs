@@ -107,11 +107,11 @@ public class CardPreviewPanel : BaseUIForm
         {
             if (operation == UpgradeDegradeOperation.Degrade)
             {
-                PreviewCard_Src = UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().allCards[PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID];
+                PreviewCard_Src = UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards[PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID];
             }
             else if (operation == UpgradeDegradeOperation.Upgrade)
             {
-                PreviewCard_Src = UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().allCards[PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID];
+                PreviewCard_Src = UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards[PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID];
             }
         }
 

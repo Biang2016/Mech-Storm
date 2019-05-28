@@ -402,7 +402,7 @@ public partial class SelectBuildPanel
         else
         {
             int buildLeftCoin = CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin;
-            foreach (KeyValuePair<int, CardBase> kv in allShownCards)
+            foreach (KeyValuePair<int, CardBase> kv in AllShownCards)
             {
                 if (SelectedCards.ContainsKey(kv.Value.CardInfo.CardID)) continue;
                 if (SelectedHeroes.ContainsKey(kv.Value.CardInfo.CardID)) continue;
@@ -424,7 +424,7 @@ public partial class SelectBuildPanel
         List<CardBase> selectCB = new List<CardBase>();
         foreach (int cardID in buildInfo.M_BuildCards.GetCardIDs())
         {
-            CardBase cb = allCards[cardID];
+            CardBase cb = AllCards[cardID];
             selectCB.Add(cb);
         }
 
@@ -450,7 +450,7 @@ public partial class SelectBuildPanel
             return;
         }
 
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             kv.Value.BeDimColor();
             kv.Value.ShowCardBloom(false);

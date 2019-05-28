@@ -11,6 +11,8 @@ public class LevelEditorPanel : BaseUIForm
     {
     }
 
+    [SerializeField] private PicSelectPanel PicSelectPanel;
+
     void Awake()
     {
         UIType.InitUIType(
@@ -37,8 +39,9 @@ public class LevelEditorPanel : BaseUIForm
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);
 
         InitializeCardPropertyForm();
-//        InitializePreviewCardGrid();
-        InitializePicSelectGrid();
+        InitializePreviewCardGrid();
+        PicSelectPanel.OnClickPicAction = SetLevelPicID;
+        PicSelectPanel.InitializePicSelectGrid();
     }
 
     void Start()
@@ -75,9 +78,9 @@ public class LevelEditorPanel : BaseUIForm
 
     private void InitializeCardPropertyForm()
     {
-        foreach (PropertyFormRow cpfr in MyPropertiesRows)
+        foreach (PropertyFormRow pfr in MyPropertiesRows)
         {
-            cpfr.PoolRecycle();
+            pfr.PoolRecycle();
         }
 
         MyPropertiesRows.Clear();
@@ -98,7 +101,7 @@ public class LevelEditorPanel : BaseUIForm
             EnemyTypePropertiesDict.Add(enemyType, new List<PropertyFormRow>());
         }
 
-        PropertyFormRow Row_LevelType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorWindow_LevelType", OnLevelTypeChange, out SetCardType, levelTypeList);
+        PropertyFormRow Row_LevelType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorWindow_LevelType", OnLevelTypeChange, out SetLevelType, levelTypeList);
         PropertyFormRow Row_LevelID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelIDLabelText", OnLevelIDChange, out SetLevelID);
         PropertyFormRow Row_LevelPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelPicIDLabelText", OnLevelPicIDChange, out SetLevelPicID);
         PropertyFormRow Row_LevelName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelNameLabelText_zh", OnLevelNameChange_zh, out SetLevelName_zh);
@@ -133,7 +136,7 @@ public class LevelEditorPanel : BaseUIForm
         };
     }
 
-    private UnityAction<string> SetCardType;
+    private UnityAction<string> SetLevelType;
 
     private void OnLevelTypeChange(string value_str)
     {
@@ -260,12 +263,24 @@ public class LevelEditorPanel : BaseUIForm
         return false;
     }
 
+    public void SaveLevel()
+    {
+    }
+
+    public void ResetLevel()
+    {
+    }
+
     #region Center CardLibrary
 
     [SerializeField] private Button SaveLevelButton;
     [SerializeField] private Button ResetLevelButton;
     [SerializeField] private Text SaveLevelButtonText;
     [SerializeField] private Text ResetLevelButtonText;
+
+    private CardBase mouseLeftDownCard;
+    private CardBase mouseRightDownCard;
+    private Vector3 mouseDownPosition;
 
     void Update()
     {
@@ -285,80 +300,163 @@ public class LevelEditorPanel : BaseUIForm
                 SaveLevel();
             }
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
+            if (raycast.collider)
+            {
+                CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
+                if (card)
+                {
+                    mouseDownPosition = Input.mousePosition;
+                    mouseLeftDownCard = card;
+                }
+            }
+            else
+            {
+                mouseRightDownCard = null;
+                mouseLeftDownCard = null;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
+            if (raycast.collider != null)
+            {
+                CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
+                if (card)
+                {
+                    mouseDownPosition = Input.mousePosition;
+                    mouseRightDownCard = card;
+                }
+            }
+            else
+            {
+                mouseRightDownCard = null;
+                mouseLeftDownCard = null;
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
+            if (raycast.collider != null)
+            {
+                CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
+                if (card)
+                {
+                    if ((Input.mousePosition - mouseDownPosition).magnitude < 50)
+                    {
+                        if (mouseLeftDownCard == card)
+                        {
+                            SelectCard(card);
+                        }
+                    }
+                }
+            }
+
+            mouseLeftDownCard = null;
+            mouseRightDownCard = null;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycast;
+            Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
+            if (raycast.collider != null)
+            {
+                CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
+                if (Input.GetMouseButtonUp(1))
+                {
+                    if (card && mouseRightDownCard == card)
+                    {
+                        UnSelectCard(card);
+                    }
+                }
+            }
+
+            mouseLeftDownCard = null;
+            mouseRightDownCard = null;
+        }
     }
 
-    public void SaveLevel()
+    private Dictionary<int, CardBase> AllCards = new Dictionary<int, CardBase>();
+    public Dictionary<int, PoolObject> AllCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
+    [SerializeField] private GridLayoutGroup CardLibraryGridLayout;
+
+    private void InitializePreviewCardGrid()
     {
+        SelectCardCount.Clear();
+        foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
+        {
+            if (cardInfo.CardID == 99999) continue;
+            if (cardInfo.BaseInfo.IsHide) continue;
+            if (cardInfo.BaseInfo.IsTemp) continue;
+            AddCardIntoGridLayout(cardInfo.Clone());
+            SelectCardCount.Add(cardInfo.CardID, 0);
+        }
     }
 
-    public void ResetLevel()
+    public void AddCardIntoGridLayout(CardInfo_Base cardInfo)
     {
+        CardSelectWindowCardContainer newCardContainer = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardSelectWindowCardContainer].AllocateGameObject<CardSelectWindowCardContainer>(CardLibraryGridLayout.transform);
+        newCardContainer.Initialize(cardInfo);
+        RefreshCard(newCardContainer, false);
+        AllCards.Add(cardInfo.CardID, newCardContainer.M_ChildCard);
+        AllCardContainers.Add(cardInfo.CardID, newCardContainer);
+    }
+
+    private static void RefreshCard(CardSelectWindowCardContainer container, bool isSelected)
+    {
+        if (isSelected)
+        {
+            container.M_ChildCard.BeBrightColor();
+        }
+        else
+        {
+            container.M_ChildCard.BeDimColor();
+        }
+
+        if (container.M_ChildCard.CardInfo.BaseInfo.LimitNum == 0)
+        {
+            container.gameObject.SetActive(false);
+        }
+    }
+
+    private void SelectCard(CardBase card)
+    {
+        int count = ++SelectCardCount[card.CardInfo.CardID];
+        card.SetBlockCountValue(count);
+        card.BeBrightColor();
+        card.ShowCardBloom(true);
+    }
+
+    Dictionary<int, int> SelectCardCount = new Dictionary<int, int>();
+
+    private void UnSelectCard(CardBase card)
+    {
+        if (SelectCardCount[card.CardInfo.CardID] == 0) return;
+        int count = --SelectCardCount[card.CardInfo.CardID];
+        card.SetBlockCountValue(count);
+        if (SelectCardCount[card.CardInfo.CardID] == 0)
+        {
+            card.BeDimColor();
+            card.ShowCardBloom(false);
+        }
     }
 
     #endregion
 
     #region Right Selection
-
-    #endregion
-
-    #region PicSelectPanel
-
-    [SerializeField] private GameObject PicSelectGridPanel;
-    [SerializeField] private GridLayoutGroup PicSelectGridContainer;
-    [SerializeField] private Button PicSelectGridOpenButton;
-    [SerializeField] private Button PicSelectGridCloseButton;
-    private List<PicPreviewButton> PicPreviewButtons = new List<PicPreviewButton>();
-
-    private void InitializePicSelectGrid()
-    {
-        PicSelectGridPanel.SetActive(false);
-        PicSelectGridCloseButton.gameObject.SetActive(false);
-        foreach (PicPreviewButton ppb in PicPreviewButtons)
-        {
-            ppb.PoolRecycle();
-        }
-
-        PicPreviewButtons.Clear();
-
-        SortedDictionary<int, Sprite> SpriteDict = new SortedDictionary<int, Sprite>();
-        for (int i = 0; i <= 10; i++)
-        {
-            SpriteAtlas sa = AtlasManager.LoadAtlas("CardPics_" + i);
-            Sprite[] Sprites = new Sprite[sa.spriteCount];
-            sa.GetSprites(Sprites);
-            foreach (Sprite sprite in Sprites)
-            {
-                SpriteDict.Add(int.Parse(sprite.name.Replace("(Clone)", "")), sprite);
-            }
-        }
-
-        foreach (KeyValuePair<int, Sprite> kv in SpriteDict)
-        {
-            PicPreviewButton ppb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.PicPreviewButton].AllocateGameObject<PicPreviewButton>(PicSelectGridContainer.transform);
-            ppb.Initialize(kv.Value, delegate
-            {
-                SetLevelPicID(kv.Key.ToString());
-                PicSelectGridPanel.SetActive(false);
-                PicSelectGridCloseButton.gameObject.SetActive(false);
-                PicSelectGridOpenButton.gameObject.SetActive(true);
-            });
-            PicPreviewButtons.Add(ppb);
-        }
-    }
-
-    public void OnPicSelectGridOpenButtonClick()
-    {
-        PicSelectGridPanel.SetActive(true);
-        PicSelectGridCloseButton.gameObject.SetActive(true);
-        PicSelectGridOpenButton.gameObject.SetActive(false);
-    }
-
-    public void OnPicSelectGridCloseButtonClick()
-    {
-        PicSelectGridPanel.SetActive(false);
-        PicSelectGridCloseButton.gameObject.SetActive(false);
-        PicSelectGridOpenButton.gameObject.SetActive(true);
-    }
 
     #endregion
 }

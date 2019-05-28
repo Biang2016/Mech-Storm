@@ -8,7 +8,7 @@ public class CardScreenShotEditor : ScriptableObject
     public static void CaptureScreen()
     {
         int i = 1;
-        foreach (KeyValuePair<int, CardBase> kv in UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().allCards)
+        foreach (KeyValuePair<int, CardBase> kv in UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards)
         {
             CardPreviewPanel cpp = UIManager.Instance.ShowUIForms<CardPreviewPanel>();
             cpp?.ShowPreviewCardPanel(kv.Value, false);

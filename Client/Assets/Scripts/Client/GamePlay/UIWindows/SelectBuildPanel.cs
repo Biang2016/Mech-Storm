@@ -113,9 +113,9 @@ public partial class SelectBuildPanel : BaseUIForm
         IsShow = false;
     }
 
-    public Dictionary<int, CardBase> allCards = new Dictionary<int, CardBase>(); // 所有卡片都放入窗口，按需隐藏
-    public Dictionary<int, PoolObject> allCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
-    public Dictionary<int, CardBase> allShownCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
+    public Dictionary<int, CardBase> AllCards = new Dictionary<int, CardBase>(); // 所有卡片都放入窗口，按需隐藏
+    public Dictionary<int, PoolObject> AllCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
+    public Dictionary<int, CardBase> AllShownCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
 
     public void Init(bool force = false)
     {

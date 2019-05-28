@@ -165,7 +165,7 @@ public partial class SelectBuildPanel
 
     public void InitAddAllCards()
     {
-        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
+        foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 99999) continue;
             if (cardInfo.BaseInfo.IsHide) continue;
@@ -179,29 +179,29 @@ public partial class SelectBuildPanel
         CardSelectWindowCardContainer newCardContainer = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardSelectWindowCardContainer].AllocateGameObject<CardSelectWindowCardContainer>(AllCardsContainer);
         newCardContainer.Initialize(cardInfo);
         RefreshCardInSelectWindow(newCardContainer, false);
-        allCards.Add(cardInfo.CardID, newCardContainer.M_ChildCard);
-        allCardContainers.Add(cardInfo.CardID, newCardContainer);
+        AllCards.Add(cardInfo.CardID, newCardContainer.M_ChildCard);
+        AllCardContainers.Add(cardInfo.CardID, newCardContainer);
     }
 
     #region 卡片的隐藏与显示
 
     private void HideAllCards()
     {
-        foreach (CardSelectWindowCardContainer ccc in allCardContainers.Values)
+        foreach (CardSelectWindowCardContainer ccc in AllCardContainers.Values)
         {
             ccc.gameObject.SetActive(false);
         }
 
-        allShownCards.Clear();
+        AllShownCards.Clear();
     }
 
     public void ShowHiddenCard(int cardID)
     {
-        CardBase cb = allCards[cardID];
-        if (!allShownCards.ContainsKey(cardID))
+        CardBase cb = AllCards[cardID];
+        if (!AllShownCards.ContainsKey(cardID))
         {
-            allShownCards.Add(cardID, cb);
-            allCardContainers[cardID].gameObject.SetActive(true);
+            AllShownCards.Add(cardID, cb);
+            AllCardContainers[cardID].gameObject.SetActive(true);
         }
     }
 
@@ -219,7 +219,7 @@ public partial class SelectBuildPanel
     private void InitializeOnlineCardLimitDict()
     {
         OnlineCardLimitDict = new SortedDictionary<int, int>();
-        foreach (CardInfo_Base cardInfo in AllCards.CardDict.Values)
+        foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 99999 || cardInfo.CardID == 99999) continue;
             if (cardInfo.BaseInfo.IsHide) continue;
@@ -249,29 +249,29 @@ public partial class SelectBuildPanel
             int CardID = kv.Key;
             int CardLimitCount = kv.Value;
 
-            if (allCards.ContainsKey(CardID))
+            if (AllCards.ContainsKey(CardID))
             {
-                CardBase cb = allCards[CardID];
+                CardBase cb = AllCards[CardID];
                 cb.ChangeCardSelectLimit(CardLimitCount);
 
-                if (!allShownCards.ContainsKey(CardID))
+                if (!AllShownCards.ContainsKey(CardID))
                 {
                     if (CardLimitCount > 0)
                     {
-                        allShownCards.Add(CardID, cb);
-                        allCardContainers[CardID].gameObject.SetActive(true);
+                        AllShownCards.Add(CardID, cb);
+                        AllCardContainers[CardID].gameObject.SetActive(true);
                     }
                     else
                     {
-                        allCardContainers[CardID].gameObject.SetActive(false);
+                        AllCardContainers[CardID].gameObject.SetActive(false);
                     }
                 }
                 else
                 {
                     if (CardLimitCount == 0)
                     {
-                        allCardContainers[CardID].gameObject.SetActive(false);
-                        allShownCards.Remove(CardID);
+                        AllCardContainers[CardID].gameObject.SetActive(false);
+                        AllShownCards.Remove(CardID);
                     }
                 }
             }
@@ -286,7 +286,7 @@ public partial class SelectBuildPanel
     private void HideNoLimitCards()
     {
         List<int> removeCards = new List<int>();
-        foreach (KeyValuePair<int, CardBase> kv in allShownCards)
+        foreach (KeyValuePair<int, CardBase> kv in AllShownCards)
         {
             if (kv.Value.CardInfo.BaseInfo.LimitNum == 0)
             {
@@ -296,8 +296,8 @@ public partial class SelectBuildPanel
 
         foreach (int cardID in removeCards)
         {
-            allCardContainers[cardID].gameObject.SetActive(false);
-            allShownCards.Remove(cardID);
+            AllCardContainers[cardID].gameObject.SetActive(false);
+            AllShownCards.Remove(cardID);
         }
     }
 
@@ -306,7 +306,7 @@ public partial class SelectBuildPanel
         if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single)
         {
             List<int> removeCards = new List<int>();
-            foreach (KeyValuePair<int, CardBase> kv in allShownCards)
+            foreach (KeyValuePair<int, CardBase> kv in AllShownCards)
             {
                 //if (kv.Value.CardInfo.BaseInfo.CardRareLevel > StoryManager.Instance.Conquered_LevelNum + 1)
                 //{
@@ -316,8 +316,8 @@ public partial class SelectBuildPanel
 
             foreach (int cardID in removeCards)
             {
-                allCardContainers[cardID].gameObject.SetActive(false);
-                allShownCards.Remove(cardID);
+                AllCardContainers[cardID].gameObject.SetActive(false);
+                AllShownCards.Remove(cardID);
             }
         }
     }
@@ -326,7 +326,7 @@ public partial class SelectBuildPanel
 
     public void RefreshCardTextLanguage()
     {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             kv.Value.RefreshCardTextLanguage();
         }
@@ -361,7 +361,7 @@ public partial class SelectBuildPanel
 
         int currentCardID = previewCard.CardInfo.CardID;
         int changeCardID = isUpgrade ? previewCard.CardInfo.UpgradeInfo.UpgradeCardID : previewCard.CardInfo.UpgradeInfo.DegradeCardID;
-        CardInfo_Base changeCardInfo = AllCards.GetCard(changeCardID);
+        CardInfo_Base changeCardInfo = global::AllCards.GetCard(changeCardID);
 
         if (previewCard.CardInfo.BaseInfo.LimitNum == 0)
         {
@@ -377,11 +377,11 @@ public partial class SelectBuildPanel
             }
         }
 
-        CardBase changeCard = allCards[changeCardID];
+        CardBase changeCard = AllCards[changeCardID];
         if (changeCard.CardInfo.BaseInfo.LimitNum == 0)
         {
-            allCardContainers[changeCardID].gameObject.SetActive(true);
-            allShownCards.Add(changeCardID, changeCard);
+            AllCardContainers[changeCardID].gameObject.SetActive(true);
+            AllShownCards.Add(changeCardID, changeCard);
         }
 
         previewCard.ChangeCardSelectLimit(previewCard.CardInfo.BaseInfo.LimitNum - 1);
@@ -403,27 +403,27 @@ public partial class SelectBuildPanel
 
     public void ShowNewCardBanner()
     {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             kv.Value.SetBannerType(CardNoticeComponent.BannerTypes.None);
         }
 
         foreach (int cardID in StoryManager.Instance.JustGetNewCards)
         {
-            allCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
+            AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
         }
     }
 
     public void ShowUpgradeCardBanner()
     {
-        foreach (KeyValuePair<int, CardBase> kv in allCards)
+        foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             kv.Value.SetArrowType(CardNoticeComponent.ArrowTypes.None);
         }
 
         foreach (int cardID in StoryManager.Instance.JustUpgradeCards)
         {
-            allCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
+            AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
         }
     }
 }

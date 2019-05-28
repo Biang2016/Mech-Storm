@@ -68,10 +68,7 @@ public class LoginPanel : BaseUIForm
         }
     }
 
-    void OnDestroy()
-    {
-        Proxy.OnClientStateChange = null;
-    }
+
 
     public enum ServerTypes
     {

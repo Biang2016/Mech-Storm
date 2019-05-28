@@ -237,7 +237,7 @@ MonoBehaviour:
     - SetCurrentSummonMechPreviewCard
     - CancelSummonMechPreview
     - Utils
-    stamp: 1558845785
+    stamp: 1559004208
     type: 2
     UseGUIDs: []
   - guid: 424a5e20c5142584eae1d93978534750
@@ -255,7 +255,7 @@ MonoBehaviour:
   - guid: c66c08303cdae684c84ec0d62e06b4e8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559022113
+    stamp: 1559026618
     type: 3
     UseGUIDs:
     - 5f5f6f2dbb69af8408fe8e93ba573ff8
@@ -508,7 +508,7 @@ MonoBehaviour:
     - OnBeDamaged
     - OnBeginRound
     - OnEndRound
-    stamp: 1558845785
+    stamp: 1559006874
     type: 2
     UseGUIDs: []
   - guid: 293f6f700c5a1a64e84255c0d8584f5a
@@ -583,6 +583,7 @@ MonoBehaviour:
     - MonoSingleton<Client>
     - Proxy
     - GameProxy
+    - OnDestroy
     - SetNetwork
     - NetworkManager
     - SendToLocalGameProxy
@@ -595,7 +596,7 @@ MonoBehaviour:
     - ProxyBase
     - IsMatching
     - IsPlaying
-    stamp: 1558845786
+    stamp: 1559027512
     type: 2
     UseGUIDs: []
   - guid: 6452acb0db947ea469b8308789746097
@@ -827,18 +828,24 @@ MonoBehaviour:
     ScriptSymbols:
     - LensFlareIdle
     ScriptTokens:
-    - MonoBehaviour
-    - SerializeField
+    - PoolObject
+    - PoolRecycle
     - LensFlare
+    - StopAllCoroutines
+    - SerializeField
     - Transform
     - Start
     - Flicker
+    - Vector3
+    - PathType
+    - PathMode
+    - Color
     - Update
     - StartCoroutine
     - Co_Flicker
     - IEnumerator
     - WaitForSeconds
-    stamp: 1558845785
+    stamp: 1559025179
     type: 2
     UseGUIDs: []
   - guid: 5a6be4312baa0c140b6c064097e225f8
@@ -1369,7 +1376,6 @@ MonoBehaviour:
     - CardInfo_Base
     - CardInfo
     - DragComponent
-    - SerializeField
     - MouseHoverComponent
     - BoxCollider
     - PoolRecycle
@@ -1413,7 +1419,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnMousePressLeaveImmediately
     - DragComponent_SetHasTarget
     - DragComponent_DragOutEffects
-    stamp: 1558845785
+    stamp: 1558967321
     type: 2
     UseGUIDs: []
   - guid: 2641add10c06db74c99efcfef23ca627
@@ -2220,7 +2226,7 @@ MonoBehaviour:
   - guid: 158854d2f3e0a5b4a93118da8623b21c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622564
+    stamp: 1559020518
     type: 1
     UseGUIDs:
     - 550ecf93ad522404dad53ae3ff80988c
@@ -2254,6 +2260,13 @@ MonoBehaviour:
     - ModuleShield
     - ModulePack
     - ModuleMA
+    - SerializeField
+    - Transform
+    - EquipPivots
+    - SetEquipInPlace
+    - ShowEquipCardBloom
+    - CardSlotsComponent
+    - SlotTypes
     - DragComponent_OnMousePressed
     - BoardAreaTypes
     - List
@@ -2269,7 +2282,7 @@ MonoBehaviour:
     - M_CardInstanceId
     - Usable
     - TargetRange
-    stamp: 1558845785
+    stamp: 1558967673
     type: 2
     UseGUIDs: []
   - guid: 0ce19de2ddfe48b4b9e5aace892b24e8
@@ -2761,6 +2774,12 @@ MonoBehaviour:
     ScriptTokens:
     - BaseUIForm
     - SerializeField
+    - Button
+    - SwitchToOtherModeButton
+    - Text
+    - SwitchToOtherModeText
+    - CardEditorButton
+    - CardEditorText
     - Transform
     - ButtonContainer
     - Dictionary
@@ -2773,6 +2792,8 @@ MonoBehaviour:
     - UIFormTypes
     - UIFormShowModes
     - UIFormLucencyTypes
+    - OnCardEditorButtonClick
+    - LanguageManager
     - Proxy
     - OnClientChangeState
     - AddButton
@@ -2819,9 +2840,10 @@ MonoBehaviour:
     - RefreshBuildInfoAbstract
     - SelectBuildManager
     - AudioManager
+    - OnSwitchToOnlineMode
+    - OnSwitchToSingleMode
     - DeckAbstract
     - GameObject
-    - Text
     - DeckAbstractText_DeckName
     - DeckAbstractText_Cards
     - DeckAbstractText_CardNum
@@ -2831,7 +2853,6 @@ MonoBehaviour:
     - DeckAbstractText_EnergyNum
     - DeckAbstractText_Draws
     - DeckAbstractText_DrawNum
-    - LanguageManager
     - FontStyle
     - BuildInfo
     - StoryManager
@@ -2847,7 +2868,8 @@ MonoBehaviour:
     - NoticeManager
     - ClientLog
     - LogoutRequest
-    stamp: 1558845785
+    - GameManager
+    stamp: 1559026490
     type: 2
     UseGUIDs: []
   - guid: 9fc0ea9365cf306498a67947dd2da50f
@@ -2928,7 +2950,7 @@ MonoBehaviour:
   - guid: 5ec149b3b0c41114fa04375ac46f2d8a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557884401
+    stamp: 1559009320
     type: 1
     UseGUIDs:
     - 5f9b4313de4d7f14db6f37b46ec96d7a
@@ -3312,13 +3334,13 @@ MonoBehaviour:
     - Details
     - SetPreview
     - SetNoPreview
+    - OnEquipped
+    - EquipAnim
     - CardInfo_Equip
     - GetCurrentCardInfo
     - CardInfo
     - ShieldTypes
-    - OnShieldEquipped
-    - EquipAnim
-    stamp: 1558845785
+    stamp: 1558966034
     type: 2
     UseGUIDs: []
   - guid: a24cc96475ca7924583382f0174de03f
@@ -3334,9 +3356,22 @@ MonoBehaviour:
     - Layer_Slots
     - Layer_BoardAreas
     - Layer_UX
+    - SerializeField
+    - Transform
+    - EffectRoot
     - Awake
     - LayerMask
-    stamp: 1558845785
+    - Start
+    - GenerateLensFlareIdle
+    - List
+    - LensFlareIdle
+    - LensFlareIdles
+    - GameObjectPoolManager
+    - Vector3
+    - Space
+    - OnCardEditorButtonClick
+    - SceneManager
+    stamp: 1559026530
     type: 2
     UseGUIDs: []
   - guid: 27eb82740966bfd4589ade9c20709ecb
@@ -3391,7 +3426,7 @@ MonoBehaviour:
   - guid: 4e835b84747ac954284a4e05b30da560
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557992701
+    stamp: 1559009815
     type: 1
     UseGUIDs:
     - f2c877ef9c7c1d141a7b4544240f135c
@@ -3544,7 +3579,7 @@ MonoBehaviour:
   - guid: 97b8e7f4819af8548bc78f75959edc14
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622564
+    stamp: 1559020518
     type: 1
     UseGUIDs:
     - 3b71fa018f4ef4b4fab3b6a2a583e313
@@ -3553,7 +3588,7 @@ MonoBehaviour:
   - guid: bcfd4bf4b684f2f4a8f049caf705f701
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1555500842
+    stamp: 1558965895
     type: 1
     UseGUIDs:
     - d0ad8d522371a4f4d83a9c5723bc664c
@@ -3815,7 +3850,6 @@ MonoBehaviour:
     - CardComponents
     - DragComponent
     - BoxCollider
-    - M_BoxCollider
     - PoolRecycle
     - ResetColliderAndReplace
     - CardOrder
@@ -3923,7 +3957,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnFocusEnd
     - MouseHoverComponent_OnMousePressEnterImmediately
     - MouseHoverComponent_OnMousePressLeaveImmediately
-    stamp: 1558845785
+    stamp: 1558967648
     type: 2
     UseGUIDs: []
   - guid: b3b9aa6576114c54983a5820150e02ad
@@ -4659,6 +4693,8 @@ MonoBehaviour:
     - M_Bloom
     - WeaponTypes
     - SetNoPreview
+    - OnEquipped
+    - EquipAnim
     - CardInfo_Equip
     - GetCurrentCardInfo
     - CardInfo
@@ -4670,9 +4706,7 @@ MonoBehaviour:
     - IEnumerator
     - BeDimColor
     - BeBrightColor
-    - OnWeaponEquipped
-    - EquipAnim
-    stamp: 1558845785
+    stamp: 1559003488
     type: 2
     UseGUIDs: []
   - guid: bf20956637cc5884ebd535e326d54c2c
@@ -4941,7 +4975,7 @@ MonoBehaviour:
   - guid: ec5c18d6145c4e8c8faa44e3c1fcea9b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1558967858
     type: 1
     UseGUIDs:
     - 954a993272cf403ab3ec8957c302f45a
@@ -5055,7 +5089,7 @@ MonoBehaviour:
   - guid: dd3eaee6aa322934d96562cdc3708e37
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1554863327
+    stamp: 1559025546
     type: 1
     UseGUIDs:
     - 1e2fedb64e1618645930a915ae38f76e
@@ -5063,6 +5097,7 @@ MonoBehaviour:
     - 28c773a621363974895702ebe9c34bb9
     - a83d9a84685bd6a4a9a1e0136dc2fa49
     - 7de633bf940946b4594e4c8e6c7217c1
+    - fd70767362e051241b8bde21246b42ad
     - a91478287b78b4f4a9ce5b4caf689739
     - e3e62f6200505a347933841b743f8fa0
   - guid: df7041f698f77634db1efd3ecb905281
@@ -5642,7 +5677,7 @@ MonoBehaviour:
   - guid: 8c4699c7a63e9b74086ed1ca42264a85
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559006874
     type: 1
     UseGUIDs:
     - 5f3f28d1974c0814d84a89ebbe7a1390
@@ -5826,7 +5861,7 @@ MonoBehaviour:
   - guid: d8114528372bdc34ea41053b0d9a29d8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548061522
+    stamp: 1559020550
     type: 1
     UseGUIDs:
     - 708e7f8fb7d93034c95b70ad519a4767
@@ -5835,7 +5870,6 @@ MonoBehaviour:
     - 3d1fc03f31a4ff7469382c4632ae2b89
     - c5c1979136250674f86da81ff863444c
     - 1e6ed48a3dbe0bd438d79de7a4e870bc
-    - 9c3492234c05768479692f06c8c798ef
   - guid: d0e079284b299d647b2890d10ce403aa
     ScriptSymbols:
     - vietlabs.fr2.FR2_Unity
@@ -5908,12 +5942,12 @@ MonoBehaviour:
     - Details
     - SetPreview
     - SetNoPreview
+    - OnEquipped
+    - EquipAnim
     - CardInfo_Equip
     - GetCurrentCardInfo
     - CardInfo
-    - OnPackEquipped
-    - EquipAnim
-    stamp: 1558845785
+    stamp: 1558964126
     type: 2
     UseGUIDs: []
   - guid: 4d53a0484039ca94188ddf67e0447e2c
@@ -5935,7 +5969,7 @@ MonoBehaviour:
   - guid: 2c5cf158fe47a314c8922fc9e9f342b2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944328
+    stamp: 1559003490
     type: 1
     UseGUIDs:
     - 527cd3ccc7883a848b19baab98dcac1c
@@ -6328,7 +6362,7 @@ MonoBehaviour:
   - guid: 4dff3f19263574f60b43b74454c746d0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1558944538
     type: 1
     UseGUIDs:
     - a553a76be93d351439e665b543a79ec8
@@ -6490,12 +6524,13 @@ MonoBehaviour:
   - guid: 6aa11f49d8f80f447b8be4cea0f105c8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557908681
+    stamp: 1558965895
     type: 1
     UseGUIDs:
     - ab506afb63e4b254d95eb824447328e6
     - 48a1d663e1e3ea943b3cecba1f653f40
     - 4b064a2b608ba7e489f68e795cad4e23
+    - a02c1b16d89847e4e9a964e15e4ee13c
   - guid: 8785065919cf3c94284f9d57560a30cc
     ScriptSymbols: []
     ScriptTokens: []
@@ -6605,7 +6640,7 @@ MonoBehaviour:
   - guid: 9286a489ff640374999415e5a260277d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944307
+    stamp: 1559020518
     type: 1
     UseGUIDs:
     - 8d031d861498d204b933839693944d2c
@@ -6730,6 +6765,7 @@ MonoBehaviour:
     - LanguageManager
     - InitializeComponents
     - SetLanguage
+    - OnEquipped
     - Preview
     - Details
     - CardInfo_Equip
@@ -6767,7 +6803,7 @@ MonoBehaviour:
     - MouseHoverComponent_OnMousePressLeaveImmediately
     - DragComponent_SetStates
     - DragPurpose
-    stamp: 1558845785
+    stamp: 1558964078
     type: 2
     UseGUIDs: []
   - guid: 8a55c1c9209a37e4ebf442506f12bade
@@ -6903,7 +6939,7 @@ MonoBehaviour:
   - guid: c24137d9a11244218c329277b5ca09db
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944327
+    stamp: 1559003490
     type: 1
     UseGUIDs:
     - 512e6e39ccf44304b87f580260dd9988
@@ -6939,7 +6975,7 @@ MonoBehaviour:
   - guid: 216e5dd92c4124946b680fd26bc4c226
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557815717
+    stamp: 1558955454
     type: 1
     UseGUIDs:
     - 5cae4c4083a9c4f9dbbde42b99cea8ed
@@ -6955,7 +6991,7 @@ MonoBehaviour:
   - guid: 4cec71e9b1fe3ce409c5b7597ffe99eb
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558006310
+    stamp: 1559022113
     type: 1
     UseGUIDs:
     - 94fda23fd8a7a1d4c93678a953d2c722
@@ -7114,7 +7150,7 @@ MonoBehaviour:
   - guid: 6117b82ac399d3142834588b56bc80c9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1558967673
     type: 1
     UseGUIDs:
     - bf92f76599cde43ec91a66895f638d3e
@@ -7349,7 +7385,7 @@ MonoBehaviour:
   - guid: 6c3a279a6cb94b1fb71916509dd7c6af
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559004208
     type: 1
     UseGUIDs:
     - 9f82076f9d056f8428cf094bfd958a35
@@ -7982,7 +8018,14 @@ MonoBehaviour:
     - DETAIL_MECH_CARD_SIZE
     - Vector3
     - DETAIL_ROTATION
-    - DETAIL_POSITION
+    - SerializeField
+    - Transform
+    - DetailMechCardPivot
+    - DetailMechWeaponCardPivot
+    - DetailMechShieldCardPivot
+    - DetailMechPackCardPivot
+    - DetailMechMACardPivot
+    - DetailOtherCardPivot
     - ShowCardDetail
     - ModuleBase
     - CardInfo_Base
@@ -8001,7 +8044,7 @@ MonoBehaviour:
     - LeftLower
     - RightUpper
     - HideCardDetail
-    stamp: 1558845785
+    stamp: 1558967858
     type: 2
     UseGUIDs: []
   - guid: 3744c24beb853734aa80bce4cb1c5db2
@@ -8141,6 +8184,7 @@ MonoBehaviour:
     - UIManager
     - ClientVersionValidRequest
     - Client
+    - RegisterRequest
     - LoginRequest
     - RegisterResultRequest
     - NoticeManager
@@ -8164,7 +8208,7 @@ MonoBehaviour:
     - GameStart_ResponseBundle
     - EndRoundRequest_ResponseBundle
     - ServerRequestBase
-    stamp: 1558856142
+    stamp: 1559027446
     type: 2
     UseGUIDs: []
   - guid: ef127a7b966927147939d7359b7368fc
@@ -8518,7 +8562,7 @@ MonoBehaviour:
   - guid: 657a810cba5e428ea47259d01f429f21
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559027489
     type: 1
     UseGUIDs:
     - 615d2ce44777ffc45aec520500d95acc
@@ -8566,7 +8610,7 @@ MonoBehaviour:
   - guid: 0444cb0cd9c9f37498b272fc51918c67
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557910015
+    stamp: 1558965014
     type: 1
     UseGUIDs:
     - 9631eb2e47c69d74abef6ace5b4ed091
@@ -9017,7 +9061,7 @@ MonoBehaviour:
   - guid: b184fffca1c78dc4990252d27031a1ca
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622562
+    stamp: 1558963894
     type: 1
     UseGUIDs:
     - 8e5f3c704c53f4c4fac66a12bd3e254d
@@ -9026,7 +9070,7 @@ MonoBehaviour:
     - 43ea77fabeae5bb48b780d12f6a33b00
     - 86a01edc2f11f844d90cc66e568ac3dc
     - a9d0d86d132e30a4cbd2831500610209
-    - 92b4a0139660590428b1181ae10fbcd4
+    - 90721076208c4d64f8df251352d76034
     - b3d0a64929c6bbd44916c239f30502a9
     - 7adb1f9d9a1a8b44cac1d9d222301e9e
     - 4cec71e9b1fe3ce409c5b7597ffe99eb
@@ -9070,12 +9114,12 @@ MonoBehaviour:
     - Details
     - SetPreview
     - SetNoPreview
+    - OnEquipped
+    - EquipAnim
     - CardInfo_Equip
     - GetCurrentCardInfo
     - CardInfo
-    - OnMAEquipped
-    - EquipAnim
-    stamp: 1558845785
+    stamp: 1558964112
     type: 2
     UseGUIDs: []
   - guid: a470622d302881f4bb38e634a6cc4dc9
@@ -9401,7 +9445,7 @@ MonoBehaviour:
   - guid: 2b7d34dd4d7c4f74f8a57d61d29492a0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557996074
+    stamp: 1559007590
     type: 1
     UseGUIDs:
     - 449d55f000c8cdf40bc992ec6f66596b
@@ -9460,7 +9504,7 @@ MonoBehaviour:
   - guid: 68f171edea193e745b82869515a31107
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557306130
+    stamp: 1559022113
     type: 1
     UseGUIDs:
     - b6975b059716dce4b9e7195fb1d6de93
@@ -9835,7 +9879,7 @@ MonoBehaviour:
   - guid: 7d48f6aec4bef314c853db0247a02b09
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559026618
     type: 1
     UseGUIDs:
     - d2d6567e560b7f24883717dd5c0f2576
@@ -10092,7 +10136,7 @@ MonoBehaviour:
   - guid: 2c91f4fe0278598428e6ee36cd43bec9
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944327
+    stamp: 1559003490
     type: 1
     UseGUIDs:
     - e8ec84578d0c14852a1874eea3bb0665
@@ -10222,7 +10266,7 @@ MonoBehaviour:
     - UIManager
     - StopCoroutine
     - SuccessMatched
-    stamp: 1558845786
+    stamp: 1559024052
     type: 2
     UseGUIDs: []
   - guid: bc31e81f30af0104093aaa753f63a330
@@ -10459,7 +10503,7 @@ MonoBehaviour:
   - guid: dfc66fbff4c0cec478473a810492b606
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622564
+    stamp: 1559020518
     type: 1
     UseGUIDs:
     - f09952df4e618dc40b0ca3188a7a1df4
@@ -10653,7 +10697,7 @@ MonoBehaviour:
     - SelectBuildManager
     - CloseUIForm
     - NoticeManager
-    stamp: 1558845785
+    stamp: 1559014090
     type: 2
     UseGUIDs: []
   - guid: 7a29b561e597c5e47a7c1355dd3715eb
@@ -10713,7 +10757,7 @@ MonoBehaviour:
   - guid: a0993713bb0d9fa41a950d3f000d2003
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559025036
     type: 1
     UseGUIDs:
     - 02bd2a8ea8310644cbdc453f03393d22
@@ -10931,6 +10975,7 @@ MonoBehaviour:
     - Affix
     - ParticleSystem
     - Bullet
+    - LensFlareIdle
     - BigBonusItem
     - SmallBonusItem
     - BonusButton
@@ -10960,7 +11005,7 @@ MonoBehaviour:
     - PrefabManager
     - ClientLog
     - OptimizeAllGameObjectPools
-    stamp: 1558845785
+    stamp: 1559025036
     type: 2
     UseGUIDs: []
   - guid: d8e2ee3afb0081e4c94438453deb5d6a
@@ -11191,7 +11236,7 @@ MonoBehaviour:
   - guid: 8f4a06bad3339334fab07bb8c38da2e0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559003953
     type: 1
     UseGUIDs:
     - 594f715f4ba429242ab6234ec7d3b7cd
@@ -11219,7 +11264,7 @@ MonoBehaviour:
     - ConfirmClick
     - UnityAction
     - Initialize
-    stamp: 1558845785
+    stamp: 1559003953
     type: 2
     UseGUIDs: []
   - guid: 52470c8f9b4b05f4a9d7aed9495e0092
@@ -11246,6 +11291,10 @@ MonoBehaviour:
     - QuitButton
     - RegisterButton
     - LoginButton
+    - ReturnSingleModeButton
+    - ReturnSingleModeText
+    - CardEditorButton
+    - CardEditorText
     - Awake
     - UIType
     - UIFormTypes
@@ -11256,8 +11305,11 @@ MonoBehaviour:
     - OnRegisterButtonClick
     - OnLoginButtonClick
     - OnQuitButtonClick
+    - ReturnToSingleMode
+    - OnCardEditorButtonClick
     - LanguageManager
     - Enum
+    - OnDestroy
     - FormalServer
     - TestServer
     - Start
@@ -11268,9 +11320,7 @@ MonoBehaviour:
     - Display
     - ConfirmPanel
     - UIManager
-    - PlayerPrefs
-    - OnChangeServer
-    - NetworkManager
+    - ReturnToOnlineMode
     - MouseHoverManager
     - SelectBuildManager
     - AudioManager
@@ -11278,10 +11328,14 @@ MonoBehaviour:
     - ProxyBase
     - ShowTipText
     - CloseUIForm
+    - OnChangeServer
+    - NetworkManager
+    - PlayerPrefs
     - RegisterRequest
     - ShowUpdateConfirmPanel
     - LoginRequest
     - Application
+    - GameManager
     - UnityAction
     - IEnumerator
     - ShowTipTextCoroutine
@@ -11289,7 +11343,7 @@ MonoBehaviour:
     - Co_ShowTipText
     - StartCoroutine
     - WaitForSeconds
-    stamp: 1558845785
+    stamp: 1559027489
     type: 2
     UseGUIDs: []
   - guid: dfb86b5889b6c584fbdc8c33039966f9
@@ -11408,7 +11462,7 @@ MonoBehaviour:
   - guid: 85fc4391f34ec384b90b55151f0b2e54
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559041890
     type: 1
     UseGUIDs:
     - c4369894c60dde84298b46179e6414f5
@@ -11522,7 +11576,7 @@ MonoBehaviour:
     - List
     - CardInfo_Base
     - Hide
-    stamp: 1558845785
+    stamp: 1558967380
     type: 2
     UseGUIDs: []
   - guid: a7aa60b397093ff41936fc8b07028dc1
@@ -11631,8 +11685,8 @@ MonoBehaviour:
     - Normal
     - ReadOnly
     - SetState
-    - SetReadOnly_Bars
     - IsReadOnly
+    - SetReadOnly_Bars
     - SetReadOnly_Builds
     - SetReadOnly_Cards
     - SetReadOnly_SelectCards
@@ -11663,7 +11717,7 @@ MonoBehaviour:
     - ShowAllOnlineCards
     - SwitchToBuildButton
     - OnlineManager
-    stamp: 1558845785
+    stamp: 1559005217
     type: 2
     UseGUIDs: []
   - guid: b2bd25f5a21b74c4abe66b915f7796f8
@@ -11739,7 +11793,7 @@ MonoBehaviour:
     - UnSelectAllCard
     - SelectCardMethods
     - RefreshSomeBuild
-    stamp: 1558845785
+    stamp: 1559013532
     type: 2
     UseGUIDs: []
   - guid: c5bcb34da9479ed45ab178cf3f813845
@@ -11783,6 +11837,7 @@ MonoBehaviour:
     - IsInit
     - CardPreviewPanel
     - UIManager
+    - BuildRenamePanel
     - Input
     - Ray
     - RaycastHit
@@ -11824,7 +11879,7 @@ MonoBehaviour:
     - CardNoticeComponent
     - StoryManager
     - ShowUpgradeCardBanner
-    stamp: 1558845785
+    stamp: 1559013918
     type: 2
     UseGUIDs: []
   - guid: 02919a8e3d142574eb2e343bf38c7c91
@@ -12088,7 +12143,7 @@ MonoBehaviour:
   - guid: 449d55f000c8cdf40bc992ec6f66596b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557996074
+    stamp: 1559007590
     type: 5
     UseGUIDs:
     - 69ab291b718e7434e98961d2d505d697
@@ -12103,6 +12158,7 @@ MonoBehaviour:
     - 8afe33c2d9c314ab6be436663c1db42b
     - 432886119855448f92e7f2c24f0cabe9
     - 82b6743ef04cc4a4c82089ba1123d0c4
+    - 89f0137620f6af44b9ba852b4190e64e
     - 00883543fb6c4975b687d319d3648293
     - 17ae6d673cca33b4eb5f6e879f2ef344
     - b8ff39cca341d6e44924d7a1305a9e67
@@ -12264,15 +12320,13 @@ MonoBehaviour:
   - guid: 8e89b4d3b31ea174ca07e91c54b710c3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558849210
+    stamp: 1559025658
     type: 5
     UseGUIDs:
     - 7a29b561e597c5e47a7c1355dd3715eb
     - fb19961f58d819c489038f016eda3e30
     - a24cc96475ca7924583382f0174de03f
     - 35f7b369dd1caf54bad5b9830b8f9beb
-    - 54fbbf098d116effa00081aba8ad6659
-    - ab37bb2160e179e439a811737fb7cf8a
     - bf0dd1d690b608246aa4e6f3e234ca1a
     - 79d9f7b7b8ec987409d5445962dc1b87
     - a23e5ab0be1ea4c4a86dd51032721fc3
@@ -12635,7 +12689,7 @@ MonoBehaviour:
   - guid: 00a4922be29717441943cceeefce637f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557884401
+    stamp: 1559009320
     type: 5
     UseGUIDs:
     - eff975c98951c4a42851b18bf76111f4
@@ -12700,7 +12754,7 @@ MonoBehaviour:
   - guid: 02e71c6c580c8d0468c7f0ae8df46f5b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622566
+    stamp: 1559004321
     type: 5
     UseGUIDs:
     - fbfebbc9f74ed1a4b8240ff3ba1eddf8
@@ -12764,7 +12818,7 @@ MonoBehaviour:
   - guid: f0b712ad7091f1c4cb5d675adf576353
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557302138
+    stamp: 1559009815
     type: 5
     UseGUIDs:
     - 5fe8755e4b5b4c32be414fb0d6c07b02
@@ -12793,7 +12847,7 @@ MonoBehaviour:
   - guid: d982a4bd9d589c0479c78b8cfa7e6574
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622566
+    stamp: 1559004314
     type: 5
     UseGUIDs:
     - 6b1dbae2767e6fd408602333d346c5c6
@@ -12867,7 +12921,7 @@ MonoBehaviour:
   - guid: baf997ae7be8ac24485425bd095fc052
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558006248
+    stamp: 1559003488
     type: 5
     UseGUIDs:
     - f9de99dc293e3dc4ca95845c4d72a356
@@ -15742,6 +15796,7 @@ MonoBehaviour:
     - Debug
     - AllSideEffects
     - Assembly
+    - Battle
     - AllBuffs
     - LoadAllBasicXMLFiles
     - Application
@@ -15767,7 +15822,7 @@ MonoBehaviour:
     - Handles
     - CardMech
     - CardSpell
-    stamp: 1558845785
+    stamp: 1558944538
     type: 2
     UseGUIDs: []
   - guid: d2d6567e560b7f24883717dd5c0f2576
@@ -15781,7 +15836,7 @@ MonoBehaviour:
   - guid: 36505bc5dbc02c844be103413a7aa7ab
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558849210
+    stamp: 1559025658
     type: 1
     UseGUIDs:
     - b9bd96825c9a638418c28b4842b041e1
@@ -15817,10 +15872,13 @@ MonoBehaviour:
     - ResetCard
     - DeleteCardButton
     - DeleteCard
+    - ReturnToGameButton
+    - ReturnToGame
     - LanguageManager
     - Text
     - CardEditorWindowText
     - LanguageLabelText
+    - ReturnToGameButtonText
     - SaveCardButtonText
     - ResetCardButtonText
     - DeleteCardButtonText
@@ -15835,8 +15893,10 @@ MonoBehaviour:
     - ChangeCard
     - Display
     - OnLanguageChange
+    - SceneManager
     - SerializeField
     - Dropdown
+    - Button
     - Left
     - CardProperties
     - Transform
@@ -16002,7 +16062,6 @@ MonoBehaviour:
     - CardPreviewRawImage
     - CardBase
     - StartCoroutine
-    - Button
     - Update
     - PLATFORM_STANDALONE_OSX
     - KeyCode
@@ -16031,13 +16090,13 @@ MonoBehaviour:
     - Sprites
     - OnPicSelectGridOpenButtonClick
     - OnPicSelectGridCloseButtonClick
-    stamp: 1558845785
+    stamp: 1559027134
     type: 2
     UseGUIDs: []
   - guid: 2459b42bf9825684981ea0b44716a967
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557991555
+    stamp: 1558967227
     type: 1
     UseGUIDs:
     - 13f6860f420144535b05e7ab775ca200
@@ -16075,7 +16134,7 @@ MonoBehaviour:
   - guid: 9da8ea25e79f449485f751b6d81e019e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944022
+    stamp: 1559026530
     type: 1
     UseGUIDs:
     - 73715ec2bb8d8674d89e8179b6c2d350
@@ -16092,7 +16151,7 @@ MonoBehaviour:
     - ClientLog
     - AllSideEffects
     - Assembly
-    - CardBase
+    - Battle
     - AllBuffs
     - LoadAllBasicXMLFiles
     - Application
@@ -16108,13 +16167,13 @@ MonoBehaviour:
     - IEnumerator
     - Mathf
     - WaitForSeconds
-    stamp: 1558944022
+    stamp: 1558944503
     type: 2
     UseGUIDs: []
   - guid: a0c24a8335cd414e9281c0652c97f577
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944327
+    stamp: 1559003490
     type: 1
     UseGUIDs:
     - bf160db83ab4ab142949a05629f4fc57
@@ -16166,7 +16225,7 @@ MonoBehaviour:
   - guid: d8433b3464ae4f2398ca49102846109a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558859579
+    stamp: 1558949527
     type: 1
     UseGUIDs:
     - 60918a332e2d48b985f30d5be5283c76
@@ -16266,7 +16325,7 @@ MonoBehaviour:
     - List
     - SetValue
     - SetReadOnly
-    stamp: 1558845785
+    stamp: 1558949300
     type: 2
     UseGUIDs: []
   - guid: f8aeb82bdbad16944a0d9c8ee396c110
@@ -16423,7 +16482,7 @@ MonoBehaviour:
     - AddPlayerBuff_Base
     - SideEffectValue_String
     - GameObjectPoolManager
-    stamp: 1558859579
+    stamp: 1558949527
     type: 2
     UseGUIDs: []
   - guid: 9d9344acf96cbf241b22e1f3af172466
@@ -16544,7 +16603,7 @@ MonoBehaviour:
   - guid: 7a72cc078a3e8fe4db3366276e615b2c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559047630
     type: 3
     UseGUIDs:
     - 34f1c0918f0dd4661b115de28c599e16
@@ -16643,11 +16702,13 @@ MonoBehaviour:
   - guid: 7b4f17000e2ba3148b5f544e4be213a5
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1554863852
+    stamp: 1559027685
     type: 5
     UseGUIDs:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 4dbb81394c0b94851b509ac08eb35d51
     - ec8588936981b6a42a2fd881d1cd8b57
+    - 1ae4df70bb159624ea1613c754f43363
     - 4041c6c814f0a5d419b15e8cbea18b3d
     - 85065c873819f1b4dbb30bd8cbc9cd97
   - guid: 8635e0302f0a36c4ebd0eee59477d6d4
@@ -16667,7 +16728,7 @@ MonoBehaviour:
   - guid: 5cae4c4083a9c4f9dbbde42b99cea8ed
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557815717
+    stamp: 1558955454
     type: 5
     UseGUIDs:
     - dc5decdb4a0ca8949992b4a0d5ec7ecc
@@ -16719,12 +16780,14 @@ MonoBehaviour:
   - guid: 3d19aca0f3d1f8a44926e1f22853aa61
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558666875
+    stamp: 1559027715
     type: 5
     UseGUIDs:
-    - 632bfced424d8ca4e8811856d2d2da35
-    - 95040811107b46644af00967899c338c
     - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 95040811107b46644af00967899c338c
+    - 632bfced424d8ca4e8811856d2d2da35
+    - 1ae4df70bb159624ea1613c754f43363
+    - 4dbb81394c0b94851b509ac08eb35d51
     - 52470c8f9b4b05f4a9d7aed9495e0092
   - guid: ac06e4c009df3ca4f95f8c41302a264a
     ScriptSymbols: []
@@ -16741,7 +16804,7 @@ MonoBehaviour:
   - guid: ca0075f0f1b076145b93e89cf28ea1f7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559009736
     type: 5
     UseGUIDs:
     - 8a27fde9170c96b48867d53c5be3a7f5
@@ -16862,11 +16925,11 @@ MonoBehaviour:
   - guid: 73c921a26ab01874186dfcef59329880
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1555046717
+    stamp: 1559020345
     type: 5
     UseGUIDs:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
-    - 85663f7ae4bc1794596602bb4dba9fe3
+    - 95040811107b46644af00967899c338c
     - d5c66fe0c49f51f4ca6dac11de817d20
   - guid: ed6a54d2b99dc46438108f290c5a7b1f
     ScriptSymbols: []
@@ -16928,7 +16991,7 @@ MonoBehaviour:
   - guid: f25a2e847bfc98848b2e1b3492a1e864
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1555046706
+    stamp: 1559020431
     type: 5
     UseGUIDs:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
@@ -16937,7 +17000,7 @@ MonoBehaviour:
     - 6a10ea1b88c5f644faf5e148f7d49f57
     - da4eb03e71a40fd4ca9c20e326f54dbf
     - fadcb351087e04f49bdbe604a306cf8e
-    - 85663f7ae4bc1794596602bb4dba9fe3
+    - 95040811107b46644af00967899c338c
     - 2ad9f07551c261842ad40636103fac59
     - 0048d6f81eac677458829b4af9e9c8c4
   - guid: c4369894c60dde84298b46179e6414f5
@@ -16993,7 +17056,7 @@ MonoBehaviour:
   - guid: 2861e3a55a8585f4eb0a509223be6906
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559041890
     type: 5
     UseGUIDs:
     - b8eb668450d83ed4187bcf90aac531d2
@@ -17152,10 +17215,10 @@ MonoBehaviour:
   - guid: 9db8b75a6125052448f267cf4adb47f7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622566
+    stamp: 1559020450
     type: 5
     UseGUIDs:
-    - 85663f7ae4bc1794596602bb4dba9fe3
+    - 95040811107b46644af00967899c338c
     - 6fec9a8fc56ecc447bb5eac824eddbf3
     - 0b73a549e18ab824c88b570193e7d286
   - guid: 04a372cad4401694fa76f513fb3e5c84
@@ -17190,11 +17253,12 @@ MonoBehaviour:
   - guid: 5dd7bbac04f2f814fa61558527ae27dd
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1554863665
+    stamp: 1559020707
     type: 5
     UseGUIDs:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
     - 594f715f4ba429242ab6234ec7d3b7cd
+    - 95040811107b46644af00967899c338c
   - guid: 7cbf91bcbc5b5d343bf5797579175fbb
     ScriptSymbols: []
     ScriptTokens: []
@@ -17258,7 +17322,7 @@ MonoBehaviour:
   - guid: 20d5661e9336647cc861eec432f6b48e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557991555
+    stamp: 1558967227
     type: 5
     UseGUIDs:
     - 9f82076f9d056f8428cf094bfd958a35
@@ -17371,7 +17435,7 @@ MonoBehaviour:
   - guid: 3496bbf89db240eaaf859fa76b0763f6
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559007607
     type: 1
     UseGUIDs:
     - be18ab454554445ebce3f3eb14da767a
@@ -17554,7 +17618,7 @@ MonoBehaviour:
     - TextMeshPro
     - DamagePreviewBG
     - DamagePreview
-    - DenfenderText
+    - DefenderText
     - SniperText
     - Awake
     - Reset
@@ -17566,7 +17630,7 @@ MonoBehaviour:
     - SetDamagePreviewText
     - TargetArrowAnimEnd
     - ShowSniperTargetImage
-    - ShowDenfenderText
+    - ShowDefenderText
     - ShowSniperText
     - OnMousePressEnterImmediately
     - DragManager
@@ -17575,7 +17639,7 @@ MonoBehaviour:
     - Mech
     - SetSortingIndexOfCard
     - TargetArrowAnimStart
-    stamp: 1558845785
+    stamp: 1559005785
     type: 2
     UseGUIDs: []
   - guid: 49e9c9357b5c94e8f883bd1d7f66e81d
@@ -17593,7 +17657,7 @@ MonoBehaviour:
   - guid: 5cae10c825123473ead8c8b76d321e48
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557995568
+    stamp: 1558959247
     type: 1
     UseGUIDs:
     - b91985d82ad45467bade64f4ea6d1639
@@ -17859,7 +17923,7 @@ MonoBehaviour:
     - Dodge
     - OnDodge
     - Co_OnDodge
-    stamp: 1558845785
+    stamp: 1559007607
     type: 2
     UseGUIDs: []
   - guid: dfd1dda93bb19446db7d29440a1b338f
@@ -17871,21 +17935,21 @@ MonoBehaviour:
   - guid: f335bada9388548e58f0e82d5906fc0f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558006308
+    stamp: 1559003488
     type: 1
     UseGUIDs:
     - b966c772d0030044daa496e5d9091c3f
     - 9402f1cd772e63e4c8413c5f40032eec
     - 42f66688082a95c4cb213c107f31fd00
     - b1ba0bda792ddc044a4bba52199f81d0
-    - f85006f74e7ad814d8df1ead0135b75e
-    - ebd2f9639146b844e86a377f1a4ca844
+    - b3022c0d45125b44890d287099f671f2
+    - 0153f7b8def20a74ba76297753199538
     - baf997ae7be8ac24485425bd095fc052
     - a730daaab8d472941931180f992bab80
   - guid: 8f9b01fb3ffed47c9b319503aaa5a744
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557622564
+    stamp: 1559020518
     type: 1
     UseGUIDs:
     - dfd1dda93bb19446db7d29440a1b338f
@@ -17924,12 +17988,12 @@ MonoBehaviour:
   - guid: b9bd96825c9a638418c28b4842b041e1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1557639581
+    stamp: 1559020366
     type: 5
     UseGUIDs:
     - 0b73a549e18ab824c88b570193e7d286
     - 6fec9a8fc56ecc447bb5eac824eddbf3
-    - 85663f7ae4bc1794596602bb4dba9fe3
+    - 95040811107b46644af00967899c338c
   - guid: d5ca61e0333897d47b1771e6e9134636
     ScriptSymbols:
     - MechEquipSystemComponent
@@ -17976,7 +18040,7 @@ MonoBehaviour:
     - On_MAEquipped
     - On_MAChanged
     - EquipMA
-    stamp: 1558845785
+    stamp: 1558964173
     type: 2
     UseGUIDs: []
   - guid: 651dd7f15a34da74c8a0bbb7cdc55485
@@ -18162,7 +18226,7 @@ MonoBehaviour:
   - guid: a730daaab8d472941931180f992bab80
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558006308
+    stamp: 1559003488
     type: 5
     UseGUIDs:
     - f9de99dc293e3dc4ca95845c4d72a356
@@ -19353,7 +19417,7 @@ MonoBehaviour:
   - guid: c37ffb23eb22543299f41f2907f24d44
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558859546
+    stamp: 1558946031
     type: 1
     UseGUIDs:
     - 5e85ce6e4ede344e5a68ade6cf35b56e
@@ -19678,7 +19742,7 @@ MonoBehaviour:
   - guid: 9f4b5254073444a35b6b536152effbed
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558846761
+    stamp: 1559026794
     type: 1
     UseGUIDs:
     - 7c03e94a7f9964acb8ae83e2b891cbac
@@ -20049,7 +20113,7 @@ MonoBehaviour:
     - List
     - TargetRange
     - TargetSelector
-    stamp: 1558845786
+    stamp: 1558945138
     type: 2
     UseGUIDs: []
   - guid: 48784fc5c5b96444281cbdf619dd759b
@@ -20724,7 +20788,7 @@ MonoBehaviour:
   - guid: 76f6b289f606d4fe183f0bce805be7c3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845786
+    stamp: 1558954787
     type: 1
     UseGUIDs:
     - de1bfcc530c98400096f3e4ab764b359
@@ -21292,7 +21356,7 @@ MonoBehaviour:
     - GetRemoveTriggerTimeTriggerRangeDescCombination
     - EachTimeDesc
     - GetEachTimeDesc
-    stamp: 1558845786
+    stamp: 1558954787
     type: 2
     UseGUIDs: []
   - guid: d6db935c354fc45af967571c6116f564
@@ -21376,7 +21440,7 @@ MonoBehaviour:
     - DataStream
     - Deserialize
     - SideEffectCount
-    stamp: 1558845786
+    stamp: 1558953782
     type: 2
     UseGUIDs: []
   - guid: 4c32b8ace488a48e9812f05bd3cabb8c
@@ -21787,7 +21851,7 @@ MonoBehaviour:
     - CardInfo_Equip
     - WeaponTypes
     - CardInfo_Spell
-    stamp: 1558859546
+    stamp: 1558946031
     type: 2
     UseGUIDs: []
   - guid: 7dd6b39e946c444e8a2c63ada25406eb
@@ -22003,7 +22067,7 @@ MonoBehaviour:
   - guid: 4895d62225ed7451a928355e513c0922
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944327
+    stamp: 1559003490
     type: 1
     UseGUIDs:
     - 11aa6b3e1e230374fa0107c86e535d76
@@ -22068,7 +22132,7 @@ MonoBehaviour:
   - guid: 7b5a1bd91c69440e1b03d7acd91d61db
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944327
+    stamp: 1559009040
     type: 1
     UseGUIDs:
     - 4e5a7fb939c114c2ab8edfd6c0aaa607
@@ -22081,7 +22145,7 @@ MonoBehaviour:
   - guid: 2915d1f9a1ce44502b615ebff071eb01
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845785
+    stamp: 1559025180
     type: 1
     UseGUIDs:
     - ac45cab6affe47147b4ebf3cf4070ab2
@@ -22104,7 +22168,7 @@ MonoBehaviour:
   - guid: 38dc03ee4800b4886a1a4e7c002c8b1b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558856142
+    stamp: 1559027512
     type: 1
     UseGUIDs:
     - a23e5ab0be1ea4c4a86dd51032721fc3
@@ -22137,7 +22201,7 @@ MonoBehaviour:
     - ModuleMech
     - M_ExecutorInfo
     - Math
-    stamp: 1558857138
+    stamp: 1558945220
     type: 2
     UseGUIDs: []
   - guid: 8d01ff605824e427d8dd58e92409294b
@@ -22169,14 +22233,14 @@ MonoBehaviour:
     - List
     - LoginUserNames
     - AddUser
+    - BuildInfo
     - BuildStoryDatabase
     - BuildGroups
-    - BuildInfo
     - AddLoginUser
     - RemoveLoginUser
     - GetUserPasswordByUsername
     - GetUsernameByClientId
-    stamp: 1558846786
+    stamp: 1559008611
     type: 2
     UseGUIDs: []
   - guid: c47209d0caca14b719889133254ede7b
@@ -22202,6 +22266,7 @@ MonoBehaviour:
     - ServerLog
     - AllSideEffects
     - Assembly
+    - Battle
     - AllBuffs
     - LoadAllBasicXMLFiles
     - ServerConsole
@@ -22242,7 +22307,7 @@ MonoBehaviour:
     - SocketFlags
     - AsyncCallback
     - SendCallback
-    stamp: 1558845786
+    stamp: 1558944538
     type: 2
     UseGUIDs: []
   - guid: 7da9e561b84c44eb0a07b055f94d386b
@@ -22286,7 +22351,7 @@ MonoBehaviour:
   - guid: b83b90b118d9c42b189657e2384237bf
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558858965
+    stamp: 1558945291
     type: 1
     UseGUIDs:
     - 5cfd8af58a691451988c1ae20bdf25b3
@@ -22412,7 +22477,7 @@ MonoBehaviour:
   - guid: d4d88104742364fac94ad0f92c5df14b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558858964
+    stamp: 1558945220
     type: 1
     UseGUIDs:
     - 1d5295101d99f4bfc928b7ce1fbee572
@@ -22420,7 +22485,7 @@ MonoBehaviour:
   - guid: 96efcc345b77342b897e3ccee2c44efa
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845786
+    stamp: 1559003488
     type: 1
     UseGUIDs:
     - e0a37ef8962024701860d567dfdd416b
@@ -22430,9 +22495,10 @@ MonoBehaviour:
   - guid: 5929bf35228914f03b08e9b3c721a91a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558845786
+    stamp: 1559009061
     type: 1
     UseGUIDs:
+    - aee9f356dd078cc41884b48da6861763
     - 1bd3618b2285b4956bac9ca540b2a7af
     - 540d392a5c1b646a29ecb5116c6c7cd4
     - 3cb538da9151d4b3993e5e6b44965733
@@ -22623,6 +22689,7 @@ MonoBehaviour:
     - StoriesDirectory
     - LoadAllBasicXMLFiles
     - AddAllStories
+    - Reset
     - Directory
     - FileInfo
     - XmlDocument
@@ -22661,7 +22728,7 @@ MonoBehaviour:
     - Story
     - Bonus
     - HardFactorValue
-    stamp: 1558846721
+    stamp: 1559026750
     type: 2
     UseGUIDs: []
   - guid: 8eed9cd57b2b64304a14d55300b5ef1a
@@ -22708,13 +22775,15 @@ MonoBehaviour:
     - RemovePlayerStory
     - SingleMode
     - StoryStartDict
+    - CreateSinglePlayer
+    - BuildGroupDict
     - SpecialBuilds
     - BuildGroup
-    - BuildGroupDict
     - EnemyBuilds
     - OnlineBuilds
     - StoryBuilds
-    stamp: 1558846761
+    - CustomBuilds
+    stamp: 1559008711
     type: 2
     UseGUIDs: []
   - guid: 2f5f69e5d54ca4c96b956d82d7ec03c4
@@ -22889,7 +22958,7 @@ MonoBehaviour:
     - AttackShip
     - OnBeginRound
     - OnEndRound
-    stamp: 1558847544
+    stamp: 1559005622
     type: 2
     UseGUIDs: []
   - guid: 7e74d4e629fa4e21a4b0ed16441fdf40
@@ -23098,7 +23167,7 @@ MonoBehaviour:
     - TargetRange
     - ChoiceCount
     - TargetSelect
-    stamp: 1558858059
+    stamp: 1559005384
     type: 2
     UseGUIDs: []
   - guid: 1d4970483ee674e89a92881caffefb20
@@ -23130,7 +23199,7 @@ MonoBehaviour:
   - guid: a55d7b980c402432485397fd8bce7736
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558858111
+    stamp: 1559005384
     type: 1
     UseGUIDs:
     - c032d618c5ae2448fbd5886b6a56bf90
@@ -23301,6 +23370,7 @@ MonoBehaviour:
     - BuildDirectory
     - LoadAllBasicXMLFiles
     - AddAllBuilds
+    - Reset
     - Directory
     - FileInfo
     - BuildGroups
@@ -23322,7 +23392,7 @@ MonoBehaviour:
     - Group
     - KeyValuePair
     - StringBuilder
-    stamp: 1558846708
+    stamp: 1559026794
     type: 2
     UseGUIDs: []
   - guid: 39f2807add7a6492b9f7558e3a38cb51
@@ -23420,7 +23490,7 @@ MonoBehaviour:
   - guid: 3e60a35b384d7472789db4b1afee004a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558847544
+    stamp: 1559005622
     type: 1
     UseGUIDs:
     - 8f3345aee0ef34fcd995a614013efa44
@@ -23498,7 +23568,7 @@ MonoBehaviour:
   - guid: af57829c885654927b35e6098e974324
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558846786
+    stamp: 1559008611
     type: 1
     UseGUIDs:
     - 0dabf1a07d49a4caf83418bc77de961c
@@ -24038,7 +24108,7 @@ MonoBehaviour:
   - guid: 49abc471849773e4cbd73c81806dd2f5
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558943009
+    stamp: 1558945213
     type: 1
     UseGUIDs:
     - 0d5b9e1c9aac61e47b924411cfd87719
@@ -24056,7 +24126,7 @@ MonoBehaviour:
   - guid: eeb5a2a27322f31448b4c0bd3e55369c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558856514
+    stamp: 1559009249
     type: 1
     UseGUIDs:
     - 8709d207f50874b4d9f7fba4a29461f2
@@ -24068,7 +24138,7 @@ MonoBehaviour:
   - guid: 1f43d2d21fedc7f4386796c12fd77826
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1558944328
+    stamp: 1559003490
     type: 1
     UseGUIDs:
     - 36d4c30b928fed547bfeda0eeaf1ec66
@@ -24127,10 +24197,10 @@ MonoBehaviour:
     - ClientRequestBase
     - ClientVersionValidRequest
     - RegisterRequest
+    - BuildStoryDatabase
     - RegisterResultRequest
     - LoginRequest
     - LoginResultRequest
-    - BuildStoryDatabase
     - Story
     - ClientBuildInfosRequest
     - GamePlaySettings
@@ -24155,12 +24225,13 @@ MonoBehaviour:
     - CreateBuildRequestResponse
     - BuildUpdateRequest
     - DeleteBuildRequest
-    stamp: 1558856514
+    stamp: 1559009249
     type: 2
     UseGUIDs: []
   - guid: 5d966b660b282ce49a8e003b484eac57
     ScriptSymbols:
     - SideEffects.CopyNextDrawCard
+    - SideEffects.CopyNextDrawCard.sp
     ScriptTokens:
     - TargetSideEffect
     - InitSideEffectParam
@@ -24177,12 +24248,16 @@ MonoBehaviour:
     - BattlePlayer
     - Player
     - CardInfo_Base
-    stamp: 1558860487
+    - ChoiceCount
+    - TargetRange
+    - TargetSelect
+    stamp: 1558945209
     type: 2
     UseGUIDs: []
   - guid: 9cd806e643c23334c918f638cf1eccf2
     ScriptSymbols:
     - SideEffects.DrawCards
+    - SideEffects.DrawCards.sp
     ScriptTokens:
     - TargetSideEffect
     - InitSideEffectParam
@@ -24198,7 +24273,10 @@ MonoBehaviour:
     - ExecutorInfo
     - BattlePlayer
     - Player
-    stamp: 1558860622
+    - ChoiceCount
+    - TargetRange
+    - TargetSelect
+    stamp: 1558945200
     type: 2
     UseGUIDs: []
   - guid: 8709d207f50874b4d9f7fba4a29461f2
@@ -24251,7 +24329,7 @@ MonoBehaviour:
     - ChoiceCount
     - TargetRange
     - TargetSelect
-    stamp: 1558858775
+    stamp: 1558945291
     type: 2
     UseGUIDs: []
   - guid: 59660da8b1fa69b4fa925536d2c85ef4
@@ -24329,12 +24407,13 @@ MonoBehaviour:
     - MatchRequest
     - CurrentBuildInfo
     - CancelMatchRequest
-    stamp: 1558845786
+    stamp: 1559009040
     type: 2
     UseGUIDs: []
   - guid: 11513ac99c0b7a74c81379a41c7be0d5
     ScriptSymbols:
     - SideEffects.DrawTypeCards
+    - SideEffects.DrawTypeCards.sp
     ScriptTokens:
     - TargetSideEffect
     - InitSideEffectParam
@@ -24352,7 +24431,10 @@ MonoBehaviour:
     - ExecutorInfo
     - BattlePlayer
     - Player
-    stamp: 1558943009
+    - ChoiceCount
+    - TargetRange
+    - TargetSelect
+    stamp: 1558945213
     type: 2
     UseGUIDs: []
   - guid: 88b9140ad9f31e24184f3e0181d9066f
@@ -24470,7 +24552,7 @@ MonoBehaviour:
     - ExecutorInfo
     - BattlePlayer
     - Player
-    stamp: 1558860487
+    stamp: 1558945205
     type: 2
     UseGUIDs: []
   - guid: e707dc8c755bbb6409cfdc8e55f6accc
@@ -24507,7 +24589,7 @@ MonoBehaviour:
     - ChoiceCount
     - TargetRange
     - TargetSelect
-    stamp: 1558858503
+    stamp: 1558945285
     type: 2
     UseGUIDs: []
   - guid: 10eac58e5bc96af429e60ab2675537f3
@@ -24552,15 +24634,21 @@ MonoBehaviour:
   - guid: a02c1b16d89847e4e9a964e15e4ee13c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1558963884
     type: 5
-    UseGUIDs: []
+    UseGUIDs:
+    - 9c90335eaa3c9b0449b7f4efbb0229f5
+    - 7cd3b78785b69084d99ca5b2c5a62d00
   - guid: 90721076208c4d64f8df251352d76034
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1558964549
     type: 1
-    UseGUIDs: []
+    UseGUIDs:
+    - 8dea545b672d9234da1a4a46860d5b49
+    - aca09d6cc73becd449662cda5ee763c9
+    - 018b834703fc2694999c840241dac721
+    - faf61bb6168b12140bf7f5a72d5ed335
   - guid: faf61bb6168b12140bf7f5a72d5ed335
     ScriptSymbols: []
     ScriptTokens: []
@@ -24579,7 +24667,7 @@ MonoBehaviour:
   - guid: 8dea545b672d9234da1a4a46860d5b49
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1548061521
     type: 5
     UseGUIDs: []
   - guid: aca09d6cc73becd449662cda5ee763c9
@@ -24591,15 +24679,46 @@ MonoBehaviour:
   - guid: b3022c0d45125b44890d287099f671f2
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1559003488
     type: 5
-    UseGUIDs: []
+    UseGUIDs:
+    - f9de99dc293e3dc4ca95845c4d72a356
+    - 48a1d663e1e3ea943b3cecba1f653f40
+    - a4453b115738e4f42b2970843935d0c5
+    - 26bb3ef3ac440ca468b02c4564acf25b
+    - ab506afb63e4b254d95eb824447328e6
+    - 9fe2732853d4041de8e6a74fc5d3486d
+    - 89f0137620f6af44b9ba852b4190e64e
+    - 69ab291b718e7434e98961d2d505d697
+    - 4001d6008e4059f44ae5562fee28fd1f
+    - bd196764b3cfd5d4c84a4b223622a017
+    - faf61bb6168b12140bf7f5a72d5ed335
+    - a02c1b16d89847e4e9a964e15e4ee13c
+    - f04bea28bc82fd04189aa43784ee4a66
+    - 947221d14593b0f4db9f99b99c63cccc
   - guid: 0153f7b8def20a74ba76297753199538
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 0
+    stamp: 1559003488
     type: 5
-    UseGUIDs: []
+    UseGUIDs:
+    - f9de99dc293e3dc4ca95845c4d72a356
+    - 48a1d663e1e3ea943b3cecba1f653f40
+    - a4453b115738e4f42b2970843935d0c5
+    - 26bb3ef3ac440ca468b02c4564acf25b
+    - ab506afb63e4b254d95eb824447328e6
+    - 9fe2732853d4041de8e6a74fc5d3486d
+    - 89f0137620f6af44b9ba852b4190e64e
+    - 69ab291b718e7434e98961d2d505d697
+    - 4001d6008e4059f44ae5562fee28fd1f
+    - bd196764b3cfd5d4c84a4b223622a017
+    - 5cb2f6a44d0834430a8bbac32df48027
+    - 9631eb2e47c69d74abef6ace5b4ed091
+    - faf61bb6168b12140bf7f5a72d5ed335
+    - 7aa53f611189e544ab4c3a259dff82a7
+    - a02c1b16d89847e4e9a964e15e4ee13c
+    - f04bea28bc82fd04189aa43784ee4a66
+    - 947221d14593b0f4db9f99b99c63cccc
   - guid: aee9f356dd078cc41884b48da6861763
     ScriptSymbols: []
     ScriptTokens: []
@@ -24609,10 +24728,80 @@ MonoBehaviour:
   - guid: fd70767362e051241b8bde21246b42ad
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559024964
+    stamp: 1559025546
     type: 5
     UseGUIDs:
-    - 54fbbf098d116effa00081aba8ad6659
     - ab37bb2160e179e439a811737fb7cf8a
-  timeStamp: 1558944332
+    - 54fbbf098d116effa00081aba8ad6659
+  - guid: 3f73485217a5826468361c41ac063661
+    ScriptSymbols:
+    - PicSelectPanel
+    - PicSelectPanel.{
+    ScriptTokens:
+    - MonoBehaviour
+    - SerializeField
+    - GameObject
+    - PicSelectGridPanel
+    - GridLayoutGroup
+    - PicSelectGridContainer
+    - Button
+    - PicSelectGridOpenButton
+    - PicSelectGridCloseButton
+    - List
+    - PicPreviewButton
+    - PicPreviewButtons
+    - InitializePicSelectGrid
+    - SortedDictionary
+    - Sprite
+    - SpriteDict
+    - SpriteAtlas
+    - AtlasManager
+    - Sprites
+    - KeyValuePair
+    - GameObjectPoolManager
+    - OnClickPicAction
+    - UnityAction
+    - OnPicSelectGridOpenButtonClick
+    - OnPicSelectGridCloseButtonClick
+    stamp: 1559046026
+    type: 2
+    UseGUIDs: []
+  - guid: 391840e9a252a8f4d8ac5411a40fdaa1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1559046184
+    type: 5
+    UseGUIDs:
+    - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - b8eb668450d83ed4187bcf90aac531d2
+    - 3f73485217a5826468361c41ac063661
+  - guid: 47f7a6cda96c0bb45b7307a7cf75260a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1559047630
+    type: 5
+    UseGUIDs: []
+  - guid: 1f1222e62f9a12342a27b092134edba6
+    ScriptSymbols:
+    - EffectManager
+    ScriptTokens:
+    - MonoSingleton<EffectManager>
+    - SerializeField
+    - Transform
+    - EffectRoot
+    - Awake
+    - Start
+    - GenerateLensFlareIdle
+    - List
+    - LensFlareIdle
+    - LensFlareIdles
+    - GameObjectPoolManager
+    - Vector3
+    - Space
+    - OnCardEditorButtonClick
+    - SceneManager
+    stamp: 1559050939
+    type: 2
+    UseGUIDs: []
+  timeStamp: 1559041999
   priority: 5
