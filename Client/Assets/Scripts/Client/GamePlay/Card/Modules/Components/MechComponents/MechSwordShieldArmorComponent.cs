@@ -141,7 +141,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
         if (mechWeaponEnergyMaxValue != 0)
         {
             SwordBar.fillAmount = (float) mechWeaponEnergyValue / mechWeaponEnergyMaxValue;
-            SwordIconAnim.SetTrigger("Jump");
+            SwordIconAnim.SetTrigger("SwordAdd");
         }
         else
         {
@@ -195,11 +195,11 @@ public class MechSwordShieldArmorComponent : MechComponentBase
         else
         {
             ArmorIconAnim.gameObject.SetActive(true);
-            ArmorTrough.color = ClientUtils.HTMLColorToColor("#ffffff");
+//            ArmorTrough.color = ClientUtils.HTMLColorToColor("#ffffff");
             ArmorText.text = armorValue.ToString();
         }
 
-        ArmorIconAnim.SetTrigger("Jump");
+        ArmorIconAnim.SetTrigger("ArmorAdd");
 
         yield return new WaitForSeconds(duration);
 
@@ -266,7 +266,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
             ShieldText.text = shieldValue.ToString();
         }
 
-        ShieldIconAnim.SetTrigger("Jump");
+        ShieldIconAnim.SetTrigger("ShieldAdd");
         yield return new WaitForSeconds(duration);
         if (particle != null) particle.PoolRecycle();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
