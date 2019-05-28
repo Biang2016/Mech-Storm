@@ -26,6 +26,12 @@ public class LoginPanel : BaseUIForm
     [SerializeField] private Button RegisterButton;
     [SerializeField] private Button LoginButton;
 
+    [SerializeField] private Button ReturnSingleModeButton;
+    [SerializeField] private Text ReturnSingleModeText;
+
+    [SerializeField] private Button CardEditorButton;
+    [SerializeField] private Text CardEditorText;
+
     void Awake()
     {
         UIType.InitUIType(
@@ -41,6 +47,8 @@ public class LoginPanel : BaseUIForm
         RegisterButton.onClick.AddListener(OnRegisterButtonClick);
         LoginButton.onClick.AddListener(OnLoginButtonClick);
         QuitButton.onClick.AddListener(OnQuitButtonClick);
+        ReturnSingleModeButton.onClick.AddListener(ReturnToSingleMode);
+        CardEditorButton.onClick.AddListener(OnCardEditorButtonClick);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -50,12 +58,19 @@ public class LoginPanel : BaseUIForm
                 (PasswordText, "LoginMenu_PasswordText"),
                 (RegisterText, "LoginMenu_RegisterText"),
                 (LoginText, "LoginMenu_LoginText"),
+                (ReturnSingleModeText, "LoginMenu_ReturnToSingleModeText"),
+                (CardEditorText, "LoginMenu_CardEditorButtonText"),
             });
 
         foreach (string serverTypeName in Enum.GetNames(typeof(ServerTypes)))
         {
             ServerDropdown.options[(int) Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
         }
+    }
+
+    void OnDestroy()
+    {
+        Proxy.OnClientStateChange = null;
     }
 
     public enum ServerTypes
@@ -79,35 +94,32 @@ public class LoginPanel : BaseUIForm
         }
     }
 
+    private bool isFirstTimeDisplay = true;
+
     public override void Display()
     {
         base.Display();
-        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-        cp.Initialize(
-            "是否要联网?",
-            "是",
-            "否",
-            delegate
-            {
-                Client.Instance.SetNetwork(true);
-                string playerPrefServer = PlayerPrefs.GetString("PreferServer");
-                if (string.IsNullOrEmpty(playerPrefServer))
+        if (isFirstTimeDisplay)
+        {
+            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            cp.Initialize(
+                "是否要联网?",
+                "是",
+                "否",
+                delegate
                 {
-                    playerPrefServer = ServerTypes.FormalServer.ToString();
-                }
-
-                ServerTypes defaultServerType = (ServerTypes) Enum.Parse(typeof(ServerTypes), playerPrefServer);
-                ServerDropdown.value = (int) defaultServerType;
-                ServerDropdown.onValueChanged.AddListener(OnChangeServer);
-                NetworkManager.Instance.ConnectToServer(defaultServerType);
-                UserNameInputField.ActivateInputField();
-                cp.CloseUIForm();
-            },
-            delegate
-            {
-                cp.CloseUIForm();
-                Client.Instance.SetNetwork(false);
-            });
+                    ReturnToOnlineMode(true);
+                    cp.CloseUIForm();
+                },
+                delegate
+                {
+                    cp.CloseUIForm();
+                    ReturnToSingleMode();
+                });
+            cp.UIType.IsESCClose = false;
+            cp.UIType.IsClickElsewhereClose = false;
+            isFirstTimeDisplay = false;
+        }
 
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
         SelectBuildManager.Instance.CurrentGameMode = SelectBuildManager.GameMode.None;
@@ -186,6 +198,32 @@ public class LoginPanel : BaseUIForm
     {
         NetworkManager.Instance.TerminateConnection();
         Application.Quit();
+    }
+
+    public void ReturnToSingleMode()
+    {
+        Client.Instance.SetNetwork(false);
+    }
+
+    public void ReturnToOnlineMode(bool autoConnect = false)
+    {
+        Client.Instance.SetNetwork(true);
+        string playerPrefServer = PlayerPrefs.GetString("PreferServer");
+        if (string.IsNullOrEmpty(playerPrefServer))
+        {
+            playerPrefServer = ServerTypes.FormalServer.ToString();
+        }
+
+        ServerTypes defaultServerType = (ServerTypes) Enum.Parse(typeof(ServerTypes), playerPrefServer);
+        ServerDropdown.value = (int) defaultServerType;
+        ServerDropdown.onValueChanged.AddListener(OnChangeServer);
+        if (autoConnect) NetworkManager.Instance.ConnectToServer(defaultServerType);
+        UserNameInputField.ActivateInputField();
+    }
+
+    private void OnCardEditorButtonClick()
+    {
+        GameManager.Instance.OnCardEditorButtonClick();
     }
 
     public void ShowUpdateConfirmPanel()

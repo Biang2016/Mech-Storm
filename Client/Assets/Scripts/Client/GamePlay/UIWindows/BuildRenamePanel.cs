@@ -21,7 +21,7 @@ public class BuildRenamePanel : BaseUIForm
             isClickElsewhereClose: true,
             uiForms_Type: UIFormTypes.PopUp,
             uiForms_ShowMode: UIFormShowModes.Return,
-            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
+            uiForm_LucencyType: UIFormLucencyTypes.Lucency);
 
         LanguageManager.Instance.RegisterTextKeys(new List<(Text, string)>
         {

@@ -8,7 +8,7 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
     [SerializeField] private SpriteRenderer SniperTargetImage;
     [SerializeField] private TextMeshPro DamagePreviewBG;
     [SerializeField] private TextMeshPro DamagePreview; //受攻击瞄准时的伤害预览
-    [SerializeField] private TextMeshPro DenfenderText;
+    [SerializeField] private TextMeshPro DefenderText;
     [SerializeField] private TextMeshPro SniperText;
 
     void Awake()
@@ -17,7 +17,7 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
         TargetArrowsDefaultSortingOrder = TargetArrows[0].sortingOrder;
         SniperTargetImageDefaultSortingOrder = SniperTargetImage.sortingOrder;
         DamagePreviewDefaultSortingOrder = DamagePreviewBG.sortingOrder;
-        TextDefaultSortingOrder = DenfenderText.sortingOrder;
+        TextDefaultSortingOrder = DefenderText.sortingOrder;
     }
 
     private int TargetArrowsDefaultSortingOrder;
@@ -34,7 +34,7 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
         SetDamagePreviewText("");
         TargetArrowAnimEnd();
         ShowSniperTargetImage(false);
-        ShowDenfenderText(false);
+        ShowDefenderText(false);
         ShowSniperText(false);
     }
 
@@ -68,7 +68,7 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
         SniperTargetImage.sortingOrder = cardSortingIndex * 50 + SniperTargetImageDefaultSortingOrder;
         DamagePreviewBG.sortingOrder = cardSortingIndex * 50 + DamagePreviewDefaultSortingOrder;
         DamagePreview.sortingOrder = cardSortingIndex * 50 + DamagePreviewDefaultSortingOrder;
-        DenfenderText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
+        DefenderText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
         SniperText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
     }
 
@@ -96,9 +96,9 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
         SniperTargetImage.gameObject.SetActive(isShow);
     }
 
-    public void ShowDenfenderText(bool isShow)
+    public void ShowDefenderText(bool isShow)
     {
-        DenfenderText.gameObject.SetActive(isShow);
+        DefenderText.gameObject.SetActive(isShow);
     }
 
     public void ShowSniperText(bool isShow)

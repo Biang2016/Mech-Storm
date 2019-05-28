@@ -380,7 +380,7 @@ public class HandManager : MonoBehaviour
 
                 currentShowCard.DragComponent.enabled = false;
                 currentShowCard.Usable = false;
-                currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"),1);
+                currentShowCard.ChangeCardBloomColor(ClientUtils.HTMLColorToColor("#FFFFFF"), 1);
                 currentShowCard.ShowCardBloom(true);
                 currentShowCard.BeBrightColor();
                 currentShowCard.CardOrder = 200;
@@ -514,16 +514,17 @@ public class HandManager : MonoBehaviour
 
         focusCard.transform.DOPause();
 
-        //Replace the card by a boxcollider
+        //Replace the card by a BoxCollider
         ColliderReplace colliderReplace = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ColliderReplace].AllocateGameObject<ColliderReplace>(transform);
         colliderReplace.Initiate(focusCard);
         //Enlarge the card and put it in upright position
         focusCard.transform.localScale = Vector3.one * PULL_OUT_CARD_SIZE;
         focusCard.transform.rotation = DefaultCardPivot.rotation;
         focusCard.transform.position = new Vector3(focusCard.transform.position.x, focusCard.transform.position.y, focusCard.transform.position.z + PULL_OUT_CARD_OFFSET);
-        //Disenable the card's boxcollider
+        //Disable the card's BoxCollider
         focusCard.BoxCollider.enabled = false;
         focusCard.CardOrder = 200;
+        focusCard.BeBrightColor();
         isEnlarge = true;
     }
 
@@ -540,6 +541,15 @@ public class HandManager : MonoBehaviour
         {
             lostFocusCard.transform.position = lostFocusCard.MyColliderReplace.transform.position;
             lostFocusCard.transform.rotation = lostFocusCard.MyColliderReplace.transform.rotation;
+        }
+
+        if (lostFocusCard.Usable)
+        {
+            lostFocusCard.BeBrightColor();
+        }
+        else
+        {
+            lostFocusCard.BeDimColor();
         }
 
         lostFocusCard.ResetColliderAndReplace();

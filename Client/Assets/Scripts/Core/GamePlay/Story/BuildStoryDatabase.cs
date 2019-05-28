@@ -134,6 +134,14 @@ public class BuildStoryDatabase
 
     public Dictionary<string, Story> PlayerStoryStates = new Dictionary<string, Story>();
 
+    public void CreateSinglePlayer(string userName)
+    {
+        foreach (BuildInfo bi in BuildGroupDict[BuildGroups.CustomBuilds].AllBuildInfo())
+        {
+            AddOrModifyBuild(userName, bi.Clone());
+        }
+    }
+
     #endregion
 
     #endregion
@@ -149,5 +157,6 @@ public enum BuildGroups
 {
     EnemyBuilds = 1,
     OnlineBuilds = 2,
-    StoryBuilds = 3
+    StoryBuilds = 3,
+    CustomBuilds = 4
 }

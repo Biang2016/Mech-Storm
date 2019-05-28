@@ -44,6 +44,10 @@
 		"zh": "语言",
 		"en": "Language"
 	},
+	"SettingMenu_ReturnToGameText": {
+		"zh": "返回游戏",
+		"en": "Return to game"
+	},
 	"SettingMenu_MasterSliderText": {
 		"zh": "主音量",
 		"en": "Master"
@@ -58,6 +62,14 @@
 	},
 
 
+	"StartMenu_SwitchToOnlineModeText": {
+		"zh": "切换到联机模式",
+		"en": "Switch to Online Mode"
+	},
+	"StartMenu_SwitchToSingleModeText": {
+		"zh": "切换到单机模式",
+		"en": "Switch to Single Mode"
+	},
 	"StartMenu_OnlineMode": {
 		"zh": "在线对战",
 		"en": "Online Mode"
@@ -260,6 +272,18 @@
 	},
 
 
+	"LoginMenu_CardEditorButtonText": {
+		"zh": "卡牌编辑器",
+		"en": "Cards Workshop"
+	},
+	"LoginMenu_ReturnToSingleModeText": {
+		"zh": "返回单机模式",
+		"en": "Return to Single Mode"
+	},
+	"LoginMenu_LoginText": {
+		"zh": "登录",
+		"en": "Login"
+	},
 	"LoginMenu_ServerText": {
 		"zh": "服务器: ",
 		"en": "Server: "
@@ -497,8 +521,8 @@
 		"en": "New Deck"
 	},
 	"SelectBuildManagerBuild_CreateNewDeck": {
-		"zh": "创建新卡组",
-		"en": "New Deck"
+		"zh": "+ 创建",
+		"en": "+ New"
 	},
 	"SelectBuildManagerBuild_CannotDeleteLastBuild": {
 		"zh": "您至少需要一个卡组",
@@ -581,13 +605,13 @@
 		"en": "Confirm"
 	},
 	"SelectBuildManagerSelect_CloseText": {
-		"zh": "关闭(Tab)",
-		"en": "Close (Tab)"
+		"zh": "关闭",
+		"en": "Close"
 	},
 
 	"SelectBuildManagerSelect_HeroesCardText": {
 		"zh": "英 雄 随 从",
-		"en": "HeroMech"
+		"en": "Hero Mech"
 	},
 	"SelectBuildManagerSelect_OtherCardText": {
 		"zh": "其 他 卡 片",

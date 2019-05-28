@@ -10,6 +10,12 @@ public class StartMenuPanel : BaseUIForm
     {
     }
 
+    [SerializeField] private Button SwitchToOtherModeButton;
+    [SerializeField] private Text SwitchToOtherModeText;
+
+    [SerializeField] private Button CardEditorButton;
+    [SerializeField] private Text CardEditorText;
+
     [SerializeField] private Transform ButtonContainer;
     private Dictionary<string, StartMenuButton> StartMenuButtonDict = new Dictionary<string, StartMenuButton>();
     private Dictionary<States, List<string>> StateMenuButtonListDict = new Dictionary<States, List<string>>();
@@ -23,6 +29,11 @@ public class StartMenuPanel : BaseUIForm
             uiForms_Type: UIFormTypes.Normal,
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
+
+        CardEditorButton.onClick.AddListener(OnCardEditorButtonClick);
+
+        LanguageManager.Instance.RegisterTextKey(SwitchToOtherModeText, "StartMenu_SwitchToOnlineModeText");
+        LanguageManager.Instance.RegisterTextKey(CardEditorText, "LoginMenu_CardEditorButtonText");
 
         Proxy.OnClientStateChange += OnClientChangeState;
 
@@ -176,6 +187,21 @@ public class StartMenuPanel : BaseUIForm
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
 
         state = newState;
+
+        if (newState == States.Show_Main_Standalone)
+        {
+            LanguageManager.Instance.UnregisterText(SwitchToOtherModeText);
+            LanguageManager.Instance.RegisterTextKey(SwitchToOtherModeText, "StartMenu_SwitchToOnlineModeText");
+            SwitchToOtherModeButton.onClick.RemoveAllListeners();
+            SwitchToOtherModeButton.onClick.AddListener(OnSwitchToOnlineMode);
+        }
+        else if (newState == States.Show_Main_Online)
+        {
+            LanguageManager.Instance.UnregisterText(SwitchToOtherModeText);
+            LanguageManager.Instance.RegisterTextKey(SwitchToOtherModeText, "StartMenu_SwitchToSingleModeText");
+            SwitchToOtherModeButton.onClick.RemoveAllListeners();
+            SwitchToOtherModeButton.onClick.AddListener(OnSwitchToSingleMode);
+        }
     }
 
     #region DeckAbstract
@@ -287,6 +313,7 @@ public class StartMenuPanel : BaseUIForm
         {
             SetState(States.Show_Main_Online);
         }
+
         if (Client.Instance.IsMatching()) OnCancelMatchGameButtonClick();
         BackGroundManager.Instance.ChangeBoardBG();
     }
@@ -463,5 +490,29 @@ public class StartMenuPanel : BaseUIForm
         {
             Client.Instance.Proxy.CancelMatch();
         }
+    }
+
+    private void OnSwitchToOnlineMode()
+    {
+        LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientID, Client.Instance.Proxy.Username);
+        Client.Instance.Proxy.SendMessage(request);
+        UIManager.Instance.GetBaseUIForm<LoginPanel>().ReturnToOnlineMode();
+    }
+
+    private void OnSwitchToSingleMode()
+    {
+        if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Matching)
+        {
+            Client.Instance.Proxy.CancelMatch();
+        }
+
+        LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientID, Client.Instance.Proxy.Username);
+        Client.Instance.Proxy.SendMessage(request);
+        UIManager.Instance.GetBaseUIForm<LoginPanel>().ReturnToSingleMode();
+    }
+
+    private void OnCardEditorButtonClick()
+    {
+        GameManager.Instance.OnCardEditorButtonClick();
     }
 }

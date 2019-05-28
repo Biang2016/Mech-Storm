@@ -32,7 +32,7 @@
             else
             {
                 player.GameManager.SideEffect_ILifeAction(
-                    delegate(ILife life) { life.Damage(value); },
+                    delegate(ILife life) { life.AddLife(value); },
                     player,
                     ChoiceCount,
                     TargetRange,

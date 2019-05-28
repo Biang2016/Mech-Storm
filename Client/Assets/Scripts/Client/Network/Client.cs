@@ -18,6 +18,11 @@
 
     public GameProxy GameProxy;
 
+    void OnDestroy()
+    {
+        Proxy.OnClientStateChange = null;
+    }
+
     public void SetNetwork(bool isOnline)
     {
         if (isOnline)

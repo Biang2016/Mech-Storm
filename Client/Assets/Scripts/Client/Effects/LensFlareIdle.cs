@@ -1,29 +1,32 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
-public class LensFlareIdle : MonoBehaviour
+public class LensFlareIdle : PoolObject
 {
+    public override void PoolRecycle()
+    {
+        base.PoolRecycle();
+        LensFlare.transform.DOPause();
+        StopAllCoroutines();
+        transform.position = paths[0].position;
+    }
+
     [SerializeField] private LensFlare LensFlare;
     [SerializeField] private Transform[] paths;
 
     void Start()
     {
         Flicker();
-//        Hashtable args = new Hashtable();
-//        args.Add("path", paths);
-//        args.Add("speed", 0.5f);
-//        args.Add("movetopath", true);
-//        args.Add("looptype", "loop");
-//        iTween.MoveTo(gameObject, args);
+
+        Vector3[] pathVector3 = new Vector3[paths.Length];
+        for (int i = 0; i < paths.Length; i++)
+        {
+            pathVector3[i] = paths[i].position;
+        }
+
+        LensFlare.transform.DOPath(pathVector3, 30f, PathType.CatmullRom, PathMode.Full3D, 10, Color.white).SetLoops(-1);
     }
-
-    //void OnDrawGizmos()
-    //{
-    //    //在scene视图中绘制出路径与线
-    //    iTween.DrawLine(paths, Color.yellow);
-
-    //    iTween.DrawPath(paths, Color.red);
-    //}
 
     void Update()
     {

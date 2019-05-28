@@ -55,6 +55,15 @@ public partial class SelectBuildPanel : BaseUIForm
     public void SetState(States newState)
     {
         state = newState;
+        if (IsReadOnly)
+        {
+            UIType.UIForm_LucencyType = UIFormLucencyTypes.Blur;
+        }
+        else
+        {
+            UIType.UIForm_LucencyType = UIFormLucencyTypes.ImPenetrable;
+        }
+
         SetReadOnly_Bars(IsReadOnly);
         SetReadOnly_Builds(IsReadOnly);
         SetReadOnly_Cards(IsReadOnly);

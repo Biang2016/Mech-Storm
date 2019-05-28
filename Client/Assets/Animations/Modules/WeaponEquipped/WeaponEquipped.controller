@@ -6,10 +6,10 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WeaponEquiped
+  m_Name: WeaponEquipped
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: WeaponEquipped
+  - m_Name: Equipped
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -90,7 +90,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: WeaponEquipped
+    m_ConditionEvent: Equipped
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102322120787655154}
@@ -139,7 +139,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WeaponEquiped
+  m_Name: WeaponEquipped
   m_Speed: 0.6
   m_CycleOffset: 0
   m_Transitions:

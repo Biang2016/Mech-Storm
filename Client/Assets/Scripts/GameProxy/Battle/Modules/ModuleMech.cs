@@ -181,8 +181,8 @@ internal class ModuleMech : ModuleBase, ILife
 
     public void AddLife(int addLifeValue)
     {
-        MaxLifeChange(addLifeValue, false);
-        LifeChange(addLifeValue, false);
+        MaxLifeChange(addLifeValue);
+        LifeChange(addLifeValue);
     }
 
     public void Heal(int healValue)

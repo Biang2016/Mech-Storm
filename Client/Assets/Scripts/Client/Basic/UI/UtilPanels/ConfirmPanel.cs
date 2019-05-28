@@ -34,6 +34,13 @@ public class ConfirmPanel : BaseUIForm
 
     public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick)
     {
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: true,
+            isClickElsewhereClose: true,
+            uiForms_Type: UIFormTypes.PopUp,
+            uiForms_ShowMode: UIFormShowModes.Return,
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
         ConfirmClick = leftButtonClick;
         DescText.text = descText;
         LeftButtonText.text = leftButtonText;

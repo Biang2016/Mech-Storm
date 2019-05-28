@@ -9,6 +9,7 @@ public class AllStories
 
     public static void AddAllStories()
     {
+        Reset();
         foreach (string path in Directory.GetFiles(StoriesDirectory,"*.xml"))
         {
             FileInfo fi = new FileInfo(path);
@@ -160,5 +161,10 @@ public class AllStories
         }
 
         return bg;
+    }
+
+    public static void Reset()
+    {
+        BuildStoryDatabase.Instance.StoryStartDict.Clear();
     }
 }

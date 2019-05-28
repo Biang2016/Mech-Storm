@@ -12,6 +12,7 @@ public class AllBuilds
 
     public static void AddAllBuilds()
     {
+        Reset();
         foreach (string path in Directory.GetFiles(BuildDirectory, "*.xml"))
         {
             FileInfo fi = new FileInfo(path);
@@ -159,5 +160,11 @@ public class AllBuilds
         }
 
         doc.Save(BuildDirectory + builds.ManagerName + ".xml");
+    }
+
+
+    public static void Reset()
+    {
+        BuildStoryDatabase.Instance.BuildGroupDict.Clear();
     }
 }

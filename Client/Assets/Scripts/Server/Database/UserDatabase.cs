@@ -11,19 +11,17 @@ public class UserDatabase
     private Dictionary<int, string> LoginClientIdUsernameTable = new Dictionary<int, string>();
     private List<string> LoginUserNames = new List<string>();
 
-    public bool AddUser(string username, string password, bool isSuperAccount = false)
+    public bool AddUser(string username, string password)
     {
         if (!isExistUsername(username))
         {
             UsernamePasswordTable.Add(username, password);
-            if (!isSuperAccount) //每个玩家都有几个默认卡组
+            //每个玩家都有几个默认卡组
+            foreach (BuildInfo bi in BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.OnlineBuilds].AllBuildInfo())
             {
-                foreach (int playerDefaultBuildID in BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.OnlineBuilds].Builds.Values)
-                {
-                    BuildInfo newBI = BuildStoryDatabase.Instance.BuildInfoDict[playerDefaultBuildID].Clone();
-                    BuildStoryDatabase.Instance.BuildInfoDict.Add(newBI.BuildID, newBI);
-                    BuildStoryDatabase.Instance.AddOrModifyBuild(username, newBI);
-                }
+                BuildInfo newBI = bi.Clone();
+                BuildStoryDatabase.Instance.BuildInfoDict.Add(newBI.BuildID, newBI);
+                BuildStoryDatabase.Instance.AddOrModifyBuild(username, newBI);
             }
 
             return true;

@@ -250,7 +250,7 @@ public class ModuleMech : ModuleBase
         {
             if (m_MechWeaponEnergy != value || IsInitializing)
             {
-                MechSwordShieldArmorComponent.AttackChange(value, CalculateFinalAttack(m_MechAttack, value));
+                MechSwordShieldArmorComponent.WeaponEnergyChange(value, CalculateFinalAttack(m_MechAttack, value));
                 m_MechWeaponEnergy = value;
                 if (MechEquipSystemComponent.M_Weapon)
                 {
@@ -515,12 +515,12 @@ public class ModuleMech : ModuleBase
             if (value == targetPreviewArrowShow) return;
             if (value && !targetPreviewArrowShow)
             {
-                MechTargetPreviewArrowsComponent.ShowDenfenderText(IsDefender);
+                MechTargetPreviewArrowsComponent.ShowDefenderText(IsDefender);
                 MechTargetPreviewArrowsComponent.TargetArrowAnimStart();
             }
             else if (!value && targetPreviewArrowShow)
             {
-                MechTargetPreviewArrowsComponent.ShowDenfenderText(false);
+                MechTargetPreviewArrowsComponent.ShowDefenderText(false);
                 MechTargetPreviewArrowsComponent.TargetArrowAnimEnd();
             }
 

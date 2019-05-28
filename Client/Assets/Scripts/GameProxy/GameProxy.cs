@@ -60,7 +60,7 @@ public class GameProxy
                 DebugLog.PrintClientStates("Client " + ClientID + " version valid.");
                 break;
             }
-            case RegisterRequest r:
+            case RegisterRequest r://for single mode
             {
                 DebugLog.PrintClientStates("Client " + ClientID + " state: " + ClientState);
                 if (ClientState != ProxyBase.ClientStates.GetId)
@@ -69,6 +69,7 @@ public class GameProxy
                 }
 
                 UserName = r.username;
+                BuildStoryDatabase.Instance.CreateSinglePlayer(UserName);
                 RegisterResultRequest response = new RegisterResultRequest(true);
                 SendMessage(response);
                 break;

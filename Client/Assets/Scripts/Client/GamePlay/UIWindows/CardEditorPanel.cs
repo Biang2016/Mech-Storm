@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
@@ -24,12 +25,14 @@ public class CardEditorPanel : BaseUIForm
         SaveCardButton.onClick.AddListener(SaveCard);
         ResetCardButton.onClick.AddListener(ResetCard);
         DeleteCardButton.onClick.AddListener(DeleteCard);
+        ReturnToGameButton.onClick.AddListener(ReturnToGame);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
             {
                 (CardEditorWindowText, "CardEditorWindow_CardEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
+                (ReturnToGameButtonText, "SettingMenu_ReturnToGameText"),
                 (SaveCardButtonText, "CardEditorWindow_SaveCardButtonText"),
                 (ResetCardButtonText, "CardEditorWindow_ResetCardButtonText"),
                 (DeleteCardButtonText, "CardEditorWindow_DeleteCardButtonText"),
@@ -67,11 +70,18 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
+    public void ReturnToGame()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+
     [SerializeField] private Text CardEditorWindowText;
     [SerializeField] private Text CardTotalCountText;
     [SerializeField] private Text CardTotalCountNumberText;
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
+    [SerializeField] private Button ReturnToGameButton;
+    [SerializeField] private Text ReturnToGameButtonText;
 
     #region Left CardProperties
 

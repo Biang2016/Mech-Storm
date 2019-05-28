@@ -302,7 +302,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     {
         while (true)
         {
-            if (Client.Instance.Proxy == null || !Client.Instance.Proxy.Socket.Connected)
+            if (Client.Instance.Proxy.Socket == null || !Client.Instance.Proxy.Socket.Connected)
             {
                 Connect(ServerIPDict[serverType], 9999, ConnectCallBack, null);
             }
@@ -326,15 +326,12 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         try
         {
             if (CurrentTryConnectServer != null) StopCoroutine(CurrentTryConnectServer);
-            if (Client.Instance.Proxy != null)
+            if (Client.Instance.Proxy.Socket != null)
             {
-                if (Client.Instance.Proxy.Socket != null)
-                {
-                    Client.Instance.Proxy.Socket.Close();
-                }
-
-                Client.Instance.Proxy.Socket = null;
+                Client.Instance.Proxy.Socket.Close();
             }
+
+            Client.Instance.Proxy.Socket = null;
         }
         catch (Exception e)
         {
@@ -347,7 +344,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     private void CheckConnectState()
     {
-        if (Client.Instance.Proxy != null && Client.Instance.Proxy.Socket.Connected)
+        if (Client.Instance.Proxy.Socket != null && Client.Instance.Proxy.Socket.Connected)
         {
             if (isReconnecting)
             {

@@ -19,7 +19,7 @@ public class Proxy : ProxyBase
         {
             if (clientState != value)
             {
-                OnClientStateChange(value);
+                OnClientStateChange?.Invoke(value);
                 clientState = value;
                 ClientLog.Instance.PrintClientStates("Client states: " + ClientState);
             }
@@ -144,6 +144,8 @@ public class Proxy : ProxyBase
 
                         if (Client.Instance.IsStandalone)
                         {
+                            RegisterRequest request0 = new RegisterRequest(Client.Instance.Proxy.ClientID, "Player", "");
+                            SendMessage(request0);
                             LoginRequest request1 = new LoginRequest(Client.Instance.Proxy.ClientID, "Player", "");
                             SendMessage(request1);
                         }
