@@ -35,6 +35,38 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         Pro_Initialize();
     }
 
+    public CardStatTypes CardStatType
+    {
+        get
+        {
+            if (BaseInfo.CardType == CardTypes.Mech)
+            {
+                if (MechInfo.IsSoldier)
+                {
+                    return CardStatTypes.SoldierMech;
+                }
+                else
+                {
+                    return CardStatTypes.HeroMech;
+                }
+            }
+            else if (BaseInfo.CardType == CardTypes.Equip)
+            {
+                return CardStatTypes.Equip;
+            }
+            else if (BaseInfo.CardType == CardTypes.Spell)
+            {
+                return CardStatTypes.Spell;
+            }
+            else if (BaseInfo.CardType == CardTypes.Energy)
+            {
+                return CardStatTypes.Energy;
+            }
+
+            return CardStatTypes.Energy;
+        }
+    }
+
     protected void Pro_Initialize()
     {
         if (EquipInfo.SlotType != SlotTypes.None)

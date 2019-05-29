@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.U2D;
@@ -76,6 +77,8 @@ public class LevelEditorPanel : BaseUIForm
     private Dictionary<EnemyType, List<PropertyFormRow>> EnemyTypePropertiesDict = new Dictionary<EnemyType, List<PropertyFormRow>>();
     private List<PropertyFormRow> LevelPropertiesCommon = new List<PropertyFormRow>();
 
+    private LevelPropertyForm_CardSelection Row_CardSelection;
+
     private void InitializeCardPropertyForm()
     {
         foreach (PropertyFormRow pfr in MyPropertiesRows)
@@ -113,6 +116,8 @@ public class LevelEditorPanel : BaseUIForm
         PropertyFormRow Row_EnemyEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_EnemyEnergy", OnEnemyEnergyChange, out SetEnemyEnergy);
         PropertyFormRow Row_EnemyBeginMetal = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_EnemyBeginMetal", OnEnemyBeginMetalChange, out SetEnemyBeginMetal);
 
+        Row_CardSelection = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_CardSelection].AllocateGameObject<LevelPropertyForm_CardSelection>(LevelPropertiesContainer);
+
         LevelPropertiesCommon = new List<PropertyFormRow>
         {
             Row_LevelType,
@@ -129,11 +134,14 @@ public class LevelEditorPanel : BaseUIForm
             Row_EnemyLife,
             Row_EnemyEnergy,
             Row_EnemyBeginMetal,
+            Row_CardSelection,
         };
 
         LevelTypePropertiesDict[LevelType.Shop] = new List<PropertyFormRow>
         {
         };
+
+        SetLevel(null);
     }
 
     private UnityAction<string> SetLevelType;
@@ -154,6 +162,41 @@ public class LevelEditorPanel : BaseUIForm
                 lpfr.gameObject.SetActive(targets.Contains(lpfr));
             }
         }
+
+        switch (type)
+        {
+            case LevelType.Enemy:
+            {
+                Cur_Level = new Enemy(
+                    levelPicID: 0,
+                    levelNames: new SortedDictionary<string, string> {{"zh", "新敌人"}, {"en", "newEnemy"}},
+                    buildInfo: new BuildInfo(
+                        buildID: -1,
+                        buildName: "TempDeck",
+                        buildCards: new BuildInfo.BuildCards(),
+                        drawCardNum: 1,
+                        life: 20,
+                        energy: 10,
+                        beginMetal: 1,
+                        isHighLevelCardLocked: false,
+                        gamePlaySettings: null),
+                    enemyType: EnemyType.Soldier,
+                    hardFactor: 100,
+                    alwaysBonusGroup: new List<BonusGroup>(),
+                    optionalBonusGroup: new List<BonusGroup>()
+                );
+                break;
+            }
+            case LevelType.Shop:
+            {
+                Cur_Level = new Shop(
+                    levelPicId: 0,
+                    levelNames: new SortedDictionary<string, string> {{"zh", "新商店"}, {"en", "newShop"}});
+                break;
+            }
+        }
+
+        SetLevel(Cur_Level);
     }
 
     private UnityAction<string> SetLevelID;
@@ -259,7 +302,37 @@ public class LevelEditorPanel : BaseUIForm
 
     public bool SetLevel(Level level)
     {
-        Cur_Level = level;
+        if (level == null)
+        {
+            SetLevelType(LevelType.Shop.ToString());
+            SetLevelType(LevelType.Enemy.ToString());
+        }
+        else
+        {
+            Cur_Level = level;
+            SetLevelName_en(Cur_Level.LevelNames["en"]);
+            SetLevelName_zh(Cur_Level.LevelNames["zh"]);
+            SetLevelID(Cur_Level.LevelID.ToString());
+            SetLevelPicID(Cur_Level.LevelPicID.ToString());
+            switch (Cur_Level)
+            {
+                case Enemy enemy:
+                {
+                    SetEnemyType(enemy.EnemyType.ToString());
+                    SetEnemyBeginMetal(enemy.BuildInfo.BeginMetal.ToString());
+                    SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString());
+                    SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
+                    SetEnemyLife(enemy.BuildInfo.Life.ToString());
+                    Row_CardSelection.Initialize(enemy.BuildInfo.M_BuildCards, delegate { });
+                    break;
+                }
+                case Shop shop:
+                {
+                    break;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -301,7 +374,7 @@ public class LevelEditorPanel : BaseUIForm
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (!PicSelectPanel.IsOpen && Input.GetMouseButtonDown(0))
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
@@ -322,7 +395,7 @@ public class LevelEditorPanel : BaseUIForm
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (!PicSelectPanel.IsOpen && Input.GetMouseButtonDown(1))
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
@@ -343,7 +416,7 @@ public class LevelEditorPanel : BaseUIForm
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (!PicSelectPanel.IsOpen && Input.GetMouseButtonUp(0))
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
@@ -367,7 +440,7 @@ public class LevelEditorPanel : BaseUIForm
             mouseRightDownCard = null;
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (!PicSelectPanel.IsOpen && Input.GetMouseButtonUp(1))
         {
             Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycast;
@@ -395,14 +468,12 @@ public class LevelEditorPanel : BaseUIForm
 
     private void InitializePreviewCardGrid()
     {
-        SelectCardCount.Clear();
         foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == 99999) continue;
             if (cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoGridLayout(cardInfo.Clone());
-            SelectCardCount.Add(cardInfo.CardID, 0);
         }
     }
 
@@ -425,33 +496,51 @@ public class LevelEditorPanel : BaseUIForm
         {
             container.M_ChildCard.BeDimColor();
         }
+    }
 
-        if (container.M_ChildCard.CardInfo.BaseInfo.LimitNum == 0)
+    private BuildInfo.BuildCards BuildCards
+    {
+        get
         {
-            container.gameObject.SetActive(false);
+            if (Cur_Level is Enemy enemy)
+            {
+                return enemy.BuildInfo.M_BuildCards;
+            }
+            else if (Cur_Level is Shop shop)
+            {
+                return new BuildInfo.BuildCards();
+            }
+
+            return null;
         }
     }
 
     private void SelectCard(CardBase card)
     {
-        int count = ++SelectCardCount[card.CardInfo.CardID];
+        if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && BuildCards.GetTypeCardCountDict()[CardStatTypes.HeroMech] >= 4)
+        {
+            return;
+        }
+
+        int count = ++BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
         card.SetBlockCountValue(count);
         card.BeBrightColor();
         card.ShowCardBloom(true);
+        Row_CardSelection.Refresh();
     }
-
-    Dictionary<int, int> SelectCardCount = new Dictionary<int, int>();
 
     private void UnSelectCard(CardBase card)
     {
-        if (SelectCardCount[card.CardInfo.CardID] == 0) return;
-        int count = --SelectCardCount[card.CardInfo.CardID];
+        if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount == 0) return;
+        int count = --BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
         card.SetBlockCountValue(count);
-        if (SelectCardCount[card.CardInfo.CardID] == 0)
+        if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount == 0)
         {
             card.BeDimColor();
             card.ShowCardBloom(false);
         }
+
+        Row_CardSelection.Refresh();
     }
 
     #endregion

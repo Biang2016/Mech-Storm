@@ -53,7 +53,7 @@ public class AllBuilds
                             buildInfo.IsHighLevelCardLocked = cardInfo.Attributes["IsHighLevelCardLocked"].Value.Equals("True");
                             break;
                         case "cardIDs":
-                            buildInfo.M_BuildCards = new BuildInfo.BuildCards(buildInfo.BuildName, new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>());
+                            buildInfo.M_BuildCards = new BuildInfo.BuildCards();
                             string[] cardID_strs = cardInfo.Attributes["ids"].Value.Split(';');
                             foreach (string s in cardID_strs)
                             {

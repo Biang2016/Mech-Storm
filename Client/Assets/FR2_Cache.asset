@@ -24169,12 +24169,6 @@ MonoBehaviour:
     stamp: 1558859519
     type: 2
     UseGUIDs: []
-  - guid: 906929e40df3bf246b3af6608d4c2c63
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
   - guid: 145ee4f5297f0a644acc71b203d18047
     ScriptSymbols:
     - GameProxy
@@ -24285,12 +24279,6 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  - guid: c1fec737f2aea4840ad51051c2b8d864
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1557908711
-    type: 1
-    UseGUIDs: []
   - guid: 68ac76b73d26c6e4cabe21b6256d8018
     ScriptSymbols: []
     ScriptTokens: []
@@ -24337,12 +24325,6 @@ MonoBehaviour:
     ScriptTokens: []
     stamp: 0
     type: 9
-    UseGUIDs: []
-  - guid: 1f118be8d458dbb4bbfdf4d378813e03
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1558845808
-    type: 1
     UseGUIDs: []
   - guid: b142c3495e8c8f64888ae23257babbaa
     ScriptSymbols:
@@ -24446,12 +24428,6 @@ MonoBehaviour:
     - 7190f8fcfe55aaf458dd20911ffe6237
     - 781fe9f2ae409244382544d47d670f0e
     - f3beed825e0c3b84981be1ae82339039
-  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554345152
-    type: 1
-    UseGUIDs: []
   - guid: 8091561b0026ce6498c8b4a17d9b4336
     ScriptSymbols: []
     ScriptTokens: []
@@ -24802,6 +24778,42 @@ MonoBehaviour:
     - SceneManager
     stamp: 1559050939
     type: 2
+    UseGUIDs: []
+  - guid: 7d23099659efd454db9bb30ea0ec0b05
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 7c474a98f9c4449f48a9560c316591a6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: f08d7a8ad29b45c5839717d08e3fc569
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 093a3f9aaea64f74e8306cd9d5beb1fd
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 10c1a35b695740f99bdf0b33cea7df5a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 55424c2c43e8fbd45b10efdbee0ea41e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
     UseGUIDs: []
   timeStamp: 1559041999
   priority: 5

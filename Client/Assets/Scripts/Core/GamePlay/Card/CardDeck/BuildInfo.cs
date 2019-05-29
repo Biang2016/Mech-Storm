@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 public class BuildInfo : IClone<BuildInfo>
 {
@@ -22,23 +24,24 @@ public class BuildInfo : IClone<BuildInfo>
 
     public class BuildCards : IClone<BuildCards>
     {
-        public string BuildName;
         public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
 
-        public BuildCards(string buildName, SortedDictionary<int, CardSelectInfo> cardSelectInfos)
+        public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos = null)
         {
-            BuildName = buildName;
             CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
                 CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, kv.Value.BaseInfo.LimitNum));
             }
 
-            foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
+            if (cardSelectInfos != null)
             {
-                if (AllCards.CardDict.ContainsKey(kv.Key))
+                foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
                 {
-                    CardSelectInfos[kv.Key] = kv.Value.Clone();
+                    if (AllCards.CardDict.ContainsKey(kv.Key))
+                    {
+                        CardSelectInfos[kv.Key] = kv.Value.Clone();
+                    }
                 }
             }
         }
@@ -95,6 +98,96 @@ public class BuildInfo : IClone<BuildInfo>
             return res;
         }
 
+        public List<int> GetHeroCardIDs()
+        {
+            List<int> heroCardIDs = new List<int>();
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                if (AllCards.GetCard(kv.Key).CardStatType == CardStatTypes.HeroMech)
+                {
+                    for (int i = 0; i < kv.Value.CardSelectCount; i++)
+                    {
+                        heroCardIDs.Add(kv.Key);
+                    }
+                }
+            }
+
+            return heroCardIDs;
+        }
+
+        public SortedDictionary<CardStatTypes, int> GetTypeCardCountDict()
+        {
+            SortedDictionary<CardStatTypes, int> res = new SortedDictionary<CardStatTypes, int>();
+            res.Add(CardStatTypes.Total, 0);
+            res.Add(CardStatTypes.HeroMech, 0);
+            res.Add(CardStatTypes.SoldierMech, 0);
+            res.Add(CardStatTypes.Equip, 0);
+            res.Add(CardStatTypes.Energy, 0);
+            res.Add(CardStatTypes.Spell, 0);
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                CardStatTypes type = AllCards.GetCard(kv.Key).CardStatType;
+                res[type] += kv.Value.CardSelectCount;
+                res[CardStatTypes.Total] += kv.Value.CardSelectCount;
+            }
+
+            return res;
+        }
+
+        public SortedDictionary<int, int> GetCostDictByMetal(CardStatTypes cardStatType)
+        {
+            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
+            for (int i = 0; i <= 10; i++)
+            {
+                res.Add(i, 0);
+            }
+
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                CardInfo_Base ci = AllCards.GetCard(kv.Key);
+                if (cardStatType == CardStatTypes.Total || ci.CardStatType == cardStatType)
+                {
+                    if (ci.BaseInfo.Metal < 10)
+                    {
+                        res[ci.BaseInfo.Metal] += kv.Value.CardSelectCount;
+                    }
+                    else
+                    {
+                        res[10] += kv.Value.CardSelectCount;
+                    }
+                }
+            }
+
+            return res;
+        }
+
+        public SortedDictionary<int, int> GetCostDictByEnergy(CardStatTypes cardStatType)
+        {
+            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
+            for (int i = 0; i <= 10; i++)
+            {
+                res.Add(i, 0);
+            }
+
+            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+            {
+                CardInfo_Base ci = AllCards.GetCard(kv.Key);
+                if (cardStatType == CardStatTypes.Total || ci.CardStatType == cardStatType)
+                {
+                    if (ci.BaseInfo.Energy < 10)
+                    {
+                        res[ci.BaseInfo.Energy] += kv.Value.CardSelectCount;
+                    }
+                    else
+                    {
+                        res[10] += kv.Value.CardSelectCount;
+                    }
+                }
+            }
+
+            return res;
+        }
+
         public BuildCards Clone()
         {
             SortedDictionary<int, CardSelectInfo> res = new SortedDictionary<int, CardSelectInfo>();
@@ -103,7 +196,7 @@ public class BuildInfo : IClone<BuildInfo>
                 res.Add(kv.Key, kv.Value.Clone());
             }
 
-            return new BuildCards(BuildName, res);
+            return new BuildCards(res);
         }
 
         public bool Equals(BuildCards o)
@@ -129,7 +222,6 @@ public class BuildInfo : IClone<BuildInfo>
 
         public void Serialize(DataStream writer)
         {
-            writer.WriteString8(BuildName);
             writer.WriteSInt32(CardSelectInfos.Count);
             foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
             {
@@ -139,23 +231,15 @@ public class BuildInfo : IClone<BuildInfo>
 
         public static BuildCards Deserialize(DataStream reader)
         {
-            string buildName = reader.ReadString8();
             int cardSelectInfoCount = reader.ReadSInt32();
             SortedDictionary<int, CardSelectInfo> cardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
             for (int i = 0; i < cardSelectInfoCount; i++)
             {
                 CardSelectInfo csi = CardSelectInfo.Deserialize(reader);
-                if (cardSelectInfos.ContainsKey(csi.CardID))
-                {
-                    Utils.DebugLog("key duplicated : " + csi.CardID + " my buildname = " + buildName);
-                }
-                else
-                {
-                    cardSelectInfos.Add(csi.CardID, csi);
-                }
+                cardSelectInfos.Add(csi.CardID, csi);
             }
 
-            return new BuildCards(buildName, cardSelectInfos);
+            return new BuildCards(cardSelectInfos);
         }
 
         public class CardSelectInfo : IClone<CardSelectInfo>

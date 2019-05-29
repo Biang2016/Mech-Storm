@@ -6,8 +6,8 @@ public struct BaseInfo
 {
     public int PictureID;
     public SortedDictionary<string, string> CardNames;
-    public bool IsTemp;//临时卡，如卡牌的召唤物、临时复制等。无法在选牌界面看见
-    public bool IsHide;//隐藏卡，如boss专用卡，打败boss后的特殊奖励等。无法在选牌界面看见
+    public bool IsTemp; //临时卡，如卡牌的召唤物、临时复制等。无法在选牌界面看见
+    public bool IsHide; //隐藏卡，如boss专用卡，打败boss后的特殊奖励等。无法在选牌界面看见
     public int Metal;
     public int Energy;
     public int Coin;
@@ -120,7 +120,7 @@ public struct BaseInfo
                 {CardTypes.Mech, "Mech"},
                 {CardTypes.Spell, "Spell"},
                 {CardTypes.Energy, "Energy"},
-                {CardTypes.Equip, "Equip"}, 
+                {CardTypes.Equip, "Equip"},
             }
         }
     };
@@ -129,10 +129,21 @@ public struct BaseInfo
 [JsonConverter(typeof(StringEnumConverter))]
 public enum CardTypes
 {
-    Mech,
-    Spell,
-    Energy,
-    Equip,
+    Mech = 0,
+    Equip = 1,
+    Spell = 2,
+    Energy = 3,
+}
+
+[JsonConverter(typeof(StringEnumConverter))]
+public enum CardStatTypes
+{
+    HeroMech = 0,
+    SoldierMech = 1,
+    Equip = 2,
+    Spell = 3,
+    Energy = 4,
+    Total = 5,
 }
 
 [JsonConverter(typeof(StringEnumConverter))]

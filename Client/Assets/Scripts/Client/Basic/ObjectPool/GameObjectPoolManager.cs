@@ -62,6 +62,11 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         CardPropertyForm_SideEffectExecute,
         CardPropertyForm_ExecuteSetting,
         CardPropertyForm_SideEffect,
+        
+        LevelPropertyForm_CardSelection,
+        HeroCardPicIcon,
+        TypeCardCount,
+        CostStatBar,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -119,6 +124,11 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardPropertyForm_SideEffectExecute, 2},
         {PrefabNames.CardPropertyForm_ExecuteSetting, 2},
         {PrefabNames.CardPropertyForm_SideEffect, 2},
+        
+        {PrefabNames.LevelPropertyForm_CardSelection, 1},
+        {PrefabNames.HeroCardPicIcon, 4},
+        {PrefabNames.TypeCardCount, 5},
+        {PrefabNames.CostStatBar, 11},
     };
 
     public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>

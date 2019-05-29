@@ -32,6 +32,31 @@
 		"en": "Edit"
 	},
 
+	"CardType_HeroMech": {
+		"zh": "英雄卡",
+		"en": "Heroes"
+	},
+	"CardType_SoldierMech": {
+		"zh": "士兵卡",
+		"en": "Soldiers"
+	},
+	"CardType_Equip": {
+		"zh": "装备卡",
+		"en": "Equip Cards"
+	},
+	"CardType_Spell": {
+		"zh": "法术卡",
+		"en": "Spell Cards"
+	},
+	"CardType_Energy": {
+		"zh": "能量卡",
+		"en": "Energy Cards"
+	},
+	"CardType_Total": {
+		"zh": "总计",
+		"en": "Total"
+	},
+
 	"SettingMenu_ChangeLanguageNotice": {
 		"zh": "更改语言成功",
 		"en": "Language changed successfully!"

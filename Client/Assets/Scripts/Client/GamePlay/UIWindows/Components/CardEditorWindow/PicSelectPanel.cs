@@ -12,6 +12,8 @@ public class PicSelectPanel : MonoBehaviour
     [SerializeField] private Button PicSelectGridCloseButton;
     private List<PicPreviewButton> PicPreviewButtons = new List<PicPreviewButton>();
 
+    public bool IsOpen = false;
+    
     internal void InitializePicSelectGrid()
     {
         PicSelectGridPanel.SetActive(false);
@@ -41,9 +43,7 @@ public class PicSelectPanel : MonoBehaviour
             ppb.Initialize(kv.Value, delegate
             {
                 OnClickPicAction?.Invoke(kv.Key.ToString());
-                PicSelectGridPanel.SetActive(false);
-                PicSelectGridCloseButton.gameObject.SetActive(false);
-                PicSelectGridOpenButton.gameObject.SetActive(true);
+                OnPicSelectGridCloseButtonClick();
             });
             PicPreviewButtons.Add(ppb);
         }
@@ -56,6 +56,7 @@ public class PicSelectPanel : MonoBehaviour
         PicSelectGridPanel.SetActive(true);
         PicSelectGridCloseButton.gameObject.SetActive(true);
         PicSelectGridOpenButton.gameObject.SetActive(false);
+        IsOpen = true;
     }
 
     public void OnPicSelectGridCloseButtonClick()
@@ -63,5 +64,6 @@ public class PicSelectPanel : MonoBehaviour
         PicSelectGridPanel.SetActive(false);
         PicSelectGridCloseButton.gameObject.SetActive(false);
         PicSelectGridOpenButton.gameObject.SetActive(true);
+        IsOpen = false;
     }
 }
