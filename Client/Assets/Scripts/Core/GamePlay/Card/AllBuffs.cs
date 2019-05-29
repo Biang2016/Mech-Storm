@@ -8,7 +8,7 @@ using SideEffects;
 
 public static class AllBuffs
 {
-    public static string BuffsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath+ "/Basic/Buffs.xml";
+    private static string BuffsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath+ "/Basic/Buffs.xml";
 
     public static Dictionary<string, PlayerBuffSideEffects> BuffDict = new Dictionary<string, PlayerBuffSideEffects>();
 

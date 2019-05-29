@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class LevelEditorPanel : BaseUIForm
@@ -24,7 +22,7 @@ public class LevelEditorPanel : BaseUIForm
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
-        SaveLevelButton.onClick.AddListener(SaveLevel);
+        SaveLevelButton.onClick.AddListener(delegate { SaveLevel?.Invoke(); });
         ResetLevelButton.onClick.AddListener(ResetLevel);
 
         LanguageManager.Instance.RegisterTextKeys(
@@ -105,7 +103,6 @@ public class LevelEditorPanel : BaseUIForm
         }
 
         PropertyFormRow Row_LevelType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorWindow_LevelType", OnLevelTypeChange, out SetLevelType, levelTypeList);
-        PropertyFormRow Row_LevelID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelIDLabelText", OnLevelIDChange, out SetLevelID);
         PropertyFormRow Row_LevelPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelPicIDLabelText", OnLevelPicIDChange, out SetLevelPicID);
         PropertyFormRow Row_LevelName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelNameLabelText_zh", OnLevelNameChange_zh, out SetLevelName_zh);
         PropertyFormRow Row_LevelName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelNameLabelText_en", OnLevelNameChange_en, out SetLevelName_en);
@@ -121,7 +118,6 @@ public class LevelEditorPanel : BaseUIForm
         LevelPropertiesCommon = new List<PropertyFormRow>
         {
             Row_LevelType,
-            Row_LevelID,
             Row_LevelPicID,
             Row_LevelName_zh,
             Row_LevelName_en,
@@ -197,16 +193,6 @@ public class LevelEditorPanel : BaseUIForm
         }
 
         SetLevel(Cur_Level);
-    }
-
-    private UnityAction<string> SetLevelID;
-
-    private void OnLevelIDChange(string value_str)
-    {
-        if (int.TryParse(value_str, out int value))
-        {
-            Cur_Level.LevelID = value;
-        }
     }
 
     private UnityAction<string> SetLevelPicID;
@@ -312,7 +298,6 @@ public class LevelEditorPanel : BaseUIForm
             Cur_Level = level;
             SetLevelName_en(Cur_Level.LevelNames["en"]);
             SetLevelName_zh(Cur_Level.LevelNames["zh"]);
-            SetLevelID(Cur_Level.LevelID.ToString());
             SetLevelPicID(Cur_Level.LevelPicID.ToString());
             switch (Cur_Level)
             {
@@ -336,9 +321,9 @@ public class LevelEditorPanel : BaseUIForm
         return false;
     }
 
-    public void SaveLevel()
-    {
-    }
+    public delegate void SaveLevelDelegate();
+
+    public SaveLevelDelegate SaveLevel;
 
     public void ResetLevel()
     {

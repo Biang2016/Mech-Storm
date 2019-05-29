@@ -2,7 +2,7 @@
 
 <Story desc="本文档记录单人模式的NPC和奖励配置">
   <StartBuildInfo BuildName="Story1" />
-  <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="10" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="2" MaxDrawCardNum="5" />
+  <GamePlaySettings DrawCardPerRound="2" DefaultCoin="1500" DefaultLife="20" DefaultLifeMax="12" DefaultLifeMin="10" DefaultEnergy="6" DefaultEnergyMax="6" DefaultDrawCardNum="2" MinDrawCardNum="1" MaxDrawCardNum="5" />
   <Chapter ChapterID="0">
     <CommonBonus>
       <BonusGroupInfo type="Always">

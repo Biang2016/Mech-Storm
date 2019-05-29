@@ -7,7 +7,7 @@ using Newtonsoft.Json.Converters;
 
 public static class AllColors
 {
-    public static string ColorsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath + "/Basic/Colors.xml";
+    private static string ColorsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath + "/Basic/Colors.xml";
 
     public static Dictionary<ColorType, string> ColorDict = new Dictionary<ColorType, string>();
     public static Dictionary<ColorType, float> IntensityDict = new Dictionary<ColorType, float>();

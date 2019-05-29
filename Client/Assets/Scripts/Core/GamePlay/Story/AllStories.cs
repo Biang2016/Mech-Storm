@@ -5,7 +5,7 @@ using System.Xml;
 
 public class AllStories
 {
-    public static string StoriesDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/";
+    private static string StoriesDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/";
 
     public static void AddAllStories()
     {

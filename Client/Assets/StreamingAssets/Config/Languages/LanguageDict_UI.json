@@ -761,6 +761,50 @@
 		"en": "You should select a correct ship!"
 	},
 
+	"StoryEditorWindow_StoryNameLabelText": {
+		"zh": "剧情名称",
+		"en": "Story Name"
+	},
+	"StoryEditorWindow_DrawCardPerRoundLabelText": {
+		"zh": "基准抽牌数",
+		"en": "Regular Number of Draws"
+	},
+	"StoryEditorWindow_DefaultCoinLabelText": {
+		"zh": "起始金币数量",
+		"en": "Starter Coins"
+	},
+	"StoryEditorWindow_DefaultLifeLabelText": {
+		"zh": "初始生命值",
+		"en": "Starter Life"
+	},
+	"StoryEditorWindow_DefaultLifeMaxLabelText": {
+		"zh": "最大生命值",
+		"en": "Max Life"
+	},
+	"StoryEditorWindow_DefaultLifeMinLabelText": {
+		"zh": "最小生命值",
+		"en": "Min Life"
+	},
+	"StoryEditorWindow_DefaultEnergyLabelText": {
+		"zh": "初始能量值",
+		"en": "Starter Energy"
+	},
+	"StoryEditorWindow_DefaultEnergyMaxLabelText": {
+		"zh": "最大能量值",
+		"en": "Max Energy"
+	},
+	"StoryEditorWindow_DefaultDrawCardNumLabelText": {
+		"zh": "初始抽牌数",
+		"en": "Starter Number of Draws"
+	},
+	"StoryEditorWindow_MinDrawCardNumLabelText": {
+		"zh": "最小抽牌数",
+		"en": "Max Number of Draws"
+	},
+	"StoryEditorWindow_MaxDrawCardNumLabelText": {
+		"zh": "最大抽牌数",
+		"en": "Min Number of Draws"
+	},
 
 	"CardEditorWindow_CardEditorWindowText": {
 		"zh": "卡牌编辑器",

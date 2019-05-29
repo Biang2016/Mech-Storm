@@ -67,6 +67,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         HeroCardPicIcon,
         TypeCardCount,
         CostStatBar,
+
+        StoryPropertyForm_GamePlaySettings,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -129,6 +131,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.HeroCardPicIcon, 4},
         {PrefabNames.TypeCardCount, 5},
         {PrefabNames.CostStatBar, 11},
+
+        {PrefabNames.StoryPropertyForm_GamePlaySettings, 1},
     };
 
     public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>

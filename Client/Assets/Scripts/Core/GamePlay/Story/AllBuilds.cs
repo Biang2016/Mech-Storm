@@ -8,7 +8,7 @@ using System.Xml;
 
 public class AllBuilds
 {
-    public static string BuildDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Builds/";
+    private static string BuildDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Builds/";
 
     public static void AddAllBuilds()
     {
