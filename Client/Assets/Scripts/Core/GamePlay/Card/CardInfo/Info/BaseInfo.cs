@@ -138,12 +138,12 @@ public enum CardTypes
 [JsonConverter(typeof(StringEnumConverter))]
 public enum CardStatTypes
 {
-    HeroMech = 0,
-    SoldierMech = 1,
-    Equip = 2,
-    Spell = 3,
-    Energy = 4,
-    Total = 5,
+    Total = 0,
+    HeroMech = 1,
+    SoldierMech = 2,
+    Equip = 3,
+    Spell = 4,
+    Energy = 5,
 }
 
 [JsonConverter(typeof(StringEnumConverter))]

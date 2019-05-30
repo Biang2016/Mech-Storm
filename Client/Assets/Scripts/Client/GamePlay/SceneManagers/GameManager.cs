@@ -33,4 +33,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         SceneManager.LoadScene("CardEditorScene");
     }
+    public void OnStoryEditorButtonClick()
+    {
+        SceneManager.LoadScene("StoryEditorScene");
+    }
 }

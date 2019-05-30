@@ -10,6 +10,7 @@
         AllBuffs.AddAllBuffs();
         AllCards.AddAllCards();
         AllBuilds.AddAllBuilds();
+        AllLevels.AddAllLevels();
         AllStories.AddAllStories();
         AllCards.RefreshAllCardXML();
     }

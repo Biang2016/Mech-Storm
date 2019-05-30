@@ -23,7 +23,7 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
 
     void Awake()
     {
-        LanguageManager.Instance.RegisterTextKey(SideEffectBundleText, "CardEditorWindow_SideEffectBundleText");
+        LanguageManager.Instance.RegisterTextKey(SideEffectBundleText, "CardEditorPanel_SideEffectBundleText");
     }
 
     private List<CardPropertyForm_SideEffectExecute> CardPropertyForm_SideEffectExecuteRows = new List<CardPropertyForm_SideEffectExecute>();

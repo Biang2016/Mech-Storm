@@ -60,7 +60,7 @@ public class GameProxy
                 DebugLog.PrintClientStates("Client " + ClientID + " version valid.");
                 break;
             }
-            case RegisterRequest r://for single mode
+            case RegisterRequest r: //for single mode
             {
                 DebugLog.PrintClientStates("Client " + ClientID + " state: " + ClientState);
                 if (ClientState != ProxyBase.ClientStates.GetId)
@@ -121,7 +121,7 @@ public class GameProxy
             }
             case StartNewStoryRequest _:
             {
-                Story newStory = BuildStoryDatabase.Instance.StoryStartDict["Story1"].Variant();
+                Story newStory = AllStories.StoryDict["DefaultStory"].Variant();
                 List<int> removeBuildIDs = BuildStoryDatabase.Instance.RemovePlayerStory(UserName);
                 foreach (int removeBuildID in removeBuildIDs)
                 {
@@ -163,7 +163,7 @@ public class GameProxy
 
                         int AI_ClientId = 998;
                         BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
-                        clientB.BuildInfo = BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.EnemyBuilds].GetBuildInfo("CustomBattle").Clone();
+                        clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
 
                         CurrentBattle = new Battle(clientA, clientB, DebugLog);
 
@@ -281,11 +281,12 @@ public class GameProxy
                 if (BattleProxy != null)
                 {
                     BattleProxy.Response(request);
-                    }
-                    else
-                {
-                        DebugLog.PrintWarning("BattleProxy is Empty!");
                 }
+                else
+                {
+                    DebugLog.PrintWarning("BattleProxy is Empty!");
+                }
+
                 break;
             }
         }

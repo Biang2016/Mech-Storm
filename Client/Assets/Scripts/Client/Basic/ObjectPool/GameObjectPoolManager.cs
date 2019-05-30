@@ -52,12 +52,13 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         StartMenuButton,
         ExitMenuButton,
 
-        CardPreviewButton,
         PicPreviewButton,
         PropertyFormRow_InputField,
         PropertyFormRow_Dropdown,
         PropertyFormRow_Toggle,
         PropertyFormRow_TwoToggleRow,
+
+        CardEditorPanel_CardPreviewButton,
         CardPropertyForm_SideEffectBundle,
         CardPropertyForm_SideEffectExecute,
         CardPropertyForm_ExecuteSetting,
@@ -71,7 +72,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         StoryPropertyForm_GamePlaySettings,
         StoryPropertyForm_Chapters,
         StoryPropertyForm_Chapter,
-        StoryEditorPanel_LevelButton,
+        StoryEditorPanel_EnemyButton,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -119,7 +120,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.StartMenuButton, 10},
         {PrefabNames.ExitMenuButton, 10},
 
-        {PrefabNames.CardPreviewButton, 50},
+        {PrefabNames.CardEditorPanel_CardPreviewButton, 50},
         {PrefabNames.PicPreviewButton, 50},
         {PrefabNames.PropertyFormRow_InputField, 10},
         {PrefabNames.PropertyFormRow_Dropdown, 5},
@@ -138,7 +139,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.StoryPropertyForm_GamePlaySettings, 1},
         {PrefabNames.StoryPropertyForm_Chapters, 1},
         {PrefabNames.StoryPropertyForm_Chapter, 5},
-        {PrefabNames.StoryEditorPanel_LevelButton, 10},
+        {PrefabNames.StoryEditorPanel_EnemyButton, 10},
     };
 
     public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>

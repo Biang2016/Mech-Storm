@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 public class BuildGroup
 {
     public string ManagerName;
-    public Dictionary<string, int> Builds = new Dictionary<string, int>();
+    public Dictionary<string, BuildInfo> Builds = new Dictionary<string, BuildInfo>();
 
     public BuildGroup(string managerName)
     {
         ManagerName = managerName;
     }
 
-    public void AddBuild(string buildname, int buildID)
+    public void AddBuild(string buildName, BuildInfo buildInfo)
     {
-        if (!Builds.ContainsKey(buildname))
+        if (!Builds.ContainsKey(buildName))
         {
-            Builds.Add(buildname, buildID);
+            Builds.Add(buildName, buildInfo);
         }
     }
 
@@ -23,24 +22,9 @@ public class BuildGroup
     {
         if (Builds.ContainsKey(buildName))
         {
-            if (BuildStoryDatabase.Instance.BuildInfoDict.ContainsKey(Builds[buildName]))
-            {
-                return BuildStoryDatabase.Instance.BuildInfoDict[Builds[buildName]];
-            }
+            return Builds[buildName];
         }
 
         return null;
-    }
-
-    public List<BuildInfo> AllBuildInfo()
-    {
-        List<int> ids = Builds.Values.ToList();
-        List<BuildInfo> BuildInfos = new List<BuildInfo>();
-        foreach (int id in ids)
-        {
-            BuildInfos.Add(BuildStoryDatabase.Instance.BuildInfoDict[id]);
-        }
-
-        return BuildInfos;
     }
 }

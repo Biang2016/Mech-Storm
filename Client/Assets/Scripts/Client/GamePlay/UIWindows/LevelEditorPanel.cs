@@ -28,10 +28,11 @@ public class LevelEditorPanel : BaseUIForm
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
             {
-                (LevelEditorWindowText, "LevelEditorWindow_LevelEditorWindowText"),
+                (LevelEditorWindowText, "LevelEditorPanel_LevelEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
-                (SaveLevelButtonText, "LevelEditorWindow_SaveLevelButtonText"),
-                (ResetLevelButtonText, "LevelEditorWindow_ResetLevelButtonText"),
+                (SaveLevelButtonText, "LevelEditorPanel_SaveLevelButtonText"),
+                (ResetLevelButtonText, "LevelEditorPanel_ResetLevelButtonText"),
+                (ReturnToStoryEditorButtonText, "LevelEditorPanel_ReturnToStoryEditorButtonText"),
             });
 
         LanguageDropdown.ClearOptions();
@@ -40,7 +41,8 @@ public class LevelEditorPanel : BaseUIForm
         InitializeCardPropertyForm();
         InitializePreviewCardGrid();
         PicSelectPanel.OnClickPicAction = SetLevelPicID;
-        PicSelectPanel.InitializePicSelectGrid();
+        ReturnToStoryEditorButton.onClick.AddListener(ReturnToStoryEditor);
+        PicSelectPanel.InitializePicSelectGrid("LevelEditorPanel_PicSelectGridLabel");
     }
 
     void Start()
@@ -60,9 +62,18 @@ public class LevelEditorPanel : BaseUIForm
     {
     }
 
+    private void ReturnToStoryEditor()
+    {
+        CloseUIForm();
+        UIManager.Instance.ShowUIForms<StoryEditorPanel>();
+        //TODO 
+    }
+
     [SerializeField] private Text LevelEditorWindowText;
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
+    [SerializeField] private Button ReturnToStoryEditorButton;
+    [SerializeField] private Text ReturnToStoryEditorButtonText;
 
     #region Left LevelProperties
 
@@ -102,16 +113,16 @@ public class LevelEditorPanel : BaseUIForm
             EnemyTypePropertiesDict.Add(enemyType, new List<PropertyFormRow>());
         }
 
-        PropertyFormRow Row_LevelType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorWindow_LevelType", OnLevelTypeChange, out SetLevelType, levelTypeList);
-        PropertyFormRow Row_LevelPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelPicIDLabelText", OnLevelPicIDChange, out SetLevelPicID);
-        PropertyFormRow Row_LevelName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelNameLabelText_zh", OnLevelNameChange_zh, out SetLevelName_zh);
-        PropertyFormRow Row_LevelName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_LevelNameLabelText_en", OnLevelNameChange_en, out SetLevelName_en);
+        PropertyFormRow Row_LevelType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorPanel_LevelType", OnLevelTypeChange, out SetLevelType, levelTypeList);
+        PropertyFormRow Row_LevelPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelPicIDLabelText", OnLevelPicIDChange, out SetLevelPicID);
+        PropertyFormRow Row_LevelName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelNameLabelText_zh", OnLevelNameChange_zh, out SetLevelName_zh);
+        PropertyFormRow Row_LevelName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelNameLabelText_en", OnLevelNameChange_en, out SetLevelName_en);
 
-        PropertyFormRow Row_EnemyType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorWindow_EnemyType", OnEnemyTypeChange, out SetEnemyType, enemyTypeList);
-        PropertyFormRow Row_EnemyDrawCardNum = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_EnemyDrawCardNum", OnEnemyDrawCardNumChange, out SetEnemyDrawCardNum);
-        PropertyFormRow Row_EnemyLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_EnemyLife", OnEnemyLifeChange, out SetEnemyLife);
-        PropertyFormRow Row_EnemyEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_EnemyEnergy", OnEnemyEnergyChange, out SetEnemyEnergy);
-        PropertyFormRow Row_EnemyBeginMetal = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorWindow_EnemyBeginMetal", OnEnemyBeginMetalChange, out SetEnemyBeginMetal);
+        PropertyFormRow Row_EnemyType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorPanel_EnemyType", OnEnemyTypeChange, out SetEnemyType, enemyTypeList);
+        PropertyFormRow Row_EnemyDrawCardNum = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyDrawCardNum", OnEnemyDrawCardNumChange, out SetEnemyDrawCardNum);
+        PropertyFormRow Row_EnemyLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyLife", OnEnemyLifeChange, out SetEnemyLife);
+        PropertyFormRow Row_EnemyEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyEnergy", OnEnemyEnergyChange, out SetEnemyEnergy);
+        PropertyFormRow Row_EnemyBeginMetal = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyBeginMetal", OnEnemyBeginMetalChange, out SetEnemyBeginMetal);
 
         Row_CardSelection = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_CardSelection].AllocateGameObject<LevelPropertyForm_CardSelection>(LevelPropertiesContainer);
 
@@ -136,6 +147,7 @@ public class LevelEditorPanel : BaseUIForm
         LevelTypePropertiesDict[LevelType.Shop] = new List<PropertyFormRow>
         {
         };
+
 
         SetLevel(null);
     }
@@ -311,6 +323,7 @@ public class LevelEditorPanel : BaseUIForm
                     SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
                     SetEnemyLife(enemy.BuildInfo.Life.ToString());
                     Row_CardSelection.Initialize(enemy.BuildInfo.M_BuildCards, delegate { });
+                    SelectCardsByBuildCards(enemy.BuildInfo.M_BuildCards);
                     break;
                 }
                 case Shop shop:
@@ -468,21 +481,9 @@ public class LevelEditorPanel : BaseUIForm
     {
         CardSelectWindowCardContainer newCardContainer = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardSelectWindowCardContainer].AllocateGameObject<CardSelectWindowCardContainer>(CardLibraryGridLayout.transform);
         newCardContainer.Initialize(cardInfo);
-        RefreshCard(newCardContainer, false);
+        newCardContainer.M_ChildCard.BeDimColor();
         AllCards.Add(cardInfo.CardID, newCardContainer.M_ChildCard);
         AllCardContainers.Add(cardInfo.CardID, newCardContainer);
-    }
-
-    private static void RefreshCard(CardSelectWindowCardContainer container, bool isSelected)
-    {
-        if (isSelected)
-        {
-            container.M_ChildCard.BeBrightColor();
-        }
-        else
-        {
-            container.M_ChildCard.BeDimColor();
-        }
     }
 
     private BuildInfo.BuildCards BuildCards
@@ -502,6 +503,21 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
+    private void RefreshCard(CardBase card, int count)
+    {
+        card.SetBlockCountValue(count);
+        if (count > 0)
+        {
+            card.BeBrightColor();
+        }
+        else
+        {
+            card.BeDimColor();
+        }
+
+        card.ShowCardBloom(count > 0);
+    }
+
     private void SelectCard(CardBase card)
     {
         if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && BuildCards.GetTypeCardCountDict()[CardStatTypes.HeroMech] >= 4)
@@ -509,22 +525,48 @@ public class LevelEditorPanel : BaseUIForm
             return;
         }
 
-        int count = ++BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
-        card.SetBlockCountValue(count);
-        card.BeBrightColor();
-        card.ShowCardBloom(true);
+        BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount++;
+        int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
+        RefreshCard(card, count);
         Row_CardSelection.Refresh();
     }
 
     private void UnSelectCard(CardBase card)
     {
         if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount == 0) return;
-        int count = --BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
-        card.SetBlockCountValue(count);
-        if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount == 0)
+        BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount--;
+        int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
+        RefreshCard(card, count);
+        Row_CardSelection.Refresh();
+    }
+
+    private void UnSelectAllCards(bool clearBuildCard)
+    {
+        if (clearBuildCard)
         {
-            card.BeDimColor();
-            card.ShowCardBloom(false);
+            foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in BuildCards.CardSelectInfos)
+            {
+                kv.Value.CardSelectCount = 0;
+            }
+        }
+
+        foreach (KeyValuePair<int, CardBase> kv in AllCards)
+        {
+            RefreshCard(kv.Value, 0);
+        }
+
+        if (clearBuildCard) Row_CardSelection.Refresh();
+    }
+
+    private void SelectCardsByBuildCards(BuildInfo.BuildCards buildCards)
+    {
+        UnSelectAllCards(false);
+        foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in buildCards.CardSelectInfos)
+        {
+            if (AllCards.ContainsKey(kv.Key))
+            {
+                RefreshCard(AllCards[kv.Key], kv.Value.CardSelectCount);
+            }
         }
 
         Row_CardSelection.Refresh();

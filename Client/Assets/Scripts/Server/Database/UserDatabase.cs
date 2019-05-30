@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 public class UserDatabase
 {
@@ -17,7 +16,7 @@ public class UserDatabase
         {
             UsernamePasswordTable.Add(username, password);
             //每个玩家都有几个默认卡组
-            foreach (BuildInfo bi in BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.OnlineBuilds].AllBuildInfo())
+            foreach (BuildInfo bi in AllBuilds.BuildGroupDict[BuildGroups.OnlineBuilds].Builds.Values)
             {
                 BuildInfo newBI = bi.Clone();
                 BuildStoryDatabase.Instance.BuildInfoDict.Add(newBI.BuildID, newBI);

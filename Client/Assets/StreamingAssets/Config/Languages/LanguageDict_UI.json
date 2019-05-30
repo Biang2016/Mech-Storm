@@ -297,14 +297,19 @@
 	},
 
 
-	"LoginMenu_CardEditorButtonText": {
-		"zh": "卡牌编辑器",
-		"en": "Cards Workshop"
-	},
 	"LoginMenu_ReturnToSingleModeText": {
 		"zh": "返回单机模式",
 		"en": "Return to Single Mode"
 	},
+	"LoginMenu_StoryEditorButtonText": {
+		"zh": "剧情编辑器",
+		"en": "Story Workshop"
+	},
+	"LoginMenu_CardEditorButtonText": {
+		"zh": "卡牌编辑器",
+		"en": "Cards Workshop"
+	},
+
 	"LoginMenu_LoginText": {
 		"zh": "登录",
 		"en": "Login"
@@ -761,77 +766,81 @@
 		"en": "You should select a correct ship!"
 	},
 
-	"StoryEditorWindow_StoryEditorWindowText": {
+	"StoryEditorPanel_StoryEditorWindowText": {
 		"zh": "剧情编辑器",
 		"en": "Story Editor"
 	},
-	"StoryEditorWindow_StoryNameLabelText": {
+	"StoryEditorPanel_StoryNameLabelText": {
 		"zh": "剧情名称",
 		"en": "Story Name"
 	},
-	"StoryEditorWindow_DrawCardPerRoundLabelText": {
+	"StoryEditorPanel_ReturnToGamerButtonText": {
+		"zh": "返回游戏",
+		"en": "Return to game"
+	},
+	"StoryEditorPanel_DrawCardPerRoundLabelText": {
 		"zh": "基准抽牌数",
 		"en": "Regular Number of Draws"
 	},
-	"StoryEditorWindow_DefaultCoinLabelText": {
+	"StoryEditorPanel_DefaultCoinLabelText": {
 		"zh": "起始金币数量",
 		"en": "Starter Coins"
 	},
-	"StoryEditorWindow_DefaultLifeLabelText": {
+	"StoryEditorPanel_DefaultLifeLabelText": {
 		"zh": "初始生命值",
 		"en": "Starter Life"
 	},
-	"StoryEditorWindow_DefaultLifeMaxLabelText": {
+	"StoryEditorPanel_DefaultLifeMaxLabelText": {
 		"zh": "最大生命值",
 		"en": "Max Life"
 	},
-	"StoryEditorWindow_DefaultLifeMinLabelText": {
+	"StoryEditorPanel_DefaultLifeMinLabelText": {
 		"zh": "最小生命值",
 		"en": "Min Life"
 	},
-	"StoryEditorWindow_DefaultEnergyLabelText": {
+	"StoryEditorPanel_DefaultEnergyLabelText": {
 		"zh": "初始能量值",
 		"en": "Starter Energy"
 	},
-	"StoryEditorWindow_DefaultEnergyMaxLabelText": {
+	"StoryEditorPanel_DefaultEnergyMaxLabelText": {
 		"zh": "最大能量值",
 		"en": "Max Energy"
 	},
-	"StoryEditorWindow_DefaultDrawCardNumLabelText": {
+	"StoryEditorPanel_DefaultDrawCardNumLabelText": {
 		"zh": "初始抽牌数",
 		"en": "Starter Number of Draws"
 	},
-	"StoryEditorWindow_MinDrawCardNumLabelText": {
+	"StoryEditorPanel_MinDrawCardNumLabelText": {
 		"zh": "最小抽牌数",
 		"en": "Max Number of Draws"
 	},
-	"StoryEditorWindow_MaxDrawCardNumLabelText": {
+	"StoryEditorPanel_MaxDrawCardNumLabelText": {
 		"zh": "最大抽牌数",
 		"en": "Min Number of Draws"
 	},
 
-	"StoryEditorWindow_SaveStoryButtonText": {
+	"StoryEditorPanel_SaveStoryButtonText": {
 		"zh": "保存修改",
 		"en": "Save Changes"
 	},
-	"StoryEditorWindow_ResetStoryButtonText": {
+	"StoryEditorPanel_ResetStoryButtonText": {
 		"zh": "重置",
 		"en": "Reset"
 	},
 
-	"StoryEditorWindow_ChapterLabel": {
+	"StoryEditorPanel_ChapterLabel": {
 		"zh": "章节",
 		"en": "Chapter"
 	},
-	"StoryEditorWindow_ChaptersLabel": {
+	"StoryEditorPanel_ChaptersLabel": {
 		"zh": "所有章节",
 		"en": "Chapters"
 	},
-	"StoryEditorWindow_ChapterNameText_zh": {
+	"StoryEditorPanel_ChapterNameText_zh": {
 		"zh": "章节中文名",
 		"en": "Chinese Name"
 	},
-	"StoryEditorWindow_ChapterNameText_en": {
+	"StoryEditorPanel_ChapterNameText_en": {
 		"zh": "章节英文名",
 		"en": "English Name"
 	},
@@ -841,7 +850,7 @@
 	},
 
 
-	"StoryEditorWindow_CardCountLabelText": {
+	"StoryEditorPanel_CardCountLabelText": {
 		"zh": "卡牌数:",
 		"en": "Cards:"
 	},
@@ -849,36 +858,40 @@
 		"zh": "生命值:",
 		"en": "Life:"
 	},
-	"StoryEditorWindow_EnergyLabelText": {
+	"StoryEditorPanel_EnergyLabelText": {
 		"zh": "能量值:",
 		"en": "Energy:"
 	},
 
-	"CardEditorWindow_CardEditorWindowText": {
+	"CardEditorPanel_CardEditorWindowText": {
 		"zh": "卡牌编辑器",
 		"en": "Card Editor"
 	},
-	"CardEditorWindow_CardTotalCountText": {
+	"CardEditorPanel_PicSelectGridLabel": {
+		"zh": "选择卡牌图片",
+		"en": "Select Card Picture"
+	},
+	"CardEditorPanel_CardTotalCountText": {
 		"zh": "卡牌总数: ",
 		"en": "Total Cards: "
 	},
-	"CardEditorWindow_CardPreviewButtonHideText": {
+	"CardEditorPanel_CardPreviewButtonHideText": {
 		"zh": "隐",
 		"en": "H"
 	},
-	"CardEditorWindow_SaveCardButtonText": {
+	"CardEditorPanel_SaveCardButtonText": {
 		"zh": "保存更改",
 		"en": "Save Changes"
 	},
-	"CardEditorWindow_ResetCardButtonText": {
+	"CardEditorPanel_ResetCardButtonText": {
 		"zh": " 重置卡片",
 		"en": "Reset"
 	},
-	"CardEditorWindow_ResetCardNotice": {
+	"CardEditorPanel_ResetCardNotice": {
 		"zh": " 重置卡片(ID: {0})",
 		"en": "Reset card (ID: {0})"
 	},
-	"CardEditorWindow_DeleteCardButtonText": {
+	"CardEditorPanel_DeleteCardButtonText": {
 		"zh": "删除卡片",
 		"en": "Delete Card"
 	},
@@ -930,263 +943,275 @@
 		"zh": "删除成功",
 		"en": "Delete successfully."
 	},
-	"CardEditorWindow_CardPreviewButtonTempText": {
+	"CardEditorPanel_CardPreviewButtonTempText": {
 		"zh": "临",
 		"en": "T"
 	},
-	"CardEditorWindow_SideEffectBundleText": {
+	"CardEditorPanel_SideEffectBundleText": {
 		"zh": "卡牌效果",
 		"en": "Card Effects"
 	},
-	"CardEditorWindow_CardType": {
+	"CardEditorPanel_CardType": {
 		"zh": "卡牌类型",
 		"en": "Card Type"
 	},
-	"CardEditorWindow_CardIDLabelText": {
+	"CardEditorPanel_CardIDLabelText": {
 		"zh": "卡牌ID",
 		"en": "Card ID"
 	},
-	"CardEditorWindow_CardPicIDLabelText": {
+	"CardEditorPanel_CardPicIDLabelText": {
 		"zh": "图片ID",
 		"en": "Picture ID"
 	},
-	"CardEditorWindow_CardUpgradeIDLabelText": {
+	"CardEditorPanel_CardUpgradeIDLabelText": {
 		"zh": "升级卡牌ID",
 		"en": "UpCardID"
 	},
-	"CardEditorWindow_CardDegradeIDLabelText": {
+	"CardEditorPanel_CardDegradeIDLabelText": {
 		"zh": "降级卡牌ID",
 		"en": "DeCardID"
 	},
-	"CardEditorWindow_CardNameLabelText_zh": {
+	"CardEditorPanel_CardNameLabelText_zh": {
 		"zh": "卡牌中文名称",
 		"en": "ChineseName"
 	},
-	"CardEditorWindow_CardNameLabelText_en": {
+	"CardEditorPanel_CardNameLabelText_en": {
 		"zh": "卡牌英文名称",
 		"en": "EnglishName"
 	},
-	"CardEditorWindow_CardCoinCostLabelText": {
+	"CardEditorPanel_CardCoinCostLabelText": {
 		"zh": "预算",
 		"en": "Coin Cost",
 	},
-	"CardEditorWindow_CardMetalCostLabelText": {
+	"CardEditorPanel_CardMetalCostLabelText": {
 		"zh": "金属消耗",
 		"en": "Metal Cost",
 	},
-	"CardEditorWindow_CardEnergyCostLabelText": {
+	"CardEditorPanel_CardEnergyCostLabelText": {
 		"zh": "能量消耗",
 		"en": "Energy Cost"
 	},
-	"CardEditorWindow_CardSelectLimitLabelText": {
+	"CardEditorPanel_CardSelectLimitLabelText": {
 		"zh": "卡牌上限",
 		"en": "Select Limit"
 	},
-	"CardEditorWindow_CardIsTempLabelText": {
+	"CardEditorPanel_CardIsTempLabelText": {
 		"zh": "临时卡",
 		"en": "Temp"
 	},
-	"CardEditorWindow_CardIsHideLabelText": {
+	"CardEditorPanel_CardIsHideLabelText": {
 		"zh": "隐藏卡",
 		"en": "Hide"
 	},
-	"CardEditorWindow_MechLifeLabelText": {
+	"CardEditorPanel_MechLifeLabelText": {
 		"zh": "生命值",
 		"en": "Life"
 	},
-	"CardEditorWindow_MechAttackLabelText": {
+	"CardEditorPanel_MechAttackLabelText": {
 		"zh": "基础攻击",
 		"en": "Basic Attack"
 	},
-	"CardEditorWindow_MechArmorLabelText": {
+	"CardEditorPanel_MechArmorLabelText": {
 		"zh": "基础护甲",
 		"en": "Basic Armor"
 	},
-	"CardEditorWindow_MechShieldLabelText": {
+	"CardEditorPanel_MechShieldLabelText": {
 		"zh": "基础护盾",
 		"en": "Basic Shield"
 	},
-	"CardEditorWindow_SlotType": {
+	"CardEditorPanel_SlotType": {
 		"zh": "装备类型",
 		"en": "Equip Type"
 	},
-	"CardEditorWindow_MechIsSoldierLabelText": {
+	"CardEditorPanel_MechIsSoldierLabelText": {
 		"zh": "士兵",
 		"en": "Is Soldier"
 	},
-	"CardEditorWindow_MechIsDefenseLabelText": {
+	"CardEditorPanel_MechIsDefenseLabelText": {
 		"zh": "嘲讽",
 		"en": "Is Defense"
 	},
-	"CardEditorWindow_MechIsSniperLabelText": {
+	"CardEditorPanel_MechIsSniperLabelText": {
 		"zh": "狙击",
 		"en": "Is Sniper"
 	},
-	"CardEditorWindow_MechIsChargerLabelText": {
+	"CardEditorPanel_MechIsChargerLabelText": {
 		"zh": "冲锋",
 		"en": "Is Charger"
 	},
-	"CardEditorWindow_MechIsFrenzyLabelText": {
+	"CardEditorPanel_MechIsFrenzyLabelText": {
 		"zh": "狂暴",
 		"en": "Is Frenzy"
 	},
-	"CardEditorWindow_MechWeaponSlotLabelText": {
+	"CardEditorPanel_MechWeaponSlotLabelText": {
 		"zh": "武器槽",
 		"en": "Weapon Slot"
 	},
-	"CardEditorWindow_MechShieldSlotLabelText": {
+	"CardEditorPanel_MechShieldSlotLabelText": {
 		"zh": "防具槽",
 		"en": "Shield Slot"
 	},
-	"CardEditorWindow_MechPackSlotLabelText": {
+	"CardEditorPanel_MechPackSlotLabelText": {
 		"zh": "背包槽",
 		"en": "Pack Slot"
 	},
-	"CardEditorWindow_MechMASlotLabelText": {
+	"CardEditorPanel_MechMASlotLabelText": {
 		"zh": "MA槽",
 		"en": "MA Slot"
 	},
-	"CardEditorWindow_WeaponTypeLabelText": {
+	"CardEditorPanel_WeaponTypeLabelText": {
 		"zh": "武器类型",
 		"en": "Weaoon Type"
 	},
-	"CardEditorWindow_WeaponSwordAttackLabelText": {
+	"CardEditorPanel_WeaponSwordAttackLabelText": {
 		"zh": "剑攻击力",
 		"en": "Sword Attack"
 	},
-	"CardEditorWindow_WeaponSwordEnergyLabelText": {
+	"CardEditorPanel_WeaponSwordEnergyLabelText": {
 		"zh": "初始充能",
 		"en": "Energy"
 	},
-	"CardEditorWindow_WeaponSwordMaxEnergyLabelText": {
+	"CardEditorPanel_WeaponSwordMaxEnergyLabelText": {
 		"zh": "最大能量",
 		"en": "Energy Max"
 	},
-	"CardEditorWindow_WeaponGunAttackLabelText": {
+	"CardEditorPanel_WeaponGunAttackLabelText": {
 		"zh": "子弹伤害",
 		"en": "Bullet Damage"
 	},
-	"CardEditorWindow_WeaponGunBulletLabelText": {
+	"CardEditorPanel_WeaponGunBulletLabelText": {
 		"zh": "初始弹药",
 		"en": "Default Ammo"
 	},
-	"CardEditorWindow_WeaponGunMaxBulletLabelText": {
+	"CardEditorPanel_WeaponGunMaxBulletLabelText": {
 		"zh": "弹夹容量",
 		"en": "Clip Size"
 	},
-	"CardEditorWindow_ShieldTypeLabelText": {
+	"CardEditorPanel_ShieldTypeLabelText": {
 		"zh": "防具类型",
 		"en": "Shield Type"
 	},
-	"CardEditorWindow_ShieldBasicArmorLabelText": {
+	"CardEditorPanel_ShieldBasicArmorLabelText": {
 		"zh": "基础护甲",
 		"en": "Basic Armor"
 	},
-	"CardEditorWindow_ShieldBasicShieldLabelText": {
+	"CardEditorPanel_ShieldBasicShieldLabelText": {
 		"zh": "基础护盾",
 		"en": "Basic Shield"
 	},
-	"CardEditorWindow_NoSuchCard": {
+	"CardEditorPanel_NoSuchCard": {
 		"zh": "无此ID对应的卡片",
 		"en": "No Card has this ID."
 	},
-	"CardEditorWindow_SideEffectType": {
+	"CardEditorPanel_SideEffectType": {
 		"zh": "卡牌效果",
 		"en": "Effect"
 	},
 
-	"CardEditorWindow_SideEffectBundle": {
+	"CardEditorPanel_SideEffectBundle": {
 		"zh": "出牌效果",
 		"en": "Playout Effects"
 	},
-	"CardEditorWindow_TriggerTime": {
+	"CardEditorPanel_TriggerTime": {
 		"zh": "触发时机",
 		"en": "Trigger Time"
 	},
-	"CardEditorWindow_TriggerRange": {
+	"CardEditorPanel_TriggerRange": {
 		"zh": "对象范围",
 		"en": "Trigger Range"
 	},
-	"CardEditorWindow_TriggerDelayTimes": {
+	"CardEditorPanel_TriggerDelayTimes": {
 		"zh": "延迟触发次数",
 		"en": "Trigger Delay Times"
 	},
-	"CardEditorWindow_TriggerTimes": {
+	"CardEditorPanel_TriggerTimes": {
 		"zh": "触发次数",
 		"en": "Trigger Times"
 	},
-	"CardEditorWindow_RemoveTriggerTime": {
+	"CardEditorPanel_RemoveTriggerTime": {
 		"zh": "效果移除时机",
 		"en": "Remove Trigger Time"
 	},
-	"CardEditorWindow_RemoveTriggerRange": {
+	"CardEditorPanel_RemoveTriggerRange": {
 		"zh": "效果移除触发范围",
 		"en": "Remove Trigger Range"
 	},
-	"CardEditorWindow_RemoveTriggerTimes": {
+	"CardEditorPanel_RemoveTriggerTimes": {
 		"zh": "效果移除触发次数",
 		"en": "Remove Trigger Times"
 	},
 
 
-	"LevelEditorWindow_LevelEditorWindowText": {
+	"LevelEditorPanel_LevelEditorWindowText": {
 		"zh": "关卡编辑器",
 		"en": "Level Editor"
 	},
-	"LevelEditorWindow_SaveLevelButtonText": {
+	"LevelEditorPanel_PicSelectGridLabel": {
+		"zh": "选择关卡图片",
+		"en": "Select Level Picture"
+	},
+	"LevelEditorPanel_ReturnToStoryEditorButtonText": {
+		"zh": "返回剧情编辑器",
+		"en": "Return"
+	},
+	"LevelEditorPanel_SaveLevelButtonText": {
 		"zh": "保存更改",
 		"en": "Save Changes"
 	},
-	"LevelEditorWindow_ResetLevelButtonText": {
+	"LevelEditorPanel_ResetLevelButtonText": {
 		"zh": "重置关卡",
 		"en": "Reset"
 	},
-	"LevelEditorWindow_ResetLevelNotice": {
+	"LevelEditorPanel_ResetLevelNotice": {
 		"zh": "重置关卡(ID: {0})",
 		"en": "Reset level (ID: {0})"
 	},
-	"LevelEditorWindow_LevelType": {
+	"LevelEditorPanel_LevelType": {
 		"zh": "重置关卡(ID: {0})",
 		"en": "Reset level (ID: {0})"
 	},
-	"LevelEditorWindow_LevelType": {
+	"LevelEditorPanel_LevelType": {
 		"zh": "关卡类型",
 		"en": "Level Type"
 	},
-	"LevelEditorWindow_LevelIDLabelText": {
+	"LevelEditorPanel_LevelIDLabelText": {
 		"zh": "关卡ID",
 		"en": "Level ID"
 	},
-	"LevelEditorWindow_LevelPicIDLabelText": {
+	"LevelEditorPanel_LevelPicIDLabelText": {
 		"zh": "关卡图片ID",
 		"en": "Level Pic ID"
 	},
-	"LevelEditorWindow_LevelNameLabelText_zh": {
+	"LevelEditorPanel_LevelNameLabelText_zh": {
 		"zh": "关卡中文名称",
 		"en": "ChineseName"
 	},
-	"LevelEditorWindow_LevelNameLabelText_en": {
+	"LevelEditorPanel_LevelNameLabelText_en": {
 		"zh": "关卡英文名称",
 		"en": "EnglishName"
 	},
-	"LevelEditorWindow_EnemyType": {
+	"LevelEditorPanel_EnemyType": {
 		"zh": "敌人类型",
 		"en": "Enemy Type"
 	},
-	"LevelEditorWindow_EnemyDrawCardNum": {
+	"LevelEditorPanel_EnemyDrawCardNum": {
 		"zh": "敌人抽牌数",
 		"en": "Draw Cards Number"
 	},
-	"LevelEditorWindow_EnemyLife": {
+	"LevelEditorPanel_EnemyLife": {
 		"zh": "敌人生命值",
 		"en": "Life"
 	},
-	"LevelEditorWindow_EnemyEnergy": {
+	"LevelEditorPanel_EnemyEnergy": {
 		"zh": "敌人能量值",
 		"en": "Energy"
 	},
-	"LevelEditorWindow_EnemyBeginMetal": {
+	"LevelEditorPanel_EnemyBeginMetal": {
 		"zh": "敌人初始金属",
 		"en": "Initial Metal"
+	},
+	"LevelEditorPanel_CardSelection": {
+		"zh": "卡组",
+		"en": "Enemy Deck"
 	},
 }

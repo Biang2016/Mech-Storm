@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StoryEditorPanel : BaseUIForm
@@ -21,20 +22,23 @@ public class StoryEditorPanel : BaseUIForm
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
-        SaveStoryButton.onClick.AddListener(delegate { SaveStory(); });
+        SaveStoryButton.onClick.AddListener(SaveStory);
         ResetStoryButton.onClick.AddListener(ResetStory);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
             {
-                (StoryEditorWindowText, "StoryEditorWindow_StoryEditorWindowText"),
+                (StoryEditorWindowText, "StoryEditorPanel_StoryEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
-                (SaveStoryButtonText, "StoryEditorWindow_SaveStoryButtonText"),
-                (ResetStoryButtonText, "StoryEditorWindow_ResetStoryButtonText"),
+                (SaveStoryButtonText, "StoryEditorPanel_SaveStoryButtonText"),
+                (ResetStoryButtonText, "StoryEditorPanel_ResetStoryButtonText"),
+                (ReturnToGamerButtonText, "StoryEditorPanel_ReturnToGamerButtonText"),
             });
 
         LanguageDropdown.ClearOptions();
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);
+
+        ReturnToGamerButton.onClick.AddListener(ReturnToGame);
 
         InitializeCardPropertyForm();
         InitializeLevelList();
@@ -42,7 +46,7 @@ public class StoryEditorPanel : BaseUIForm
 
     void Start()
     {
-        SetStory(BuildStoryDatabase.Instance.StoryStartDict["Story1"]);
+        SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
     }
 
     public override void Display()
@@ -56,11 +60,22 @@ public class StoryEditorPanel : BaseUIForm
 
     private void OnLanguageChange(int _)
     {
+        foreach (StoryEditorPanel_EnemyButton btn in MyEnemyButtons)
+        {
+            btn.OnLanguageChange();
+        }
+    }
+
+    public void ReturnToGame()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 
     [SerializeField] private Text StoryEditorWindowText;
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
+    [SerializeField] private Button ReturnToGamerButton;
+    [SerializeField] private Text ReturnToGamerButtonText;
 
     #region Left StoryProperties
 
@@ -84,7 +99,7 @@ public class StoryEditorPanel : BaseUIForm
         Row_Chapters?.PoolRecycle();
         MyPropertiesRows.Clear();
 
-        PropertyFormRow Row_StoryName = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorWindow_StoryNameLabelText", OnStoryNameChange, out SetStoryName);
+        PropertyFormRow Row_StoryName = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_StoryNameLabelText", OnStoryNameChange, out SetStoryName);
         Row_GamePlaySettings = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_GamePlaySettings].AllocateGameObject<StoryPropertyForm_GamePlaySettings>(StoryPropertiesContainer);
         Row_GamePlaySettings.Initialize();
         Row_Chapters = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_Chapters].AllocateGameObject<StoryPropertyForm_Chapters>(StoryPropertiesContainer);
@@ -161,22 +176,22 @@ public class StoryEditorPanel : BaseUIForm
 
     public Transform LevelListContainer;
 
-    private List<StoryEditorPanel_LevelButton> MyLevelButtons = new List<StoryEditorPanel_LevelButton>();
+    private List<StoryEditorPanel_EnemyButton> MyEnemyButtons = new List<StoryEditorPanel_EnemyButton>();
 
     private void InitializeLevelList()
     {
-        foreach (StoryEditorPanel_LevelButton btn in MyLevelButtons)
+        foreach (StoryEditorPanel_EnemyButton btn in MyEnemyButtons)
         {
             btn.PoolRecycle();
         }
 
-        MyLevelButtons.Clear();
+        MyEnemyButtons.Clear();
 
-        foreach (BuildInfo bi in BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.EnemyBuilds].AllBuildInfo())
+        foreach (Enemy enemy in AllLevels.EnemyDict.Values)
         {
-            StoryEditorPanel_LevelButton levelButton = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_LevelButton].AllocateGameObject<StoryEditorPanel_LevelButton>(LevelListContainer);
-            levelButton.Initialize(0, bi.BuildName, bi.CardCount, bi.Life, bi.Energy);
-            MyLevelButtons.Add(levelButton);
+            StoryEditorPanel_EnemyButton enemyButton = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_EnemyButton].AllocateGameObject<StoryEditorPanel_EnemyButton>(LevelListContainer);
+            enemyButton.Initialize((Enemy) enemy.Clone());
+            MyEnemyButtons.Add(enemyButton);
         }
     }
 

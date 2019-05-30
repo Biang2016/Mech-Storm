@@ -29,8 +29,12 @@ public class LoginPanel : BaseUIForm
     [SerializeField] private Button ReturnSingleModeButton;
     [SerializeField] private Text ReturnSingleModeText;
 
+    [SerializeField] private Button StoryEditorButton;
+    [SerializeField] private Text StoryEditorText;
+
     [SerializeField] private Button CardEditorButton;
     [SerializeField] private Text CardEditorText;
+
 
     void Awake()
     {
@@ -48,7 +52,8 @@ public class LoginPanel : BaseUIForm
         LoginButton.onClick.AddListener(OnLoginButtonClick);
         QuitButton.onClick.AddListener(OnQuitButtonClick);
         ReturnSingleModeButton.onClick.AddListener(ReturnToSingleMode);
-        CardEditorButton.onClick.AddListener(OnCardEditorButtonClick);
+        StoryEditorButton.onClick.AddListener(GameManager.Instance.OnStoryEditorButtonClick);
+        CardEditorButton.onClick.AddListener(GameManager.Instance.OnCardEditorButtonClick);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -59,6 +64,7 @@ public class LoginPanel : BaseUIForm
                 (RegisterText, "LoginMenu_RegisterText"),
                 (LoginText, "LoginMenu_LoginText"),
                 (ReturnSingleModeText, "LoginMenu_ReturnToSingleModeText"),
+                (StoryEditorText, "LoginMenu_StoryEditorButtonText"),
                 (CardEditorText, "LoginMenu_CardEditorButtonText"),
             });
 
@@ -218,10 +224,7 @@ public class LoginPanel : BaseUIForm
         UserNameInputField.ActivateInputField();
     }
 
-    private void OnCardEditorButtonClick()
-    {
-        GameManager.Instance.OnCardEditorButtonClick();
-    }
+
 
     public void ShowUpdateConfirmPanel()
     {

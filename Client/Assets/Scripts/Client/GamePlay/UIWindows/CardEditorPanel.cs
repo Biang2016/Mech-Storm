@@ -32,13 +32,13 @@ public class CardEditorPanel : BaseUIForm
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
             {
-                (CardEditorWindowText, "CardEditorWindow_CardEditorWindowText"),
+                (CardEditorWindowText, "CardEditorPanel_CardEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
                 (ReturnToGameButtonText, "SettingMenu_ReturnToGameText"),
-                (SaveCardButtonText, "CardEditorWindow_SaveCardButtonText"),
-                (ResetCardButtonText, "CardEditorWindow_ResetCardButtonText"),
-                (DeleteCardButtonText, "CardEditorWindow_DeleteCardButtonText"),
-                (CardTotalCountText, "CardEditorWindow_CardTotalCountText"),
+                (SaveCardButtonText, "CardEditorPanel_SaveCardButtonText"),
+                (ResetCardButtonText, "CardEditorPanel_ResetCardButtonText"),
+                (DeleteCardButtonText, "CardEditorPanel_DeleteCardButtonText"),
+                (CardTotalCountText, "CardEditorPanel_CardTotalCountText"),
             });
 
         LanguageDropdown.ClearOptions();
@@ -49,7 +49,7 @@ public class CardEditorPanel : BaseUIForm
         InitializePreviewCardGrid();
 
         PicSelectPanel.OnClickPicAction = SetCardPicID;
-        PicSelectPanel.InitializePicSelectGrid();
+        PicSelectPanel.InitializePicSelectGrid("CardEditorPanel_PicSelectGridLabel");
     }
 
     void Start()
@@ -145,47 +145,47 @@ public class CardEditorPanel : BaseUIForm
             ShieldTypePropertiesDict.Add(shieldType, new List<PropertyFormRow>());
         }
 
-        PropertyFormRow Row_CardType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_CardType", OnCardTypeChange, out SetCardType, cardTypeList);
-        PropertyFormRow Row_CardID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardIDLabelText", OnCardIDChange, out SetCardID);
-        PropertyFormRow Row_CardPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardPicIDLabelText", OnCardPicIDChange, out SetCardPicID);
-        PropertyFormRow Row_CardDegradeID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardDegradeIDLabelText", OnCardDegradeIDChange, out SetCardDegradeID, null, OnDegradeIDButtonClick);
-        PropertyFormRow Row_CardUpgradeID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardUpgradeIDLabelText", OnCardUpgradeIDChange, out SetCardUpgradeID, null, OnUpgradeIDButtonClick);
-        PropertyFormRow Row_CardName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardNameLabelText_zh", OnCardNameChange_zh, out SetCardName_zh);
-        PropertyFormRow Row_CardName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardNameLabelText_en", OnCardNameChange_en, out SetCardName_en);
-        PropertyFormRow Row_CardCoinCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardCoinCostLabelText", OnCardCoinCostChange, out SetCardCoinCost);
-        PropertyFormRow Row_CardMetalCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
-        PropertyFormRow Row_CardEnergyCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
-        PropertyFormRow Row_CardSelectLimit = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
-        PropertyFormRow Row_CardIsTemp = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
-        PropertyFormRow Row_CardIsHide = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
+        PropertyFormRow Row_CardType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_CardType", OnCardTypeChange, out SetCardType, cardTypeList);
+        PropertyFormRow Row_CardID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardIDLabelText", OnCardIDChange, out SetCardID);
+        PropertyFormRow Row_CardPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardPicIDLabelText", OnCardPicIDChange, out SetCardPicID);
+        PropertyFormRow Row_CardDegradeID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardDegradeIDLabelText", OnCardDegradeIDChange, out SetCardDegradeID, null, OnDegradeIDButtonClick);
+        PropertyFormRow Row_CardUpgradeID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardUpgradeIDLabelText", OnCardUpgradeIDChange, out SetCardUpgradeID, null, OnUpgradeIDButtonClick);
+        PropertyFormRow Row_CardName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardNameLabelText_zh", OnCardNameChange_zh, out SetCardName_zh);
+        PropertyFormRow Row_CardName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardNameLabelText_en", OnCardNameChange_en, out SetCardName_en);
+        PropertyFormRow Row_CardCoinCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardCoinCostLabelText", OnCardCoinCostChange, out SetCardCoinCost);
+        PropertyFormRow Row_CardMetalCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
+        PropertyFormRow Row_CardEnergyCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
+        PropertyFormRow Row_CardSelectLimit = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
+        PropertyFormRow Row_CardIsTemp = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
+        PropertyFormRow Row_CardIsHide = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
 
-        PropertyFormRow Row_MechLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechLifeLabelText", OnMechLifeChange, out SetMechLife);
-        PropertyFormRow Row_MechAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechAttackLabelText", OnMechAttackChange, out SetMechAttack);
-        PropertyFormRow Row_MechArmor = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechArmorLabelText", OnMechArmorChange, out SetMechArmor);
-        PropertyFormRow Row_MechShield = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_MechShieldLabelText", OnMechShieldChange, out SetMechShield);
-        PropertyFormRow Row_MechWeaponSlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechWeaponSlotLabelText", OnMechWeaponSlotChange, out SetMechWeaponSlot);
-        PropertyFormRow Row_MechShieldSlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechShieldSlotLabelText", OnMechShieldSlotChange, out SetMechShieldSlot);
-        PropertyFormRow Row_MechPackSlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechPackSlotLabelText", OnMechPackSlotChange, out SetMechPackSlot);
-        PropertyFormRow Row_MechMASlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechMASlotLabelText", OnMechMASlotChange, out SetMechMASlot);
-        PropertyFormRow Row_MechIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsDefenseLabelText", OnMechIsDefenseChange, out SetMechIsDefense);
-        PropertyFormRow Row_MechIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsSniperLabelText", OnMechIsSniperChange, out SetMechIsSniper);
-        PropertyFormRow Row_MechIsCharger = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsChargerLabelText", OnMechIsChargerChange, out SetMechIsCharger);
-        PropertyFormRow Row_MechIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsFrenzyLabelText", OnMechIsFrenzyChange, out SetMechIsFrenzy);
-        PropertyFormRow Row_MechIsSoldier = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorWindow_MechIsSoldierLabelText", OnMechIsSoldierChange, out SetMechIsSoldier);
+        PropertyFormRow Row_MechLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_MechLifeLabelText", OnMechLifeChange, out SetMechLife);
+        PropertyFormRow Row_MechAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_MechAttackLabelText", OnMechAttackChange, out SetMechAttack);
+        PropertyFormRow Row_MechArmor = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_MechArmorLabelText", OnMechArmorChange, out SetMechArmor);
+        PropertyFormRow Row_MechShield = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_MechShieldLabelText", OnMechShieldChange, out SetMechShield);
+        PropertyFormRow Row_MechWeaponSlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechWeaponSlotLabelText", OnMechWeaponSlotChange, out SetMechWeaponSlot);
+        PropertyFormRow Row_MechShieldSlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechShieldSlotLabelText", OnMechShieldSlotChange, out SetMechShieldSlot);
+        PropertyFormRow Row_MechPackSlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechPackSlotLabelText", OnMechPackSlotChange, out SetMechPackSlot);
+        PropertyFormRow Row_MechMASlot = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechMASlotLabelText", OnMechMASlotChange, out SetMechMASlot);
+        PropertyFormRow Row_MechIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnMechIsDefenseChange, out SetMechIsDefense);
+        PropertyFormRow Row_MechIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnMechIsSniperChange, out SetMechIsSniper);
+        PropertyFormRow Row_MechIsCharger = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsChargerLabelText", OnMechIsChargerChange, out SetMechIsCharger);
+        PropertyFormRow Row_MechIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnMechIsFrenzyChange, out SetMechIsFrenzy);
+        PropertyFormRow Row_MechIsSoldier = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSoldierLabelText", OnMechIsSoldierChange, out SetMechIsSoldier);
 
-        PropertyFormRow Row_SlotType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
+        PropertyFormRow Row_SlotType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
 
-        PropertyFormRow Row_WeaponType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_WeaponTypeLabelText", OnWeaponTypeChange, out SetWeaponType, weaponTypeList);
-        PropertyFormRow Row_WeaponSwordAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponSwordAttackLabelText", OnWeaponSwordAttackChange, out SetWeaponSwordAttack);
-        PropertyFormRow Row_WeaponSwordEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponSwordEnergyLabelText", OnWeaponSwordEnergyChange, out SetWeaponSwordEnergy);
-        PropertyFormRow Row_WeaponSwordMaxEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponSwordMaxEnergyLabelText", OnWeaponSwordMaxEnergyChange, out SetWeaponSwordMaxEnergy);
-        PropertyFormRow Row_WeaponGunAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponGunAttackLabelText", OnWeaponGunAttackChange, out SetWeaponGunAttack);
-        PropertyFormRow Row_WeaponGunBullet = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponGunBulletLabelText", OnWeaponGunBulletChange, out SetWeaponGunBullet);
-        PropertyFormRow Row_WeaponGunMaxBullet = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_WeaponGunMaxBulletLabelText", OnWeaponGunMaxBulletChange, out SetWeaponGunMaxBullet);
+        PropertyFormRow Row_WeaponType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_WeaponTypeLabelText", OnWeaponTypeChange, out SetWeaponType, weaponTypeList);
+        PropertyFormRow Row_WeaponSwordAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordAttackLabelText", OnWeaponSwordAttackChange, out SetWeaponSwordAttack);
+        PropertyFormRow Row_WeaponSwordEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordEnergyLabelText", OnWeaponSwordEnergyChange, out SetWeaponSwordEnergy);
+        PropertyFormRow Row_WeaponSwordMaxEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordMaxEnergyLabelText", OnWeaponSwordMaxEnergyChange, out SetWeaponSwordMaxEnergy);
+        PropertyFormRow Row_WeaponGunAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponGunAttackLabelText", OnWeaponGunAttackChange, out SetWeaponGunAttack);
+        PropertyFormRow Row_WeaponGunBullet = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponGunBulletLabelText", OnWeaponGunBulletChange, out SetWeaponGunBullet);
+        PropertyFormRow Row_WeaponGunMaxBullet = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponGunMaxBulletLabelText", OnWeaponGunMaxBulletChange, out SetWeaponGunMaxBullet);
 
-        PropertyFormRow Row_ShieldType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorWindow_ShieldTypeLabelText", OnShieldTypeChange, out SetShieldType, shieldTypeList);
-        PropertyFormRow Row_ShieldBasicArmor = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_ShieldBasicArmorLabelText", OnShieldBasicArmorChange, out SetShieldBasicArmor);
-        PropertyFormRow Row_ShieldBasicShield = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorWindow_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
+        PropertyFormRow Row_ShieldType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_ShieldTypeLabelText", OnShieldTypeChange, out SetShieldType, shieldTypeList);
+        PropertyFormRow Row_ShieldBasicArmor = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_ShieldBasicArmorLabelText", OnShieldBasicArmorChange, out SetShieldBasicArmor);
+        PropertyFormRow Row_ShieldBasicShield = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
 
         Row_SideEffectBundle?.PoolRecycle();
         Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
@@ -419,7 +419,7 @@ public class CardEditorPanel : BaseUIForm
                 cur_PreviewCard.CardInfo.CardID = value;
             }
 
-            foreach (KeyValuePair<int, CardPreviewButton> kv in CardPreviewButtons)
+            foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
             {
                 kv.Value.IsEdit = false;
             }
@@ -488,7 +488,7 @@ public class CardEditorPanel : BaseUIForm
             }
             else
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorWindow_NoSuchCard"), 0, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_NoSuchCard"), 0, 0.5f);
             }
         }
     }
@@ -521,7 +521,7 @@ public class CardEditorPanel : BaseUIForm
             }
             else
             {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorWindow_NoSuchCard"), 0, 0.5f);
+                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_NoSuchCard"), 0, 0.5f);
             }
         }
     }
@@ -1486,7 +1486,7 @@ public class CardEditorPanel : BaseUIForm
         if (cur_PreviewCard)
         {
             ChangeCard(cur_PreviewCard.CardInfo.CardID);
-            NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("CardEditorWindow_ResetCardNotice"), cur_PreviewCard.CardInfo.CardID), 0, 1f);
+            NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ResetCardNotice"), cur_PreviewCard.CardInfo.CardID), 0, 1f);
         }
     }
 
@@ -1521,11 +1521,11 @@ public class CardEditorPanel : BaseUIForm
     #region Right CardPics
 
     [SerializeField] private GridLayoutGroup ExistingCardGridContainer;
-    private SortedDictionary<int, CardPreviewButton> CardPreviewButtons = new SortedDictionary<int, CardPreviewButton>();
+    private SortedDictionary<int, CardEditorPanel_CardPreviewButton> CardPreviewButtons = new SortedDictionary<int, CardEditorPanel_CardPreviewButton>();
 
     private void InitializePreviewCardGrid()
     {
-        foreach (KeyValuePair<int, CardPreviewButton> kv in CardPreviewButtons)
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
         {
             kv.Value.PoolRecycle();
         }
@@ -1533,7 +1533,7 @@ public class CardEditorPanel : BaseUIForm
         CardPreviewButtons.Clear();
         foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
         {
-            CardPreviewButton cpb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPreviewButton].AllocateGameObject<CardPreviewButton>(ExistingCardGridContainer.transform);
+            CardEditorPanel_CardPreviewButton cpb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardEditorPanel_CardPreviewButton].AllocateGameObject<CardEditorPanel_CardPreviewButton>(ExistingCardGridContainer.transform);
             cpb.Initialize(kv.Value, delegate { ChangeCard(kv.Key); });
             CardPreviewButtons.Add(kv.Key, cpb);
         }

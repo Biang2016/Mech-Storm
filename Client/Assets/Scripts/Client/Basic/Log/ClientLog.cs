@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ClientLog : MonoSingleton<ClientLog>, ILog
 {
-    private Queue<Log> LogQueue { get; set; }
+    private Queue<Log> LogQueue = new Queue<Log>();
 
     void Awake()
     {
-        LogQueue = new Queue<Log>();
         //sw = new StreamWriter(Application.streamingAssetsPath + "/RequestLog.txt", false);
         //sw.Close();
     }

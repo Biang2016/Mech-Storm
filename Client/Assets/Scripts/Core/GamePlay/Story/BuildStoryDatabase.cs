@@ -130,13 +130,11 @@ public class BuildStoryDatabase
 
     #region SingleMode
 
-    public Dictionary<string, Story> StoryStartDict = new Dictionary<string, Story>();
-
     public Dictionary<string, Story> PlayerStoryStates = new Dictionary<string, Story>();
 
     public void CreateSinglePlayer(string userName)
     {
-        foreach (BuildInfo bi in BuildGroupDict[BuildGroups.CustomBuilds].AllBuildInfo())
+        foreach (BuildInfo bi in AllBuilds.BuildGroupDict[BuildGroups.CustomBuilds].Builds.Values)
         {
             AddOrModifyBuild(userName, bi.Clone());
         }
@@ -145,18 +143,4 @@ public class BuildStoryDatabase
     #endregion
 
     #endregion
-
-    #region SpecialBuilds
-
-    public Dictionary<BuildGroups, BuildGroup> BuildGroupDict = new Dictionary<BuildGroups, BuildGroup>();
-
-    #endregion
-}
-
-public enum BuildGroups
-{
-    EnemyBuilds = 1,
-    OnlineBuilds = 2,
-    StoryBuilds = 3,
-    CustomBuilds = 4
 }

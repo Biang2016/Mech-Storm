@@ -16,6 +16,9 @@ public class StartMenuPanel : BaseUIForm
     [SerializeField] private Button CardEditorButton;
     [SerializeField] private Text CardEditorText;
 
+    [SerializeField] private Button StoryEditorButton;
+    [SerializeField] private Text StoryEditorText;
+
     [SerializeField] private Transform ButtonContainer;
     private Dictionary<string, StartMenuButton> StartMenuButtonDict = new Dictionary<string, StartMenuButton>();
     private Dictionary<States, List<string>> StateMenuButtonListDict = new Dictionary<States, List<string>>();
@@ -30,10 +33,12 @@ public class StartMenuPanel : BaseUIForm
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
-        CardEditorButton.onClick.AddListener(OnCardEditorButtonClick);
+        CardEditorButton.onClick.AddListener(GameManager.Instance.OnCardEditorButtonClick);
+        StoryEditorButton.onClick.AddListener(GameManager.Instance.OnStoryEditorButtonClick);
 
         LanguageManager.Instance.RegisterTextKey(SwitchToOtherModeText, "StartMenu_SwitchToOnlineModeText");
         LanguageManager.Instance.RegisterTextKey(CardEditorText, "LoginMenu_CardEditorButtonText");
+        LanguageManager.Instance.RegisterTextKey(StoryEditorText, "LoginMenu_StoryEditorButtonText");
 
         Proxy.OnClientStateChange += OnClientChangeState;
 
@@ -509,10 +514,5 @@ public class StartMenuPanel : BaseUIForm
         LogoutRequest request = new LogoutRequest(Client.Instance.Proxy.ClientID, Client.Instance.Proxy.Username);
         Client.Instance.Proxy.SendMessage(request);
         UIManager.Instance.GetBaseUIForm<LoginPanel>().ReturnToSingleMode();
-    }
-
-    private void OnCardEditorButtonClick()
-    {
-        GameManager.Instance.OnCardEditorButtonClick();
     }
 }
