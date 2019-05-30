@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class LevelPropertyForm_CardSelection : PropertyFormRow
 {
-    private List<HeroCardPicIcon> HeroCardPicIcons = new List<HeroCardPicIcon>();
+    private List<LevelEditorPanel_HeroCardPicIcon> HeroCardPicIcons = new List<LevelEditorPanel_HeroCardPicIcon>();
     [SerializeField] private Transform HeroCardPicIconContainer;
 
-    private List<TypeCardCount> TypeCardCounts = new List<TypeCardCount>();
+    private List<LevelEditorPanel_TypeCardCount> TypeCardCounts = new List<LevelEditorPanel_TypeCardCount>();
     [SerializeField] private Transform TypeCardCountContainer;
 
-    private List<CostStatBar> CostStatBars_Metal = new List<CostStatBar>();
+    private List<LevelEditorPanel_CostStatBar> CostStatBars_Metal = new List<LevelEditorPanel_CostStatBar>();
     [SerializeField] private Transform CostStatBarContainer_Metal;
-    private List<CostStatBar> CostStatBars_Energy = new List<CostStatBar>();
+    private List<LevelEditorPanel_CostStatBar> CostStatBars_Energy = new List<LevelEditorPanel_CostStatBar>();
     [SerializeField] private Transform CostStatBarContainer_Energy;
 
     [SerializeField] private Button GoToButton;
@@ -41,28 +41,28 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
     private void Clear()
     {
-        foreach (HeroCardPicIcon hcpi in HeroCardPicIcons)
+        foreach (LevelEditorPanel_HeroCardPicIcon hcpi in HeroCardPicIcons)
         {
             hcpi.PoolRecycle();
         }
 
         HeroCardPicIcons.Clear();
 
-        foreach (TypeCardCount tcc in TypeCardCounts)
+        foreach (LevelEditorPanel_TypeCardCount tcc in TypeCardCounts)
         {
             tcc.PoolRecycle();
         }
 
         TypeCardCounts.Clear();
 
-        foreach (CostStatBar csb in CostStatBars_Metal)
+        foreach (LevelEditorPanel_CostStatBar csb in CostStatBars_Metal)
         {
             csb.PoolRecycle();
         }
 
         CostStatBars_Metal.Clear();
 
-        foreach (CostStatBar csb in CostStatBars_Energy)
+        foreach (LevelEditorPanel_CostStatBar csb in CostStatBars_Energy)
         {
             csb.PoolRecycle();
         }
@@ -77,20 +77,20 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
         foreach (int heroCardID in BuildCards.GetHeroCardIDs())
         {
             int pid = AllCards.GetCard(heroCardID).BaseInfo.PictureID;
-            HeroCardPicIcon heroCardPicIcon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.HeroCardPicIcon].AllocateGameObject<HeroCardPicIcon>(HeroCardPicIconContainer);
+            LevelEditorPanel_HeroCardPicIcon heroCardPicIcon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_HeroCardPicIcon].AllocateGameObject<LevelEditorPanel_HeroCardPicIcon>(HeroCardPicIconContainer);
             heroCardPicIcon.Initialize(pid, heroCardID);
             HeroCardPicIcons.Add(heroCardPicIcon);
         }
 
         foreach (KeyValuePair<CardStatTypes, int> kv in BuildCards.GetTypeCardCountDict())
         {
-            TypeCardCount typeCardCount = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.TypeCardCount].AllocateGameObject<TypeCardCount>(TypeCardCountContainer);
+            LevelEditorPanel_TypeCardCount typeCardCount = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_HeroCardPicIcon].AllocateGameObject<LevelEditorPanel_TypeCardCount>(TypeCardCountContainer);
             typeCardCount.Initialize(
                 kv.Key,
                 kv.Value,
                 delegate
                 {
-                    foreach (TypeCardCount tcc in TypeCardCounts)
+                    foreach (LevelEditorPanel_TypeCardCount tcc in TypeCardCounts)
                     {
                         tcc.IsSelected = false;
                     }
@@ -108,14 +108,14 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
     private void RefreshBars(CardStatTypes cardStatType)
     {
-        foreach (CostStatBar csb in CostStatBars_Metal)
+        foreach (LevelEditorPanel_CostStatBar csb in CostStatBars_Metal)
         {
             csb.PoolRecycle();
         }
 
         CostStatBars_Metal.Clear();
 
-        foreach (CostStatBar csb in CostStatBars_Energy)
+        foreach (LevelEditorPanel_CostStatBar csb in CostStatBars_Energy)
         {
             csb.PoolRecycle();
         }
@@ -131,8 +131,8 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
         foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByMetal(cardStatType))
         {
-            CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CostStatBar].AllocateGameObject<CostStatBar>(CostStatBarContainer_Metal);
-            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Metal, CostStatBar.ColorTypes.Metal);
+            LevelEditorPanel_CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_CostStatBar].AllocateGameObject<LevelEditorPanel_CostStatBar>(CostStatBarContainer_Metal);
+            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Metal, LevelEditorPanel_CostStatBar.ColorTypes.Metal);
             CostStatBars_Metal.Add(csb);
         }
 
@@ -146,8 +146,8 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
         foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByEnergy(cardStatType))
         {
-            CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CostStatBar].AllocateGameObject<CostStatBar>(CostStatBarContainer_Energy);
-            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Energy, CostStatBar.ColorTypes.Energy);
+            LevelEditorPanel_CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_CostStatBar].AllocateGameObject<LevelEditorPanel_CostStatBar>(CostStatBarContainer_Energy);
+            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Energy, LevelEditorPanel_CostStatBar.ColorTypes.Energy);
             CostStatBars_Energy.Add(csb);
         }
     }

@@ -2,17 +2,18 @@
 {
     public int ClientID;
     public int BuildID;
+    public int ChapterID;
     public int LevelID;
-
 
     public MatchStandaloneRequest()
     {
     }
 
-    public MatchStandaloneRequest(int clientID, int buildID, int levelID) : base(clientID)
+    public MatchStandaloneRequest(int clientID, int buildID, int chapterID, int levelID) : base(clientID)
     {
         ClientID = clientID;
         BuildID = buildID;
+        ChapterID = chapterID;
         LevelID = levelID;
     }
 
@@ -25,6 +26,7 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(BuildID);
+        writer.WriteSInt32(ChapterID);
         writer.WriteSInt32(LevelID);
     }
 
@@ -32,6 +34,7 @@
     {
         base.Deserialize(reader);
         BuildID = reader.ReadSInt32();
+        ChapterID = reader.ReadSInt32();
         LevelID = reader.ReadSInt32();
     }
 }

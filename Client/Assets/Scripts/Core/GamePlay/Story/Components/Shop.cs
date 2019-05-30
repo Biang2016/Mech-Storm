@@ -2,7 +2,9 @@
 
 public class Shop : Level
 {
-    public Shop(int levelPicId, SortedDictionary<string, string> levelNames) : base(LevelType.Shop, levelPicId, levelNames)
+    public List<int> ShopCardIDs = new List<int>();
+
+    public Shop(LevelThemeCategory levelThemeCategory,int levelPicId,  SortedDictionary<string, string> levelNames) : base(LevelType.Shop, levelThemeCategory, levelPicId, levelNames)
     {
     }
 

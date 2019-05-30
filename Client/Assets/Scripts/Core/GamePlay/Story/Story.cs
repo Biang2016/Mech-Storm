@@ -6,19 +6,11 @@ public class Story : IClone<Story>, IVariant<Story>
 {
     public string StoryName;
     public SortedDictionary<int, Chapter> Chapters = new SortedDictionary<int, Chapter>();
-    public SortedDictionary<int, Level> StoryLevels = new SortedDictionary<int, Level>(); //方便查询的数据结构，不进行序列化
 
     public SortedDictionary<int, int> Base_CardLimitDict = new SortedDictionary<int, int>(); // 玩家牌库已解锁各牌的上限信息（以基本牌为key）
     public SortedDictionary<int, BuildInfo> PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();
 
     public GamePlaySettings StoryGamePlaySettings;
-
-    private int levelIDGenerator = 1000;
-
-    public int GetLevelID()
-    {
-        return levelIDGenerator++;
-    }
 
     private Story()
     {
@@ -26,7 +18,6 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, int> base_CardLimitDict, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
     {
-        levelIDGenerator = 1000;
         StoryName = storyName;
         Chapters = chapters;
         PlayerBuildInfos = playerBuildInfos;
@@ -78,45 +69,23 @@ public class Story : IClone<Story>, IVariant<Story>
     {
         foreach (KeyValuePair<int, Chapter> kv in Chapters)
         {
-            foreach (KeyValuePair<EnemyType, SortedDictionary<int, Enemy>> KV in kv.Value.ChapterAllEnemies)
+            kv.Value.InfoRefresh = InfoRefresh;
+            foreach (KeyValuePair<int, Level> _kv in kv.Value.Levels)
             {
-                foreach (KeyValuePair<int, Enemy> _kv in KV.Value)
-                {
-                    _kv.Value.M_Story = this;
-                    _kv.Value.LevelID = GetLevelID();
-                    StoryLevels.Add(_kv.Value.LevelID, _kv.Value);
-                }
-            }
-
-            foreach (KeyValuePair<int, Shop> KV in kv.Value.ChapterAllShops)
-            {
-                KV.Value.M_Story = this;
-                KV.Value.LevelID = GetLevelID();
-                StoryLevels.Add(KV.Value.LevelID, KV.Value);
+                _kv.Value.InfoRefresh = InfoRefresh;
             }
         }
     }
 
-    public delegate string StoryInfoRefreshDelegate();
+    public delegate string InfoRefreshDelegate();
 
-    public StoryInfoRefreshDelegate StoryInfoRefresh; // 信息更新委托
+    public InfoRefreshDelegate InfoRefresh; // 信息更新委托
 
-    public void BeatEnemy(Enemy enemy)
+    public void BeatChapter(int chapterID)
     {
         //TODO
 
-        StoryInfoRefresh();
-    }
-
-    public void VisitShop()
-    {
-    }
-
-    public void BeatChapter(Chapter chapter)
-    {
-        //TODO
-
-        StoryInfoRefresh();
+        InfoRefresh();
     }
 
     public void EditAllCardLimitDict(int cardID, int changeValue) // 更改某卡牌上限数量
@@ -154,7 +123,7 @@ public class Story : IClone<Story>, IVariant<Story>
         int baseCardID = AllCards.GetCardBaseCardID(cardID);
         Base_CardLimitDict[baseCardID] += changeValue;
 
-        StoryInfoRefresh();
+        InfoRefresh();
     }
 
     public void Serialize(DataStream writer)

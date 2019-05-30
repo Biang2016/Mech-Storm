@@ -2,9 +2,9 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class TypeCardCount : PoolObject
+public class LevelEditorPanel_TypeCardCount : PoolObject
 {
-    private TypeCardCount()
+    private LevelEditorPanel_TypeCardCount()
     {
     }
 

@@ -10,8 +10,8 @@ public class Enemy : Level
     public List<BonusGroup> AlwaysBonusGroup;
     public List<BonusGroup> OptionalBonusGroup;
 
-    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int hardFactor, List<BonusGroup> alwaysBonusGroup, List<BonusGroup> optionalBonusGroup)
-        : base(LevelType.Enemy, levelPicID, levelNames)
+    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int hardFactor, List<BonusGroup> alwaysBonusGroup, List<BonusGroup> optionalBonusGroup)
+        : base(LevelType.Enemy, levelThemeCategory, levelPicID, levelNames)
     {
         BuildInfo = buildInfo;
         EnemyType = enemyType;
@@ -22,7 +22,7 @@ public class Enemy : Level
 
     public override Level Clone()
     {
-        return new Enemy(LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo, EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
+        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo, EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
     }
 
     public override Level Variant()
@@ -71,6 +71,6 @@ public class Enemy : Level
             OptionalBonusGroup.Add(BonusGroup.Deserialize(reader));
         }
 
-        return new Enemy(0, null, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
+        return new Enemy(LevelThemeCategory.Energy, 0, null, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
     }
 }

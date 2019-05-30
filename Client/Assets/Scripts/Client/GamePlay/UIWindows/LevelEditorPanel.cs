@@ -164,6 +164,7 @@ public class LevelEditorPanel : BaseUIForm
             case LevelType.Enemy:
             {
                 Cur_Level = new Enemy(
+                    levelThemeCategory: LevelThemeCategory.Energy,
                     levelPicID: 0,
                     levelNames: new SortedDictionary<string, string> {{"zh", "新敌人"}, {"en", "newEnemy"}},
                     buildInfo: new BuildInfo(
@@ -186,6 +187,7 @@ public class LevelEditorPanel : BaseUIForm
             case LevelType.Shop:
             {
                 Cur_Level = new Shop(
+                    levelThemeCategory: LevelThemeCategory.Energy,
                     levelPicId: 0,
                     levelNames: new SortedDictionary<string, string> {{"zh", "新商店"}, {"en", "newShop"}});
                 break;

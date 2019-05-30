@@ -761,6 +761,10 @@
 		"en": "You should select a correct ship!"
 	},
 
+	"StoryEditorWindow_StoryEditorWindowText": {
+		"zh": "剧情编辑器",
+		"en": "Story Editor"
+	},
 	"StoryEditorWindow_StoryNameLabelText": {
 		"zh": "剧情名称",
 		"en": "Story Name"
@@ -804,6 +808,50 @@
 	"StoryEditorWindow_MaxDrawCardNumLabelText": {
 		"zh": "最大抽牌数",
 		"en": "Min Number of Draws"
+	},
+
+	"StoryEditorWindow_SaveStoryButtonText": {
+		"zh": "保存修改",
+		"en": "Save Changes"
+	},
+	"StoryEditorWindow_ResetStoryButtonText": {
+		"zh": "重置",
+		"en": "Reset"
+	},
+
+	"StoryEditorWindow_ChapterLabel": {
+		"zh": "章节",
+		"en": "Chapter"
+	},
+	"StoryEditorWindow_ChaptersLabel": {
+		"zh": "所有章节",
+		"en": "Chapters"
+	},
+	"StoryEditorWindow_ChapterNameText_zh": {
+		"zh": "章节中文名",
+		"en": "Chinese Name"
+	},
+	"StoryEditorWindow_ChapterNameText_en": {
+		"zh": "章节英文名",
+		"en": "English Name"
+	},
+	"Notice_StoryEditorWindow_CannotCreateChapter": {
+		"zh": "无法再创建更多章节",
+		"en": "Cannot create more chapters!"
+	},
+
+
+	"StoryEditorWindow_CardCountLabelText": {
+		"zh": "卡牌数:",
+		"en": "Cards:"
+	},
+	"SettingMenu_LifeLabelText": {
+		"zh": "生命值:",
+		"en": "Life:"
+	},
+	"StoryEditorWindow_EnergyLabelText": {
+		"zh": "能量值:",
+		"en": "Energy:"
 	},
 
 	"CardEditorWindow_CardEditorWindowText": {

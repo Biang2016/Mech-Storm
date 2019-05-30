@@ -24864,24 +24864,6 @@ MonoBehaviour:
     stamp: 1559116888
     type: 2
     UseGUIDs: []
-  - guid: 906929e40df3bf246b3af6608d4c2c63
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: c1fec737f2aea4840ad51051c2b8d864
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1557908711
-    type: 1
-    UseGUIDs: []
-  - guid: 1f118be8d458dbb4bbfdf4d378813e03
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1558845808
-    type: 1
-    UseGUIDs: []
   - guid: 98d5ef09032149398f6a7b289bf6dcbc
     ScriptSymbols:
     - CostStatBar
@@ -24923,12 +24905,6 @@ MonoBehaviour:
     stamp: 1559116888
     type: 2
     UseGUIDs: []
-  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554345152
-    type: 1
-    UseGUIDs: []
   - guid: 4dc49de0f9c6a47aeaeb7082e7dfe669
     ScriptSymbols: []
     ScriptTokens: []
@@ -24968,6 +24944,99 @@ MonoBehaviour:
     - 00e2a073b6679a6428a6bc94222ab72a
     - e8ccb091546eaa5498a479a498a25c0d
     - 6f57bd22db9183b49a97fd9dd9829f7c
+  - guid: 7d23099659efd454db9bb30ea0ec0b05
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1558365115
+    type: 1
+    UseGUIDs: []
+  - guid: 7c474a98f9c4449f48a9560c316591a6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1558611062
+    type: 1
+    UseGUIDs: []
+  - guid: f08d7a8ad29b45c5839717d08e3fc569
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1558523414
+    type: 1
+    UseGUIDs: []
+  - guid: 093a3f9aaea64f74e8306cd9d5beb1fd
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 10c1a35b695740f99bdf0b33cea7df5a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1554952884
+    type: 1
+    UseGUIDs: []
+  - guid: 55424c2c43e8fbd45b10efdbee0ea41e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1558972921
+    type: 1
+    UseGUIDs: []
+  - guid: 28c8e5558752321419fdd341d03ecfeb
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1559179296
+    type: 5
+    UseGUIDs:
+    - cd865f98e5fd2cd4fb09b5676283b7b5
+    - 47f7a6cda96c0bb45b7307a7cf75260a
+    - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 0e5313a6abb10344ebadb6d50b52b0a7
+    - 295dc616b7c47b341951170f7fe0511a
+  - guid: 67f14aa5f3b0e6d42a8ec0c8293822b3
+    ScriptSymbols:
+    - StoryPropertyForm_Chapter
+    - StoryPropertyForm_Chapter.{
+    ScriptTokens:
+    - PoolObject
+    - SerializeField
+    - Text
+    - Label
+    - Transform
+    - ChapterPropertyRowContainer
+    - Button
+    - DeleteButton
+    - PoolRecycle
+    - PropertyFormRow
+    - ChapterPropertyFormRows
+    - Chapter
+    - Cur_Chapter
+    - List
+    - Initialize
+    - UnityAction
+    - LanguageManager
+    - StartCoroutine
+    - ClientUtils
+    - RectTransform
+    - UIManager
+    - Row_ChapterID
+    - GeneralizeRow
+    - OnChapterIDChange
+    - SetChapterID
+    - Row_ChapterName_zh
+    - OnChapterNameChange_zh
+    - SetChapterName_zh
+    - Row_ChapterName_en
+    - OnChapterNameChange_en
+    - SetChapterName_en
+    stamp: 1559192301
+    type: 2
+    UseGUIDs: []
+  - guid: ef514bd658ce5d34c99959032b1c7a0e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1559179296
+    type: 5
+    UseGUIDs:
+    - a00d881945183534abfe543bd0bdb056
   - guid: cd865f98e5fd2cd4fb09b5676283b7b5
     ScriptSymbols:
     - StoryEditorPanel
@@ -24991,14 +25060,15 @@ MonoBehaviour:
     - ResetStoryButtonText
     - LanguageDropdown
     - InitializeCardPropertyForm
-    - InitializePreviewCardGrid
     - Start
+    - SetStory
+    - BuildStoryDatabase
     - Display
     - OnLanguageChange
     - SerializeField
     - Dropdown
     - Left
-    - LevelProperties
+    - StoryProperties
     - Transform
     - StoryPropertiesContainer
     - Story
@@ -25006,10 +25076,14 @@ MonoBehaviour:
     - List
     - PropertyFormRow
     - MyPropertiesRows
+    - StoryPropertyForm_GamePlaySettings
+    - Row_GamePlaySettings
+    - Row_StoryName
     - GeneralizeRow
+    - OnStoryNameChange
+    - SetStoryName
+    - GameObjectPoolManager
     - UnityAction
-    - SetLevel
-    - Level
     - Map
     - Button
     - Update
@@ -25017,34 +25091,11 @@ MonoBehaviour:
     - KeyCode
     - PLATFORM_STANDALONE
     - Input
-    - Dictionary
-    - CardBase
-    - AllCards
-    - PoolObject
-    - AllCardContainers
-    - GridLayoutGroup
-    - CardLibraryGridLayout
-    - CardInfo_Base
-    - AddCardIntoGridLayout
-    - CardSelectWindowCardContainer
-    - GameObjectPoolManager
-    - RefreshCard
     - Right
-    stamp: 1559132157
+    - Level
+    stamp: 1559192353
     type: 2
     UseGUIDs: []
-  - guid: 28c8e5558752321419fdd341d03ecfeb
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1559131538
-    type: 5
-    UseGUIDs:
-    - cd865f98e5fd2cd4fb09b5676283b7b5
-    - 47f7a6cda96c0bb45b7307a7cf75260a
-    - 6fec9a8fc56ecc447bb5eac824eddbf3
-    - 0e5313a6abb10344ebadb6d50b52b0a7
-    - 295dc616b7c47b341951170f7fe0511a
-    - 391840e9a252a8f4d8ac5411a40fdaa1
   - guid: a00d881945183534abfe543bd0bdb056
     ScriptSymbols:
     - StoryPropertyForm_GamePlaySettings
@@ -25092,9 +25143,72 @@ MonoBehaviour:
     - Row_MaxDrawCardNum
     - OnMaxDrawCardNumChange
     - SetMaxDrawCardNum
+    - SetGamePlaySettings
     - UnityAction
     - BaseInitialize
-    stamp: 1559133740
+    stamp: 1559179296
+    type: 2
+    UseGUIDs: []
+  - guid: 2143cacb30484f3a8fc608b357744221
+    ScriptSymbols:
+    - StoryPropertyForm_Bonus
+    - StoryPropertyForm_Bonus.{
+    ScriptTokens:
+    - PoolObject
+    - SerializeField
+    - Text
+    - Label
+    - Transform
+    - BonusRowContainer
+    - Button
+    - AddButton
+    - PoolRecycle
+    - PropertyFormRow
+    - BonusPropertyFormRows
+    - List
+    - Initialize
+    - Chapter
+    - LanguageManager
+    - StartCoroutine
+    - ClientUtils
+    - RectTransform
+    - UIManager
+    - SetValue
+    stamp: 1559192396
+    type: 2
+    UseGUIDs: []
+  - guid: ca81770131a2487b91799c7286f29b4d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 2
+    UseGUIDs: []
+  - guid: 516d2f83a7fd74892a48fc4061d5c91a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 5
+    UseGUIDs: []
+  - guid: 9e4dac71db06b4f80b869bfb7c99a0c7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 5
+    UseGUIDs: []
+  - guid: 361474e036554f4fa606265eb95c77e9
+    ScriptSymbols:
+    - LevelPicIcon
+    ScriptTokens:
+    - PoolObject
+    - PoolRecycle
+    - SerializeField
+    - Image
+    - PicImage
+    - Text
+    - LevelNameText
+    - Initialize
+    - ClientUtils
+    stamp: 1559197838
     type: 2
     UseGUIDs: []
   timeStamp: 1559132212

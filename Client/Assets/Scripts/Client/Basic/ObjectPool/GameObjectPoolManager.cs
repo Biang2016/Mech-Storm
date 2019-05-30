@@ -16,7 +16,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
         ArrowAiming,
         ArrowArrow,
-        
+
         ModuleMech,
         MechBattleInfoIcon,
         MechTriggerIcon,
@@ -28,7 +28,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         ModulePackDetail,
         ModuleMA,
         ModuleMADetail,
-        
+
         MechCard,
         EquipCard,
         SpellCard,
@@ -38,7 +38,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         CardSelectWindowCardContainer,
         SelectCard,
         BuildButton,
-        
+
         TextFly,
         Affix,
         ParticleSystem,
@@ -48,10 +48,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         BigBonusItem,
         SmallBonusItem,
         BonusButton,
-        
+
         StartMenuButton,
         ExitMenuButton,
-        
+
         CardPreviewButton,
         PicPreviewButton,
         PropertyFormRow_InputField,
@@ -62,13 +62,16 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         CardPropertyForm_SideEffectExecute,
         CardPropertyForm_ExecuteSetting,
         CardPropertyForm_SideEffect,
-        
+
         LevelPropertyForm_CardSelection,
-        HeroCardPicIcon,
-        TypeCardCount,
-        CostStatBar,
+        LevelEditorPanel_HeroCardPicIcon,
+        LevelEditorPanel_TypeCardCount,
+        LevelEditorPanel_CostStatBar,
 
         StoryPropertyForm_GamePlaySettings,
+        StoryPropertyForm_Chapters,
+        StoryPropertyForm_Chapter,
+        StoryEditorPanel_LevelButton,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -80,7 +83,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
         {PrefabNames.ArrowAiming, 1},
         {PrefabNames.ArrowArrow, 1},
-        
+
         {PrefabNames.ModuleMech, 12},
         {PrefabNames.MechBattleInfoIcon, 10},
         {PrefabNames.MechTriggerIcon, 10},
@@ -92,7 +95,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.ModulePackDetail, 1},
         {PrefabNames.ModuleMA, 12},
         {PrefabNames.ModuleMADetail, 1},
-        
+
         {PrefabNames.MechCard, 5},
         {PrefabNames.EquipCard, 5},
         {PrefabNames.SpellCard, 5},
@@ -102,7 +105,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardSelectWindowCardContainer, 30},
         {PrefabNames.SelectCard, 50},
         {PrefabNames.BuildButton, 5},
-        
+
         {PrefabNames.TextFly, 10},
         {PrefabNames.Affix, 5},
         {PrefabNames.ParticleSystem, 5},
@@ -112,10 +115,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.BigBonusItem, 3},
         {PrefabNames.SmallBonusItem, 5},
         {PrefabNames.BonusButton, 3},
-        
+
         {PrefabNames.StartMenuButton, 10},
         {PrefabNames.ExitMenuButton, 10},
-        
+
         {PrefabNames.CardPreviewButton, 50},
         {PrefabNames.PicPreviewButton, 50},
         {PrefabNames.PropertyFormRow_InputField, 10},
@@ -126,13 +129,16 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardPropertyForm_SideEffectExecute, 2},
         {PrefabNames.CardPropertyForm_ExecuteSetting, 2},
         {PrefabNames.CardPropertyForm_SideEffect, 2},
-        
+
         {PrefabNames.LevelPropertyForm_CardSelection, 1},
-        {PrefabNames.HeroCardPicIcon, 4},
-        {PrefabNames.TypeCardCount, 5},
-        {PrefabNames.CostStatBar, 11},
+        {PrefabNames.LevelEditorPanel_HeroCardPicIcon, 4},
+        {PrefabNames.LevelEditorPanel_TypeCardCount, 5},
+        {PrefabNames.LevelEditorPanel_CostStatBar, 11},
 
         {PrefabNames.StoryPropertyForm_GamePlaySettings, 1},
+        {PrefabNames.StoryPropertyForm_Chapters, 1},
+        {PrefabNames.StoryPropertyForm_Chapter, 5},
+        {PrefabNames.StoryEditorPanel_LevelButton, 10},
     };
 
     public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>
@@ -140,7 +146,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.MechCard, 30},
         {PrefabNames.EquipCard, 20},
         {PrefabNames.SpellCard, 30},
-        { PrefabNames.CardSelectWindowCardContainer, 30},
+        {PrefabNames.CardSelectWindowCardContainer, 30},
         {PrefabNames.SelectCard, 50},
     };
 

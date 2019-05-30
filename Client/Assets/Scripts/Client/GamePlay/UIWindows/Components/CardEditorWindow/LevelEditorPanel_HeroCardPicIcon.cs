@@ -2,9 +2,9 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class HeroCardPicIcon : PoolObject
+public class LevelEditorPanel_HeroCardPicIcon : PoolObject
 {
-    private HeroCardPicIcon()
+    private LevelEditorPanel_HeroCardPicIcon()
     {
     }
 

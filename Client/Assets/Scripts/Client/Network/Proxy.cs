@@ -63,10 +63,10 @@ public class Proxy : ProxyBase
         ClientState = ClientStates.Matching;
     }
 
-    public void OnBeginSingleMode(int storyPaceID)
+    public void OnBeginSingleMode(int chapterID, int levelID)
     {
         ClientState = ClientStates.Matching;
-        ClientRequestBase req = new MatchStandaloneRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, storyPaceID);
+        ClientRequestBase req = new MatchStandaloneRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, chapterID, levelID);
         SendMessage(req);
     }
 

@@ -320,7 +320,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnOnlineStartButtonClick()
     {
-        StartGameCore(RoundManager.PlayMode.Online);
+        StartGameCore(RoundManager.PlayMode.Online, -1, -1);
     }
 
     public void OnOnlineDeckButtonClick()
@@ -362,7 +362,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleCustomStartButtonClick()
     {
-        StartGameCore(RoundManager.PlayMode.SingleCustom, -1);
+        StartGameCore(RoundManager.PlayMode.SingleCustom, -1, -1);
     }
 
     private void StartNewStory()
@@ -375,7 +375,7 @@ public class StartMenuPanel : BaseUIForm
     {
     }
 
-    public void StartGameCore(RoundManager.PlayMode playMode, int storyPaceID = -1)
+    public void StartGameCore(RoundManager.PlayMode playMode, int chapterID, int levelID)
     {
         if (Client.Instance.Proxy.ClientState == ProxyBase.ClientStates.Login)
         {
@@ -389,7 +389,7 @@ public class StartMenuPanel : BaseUIForm
                 }
                 case RoundManager.PlayMode.Single:
                 {
-                    startGameAction = delegate { StartSingleGame(storyPaceID); };
+                    startGameAction = delegate { StartSingleGame(chapterID, levelID); };
                     break;
                 }
                 case RoundManager.PlayMode.SingleCustom:
@@ -439,16 +439,16 @@ public class StartMenuPanel : BaseUIForm
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
     }
 
-    private void StartSingleGame(int storyPaceID)
+    private void StartSingleGame(int chapterID, int levelID)
     {
-        Client.Instance.Proxy.OnBeginSingleMode(storyPaceID);
+        Client.Instance.Proxy.OnBeginSingleMode(chapterID, levelID);
         ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginSingleMode"));
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
     }
 
     private void StartSingleCustomGame()
     {
-        Client.Instance.Proxy.OnBeginSingleMode(-1);
+        Client.Instance.Proxy.OnBeginSingleMode(-1, -1);
         ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginCustomMode"));
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.SingleCustom;
     }

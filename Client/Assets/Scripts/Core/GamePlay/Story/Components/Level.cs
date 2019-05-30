@@ -5,24 +5,29 @@ using Newtonsoft.Json.Converters;
 public abstract class Level : IClone<Level>, IVariant<Level>
 {
     public LevelType LevelType;
-    public int LevelID;
+    public LevelThemeCategory LevelThemeCategory;
     public int LevelPicID;
     public SortedDictionary<string, string> LevelNames;
 
-    protected Level(LevelType levelType, int levelPicId, SortedDictionary<string, string> levelNames)
+    public int LevelID;
+
+    public Level(LevelType levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames)
     {
+        LevelThemeCategory = levelThemeCategory;
         LevelType = levelType;
         LevelPicID = levelPicId;
         LevelNames = levelNames;
     }
 
-    public Story M_Story;
+    public Story.InfoRefreshDelegate InfoRefresh; // 信息更新委托
+
     public abstract Level Clone();
     public abstract Level Variant();
 
     public virtual void Serialize(DataStream writer)
     {
         writer.WriteSInt32((int) LevelType);
+        writer.WriteSInt32((int) LevelThemeCategory);
         writer.WriteSInt32(LevelID);
         writer.WriteSInt32(LevelPicID);
         writer.WriteSInt32(LevelNames.Count);
@@ -35,11 +40,12 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 
     public static Level BaseDeserialize(DataStream reader)
     {
-        LevelType type = (LevelType) reader.ReadSInt32();
+        LevelType levelType = (LevelType) reader.ReadSInt32();
+        LevelThemeCategory levelThemeCategory = (LevelThemeCategory) reader.ReadSInt32();
         int levelID = reader.ReadSInt32();
         int levelPicID = reader.ReadSInt32();
         Level res = null;
-        switch (type)
+        switch (levelType)
         {
             case LevelType.Enemy:
                 res = Enemy.Deserialize(reader);
@@ -52,6 +58,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         if (res != null)
         {
             res.LevelID = levelID;
+            res.LevelThemeCategory = levelThemeCategory;
             res.LevelPicID = levelPicID;
             int levelNameCount = reader.ReadSInt32();
             SortedDictionary<string, string> LevelNames = new SortedDictionary<string, string>();
@@ -75,6 +82,20 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 [JsonConverter(typeof(StringEnumConverter))]
 public enum LevelType
 {
-    Enemy,
-    Shop
+    Enemy = 0,
+    Shop = 1
+}
+
+/// <summary>
+/// 关卡主题分类
+/// </summary>
+[JsonConverter(typeof(StringEnumConverter))]
+public enum LevelThemeCategory
+{
+    Soldiers = 0,
+    Spells = 1,
+    Equips = 2,
+    Energy = 3,
+    LifeMetalEnergyBudget = 4,
+    Heros = 5
 }

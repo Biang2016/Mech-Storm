@@ -177,7 +177,7 @@ public class GameProxy
 
                         int AI_ClientId = 998;
                         BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
-                        clientB.BuildInfo = ((Enemy) BuildStoryDatabase.Instance.PlayerStoryStates[UserName].StoryLevels[r.LevelID]).BuildInfo.Clone();
+                        clientB.BuildInfo = ((Enemy) BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Chapters[r.ChapterID].Levels[r.LevelID]).BuildInfo.Clone();
 
                         CurrentBattle = new Battle(clientA, clientB, DebugLog);
 

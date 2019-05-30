@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CostStatBar : PoolObject
+public class LevelEditorPanel_CostStatBar : PoolObject
 {
-    private CostStatBar()
+    private LevelEditorPanel_CostStatBar()
     {
     }
 

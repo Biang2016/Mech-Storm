@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -36,6 +37,7 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);
 
         InitializeCardPropertyForm();
+        InitializeLevelList();
     }
 
     void Start()
@@ -60,7 +62,7 @@ public class StoryEditorPanel : BaseUIForm
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
 
-    #region Left LevelProperties
+    #region Left StoryProperties
 
     public Transform StoryPropertiesContainer;
 
@@ -68,6 +70,7 @@ public class StoryEditorPanel : BaseUIForm
 
     private List<PropertyFormRow> MyPropertiesRows = new List<PropertyFormRow>();
     private StoryPropertyForm_GamePlaySettings Row_GamePlaySettings;
+    private StoryPropertyForm_Chapters Row_Chapters;
 
     private void InitializeCardPropertyForm()
     {
@@ -77,10 +80,14 @@ public class StoryEditorPanel : BaseUIForm
         }
 
         MyPropertiesRows.Clear();
+        Row_GamePlaySettings?.PoolRecycle();
+        Row_Chapters?.PoolRecycle();
+        MyPropertiesRows.Clear();
 
         PropertyFormRow Row_StoryName = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorWindow_StoryNameLabelText", OnStoryNameChange, out SetStoryName);
         Row_GamePlaySettings = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_GamePlaySettings].AllocateGameObject<StoryPropertyForm_GamePlaySettings>(StoryPropertiesContainer);
         Row_GamePlaySettings.Initialize();
+        Row_Chapters = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_Chapters].AllocateGameObject<StoryPropertyForm_Chapters>(StoryPropertiesContainer);
     }
 
     private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
@@ -104,6 +111,12 @@ public class StoryEditorPanel : BaseUIForm
         Cur_Story = story;
         Row_GamePlaySettings.SetGamePlaySettings(story.StoryGamePlaySettings);
         SetStoryName(story.StoryName);
+        Row_Chapters.Initialize(Cur_Story.Chapters, onChangeSelectedChapter:
+            delegate(Chapter chaper)
+            {
+                //TODO
+                NoticeManager.Instance.ShowInfoPanelCenter(chaper.ChapterNames["zh"], 0, 1f);
+            });
         return false;
     }
 
@@ -145,6 +158,27 @@ public class StoryEditorPanel : BaseUIForm
     #endregion
 
     #region Right Level List
+
+    public Transform LevelListContainer;
+
+    private List<StoryEditorPanel_LevelButton> MyLevelButtons = new List<StoryEditorPanel_LevelButton>();
+
+    private void InitializeLevelList()
+    {
+        foreach (StoryEditorPanel_LevelButton btn in MyLevelButtons)
+        {
+            btn.PoolRecycle();
+        }
+
+        MyLevelButtons.Clear();
+
+        foreach (BuildInfo bi in BuildStoryDatabase.Instance.BuildGroupDict[BuildGroups.EnemyBuilds].AllBuildInfo())
+        {
+            StoryEditorPanel_LevelButton levelButton = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_LevelButton].AllocateGameObject<StoryEditorPanel_LevelButton>(LevelListContainer);
+            levelButton.Initialize(0, bi.BuildName, bi.CardCount, bi.Life, bi.Energy);
+            MyLevelButtons.Add(levelButton);
+        }
+    }
 
     #endregion
 }
