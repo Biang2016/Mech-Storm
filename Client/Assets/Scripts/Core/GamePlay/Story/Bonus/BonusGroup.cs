@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 public class BonusGroup : Probability, IClone<BonusGroup>
 {
@@ -28,6 +29,29 @@ public class BonusGroup : Probability, IClone<BonusGroup>
     public BonusGroup Clone()
     {
         return new BonusGroup(IsAlways, CloneVariantUtils.List(Bonuses), Probability, Singleton);
+    }
+
+    public void ExportToXML(XmlElement parent_ele)
+    {
+        XmlDocument doc = parent_ele.OwnerDocument;
+        XmlElement bonusGroupInfo_ele = doc.CreateElement("BonusGroupInfo");
+        parent_ele.AppendChild(bonusGroupInfo_ele);
+
+        bonusGroupInfo_ele.SetAttribute("isAlways", IsAlways.ToString());
+        if (!IsAlways)
+        {
+            bonusGroupInfo_ele.SetAttribute("probability", Probability.ToString());
+            bonusGroupInfo_ele.SetAttribute("singleton", Singleton.ToString());
+        }
+
+        foreach (Bonus b in Bonuses)
+        {
+            XmlElement bonus_ele = doc.CreateElement("BonusInfo");
+            bonusGroupInfo_ele.AppendChild(bonus_ele);
+
+            bonus_ele.SetAttribute("name", b.M_BonusType.ToString());
+            bonus_ele.SetAttribute("value", b.BonusFinalValue.ToString());
+        }
     }
 
     public void Serialize(DataStream writer)

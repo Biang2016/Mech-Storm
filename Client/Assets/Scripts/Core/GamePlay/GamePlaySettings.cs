@@ -1,4 +1,6 @@
-﻿public class GamePlaySettings
+﻿using System.Xml;
+
+public class GamePlaySettings
 {
     public static GamePlaySettings OnlineGamePlaySettings = new GamePlaySettings(
         drawCardPerRound: 2,
@@ -74,6 +76,24 @@
     public int DefaultMaxCoin
     {
         get { return DefaultCoin + (DefaultLife - DefaultLifeMin) * LifeToCoin + DefaultEnergy * EnergyToCoin + DrawCardNumToCoin[DefaultDrawCardNum] - DrawCardNumToCoin[MinDrawCardNum]; }
+    }
+
+    public void ExportToXML(XmlElement parent_ele)
+    {
+        XmlDocument doc = parent_ele.OwnerDocument;
+        XmlElement gps_ele = doc.CreateElement("GamePlaySettings");
+        parent_ele.AppendChild(gps_ele);
+
+        gps_ele.SetAttribute("DefaultCoin", DefaultCoin.ToString());
+        gps_ele.SetAttribute("DefaultDrawCardNum", DefaultDrawCardNum.ToString());
+        gps_ele.SetAttribute("DefaultEnergy", DefaultEnergy.ToString());
+        gps_ele.SetAttribute("DefaultEnergyMax", DefaultEnergyMax.ToString());
+        gps_ele.SetAttribute("DefaultLife", DefaultLife.ToString());
+        gps_ele.SetAttribute("DefaultLifeMax", DefaultLifeMax.ToString());
+        gps_ele.SetAttribute("DefaultLifeMin", DefaultLifeMin.ToString());
+        gps_ele.SetAttribute("DrawCardPerRound", DrawCardPerRound.ToString());
+        gps_ele.SetAttribute("MaxDrawCardNum", MaxDrawCardNum.ToString());
+        gps_ele.SetAttribute("MinDrawCardNum", MinDrawCardNum.ToString());
     }
 
     public GamePlaySettings Clone()

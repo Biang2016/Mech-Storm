@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 
 public class Chapter : IClone<Chapter>, IVariant<Chapter>
 {
@@ -39,6 +40,36 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         //TODO 各pace之间的连接关系Variant，以及入口关卡设置
 
         return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces);
+    }
+
+    public void ExportToXML(XmlElement parent_ele)
+    {
+        XmlDocument doc = parent_ele.OwnerDocument;
+        XmlElement chapter_ele = doc.CreateElement("Chapter");
+        parent_ele.AppendChild(chapter_ele);
+
+        chapter_ele.SetAttribute("chapterID", ChapterID.ToString());
+        chapter_ele.SetAttribute("name_en", ChapterNames["en"]);
+        chapter_ele.SetAttribute("name_zh", ChapterNames["zh"]);
+
+        XmlElement enemies_ele = doc.CreateElement("EnemyInfos");
+        chapter_ele.AppendChild(enemies_ele);
+
+        XmlElement shops_ele = doc.CreateElement("ShopInfos");
+        chapter_ele.AppendChild(shops_ele);
+
+        foreach (KeyValuePair<int, Level> kv in Levels)
+        {
+            if (kv.Value.LevelType == LevelType.Enemy)
+            {
+                XmlElement enemy_ele = doc.CreateElement("EnemyInfo");
+                enemies_ele.AppendChild(enemy_ele);
+                enemy_ele.SetAttribute("name", ((Enemy) kv.Value).LevelNames["en"]);
+            }
+            else if (kv.Value.LevelType == LevelType.Shop)
+            {
+            }
+        }
     }
 
     public Chapter Clone()

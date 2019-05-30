@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Xml;
 
 public class BuildInfo : IClone<BuildInfo>
 {
@@ -400,6 +402,35 @@ public class BuildInfo : IClone<BuildInfo>
         if (BeginMetal != targetBuildInfo.BeginMetal) return false;
 
         return true;
+    }
+
+    public void ExportToXML(XmlElement parent_ele)
+    {
+        XmlDocument doc = parent_ele.OwnerDocument;
+        XmlElement buildInfo_Node = doc.CreateElement("BuildInfo");
+        parent_ele.AppendChild(buildInfo_Node);
+
+        XmlElement baseInfo = doc.CreateElement("Info");
+        buildInfo_Node.AppendChild(baseInfo);
+        baseInfo.SetAttribute("name", "baseInfo");
+        baseInfo.SetAttribute("BuildName", BuildName);
+        baseInfo.SetAttribute("DrawCardNum", DrawCardNum.ToString());
+        baseInfo.SetAttribute("Life", Life.ToString());
+        baseInfo.SetAttribute("Energy", Energy.ToString());
+        baseInfo.SetAttribute("BeginMetal", BeginMetal.ToString());
+        baseInfo.SetAttribute("IsHighLevelCardLocked", IsHighLevelCardLocked.ToString());
+
+        XmlElement cardIDs = doc.CreateElement("Info");
+        buildInfo_Node.AppendChild(cardIDs);
+        cardIDs.SetAttribute("name", "cardIDs");
+        StringBuilder sb = new StringBuilder();
+        foreach (KeyValuePair<int, BuildCards.CardSelectInfo> kv in M_BuildCards.CardSelectInfos)
+        {
+            sb.Append(string.Format("({0},{1},{2});", kv.Value.CardID, kv.Value.CardSelectCount, kv.Value.CardSelectUpperLimit));
+        }
+
+        string cardID_str = sb.ToString().Trim(';');
+        cardIDs.SetAttribute("ids", cardID_str);
     }
 
     public void Serialize(DataStream writer)

@@ -154,30 +154,7 @@ public class AllBuilds
 
         foreach (BuildInfo buildInfo in builds.Builds.Values)
         {
-            XmlElement buildInfo_Node = doc.CreateElement("BuildInfo");
-            ele.AppendChild(buildInfo_Node);
-
-            XmlElement baseInfo = doc.CreateElement("Info");
-            buildInfo_Node.AppendChild(baseInfo);
-            baseInfo.SetAttribute("name", "baseInfo");
-            baseInfo.SetAttribute("BuildName", buildInfo.BuildName);
-            baseInfo.SetAttribute("DrawCardNum", buildInfo.DrawCardNum.ToString());
-            baseInfo.SetAttribute("Life", buildInfo.Life.ToString());
-            baseInfo.SetAttribute("Energy", buildInfo.Energy.ToString());
-            baseInfo.SetAttribute("BeginMetal", buildInfo.BeginMetal.ToString());
-            baseInfo.SetAttribute("IsHighLevelCardLocked", buildInfo.IsHighLevelCardLocked.ToString());
-
-            XmlElement cardIDs = doc.CreateElement("Info");
-            buildInfo_Node.AppendChild(cardIDs);
-            cardIDs.SetAttribute("name", "cardIDs");
-            StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in buildInfo.M_BuildCards.CardSelectInfos)
-            {
-                sb.Append(string.Format("({0},{1},{2});", kv.Value.CardID, kv.Value.CardSelectCount, kv.Value.CardSelectUpperLimit));
-            }
-
-            string cardID_str = sb.ToString().Trim(';');
-            cardIDs.SetAttribute("ids", cardID_str);
+            buildInfo.ExportToXML(ele);
         }
 
         doc.Save(BuildDirectory + builds.ManagerName + ".xml");
@@ -193,6 +170,5 @@ public enum BuildGroups
 {
     EnemyBuilds = 1,
     OnlineBuilds = 2,
-    StoryBuilds = 3,
-    CustomBuilds = 4
+    CustomBuilds = 3
 }

@@ -5,8 +5,10 @@ using System.Xml;
 
 public class AllLevels
 {
-    private static string EnemyDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Enemies/";
-    private static string ShopDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Shops/";
+    public static string EnemyDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Enemies/";
+    public static string ShopDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Shops/";
+
+    public static string DefaultEnemyXML => EnemyDirectory + "DefaultEnemies.xml";
 
     public static Dictionary<string, Enemy> EnemyDict = new Dictionary<string, Enemy>();
     public static Dictionary<string, Shop> ShopDict = new Dictionary<string, Shop>();
@@ -139,7 +141,7 @@ public class AllLevels
 
     public static BonusGroup GetBonusGroupFromXML(XmlNode bonusGroupInfo)
     {
-        bool isAlways = bonusGroupInfo.Attributes["type"].Value == "Always";
+        bool isAlways = bonusGroupInfo.Attributes["isAlways"].Value == "True";
         List<Bonus> bonuses = new List<Bonus>();
         int probability = 0;
         bool singleton = false;
@@ -165,6 +167,60 @@ public class AllLevels
         }
 
         return bg;
+    }
+
+    public static void ReloadLevelXML()
+    {
+        AddAllLevels();
+    }
+
+    public static void RefreshLevelXML(Level level)
+    {
+        switch (level)
+        {
+            case Enemy enemy:
+            {
+                RefreshEnemyXML(enemy);
+                break;
+            }
+            case Shop shop:
+            {
+                RefreshShopXML(shop);
+                break;
+            }
+        }
+    }
+
+    private static void RefreshEnemyXML(Enemy enemy)
+    {
+        if (EnemyDict.ContainsKey(enemy.LevelNames["en"]))
+        {
+            EnemyDict[enemy.LevelNames["en"]] = enemy;
+        }
+        else
+        {
+            EnemyDict.Add(enemy.LevelNames["en"], enemy);
+        }
+
+        string text;
+        using (StreamReader sr = new StreamReader(DefaultEnemyXML))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allEnemies = doc.DocumentElement;
+        enemy.ExportToXML(allEnemies);
+
+        using (StreamWriter sw = new StreamWriter(DefaultEnemyXML))
+        {
+            doc.Save(sw);
+        }
+    }
+
+    private static void RefreshShopXML(Shop shop)
+    {
     }
 
     public static void Reset()

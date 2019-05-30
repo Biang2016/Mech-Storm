@@ -154,7 +154,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         return newCardInfo_Base;
     }
 
-    public void BaseExportToXML(XmlElement allCard_ele)
+    public void ExportToXML(XmlElement allCard_ele)
     {
         XmlDocument doc = allCard_ele.OwnerDocument;
         XmlElement old_node = null;

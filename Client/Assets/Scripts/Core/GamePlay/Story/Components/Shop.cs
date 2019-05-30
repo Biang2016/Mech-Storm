@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 public class Shop : Level
 {
@@ -18,6 +19,11 @@ public class Shop : Level
     {
         //TODO
         return null;
+    }
+
+    protected override void ChildrenExportToXML(XmlElement level_ele)
+    {
+        
     }
 
     public override void Serialize(DataStream writer)

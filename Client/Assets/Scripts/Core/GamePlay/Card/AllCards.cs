@@ -414,7 +414,7 @@ public static class AllCards
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
         XmlElement allCards = doc.DocumentElement;
-        ci.BaseExportToXML(allCards);
+        ci.ExportToXML(allCards);
         SortedDictionary<int, XmlElement> cardNodesDict = new SortedDictionary<int, XmlElement>();
         foreach (XmlElement node in allCards.ChildNodes)
         {
@@ -446,7 +446,7 @@ public static class AllCards
         XmlElement allCards = doc.DocumentElement;
         foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
         {
-            kv.Value.BaseExportToXML(allCards);
+            kv.Value.ExportToXML(allCards);
         }
 
         SortedDictionary<int, XmlElement> cardNodesDict = new SortedDictionary<int, XmlElement>();

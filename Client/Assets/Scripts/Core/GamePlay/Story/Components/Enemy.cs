@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEditor;
 
 public class Enemy : Level
@@ -29,6 +30,29 @@ public class Enemy : Level
     {
         //TODO
         return null;
+    }
+
+    protected override void ChildrenExportToXML(XmlElement level_ele)
+    {
+        XmlDocument doc = level_ele.OwnerDocument;
+        XmlElement enemy_ele = doc.CreateElement("EnemyInfo");
+        level_ele.AppendChild(enemy_ele);
+
+        enemy_ele.SetAttribute("enemyType", EnemyType.ToString());
+        BuildInfo.ExportToXML(enemy_ele);
+
+        XmlElement bonusGroupInfos_ele = doc.CreateElement("BonusGroupInfos");
+        enemy_ele.AppendChild(bonusGroupInfos_ele);
+
+        foreach (BonusGroup bg in AlwaysBonusGroup)
+        {
+            bg.ExportToXML(bonusGroupInfos_ele);
+        }
+
+        foreach (BonusGroup bg in OptionalBonusGroup)
+        {
+            bg.ExportToXML(bonusGroupInfos_ele);
+        }
     }
 
     public override void Serialize(DataStream writer)

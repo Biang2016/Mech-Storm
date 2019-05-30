@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -137,6 +138,10 @@ public class StoryEditorPanel : BaseUIForm
 
     public void SaveStory()
     {
+        AllStories.RefreshStoryXML(Cur_Story);
+        AllStories.ReloadStoryXML();
+        SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
+        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
     }
 
     public void ResetStory()
@@ -178,7 +183,7 @@ public class StoryEditorPanel : BaseUIForm
 
     private List<StoryEditorPanel_EnemyButton> MyEnemyButtons = new List<StoryEditorPanel_EnemyButton>();
 
-    private void InitializeLevelList()
+    public void InitializeLevelList()
     {
         foreach (StoryEditorPanel_EnemyButton btn in MyEnemyButtons)
         {

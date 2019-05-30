@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -23,6 +24,36 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 
     public abstract Level Clone();
     public abstract Level Variant();
+
+    public void ExportToXML(XmlElement allLevel_ele)
+    {
+        XmlDocument doc = allLevel_ele.OwnerDocument;
+        XmlElement old_node = null;
+        foreach (XmlElement level_node in allLevel_ele.ChildNodes)
+        {
+            if (level_node.Attributes["name_en"].Value.Equals(LevelNames["en"]))
+            {
+                old_node = level_node;
+            }
+        }
+
+        if (old_node != null)
+        {
+            allLevel_ele.RemoveChild(old_node);
+        }
+
+        XmlElement level_ele = doc.CreateElement("LevelInfo");
+        allLevel_ele.AppendChild(level_ele);
+        level_ele.SetAttribute("name_en", LevelNames["en"]);
+        level_ele.SetAttribute("name_zh", LevelNames["zh"]);
+        level_ele.SetAttribute("picID", LevelPicID.ToString());
+        level_ele.SetAttribute("levelThemeCategory", LevelThemeCategory.ToString());
+        level_ele.SetAttribute("levelType", LevelType.ToString());
+
+        ChildrenExportToXML(level_ele);
+    }
+
+    protected abstract void ChildrenExportToXML(XmlElement level_ele);
 
     public virtual void Serialize(DataStream writer)
     {

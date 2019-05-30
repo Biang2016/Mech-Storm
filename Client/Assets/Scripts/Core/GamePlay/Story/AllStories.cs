@@ -5,7 +5,7 @@ using System.Xml;
 
 public class AllStories
 {
-    private static string StoriesDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/";
+    public static string StoriesDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/";
 
     public static Dictionary<string, Story> StoryDict = new Dictionary<string, Story>();
 
@@ -60,6 +60,32 @@ public class AllStories
         }
 
         return null;
+    }
+
+    public static void ReloadStoryXML()
+    {
+        AddAllStories();
+    }
+
+    public static void RefreshStoryXML(Story story)
+    {
+        FileInfo fi = new FileInfo(StoriesDirectory + story.StoryName + ".xml");
+
+        if (StoryDict.ContainsKey(story.StoryName))
+        {
+            StoryDict[story.StoryName] = story;
+        }
+
+        XmlDocument doc = new XmlDocument();
+        story.ExportToXML(doc);
+        XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", "utf-8", null);
+        XmlElement root = doc.DocumentElement;
+        doc.InsertBefore(xmldecl, root);
+
+        using (StreamWriter sw = new StreamWriter(fi.FullName))
+        {
+            doc.Save(sw);
+        }
     }
 
     public static GamePlaySettings GetGamePlaySettingsFromXML(XmlNode node_gps)

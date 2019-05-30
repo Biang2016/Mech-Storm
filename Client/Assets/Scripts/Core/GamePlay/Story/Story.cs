@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 public class Story : IClone<Story>, IVariant<Story>
 {
@@ -63,6 +64,26 @@ public class Story : IClone<Story>, IVariant<Story>
             CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
             PlayerBuildInfos, StoryGamePlaySettings.Clone());
         return newStory;
+    }
+
+    public void ExportToXML(XmlDocument doc)
+    {
+        XmlElement story_ele = doc.CreateElement("Story");
+        doc.AppendChild(story_ele);
+        foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
+        {
+            kv.Value.ExportToXML(story_ele);
+            break;
+        }
+
+        StoryGamePlaySettings.ExportToXML(story_ele);
+
+        XmlElement chapters_ele = doc.CreateElement("Chapters");
+        story_ele.AppendChild(chapters_ele);
+        foreach (KeyValuePair<int, Chapter> kv in Chapters)
+        {
+            kv.Value.ExportToXML(chapters_ele);
+        }
     }
 
     private void RefreshLevelPointer()

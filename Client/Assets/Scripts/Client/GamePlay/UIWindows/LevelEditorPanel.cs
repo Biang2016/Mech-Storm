@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -22,8 +24,9 @@ public class LevelEditorPanel : BaseUIForm
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
-        SaveLevelButton.onClick.AddListener(delegate { SaveLevel?.Invoke(); });
+        SaveLevelButton.onClick.AddListener(SaveLevel);
         ResetLevelButton.onClick.AddListener(ResetLevel);
+        ReturnToStoryEditorButton.onClick.AddListener(ReturnToStoryEditor);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -41,7 +44,6 @@ public class LevelEditorPanel : BaseUIForm
         InitializeCardPropertyForm();
         InitializePreviewCardGrid();
         PicSelectPanel.OnClickPicAction = SetLevelPicID;
-        ReturnToStoryEditorButton.onClick.AddListener(ReturnToStoryEditor);
         PicSelectPanel.InitializePicSelectGrid("LevelEditorPanel_PicSelectGridLabel");
     }
 
@@ -56,17 +58,23 @@ public class LevelEditorPanel : BaseUIForm
         LanguageDropdown.value = LanguageManager.Instance.LanguagesShorts.IndexOf(LanguageManager.Instance.GetCurrentLanguage());
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
+
+        OnLanguageChange(0);
     }
 
     private void OnLanguageChange(int _)
     {
+        foreach (KeyValuePair<int, CardBase> kv in AllCards)
+        {
+            kv.Value.RefreshCardTextLanguage();
+        }
     }
 
     private void ReturnToStoryEditor()
     {
         CloseUIForm();
-        UIManager.Instance.ShowUIForms<StoryEditorPanel>();
-        //TODO 
+        StoryEditorPanel sep = UIManager.Instance.ShowUIForms<StoryEditorPanel>();
+        sep.InitializeLevelList();
     }
 
     [SerializeField] private Text LevelEditorWindowText;
@@ -147,7 +155,6 @@ public class LevelEditorPanel : BaseUIForm
         LevelTypePropertiesDict[LevelType.Shop] = new List<PropertyFormRow>
         {
         };
-
 
         SetLevel(null);
     }
@@ -336,9 +343,12 @@ public class LevelEditorPanel : BaseUIForm
         return false;
     }
 
-    public delegate void SaveLevelDelegate();
-
-    public SaveLevelDelegate SaveLevel;
+    public void SaveLevel()
+    {
+        AllLevels.RefreshLevelXML(Cur_Level);
+        AllLevels.ReloadLevelXML();
+        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+    }
 
     public void ResetLevel()
     {
