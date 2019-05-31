@@ -90,8 +90,6 @@ public class AllStories
 
     public static GamePlaySettings GetGamePlaySettingsFromXML(XmlNode node_gps)
     {
-        int DrawCardPerRound = int.Parse(node_gps.Attributes["DrawCardPerRound"].Value);
-
         int DefaultCoin = int.Parse(node_gps.Attributes["DefaultCoin"].Value);
         int DefaultLife = int.Parse(node_gps.Attributes["DefaultLife"].Value);
         int DefaultLifeMax = int.Parse(node_gps.Attributes["DefaultLifeMax"].Value);
@@ -104,8 +102,6 @@ public class AllStories
         int MaxDrawCardNum = int.Parse(node_gps.Attributes["MaxDrawCardNum"].Value);
 
         GamePlaySettings gps = new GamePlaySettings();
-        gps.DrawCardPerRound = DrawCardPerRound;
-
         gps.DefaultCoin = DefaultCoin;
         gps.DefaultLife = DefaultLife;
         gps.DefaultLifeMax = DefaultLifeMax;

@@ -252,10 +252,25 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_Level is Enemy enemy)
+            if (value < 1)
             {
-                enemy.BuildInfo.DrawCardNum = value;
+                SetEnemyDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString());
             }
+            else if (value <= GamePlaySettings.SystemMaxDrawCardNum)
+            {
+                if (Cur_Level is Enemy enemy)
+                {
+                    enemy.BuildInfo.DrawCardNum = value;
+                }
+            }
+            else
+            {
+                SetEnemyDrawCardNum(GamePlaySettings.SystemMaxDrawCardNum.ToString());
+            }
+        }
+        else
+        {
+            SetEnemyDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString());
         }
     }
 
@@ -265,10 +280,26 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_Level is Enemy enemy)
+            if (value <= 0)
             {
-                enemy.BuildInfo.Life = value;
+                SetEnemyLife(GamePlaySettings.SystemMinLife.ToString());
             }
+            else if (value <= GamePlaySettings.SystemMaxLife)
+            {
+                if (Cur_Level is Enemy enemy)
+                {
+                    enemy.BuildInfo.Life = value;
+                }
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyLifeMax"), GamePlaySettings.SystemMaxLife), 0, 0.5f);
+                SetEnemyLife(GamePlaySettings.SystemMaxLife.ToString());
+            }
+        }
+        else
+        {
+            SetEnemyLife(GamePlaySettings.SystemMinLife.ToString());
         }
     }
 
@@ -278,10 +309,26 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_Level is Enemy enemy)
+            if (value < 0)
             {
-                enemy.BuildInfo.Energy = value;
+                SetEnemyEnergy(0.ToString());
             }
+            else if (value <= GamePlaySettings.SystemMaxEnergy)
+            {
+                if (Cur_Level is Enemy enemy)
+                {
+                    enemy.BuildInfo.Energy = value;
+                }
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyEnergyMax"), GamePlaySettings.SystemMaxEnergy), 0, 0.5f);
+                SetEnemyEnergy(GamePlaySettings.SystemMaxEnergy.ToString());
+            }
+        }
+        else
+        {
+            SetEnemyEnergy(0.ToString());
         }
     }
 
@@ -291,10 +338,25 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_Level is Enemy enemy)
+            if (value < 0)
             {
-                enemy.BuildInfo.BeginMetal = value;
+                SetEnemyBeginMetal(0.ToString());
             }
+            else if (value <= GamePlaySettings.SystemMaxMetal)
+            {
+                if (Cur_Level is Enemy enemy)
+                {
+                    enemy.BuildInfo.BeginMetal = value;
+                }
+            }
+            else
+            {
+                SetEnemyBeginMetal(GamePlaySettings.SystemMaxMetal.ToString());
+            }
+        }
+        else
+        {
+            SetEnemyBeginMetal(1.ToString());
         }
     }
 

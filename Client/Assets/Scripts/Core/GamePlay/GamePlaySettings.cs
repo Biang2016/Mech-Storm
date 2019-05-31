@@ -3,7 +3,6 @@
 public class GamePlaySettings
 {
     public static GamePlaySettings OnlineGamePlaySettings = new GamePlaySettings(
-        drawCardPerRound: 2,
         defaultCoin: 15000,
         defaultLife: 100,
         defaultLifeMax: 200,
@@ -16,7 +15,6 @@ public class GamePlaySettings
     );
 
     public static GamePlaySettings ServerGamePlaySettings = new GamePlaySettings(
-        drawCardPerRound: 2,
         defaultCoin: 30000,
         defaultLife: 100,
         defaultLifeMax: 999,
@@ -27,6 +25,13 @@ public class GamePlaySettings
         minDrawCardNum: 1,
         maxDrawCardNum: 5
     );
+
+    public static int SystemMinLife = 1;
+    public static int SystemMaxLife = 10000;
+    public static int SystemMaxEnergy = 200;
+    public static int SystemMaxMetal = 10;
+    public static int SystemMaxDrawCardNum = 5;
+    public static int SystemMinDrawCardNum = 1;
 
     public static int MaxHandCard = 30;
     public static int FirstDrawCard = 3;
@@ -42,12 +47,10 @@ public class GamePlaySettings
     public static int EnergyToCoin = 50;
     public static int[] DrawCardNumToCoin = new[] {0, 10000, 15000, 18000, 23000, 26000};
 
-    public int DrawCardPerRound = 2;
-
-    public int DefaultCoin = 15000;
+    public int DefaultCoin = 1500;
     public int DefaultLife = 100;
-    public int DefaultLifeMax = 200;
-    public int DefaultLifeMin = 50;
+    public int DefaultLifeMax = 1000;
+    public int DefaultLifeMin = 20;
     public int DefaultEnergy = 10;
     public int DefaultEnergyMax = 50;
 
@@ -59,9 +62,8 @@ public class GamePlaySettings
     {
     }
 
-    public GamePlaySettings(int drawCardPerRound, int defaultCoin, int defaultLife, int defaultLifeMax, int defaultLifeMin, int defaultEnergy, int defaultEnergyMax, int defaultDrawCardNum, int minDrawCardNum, int maxDrawCardNum)
+    public GamePlaySettings(int defaultCoin, int defaultLife, int defaultLifeMax, int defaultLifeMin, int defaultEnergy, int defaultEnergyMax, int defaultDrawCardNum, int minDrawCardNum, int maxDrawCardNum)
     {
-        DrawCardPerRound = drawCardPerRound;
         DefaultCoin = defaultCoin;
         DefaultLife = defaultLife;
         DefaultLifeMax = defaultLifeMax;
@@ -91,7 +93,6 @@ public class GamePlaySettings
         gps_ele.SetAttribute("DefaultLife", DefaultLife.ToString());
         gps_ele.SetAttribute("DefaultLifeMax", DefaultLifeMax.ToString());
         gps_ele.SetAttribute("DefaultLifeMin", DefaultLifeMin.ToString());
-        gps_ele.SetAttribute("DrawCardPerRound", DrawCardPerRound.ToString());
         gps_ele.SetAttribute("MaxDrawCardNum", MaxDrawCardNum.ToString());
         gps_ele.SetAttribute("MinDrawCardNum", MinDrawCardNum.ToString());
     }
@@ -99,7 +100,6 @@ public class GamePlaySettings
     public GamePlaySettings Clone()
     {
         GamePlaySettings gps = new GamePlaySettings(
-            drawCardPerRound: DrawCardPerRound,
             defaultCoin: DefaultCoin,
             defaultLife: DefaultLife,
             defaultLifeMax: DefaultLifeMax,
@@ -115,8 +115,6 @@ public class GamePlaySettings
 
     public void Serialize(DataStream writer)
     {
-        writer.WriteSInt32(DrawCardPerRound);
-
         writer.WriteSInt32(DefaultCoin);
         writer.WriteSInt32(DefaultLife);
         writer.WriteSInt32(DefaultLifeMax);
@@ -132,8 +130,6 @@ public class GamePlaySettings
     public static GamePlaySettings Deserialize(DataStream reader)
     {
         GamePlaySettings res = new GamePlaySettings();
-        res.DrawCardPerRound = reader.ReadSInt32();
-
         res.DefaultCoin = reader.ReadSInt32();
         res.DefaultLife = reader.ReadSInt32();
         res.DefaultLifeMax = reader.ReadSInt32();

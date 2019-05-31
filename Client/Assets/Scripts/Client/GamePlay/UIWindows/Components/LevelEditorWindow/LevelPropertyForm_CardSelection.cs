@@ -13,8 +13,10 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
     private List<LevelEditorPanel_CostStatBar> CostStatBars_Metal = new List<LevelEditorPanel_CostStatBar>();
     [SerializeField] private Transform CostStatBarContainer_Metal;
+    [SerializeField] private Image CostStatBarBaseLine_Metal;
     private List<LevelEditorPanel_CostStatBar> CostStatBars_Energy = new List<LevelEditorPanel_CostStatBar>();
     [SerializeField] private Transform CostStatBarContainer_Energy;
+    [SerializeField] private Image CostStatBarBaseLine_Energy;
 
     [SerializeField] private Button GoToButton;
 
@@ -138,7 +140,7 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
         foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByMetal(cardStatType))
         {
             LevelEditorPanel_CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_CostStatBar].AllocateGameObject<LevelEditorPanel_CostStatBar>(CostStatBarContainer_Metal);
-            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Metal, LevelEditorPanel_CostStatBar.ColorTypes.Metal);
+            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Metal, LevelEditorPanel_CostStatBar.ColorTypes.Metal, CostStatBarBaseLine_Metal);
             CostStatBars_Metal.Add(csb);
         }
 
@@ -153,7 +155,7 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
         foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByEnergy(cardStatType))
         {
             LevelEditorPanel_CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_CostStatBar].AllocateGameObject<LevelEditorPanel_CostStatBar>(CostStatBarContainer_Energy);
-            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Energy, LevelEditorPanel_CostStatBar.ColorTypes.Energy);
+            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Energy, LevelEditorPanel_CostStatBar.ColorTypes.Energy, CostStatBarBaseLine_Energy);
             CostStatBars_Energy.Add(csb);
         }
     }

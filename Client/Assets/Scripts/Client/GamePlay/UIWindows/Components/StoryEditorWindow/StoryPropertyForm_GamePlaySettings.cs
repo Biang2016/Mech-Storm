@@ -39,7 +39,6 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
 
         PropertyFormRows.Clear();
 
-        PropertyFormRow Row_DrawCardPerRound = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_DrawCardPerRoundLabelText", OnDrawCardPerRoundChange, out SetDrawCardPerRound);
         PropertyFormRow Row_DefaultCoin = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_DefaultCoinLabelText", OnDefaultCoinChange, out SetDefaultCoin);
         PropertyFormRow Row_DefaultLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_DefaultLifeLabelText", OnDefaultLifeChange, out SetDefaultLife);
         PropertyFormRow Row_DefaultLifeMax = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_DefaultLifeMaxLabelText", OnDefaultLifeMaxChange, out SetDefaultLifeMax);
@@ -55,7 +54,6 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         Cur_GamePlaySettings = gamePlaySettings;
 
-        SetDrawCardPerRound(Cur_GamePlaySettings.DrawCardPerRound.ToString());
         SetDefaultCoin(Cur_GamePlaySettings.DefaultCoin.ToString());
         SetDefaultLife(Cur_GamePlaySettings.DefaultLife.ToString());
         SetDefaultLifeMax(Cur_GamePlaySettings.DefaultLifeMax.ToString());
@@ -74,29 +72,24 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
         return cpfr;
     }
 
-    private UnityAction<string> SetDrawCardPerRound;
-
-    private void OnDrawCardPerRoundChange(string value_str)
-    {
-        if (int.TryParse(value_str, out int value))
-        {
-            if (Cur_GamePlaySettings != null)
-            {
-                Cur_GamePlaySettings.DefaultDrawCardNum = value;
-            }
-        }
-    }
-
     private UnityAction<string> SetDefaultCoin;
 
     private void OnDefaultCoinChange(string value_str)
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value <= 0)
+            {
+                SetDefaultCoin(1500.ToString());
+            }
+            else
             {
                 Cur_GamePlaySettings.DefaultCoin = value;
             }
+        }
+        else
+        {
+            SetDefaultCoin(1500.ToString());
         }
     }
 
@@ -106,10 +99,22 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < Cur_GamePlaySettings.DefaultLifeMin)
+            {
+                SetDefaultLife(Cur_GamePlaySettings.DefaultLifeMin.ToString());
+            }
+            else if (value > Cur_GamePlaySettings.DefaultLifeMax)
+            {
+                SetDefaultLife(Cur_GamePlaySettings.DefaultLifeMax.ToString());
+            }
+            else
             {
                 Cur_GamePlaySettings.DefaultLife = value;
             }
+        }
+        else
+        {
+            SetDefaultLife(Cur_GamePlaySettings.DefaultLifeMin.ToString());
         }
     }
 
@@ -119,10 +124,23 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < Cur_GamePlaySettings.DefaultLifeMin)
+            {
+                SetDefaultLifeMax(Cur_GamePlaySettings.DefaultLifeMin.ToString());
+            }
+            else if (value <= GamePlaySettings.SystemMaxLife)
             {
                 Cur_GamePlaySettings.DefaultLifeMax = value;
             }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyLifeMax"), GamePlaySettings.SystemMaxLife), 0, 0.5f);
+                SetDefaultLifeMax(GamePlaySettings.SystemMaxLife.ToString());
+            }
+        }
+        else
+        {
+            SetDefaultLifeMax(Cur_GamePlaySettings.DefaultLifeMin.ToString());
         }
     }
 
@@ -132,10 +150,22 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < GamePlaySettings.SystemMinLife)
+            {
+                SetDefaultLifeMin(GamePlaySettings.SystemMinLife.ToString());
+            }
+            else if (value > Cur_GamePlaySettings.DefaultLifeMax)
+            {
+                SetDefaultLifeMin(Cur_GamePlaySettings.DefaultLifeMax.ToString());
+            }
+            else
             {
                 Cur_GamePlaySettings.DefaultLifeMin = value;
             }
+        }
+        else
+        {
+            SetDefaultLifeMin(GamePlaySettings.SystemMinLife.ToString());
         }
     }
 
@@ -145,10 +175,30 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < 0)
             {
-                Cur_GamePlaySettings.DefaultEnergy = value;
+                SetDefaultEnergy(0.ToString());
             }
+            else if (value <= GamePlaySettings.SystemMaxEnergy)
+            {
+                if (value > Cur_GamePlaySettings.DefaultEnergyMax)
+                {
+                    SetDefaultEnergy(Cur_GamePlaySettings.DefaultEnergyMax.ToString());
+                }
+                else
+                {
+                    Cur_GamePlaySettings.DefaultEnergy = value;
+                }
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyEnergyMax"), GamePlaySettings.SystemMaxEnergy), 0, 0.5f);
+                SetDefaultEnergy(GamePlaySettings.SystemMaxEnergy.ToString());
+            }
+        }
+        else
+        {
+            SetDefaultEnergy(0.ToString());
         }
     }
 
@@ -158,10 +208,23 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < 0)
             {
-                Cur_GamePlaySettings.DefaultLifeMax = value;
+                SetDefaultEnergyMax(0.ToString());
             }
+            else if (value <= GamePlaySettings.SystemMaxEnergy)
+            {
+                Cur_GamePlaySettings.DefaultEnergyMax = value;
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyEnergyMax"), GamePlaySettings.SystemMaxEnergy), 0, 0.5f);
+                SetDefaultEnergyMax(GamePlaySettings.SystemMaxEnergy.ToString());
+            }
+        }
+        else
+        {
+            SetDefaultEnergyMax(GamePlaySettings.SystemMaxEnergy.ToString());
         }
     }
 
@@ -171,10 +234,22 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < Cur_GamePlaySettings.MinDrawCardNum)
+            {
+                SetDefaultDrawCardNum(Cur_GamePlaySettings.MinDrawCardNum.ToString());
+            }
+            else if (value > Cur_GamePlaySettings.MaxDrawCardNum)
+            {
+                SetDefaultDrawCardNum(Cur_GamePlaySettings.MaxDrawCardNum.ToString());
+            }
+            else
             {
                 Cur_GamePlaySettings.DefaultDrawCardNum = value;
             }
+        }
+        else
+        {
+            SetDefaultDrawCardNum(Cur_GamePlaySettings.MinDrawCardNum.ToString());
         }
     }
 
@@ -184,10 +259,22 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < GamePlaySettings.SystemMinDrawCardNum)
+            {
+                SetMinDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString());
+            }
+            else if (value > Cur_GamePlaySettings.MaxDrawCardNum)
+            {
+                SetMinDrawCardNum(Cur_GamePlaySettings.MaxDrawCardNum.ToString());
+            }
+            else
             {
                 Cur_GamePlaySettings.MinDrawCardNum = value;
             }
+        }
+        else
+        {
+            SetMinDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString());
         }
     }
 
@@ -197,10 +284,22 @@ public class StoryPropertyForm_GamePlaySettings : PropertyFormRow
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (Cur_GamePlaySettings != null)
+            if (value < Cur_GamePlaySettings.MinDrawCardNum)
+            {
+                SetMaxDrawCardNum(Cur_GamePlaySettings.MinDrawCardNum.ToString());
+            }
+            else if (value > GamePlaySettings.SystemMaxDrawCardNum)
+            {
+                SetMaxDrawCardNum(GamePlaySettings.SystemMaxDrawCardNum.ToString());
+            }
+            else
             {
                 Cur_GamePlaySettings.MaxDrawCardNum = value;
             }
+        }
+        else
+        {
+            SetMaxDrawCardNum(Cur_GamePlaySettings.MinDrawCardNum.ToString());
         }
     }
 }

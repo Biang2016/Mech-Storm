@@ -15,10 +15,14 @@ public class InputNavigator : MonoBehaviour, ISelectHandler, IDeselectHandler
         system = EventSystem.current;
     }
 
+    private static bool clickTabInFrame = false;
+
     void Update()
     {
+        if (clickTabInFrame) return;
         if (Input.GetKeyDown(KeyCode.Tab) && isSelect)
         {
+            clickTabInFrame = true;
             Selectable next = null;
             var sec = system.currentSelectedGameObject.GetComponent<Selectable>();
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
@@ -30,17 +34,30 @@ public class InputNavigator : MonoBehaviour, ISelectHandler, IDeselectHandler
             else
             {
                 next = sec.FindSelectableOnDown();
-                if (next == null)
-                    next = sec;
+
+                if (next == null) //Recycle
+                {
+                    Selectable temp = sec;
+                    Selectable temp_notNull = temp;
+                    while (temp != null)
+                    {
+                        temp_notNull = temp;
+                        temp = temp.FindSelectableOnUp();
+                    }
+
+                    next = temp_notNull;
+                }
             }
 
-            if (next != null)
-            {
-                var inputField = next.GetComponent<InputField>();
-                if (inputField == null) return;
-                system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
-            }
+            InputField inputField = next.GetComponent<InputField>();
+            if (inputField == null) return;
+            system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
         }
+    }
+
+    void LateUpdate()
+    {
+        clickTabInFrame = false;
     }
 
     public void OnSelect(BaseEventData eventData)

@@ -42,12 +42,33 @@ public class StoryEditorPanel : BaseUIForm
         ReturnToGamerButton.onClick.AddListener(ReturnToGame);
 
         InitializeCardPropertyForm();
+        GenerateStoryMap();
         InitializeLevelList();
     }
 
     void Start()
     {
         SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
+    }
+
+    void Update()
+    {
+#if PLATFORM_STANDALONE_OSX
+        KeyCode controlKey = KeyCode.LeftCommand;
+#elif PLATFORM_STANDALONE
+        KeyCode controlKey = KeyCode.LeftControl;
+#endif
+
+        bool controlPress = Input.GetKey(controlKey);
+        bool leftShiftPress = Input.GetKey(KeyCode.LeftShift);
+
+        if (controlPress)
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                SaveStory();
+            }
+        }
     }
 
     public override void Display()
@@ -108,9 +129,9 @@ public class StoryEditorPanel : BaseUIForm
 
     private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
-        PropertyFormRow cpfr = PropertyFormRow.BaseInitialize(type, StoryPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
-        MyPropertiesRows.Add(cpfr);
-        return cpfr;
+        PropertyFormRow row = PropertyFormRow.BaseInitialize(type, StoryPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
+        MyPropertiesRows.Add(row);
+        return row;
     }
 
     #endregion
@@ -128,13 +149,18 @@ public class StoryEditorPanel : BaseUIForm
         Row_GamePlaySettings.SetGamePlaySettings(story.StoryGamePlaySettings);
         SetStoryName(story.StoryName);
         Row_Chapters.Initialize(Cur_Story.Chapters, onChangeSelectedChapter:
-            delegate(Chapter chaper)
+            delegate(Chapter chapter)
             {
                 //TODO
-                NoticeManager.Instance.ShowInfoPanelCenter(chaper.ChapterNames["zh"], 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames["zh"], 0, 1f);
             });
         return false;
     }
+
+    [SerializeField] private Button SaveStoryButton;
+    [SerializeField] private Button ResetStoryButton;
+    [SerializeField] private Text SaveStoryButtonText;
+    [SerializeField] private Text ResetStoryButtonText;
 
     public void SaveStory()
     {
@@ -148,31 +174,13 @@ public class StoryEditorPanel : BaseUIForm
     {
     }
 
-    #region Story Map
+    #region Center StoryMap
 
-    [SerializeField] private Button SaveStoryButton;
-    [SerializeField] private Button ResetStoryButton;
-    [SerializeField] private Text SaveStoryButtonText;
-    [SerializeField] private Text ResetStoryButtonText;
+    [SerializeField] private StoryMap StoryMap;
 
-    void Update()
+    private void GenerateStoryMap()
     {
-#if PLATFORM_STANDALONE_OSX
-        KeyCode controlKey = KeyCode.LeftCommand;
-#elif PLATFORM_STANDALONE
-        KeyCode controlKey = KeyCode.LeftControl;
-#endif
-
-        bool controlPress = Input.GetKey(controlKey);
-        bool leftShiftPress = Input.GetKey(KeyCode.LeftShift);
-
-        if (controlPress)
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                SaveStory();
-            }
-        }
+        StoryMap.Initialize(4,100);
     }
 
     #endregion

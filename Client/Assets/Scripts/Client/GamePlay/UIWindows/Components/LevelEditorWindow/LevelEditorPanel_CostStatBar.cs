@@ -19,9 +19,10 @@ public class LevelEditorPanel_CostStatBar : PoolObject
 
     public Color[] ColorPresets;
 
-    public void Initialize(int number, int count, int maxCount, ColorTypes colorType)
+    public void Initialize(int number, int count, int maxCount, ColorTypes colorType,Image baseLine)
     {
         BarImage.color = ColorPresets[(int) colorType];
+        baseLine.color = ColorPresets[(int) colorType];
         NumberText.color = ColorPresets[(int) colorType];
         NumberText.text = number != 10 ? number.ToString() : "10+";
         CountText.text = count > 0 ? count.ToString() : "";

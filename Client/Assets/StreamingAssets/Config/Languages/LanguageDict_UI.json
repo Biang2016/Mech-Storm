@@ -1214,4 +1214,13 @@
 		"zh": "卡组",
 		"en": "Enemy Deck"
 	},
+
+	"Notice_LevelEditorPanel_EnemyLifeMax": {
+		"zh": "敌人生命上限为{0}",
+		"en": "Enemy Life upperlimit is {0}"
+	},
+	"Notice_LevelEditorPanel_EnemyEnergyMax": {
+		"zh": "敌人能量上限为{0}",
+		"en": "Enemy Energy upperlimit is {0}"
+	},
 }

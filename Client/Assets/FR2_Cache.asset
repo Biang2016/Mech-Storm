@@ -16461,7 +16461,7 @@ MonoBehaviour:
   - guid: 7a72cc078a3e8fe4db3366276e615b2c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559226314
+    stamp: 1559287528
     type: 3
     UseGUIDs:
     - 34f1c0918f0dd4661b115de28c599e16
@@ -24764,36 +24764,6 @@ MonoBehaviour:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
     - 361474e036554f4fa606265eb95c77e9
     - ffba5cc083db9e94a9b952a05c060262
-  - guid: 7d23099659efd454db9bb30ea0ec0b05
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 1
-    UseGUIDs: []
-  - guid: 7c474a98f9c4449f48a9560c316591a6
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 1
-    UseGUIDs: []
-  - guid: 093a3f9aaea64f74e8306cd9d5beb1fd
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 10c1a35b695740f99bdf0b33cea7df5a
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 1
-    UseGUIDs: []
-  - guid: 55424c2c43e8fbd45b10efdbee0ea41e
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 1
-    UseGUIDs: []
   - guid: f3b37b106d62abf4ebbd3b7321f4be44
     ScriptSymbols: []
     ScriptTokens: []
@@ -25447,5 +25417,72 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
+  - guid: 906929e40df3bf246b3af6608d4c2c63
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: c1fec737f2aea4840ad51051c2b8d864
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 1f118be8d458dbb4bbfdf4d378813e03
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 1fcc6f4412799e14ab078b788be5ea20
+    ScriptSymbols:
+    - StoryMapRoute
+    ScriptTokens:
+    - PoolObject
+    - SerializeField
+    - Image
+    - Transform
+    - Head
+    - ControlDirectionGo
+    - Quaternion
+    - Vector3
+    - Refresh
+    - StartPosition
+    - EndPosition
+    stamp: 1559286956
+    type: 2
+    UseGUIDs: []
+  - guid: c40958d93e0e11d4f921b46f3d39ea8b
+    ScriptSymbols:
+    - StoryMap
+    ScriptTokens:
+    - MonoBehaviour
+    - SerializeField
+    - Transform
+    - StoryMapTransform
+    - List
+    - StoryMapRoute
+    - StoryMapRoutes
+    - Initialize
+    - GameObjectPoolManager
+    - Vector3
+    stamp: 1559287326
+    type: 2
+    UseGUIDs: []
+  - guid: 5c7a946cc6e500c45916eee177f67a21
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1559287329
+    type: 1
+    UseGUIDs:
+    - c40958d93e0e11d4f921b46f3d39ea8b
+    - 1fcc6f4412799e14ab078b788be5ea20
   timeStamp: 1559218931
   priority: 5
