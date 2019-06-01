@@ -6,7 +6,7 @@
   </BuildInfo>
   <GamePlaySettings DefaultCoin="1500" DefaultDrawCardNum="2" DefaultEnergy="6" DefaultEnergyMax="6" DefaultLife="20" DefaultLifeMax="100" DefaultLifeMin="20" DrawCardPerRound="2" MaxDrawCardNum="5" MinDrawCardNum="1" />
   <Chapters>
-    <Chapter chapterID="0" name_en="Starter Chapter" name_zh="新手试炼">
+    <Chapter chapterID="0" name_en="Starter Chapter" name_zh="新手试炼" chapterMapRoundCount="4">
       <EnemyInfos>
         <EnemyInfo name="Mind the mines" />
       </EnemyInfos>

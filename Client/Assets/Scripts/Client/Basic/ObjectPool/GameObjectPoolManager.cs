@@ -73,7 +73,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         StoryPropertyForm_Chapters,
         StoryPropertyForm_Chapter,
         StoryEditorPanel_EnemyButton,
-        StoryMapRoute,
+        ChapterMapRoute,
+        ChapterMapNode,
     }
 
     public Dictionary<PrefabNames, int> PoolConfigs = new Dictionary<PrefabNames, int>
@@ -141,7 +142,9 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.StoryPropertyForm_Chapters, 1},
         {PrefabNames.StoryPropertyForm_Chapter, 5},
         {PrefabNames.StoryEditorPanel_EnemyButton, 10},
-        {PrefabNames.StoryMapRoute, 120},
+        
+        {PrefabNames.ChapterMapRoute, 120},
+        {PrefabNames.ChapterMapNode, 73},
     };
 
     public Dictionary<PrefabNames, int> PoolWarmUpDict = new Dictionary<PrefabNames, int>

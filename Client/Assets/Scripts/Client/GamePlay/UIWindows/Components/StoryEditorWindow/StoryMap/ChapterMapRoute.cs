@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class StoryMapRoute : PoolObject
+public class ChapterMapRoute : PoolObject
 {
     [SerializeField] private Image Body;
     [SerializeField] private RectTransform BodyRect;
@@ -11,6 +11,12 @@ public class StoryMapRoute : PoolObject
     private Vector3 defaultPosition_ArrowBody;
     private Quaternion defaultRotation_Control;
 
+    public override void PoolRecycle()
+    {
+        Refresh(Vector2.zero, Vector2.one, 0f);
+        base.PoolRecycle();
+    }
+
     void Awake()
     {
         defaultPosition_ArrowBody = Body.transform.localPosition;
@@ -19,7 +25,7 @@ public class StoryMapRoute : PoolObject
 
     public void Refresh(Vector2 StartPosition, Vector2 EndPosition, float width)
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
         Body.transform.localPosition = defaultPosition_ArrowBody;
         ControlDirectionGo.localRotation = defaultRotation_Control;
 
@@ -31,6 +37,6 @@ public class StoryMapRoute : PoolObject
 
         BodyRect.sizeDelta = new Vector2(distance, width);
         Body.transform.localPosition = new Vector3(Body.transform.localPosition.x + distance / 2, Body.transform.localPosition.y, Body.transform.localPosition.z);
-        transform.position = EndPosition;
+        transform.localPosition = EndPosition;
     }
 }

@@ -94,7 +94,7 @@ public class SelectCard : PoolObject
         OnMouseLeaveHandler = leaveHandler;
         CardButton.image.color = color;
         CardButton.onClick.RemoveAllListeners();
-        ClientUtils.ChangeCardPicture(CardImage, CardInfo.BaseInfo.PictureID);
+        ClientUtils.ChangeImagePicture(CardImage, CardInfo.BaseInfo.PictureID);
         StarsGroup.SetStarNumber(CardInfo.UpgradeInfo.CardLevel, CardInfo.UpgradeInfo.CardLevelMax);
     }
 

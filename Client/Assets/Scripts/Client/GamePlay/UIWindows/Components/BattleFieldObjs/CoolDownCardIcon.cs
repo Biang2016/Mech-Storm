@@ -19,7 +19,7 @@ internal class CoolDownCardIcon : PoolObject
         ClientPlayer = clientPlayer;
         M_CoolingDownCard = cdc;
         CoolDownRoundText.text = cdc.LeftRounds.ToString();
-        ClientUtils.ChangeCardPicture(Image, AllCards.GetCard(cdc.CardID).BaseInfo.PictureID);
+        ClientUtils.ChangeImagePicture(Image, AllCards.GetCard(cdc.CardID).BaseInfo.PictureID);
         CooldDownIconAnim.SetTrigger("Add");
     }
 

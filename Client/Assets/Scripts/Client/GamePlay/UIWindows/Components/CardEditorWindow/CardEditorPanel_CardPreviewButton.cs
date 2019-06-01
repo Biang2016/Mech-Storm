@@ -40,7 +40,7 @@ public class CardEditorPanel_CardPreviewButton : PoolObject
         IsEdit = false;
         Button.onClick.RemoveAllListeners();
         CardIDText.text = string.Format("{0:000}", ci.CardID);
-        ClientUtils.ChangeCardPicture(Image, ci.BaseInfo.PictureID);
+        ClientUtils.ChangeImagePicture(Image, ci.BaseInfo.PictureID);
         Button.onClick.AddListener(delegate { onClick(); });
         HideImage.gameObject.SetActive(ci.BaseInfo.IsHide);
         TempImage.gameObject.SetActive(ci.BaseInfo.IsTemp);

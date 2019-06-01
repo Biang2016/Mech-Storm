@@ -828,6 +828,7 @@
 		"en": "Reset"
 	},
 
+	
 	"StoryEditorPanel_ChapterLabel": {
 		"zh": "章节",
 		"en": "Chapter"
@@ -839,6 +840,10 @@
 	"StoryEditorPanel_ChapterNameText_zh": {
 		"zh": "章节中文名",
 		"en": "Chinese Name"
+	},
+	"StoryEditorPanel_ChapterMapRoundCountLabelText": {
+		"zh": "章节大小",
+		"en": " Chapter Size"
 	},
 	"StoryEditorPanel_ChapterNameText_en": {
 		"zh": "章节英文名",

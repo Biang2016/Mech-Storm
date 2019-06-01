@@ -18,7 +18,7 @@ public class LevelEditorPanel_HeroCardPicIcon : PoolObject
 
     public void Initialize(int pictureID,int cardID)
     {
-        ClientUtils.ChangeCardPicture(PicImage, pictureID);
+        ClientUtils.ChangeImagePicture(PicImage, pictureID);
         CardIDText.text = cardID.ToString();
     }
 }

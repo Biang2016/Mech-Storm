@@ -45,7 +45,7 @@ public class StoryEditorPanel_EnemyButton : PoolObject
     public void Initialize(Enemy enemy)
     {
         Cur_Enemy = enemy;
-        ClientUtils.ChangeCardPicture(PicImage, Cur_Enemy.LevelPicID);
+        ClientUtils.ChangeImagePicture(PicImage, Cur_Enemy.LevelPicID);
         LevelNameText.text = Cur_Enemy.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
         CardCountText.text = Cur_Enemy.BuildInfo.CardCount.ToString();
         LifeValueText.text = Cur_Enemy.BuildInfo.Life.ToString();

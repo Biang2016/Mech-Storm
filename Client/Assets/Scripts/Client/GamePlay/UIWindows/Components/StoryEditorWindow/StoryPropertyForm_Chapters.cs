@@ -19,14 +19,14 @@ public class StoryPropertyForm_Chapters : PoolObject
         }
 
         StoryChapterRows.Clear();
+        Cur_Chapters = null;
         LanguageManager.Instance.UnregisterText(Label);
     }
 
     public SortedDictionary<int, Chapter> Cur_Chapters;
-
     private SortedDictionary<int, StoryPropertyForm_Chapter> StoryChapterRows = new SortedDictionary<int, StoryPropertyForm_Chapter>();
 
-    public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction<Chapter> onChangeSelectedChapter)
+    public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction<Chapter> onChangeSelectedChapter, UnityAction<int> onChapterMapRoundCountChange)
     {
         Cur_Chapters = chapters;
         LanguageManager.Instance.RegisterTextKey(Label, "StoryEditorPanel_ChaptersLabel");
@@ -49,9 +49,10 @@ public class StoryPropertyForm_Chapters : PoolObject
                     Cur_Chapters.Add(newChapterID, new Chapter(
                         newChapterID,
                         new SortedDictionary<string, string> {{"zh", "新章节"}, {"en", "New Chapter"}},
-                        new SortedDictionary<int, Level>()));
+                        new SortedDictionary<int, Level>(),
+                        4));
 
-                    Initialize(Cur_Chapters, onChangeSelectedChapter);
+                    Initialize(Cur_Chapters, onChangeSelectedChapter, onChapterMapRoundCountChange);
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ChaptersRowContainer));
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<StoryEditorPanel>().StoryPropertiesContainer));
                 }
@@ -101,14 +102,21 @@ public class StoryPropertyForm_Chapters : PoolObject
                 onDeleteButtonClick: delegate
                 {
                     Cur_Chapters.Remove(kv.Key);
-                    Initialize(Cur_Chapters, onChangeSelectedChapter);
-                });
+                    Initialize(Cur_Chapters, onChangeSelectedChapter, onChapterMapRoundCountChange);
+                },
+                onChapterMapRoundCountChange: onChapterMapRoundCountChange);
             chapterRow.SetChapter(kv.Value);
             StoryChapterRows.Add(kv.Key, chapterRow);
         }
 
-        foreach (KeyValuePair<int,StoryPropertyForm_Chapter> kv in StoryChapterRows)
+        foreach (KeyValuePair<int, StoryPropertyForm_Chapter> _kv in StoryChapterRows)
         {
+            _kv.Value.IsSelected = false;
+        }
+
+        foreach (KeyValuePair<int, StoryPropertyForm_Chapter> kv in StoryChapterRows)
+        {
+            onChangeSelectedChapter(kv.Value.Cur_Chapter);
             kv.Value.IsSelected = true;
             break;
         }

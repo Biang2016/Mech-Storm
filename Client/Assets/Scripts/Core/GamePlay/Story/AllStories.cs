@@ -142,7 +142,9 @@ public class AllStories
             allLevels.Add(levelID++, shop);
         }
 
-        Chapter chapter = new Chapter(chapterID, names, allLevels);
+        int chapterMapRoundCount = int.Parse(node_ChapterInfo.Attributes["chapterMapRoundCount"].Value);
+
+        Chapter chapter = new Chapter(chapterID, names, allLevels, chapterMapRoundCount);
         return chapter;
     }
 

@@ -52,7 +52,7 @@ internal class SmallBonusItem : BonusItem_Base
             {
                 IconImageContainer.SetActive(false);
                 CardImageContainer.SetActive(true);
-                ClientUtils.ChangeCardPicture(CardImage, BonusCardInfo.BaseInfo.PictureID);
+                ClientUtils.ChangeImagePicture(CardImage, BonusCardInfo.BaseInfo.PictureID);
                 CardImage.color = Color.white;
                 CardImageBorder.color = ClientUtils.ChangeColorToWhite(ClientUtils.HTMLColorToColor(BonusCardInfo.GetCardColor()), 0.5f);
                 CardImage.preserveAspect = true;

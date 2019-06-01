@@ -52,7 +52,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
             PlayerIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
             if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
             {
-                ClientUtils.ChangeCardPicture(PlayerIconImage, 0);
+                ClientUtils.ChangeImagePicture(PlayerIconImage, 0);
             }
         }
     }

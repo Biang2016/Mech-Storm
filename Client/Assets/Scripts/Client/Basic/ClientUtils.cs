@@ -90,7 +90,7 @@ public class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
-    public static void ChangeCardPicture(Image image, int pictureID)
+    public static void ChangeImagePicture(Image image, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
@@ -105,7 +105,7 @@ public class ClientUtils
         }
     }
 
-    public static void ChangeCardPicture(SpriteRenderer image, int pictureID)
+    public static void ChangeImagePicture(SpriteRenderer image, int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));

@@ -5,6 +5,7 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class StoryEditorPanel : BaseUIForm
@@ -42,7 +43,6 @@ public class StoryEditorPanel : BaseUIForm
         ReturnToGamerButton.onClick.AddListener(ReturnToGame);
 
         InitializeCardPropertyForm();
-        GenerateStoryMap();
         InitializeLevelList();
     }
 
@@ -88,7 +88,7 @@ public class StoryEditorPanel : BaseUIForm
         }
     }
 
-    public void ReturnToGame()
+    private void ReturnToGame()
     {
         SceneManager.LoadScene("MainScene");
     }
@@ -153,7 +153,9 @@ public class StoryEditorPanel : BaseUIForm
             {
                 //TODO
                 NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames["zh"], 0, 1f);
-            });
+                GenerateChapterMap(chapter.ChapterMapRoundCount);
+            },
+            onChapterMapRoundCountChange: GenerateChapterMap);
         return false;
     }
 
@@ -174,13 +176,14 @@ public class StoryEditorPanel : BaseUIForm
     {
     }
 
-    #region Center StoryMap
+    #region Center ChapterMap
 
-    [SerializeField] private StoryMap StoryMap;
+    [SerializeField] private ChapterMap ChapterMap;
 
-    private void GenerateStoryMap()
+    private void GenerateChapterMap(int roundCount)
     {
-        StoryMap.Initialize(4,100);
+        float routeLength = 480.0f / (roundCount + 2);
+        ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
     }
 
     #endregion

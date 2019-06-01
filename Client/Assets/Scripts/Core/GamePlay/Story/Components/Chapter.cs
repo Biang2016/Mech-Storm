@@ -8,15 +8,20 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
     public SortedDictionary<string, string> ChapterNames;
     public SortedDictionary<int, Level> Levels = new SortedDictionary<int, Level>();
 
+    public int ChapterMapRoundCount;
+    public const int SystemMaxMapRoundCount = 6;
+    public const int SystemMinMapRoundCount = 2;
+
     private Chapter()
     {
     }
 
-    public Chapter(int chapterID, SortedDictionary<string, string> chapterNames, SortedDictionary<int, Level> chapterAllLevels)
+    public Chapter(int chapterID, SortedDictionary<string, string> chapterNames, SortedDictionary<int, Level> chapterAllLevels, int chapterMapRoundCount)
     {
         ChapterID = chapterID;
         ChapterNames = chapterNames;
         Levels = chapterAllLevels;
+        ChapterMapRoundCount = chapterMapRoundCount;
         //TODO 分配LevelID
     }
 
@@ -39,7 +44,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
 
         //TODO 各pace之间的连接关系Variant，以及入口关卡设置
 
-        return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces);
+        return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces, ChapterMapRoundCount);
     }
 
     public void ExportToXML(XmlElement parent_ele)
@@ -70,6 +75,8 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
             {
             }
         }
+
+        chapter_ele.SetAttribute("chapterMapRoundCount", ChapterMapRoundCount.ToString());
     }
 
     public Chapter Clone()
@@ -81,7 +88,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         }
         //TODO 各pace之间的连接关系Clone
 
-        return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces);
+        return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces, ChapterMapRoundCount);
     }
 
     public void Serialize(DataStream writer)
@@ -100,6 +107,8 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
             writer.WriteSInt32(KV.Key);
             KV.Value.Serialize(writer);
         }
+
+        writer.WriteSInt32(ChapterMapRoundCount);
     }
 
     public static Chapter Deserialize(DataStream reader)
@@ -123,6 +132,8 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
             chapterAllStoryPaces.Add(storyPaceID, storyPace);
         }
 
-        return new Chapter(chapterID, chapterNames, chapterAllStoryPaces);
+        int chapterMapRoundCount = reader.ReadSInt32();
+
+        return new Chapter(chapterID, chapterNames, chapterAllStoryPaces, chapterMapRoundCount);
     }
 }

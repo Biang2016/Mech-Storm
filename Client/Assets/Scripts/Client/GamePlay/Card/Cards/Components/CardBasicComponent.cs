@@ -52,7 +52,7 @@ public class CardBasicComponent : CardComponentBase
 
     public void ChangePicture(int picID)
     {
-        ClientUtils.ChangeCardPicture(Picture, picID);
+        ClientUtils.ChangeImagePicture(Picture, picID);
     }
 
     void Awake()

@@ -338,9 +338,9 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (int.TryParse(value_str, out int value))
         {
-            if (value < 0)
+            if (value <= 0)
             {
-                SetEnemyBeginMetal(0.ToString());
+                SetEnemyBeginMetal(1.ToString());
             }
             else if (value <= GamePlaySettings.SystemMaxMetal)
             {
@@ -434,7 +434,6 @@ public class LevelEditorPanel : BaseUIForm
 #elif PLATFORM_STANDALONE
         KeyCode controlKey = KeyCode.LeftControl;
 #endif
-
         bool controlPress = Input.GetKey(controlKey);
         bool leftShiftPress = Input.GetKey(KeyCode.LeftShift);
 
