@@ -16438,7 +16438,7 @@ MonoBehaviour:
   - guid: 7a72cc078a3e8fe4db3366276e615b2c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559229021
+    stamp: 1559391325
     type: 3
     UseGUIDs:
     - 34f1c0918f0dd4661b115de28c599e16
@@ -18285,12 +18285,6 @@ MonoBehaviour:
     type: 9
     UseGUIDs: []
   - guid: ab979589e3f0f45879db8cb84da16879
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 06c5791aa599741c29cd98f2b23e2983
     ScriptSymbols: []
     ScriptTokens: []
     stamp: 0
@@ -25463,36 +25457,6 @@ MonoBehaviour:
     - 1ae4df70bb159624ea1613c754f43363
     - 4dbb81394c0b94851b509ac08eb35d51
     - 1d88d2db5595a4af9b56b4b94ef28bd2
-  - guid: 7d23099659efd454db9bb30ea0ec0b05
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1558365115
-    type: 1
-    UseGUIDs: []
-  - guid: 7c474a98f9c4449f48a9560c316591a6
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1558611062
-    type: 1
-    UseGUIDs: []
-  - guid: 093a3f9aaea64f74e8306cd9d5beb1fd
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 0
-    type: 9
-    UseGUIDs: []
-  - guid: 10c1a35b695740f99bdf0b33cea7df5a
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1554952884
-    type: 1
-    UseGUIDs: []
-  - guid: 55424c2c43e8fbd45b10efdbee0ea41e
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1558972921
-    type: 1
-    UseGUIDs: []
   - guid: 1fcc6f4412799e14ab078b788be5ea20
     ScriptSymbols:
     - StoryMapRoute
@@ -25555,6 +25519,62 @@ MonoBehaviour:
     ScriptTokens: []
     stamp: 0
     type: 2
+    UseGUIDs: []
+  - guid: 906929e40df3bf246b3af6608d4c2c63
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: c1fec737f2aea4840ad51051c2b8d864
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 1f118be8d458dbb4bbfdf4d378813e03
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 64cc98895a984dd2a98bc1bcc71faa80
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 2
+    UseGUIDs: []
+  - guid: 36d4c30b928fed547bfeda0eeaf1ec66
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 1
+    UseGUIDs: []
+  - guid: 10e825c00f5054a119477727602586c9
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1559389266
+    type: 5
+    UseGUIDs:
+    - d4704ffe0219d5e4b8586c077c2d1265
+    - 2c676b4a5f98490ea6ebe817cb84a1d6
+  - guid: 14f37ab33ddfe874582819937420fe8e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: f4748329e92c13f4ca1606a4fb6daaa0
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: c8e99efa90a290b43a6e9850ef52e884
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
     UseGUIDs: []
   timeStamp: 1559365195
   priority: 5

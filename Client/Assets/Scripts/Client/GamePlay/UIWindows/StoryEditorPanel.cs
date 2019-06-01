@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -178,12 +179,40 @@ public class StoryEditorPanel : BaseUIForm
 
     #region Center ChapterMap
 
-    [SerializeField] private ChapterMap ChapterMap;
+    [SerializeField] private Transform ChapterMapContainer;
+    private ChapterMap ChapterMap;
 
     private void GenerateChapterMap(int roundCount)
     {
-        float routeLength = 480.0f / (roundCount + 2);
-        ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
+        ChapterMap oldChapterMap = ChapterMap;
+
+        if (oldChapterMap)
+        {
+            oldChapterMap.transform.DOScale(Vector3.one * 0.05f, 1f);
+            oldChapterMap.transform.DORotate(new Vector3(0, 0, 270f), 1f, RotateMode.FastBeyond360).OnComplete(
+                delegate
+                {
+                    ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
+                    float routeLength = 520f / (roundCount + 2);
+                    ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
+                    ChapterMap.transform.localScale = Vector3.one * 10f;
+                    ChapterMap.transform.rotation = Quaternion.Euler(0, 0, 0f);
+                    ChapterMap.transform.DOScale(Vector3.one, 1f);
+                    ChapterMap.transform.DORotate(new Vector3(0, 0, 360f), 1f, RotateMode.FastBeyond360).OnComplete(
+                        delegate { ChapterMap.transform.rotation = Quaternion.Euler(0, 0, 0); });
+                    oldChapterMap.PoolRecycle();
+                });
+        }
+        else
+        {
+            ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
+            float routeLength = 520f / (roundCount + 2);
+            ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
+        }
+    }
+
+    public void ChapterMapAnimation()
+    {
     }
 
     #endregion

@@ -7,13 +7,17 @@ public class ChapterMapRoute : PoolObject
     [SerializeField] private RectTransform BodyRect;
     [SerializeField] private Transform Head;
 
+    internal int RouteIndex;
+    internal int NodeIndex_0;
+    internal int NodeIndex_1;
+
     [SerializeField] private Transform ControlDirectionGo;
     private Vector3 defaultPosition_ArrowBody;
     private Quaternion defaultRotation_Control;
 
     public override void PoolRecycle()
     {
-        Refresh(Vector2.zero, Vector2.one, 0f);
+        Refresh(Vector2.zero, Vector2.one, 0, 0, 0, 0f);
         base.PoolRecycle();
     }
 
@@ -23,8 +27,11 @@ public class ChapterMapRoute : PoolObject
         defaultRotation_Control = ControlDirectionGo.localRotation;
     }
 
-    public void Refresh(Vector2 StartPosition, Vector2 EndPosition, float width)
+    public void Refresh(Vector2 StartPosition, Vector2 EndPosition, int routeIndex, int nodeIndex0, int nodeIndex1, float width)
     {
+        RouteIndex = routeIndex;
+        NodeIndex_0 = nodeIndex0;
+        NodeIndex_1 = nodeIndex1;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         Body.transform.localPosition = defaultPosition_ArrowBody;
         ControlDirectionGo.localRotation = defaultRotation_Control;

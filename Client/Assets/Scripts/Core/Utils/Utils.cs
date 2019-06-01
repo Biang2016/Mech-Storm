@@ -116,26 +116,45 @@ public partial class Utils
         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
     };
 
-    public static List<T> GetRandomFromList<T>(List<T> OriList, int number)
+    public static List<T> GetRandomFromList<T>(List<T> OriList, int number, List<T> exceptList = null)
     {
         if (OriList == null) return new List<T>();
-        if (number > OriList.Count) number = OriList.Count;
 
-        HashSet<int> indice = new HashSet<int>();
-        Random rd = new Random(DateTime.Now.Millisecond * number);
-        while (indice.Count < number)
+        List<T> ori = OriList.ToArray().ToList();
+        if (exceptList != null)
         {
-            int index = rd.Next(0, OriList.Count);
-            if (!indice.Contains(index))
+            List<T> remove = new List<T>();
+            foreach (T t in ori)
             {
-                indice.Add(index);
+                if (exceptList.Contains(t))
+                {
+                    remove.Add(t);
+                }
+            }
+
+            foreach (T removeT in remove)
+            {
+                ori.Remove(removeT);
+            }
+        }
+
+        if (number > ori.Count) number = ori.Count;
+
+        HashSet<int> indices = new HashSet<int>();
+        Random rd = new Random(DateTime.Now.Millisecond * number);
+        while (indices.Count < number)
+        {
+            int index = rd.Next(0, ori.Count);
+            if (!indices.Contains(index))
+            {
+                indices.Add(index);
             }
         }
 
         List<T> res = new List<T>();
-        foreach (int i in indice)
+        foreach (int i in indices)
         {
-            res.Add(OriList[i]);
+            res.Add(ori[i]);
         }
 
         return res;
@@ -207,6 +226,4 @@ public partial class Utils
             }
         }
     }
-
-    
 }

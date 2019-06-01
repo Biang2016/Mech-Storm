@@ -1,30 +1,80 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class ChapterMap : MonoBehaviour
+public class ChapterMap : PoolObject
 {
-    [SerializeField] private Transform ChapterMapRoutesTransform;
-    [SerializeField] private Transform ChapterMapNodesTransform;
-    private List<ChapterMapRoute> ChapterMapRoutes = new List<ChapterMapRoute>();
-    private List<ChapterMapNode> ChapterMapNodes = new List<ChapterMapNode>();
-
     private float lineWidth = 7f;
     private Vector2[] nodeLocations;
 
-    internal void Initialize(int roundCount, float routeLength, float lineWidth)
+    [SerializeField] private Transform ChapterMapRoutesTransform;
+    [SerializeField] private Transform ChapterMapNodesTransform;
+
+    private int routeIndex = 0;
+    private Dictionary<int, ChapterMapRoute> ChapterMapRoutes = new Dictionary<int, ChapterMapRoute>(); // key: routeIndex
+    private Dictionary<int, ChapterMapNode> ChapterMapNodes = new Dictionary<int, ChapterMapNode>(); // key: nodeLocationIndex
+
+    private Dictionary<NodeTypes, List<int>> NodeCategory = new Dictionary<NodeTypes, List<int>>();
+    private Dictionary<RouteTypes, List<int>> RouteCategory = new Dictionary<RouteTypes, List<int>>();
+
+    public override void PoolRecycle()
     {
-        this.lineWidth = lineWidth;
-        foreach (ChapterMapRoute route in ChapterMapRoutes)
+        Reset();
+        base.PoolRecycle();
+    }
+
+    void Awake()
+    {
+        foreach (string name in Enum.GetNames(typeof(NodeTypes)))
         {
-            route.PoolRecycle();
+            NodeTypes type = (NodeTypes) Enum.Parse(typeof(NodeTypes), name);
+            NodeCategory.Add(type, new List<int>());
         }
 
-        foreach (ChapterMapNode node in ChapterMapNodes)
+        foreach (string name in Enum.GetNames(typeof(RouteTypes)))
         {
-            node.PoolRecycle();
+            RouteTypes type = (RouteTypes) Enum.Parse(typeof(RouteTypes), name);
+            RouteCategory.Add(type, new List<int>());
+        }
+    }
+
+    internal void Reset()
+    {
+        foreach (KeyValuePair<int, ChapterMapRoute> kv in ChapterMapRoutes)
+        {
+            kv.Value.PoolRecycle();
         }
 
         ChapterMapRoutes.Clear();
+
+        foreach (KeyValuePair<NodeTypes, List<int>> kv in NodeCategory)
+        {
+            kv.Value.Clear();
+        }
+
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
+        {
+            kv.Value.PoolRecycle();
+        }
+
+        ChapterMapNodes.Clear();
+
+        foreach (KeyValuePair<RouteTypes, List<int>> kv in RouteCategory)
+        {
+            kv.Value.Clear();
+        }
+    }
+
+    internal int RoundCount = 2;
+
+    internal void Initialize(int roundCount, float routeLength, float lineWidth)
+    {
+        Reset();
+
+        RoundCount = roundCount;
+        routeIndex = 0;
+        this.lineWidth = lineWidth;
 
         Vector2 a = new Vector2(1, 0);
         Vector2 b = new Vector2(0.5f, 0.866f);
@@ -39,9 +89,27 @@ public class ChapterMap : MonoBehaviour
         {
             for (int i = 0; i < 6; i++)
             {
+                NodeCategory[NodeTypes.All].Add(index);
+                NodeCategory[NodeTypes.Common].Add(index);
+                NodeCategory[NodeTypes.Corner].Add(index);
+                if (round == roundCount)
+                {
+                    NodeCategory[NodeTypes.FinalRoundCommon].Add(index);
+                    NodeCategory[NodeTypes.FinalRoundCorner].Add(index);
+                }
+
                 nodeLocations[index++] = round * directions[i] * routeLength;
                 for (int middle = 1; middle <= round - 1; middle++)
                 {
+                    NodeCategory[NodeTypes.All].Add(index);
+                    NodeCategory[NodeTypes.Common].Add(index);
+                    NodeCategory[NodeTypes.Edge].Add(index);
+                    if (round == roundCount)
+                    {
+                        NodeCategory[NodeTypes.FinalRoundCommon].Add(index);
+                        NodeCategory[NodeTypes.FinalRoundEdge].Add(index);
+                    }
+
                     nodeLocations[index++] = ((middle) * directions[i + 1] + (round - middle) * directions[i]) * routeLength;
                 }
             }
@@ -50,40 +118,77 @@ public class ChapterMap : MonoBehaviour
         //六角点BOSS
         for (int i = 0; i < 6; i++)
         {
-            nodeLocations[index++] = (roundCount + 1) * directions[i] * routeLength;
+            NodeCategory[NodeTypes.All].Add(index);
+            NodeCategory[NodeTypes.Boss].Add(index);
+            nodeLocations[index++] = (roundCount + 1) * directions[i] * routeLength * 1.1f;
         }
 
         //六边中点宝藏
         for (int i = 0; i < 6; i++)
         {
-            nodeLocations[index++] = (((roundCount + 1) / 2.0f) * directions[i + 1] + ((roundCount + 1) / 2.0f) * directions[i]) * routeLength;
-        }
-
-        //生成关卡Button
-        foreach (Vector2 nl in nodeLocations)
-        {
-            ChapterMapNode cmn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapNode].AllocateGameObject<ChapterMapNode>(ChapterMapNodesTransform);
-            cmn.Initialize(0);
-            ChapterMapNodes.Add(cmn);
-            cmn.transform.localPosition = nl;
+            NodeCategory[NodeTypes.All].Add(index);
+            NodeCategory[NodeTypes.Treasure].Add(index);
+            nodeLocations[index++] = (((roundCount + 1) / 2.0f) * directions[i + 1] + ((roundCount + 1) / 2.0f) * directions[i]) * routeLength * 1.1f;
         }
 
         // 画线
         for (int i = 1; i <= 6; i++)
         {
-            GenerateLine(0, i);
+            GenerateRoute(0, i, new List<RouteTypes> {RouteTypes.All, RouteTypes.Common, RouteTypes.Chord});
         }
 
         int start = 1;
         for (int round = 1; round <= roundCount; round++)
         {
+            List<RouteTypes> res = new List<RouteTypes> {RouteTypes.All, RouteTypes.Common, RouteTypes.Circumferential};
+            if (round == roundCount) res.AddRange(new List<RouteTypes> {RouteTypes.FinalRoundCommon, RouteTypes.FinalRoundCircumferential});
             start += 6 * (round - 1);
             for (int i = 0; i < round * 6 - 1; i++)
             {
-                GenerateLine(start + i, start + i + 1);
+                if (i % round == 0 || (i + 1) % round == 0) // if corner
+                {
+                    if (round == roundCount)
+                    {
+                        List<RouteTypes> res_plus = res.ToArray().ToList();
+                        res_plus.AddRange(new List<RouteTypes> {RouteTypes.Corner, RouteTypes.FinalRoundCorner});
+                        GenerateRoute(start + i, start + i + 1, res_plus);
+                    }
+                    else
+                    {
+                        List<RouteTypes> res_plus = res.ToArray().ToList();
+                        res_plus.AddRange(new List<RouteTypes> {RouteTypes.Corner});
+                        GenerateRoute(start + i, start + i + 1, res_plus);
+                    }
+                }
+                else
+                {
+                    if (round == roundCount)
+                    {
+                        List<RouteTypes> res_plus = res.ToArray().ToList();
+                        res_plus.AddRange(new List<RouteTypes> {RouteTypes.BeyondCorner, RouteTypes.FinalRoundBeyondCorner});
+                        GenerateRoute(start + i, start + i + 1, res_plus);
+                    }
+                    else
+                    {
+                        List<RouteTypes> res_plus = res.ToArray().ToList();
+                        res_plus.AddRange(new List<RouteTypes> {RouteTypes.BeyondCorner});
+                        GenerateRoute(start + i, start + i + 1, res_plus);
+                    }
+                }
             }
 
-            GenerateLine(start + round * 6 - 1, start);
+            if (round == roundCount)
+            {
+                List<RouteTypes> res_plus = res.ToArray().ToList();
+                res_plus.AddRange(new List<RouteTypes> {RouteTypes.Corner, RouteTypes.FinalRoundCorner});
+                GenerateRoute(start + round * 6 - 1, start, res);
+            }
+            else
+            {
+                List<RouteTypes> res_plus = res.ToArray().ToList();
+                res_plus.AddRange(new List<RouteTypes> {RouteTypes.Corner});
+                GenerateRoute(start + round * 6 - 1, start, res);
+            }
         }
 
         for (int i = 1; i < nodeLocations.Length; i++)
@@ -97,19 +202,23 @@ public class ChapterMap : MonoBehaviour
                 {
                     int cornerIndex = (i - last_end - 1) / round;
                     bool isCornerIndex = (i - last_end - 1) % round == 0;
+
+                    List<RouteTypes> res = new List<RouteTypes> {RouteTypes.All, RouteTypes.Common, RouteTypes.Chord};
+                    if (round == roundCount) res.AddRange(new List<RouteTypes> {RouteTypes.FinalRoundCommon, RouteTypes.FinalRoundChord});
+
                     if (isCornerIndex)
                     {
                         if (cornerIndex == 0) // 第一个点
                         {
-                            GenerateLine(i, i + round * 6);
-                            GenerateLine(i, i + round * 6 + 1);
-                            GenerateLine(i, next_end);
+                            GenerateRoute(i, i + round * 6, res);
+                            GenerateRoute(i, i + round * 6 + 1, res);
+                            GenerateRoute(i, next_end, res);
                         }
                         else //其他角点
                         {
                             for (int j = 0; j < 3; j++)
                             {
-                                GenerateLine(i, i + round * 6 + j + cornerIndex - 1);
+                                GenerateRoute(i, i + round * 6 + j + cornerIndex - 1, res);
                             }
                         }
                     }
@@ -117,7 +226,7 @@ public class ChapterMap : MonoBehaviour
                     {
                         for (int j = 0; j < 2; j++)
                         {
-                            GenerateLine(i, i + round * 6 + j + cornerIndex);
+                            GenerateRoute(i, i + round * 6 + j + cornerIndex, res);
                         }
                     }
 
@@ -132,21 +241,116 @@ public class ChapterMap : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             int node_index = end1 + 1 + roundCount * i;
-            GenerateLine(node_index, end2 + (i + 1));
+            GenerateRoute(node_index, end2 + (i + 1), new List<RouteTypes> {RouteTypes.All, RouteTypes.ToBoss});
         }
 
         // 六边中点宝藏
         for (int i = 0; i < 6; i++)
         {
             int node_index = end1 + 1 + roundCount * i + roundCount / 2;
-            GenerateLine(node_index, end2 + i + 6 + 1);
+            GenerateRoute(node_index, end2 + i + 6 + 1, new List<RouteTypes> {RouteTypes.All, RouteTypes.ToTreasure});
+        }
+
+        for (int i = 0; i < nodeLocations.Length; i++)
+        {
+            GenerateNode(i);
+        }
+
+        SetPicForNodes();
+    }
+
+    public enum RouteTypes
+    {
+        All,
+        Common,
+        FinalRoundCommon,
+        Circumferential,
+        FinalRoundCircumferential,
+        Chord,
+        FinalRoundChord,
+        Corner,
+        FinalRoundCorner,
+        BeyondCorner,
+        FinalRoundBeyondCorner,
+        ToTreasure,
+        ToBoss,
+    }
+
+    public enum NodeTypes
+    {
+        All,
+        Common,
+        FinalRoundCommon,
+        Corner,
+        FinalRoundCorner,
+        Edge,
+        FinalRoundEdge,
+        Treasure,
+        Boss
+    }
+
+    private void GenerateNode(int nodeLocationIndex)
+    {
+        ChapterMapNode cmn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapNode].AllocateGameObject<ChapterMapNode>(ChapterMapNodesTransform);
+        ChapterMapNodes.Add(nodeLocationIndex, cmn);
+        cmn.transform.localPosition = nodeLocations[nodeLocationIndex];
+    }
+
+    private void GenerateRoute(int startIndex, int endIndex, List<RouteTypes> routeTypes)
+    {
+        int index = routeIndex++;
+        ChapterMapRoute r = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapRoute].AllocateGameObject<ChapterMapRoute>(ChapterMapRoutesTransform);
+        r.Refresh(nodeLocations[startIndex], nodeLocations[endIndex], index, startIndex, endIndex, lineWidth);
+        ChapterMapRoutes.Add(index, r);
+        foreach (RouteTypes routeType in routeTypes)
+        {
+            RouteCategory[routeType].Add(index);
         }
     }
 
-    private void GenerateLine(int startIndex, int endIndex)
+    private float shopRatio = 0.1f;
+    private float restRatio = 0.1f;
+
+    private void SetPicForNodes()
     {
-        ChapterMapRoute r = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapRoute].AllocateGameObject<ChapterMapRoute>(ChapterMapRoutesTransform);
-        r.Refresh(nodeLocations[startIndex], nodeLocations[endIndex], lineWidth);
-        ChapterMapRoutes.Add(r);
+        foreach (int i in NodeCategory[NodeTypes.Common])
+        {
+            ChapterMapNodes[i].Initialize(i, LevelType.Enemy, EnemyType.Soldier);
+        }
+
+        ChapterMapNodes[0].Initialize(0, LevelType.Start);
+
+        int shopNumMax = Mathf.CeilToInt(shopRatio * NodeCategory[NodeTypes.Common].Count);
+        int restNumMax = Mathf.CeilToInt(restRatio * NodeCategory[NodeTypes.Common].Count);
+
+        int finalRoundEdgeShopNumber = Mathf.Min(shopNumMax, 3);
+        int otherShopNumber = shopNumMax - finalRoundEdgeShopNumber;
+        List<int> shops = Utils.GetRandomFromList(NodeCategory[NodeTypes.FinalRoundEdge], finalRoundEdgeShopNumber);
+        shops.AddRange(Utils.GetRandomFromList(NodeCategory[NodeTypes.Common], otherShopNumber, shops));
+
+        int finalRoundEdgeRestNumber = Mathf.Min(shopNumMax, 6);
+        int otherRestNumber = restNumMax - finalRoundEdgeRestNumber;
+        List<int> rests = Utils.GetRandomFromList(NodeCategory[NodeTypes.FinalRoundCorner], finalRoundEdgeRestNumber);
+        rests.AddRange(Utils.GetRandomFromList(NodeCategory[NodeTypes.Common], otherRestNumber, rests));
+
+        foreach (int i in shops)
+        {
+            ChapterMapNodes[i].Initialize(i, LevelType.Shop);
+        }
+
+        foreach (int i in rests)
+        {
+            ChapterMapNodes[i].Initialize(i, LevelType.Rest);
+        }
+
+        foreach (int i in NodeCategory[NodeTypes.Treasure])
+        {
+            ChapterMapNodes[i].Initialize(i, LevelType.Treasure);
+        }
+
+        foreach (int i in NodeCategory[NodeTypes.Boss])
+        {
+            ChapterMapNodes[i].Initialize(i, LevelType.Enemy, EnemyType.Boss);
+        }
     }
 }

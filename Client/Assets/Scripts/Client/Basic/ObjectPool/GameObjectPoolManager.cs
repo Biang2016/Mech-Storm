@@ -73,6 +73,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         StoryPropertyForm_Chapters,
         StoryPropertyForm_Chapter,
         StoryEditorPanel_EnemyButton,
+        ChapterMap,
         ChapterMapRoute,
         ChapterMapNode,
     }
@@ -143,6 +144,7 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.StoryPropertyForm_Chapter, 5},
         {PrefabNames.StoryEditorPanel_EnemyButton, 10},
         
+        {PrefabNames.ChapterMap, 2},
         {PrefabNames.ChapterMapRoute, 120},
         {PrefabNames.ChapterMapNode, 73},
     };

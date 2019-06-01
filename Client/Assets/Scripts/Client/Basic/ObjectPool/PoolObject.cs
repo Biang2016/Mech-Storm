@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 public class PoolObject : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PoolObject : MonoBehaviour
 
     public virtual void PoolRecycle()
     {
+        transform.DOPause();
         m_Pool.RecycleGameObject(this);
     }
 

@@ -114,7 +114,10 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 public enum LevelType
 {
     Enemy = 0,
-    Shop = 1
+    Shop = 1,
+    Rest = 2,
+    Start = 3,
+    Treasure = 4,
 }
 
 /// <summary>
