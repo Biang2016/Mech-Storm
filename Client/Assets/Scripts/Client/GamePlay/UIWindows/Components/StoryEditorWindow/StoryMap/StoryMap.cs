@@ -30,7 +30,7 @@ public class StoryMap : MonoBehaviour
                 nodes[index++] = round * directions[i] * routeLength;
                 for (int middle = 1; middle <= round - 1; middle++)
                 {
-                    nodes[index++] = ((middle) * directions[i] + (round - middle) * directions[i + 1]) * routeLength;
+                    nodes[index++] = ((middle) * directions[i + 1] + (round - middle) * directions[i]) * routeLength;
                 }
             }
         }
@@ -54,34 +54,42 @@ public class StoryMap : MonoBehaviour
 
         for (int i = 1; i < nodes.Length; i++)
         {
-            if (i <= 6)
+            for (int round = 1; round < roundCount; round++)
             {
-                //角点
-            }
-            else
-            {
-                for (int round = 1; round < roundCount; round++)
+                int last_end = (round - 1) * round * 6 / 2;
+                int this_end = (round + 1) * round * 6 / 2;
+                int next_end = (round + 2) * (round + 1) * 6 / 2;
+                if (i <= this_end)
                 {
-                    int end = (1 + round) * round * 3 / 2;
-                    if (i > end)
+                    int cornerIndex = (i - last_end - 1) / round;
+                    bool isCornerIndex = (i - last_end - 1) % round == 0;
+                    if (isCornerIndex)
                     {
-                        if ((i - end - 1) % round == 0)
+                        if (cornerIndex == 0) // 第一个点
                         {
-                            //角点
+                            GenerateLine(nodes, i, i + round * 6);
+                            GenerateLine(nodes, i, i + round * 6 + 1);
+                            GenerateLine(nodes, i, next_end);
                         }
-                        else
+                        else //其他角点
                         {
-                            //边点
+                            for (int j = 0; j < 3; j++)
+                            {
+                                GenerateLine(nodes, i, i + round * 6 + j + cornerIndex - 1);
+                            }
                         }
-
-                        break;
                     }
+                    else //边点
+                    {
+                        for (int j = 0; j < 2; j++)
+                        {
+                            GenerateLine(nodes, i, i + round * 6 + j + cornerIndex);
+                        }
+                    }
+
+                    break;
                 }
             }
-        }
-
-        for (int round = 0; round < roundCount; round++)
-        {
         }
     }
 
