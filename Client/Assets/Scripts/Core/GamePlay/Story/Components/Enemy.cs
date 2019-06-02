@@ -40,7 +40,6 @@ public class Enemy : Level
         if (BuildInfo.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
         {
             BuildInfo.M_BuildCards.CardSelectInfos.Remove(cardID);
-            AllLevels.RefreshLevelXML(this);
             return true;
         }
 

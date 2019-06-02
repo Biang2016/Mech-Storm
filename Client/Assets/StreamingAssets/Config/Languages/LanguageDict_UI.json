@@ -949,6 +949,10 @@
 		"zh": "错误的降级卡牌ID导致升级链出现循环！请修改",
 		"en": "Invalid degrade card ID causes cycle in card upgrade chain! Please use another degradeID."
 	},
+	"CardEditorPanel_InvalidCycleAutoBreak": {
+		"zh": "卡牌库中存在升级链循环，已自动修复。升级链: {0}",
+		"en": "The invalid upgrade chain in card library has been repaired automatically. Chain: {0}"
+	},
 	"CardEditorPanel_ConfirmSaveCard": {
 		"zh": "是否将该更改保存至ID为{0}的卡牌中？",
 		"en": "Save the changes to the card with ID {0}?"

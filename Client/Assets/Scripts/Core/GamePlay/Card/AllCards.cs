@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Xml;
 using SideEffects;
@@ -189,16 +190,6 @@ public static class AllCards
                     case "upgradeInfo":
                         int u_id = int.Parse(node_CardInfo.Attributes["upgradeCardID"].Value);
                         int d_id = int.Parse(node_CardInfo.Attributes["degradeCardID"].Value);
-                        if (!CardDict.ContainsKey(u_id))
-                        {
-                            u_id = -1;
-                        }
-
-                        if (!CardDict.ContainsKey(d_id))
-                        {
-                            d_id = -1;
-                        }
-
                         upgradeInfo = new UpgradeInfo(
                             upgradeCardID: u_id,
                             degradeCardID: d_id,
@@ -312,6 +303,93 @@ public static class AllCards
             }
         }
 
+        // Check all upgradeID and degradeID valid in library
+        foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+        {
+            int uid = kv.Value.UpgradeInfo.UpgradeCardID;
+            int did = kv.Value.UpgradeInfo.DegradeCardID;
+
+            if (uid != -1)
+            {
+                if (!CardDict.ContainsKey(uid))
+                {
+                    kv.Value.UpgradeInfo.UpgradeCardID = -1;
+                    CardSeriesErrorNeedsReload = true;
+                }
+            }
+
+            if (did != -1)
+            {
+                if (!CardDict.ContainsKey(did))
+                {
+                    kv.Value.UpgradeInfo.DegradeCardID = -1;
+                    CardSeriesErrorNeedsReload = true;
+                }
+            }
+        }
+
+        //TODO  Check all id in SE
+
+        // Make all upgradeID and degradeID linked
+        foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+        {
+            int uid = kv.Value.UpgradeInfo.UpgradeCardID;
+            int did = kv.Value.UpgradeInfo.DegradeCardID;
+
+            if (uid != -1)
+            {
+                CardInfo_Base uCard = CardDict[uid];
+                if (uCard.UpgradeInfo.DegradeCardID != kv.Key)
+                {
+                    if (uCard.UpgradeInfo.DegradeCardID == -1)
+                    {
+                        uCard.UpgradeInfo.DegradeCardID = kv.Key;
+                    }
+                    else
+                    {
+                        CardInfo_Base uCard_ori_dCard = CardDict[uCard.UpgradeInfo.DegradeCardID];
+                        if (uCard_ori_dCard.UpgradeInfo.UpgradeCardID == uCard.CardID)
+                        {
+                            kv.Value.UpgradeInfo.UpgradeCardID = -1;
+                        }
+                        else
+                        {
+                            uCard.UpgradeInfo.DegradeCardID = kv.Key;
+                        }
+                    }
+
+                    CardSeriesErrorNeedsReload = true;
+                }
+            }
+
+            if (did != -1)
+            {
+                CardInfo_Base dCard = CardDict[did];
+                if (dCard.UpgradeInfo.UpgradeCardID != kv.Key)
+                {
+                    if (dCard.UpgradeInfo.UpgradeCardID == -1)
+                    {
+                        dCard.UpgradeInfo.UpgradeCardID = kv.Key;
+                    }
+                    else
+                    {
+                        CardInfo_Base dCard_ori_uCard = CardDict[dCard.UpgradeInfo.UpgradeCardID];
+                        if (dCard_ori_uCard.UpgradeInfo.DegradeCardID == dCard.CardID)
+                        {
+                            kv.Value.UpgradeInfo.DegradeCardID = -1;
+                        }
+                        else
+                        {
+                            dCard.UpgradeInfo.UpgradeCardID = kv.Key;
+                        }
+                    }
+
+                    CardSeriesErrorNeedsReload = true;
+                }
+            }
+        }
+
+        // Check Series valid, no cycle
         foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
         {
             List<int> cardSeries = GetCardSeries(kv.Key);
@@ -328,6 +406,14 @@ public static class AllCards
             }
 
             kv.Value.UpgradeInfo.CardLevel = cardLevel;
+        }
+
+        //If any problem, refresh XML and reload
+        if (CardSeriesErrorNeedsReload)
+        {
+            CardSeriesErrorNeedsReload = false;
+            RefreshAllCardXML();
+            ReloadCardXML();
         }
     }
 
@@ -508,7 +594,6 @@ public static class AllCards
         //从 Story、Builds、 Levels、和AddCard类型的SideEffect中移除该卡片ID
         //Story
 
-        bool storyXMLNeedsReload = false;
         List<Story> refreshStories = new List<Story>();
         foreach (KeyValuePair<string, Story> kv in AllStories.StoryDict)
         {
@@ -519,7 +604,6 @@ public static class AllCards
                 {
                     _kv.Value.M_BuildCards.CardSelectInfos.Remove(cardID);
                     thisNeedsRefresh = true;
-                    storyXMLNeedsReload = true;
                 }
             }
 
@@ -535,7 +619,7 @@ public static class AllCards
             AllStories.RefreshStoryXML(story);
         }
 
-        if (storyXMLNeedsReload) AllStories.ReloadStoryXML();
+        if (refreshStories.Count > 0) AllStories.ReloadStoryXML();
 
         //Build
         bool buildXMLNeedsReload = false;
@@ -565,16 +649,22 @@ public static class AllCards
         if (buildXMLNeedsReload) AllBuilds.ReloadBuildXML();
 
         //Levels
-        bool levelNeedsReload = false;
+        List<Level> refreshLevel = new List<Level>();
         foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
         {
             foreach (KeyValuePair<string, Level> _kv in kv.Value)
             {
-                levelNeedsReload |= _kv.Value.DeleteCard(cardID);
+                bool thisNeedsRefresh = _kv.Value.DeleteCard(cardID);
+                refreshLevel.Add(_kv.Value);
             }
         }
 
-        if (levelNeedsReload) AllLevels.ReloadLevelXML();
+        foreach (Level level in refreshLevel)
+        {
+            AllLevels.RefreshLevelXML(level);
+        }
+
+        if (refreshLevel.Count > 0) AllLevels.ReloadLevelXML();
 
         //SideEffect, ICardDeckLinked
         bool sideEffectNeedsReload = false;
@@ -652,22 +742,58 @@ public static class AllCards
         return baseID;
     }
 
+    private static bool CardSeriesErrorNeedsReload = false;
+
     public static List<CardInfo_Base> GetCardSeries(CardInfo_Base cardInfo)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();
         CardInfo_Base basic_card = cardInfo;
         CardInfo_Base de = cardInfo;
-        while ((de = GetDegradeCardInfo(de)) != null)
+
+        while ((de = GetDegradeCardInfo(basic_card)) != null)
         {
+            if (de.CardID == cardInfo.CardID)
+            {
+                break;
+            }
+
             basic_card = de;
         }
 
         res.Add(basic_card);
 
+        CardInfo_Base last_up = basic_card;
         CardInfo_Base up = basic_card;
-        while ((up = GetUpgradeCardInfo(up)) != null)
+        while ((up = GetUpgradeCardInfo(last_up)) != null)
         {
+            //Cycle
+            if (up.CardID == basic_card.CardID)
+            {
+                //Break the link
+                up.UpgradeInfo.DegradeCardID = -1;
+                up.UpgradeInfo.UpgradeCardID = -1;
+                foreach (CardInfo_Base cb in res)
+                {
+                    cb.UpgradeInfo.UpgradeCardID = -1;
+                    cb.UpgradeInfo.DegradeCardID = -1;
+                }
+
+                CardSeriesErrorNeedsReload = true;
+
+                List<int> cycleCardIDs = new List<int>();
+                foreach (CardInfo_Base cb in res)
+                {
+                    cycleCardIDs.Add(cb.CardID);
+                }
+
+                cycleCardIDs.Add(basic_card.CardID);
+                string cycleStr = string.Join("->", cycleCardIDs);
+                Utils.NoticeCenterMsg?.Invoke(string.Format(LanguageManager_Common.GetText("CardEditorPanel_InvalidCycleAutoBreak"), cycleStr));
+                break;
+            }
+
             res.Add(up);
+            last_up = up;
         }
 
         return res;

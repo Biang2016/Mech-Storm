@@ -14,7 +14,7 @@
   </Card>
   <Card id="10">
     <CardInfo name="baseInfo" pictureID="1" cardName_en="Strike" cardName_zh="强袭" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="1" cardRareLevel="1" cardType="Mech" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="11" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
@@ -203,18 +203,6 @@
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="6" />
     <CardInfo name="sideEffectsBundle" />
-  </Card>
-  <Card id="556">
-    <CardInfo name="baseInfo" pictureID="5" cardName_en="Unicorn" cardName_zh="独角兽高达" isTemp="False" isHide="False" metal="7" energy="0" coin="500" limitNum="1" cardRareLevel="7" cardType="Mech" />
-    <CardInfo name="upgradeInfo" upgradeCardID="555" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
-    <CardInfo name="lifeInfo" life="7" totalLife="7" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="0" />
-    <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="SummonMech" TargetSelect="All" TargetRange="Ships" ChoiceCount="1" SummonCardID="555" />
-      </SideEffectExecute>
-    </CardInfo>
   </Card>
   <Card id="5011">
     <CardInfo name="baseInfo" pictureID="51" cardName_en="Repair Team X" cardName_zh="支援小队" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="2" cardRareLevel="0" cardType="Mech" />
@@ -459,7 +447,7 @@
   </Card>
   <Card id="10013">
     <CardInfo name="baseInfo" pictureID="100" cardName_en="SP Thermal Axe" cardName_zh="狂暴热能斧" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="0" cardRareLevel="4" cardType="Equip" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="10020" degradeCardID="10012" />
     <CardInfo name="weaponInfo" energy="1" energyMax="5" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
     <CardInfo name="sideEffectsBundle" />
   </Card>

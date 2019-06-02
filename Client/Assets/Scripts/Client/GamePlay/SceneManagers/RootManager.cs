@@ -13,6 +13,7 @@ public class RootManager : MonoSingleton<RootManager>
     void Awake()
     {
         Utils.DebugLog = ClientLog.Instance.PrintError;
+        Utils.NoticeCenterMsg = delegate(string noticeStr) { NoticeManager.Instance.ShowInfoPanelCenter(noticeStr, 0, 2f); };
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         LoadAllBasicXMLFiles.Load(Application.streamingAssetsPath + "/Config/");

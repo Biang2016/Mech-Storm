@@ -29,7 +29,6 @@ public class Shop : Level
         if (ItemPrices.ContainsKey(cardID))
         {
             ItemPrices.Remove(cardID);
-            AllLevels.RefreshLevelXML(this);
             return true;
         }
 
