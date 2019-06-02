@@ -7,7 +7,7 @@ using Newtonsoft.Json.Converters;
 /// <summary>
 /// Encapsulate side effect and its TriggerTime, TriggerRange, number of trigger times, and other attributes. 
 /// </summary>
-public class SideEffectExecute : IClone<SideEffectExecute>
+public sealed class SideEffectExecute : IClone<SideEffectExecute>
 {
     private static int idGenerator = 5000;
 

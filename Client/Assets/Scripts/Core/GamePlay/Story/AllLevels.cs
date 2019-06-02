@@ -5,88 +5,72 @@ using System.Xml;
 
 public class AllLevels
 {
-    public static string EnemyDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Enemies/";
-    public static string ShopDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Shops/";
+    public static SortedDictionary<LevelType, string> LevelDirectoryDict = new SortedDictionary<LevelType, string>
+    {
+        {LevelType.Enemy, LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Enemies/"},
+        {LevelType.Shop, LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Shops/"},
+    };
 
-    public static string DefaultEnemyXML => EnemyDirectory + "DefaultEnemies.xml";
+    public static SortedDictionary<LevelType, string> LevelDefaultXMLDict = new SortedDictionary<LevelType, string>
+    {
+        {LevelType.Enemy, LevelDirectoryDict[LevelType.Enemy] + "DefaultEnemies.xml"},
+        {LevelType.Shop, LevelDirectoryDict[LevelType.Shop] + "DefaultShops.xml"},
+    };
 
-    public static Dictionary<string, Enemy> EnemyDict = new Dictionary<string, Enemy>();
-    public static Dictionary<string, Shop> ShopDict = new Dictionary<string, Shop>();
+    public static SortedDictionary<LevelType, SortedDictionary<string, Level>> LevelDict = new SortedDictionary<LevelType, SortedDictionary<string, Level>>
+    {
+        {LevelType.Enemy, new SortedDictionary<string, Level>()},
+        {LevelType.Shop, new SortedDictionary<string, Level>()},
+    };
+
+    public static Level GetLevel(LevelType levelType, string levelName, CloneVariantUtils.OperationType operationType)
+    {
+        if (LevelDict[levelType].ContainsKey(levelName))
+        {
+            if (operationType == CloneVariantUtils.OperationType.Clone)
+            {
+                return LevelDict[levelType][levelName].Clone();
+            }
+            else
+            {
+                return LevelDict[levelType][levelName].Variant();
+            }
+        }
+
+        return null;
+    }
+
+    public static void Reset()
+    {
+        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in LevelDict)
+        {
+            kv.Value.Clear();
+        }
+    }
 
     public static void AddAllLevels()
     {
         Reset();
-        AddAllEnemies();
-        AddAllShops();
-    }
-
-    public static Enemy GetEnemy(string enemyName, CloneVariantUtils.OperationType operationType)
-    {
-        if (EnemyDict.ContainsKey(enemyName))
+        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in LevelDict)
         {
-            if (operationType == CloneVariantUtils.OperationType.Clone)
+            LevelType levelType = kv.Key;
+            foreach (string path in Directory.GetFiles(LevelDirectoryDict[levelType], "*.xml"))
             {
-                return (Enemy) EnemyDict[enemyName].Clone();
-            }
-            else
-            {
-                return (Enemy) EnemyDict[enemyName].Variant();
-            }
-        }
+                string text;
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    text = sr.ReadToEnd();
+                }
 
-        return null;
-    }
-
-    public static Shop GetShop(string shopName)
-    {
-        if (ShopDict.ContainsKey(shopName))
-        {
-            return (Shop) ShopDict[shopName].Clone();
-        }
-
-        return null;
-    }
-
-    private static void AddAllEnemies()
-    {
-        foreach (string path in Directory.GetFiles(EnemyDirectory, "*.xml"))
-        {
-            string text;
-            using (StreamReader sr = new StreamReader(path))
-            {
-                text = sr.ReadToEnd();
-            }
-
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(text);
-            XmlElement allEnemies = doc.DocumentElement;
-            for (int i = 0; i < allEnemies.ChildNodes.Count; i++)
-            {
-                XmlNode levelInfo = allEnemies.ChildNodes.Item(i);
-                Enemy enemy = (Enemy) GetLevelFromXML(levelInfo);
-                EnemyDict.Add(enemy.LevelNames["en"], enemy);
-            }
-        }
-    }
-
-    private static void AddAllShops()
-    {
-        foreach (string path in Directory.GetFiles(ShopDirectory, "*.xml"))
-        {
-            string text;
-            using (StreamReader sr = new StreamReader(path))
-            {
-                text = sr.ReadToEnd();
-            }
-
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(text);
-            XmlElement allShops = doc.DocumentElement;
-            for (int i = 0; i < allShops.ChildNodes.Count; i++)
-            {
-                XmlNode levelInfo = allShops.ChildNodes.Item(i);
-                Shop shop = (Shop) GetLevelFromXML(levelInfo);
-                ShopDict.Add(shop.LevelNames["en"], shop);
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(text);
+                XmlElement allLevels = doc.DocumentElement;
+                for (int i = 0; i < allLevels.ChildNodes.Count; i++)
+                {
+                    XmlNode levelInfo = allLevels.ChildNodes.Item(i);
+                    Level level = GetLevelFromXML(levelInfo);
+                    kv.Value.Add(level.LevelNames["en"], level);
+                }
             }
         }
     }
@@ -131,7 +115,20 @@ public class AllLevels
             }
             case LevelType.Shop:
             {
-                Shop shop = new Shop(levelThemeType, picID, names);
+                XmlNode node_ShopInfo = node_levelInfo.FirstChild;
+                SortedDictionary<int, int> itemPrices = new SortedDictionary<int, int>();
+                string[] itemPrices_strs = node_ShopInfo.Attributes["itemPrices"].Value.Split(';');
+                foreach (string s in itemPrices_strs)
+                {
+                    if (string.IsNullOrEmpty(s)) continue;
+                    string[] itemPrice = s.Trim('(').Trim(')').Split(',');
+                    int cardID = int.Parse(itemPrice[0]);
+                    if (!AllCards.CardDict.ContainsKey(cardID)) continue;
+                    int price = int.Parse(itemPrice[1]);
+                    itemPrices.Add(cardID, price);
+                }
+
+                Shop shop = new Shop(levelThemeType, picID, names, itemPrices);
                 return shop;
             }
         }
@@ -176,56 +173,104 @@ public class AllLevels
 
     public static void RefreshLevelXML(Level level)
     {
-        switch (level)
+        level = level.Clone();
+        SortedDictionary<string, Level> dict = LevelDict[level.LevelType];
+        if (dict.ContainsKey(level.LevelNames["en"]))
         {
-            case Enemy enemy:
-            {
-                RefreshEnemyXML(enemy);
-                break;
-            }
-            case Shop shop:
-            {
-                RefreshShopXML(shop);
-                break;
-            }
-        }
-    }
-
-    private static void RefreshEnemyXML(Enemy enemy)
-    {
-        if (EnemyDict.ContainsKey(enemy.LevelNames["en"]))
-        {
-            EnemyDict[enemy.LevelNames["en"]] = enemy;
+            dict[level.LevelNames["en"]] = level;
         }
         else
         {
-            EnemyDict.Add(enemy.LevelNames["en"], enemy);
+            dict.Add(level.LevelNames["en"], level);
         }
 
         string text;
-        using (StreamReader sr = new StreamReader(DefaultEnemyXML))
+        using (StreamReader sr = new StreamReader(LevelDefaultXMLDict[level.LevelType]))
         {
             text = sr.ReadToEnd();
         }
 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(text);
-        XmlElement allEnemies = doc.DocumentElement;
-        enemy.ExportToXML(allEnemies);
+        XmlElement allLevels = doc.DocumentElement;
+        level.ExportToXML(allLevels);
 
-        using (StreamWriter sw = new StreamWriter(DefaultEnemyXML))
+        using (StreamWriter sw = new StreamWriter(LevelDefaultXMLDict[level.LevelType]))
         {
             doc.Save(sw);
         }
     }
 
-    private static void RefreshShopXML(Shop shop)
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public static void DeleteLevel(LevelType levelType, string levelName_en)
     {
-    }
+        string text;
+        using (StreamReader sr = new StreamReader(LevelDefaultXMLDict[levelType]))
+        {
+            text = sr.ReadToEnd();
+        }
 
-    public static void Reset()
-    {
-        EnemyDict.Clear();
-        ShopDict.Clear();
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allLevel = doc.DocumentElement;
+        SortedDictionary<string, XmlElement> levelNodesDict = new SortedDictionary<string, XmlElement>();
+        foreach (XmlElement node in allLevel.ChildNodes)
+        {
+            string name = node.Attributes["name_en"].Value;
+            if (name != levelName_en)
+            {
+                levelNodesDict.Add(name, node);
+            }
+        }
+
+        allLevel.RemoveAll();
+        foreach (KeyValuePair<string, XmlElement> kv in levelNodesDict)
+        {
+            allLevel.AppendChild(kv.Value);
+        }
+
+        using (StreamWriter sw = new StreamWriter(LevelDefaultXMLDict[levelType]))
+        {
+            doc.Save(sw);
+        }
+
+        ReloadLevelXML();
+
+        // 从Story中移除该Level
+        SortedDictionary<string, SortedDictionary<int, List<int>>> removeList = new SortedDictionary<string, SortedDictionary<int, List<int>>>();
+
+        foreach (KeyValuePair<string, Story> kv in AllStories.StoryDict)
+        {
+            removeList.Add(kv.Key, new SortedDictionary<int, List<int>>());
+            foreach (KeyValuePair<int, Chapter> _kv in kv.Value.Chapters)
+            {
+                removeList[kv.Key].Add(_kv.Key, new List<int>());
+                foreach (KeyValuePair<int, Level> KV in _kv.Value.Levels)
+                {
+                    if (KV.Value.LevelNames["en"].Equals(levelName_en))
+                    {
+                        removeList[kv.Key][_kv.Key].Add(KV.Key);
+                    }
+                }
+            }
+        }
+
+        foreach (KeyValuePair<string, SortedDictionary<int, List<int>>> kv in removeList)
+        {
+            Story story = AllStories.StoryDict[kv.Key];
+            foreach (KeyValuePair<int, List<int>> _kv in kv.Value)
+            {
+                Chapter chapter = story.Chapters[_kv.Key];
+                foreach (int i in _kv.Value)
+                {
+                    chapter.Levels.Remove(i);
+                }
+            }
+
+            AllStories.RefreshStoryXML(story);
+            AllStories.ReloadStoryXML();
+        }
     }
 }

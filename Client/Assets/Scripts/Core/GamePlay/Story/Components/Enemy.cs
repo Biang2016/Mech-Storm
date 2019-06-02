@@ -32,6 +32,21 @@ public class Enemy : Level
         return null;
     }
 
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public override bool DeleteCard(int cardID)
+    {
+        if (BuildInfo.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
+        {
+            BuildInfo.M_BuildCards.CardSelectInfos.Remove(cardID);
+            AllLevels.RefreshLevelXML(this);
+            return true;
+        }
+
+        return false;
+    }
+
     protected override void ChildrenExportToXML(XmlElement level_ele)
     {
         XmlDocument doc = level_ele.OwnerDocument;
@@ -75,7 +90,7 @@ public class Enemy : Level
         }
     }
 
-    public static Enemy Deserialize(DataStream reader)
+    public static Enemy Deserialize(DataStream reader) // 除Level类外 不可直接调用
     {
         BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
         EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());

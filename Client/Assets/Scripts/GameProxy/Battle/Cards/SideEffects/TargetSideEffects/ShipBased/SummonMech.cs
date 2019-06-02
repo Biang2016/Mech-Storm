@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class SummonMech : TargetSideEffect
+    public class SummonMech : TargetSideEffect, ICardDeckLinked
     {
         public SummonMech()
         {
@@ -22,14 +22,19 @@
 
         public override void Execute(ExecutorInfo executorInfo)
         {
-            BattlePlayer player = (BattlePlayer)Player;
+            BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.SideEffect_ShipAction(
-                delegate (BattlePlayer sp) { sp.BattleGroundManager.AddMech((CardInfo_Mech)AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID"))); },
+                delegate(BattlePlayer sp) { sp.BattleGroundManager.AddMech((CardInfo_Mech) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID"))); },
                 player,
                 ChoiceCount,
                 TargetRange,
                 TargetSelect,
                 executorInfo.TargetClientIds);
+        }
+
+        public SideEffectValue_ConstInt GetCardIDSideEffectValue()
+        {
+            return (SideEffectValue_ConstInt) M_SideEffectParam.GetParam("SummonCardID");
         }
     }
 }

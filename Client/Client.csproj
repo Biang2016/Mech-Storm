@@ -182,7 +182,10 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShrinkText.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StarsGroup.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StartMenuButton.cs" />
-     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryEditorPanel_EnemyButton.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_EnemyButton.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_LevelButton.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_LevelButtonSliderBar.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_ShopButton.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMap.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMapNode.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMapRoute.cs" />
@@ -190,6 +193,9 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Chapter.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Chapters.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_GamePlaySettings.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\TabControl\TabControl.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\TabControl\TabControl_Panel.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\TabControl\TabControl_TabButton.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\ExitMenuPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\LevelEditorPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\LoginPanel.cs" />

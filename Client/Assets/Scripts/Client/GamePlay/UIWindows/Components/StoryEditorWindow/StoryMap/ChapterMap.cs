@@ -315,10 +315,10 @@ public class ChapterMap : PoolObject
     {
         foreach (int i in NodeCategory[NodeTypes.Common])
         {
-            ChapterMapNodes[i].Initialize(i, LevelType.Enemy, EnemyType.Soldier);
+            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Enemy, EnemyType.Soldier);
         }
 
-        ChapterMapNodes[0].Initialize(0, LevelType.Start);
+        ChapterMapNodes[0].Initialize(0, SelectNode, LevelType.Start);
 
         int shopNumMax = Mathf.CeilToInt(shopRatio * NodeCategory[NodeTypes.Common].Count);
         int restNumMax = Mathf.CeilToInt(restRatio * NodeCategory[NodeTypes.Common].Count);
@@ -335,22 +335,32 @@ public class ChapterMap : PoolObject
 
         foreach (int i in shops)
         {
-            ChapterMapNodes[i].Initialize(i, LevelType.Shop);
+            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Shop);
         }
 
         foreach (int i in rests)
         {
-            ChapterMapNodes[i].Initialize(i, LevelType.Rest);
+            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Rest);
         }
 
         foreach (int i in NodeCategory[NodeTypes.Treasure])
         {
-            ChapterMapNodes[i].Initialize(i, LevelType.Treasure);
+            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Treasure);
         }
 
         foreach (int i in NodeCategory[NodeTypes.Boss])
         {
-            ChapterMapNodes[i].Initialize(i, LevelType.Enemy, EnemyType.Boss);
+            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Enemy, EnemyType.Boss);
         }
+    }
+
+    private void SelectNode(int nodeIndex)
+    {
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
+        {
+            kv.Value.IsSelected = false;
+        }
+
+        ChapterMapNodes[nodeIndex].IsSelected = true;
     }
 }

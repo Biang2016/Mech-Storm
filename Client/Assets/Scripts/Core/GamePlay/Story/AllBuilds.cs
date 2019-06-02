@@ -8,24 +8,30 @@ using System.Xml;
 public class AllBuilds
 {
     private static string BuildDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Builds/";
+
+    private static SortedDictionary<BuildGroups, string> BuildGroupXMLDict = new SortedDictionary<BuildGroups, string>
+    {
+        {BuildGroups.CustomBuilds, BuildDirectory + "CustomBuilds.xml"},
+        {BuildGroups.EnemyBuilds, BuildDirectory + "EnemyBuilds.xml"},
+        {BuildGroups.OnlineBuilds, BuildDirectory + "OnlineBuilds.xml"},
+    };
+
     public static Dictionary<BuildGroups, BuildGroup> BuildGroupDict = new Dictionary<BuildGroups, BuildGroup>();
 
     public static void AddAllBuilds()
     {
         Reset();
-        foreach (string path in Directory.GetFiles(BuildDirectory, "*.xml"))
+
+        foreach (KeyValuePair<BuildGroups, string> kv in BuildGroupXMLDict)
         {
-            FileInfo fi = new FileInfo(path);
-            string pureName = fi.Name.Substring(0, fi.Name.LastIndexOf("."));
-            BuildGroups bgType = (BuildGroups) Enum.Parse(typeof(BuildGroups), pureName);
-            if (!BuildGroupDict.ContainsKey(bgType))
+            if (!BuildGroupDict.ContainsKey(kv.Key))
             {
-                BuildGroup sb = new BuildGroup(pureName);
-                BuildGroupDict.Add(bgType, sb);
+                BuildGroup sb = new BuildGroup(kv.Key.ToString());
+                BuildGroupDict.Add(kv.Key, sb);
             }
 
             string text;
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(kv.Value))
             {
                 text = sr.ReadToEnd();
             }
@@ -37,8 +43,8 @@ public class AllBuilds
             {
                 XmlNode buildInfoNode = allBuilds.ChildNodes.Item(i);
                 BuildInfo buildInfo = GetBuildInfoFromXML(buildInfoNode);
-                BuildStoryDatabase.Instance.AddOrModifyBuild(pureName, buildInfo);
-                BuildGroupDict[bgType].AddBuild(buildInfo.BuildName, buildInfo);
+                BuildStoryDatabase.Instance.AddOrModifyBuild(kv.Key.ToString(), buildInfo);
+                BuildGroupDict[kv.Key].AddBuild(buildInfo.BuildName, buildInfo);
             }
         }
     }
@@ -98,66 +104,103 @@ public class AllBuilds
         return buildInfo;
     }
 
-    public static void ExportBuilds(BuildGroup builds)
+    public static void ReloadBuildXML()
     {
+        AddAllBuilds();
+    }
+
+    public static void RefreshBuildXML(BuildGroups buildGroup, BuildInfo buildInfo)
+    {
+        buildInfo = buildInfo.Clone();
+        Dictionary<string, BuildInfo> dict = BuildGroupDict[buildGroup].Builds;
+        if (dict.ContainsKey(buildInfo.BuildName))
+        {
+            dict[buildInfo.BuildName] = buildInfo;
+        }
+        else
+        {
+            dict.Add(buildInfo.BuildName, buildInfo);
+        }
+
+        string text;
+        using (StreamReader sr = new StreamReader(BuildGroupXMLDict[buildGroup]))
+        {
+            text = sr.ReadToEnd();
+        }
+
         XmlDocument doc = new XmlDocument();
-        XmlDeclaration xmldecl = doc.CreateXmlDeclaration("1.0", "utf-8", null);
-        XmlElement root = doc.DocumentElement;
-        doc.InsertBefore(xmldecl, root);
+        doc.LoadXml(text);
+        XmlElement allBuilds = doc.DocumentElement;
+        buildInfo.ExportToXML(allBuilds);
 
-        XmlElement ele = doc.CreateElement("AllBuilds");
-        doc.AppendChild(ele);
-
-        SortedDictionary<int, List<BuildInfo>> sortedEnemyBuilds = new SortedDictionary<int, List<BuildInfo>>();
-
-        if (builds.ManagerName == "EnemyBuilds")
+        using (StreamWriter sw = new StreamWriter(BuildGroupXMLDict[buildGroup]))
         {
-            foreach (BuildInfo buildInfo in builds.Builds.Values)
+            doc.Save(sw);
+        }
+    }
+
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public void DeleteBuild(BuildGroups buildGroup, string buildName)
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(BuildGroupXMLDict[buildGroup]))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allBuilds = doc.DocumentElement;
+        SortedDictionary<string, XmlElement> buildNodesDict = new SortedDictionary<string, XmlElement>();
+        foreach (XmlElement node in allBuilds.ChildNodes)
+        {
+            string name = node.Attributes["BuildName"].Value;
+            if (name != buildName)
             {
-                Match match = Regex_BuildName_StoryLevel.Match(buildInfo.BuildName);
-                if (match.Success)
-                {
-                    int levelNum = -1;
-                    foreach (Group matchGroup in match.Groups)
-                    {
-                        int.TryParse(matchGroup.Value, out levelNum);
-                    }
-
-                    if (levelNum != -1)
-                    {
-                        if (!sortedEnemyBuilds.ContainsKey(levelNum))
-                        {
-                            sortedEnemyBuilds.Add(levelNum, new List<BuildInfo>());
-                        }
-
-                        sortedEnemyBuilds[levelNum].Add(buildInfo);
-                    }
-                }
+                buildNodesDict.Add(name, node);
             }
+        }
 
-            foreach (KeyValuePair<int, List<BuildInfo>> kv in sortedEnemyBuilds)
-            {
-                foreach (BuildInfo bi in kv.Value)
-                {
-                    builds.Builds.Remove(bi.BuildName);
-                }
-            }
+        allBuilds.RemoveAll();
+        foreach (KeyValuePair<string, XmlElement> kv in buildNodesDict)
+        {
+            allBuilds.AppendChild(kv.Value);
+        }
 
-            foreach (KeyValuePair<int, List<BuildInfo>> kv in sortedEnemyBuilds)
+        using (StreamWriter sw = new StreamWriter(BuildGroupXMLDict[buildGroup]))
+        {
+            doc.Save(sw);
+        }
+
+        ReloadBuildXML();
+
+        //删除Story中同名的Level
+        SortedDictionary<LevelType, List<string>> removeLevelPath = new SortedDictionary<LevelType, List<string>>();
+        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
+        {
+            removeLevelPath.Add(kv.Key, new List<string>());
+            foreach (KeyValuePair<string, Level> _kv in kv.Value)
             {
-                foreach (BuildInfo bi in kv.Value)
+                if (_kv.Value is Enemy enemy)
                 {
-                    builds.Builds.Add(bi.BuildName, bi);
+                    if (enemy.BuildInfo.BuildName.Equals(buildName))
+                    {
+                        removeLevelPath[kv.Key].Add(_kv.Key);
+                    }
                 }
             }
         }
 
-        foreach (BuildInfo buildInfo in builds.Builds.Values)
+        foreach (KeyValuePair<LevelType, List<string>> kv in removeLevelPath)
         {
-            buildInfo.ExportToXML(ele);
+            SortedDictionary<string, Level> dict = AllLevels.LevelDict[kv.Key];
+            foreach (string s in kv.Value)
+            {
+                AllLevels.DeleteLevel(dict[s].LevelType, dict[s].LevelNames["en"]);
+            }
         }
-
-        doc.Save(BuildDirectory + builds.ManagerName + ".xml");
     }
 
     public static void Reset()

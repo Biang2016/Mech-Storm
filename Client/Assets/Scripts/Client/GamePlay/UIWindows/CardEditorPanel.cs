@@ -1502,7 +1502,6 @@ public class CardEditorPanel : BaseUIForm
                 delegate
                 {
                     AllCards.DeleteCard(cur_PreviewCard.CardInfo.CardID);
-                    AllCards.ReloadCardXML();
                     InitializePreviewCardGrid();
                     cp.CloseUIForm();
                     NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_DeleteCardSuccess"), 0, 1f);

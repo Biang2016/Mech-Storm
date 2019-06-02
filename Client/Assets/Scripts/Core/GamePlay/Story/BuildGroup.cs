@@ -27,4 +27,15 @@ public class BuildGroup
 
         return null;
     }
+
+    public bool DeleteBuild(string buildName)
+    {
+        if (Builds.ContainsKey(buildName))
+        {
+            Builds.Remove(buildName);
+            return true;
+        }
+
+        return false;
+    }
 }

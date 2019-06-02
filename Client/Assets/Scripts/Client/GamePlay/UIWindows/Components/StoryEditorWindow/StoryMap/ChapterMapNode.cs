@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ChapterMapNode : PoolObject
 {
     [SerializeField] private Image PicImage;
+    [SerializeField] private Image SelectedBorder;
+    [SerializeField] private Button Button;
+
+    public override void PoolRecycle()
+    {
+        IsSelected = false;
+        Button.onClick.RemoveAllListeners();
+        base.PoolRecycle();
+    }
 
 //    public void Initialize(Level level)
 //    {
@@ -11,9 +21,26 @@ public class ChapterMapNode : PoolObject
 //    }
     internal int NodeIndex;
 
-    public void Initialize(int nodeIndex, LevelType levelType = LevelType.Enemy, EnemyType enemyType = EnemyType.Soldier)
+    private bool isSelected;
+
+    public bool IsSelected
     {
+        get { return isSelected; }
+        set
+        {
+            isSelected = value;
+            SelectedBorder.enabled = value;
+        }
+    }
+
+    public void Initialize(int nodeIndex, UnityAction<int> onSelected, LevelType levelType = LevelType.Enemy, EnemyType enemyType = EnemyType.Soldier)
+    {
+        IsSelected = false;
         NodeIndex = nodeIndex;
+
+        Button.onClick.RemoveAllListeners();
+        Button.onClick.AddListener(delegate { onSelected(nodeIndex); });
+
         int picID = 0;
         transform.localScale = Vector3.one * 1f;
         switch (levelType)

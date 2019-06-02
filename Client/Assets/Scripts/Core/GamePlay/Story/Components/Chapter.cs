@@ -22,7 +22,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         ChapterNames = chapterNames;
         Levels = chapterAllLevels;
         ChapterMapRoundCount = chapterMapRoundCount;
-        //TODO 分配LevelID
+        RefreshLevelMap();
     }
 
     public Story.InfoRefreshDelegate InfoRefresh; // 信息更新委托
@@ -32,6 +32,11 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         //TODO
 
         InfoRefresh();
+    }
+
+    public void RefreshLevelMap()
+    {
+        //TODO 分配LevelID  生成关卡关系等
     }
 
     public Chapter Variant()
@@ -86,7 +91,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         {
             kv.Value.LevelID = kv.Key;
         }
-        //TODO 各pace之间的连接关系Clone
+        //TODO 各level之间的连接关系Clone
 
         return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces, ChapterMapRoundCount);
     }

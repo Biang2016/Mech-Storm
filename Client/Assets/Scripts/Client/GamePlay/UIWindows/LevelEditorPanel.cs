@@ -208,7 +208,8 @@ public class LevelEditorPanel : BaseUIForm
                 Cur_Level = new Shop(
                     levelThemeCategory: LevelThemeCategory.Energy,
                     levelPicId: 0,
-                    levelNames: new SortedDictionary<string, string> {{"zh", "新商店"}, {"en", "newShop"}});
+                    levelNames: new SortedDictionary<string, string> {{"zh", "新商店"}, {"en", "newShop"}},
+                    itemPrices: new SortedDictionary<int, int>());
                 break;
             }
         }

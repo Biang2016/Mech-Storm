@@ -24,6 +24,7 @@ public class StoryPropertyForm_Chapters : PoolObject
     }
 
     public SortedDictionary<int, Chapter> Cur_Chapters;
+    private Chapter SelectedChapter;
     private SortedDictionary<int, StoryPropertyForm_Chapter> StoryChapterRows = new SortedDictionary<int, StoryPropertyForm_Chapter>();
 
     public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction<Chapter> onChangeSelectedChapter, UnityAction<int> onChapterMapRoundCountChange)
@@ -75,13 +76,17 @@ public class StoryPropertyForm_Chapters : PoolObject
             chapterRow.Initialize(
                 onSelected: delegate
                 {
-                    foreach (KeyValuePair<int, StoryPropertyForm_Chapter> _kv in StoryChapterRows)
+                    if (SelectedChapter != chapterRow.Cur_Chapter)
                     {
-                        _kv.Value.IsSelected = false;
-                    }
+                        foreach (KeyValuePair<int, StoryPropertyForm_Chapter> _kv in StoryChapterRows)
+                        {
+                            _kv.Value.IsSelected = false;
+                        }
 
-                    chapterRow.IsSelected = true;
-                    onChangeSelectedChapter(chapterRow.Cur_Chapter);
+                        chapterRow.IsSelected = true;
+                        onChangeSelectedChapter(chapterRow.Cur_Chapter);
+                        SelectedChapter = chapterRow.Cur_Chapter;
+                    }
                 },
                 onMoveUp: delegate
                 {
@@ -117,6 +122,7 @@ public class StoryPropertyForm_Chapters : PoolObject
         foreach (KeyValuePair<int, StoryPropertyForm_Chapter> kv in StoryChapterRows)
         {
             onChangeSelectedChapter(kv.Value.Cur_Chapter);
+            SelectedChapter = kv.Value.Cur_Chapter;
             kv.Value.IsSelected = true;
             break;
         }

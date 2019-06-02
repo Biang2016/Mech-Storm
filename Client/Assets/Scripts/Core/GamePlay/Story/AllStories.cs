@@ -40,7 +40,7 @@ public class AllStories
 
             SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
             playerBuildInfos.Add(buildInfo.BuildID, buildInfo);
-            Story newStory = new Story(pureName, Chapters, buildInfo.M_BuildCards.GetBaseCardLimitDict(), playerBuildInfos, gps);
+            Story newStory = new Story(pureName, Chapters,  playerBuildInfos, gps);
             StoryDict.Add(newStory.StoryName, newStory);
         }
     }
@@ -86,6 +86,7 @@ public class AllStories
         {
             doc.Save(sw);
         }
+
     }
 
     public static GamePlaySettings GetGamePlaySettingsFromXML(XmlNode node_gps)
@@ -131,14 +132,14 @@ public class AllStories
         for (int i = 0; i < node_EnemyInfos.ChildNodes.Count; i++)
         {
             XmlNode enemyInfo = node_EnemyInfos.ChildNodes[i];
-            Enemy enemy = AllLevels.GetEnemy(enemyInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
+            Enemy enemy = (Enemy) AllLevels.GetLevel(LevelType.Enemy, enemyInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
             allLevels.Add(levelID++, enemy);
         }
 
         for (int i = 0; i < node_ShopInfos.ChildNodes.Count; i++)
         {
             XmlNode shopInfo = node_ShopInfos.ChildNodes[i];
-            Shop shop = AllLevels.GetShop(shopInfo.Attributes["name"].Value);
+            Shop shop = (Shop) AllLevels.GetLevel(LevelType.Enemy, shopInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
             allLevels.Add(levelID++, shop);
         }
 

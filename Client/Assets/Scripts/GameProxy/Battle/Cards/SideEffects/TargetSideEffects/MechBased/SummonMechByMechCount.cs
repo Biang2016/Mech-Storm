@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class SummonMechByMechCount : TargetSideEffect
+    public class SummonMechByMechCount : TargetSideEffect, ICardDeckLinked
     {
         public SummonMechByMechCount()
         {
@@ -34,6 +34,11 @@ namespace SideEffects
             {
                 player.BattleGroundManager.AddMech((CardInfo_Mech) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID")));
             }
+        }
+
+        public SideEffectValue_ConstInt GetCardIDSideEffectValue()
+        {
+            return (SideEffectValue_ConstInt) M_SideEffectParam.GetParam("SummonCardID");
         }
     }
 }

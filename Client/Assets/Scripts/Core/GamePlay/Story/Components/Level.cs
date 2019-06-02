@@ -24,6 +24,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 
     public abstract Level Clone();
     public abstract Level Variant();
+    public abstract bool DeleteCard(int cardID);
 
     public void ExportToXML(XmlElement allLevel_ele)
     {

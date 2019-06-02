@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddTempCardToDeck : TargetSideEffect
+    public class AddTempCardToDeck : TargetSideEffect, ICardDeckLinked
     {
         public AddTempCardToDeck()
         {
@@ -21,7 +21,7 @@
             return HighlightStringFormat(
                 DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
-                M_SideEffectParam.GetParam_MultipliedInt("CardCount"), 
+                M_SideEffectParam.GetParam_MultipliedInt("CardCount"),
                 "[" + bi.CardNames[LanguageManager_Common.GetCurrentLanguage()] + "]");
         }
 
@@ -29,6 +29,11 @@
         {
             BattlePlayer player = (BattlePlayer) Player;
             player.CardDeckManager.RandomInsertTempCard(M_SideEffectParam.GetParam_ConstInt("CardID"), M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
+        }
+
+        public SideEffectValue_ConstInt GetCardIDSideEffectValue()
+        {
+            return (SideEffectValue_ConstInt) M_SideEffectParam.GetParam("CardID");
         }
     }
 }

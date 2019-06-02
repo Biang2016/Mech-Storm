@@ -396,6 +396,7 @@ public static class AllCards
 
     public static void RefreshCardXML(CardInfo_Base ci)
     {
+        ci = ci.Clone();
         if (CardDict.ContainsKey(ci.CardID))
         {
             CardDict[ci.CardID] = ci;
@@ -467,6 +468,9 @@ public static class AllCards
         }
     }
 
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
     public static void DeleteCard(int cardID)
     {
         string text;
@@ -498,6 +502,106 @@ public static class AllCards
         {
             doc.Save(sw);
         }
+
+        ReloadCardXML();
+
+        //从 Story、Builds、 Levels、和AddCard类型的SideEffect中移除该卡片ID
+        //Story
+
+        bool storyXMLNeedsReload = false;
+        List<Story> refreshStories = new List<Story>();
+        foreach (KeyValuePair<string, Story> kv in AllStories.StoryDict)
+        {
+            bool thisNeedsRefresh = false;
+            foreach (KeyValuePair<int, BuildInfo> _kv in kv.Value.PlayerBuildInfos)
+            {
+                if (_kv.Value.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
+                {
+                    _kv.Value.M_BuildCards.CardSelectInfos.Remove(cardID);
+                    thisNeedsRefresh = true;
+                    storyXMLNeedsReload = true;
+                }
+            }
+
+            if (thisNeedsRefresh)
+            {
+                refreshStories.Add(kv.Value);
+                kv.Value.RefreshBaseCardLimitDict();
+            }
+        }
+
+        foreach (Story story in refreshStories)
+        {
+            AllStories.RefreshStoryXML(story);
+        }
+
+        if (storyXMLNeedsReload) AllStories.ReloadStoryXML();
+
+        //Build
+        bool buildXMLNeedsReload = false;
+        Dictionary<BuildGroups, List<BuildInfo>> refreshBuildInfoDict = new Dictionary<BuildGroups, List<BuildInfo>>();
+        foreach (KeyValuePair<BuildGroups, BuildGroup> kv in AllBuilds.BuildGroupDict)
+        {
+            refreshBuildInfoDict.Add(kv.Key, new List<BuildInfo>());
+            foreach (KeyValuePair<string, BuildInfo> _kv in kv.Value.Builds)
+            {
+                if (_kv.Value.M_BuildCards.CardSelectInfos.ContainsKey(cardID))
+                {
+                    _kv.Value.M_BuildCards.CardSelectInfos.Remove(cardID);
+                    refreshBuildInfoDict[kv.Key].Add(_kv.Value);
+                    buildXMLNeedsReload = true;
+                }
+            }
+        }
+
+        foreach (KeyValuePair<BuildGroups, List<BuildInfo>> kv in refreshBuildInfoDict)
+        {
+            foreach (BuildInfo bi in kv.Value)
+            {
+                AllBuilds.RefreshBuildXML(kv.Key, bi);
+            }
+        }
+
+        if (buildXMLNeedsReload) AllBuilds.ReloadBuildXML();
+
+        //Levels
+        bool levelNeedsReload = false;
+        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
+        {
+            foreach (KeyValuePair<string, Level> _kv in kv.Value)
+            {
+                levelNeedsReload |= _kv.Value.DeleteCard(cardID);
+            }
+        }
+
+        if (levelNeedsReload) AllLevels.ReloadLevelXML();
+
+        //SideEffect, ICardDeckLinked
+        bool sideEffectNeedsReload = false;
+        foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+        {
+            bool thisCardNeedsRefresh = false;
+            foreach (SideEffectExecute see in kv.Value.SideEffectBundle.SideEffectExecutes)
+            {
+                foreach (SideEffectBase se in see.SideEffectBases)
+                {
+                    if (se is ICardDeckLinked link_se)
+                    {
+                        int value = link_se.GetCardIDSideEffectValue().Value;
+                        if (value == cardID)
+                        {
+                            link_se.GetCardIDSideEffectValue().SetValue(99999.ToString());
+                            sideEffectNeedsReload = true;
+                            thisCardNeedsRefresh = true;
+                        }
+                    }
+                }
+            }
+
+            if (thisCardNeedsRefresh) RefreshCardXML(kv.Value);
+        }
+
+        if (sideEffectNeedsReload) ReloadCardXML();
     }
 
     public static CardInfo_Base GetCard(int cardID)

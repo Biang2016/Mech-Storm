@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml;
@@ -44,6 +45,14 @@ public class StoryEditorPanel : BaseUIForm
         ReturnToGamerButton.onClick.AddListener(ReturnToGame);
 
         InitializeCardPropertyForm();
+
+        foreach (string s in Enum.GetNames(typeof(LevelType)))
+        {
+            LevelType lt = (LevelType) Enum.Parse(typeof(LevelType), s);
+            LevelContainerDict.Add(lt, LevelListTabControl.AddTab("StoryEditorPanel_" + lt + "TabButtonTitle"));
+            MyLevelButtons.Add(lt, new List<StoryEditorPanel_LevelButton>());
+        }
+
         InitializeLevelList();
     }
 
@@ -83,9 +92,12 @@ public class StoryEditorPanel : BaseUIForm
 
     private void OnLanguageChange(int _)
     {
-        foreach (StoryEditorPanel_EnemyButton btn in MyEnemyButtons)
+        foreach (KeyValuePair<LevelType, List<StoryEditorPanel_LevelButton>> kv in MyLevelButtons)
         {
-            btn.OnLanguageChange();
+            foreach (StoryEditorPanel_LevelButton btn in kv.Value)
+            {
+                btn.OnLanguageChange();
+            }
         }
     }
 
@@ -185,59 +197,91 @@ public class StoryEditorPanel : BaseUIForm
     private void GenerateChapterMap(int roundCount)
     {
         ChapterMap oldChapterMap = ChapterMap;
+        ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
+        float routeLength = 520f / (roundCount + 2);
+        ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
+        ChapterMap.transform.localScale = Vector3.zero;
 
-        if (oldChapterMap)
-        {
-            oldChapterMap.transform.DOScale(Vector3.one * 0.05f, 1f);
-            oldChapterMap.transform.DORotate(new Vector3(0, 0, 270f), 1f, RotateMode.FastBeyond360).OnComplete(
-                delegate
-                {
-                    ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
-                    float routeLength = 520f / (roundCount + 2);
-                    ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
-                    ChapterMap.transform.localScale = Vector3.one * 10f;
-                    ChapterMap.transform.rotation = Quaternion.Euler(0, 0, 0f);
-                    ChapterMap.transform.DOScale(Vector3.one, 1f);
-                    ChapterMap.transform.DORotate(new Vector3(0, 0, 360f), 1f, RotateMode.FastBeyond360).OnComplete(
-                        delegate { ChapterMap.transform.rotation = Quaternion.Euler(0, 0, 0); });
-                    oldChapterMap.PoolRecycle();
-                });
-        }
-        else
-        {
-            ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
-            float routeLength = 520f / (roundCount + 2);
-            ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
-        }
+        StartCoroutine(Co_ChapterMapAnimation(oldChapterMap, ChapterMap));
     }
 
-    public void ChapterMapAnimation()
+    IEnumerator Co_ChapterMapAnimation(ChapterMap oldMap, ChapterMap newMap)
     {
+        if (oldMap)
+        {
+            oldMap.transform.DOScale(Vector3.one * 0.05f, 1f);
+            oldMap.transform.DORotate(new Vector3(0, 0, 270f), 1f, RotateMode.FastBeyond360);
+
+            yield return new WaitForSeconds(0.4f);
+        }
+
+        newMap.transform.localScale = Vector3.one * 3f;
+        newMap.transform.rotation = Quaternion.Euler(0, 0, 180f);
+
+        newMap.transform.DOScale(Vector3.one, 0.8f);
+        newMap.transform.DORotate(new Vector3(0, 0, 360f), 0.8f, RotateMode.FastBeyond360).OnComplete(
+            delegate { newMap.transform.rotation = Quaternion.Euler(0, 0, 0); });
+
+        yield return new WaitForSeconds(0.7f);
+        oldMap?.PoolRecycle();
     }
 
     #endregion
 
     #region Right Level List
 
-    public Transform LevelListContainer;
-
-    private List<StoryEditorPanel_EnemyButton> MyEnemyButtons = new List<StoryEditorPanel_EnemyButton>();
+    public TabControl LevelListTabControl;
+    private Dictionary<LevelType, Transform> LevelContainerDict = new Dictionary<LevelType, Transform>();
+    private SortedDictionary<LevelType, List<StoryEditorPanel_LevelButton>> MyLevelButtons = new SortedDictionary<LevelType, List<StoryEditorPanel_LevelButton>>();
 
     public void InitializeLevelList()
     {
-        foreach (StoryEditorPanel_EnemyButton btn in MyEnemyButtons)
+        SelectTab(LevelType.Enemy);
+        foreach (KeyValuePair<LevelType, List<StoryEditorPanel_LevelButton>> kv in MyLevelButtons)
         {
-            btn.PoolRecycle();
+            foreach (StoryEditorPanel_LevelButton btn in kv.Value)
+            {
+                btn.PoolRecycle();
+            }
+
+            kv.Value.Clear();
         }
 
-        MyEnemyButtons.Clear();
-
-        foreach (Enemy enemy in AllLevels.EnemyDict.Values)
+        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
         {
-            StoryEditorPanel_EnemyButton enemyButton = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_EnemyButton].AllocateGameObject<StoryEditorPanel_EnemyButton>(LevelListContainer);
-            enemyButton.Initialize((Enemy) enemy.Clone());
-            MyEnemyButtons.Add(enemyButton);
+            foreach (KeyValuePair<string, Level> _kv in kv.Value)
+            {
+                StoryEditorPanel_LevelButton btn = StoryEditorPanel_LevelButton.BaseInitialize(
+                    level: _kv.Value.Clone(),
+                    parent: LevelContainerDict[kv.Key],
+                    onEditButtonClick: delegate
+                    {
+                        UIManager.Instance.CloseUIForm<StoryEditorPanel>();
+                        UIManager.Instance.ShowUIForms<LevelEditorPanel>().SetLevel(_kv.Value.Clone());
+                    },
+                    onDeleteButtonClick: delegate
+                    {
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(LanguageManager.Instance.GetText("StoryEditorPanel_DeleteLevelFormLibrary0"),
+                            LanguageManager.Instance.GetText("Common_Yes"),
+                            LanguageManager.Instance.GetText("Common_No"),
+                            delegate
+                            {
+                                cp.CloseUIForm();
+                                AllLevels.DeleteLevel(LevelType.Enemy, _kv.Value.LevelNames["en"]);
+                                InitializeLevelList();
+                            },
+                            delegate { cp.CloseUIForm(); });
+                    }
+                );
+                MyLevelButtons[kv.Key].Add(btn);
+            }
         }
+    }
+
+    private void SelectTab(LevelType levelType)
+    {
+        LevelListTabControl.SelectTab("StoryEditorPanel_" + levelType + "TabButtonTitle");
     }
 
     #endregion

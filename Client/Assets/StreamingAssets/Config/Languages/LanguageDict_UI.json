@@ -827,6 +827,10 @@
 		"zh": "重置",
 		"en": "Reset"
 	},
+	"StoryEditorPanel_DeleteLevelFormLibrary0": {
+		"zh": "是否从关卡库中删除关卡(将从所有剧情中该关卡)",
+		"en": "Delete Level from Library (remove from all Stories as well)?"
+	},
 
 	
 	"StoryEditorPanel_ChapterLabel": {
@@ -859,13 +863,34 @@
 		"zh": "卡牌数:",
 		"en": "Cards:"
 	},
-	"SettingMenu_LifeLabelText": {
+	"StoryEditorPanel_LifeLabelText": {
 		"zh": "生命值:",
 		"en": "Life:"
 	},
 	"StoryEditorPanel_EnergyLabelText": {
 		"zh": "能量值:",
 		"en": "Energy:"
+	},
+
+	"StoryEditorPanel_EnemyTabButtonTitle": {
+		"zh": "敌人",
+		"en": "Enemies"
+	},
+	"StoryEditorPanel_StartTabButtonTitle": {
+		"zh": "起点",
+		"en": "Starts"
+	},
+	"StoryEditorPanel_ShopTabButtonTitle": {
+		"zh": "商店",
+		"en": "Shops"
+	},
+	"StoryEditorPanel_RestTabButtonTitle": {
+		"zh": "休息处",
+		"en": "Rests"
+	},
+	"StoryEditorPanel_TreasureTabButtonTitle": {
+		"zh": "宝藏",
+		"en": "Treasures"
 	},
 
 	"CardEditorPanel_CardEditorWindowText": {

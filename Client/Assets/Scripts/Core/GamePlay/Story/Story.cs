@@ -17,14 +17,27 @@ public class Story : IClone<Story>, IVariant<Story>
     {
     }
 
-    public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, int> base_CardLimitDict, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
+    public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
     {
         StoryName = storyName;
         Chapters = chapters;
         PlayerBuildInfos = playerBuildInfos;
-        Base_CardLimitDict = base_CardLimitDict;
+
+        foreach (KeyValuePair<int, BuildInfo> kv in playerBuildInfos)
+        {
+            Base_CardLimitDict = kv.Value.M_BuildCards.GetBaseCardLimitDict();
+            break;
+        }
         StoryGamePlaySettings = storyGamePlaySettings;
         RefreshLevelPointer();
+    }
+
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public void RefreshBaseCardLimitDict()
+    {
+
     }
 
     public Story Variant() //变换关卡
@@ -44,7 +57,6 @@ public class Story : IClone<Story>, IVariant<Story>
         Story newStory = new Story(
             StoryName,
             newChapters,
-            CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
             newPlayerBuildInfos,
             StoryGamePlaySettings.Clone());
         return newStory;
@@ -61,7 +73,6 @@ public class Story : IClone<Story>, IVariant<Story>
         Story newStory = new Story(
             StoryName,
             newChapters,
-            CloneVariantUtils.SortedDictionary(Base_CardLimitDict),
             PlayerBuildInfos, StoryGamePlaySettings.Clone());
         return newStory;
     }
@@ -225,5 +236,44 @@ public class Story : IClone<Story>, IVariant<Story>
         newStory.StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);
 
         return newStory;
+    }
+
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public void DeleteLevel(Level level)
+    {
+        SortedDictionary<int, List<int>> removeLevelChapterIDLevelID = new SortedDictionary<int, List<int>>();
+        foreach (KeyValuePair<int, Chapter> kv in Chapters)
+        {
+            removeLevelChapterIDLevelID.Add(kv.Key, new List<int>());
+            foreach (KeyValuePair<int, Level> _kv in kv.Value.Levels)
+            {
+                if (_kv.Value.LevelNames["en"].Equals(level.LevelNames["en"]))
+                {
+                    removeLevelChapterIDLevelID[kv.Key].Add(_kv.Key);
+                }
+            }
+        }
+
+        foreach (KeyValuePair<int, List<int>> kv in removeLevelChapterIDLevelID)
+        {
+            Chapter chapter = Chapters[kv.Key];
+            foreach (int i in kv.Value)
+            {
+                chapter.Levels.Remove(i);
+            }
+
+            chapter.RefreshLevelMap();
+        }
+    }
+
+  
+
+    /// <summary>
+    /// Can only be used in StoryEditor!!
+    /// </summary>
+    public void DeleteCard(int cardID)
+    {
     }
 }

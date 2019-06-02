@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\HandCardRelatedSideEffect.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\AddPlayerBuff_Base.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\PlayerBuffSideEffects\PlayerBuffSideEffects.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\SpecialInterface\ICardDeckLinked.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\SpecialInterface\IDamage.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\SpecialInterface\ITrigger.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\TargetSideEffects\TargetRange.cs" />

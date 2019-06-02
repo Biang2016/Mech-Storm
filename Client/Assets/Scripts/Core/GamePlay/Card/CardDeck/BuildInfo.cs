@@ -407,6 +407,20 @@ public class BuildInfo : IClone<BuildInfo>
     public void ExportToXML(XmlElement parent_ele)
     {
         XmlDocument doc = parent_ele.OwnerDocument;
+        XmlElement old_node = null;
+        foreach (XmlElement build_node in parent_ele.ChildNodes)
+        {
+            if (build_node.FirstChild.Attributes["BuildName"].Value.Equals(BuildName))
+            {
+                old_node = build_node;
+            }
+        }
+
+        if (old_node != null)
+        {
+            parent_ele.RemoveChild(old_node);
+        }
+
         XmlElement buildInfo_Node = doc.CreateElement("BuildInfo");
         parent_ele.AppendChild(buildInfo_Node);
 
