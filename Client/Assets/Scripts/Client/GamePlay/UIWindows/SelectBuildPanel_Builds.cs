@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public partial class SelectBuildPanel
@@ -166,7 +165,7 @@ public partial class SelectBuildPanel
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildInfo.BuildCards(new SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
+        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildCards(new SortedDictionary<int, BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
             CurrentGamePlaySettings.DefaultEnergy,
             0, false, CurrentGamePlaySettings);
         CreateNewBuildButton.enabled = false; //接到回应前锁定

@@ -26,13 +26,13 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Start()
     {
-       
     }
 
     public void OnCardEditorButtonClick()
     {
         SceneManager.LoadScene("CardEditorScene");
     }
+
     public void OnStoryEditorButtonClick()
     {
         SceneManager.LoadScene("StoryEditorScene");

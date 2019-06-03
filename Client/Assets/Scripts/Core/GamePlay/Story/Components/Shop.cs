@@ -1,24 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
 public class Shop : Level
 {
-    public SortedDictionary<int, int> ItemPrices = new SortedDictionary<int, int>();
+    public List<ShopItem> ShopItems = new List<ShopItem>();
 
-    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, SortedDictionary<int, int> itemPrices) : base(LevelType.Shop, levelThemeCategory, levelPicId, levelNames)
+    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, List<ShopItem> shopItems) : base(LevelType.Shop, levelThemeCategory, levelPicId, levelNames)
     {
-        ItemPrices = itemPrices;
+        ShopItems = shopItems;
     }
 
     public override Level Clone()
     {
-        return new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), CloneVariantUtils.SortedDictionary(ItemPrices));
+        return new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), Cards.Clone(), ItemPrices.ToArray().ToList());
     }
 
     public override Level Variant()
     {
         return Clone();
+    }
+
+    public void AddItemToShop(int cardID, int cardPrice)
+    {
     }
 
     /// <summary>
@@ -59,6 +64,8 @@ public class Shop : Level
             writer.WriteSInt32(kv.Key);
             writer.WriteSInt32(kv.Value);
         }
+
+        Cards.Serialize(writer);
     }
 
     public static Shop Deserialize(DataStream reader) // 除Level类外 不可直接调用
@@ -72,6 +79,8 @@ public class Shop : Level
             ItemPrices.Add(cardID, itemCount);
         }
 
-        return new Shop(LevelThemeCategory.Energy, 0, null, ItemPrices);
+        BuildCards cards = BuildCards.Deserialize(reader);
+
+        return new Shop(LevelThemeCategory.Energy, 0, null, cards, ItemPrices);
     }
 }

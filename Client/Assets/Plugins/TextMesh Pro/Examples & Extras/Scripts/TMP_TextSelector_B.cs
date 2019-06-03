@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using System.Collections;
-using System.Collections.Generic;
-
 
 #pragma warning disable 0618 // Disabled warning due to SetVertices being deprecated until new release with SetMesh() is available.
 
 namespace TMPro.Examples
 {
-
     public class TMP_TextSelector_B : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerUpHandler
     {
         public RectTransform TextPopup_Prefab_01;
@@ -18,7 +13,6 @@ namespace TMPro.Examples
         private TextMeshProUGUI m_TextPopup_TMPComponent;
         private const string k_LinkText = "You have selected link <#ffff00>";
         private const string k_WordText = "Word Index: <#ffff00>";
-
 
         private TextMeshProUGUI m_TextMeshPro;
         private Canvas m_Canvas;
@@ -38,7 +32,6 @@ namespace TMPro.Examples
         {
             m_TextMeshPro = gameObject.GetComponent<TextMeshProUGUI>();
 
-
             m_Canvas = gameObject.GetComponentInParent<Canvas>();
 
             // Get a reference to the camera if Canvas Render Mode is not ScreenSpace Overlay.
@@ -54,7 +47,6 @@ namespace TMPro.Examples
             m_TextPopup_RectTransform.gameObject.SetActive(false);
         }
 
-
         void OnEnable()
         {
             // Subscribe to event fired when text object has been regenerated.
@@ -67,7 +59,6 @@ namespace TMPro.Examples
             TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
         }
 
-
         void ON_TEXT_CHANGED(Object obj)
         {
             if (obj == m_TextMeshPro)
@@ -77,13 +68,14 @@ namespace TMPro.Examples
             }
         }
 
-
         void LateUpdate()
         {
             if (isHoveringObject)
             {
                 // Check if Mouse Intersects any of the characters. If so, assign a random color.
+
                 #region Handle Character Selection
+
                 int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, m_Camera, true);
 
                 // Undo Swap and Vertex Attribute changes.
@@ -147,7 +139,6 @@ namespace TMPro.Examples
                     vertexColors[vertexIndex + 2] = c;
                     vertexColors[vertexIndex + 3] = c;
 
-
                     // Get a reference to the meshInfo of the selected character.
                     TMP_MeshInfo meshInfo = m_TextMeshPro.textInfo.meshInfo[materialIndex];
 
@@ -161,10 +152,11 @@ namespace TMPro.Examples
                     // Need to update the appropriate 
                     m_TextMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
                 }
+
                 #endregion
 
-
                 #region Word Selection Handling
+
                 //Check if Mouse intersects any words and if so assign a random color to that word.
                 int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, Input.mousePosition, m_Camera);
 
@@ -201,7 +193,6 @@ namespace TMPro.Examples
                     m_selectedWord = -1;
                 }
 
-
                 // Word Selection Handling
                 if (wordIndex != -1 && wordIndex != m_selectedWord && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
                 {
@@ -232,12 +223,12 @@ namespace TMPro.Examples
 
                     // Update Geometry
                     m_TextMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
-
                 }
+
                 #endregion
 
-
                 #region Example of Link Handling
+
                 // Check if mouse intersects with any links.
                 int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, Input.mousePosition, m_Camera);
 
@@ -255,7 +246,7 @@ namespace TMPro.Examples
 
                     TMP_LinkInfo linkInfo = m_TextMeshPro.textInfo.linkInfo[linkIndex];
 
-                   // Debug.Log("Link ID: \"" + linkInfo.GetLinkID() + "\"   Link Text: \"" + linkInfo.GetLinkText() + "\""); // Example of how to retrieve the Link ID and Link Text.
+                    // Debug.Log("Link ID: \"" + linkInfo.GetLinkID() + "\"   Link Text: \"" + linkInfo.GetLinkText() + "\""); // Example of how to retrieve the Link ID and Link Text.
 
                     Vector3 worldPointInRectangle = Vector3.zero;
                     RectTransformUtility.ScreenPointToWorldPointInRectangle(m_TextMeshPro.rectTransform, Input.mousePosition, m_Camera, out worldPointInRectangle);
@@ -274,8 +265,8 @@ namespace TMPro.Examples
                             break;
                     }
                 }
-                #endregion
 
+                #endregion
             }
             else
             {
@@ -286,9 +277,7 @@ namespace TMPro.Examples
                     m_lastIndex = -1;
                 }
             }
-            
         }
-
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -296,20 +285,20 @@ namespace TMPro.Examples
             isHoveringObject = true;
         }
 
-
         public void OnPointerExit(PointerEventData eventData)
         {
             //Debug.Log("OnPointerExit()");
             isHoveringObject = false;
         }
 
-
         public void OnPointerClick(PointerEventData eventData)
         {
             //Debug.Log("Click at POS: " + eventData.position + "  World POS: " + eventData.worldPosition);
 
             // Check if Mouse Intersects any of the characters. If so, assign a random color.
+
             #region Character Selection Handling
+
             /*
             int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, m_Camera, true);
             if (charIndex != -1 && charIndex != m_lastIndex)
@@ -330,10 +319,11 @@ namespace TMPro.Examples
                 m_TextMeshPro.canvasRenderer.SetVertices(uiVertices, uiVertices.Length);
             }
             */
+
             #endregion
 
-
             #region Word Selection Handling
+
             //Check if Mouse intersects any words and if so assign a random color to that word.
             /*
             int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, Input.mousePosition, m_Camera);
@@ -390,10 +380,11 @@ namespace TMPro.Examples
                 m_TextMeshPro.canvasRenderer.SetVertices(uiVertices, uiVertices.Length);
             }
             */
+
             #endregion
 
-
             #region Link Selection Handling
+
             /*
             // Check if Mouse intersects any words and if so assign a random color to that word.
             int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, Input.mousePosition, m_Camera);
@@ -443,15 +434,14 @@ namespace TMPro.Examples
                 #endregion
             }
             */
+
             #endregion
         }
-
 
         public void OnPointerUp(PointerEventData eventData)
         {
             //Debug.Log("OnPointerUp()");
         }
-
 
         void RestoreCachedVertexAttributes(int index)
         {
@@ -505,7 +495,6 @@ namespace TMPro.Examples
             dst_uv2s[vertexIndex + 1] = src_uv2s[vertexIndex + 1];
             dst_uv2s[vertexIndex + 2] = src_uv2s[vertexIndex + 2];
             dst_uv2s[vertexIndex + 3] = src_uv2s[vertexIndex + 3];
-
 
             // Restore last vertex attribute as we swapped it as well
             int lastIndex = (src_vertices.Length / 4 - 1) * 4;

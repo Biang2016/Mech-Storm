@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(MechComponentBase), true)]
-class MechComponentBaseEditor : Editor
+internal class MechComponentBaseEditor : Editor
 {
     protected MechComponentBase MechComponentBase;
 

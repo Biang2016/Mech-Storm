@@ -59,7 +59,8 @@ public class ClientPlayer : Player
         if (change < 0)
         {
             BattlePlayer.Ship.transform.DOShakePosition(0.2f, new Vector3(0.5f, 0, 0.5f));
-        }else if (change > 0)
+        }
+        else if (change > 0)
         {
             BattlePlayer.Ship.ShipStyleManager.ShowShipShapeHoverForTime(0.5f);
         }

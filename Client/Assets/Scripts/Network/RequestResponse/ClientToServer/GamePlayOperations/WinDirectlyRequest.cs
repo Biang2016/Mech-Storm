@@ -12,5 +12,4 @@
     {
         return NetProtocols.WIN_DIRECTLY_REQUEST;
     }
-
 }

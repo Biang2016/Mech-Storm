@@ -27,5 +27,4 @@
         base.Deserialize(reader);
         isSuccess = reader.ReadByte() == 0x01;
     }
-
 }

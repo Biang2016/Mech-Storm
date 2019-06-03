@@ -22,7 +22,6 @@
         return NetProtocols.SE_EQUIP_PACK_SERVER_REQUEST;
     }
 
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);

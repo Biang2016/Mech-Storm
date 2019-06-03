@@ -31,5 +31,4 @@
         username = reader.ReadString8();
         isSuccess = reader.ReadByte() == 0x01;
     }
-
 }

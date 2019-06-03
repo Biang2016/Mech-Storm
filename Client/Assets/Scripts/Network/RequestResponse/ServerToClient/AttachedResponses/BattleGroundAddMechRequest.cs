@@ -4,7 +4,7 @@
     public CardInfo_Mech cardInfo;
     public int battleGroundIndex;
     public int mechId;
-    public int clientMechTempId;//客户端预召唤随从的匹配Id
+    public int clientMechTempId; //客户端预召唤随从的匹配Id
 
     public BattleGroundAddMechRequest()
     {

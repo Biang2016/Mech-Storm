@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardToMechRequest : ClientRequestBase
+﻿public class UseSpellCardToMechRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int targetMechId; //-2表示无目标
@@ -10,7 +9,7 @@ public class UseSpellCardToMechRequest : ClientRequestBase
     {
     }
 
-    public UseSpellCardToMechRequest(int clientId,int handCardInstanceId, int targetMechId, bool isTargetMechIdTempId, int clientMechTempId):base(clientId)
+    public UseSpellCardToMechRequest(int clientId, int handCardInstanceId, int targetMechId, bool isTargetMechIdTempId, int clientMechTempId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.targetMechId = targetMechId;
@@ -40,5 +39,4 @@ public class UseSpellCardToMechRequest : ClientRequestBase
         isTargetMechIdTempId = reader.ReadByte() == 0x01;
         clientMechTempId = reader.ReadSInt32();
     }
-
 }

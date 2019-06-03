@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 
 namespace TMPro.Examples
 {
-
     [ExecuteInEditMode]
     public class TMP_TextInfoDebugTool : MonoBehaviour
     {
@@ -14,9 +11,7 @@ namespace TMPro.Examples
         public bool ShowLines;
         public bool ShowMeshBounds;
         public bool ShowTextBounds;
-        [Space(10)]
-        [TextArea(2, 2)]
-        public string ObjectStats;
+        [Space(10)] [TextArea(2, 2)] public string ObjectStats;
 
         private TMP_Text m_TextComponent;
 
@@ -33,57 +28,68 @@ namespace TMPro.Examples
                 m_Transform = gameObject.GetComponent<Transform>();
         }
 
-
         void OnDrawGizmos()
         {
             // Update Text Statistics
             TMP_TextInfo textInfo = m_TextComponent.textInfo;
 
             ObjectStats = "Characters: " + textInfo.characterCount + "   Words: " + textInfo.wordCount + "   Spaces: " + textInfo.spaceCount + "   Sprites: " + textInfo.spriteCount + "   Links: " + textInfo.linkCount
-                      + "\nLines: " + textInfo.lineCount + "   Pages: " + textInfo.pageCount;
-
+                          + "\nLines: " + textInfo.lineCount + "   Pages: " + textInfo.pageCount;
 
             // Draw Quads around each of the Characters
+
             #region Draw Characters
+
             if (ShowCharacters)
                 DrawCharactersBounds();
+
             #endregion
 
-
             // Draw Quads around each of the words
+
             #region Draw Words
+
             if (ShowWords)
                 DrawWordBounds();
-            #endregion
 
+            #endregion
 
             // Draw Quads around each of the words
+
             #region Draw Links
+
             if (ShowLinks)
                 DrawLinkBounds();
-            #endregion
 
+            #endregion
 
             // Draw Quads around each line
+
             #region Draw Lines
+
             if (ShowLines)
                 DrawLineBounds();
+
             #endregion
 
-
             // Draw Quad around the bounds of the text
+
             #region Draw Bounds
+
             if (ShowMeshBounds)
                 DrawBounds();
+
             #endregion
 
             // Draw Quad around the rendered region of the text.
+
             #region Draw Text Bounds
+
             if (ShowTextBounds)
                 DrawTextBounds();
+
             #endregion
         }
-
 
         /// <summary>
         /// Method to draw a rectangle around each character.
@@ -100,7 +106,9 @@ namespace TMPro.Examples
 
                 bool isCharacterVisible = i >= m_TextComponent.maxVisibleCharacters ||
                                           cInfo.lineNumber >= m_TextComponent.maxVisibleLines ||
-                                          (m_TextComponent.overflowMode == TextOverflowModes.Page && cInfo.pageNumber + 1 != m_TextComponent.pageToDisplay) ? false : true;
+                                          (m_TextComponent.overflowMode == TextOverflowModes.Page && cInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
+                    ? false
+                    : true;
 
                 if (!isCharacterVisible) continue;
 
@@ -119,7 +127,6 @@ namespace TMPro.Examples
 
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(baselineStart, baselineEnd);
-
 
                 // Draw Ascender & Descender for each character.
                 Vector3 ascenderStart = new Vector3(topLeft.x, m_Transform.TransformPoint(new Vector3(0, cInfo.ascender, 0)).y, 0);
@@ -146,11 +153,8 @@ namespace TMPro.Examples
 
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(topAdvance, bottomAdvance);
-
-
             }
         }
-
 
         /// <summary>
         /// Method to draw rectangles around each word of the text.
@@ -185,7 +189,9 @@ namespace TMPro.Examples
 
                     bool isCharacterVisible = characterIndex > m_TextComponent.maxVisibleCharacters ||
                                               currentCharInfo.lineNumber > m_TextComponent.maxVisibleLines ||
-                                             (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay) ? false : true;
+                                              (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
+                        ? false
+                        : true;
 
                     // Track Max Ascender and Min Descender
                     maxAscender = Mathf.Max(maxAscender, currentCharInfo.ascender);
@@ -247,16 +253,12 @@ namespace TMPro.Examples
                         //Debug.Log("End Word Region at [" + currentCharInfo.character + "]");
                         maxAscender = -Mathf.Infinity;
                         minDescender = Mathf.Infinity;
-
                     }
                 }
 
                 //Debug.Log(wInfo.GetWord(m_TextMeshPro.textInfo.characterInfo));
             }
-
-
         }
-
 
         /// <summary>
         /// Draw rectangle around each of the links contained in the text.
@@ -291,7 +293,9 @@ namespace TMPro.Examples
 
                     bool isCharacterVisible = characterIndex > m_TextComponent.maxVisibleCharacters ||
                                               currentCharInfo.lineNumber > m_TextComponent.maxVisibleLines ||
-                                             (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay) ? false : true;
+                                              (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
+                        ? false
+                        : true;
 
                     // Track Max Ascender and Min Descender
                     maxAscender = Mathf.Max(maxAscender, currentCharInfo.ascender);
@@ -361,7 +365,6 @@ namespace TMPro.Examples
             }
         }
 
-
         /// <summary>
         /// Draw Rectangles around each lines of the text.
         /// </summary>
@@ -375,8 +378,10 @@ namespace TMPro.Examples
                 TMP_LineInfo lineInfo = textInfo.lineInfo[i];
 
                 bool isLineVisible = (lineInfo.characterCount == 1 && textInfo.characterInfo[lineInfo.firstCharacterIndex].character == 10) ||
-                                      i > m_TextComponent.maxVisibleLines ||
-                                     (m_TextComponent.overflowMode == TextOverflowModes.Page && textInfo.characterInfo[lineInfo.firstCharacterIndex].pageNumber + 1 != m_TextComponent.pageToDisplay) ? false : true;
+                                     i > m_TextComponent.maxVisibleLines ||
+                                     (m_TextComponent.overflowMode == TextOverflowModes.Page && textInfo.characterInfo[lineInfo.firstCharacterIndex].pageNumber + 1 != m_TextComponent.pageToDisplay)
+                    ? false
+                    : true;
 
                 if (!isLineVisible) continue;
 
@@ -439,14 +444,13 @@ namespace TMPro.Examples
         void DrawBounds()
         {
             Bounds meshBounds = m_TextComponent.bounds;
-            
+
             // Get Bottom Left and Top Right position of each word
             Vector3 bottomLeft = m_TextComponent.transform.position + (meshBounds.center - meshBounds.extents);
             Vector3 topRight = m_TextComponent.transform.position + (meshBounds.center + meshBounds.extents);
 
             DrawRectangle(bottomLeft, topRight, new Color(1, 0.5f, 0));
         }
-
 
         void DrawTextBounds()
         {
@@ -457,7 +461,6 @@ namespace TMPro.Examples
 
             DrawRectangle(bottomLeft, topRight, new Color(0f, 0.5f, 0.5f));
         }
-
 
         // Draw Rectangles
         void DrawRectangle(Vector3 BL, Vector3 TR, Color color)
@@ -470,7 +473,6 @@ namespace TMPro.Examples
             Gizmos.DrawLine(new Vector3(TR.x, BL.y, 0), new Vector3(BL.x, BL.y, 0));
         }
 
-
         // Draw Rectangles
         void DrawRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, Color color)
         {
@@ -481,7 +483,6 @@ namespace TMPro.Examples
             Gizmos.DrawLine(tr, br);
             Gizmos.DrawLine(br, bl);
         }
-
 
         // Draw Rectangles
         void DrawDottedRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, Color color)
@@ -499,4 +500,3 @@ namespace TMPro.Examples
 #endif
     }
 }
-

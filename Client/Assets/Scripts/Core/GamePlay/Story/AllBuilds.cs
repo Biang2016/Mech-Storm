@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -17,6 +15,8 @@ public class AllBuilds
     };
 
     public static Dictionary<BuildGroups, BuildGroup> BuildGroupDict = new Dictionary<BuildGroups, BuildGroup>();
+
+    private static bool NeedReload = false;
 
     public static void AddAllBuilds()
     {
@@ -42,10 +42,19 @@ public class AllBuilds
             for (int i = 0; i < allBuilds.ChildNodes.Count; i++)
             {
                 XmlNode buildInfoNode = allBuilds.ChildNodes.Item(i);
-                BuildInfo buildInfo = GetBuildInfoFromXML(buildInfoNode);
+                BuildInfo buildInfo = BuildInfo.GetBuildInfoFromXML(buildInfoNode, out bool needRefresh);
+                NeedReload |= needRefresh;
                 BuildStoryDatabase.Instance.AddOrModifyBuild(kv.Key.ToString(), buildInfo);
                 BuildGroupDict[kv.Key].AddBuild(buildInfo.BuildName, buildInfo);
             }
+        }
+
+        //If any problem, refresh XML and reload
+        if (NeedReload)
+        {
+            NeedReload = false;
+            RefreshAllBuildXML();
+            ReloadBuildXML();
         }
     }
 
@@ -62,46 +71,6 @@ public class AllBuilds
         }
 
         return null;
-    }
-
-    public static BuildInfo GetBuildInfoFromXML(XmlNode buildInfoNode)
-    {
-        BuildInfo buildInfo = new BuildInfo();
-        for (int i = 0; i < buildInfoNode.ChildNodes.Count; i++)
-        {
-            XmlNode cardInfo = buildInfoNode.ChildNodes.Item(i);
-            switch (cardInfo.Attributes["name"].Value)
-            {
-                case "baseInfo":
-                    buildInfo.BuildID = BuildInfo.GenerateBuildID();
-                    buildInfo.BuildName = cardInfo.Attributes["BuildName"].Value;
-                    buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
-                    buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
-                    buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
-                    buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
-                    buildInfo.BeginMetal = int.Parse(cardInfo.Attributes["BeginMetal"].Value);
-                    buildInfo.IsHighLevelCardLocked = cardInfo.Attributes["IsHighLevelCardLocked"].Value.Equals("True");
-                    break;
-                case "cardIDs":
-                    buildInfo.M_BuildCards = new BuildInfo.BuildCards();
-                    string[] cardID_strs = cardInfo.Attributes["ids"].Value.Split(';');
-                    foreach (string s in cardID_strs)
-                    {
-                        if (string.IsNullOrEmpty(s)) continue;
-                        string[] cardSelectInfo_strs = s.Trim('(').Trim(')').Split(',');
-                        int cardID = int.Parse(cardSelectInfo_strs[0]);
-                        if (!AllCards.CardDict.ContainsKey(cardID)) continue;
-                        int cardSelectCount = int.Parse(cardSelectInfo_strs[1]);
-                        int cardSelectUpperLimit = int.Parse(cardSelectInfo_strs[2]);
-                        BuildInfo.BuildCards.CardSelectInfo csi = new BuildInfo.BuildCards.CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
-                        buildInfo.M_BuildCards.CardSelectInfos[cardID] = csi;
-                    }
-
-                    break;
-            }
-        }
-
-        return buildInfo;
     }
 
     public static void ReloadBuildXML()
@@ -136,6 +105,43 @@ public class AllBuilds
         using (StreamWriter sw = new StreamWriter(BuildGroupXMLDict[buildGroup]))
         {
             doc.Save(sw);
+        }
+    }
+
+    public static void RefreshAllBuildXML()
+    {
+        foreach (KeyValuePair<BuildGroups, BuildGroup> kv in BuildGroupDict)
+        {
+            string text;
+            using (StreamReader sr = new StreamReader(BuildGroupXMLDict[kv.Key]))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(text);
+            XmlElement allBuilds = doc.DocumentElement;
+            foreach (KeyValuePair<string, BuildInfo> _kv in kv.Value.Builds)
+            {
+                _kv.Value.ExportToXML(allBuilds);
+            }
+
+            SortedDictionary<string, XmlElement> buildNodesDict = new SortedDictionary<string, XmlElement>();
+            foreach (XmlElement node in allBuilds.ChildNodes)
+            {
+                buildNodesDict.Add(node.FirstChild.Attributes["BuildName"].Value, node);
+            }
+
+            allBuilds.RemoveAll();
+            foreach (KeyValuePair<string, XmlElement> _kv in buildNodesDict)
+            {
+                allBuilds.AppendChild(_kv.Value);
+            }
+
+            using (StreamWriter sw = new StreamWriter(BuildGroupXMLDict[kv.Key]))
+            {
+                doc.Save(sw);
+            }
         }
     }
 

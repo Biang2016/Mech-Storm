@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class StoryEditorPanel_EnemyButton : StoryEditorPanel_LevelButton
 {
@@ -15,17 +15,25 @@ public class StoryEditorPanel_EnemyButton : StoryEditorPanel_LevelButton
     private StoryEditorPanel_LevelButtonSliderBar LifeSlider;
     private StoryEditorPanel_LevelButtonSliderBar EnergySlider;
 
+    [SerializeField] private Text DrawCardNumText;
+    [SerializeField] private Text BeginMetalNumText;
+
     protected override void ChildrenInitialize()
     {
         CardCountSlider = AddSlider("StoryEditorPanel_CardCountLabelText", CardCountSliderColor);
-        LifeSlider = AddSlider("StoryEditorPanel_LifeLabelText", LifeSliderColor);
-        EnergySlider = AddSlider("StoryEditorPanel_EnergyLabelText", EnergySliderColor);
-
         CardCountSlider.SetValueText(((Enemy) Level).BuildInfo.CardCount.ToString());
+        CardCountSlider.ChangeSliderValue((float)((Enemy)Level).BuildInfo.CardCount / 50);
+
+        LifeSlider = AddSlider("StoryEditorPanel_LifeLabelText", LifeSliderColor);
         LifeSlider.SetValueText(((Enemy) Level).BuildInfo.Life.ToString());
         SetLifeBarLengthColor(((Enemy) Level).BuildInfo.Life);
+
+        EnergySlider = AddSlider("StoryEditorPanel_EnergyLabelText", EnergySliderColor);
         EnergySlider.SetValueText(((Enemy) Level).BuildInfo.Energy.ToString());
         SetEnergyBarLengthColor(((Enemy) Level).BuildInfo.Energy);
+
+        DrawCardNumText.text = ((Enemy)Level).BuildInfo.DrawCardNum.ToString();
+        BeginMetalNumText.text = ((Enemy)Level).BuildInfo.BeginMetal.ToString();
     }
 
     private int[] lifeBarColorThresholds = new[] {10, 50, 100, 500, 1000, 5000, 10000};

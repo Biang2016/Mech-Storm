@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardRequest : ClientRequestBase
+﻿public class UseSpellCardRequest : ClientRequestBase
 {
     public int handCardInstanceId;
 
@@ -7,7 +6,7 @@ public class UseSpellCardRequest : ClientRequestBase
     {
     }
 
-    public UseSpellCardRequest(int clientId,int handCardInstanceId):base(clientId)
+    public UseSpellCardRequest(int clientId, int handCardInstanceId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
     }
@@ -28,5 +27,4 @@ public class UseSpellCardRequest : ClientRequestBase
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
     }
-
 }

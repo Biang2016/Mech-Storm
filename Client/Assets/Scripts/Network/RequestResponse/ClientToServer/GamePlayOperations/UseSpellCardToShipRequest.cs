@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardToShipRequest : ClientRequestBase
+﻿public class UseSpellCardToShipRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int targetClientId;
@@ -32,5 +31,4 @@ public class UseSpellCardToShipRequest : ClientRequestBase
         handCardInstanceId = reader.ReadSInt32();
         targetClientId = reader.ReadSInt32();
     }
-
 }

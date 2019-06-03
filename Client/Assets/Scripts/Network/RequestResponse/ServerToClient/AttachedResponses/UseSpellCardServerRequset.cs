@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardServerRequset : ServerRequestBase
+﻿public class UseSpellCardServerRequset : ServerRequestBase
 {
     public int clientId;
     public int handCardInstanceId;
@@ -8,7 +7,7 @@ public class UseSpellCardServerRequset : ServerRequestBase
     {
     }
 
-    public UseSpellCardServerRequset(int clientId, int handCardInstanceId) 
+    public UseSpellCardServerRequset(int clientId, int handCardInstanceId)
     {
         this.clientId = clientId;
         this.handCardInstanceId = handCardInstanceId;
@@ -30,5 +29,4 @@ public class UseSpellCardServerRequset : ServerRequestBase
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
     }
-
 }

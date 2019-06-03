@@ -1,5 +1,4 @@
-﻿
-public class EquipShieldRequest : ClientRequestBase
+﻿public class EquipShieldRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int mechID;

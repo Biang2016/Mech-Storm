@@ -31,5 +31,4 @@
         username = reader.ReadString8();
         password = reader.ReadString8();
     }
-
 }

@@ -18,6 +18,4 @@
     {
         base.Deserialize(reader);
     }
-
-
 }

@@ -1,4 +1,4 @@
-﻿enum LanguageShorts
+﻿internal enum LanguageShorts
 {
     zh,
     en

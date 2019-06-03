@@ -39,5 +39,4 @@
         decreaseValue = reader.ReadSInt32();
         shieldValue = reader.ReadSInt32();
     }
- 
 }

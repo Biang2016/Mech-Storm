@@ -1,5 +1,4 @@
-﻿using NSubstitute;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 鼠标拖拽管理器
@@ -71,7 +70,7 @@ public class DragManager : MonoSingleton<DragManager>
             ResetCurrentDrag();
             return;
         }
-        
+
         //if (BattleResultPanel.Instance.IsShow) ResetCurrentDrag();
         if (!IsSummonPreview)
         {

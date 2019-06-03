@@ -1,5 +1,4 @@
 ﻿using System;
-using TMPro;
 using UnityEngine;
 
 public class MechBattleInfoComponent : MechComponentBase
@@ -21,7 +20,6 @@ public class MechBattleInfoComponent : MechComponentBase
 
     protected override void Child_Initialize()
     {
-        
     }
 
     protected override void Reset()

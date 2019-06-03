@@ -31,5 +31,4 @@
         clientId = reader.ReadSInt32();
         handCardInstanceId = reader.ReadSInt32();
     }
-
 }

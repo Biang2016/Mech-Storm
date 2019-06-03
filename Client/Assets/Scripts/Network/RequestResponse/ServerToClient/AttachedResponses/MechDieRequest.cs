@@ -41,5 +41,4 @@ public class MechDieRequest : ServerRequestBase
             mechIds.Add(mechId);
         }
     }
-
 }

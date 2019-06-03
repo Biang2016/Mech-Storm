@@ -22,7 +22,6 @@
         return NetProtocols.SE_MECH_ONATTACK;
     }
 
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -40,5 +39,4 @@
         targetMechId = reader.ReadSInt32();
         weaponType = (WeaponTypes) reader.ReadSInt32();
     }
-
 }

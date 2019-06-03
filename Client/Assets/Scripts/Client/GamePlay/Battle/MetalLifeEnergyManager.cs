@@ -24,14 +24,14 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     void Awake()
     {
-     LanguageManager.Instance.RegisterTextKeys(
-         new List<ValueTuple<Text, string>>
-         {
-             (LifeText,"Ship_LifeText"),
-             (EnergyText,"Ship_EnergyText"),
-         });   
+        LanguageManager.Instance.RegisterTextKeys(
+            new List<ValueTuple<Text, string>>
+            {
+                (LifeText, "Ship_LifeText"),
+                (EnergyText, "Ship_EnergyText"),
+            });
     }
-    
+
     public void Initialize(ClientPlayer clientPlayer)
     {
         ResetAll();

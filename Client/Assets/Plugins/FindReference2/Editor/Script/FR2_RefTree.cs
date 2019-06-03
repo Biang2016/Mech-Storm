@@ -84,11 +84,13 @@ namespace vietlabs.fr2
                 {
                     lv1 = t.level;
                 }
+
                 ;
                 if (Map.TryGetValue(item2, out t))
                 {
                     lv2 = t.level;
                 }
+
                 ;
 
                 if (lv1 == lv2 && Sorter != null) return Sorter(item1, item2);
@@ -123,6 +125,7 @@ namespace vietlabs.fr2
 
                 level++;
             }
+
             ;
         }
 
@@ -194,7 +197,7 @@ namespace vietlabs.fr2
 
                 if (Map.TryGetValue(item, out info))
                 {
-                    offset += Map[item].level*16f;
+                    offset += Map[item].level * 16f;
                 }
 
                 LeftRect(offset, ref rect);
@@ -211,13 +214,13 @@ namespace vietlabs.fr2
 
                 var r = GUILayoutUtility.GetRect(1f, Screen.width, 16f, 16f);
                 //var hasMouse = Event.current.type == EventType.mouseUp && r.Contains(Event.current.mousePosition);
-                LeftRect((count - i)*16f, ref r);
+                LeftRect((count - i) * 16f, ref r);
                 bDrawer(asset, r, false);
             }
 
             var r2 = GUILayoutUtility.GetRect(1f, Screen.width, 16f, 16f);
             //var hasMouse2 = Event.current.type == EventType.mouseUp && r2.Contains(Event.current.mousePosition);
-            LeftRect(selectedParents.Count*16f, ref r2);
+            LeftRect(selectedParents.Count * 16f, ref r2);
             bDrawer(selected, r2, true);
         }
 

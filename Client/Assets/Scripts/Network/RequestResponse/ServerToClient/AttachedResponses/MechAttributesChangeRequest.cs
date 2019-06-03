@@ -59,5 +59,4 @@
         addArmor = reader.ReadSInt32();
         addShield = reader.ReadSInt32();
     }
-
 }

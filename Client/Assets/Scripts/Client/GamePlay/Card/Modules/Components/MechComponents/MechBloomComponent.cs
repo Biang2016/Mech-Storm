@@ -14,7 +14,7 @@ public class MechBloomComponent : MechComponentBase
 
     public float OnHoverBloomColorIntensity { get; set; }
 
-    public void SetOnHoverBloomColor(Color color, float intensity=1.0f)
+    public void SetOnHoverBloomColor(Color color, float intensity = 1.0f)
     {
         ClientUtils.ChangeColor(OnHoverBloom, color, intensity);
         OnHoverBloomColor = color;

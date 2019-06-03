@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 /// <summary>
 /// 代表已选卡片在右侧卡组中的按钮
@@ -92,7 +91,7 @@ public class BuildButton : PoolObject
 
     public void AddCard(int cardId)
     {
-        BuildInfo.M_BuildCards.CardSelectInfos.TryGetValue(cardId, out BuildInfo.BuildCards.CardSelectInfo csi);
+        BuildInfo.M_BuildCards.CardSelectInfos.TryGetValue(cardId, out BuildCards.CardSelectInfo csi);
         if (csi != null)
         {
             csi.CardSelectCount += 1;
@@ -103,7 +102,7 @@ public class BuildButton : PoolObject
 
     public void RemoveCard(int cardId)
     {
-        BuildInfo.M_BuildCards.CardSelectInfos.TryGetValue(cardId, out BuildInfo.BuildCards.CardSelectInfo csi);
+        BuildInfo.M_BuildCards.CardSelectInfos.TryGetValue(cardId, out BuildCards.CardSelectInfo csi);
         if (csi != null)
         {
             if (csi.CardSelectCount >= 1)

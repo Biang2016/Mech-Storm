@@ -35,5 +35,4 @@
         buffId = reader.ReadSInt32();
         buffSEE = SideEffectExecute.Deserialize(reader);
     }
-
 }

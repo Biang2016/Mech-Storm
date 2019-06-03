@@ -28,9 +28,9 @@ namespace vietlabs.fr2
             }
 
             var n = root.GetNVisible(Mathf.Max(root._treeStamp, 1));
-            var contentRect = new Rect(0f, 0f, 1f, n*itemH);
-            var nVisible = Mathf.RoundToInt(visibleRect.height/itemH) + 1;
-            var min = Mathf.Max(0, Mathf.FloorToInt(position.y/itemH));
+            var contentRect = new Rect(0f, 0f, 1f, n * itemH);
+            var nVisible = Mathf.RoundToInt(visibleRect.height / itemH) + 1;
+            var min = Mathf.Max(0, Mathf.FloorToInt(position.y / itemH));
             var max = Mathf.Min(min + nVisible, n);
             var noScroll = contentRect.height < visibleRect.height;
 
@@ -113,9 +113,9 @@ namespace vietlabs.fr2
 
             if (!repaintOnly || (evtType == EventType.Repaint))
             {
-                var contentRect = new Rect(0f, 0f, 1f, n*itemH);
-                var nVisible = Mathf.RoundToInt(visibleRect.height/itemH) + 1;
-                var min = Mathf.Max(0, Mathf.FloorToInt(position.y/itemH));
+                var contentRect = new Rect(0f, 0f, 1f, n * itemH);
+                var nVisible = Mathf.RoundToInt(visibleRect.height / itemH) + 1;
+                var min = Mathf.Max(0, Mathf.FloorToInt(position.y / itemH));
                 var max = Mathf.Min(min + nVisible, n);
                 var noScroll = contentRect.height < visibleRect.height;
 
@@ -127,7 +127,7 @@ namespace vietlabs.fr2
 
                 for (var i = min; i < max; i++)
                 {
-                    var rr = new Rect(0, itemH*i, Screen.width, itemH);
+                    var rr = new Rect(0, itemH * i, Screen.width, itemH);
 
                     if (i == selected)
                     {
@@ -141,7 +141,7 @@ namespace vietlabs.fr2
 
                     var containsMouse = rr.Contains(Event.current.mousePosition);
                     var hasMouse = (Event.current.type == EventType.MouseDown) && containsMouse;
-	                
+
                     drawer(i, rr, hasMouse);
 
                     if (Event.current.type == EventType.MouseUp && containsMouse)
@@ -150,6 +150,7 @@ namespace vietlabs.fr2
                         Event.current.Use();
                     }
                 }
+
                 GUI.EndScrollView();
             }
         }
@@ -231,6 +232,7 @@ namespace vietlabs.fr2
                     Debug.LogWarning("Child.parent already == this");
                     return this;
                 }
+
                 if (children.Contains(child))
                 {
                     Debug.LogWarning("Something broken, child already in this.children list <" + child +
@@ -269,7 +271,6 @@ namespace vietlabs.fr2
             }
 #endif
 
-
             child.parent = null;
             children.Remove(child);
 
@@ -288,6 +289,7 @@ namespace vietlabs.fr2
                 Debug.LogWarning("Child should not be null <" + child + ">");
                 return false;
             }
+
             //if (child.target == null){
             //	Debug.LogWarning("Child's target should not be null <" + child + ">");
             //	return false;
@@ -314,7 +316,7 @@ namespace vietlabs.fr2
             }
 
             var n = _nFakeSize + 1;
-            var h = _itemHeight*n;
+            var h = _itemHeight * n;
 
             if (current + n >= from)
             {

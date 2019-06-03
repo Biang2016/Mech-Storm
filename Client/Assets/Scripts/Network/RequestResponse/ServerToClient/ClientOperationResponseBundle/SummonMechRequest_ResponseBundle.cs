@@ -2,7 +2,6 @@
 {
     public SummonMechRequest_ResponseBundle()
     {
-
     }
 
     public override NetProtocols GetProtocol()
@@ -19,6 +18,4 @@
     {
         base.Deserialize(reader);
     }
-
-
 }

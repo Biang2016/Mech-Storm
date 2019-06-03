@@ -59,8 +59,8 @@ public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
         else
         {
             EnterGameButtonText.text = "Start the Game";
+        }
     }
-}
 
     public void OnEnterGameButtonClick()
     {
@@ -71,6 +71,6 @@ public partial class OutGameManager : OutGameMonoSingleton<OutGameManager>
         else
         {
             SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        }
     }
-}
 }

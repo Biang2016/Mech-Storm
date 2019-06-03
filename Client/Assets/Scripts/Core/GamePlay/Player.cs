@@ -235,7 +235,7 @@ public class Player : ILife
 
     public void AddLife(int addValue)
     {
-        MaxLifeChange(addValue,false);
+        MaxLifeChange(addValue, false);
         LifeChange(addValue, false);
     }
 

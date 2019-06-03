@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class CardSelectWindowCardContainer : PoolObject
+internal class CardSelectWindowCardContainer : PoolObject
 {
     public override void PoolRecycle()
     {

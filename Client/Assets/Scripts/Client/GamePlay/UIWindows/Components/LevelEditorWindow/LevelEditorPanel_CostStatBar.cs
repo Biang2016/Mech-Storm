@@ -19,7 +19,7 @@ public class LevelEditorPanel_CostStatBar : PoolObject
 
     public Color[] ColorPresets;
 
-    public void Initialize(int number, int count, int maxCount, ColorTypes colorType,Image baseLine)
+    public void Initialize(int number, int count, int maxCount, ColorTypes colorType, Image baseLine)
     {
         BarImage.color = ColorPresets[(int) colorType];
         baseLine.color = ColorPresets[(int) colorType];

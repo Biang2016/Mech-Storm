@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 
@@ -26,8 +24,7 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
 
     public ExecutorInfo M_ExecutorInfo; //SE携带者信息，触发时和事件执行者信息进行比对，判定是否触发
 
-    [JsonIgnore]
-    public Player Player;
+    [JsonIgnore] public Player Player;
 
     public List<SideEffectBase> Sub_SideEffect = new List<SideEffectBase>();
 
@@ -129,7 +126,7 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
         return string.Format(src, colorStrings);
     }
 
-    public static string HighlightStringFormat(string src,bool[] needTint, params object[] args)
+    public static string HighlightStringFormat(string src, bool[] needTint, params object[] args)
     {
         string[] colorStrings = new string[args.Length];
         for (int i = 0; i < args.Length; i++)

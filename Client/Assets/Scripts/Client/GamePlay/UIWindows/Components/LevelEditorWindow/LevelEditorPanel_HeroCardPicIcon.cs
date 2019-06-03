@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LevelEditorPanel_HeroCardPicIcon : PoolObject
@@ -16,7 +15,7 @@ public class LevelEditorPanel_HeroCardPicIcon : PoolObject
     [SerializeField] private Image PicImage;
     [SerializeField] private Text CardIDText;
 
-    public void Initialize(int pictureID,int cardID)
+    public void Initialize(int pictureID, int cardID)
     {
         ClientUtils.ChangeImagePicture(PicImage, pictureID);
         CardIDText.text = cardID.ToString();

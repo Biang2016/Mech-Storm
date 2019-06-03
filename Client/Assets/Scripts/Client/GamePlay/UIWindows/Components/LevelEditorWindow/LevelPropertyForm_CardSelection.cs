@@ -19,6 +19,7 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
     [SerializeField] private Image CostStatBarBaseLine_Energy;
 
     [SerializeField] private Button GoToButton;
+    [SerializeField] private Button ClearButton;
 
     public override void PoolRecycle()
     {
@@ -26,6 +27,8 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
         Clear();
         BuildCards = null;
         GoToButton.onClick.RemoveAllListeners();
+        ClearButton.onClick.RemoveAllListeners();
+        ShowCardStatTypeChange = null;
     }
 
     void Awake()
@@ -37,14 +40,24 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
     {
     }
 
-    private BuildInfo.BuildCards BuildCards;
+    private BuildCards BuildCards;
 
-    public void Initialize(BuildInfo.BuildCards buildCards, UnityAction gotoAction)
+    public void Initialize(BuildCards buildCards)
     {
         BuildCards = buildCards;
         Refresh();
+        RefreshTypeCardCountButtons(CardStatTypes.Total);
+    }
+
+    private UnityAction<CardStatTypes> ShowCardStatTypeChange;
+
+    public void SetButtonActions(UnityAction gotoAction, UnityAction clearAction, UnityAction<CardStatTypes> showCardStatTypeChange)
+    {
         GoToButton.onClick.RemoveAllListeners();
         GoToButton.onClick.AddListener(gotoAction);
+        ClearButton.onClick.RemoveAllListeners();
+        ClearButton.onClick.AddListener(clearAction);
+        ShowCardStatTypeChange = showCardStatTypeChange;
     }
 
     private void Clear()
@@ -98,20 +111,23 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
                 kv.Value,
                 delegate
                 {
-                    foreach (LevelEditorPanel_TypeCardCount tcc in TypeCardCounts)
-                    {
-                        tcc.IsSelected = false;
-                    }
-
-                    typeCardCount.IsSelected = true;
+                    RefreshTypeCardCountButtons(typeCardCount.CardStatType);
                     RefreshBars(typeCardCount.CardStatType);
+                    ShowCardStatTypeChange?.Invoke(typeCardCount.CardStatType);
                 });
 
-            typeCardCount.IsSelected = typeCardCount.CardStatType == CardStatTypes.Total;
             TypeCardCounts.Add(typeCardCount);
         }
 
         RefreshBars(CardStatTypes.Total);
+    }
+
+    private void RefreshTypeCardCountButtons(CardStatTypes cardStatType)
+    {
+        foreach (LevelEditorPanel_TypeCardCount tcc in TypeCardCounts)
+        {
+            tcc.IsSelected = tcc.CardStatType == cardStatType;
+        }
     }
 
     private void RefreshBars(CardStatTypes cardStatType)

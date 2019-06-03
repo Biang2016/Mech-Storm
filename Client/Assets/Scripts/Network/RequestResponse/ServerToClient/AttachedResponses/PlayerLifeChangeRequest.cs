@@ -20,7 +20,6 @@
         return NetProtocols.SE_PLAYER_LIFE_CHANGE;
     }
 
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -36,5 +35,4 @@
         life_left = reader.ReadSInt32();
         life_max = reader.ReadSInt32();
     }
-
 }

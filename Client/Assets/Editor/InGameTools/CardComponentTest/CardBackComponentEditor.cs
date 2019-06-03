@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(CardBackComponent), true)]
-class CardBackComponentEditor : CardComponentBaseEditor
+internal class CardBackComponentEditor : CardComponentBaseEditor
 {
     protected CardBackComponent CardBackComponent;
 

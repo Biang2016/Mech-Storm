@@ -52,5 +52,4 @@
         mechId = reader.ReadSInt32();
         equipID = reader.ReadSInt32();
     }
-
 }

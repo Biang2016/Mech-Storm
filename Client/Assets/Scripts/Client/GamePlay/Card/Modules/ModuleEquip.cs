@@ -33,7 +33,7 @@ public abstract class ModuleEquip : ModuleBase
         InitializeComponents();
     }
 
-    public override void SetLanguage(string languageShort) 
+    public override void SetLanguage(string languageShort)
     {
         M_Name = CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()];
     }

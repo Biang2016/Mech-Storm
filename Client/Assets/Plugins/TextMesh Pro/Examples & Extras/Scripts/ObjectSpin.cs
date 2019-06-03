@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 
 namespace TMPro.Examples
 {
-    
     public class ObjectSpin : MonoBehaviour
     {
-
 #pragma warning disable 0414
 
         public float SpinSpeed = 5;
@@ -21,7 +17,13 @@ namespace TMPro.Examples
         private Color32 m_lightColor;
         private int frames = 0;
 
-        public enum MotionType { Rotation, BackAndForth, Translation };
+        public enum MotionType
+        {
+            Rotation,
+            BackAndForth,
+            Translation
+        };
+
         public MotionType Motion;
 
         void Awake()
@@ -33,7 +35,6 @@ namespace TMPro.Examples
             Light light = GetComponent<Light>();
             m_lightColor = light != null ? light.color : Color.black;
         }
-
 
         // Update is called once per frame
         void Update()

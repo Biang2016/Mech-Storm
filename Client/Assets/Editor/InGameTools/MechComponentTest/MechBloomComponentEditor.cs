@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(MechBloomComponent), true)]
-class MechBloomComponentEditor : MechComponentBaseEditor
+internal class MechBloomComponentEditor : MechComponentBaseEditor
 {
     protected MechBloomComponent MechBloomComponent;
 

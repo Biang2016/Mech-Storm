@@ -277,6 +277,7 @@ public class TargetSelector
                 }
             },
         };
+
     public static Dictionary<TargetSelect, List<TargetRange>> DeckBasedSelector =>
         new Dictionary<TargetSelect, List<TargetRange>>
         {

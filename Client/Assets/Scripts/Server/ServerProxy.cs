@@ -80,7 +80,7 @@ internal class ServerProxy : ProxyBase
             // Server 端特例覆写GameProxy
             switch (request)
             {
-                case RegisterRequest r://for online mode
+                case RegisterRequest r: //for online mode
                 {
                     ServerLog.Instance.PrintClientStates("Client " + ClientID + " state: " + ClientState);
                     if (ClientState != ClientStates.GetId)

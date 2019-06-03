@@ -4,7 +4,6 @@
     public SideEffectExecute.TriggerTime TriggerTime;
     public SideEffectExecute.TriggerRange TriggerRange;
 
-
     public ShowSideEffectTriggeredRequest()
     {
     }
@@ -26,7 +25,7 @@
         base.Serialize(writer);
         ExecutorInfo.Serialize(writer);
         writer.WriteSInt32((int) TriggerTime);
-        writer.WriteSInt32((int)TriggerRange);
+        writer.WriteSInt32((int) TriggerRange);
     }
 
     public override void Deserialize(DataStream reader)
@@ -36,5 +35,4 @@
         TriggerTime = (SideEffectExecute.TriggerTime) reader.ReadSInt32();
         TriggerRange = (SideEffectExecute.TriggerRange) reader.ReadSInt32();
     }
-
 }

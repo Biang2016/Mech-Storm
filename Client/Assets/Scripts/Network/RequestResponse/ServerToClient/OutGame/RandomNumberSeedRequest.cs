@@ -27,5 +27,4 @@
         base.Deserialize(reader);
         randomNumberSeed = reader.ReadSInt32();
     }
-
 }

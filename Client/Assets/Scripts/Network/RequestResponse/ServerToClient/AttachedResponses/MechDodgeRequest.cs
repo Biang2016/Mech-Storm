@@ -7,7 +7,7 @@
     {
     }
 
-    public MechDodgeRequest(int clientId,  int mechId)
+    public MechDodgeRequest(int clientId, int mechId)
     {
         this.clientId = clientId;
         this.mechId = mechId;
@@ -31,5 +31,4 @@
         clientId = reader.ReadSInt32();
         mechId = reader.ReadSInt32();
     }
-
 }

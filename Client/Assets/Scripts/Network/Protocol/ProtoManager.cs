@@ -33,7 +33,6 @@ namespace Common
             }
         }
 
-
         public static void AddProtocol<T>(int protocol) where T : RequestBase, new()
         {
             if (mProtocolMapping.ContainsKey(protocol))

@@ -1,20 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-
+﻿using System.Collections;
+using UnityEngine;
 
 namespace TMPro.Examples
 {
-
     public class VertexShakeB : MonoBehaviour
     {
-
         public float AngleMultiplier = 1.0f;
         public float SpeedMultiplier = 1.0f;
         public float CurveScale = 1.0f;
 
         private TMP_Text m_TextComponent;
         private bool hasTextChanged;
-
 
         void Awake()
         {
@@ -32,12 +28,10 @@ namespace TMPro.Examples
             TMPro_EventManager.TEXT_CHANGED_EVENT.Remove(ON_TEXT_CHANGED);
         }
 
-
         void Start()
         {
             StartCoroutine(AnimateVertexColors());
         }
-
 
         void ON_TEXT_CHANGED(Object obj)
         {
@@ -51,7 +45,6 @@ namespace TMPro.Examples
         /// <returns></returns>
         IEnumerator AnimateVertexColors()
         {
-
             // We force an update of the text object since it would only be updated at the end of the frame. Ie. before this code is executed on the first frame.
             // Alternatively, we could yield and wait until the end of the frame when the text object will be generated.
             m_TextComponent.ForceMeshUpdate();
@@ -94,7 +87,6 @@ namespace TMPro.Examples
                 // Iterate through each line of the text.
                 for (int i = 0; i < lineCount; i++)
                 {
-
                     int first = textInfo.lineInfo[i].firstCharacterIndex;
                     int last = textInfo.lineInfo[i].lastCharacterIndex;
 
@@ -180,6 +172,5 @@ namespace TMPro.Examples
                 yield return new WaitForSeconds(0.1f);
             }
         }
-
     }
 }

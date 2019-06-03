@@ -80,7 +80,6 @@ public class SelectCard : PoolObject
         }
     }
 
-
     public CardInfo_Base CardInfo;
 
     public void Initiate(int count, CardInfo_Base cardInfo, SelectCardOnMouseEnterHandler enterHandler, SelectCardOnMouseLeaveHandler leaveHandler, Color color)

@@ -31,5 +31,4 @@
         AttackMechClientId = reader.ReadSInt32();
         AttackMechId = reader.ReadSInt32();
     }
-
 }

@@ -35,5 +35,4 @@
         buffId = reader.ReadSInt32();
         buffName = reader.ReadString8();
     }
-
 }

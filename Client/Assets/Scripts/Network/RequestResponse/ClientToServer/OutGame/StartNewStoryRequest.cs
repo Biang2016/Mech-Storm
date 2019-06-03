@@ -12,5 +12,4 @@
     {
         return NetProtocols.START_NEW_STORY_REQUEST;
     }
-
 }

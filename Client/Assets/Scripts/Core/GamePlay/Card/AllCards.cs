@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
 using System.Xml;
 using SideEffects;
@@ -15,6 +14,12 @@ public static class AllCards
     public static SortedDictionary<int, CardInfo_Base> CardDict = new SortedDictionary<int, CardInfo_Base>();
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict = new SortedDictionary<int, List<CardInfo_Base>>();
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
+
+    public enum EmptyCardTypes
+    {
+        NoCard = -1,
+        EmptyCard = -2,
+    }
 
     public static void Reset()
     {
@@ -119,6 +124,8 @@ public static class AllCards
         AddAllCards();
     }
 
+    private static bool NeedReload = false;
+
     public static void AddAllCards()
     {
         Reset();
@@ -148,13 +155,9 @@ public static class AllCards
         for (int i = 0; i < node_AllCards.ChildNodes.Count; i++)
         {
             XmlNode node_Card = node_AllCards.ChildNodes.Item(i);
-            
+
             int cardID = int.Parse(node_Card.Attributes["id"].Value);
-            if (cardID == 556)
-            {
-                int a = 0;
-            }
-            
+
             BaseInfo baseInfo = new BaseInfo();
             UpgradeInfo upgradeInfo = new UpgradeInfo();
             LifeInfo lifeInfo = new LifeInfo();
@@ -321,7 +324,7 @@ public static class AllCards
                 if (!CardDict.ContainsKey(uid))
                 {
                     kv.Value.UpgradeInfo.UpgradeCardID = -1;
-                    CardSeriesErrorNeedsReload = true;
+                    NeedReload = true;
                 }
             }
 
@@ -330,7 +333,7 @@ public static class AllCards
                 if (!CardDict.ContainsKey(did))
                 {
                     kv.Value.UpgradeInfo.DegradeCardID = -1;
-                    CardSeriesErrorNeedsReload = true;
+                    NeedReload = true;
                 }
             }
         }
@@ -365,7 +368,7 @@ public static class AllCards
                         }
                     }
 
-                    CardSeriesErrorNeedsReload = true;
+                    NeedReload = true;
                 }
             }
 
@@ -391,7 +394,7 @@ public static class AllCards
                         }
                     }
 
-                    CardSeriesErrorNeedsReload = true;
+                    NeedReload = true;
                 }
             }
         }
@@ -416,9 +419,9 @@ public static class AllCards
         }
 
         //If any problem, refresh XML and reload
-        if (CardSeriesErrorNeedsReload)
+        if (NeedReload)
         {
-            CardSeriesErrorNeedsReload = false;
+            NeedReload = false;
             RefreshAllCardXML();
             ReloadCardXML();
         }
@@ -687,7 +690,7 @@ public static class AllCards
                         int value = link_se.GetCardIDSideEffectValue().Value;
                         if (value == cardID)
                         {
-                            link_se.GetCardIDSideEffectValue().SetValue(99999.ToString());
+                            link_se.GetCardIDSideEffectValue().SetValue(((int) EmptyCardTypes.NoCard).ToString());
                             sideEffectNeedsReload = true;
                             thisCardNeedsRefresh = true;
                         }
@@ -749,8 +752,6 @@ public static class AllCards
         return baseID;
     }
 
-    private static bool CardSeriesErrorNeedsReload = false;
-
     public static List<CardInfo_Base> GetCardSeries(CardInfo_Base cardInfo)
     {
         List<CardInfo_Base> res = new List<CardInfo_Base>();
@@ -785,7 +786,7 @@ public static class AllCards
                     cb.UpgradeInfo.DegradeCardID = -1;
                 }
 
-                CardSeriesErrorNeedsReload = true;
+                NeedReload = true;
 
                 List<int> cycleCardIDs = new List<int>();
                 foreach (CardInfo_Base cb in res)

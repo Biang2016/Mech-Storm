@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
@@ -23,266 +21,6 @@ public class BuildInfo : IClone<BuildInfo>
     public int BeginMetal;
     public bool IsHighLevelCardLocked = false;
     public GamePlaySettings GamePlaySettings; //只对客户端选卡起到限制作用，服务端这个字段没有作用
-
-    public class BuildCards : IClone<BuildCards>
-    {
-        public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
-
-        public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos = null)
-        {
-            CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
-            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
-            {
-                CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, kv.Value.BaseInfo.LimitNum));
-            }
-
-            if (cardSelectInfos != null)
-            {
-                foreach (KeyValuePair<int, CardSelectInfo> kv in cardSelectInfos)
-                {
-                    if (AllCards.CardDict.ContainsKey(kv.Key))
-                    {
-                        CardSelectInfos[kv.Key] = kv.Value.Clone();
-                    }
-                }
-            }
-        }
-
-        public void ClearAllCardCounts()
-        {
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                kv.Value.CardSelectCount = 0;
-            }
-        }
-
-        public List<int> GetCardIDs()
-        {
-            List<int> res = new List<int>();
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                for (int i = 0; i < kv.Value.CardSelectCount; i++)
-                {
-                    res.Add(kv.Value.CardID);
-                }
-            }
-
-            return res;
-        }
-
-        public SortedDictionary<int, int> GetCardLimitDict()
-        {
-            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                res[kv.Key] = kv.Value.CardSelectUpperLimit;
-            }
-
-            return res;
-        }
-
-        public SortedDictionary<int, int> GetBaseCardLimitDict()
-        {
-            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                int baseCardID = AllCards.GetCardBaseCardID(kv.Key);
-                if (!res.ContainsKey(baseCardID))
-                {
-                    res.Add(baseCardID, kv.Value.CardSelectUpperLimit);
-                }
-                else
-                {
-                    res[baseCardID] += kv.Value.CardSelectUpperLimit;
-                }
-            }
-
-            return res;
-        }
-
-        public List<int> GetHeroCardIDs()
-        {
-            List<int> heroCardIDs = new List<int>();
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                if (AllCards.GetCard(kv.Key).CardStatType == CardStatTypes.HeroMech)
-                {
-                    for (int i = 0; i < kv.Value.CardSelectCount; i++)
-                    {
-                        heroCardIDs.Add(kv.Key);
-                    }
-                }
-            }
-
-            return heroCardIDs;
-        }
-
-        public SortedDictionary<CardStatTypes, int> GetTypeCardCountDict()
-        {
-            SortedDictionary<CardStatTypes, int> res = new SortedDictionary<CardStatTypes, int>();
-            res.Add(CardStatTypes.Total, 0);
-            res.Add(CardStatTypes.HeroMech, 0);
-            res.Add(CardStatTypes.SoldierMech, 0);
-            res.Add(CardStatTypes.Equip, 0);
-            res.Add(CardStatTypes.Energy, 0);
-            res.Add(CardStatTypes.Spell, 0);
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                CardStatTypes type = AllCards.GetCard(kv.Key).CardStatType;
-                res[type] += kv.Value.CardSelectCount;
-                res[CardStatTypes.Total] += kv.Value.CardSelectCount;
-            }
-
-            return res;
-        }
-
-        public SortedDictionary<int, int> GetCostDictByMetal(CardStatTypes cardStatType)
-        {
-            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
-            for (int i = 0; i <= 10; i++)
-            {
-                res.Add(i, 0);
-            }
-
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                CardInfo_Base ci = AllCards.GetCard(kv.Key);
-                if (cardStatType == CardStatTypes.Total || ci.CardStatType == cardStatType)
-                {
-                    if (ci.BaseInfo.Metal < 10)
-                    {
-                        res[ci.BaseInfo.Metal] += kv.Value.CardSelectCount;
-                    }
-                    else
-                    {
-                        res[10] += kv.Value.CardSelectCount;
-                    }
-                }
-            }
-
-            return res;
-        }
-
-        public SortedDictionary<int, int> GetCostDictByEnergy(CardStatTypes cardStatType)
-        {
-            SortedDictionary<int, int> res = new SortedDictionary<int, int>();
-            for (int i = 0; i <= 10; i++)
-            {
-                res.Add(i, 0);
-            }
-
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                CardInfo_Base ci = AllCards.GetCard(kv.Key);
-                if (cardStatType == CardStatTypes.Total || ci.CardStatType == cardStatType)
-                {
-                    if (ci.BaseInfo.Energy < 10)
-                    {
-                        res[ci.BaseInfo.Energy] += kv.Value.CardSelectCount;
-                    }
-                    else
-                    {
-                        res[10] += kv.Value.CardSelectCount;
-                    }
-                }
-            }
-
-            return res;
-        }
-
-        public BuildCards Clone()
-        {
-            SortedDictionary<int, CardSelectInfo> res = new SortedDictionary<int, CardSelectInfo>();
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                res.Add(kv.Key, kv.Value.Clone());
-            }
-
-            return new BuildCards(res);
-        }
-
-        public bool Equals(BuildCards o)
-        {
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                o.CardSelectInfos.TryGetValue(kv.Key, out CardSelectInfo csi);
-                if (csi == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    if (!csi.EqualsTo(kv.Value))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        public void Serialize(DataStream writer)
-        {
-            writer.WriteSInt32(CardSelectInfos.Count);
-            foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
-            {
-                kv.Value.Serialize(writer);
-            }
-        }
-
-        public static BuildCards Deserialize(DataStream reader)
-        {
-            int cardSelectInfoCount = reader.ReadSInt32();
-            SortedDictionary<int, CardSelectInfo> cardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
-            for (int i = 0; i < cardSelectInfoCount; i++)
-            {
-                CardSelectInfo csi = CardSelectInfo.Deserialize(reader);
-                cardSelectInfos.Add(csi.CardID, csi);
-            }
-
-            return new BuildCards(cardSelectInfos);
-        }
-
-        public class CardSelectInfo : IClone<CardSelectInfo>
-        {
-            public int CardID;
-            public int CardSelectCount;
-            public int CardSelectUpperLimit;
-
-            public CardSelectInfo(int cardID, int cardSelectCount, int cardSelectUpperLimit)
-            {
-                CardID = cardID;
-                CardSelectCount = cardSelectCount;
-                CardSelectUpperLimit = cardSelectUpperLimit;
-            }
-
-            public CardSelectInfo Clone()
-            {
-                return new CardSelectInfo(CardID, CardSelectCount, CardSelectUpperLimit);
-            }
-
-            public bool EqualsTo(CardSelectInfo o)
-            {
-                return o.CardID == CardID && o.CardSelectCount == CardSelectCount && o.CardSelectUpperLimit == CardSelectUpperLimit;
-            }
-
-            public void Serialize(DataStream writer)
-            {
-                writer.WriteSInt32(CardID);
-                writer.WriteSInt32(CardSelectCount);
-                writer.WriteSInt32(CardSelectUpperLimit);
-            }
-
-            public static CardSelectInfo Deserialize(DataStream reader)
-            {
-                int cardID = reader.ReadSInt32();
-                int cardSelectCount = reader.ReadSInt32();
-                int cardSelectUpperLimit = reader.ReadSInt32();
-                return new CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
-            }
-        }
-    }
 
     public int CardConsumeCoin
     {
@@ -402,6 +140,52 @@ public class BuildInfo : IClone<BuildInfo>
         if (BeginMetal != targetBuildInfo.BeginMetal) return false;
 
         return true;
+    }
+
+    public static BuildInfo GetBuildInfoFromXML(XmlNode buildInfoNode, out bool needRefresh)
+    {
+        needRefresh = false;
+        BuildInfo buildInfo = new BuildInfo();
+        for (int i = 0; i < buildInfoNode.ChildNodes.Count; i++)
+        {
+            XmlNode cardInfo = buildInfoNode.ChildNodes.Item(i);
+            switch (cardInfo.Attributes["name"].Value)
+            {
+                case "baseInfo":
+                    buildInfo.BuildID = BuildInfo.GenerateBuildID();
+                    buildInfo.BuildName = cardInfo.Attributes["BuildName"].Value;
+                    buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
+                    buildInfo.DrawCardNum = int.Parse(cardInfo.Attributes["DrawCardNum"].Value);
+                    buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
+                    buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
+                    buildInfo.BeginMetal = int.Parse(cardInfo.Attributes["BeginMetal"].Value);
+                    buildInfo.IsHighLevelCardLocked = cardInfo.Attributes["IsHighLevelCardLocked"].Value.Equals("True");
+                    break;
+                case "cardIDs":
+                    buildInfo.M_BuildCards = new BuildCards();
+                    string[] cardID_strs = cardInfo.Attributes["ids"].Value.Split(';');
+                    foreach (string s in cardID_strs)
+                    {
+                        if (string.IsNullOrEmpty(s)) continue;
+                        string[] cardSelectInfo_strs = s.Trim('(').Trim(')').Split(',');
+                        int cardID = int.Parse(cardSelectInfo_strs[0]);
+                        if (!AllCards.CardDict.ContainsKey(cardID))
+                        {
+                            needRefresh = true;
+                            continue;
+                        }
+
+                        int cardSelectCount = int.Parse(cardSelectInfo_strs[1]);
+                        int cardSelectUpperLimit = int.Parse(cardSelectInfo_strs[2]);
+                        BuildCards.CardSelectInfo csi = new BuildCards.CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
+                        buildInfo.M_BuildCards.CardSelectInfos[cardID] = csi;
+                    }
+
+                    break;
+            }
+        }
+
+        return buildInfo;
     }
 
     public void ExportToXML(XmlElement parent_ele)

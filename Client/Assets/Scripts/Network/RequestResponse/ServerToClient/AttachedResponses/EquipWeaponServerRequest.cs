@@ -35,6 +35,7 @@
             writer.WriteByte(0x01);
             cardInfo.Serialize(writer);
         }
+
         writer.WriteSInt32(mechId);
         writer.WriteSInt32(equipID);
     }
@@ -45,8 +46,9 @@
         clientId = reader.ReadSInt32();
         if (reader.ReadByte() == 0x01)
         {
-            cardInfo = (CardInfo_Equip)(CardInfo_Base.Deserialze(reader));
+            cardInfo = (CardInfo_Equip) (CardInfo_Base.Deserialze(reader));
         }
+
         mechId = reader.ReadSInt32();
         equipID = reader.ReadSInt32();
     }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
+﻿using System.Collections.Generic;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 /// <summary>
 /// a bundle of SideEffectExecute to attach onto cards, mechs, equipment, battleships

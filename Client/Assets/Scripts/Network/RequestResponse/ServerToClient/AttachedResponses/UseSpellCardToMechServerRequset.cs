@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardToMechServerRequset : ServerRequestBase
+﻿public class UseSpellCardToMechServerRequset : ServerRequestBase
 {
     public int clientId;
     public int handCardInstanceId;
@@ -11,7 +10,7 @@ public class UseSpellCardToMechServerRequset : ServerRequestBase
     {
     }
 
-    public UseSpellCardToMechServerRequset(int clientId, int handCardInstanceId, int targetMechId, bool isTargetMechIdTempId, int clientMechTempId) 
+    public UseSpellCardToMechServerRequset(int clientId, int handCardInstanceId, int targetMechId, bool isTargetMechIdTempId, int clientMechTempId)
     {
         this.clientId = clientId;
         this.handCardInstanceId = handCardInstanceId;
@@ -42,5 +41,4 @@ public class UseSpellCardToMechServerRequset : ServerRequestBase
         isTargetMechIdTempId = reader.ReadByte() == 0x01;
         clientMechTempId = reader.ReadSInt32();
     }
-
 }

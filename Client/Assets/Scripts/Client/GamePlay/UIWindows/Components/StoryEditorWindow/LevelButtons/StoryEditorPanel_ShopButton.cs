@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class StoryEditorPanel_ShopButton : StoryEditorPanel_LevelButton
 {

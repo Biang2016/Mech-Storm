@@ -80,6 +80,33 @@ public class GamePlaySettings
         get { return DefaultCoin + (DefaultLife - DefaultLifeMin) * LifeToCoin + DefaultEnergy * EnergyToCoin + DrawCardNumToCoin[DefaultDrawCardNum] - DrawCardNumToCoin[MinDrawCardNum]; }
     }
 
+    public static GamePlaySettings GetGamePlaySettingsFromXML(XmlNode node_gps)
+    {
+        int DefaultCoin = int.Parse(node_gps.Attributes["DefaultCoin"].Value);
+        int DefaultLife = int.Parse(node_gps.Attributes["DefaultLife"].Value);
+        int DefaultLifeMax = int.Parse(node_gps.Attributes["DefaultLifeMax"].Value);
+        int DefaultLifeMin = int.Parse(node_gps.Attributes["DefaultLifeMin"].Value);
+        int DefaultEnergy = int.Parse(node_gps.Attributes["DefaultEnergy"].Value);
+        int DefaultEnergyMax = int.Parse(node_gps.Attributes["DefaultEnergyMax"].Value);
+
+        int DefaultDrawCardNum = int.Parse(node_gps.Attributes["DefaultDrawCardNum"].Value);
+        int MinDrawCardNum = int.Parse(node_gps.Attributes["MinDrawCardNum"].Value);
+        int MaxDrawCardNum = int.Parse(node_gps.Attributes["MaxDrawCardNum"].Value);
+
+        GamePlaySettings gps = new GamePlaySettings();
+        gps.DefaultCoin = DefaultCoin;
+        gps.DefaultLife = DefaultLife;
+        gps.DefaultLifeMax = DefaultLifeMax;
+        gps.DefaultLifeMin = DefaultLifeMin;
+        gps.DefaultEnergy = DefaultEnergy;
+        gps.DefaultEnergyMax = DefaultEnergyMax;
+
+        gps.DefaultDrawCardNum = DefaultDrawCardNum;
+        gps.MinDrawCardNum = MinDrawCardNum;
+        gps.MaxDrawCardNum = MaxDrawCardNum;
+        return gps;
+    }
+
     public void ExportToXML(XmlElement parent_ele)
     {
         XmlDocument doc = parent_ele.OwnerDocument;

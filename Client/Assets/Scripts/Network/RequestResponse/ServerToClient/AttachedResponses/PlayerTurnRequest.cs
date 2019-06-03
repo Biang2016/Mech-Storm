@@ -4,13 +4,13 @@
 
     public PlayerTurnRequest()
     {
-
     }
 
     public PlayerTurnRequest(int clientId)
     {
         this.clientId = clientId;
     }
+
     public override NetProtocols GetProtocol()
     {
         return NetProtocols.SE_PLAYER_TURN;
@@ -27,5 +27,4 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
     }
-
 }

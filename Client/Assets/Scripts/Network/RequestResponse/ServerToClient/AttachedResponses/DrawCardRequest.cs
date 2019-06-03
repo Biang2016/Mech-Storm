@@ -74,7 +74,7 @@ public class DrawCardRequest : ServerRequestBase
             for (int i = 0; i < cardCount; i++)
             {
                 int cardInstanceId = reader.ReadSInt32();
-                cardInfos.Add(new CardIdAndInstanceId(99999, cardInstanceId));
+                cardInfos.Add(new CardIdAndInstanceId((int) AllCards.EmptyCardTypes.EmptyCard, cardInstanceId));
             }
         }
     }

@@ -35,7 +35,6 @@ public class LoginPanel : BaseUIForm
     [SerializeField] private Button CardEditorButton;
     [SerializeField] private Text CardEditorText;
 
-
     void Awake()
     {
         UIType.InitUIType(
@@ -73,8 +72,6 @@ public class LoginPanel : BaseUIForm
             ServerDropdown.options[(int) Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
         }
     }
-
-
 
     public enum ServerTypes
     {
@@ -223,8 +220,6 @@ public class LoginPanel : BaseUIForm
         if (autoConnect) NetworkManager.Instance.ConnectToServer(defaultServerType);
         UserNameInputField.ActivateInputField();
     }
-
-
 
     public void ShowUpdateConfirmPanel()
     {

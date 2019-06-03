@@ -19,7 +19,13 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            BaseInfo bi = AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID")).BaseInfo;
+            int cardID = M_SideEffectParam.GetParam_ConstInt("SummonCardID");
+            if (cardID == (int) AllCards.EmptyCardTypes.NoCard || cardID == (int) AllCards.EmptyCardTypes.EmptyCard)
+            {
+                return "Error!!!";
+            }
+
+            BaseInfo bi = AllCards.GetCard(cardID).BaseInfo;
             return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
@@ -32,7 +38,11 @@ namespace SideEffects
 
             for (int i = 0; i < value; i++)
             {
-                player.BattleGroundManager.AddMech((CardInfo_Mech) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID")));
+                int summonCardID = M_SideEffectParam.GetParam_ConstInt("SummonCardID");
+                if (summonCardID != (int) AllCards.EmptyCardTypes.NoCard)
+                {
+                    player.BattleGroundManager.AddMech((CardInfo_Mech) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID")));
+                }
             }
         }
 

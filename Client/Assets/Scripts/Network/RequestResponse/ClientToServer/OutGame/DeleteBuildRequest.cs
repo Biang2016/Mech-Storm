@@ -18,7 +18,6 @@
         return NetProtocols.DELETE_BUILD_REQUEST;
     }
 
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);

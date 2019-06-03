@@ -4,13 +4,13 @@
 
     public GameStopByLeaveRequest()
     {
-
     }
 
     public GameStopByLeaveRequest(int clientId)
     {
         this.clientId = clientId;
     }
+
     public override NetProtocols GetProtocol()
     {
         return NetProtocols.GAME_STOP_BY_LEAVE_REQUEST;
@@ -27,5 +27,4 @@
         base.Deserialize(reader);
         clientId = reader.ReadSInt32();
     }
-
 }

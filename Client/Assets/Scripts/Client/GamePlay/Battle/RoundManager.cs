@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEngine;
 
 public partial class RoundManager : MonoSingleton<RoundManager>
 {
@@ -198,7 +196,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     public void OnEndRoundButtonClick()
     {
         if (CurrentClientPlayer == SelfClientPlayer)
-        {   
+        {
             EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientID);
             Client.Instance.Proxy.SendMessage(request);
             BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(false);

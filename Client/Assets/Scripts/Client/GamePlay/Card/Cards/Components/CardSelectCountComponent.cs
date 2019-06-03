@@ -56,14 +56,7 @@ public class CardSelectCountComponent : CardComponentBase
                 SelectLimitText.text = "";
             }
 
-            if (selectLimitCount == 0 && selectCount == 0)
-            {
-                SlashText.text = "";
-            }
-            else
-            {
-                SlashText.text = "/";
-            }
+            SlashText.text = selectLimitCount == 0 ? "" : "/";
         }
         else
         {

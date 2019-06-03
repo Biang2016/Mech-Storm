@@ -590,9 +590,9 @@ public partial class RoundManager
             return;
         }
 
-        if (r.ExecutorInfo.MechId != -99999) //随从触发
+        if (r.ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE) //随从触发
         {
-            if (r.ExecutorInfo.EquipId == -99999)
+            if (r.ExecutorInfo.EquipId == ExecutorInfo.EXECUTE_INFO_NONE)
             {
                 cp.BattlePlayer.BattleGroundManager.GetMech(r.ExecutorInfo.MechId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
@@ -601,7 +601,7 @@ public partial class RoundManager
                 cp.BattlePlayer.BattleGroundManager.GetEquip(r.ExecutorInfo.MechId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             }
         }
-        else if (r.ExecutorInfo.CardInstanceId != -99999) //手牌触发
+        else if (r.ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE) //手牌触发
         {
             //Todo 手牌SE效果
         }

@@ -39,5 +39,4 @@
         energy_max = reader.ReadSInt32();
         isOverflow = reader.ReadByte() == 0x01;
     }
-
 }

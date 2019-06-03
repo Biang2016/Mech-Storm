@@ -2,7 +2,7 @@
 
 public class DataHolder
 {
-    public byte[] mRecvDataCache=new byte[16384]; //use array as buffer for efficiency consideration
+    public byte[] mRecvDataCache = new byte[16384]; //use array as buffer for efficiency consideration
     public byte[] mRecvData;
 
     private int mTail = -1;

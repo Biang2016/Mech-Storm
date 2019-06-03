@@ -1,5 +1,4 @@
-﻿
-public class UseCardRequest : ServerRequestBase
+﻿public class UseCardRequest : ServerRequestBase
 {
     public int clientId;
     public int handCardInstanceId;
@@ -36,5 +35,4 @@ public class UseCardRequest : ServerRequestBase
         handCardInstanceId = reader.ReadSInt32();
         cardInfo = CardInfo_Base.Deserialze(reader);
     }
-
 }

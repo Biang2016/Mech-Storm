@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
@@ -10,6 +9,7 @@ using Newtonsoft.Json;
 public partial class Utils
 {
     public delegate void DebugLogDelegate(string log);
+
     public delegate void NoticeCenterMsgDelegate(string noticeStr);
 
     public static DebugLogDelegate DebugLog;

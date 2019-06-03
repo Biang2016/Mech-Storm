@@ -12,5 +12,4 @@
     {
         return NetProtocols.CANCEL_MATCH_REQUEST;
     }
-
 }

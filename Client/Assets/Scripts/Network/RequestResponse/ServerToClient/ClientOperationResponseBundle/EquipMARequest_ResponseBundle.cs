@@ -9,7 +9,6 @@
         return NetProtocols.EQUIP_MA_REQUEST_RESPONSE;
     }
 
-
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
@@ -19,6 +18,4 @@
     {
         base.Deserialize(reader);
     }
-
-
 }

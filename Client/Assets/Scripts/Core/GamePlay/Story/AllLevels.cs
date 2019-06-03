@@ -48,6 +48,8 @@ public class AllLevels
         }
     }
 
+    private static bool NeedReload = false;
+
     public static void AddAllLevels()
     {
         Reset();
@@ -68,15 +70,25 @@ public class AllLevels
                 for (int i = 0; i < allLevels.ChildNodes.Count; i++)
                 {
                     XmlNode levelInfo = allLevels.ChildNodes.Item(i);
-                    Level level = GetLevelFromXML(levelInfo);
+                    Level level = GetLevelFromXML(levelInfo, out bool needRefresh);
+                    NeedReload |= needRefresh;
                     kv.Value.Add(level.LevelNames["en"], level);
                 }
             }
         }
+
+        //If any problem, refresh XML and reload
+        if (NeedReload)
+        {
+            NeedReload = false;
+            RefreshAllLevelXML();
+            ReloadLevelXML();
+        }
     }
 
-    public static Level GetLevelFromXML(XmlNode node_levelInfo)
+    public static Level GetLevelFromXML(XmlNode node_levelInfo, out bool needRefresh)
     {
+        needRefresh = false;
         string Name_zh = node_levelInfo.Attributes["name_zh"].Value;
         string Name_en = node_levelInfo.Attributes["name_en"].Value;
         SortedDictionary<string, string> names = new SortedDictionary<string, string> {{"zh", Name_zh}, {"en", Name_en}};
@@ -90,7 +102,9 @@ public class AllLevels
                 XmlNode node_EnemyInfo = node_levelInfo.FirstChild;
                 EnemyType enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), node_EnemyInfo.Attributes["enemyType"].Value);
 
-                BuildInfo bi = AllBuilds.GetBuildInfoFromXML(node_EnemyInfo.FirstChild);
+                BuildInfo bi = BuildInfo.GetBuildInfoFromXML(node_EnemyInfo.FirstChild, out bool _needRefresh);
+
+                needRefresh |= _needRefresh;
 
                 XmlNode node_BonusGroupInfos = node_EnemyInfo.ChildNodes.Item(1);
                 List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
@@ -123,7 +137,12 @@ public class AllLevels
                     if (string.IsNullOrEmpty(s)) continue;
                     string[] itemPrice = s.Trim('(').Trim(')').Split(',');
                     int cardID = int.Parse(itemPrice[0]);
-                    if (!AllCards.CardDict.ContainsKey(cardID)) continue;
+                    if (!AllCards.CardDict.ContainsKey(cardID))
+                    {
+                        needRefresh = true;
+                        continue;
+                    }
+
                     int price = int.Parse(itemPrice[1]);
                     itemPrices.Add(cardID, price);
                 }
@@ -169,6 +188,23 @@ public class AllLevels
     public static void ReloadLevelXML()
     {
         AddAllLevels();
+    }
+
+    public static void RefreshAllLevelXML()
+    {
+        List<Level> allLevels = new List<Level>();
+        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in LevelDict)
+        {
+            foreach (KeyValuePair<string, Level> _kv in kv.Value)
+            {
+                allLevels.Add(_kv.Value);
+            }
+        }
+
+        foreach (Level l in allLevels)
+        {
+            RefreshLevelXML(l);
+        }
     }
 
     public static void RefreshLevelXML(Level level)

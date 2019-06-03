@@ -19,7 +19,6 @@
         return Seed;
     }
 
-
     int pre;
 
     int rand()

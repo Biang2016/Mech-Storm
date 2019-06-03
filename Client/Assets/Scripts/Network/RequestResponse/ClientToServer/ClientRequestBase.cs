@@ -4,7 +4,6 @@
 
     public ClientRequestBase()
     {
-
     }
 
     public ClientRequestBase(int clientId)

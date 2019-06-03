@@ -31,5 +31,4 @@
         clientId = reader.ReadSInt32();
         coolingDownCard = CardDeck.CoolingDownCard.Deserialize(reader);
     }
-
 }

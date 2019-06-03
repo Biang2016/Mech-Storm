@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardToEquipRequest : ClientRequestBase
+﻿public class UseSpellCardToEquipRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int targetEquipId;
@@ -8,7 +7,7 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
     {
     }
 
-    public UseSpellCardToEquipRequest(int clientId, int handCardInstanceId,  int targetEquipId) : base(clientId)
+    public UseSpellCardToEquipRequest(int clientId, int handCardInstanceId, int targetEquipId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.targetEquipId = targetEquipId;
@@ -32,5 +31,4 @@ public class UseSpellCardToEquipRequest : ClientRequestBase
         handCardInstanceId = reader.ReadSInt32();
         targetEquipId = reader.ReadSInt32();
     }
-
 }

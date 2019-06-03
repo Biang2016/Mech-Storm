@@ -2,7 +2,7 @@
 {
     public BuildInfo BuildInfo;
 
-    public BuildUpdateRequest() 
+    public BuildUpdateRequest()
     {
     }
 

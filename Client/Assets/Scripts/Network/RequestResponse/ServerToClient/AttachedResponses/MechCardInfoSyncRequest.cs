@@ -1,5 +1,4 @@
-﻿
-public class MechCardInfoSyncRequest : ServerRequestBase
+﻿public class MechCardInfoSyncRequest : ServerRequestBase
 {
     public int clientId;
     public int instanceId;
@@ -36,5 +35,4 @@ public class MechCardInfoSyncRequest : ServerRequestBase
         instanceId = reader.ReadSInt32();
         cardInfo = CardInfo_Base.Deserialze(reader);
     }
-
 }

@@ -39,5 +39,4 @@
         targetClientId = reader.ReadSInt32();
         weaponType = (WeaponTypes) reader.ReadSInt32();
     }
-
 }

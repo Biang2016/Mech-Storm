@@ -6,7 +6,6 @@
     {
     }
 
-
     public CreateBuildRequestResponse(BuildInfo buildInfo)
     {
         this.buildInfo = buildInfo;
@@ -16,7 +15,6 @@
     {
         return NetProtocols.CREATE_BUILD_REQUEST_RESPONSE;
     }
-
 
     public override void Serialize(DataStream writer)
     {
@@ -29,5 +27,4 @@
         base.Deserialize(reader);
         buildInfo = BuildInfo.Deserialize(reader);
     }
-
 }

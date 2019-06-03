@@ -53,12 +53,15 @@ public class PicSelectPanel : MonoBehaviour
     }
 
     public UnityAction<string> OnClickPicAction;
+    public UnityAction OnOpenPanelAction;
+    public UnityAction OnClosePanelAction;
 
     public void OnPicSelectGridOpenButtonClick()
     {
         PicSelectGridPanel.SetActive(true);
         PicSelectGridCloseButton.gameObject.SetActive(true);
         PicSelectGridOpenButton.gameObject.SetActive(false);
+        OnOpenPanelAction?.Invoke();
         IsOpen = true;
     }
 
@@ -67,6 +70,7 @@ public class PicSelectPanel : MonoBehaviour
         PicSelectGridPanel.SetActive(false);
         PicSelectGridCloseButton.gameObject.SetActive(false);
         PicSelectGridOpenButton.gameObject.SetActive(true);
+        OnClosePanelAction?.Invoke();
         IsOpen = false;
     }
 }

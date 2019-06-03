@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,7 +70,7 @@ public class Affix : PoolObject
 
         text = BaseInfo.AddHighLightColorToText(AffixNameDict[LanguageManager.Instance.GetCurrentLanguage()][affixType]) + ": " + AffixDescDict[LanguageManager.Instance.GetCurrentLanguage()][affixType];
         Text.enableAutoSizing = LanguageManager.Instance.IsEnglish;
-        
+
         Text.text = text;
         BoardImage.color = AffixColorDict[affixType];
     }

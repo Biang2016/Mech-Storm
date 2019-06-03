@@ -88,10 +88,10 @@ public class CardMech : CardBase
 
     public void ShowEquipCardBloom()
     {
-       CardSlotsComponent.ShowSlot(SlotTypes.Weapon, !Weapon);
-       CardSlotsComponent.ShowSlot(SlotTypes.Shield, !Shield);
-       CardSlotsComponent.ShowSlot(SlotTypes.Pack, !Pack);
-       CardSlotsComponent.ShowSlot(SlotTypes.MA, !MA);
+        CardSlotsComponent.ShowSlot(SlotTypes.Weapon, !Weapon);
+        CardSlotsComponent.ShowSlot(SlotTypes.Shield, !Shield);
+        CardSlotsComponent.ShowSlot(SlotTypes.Pack, !Pack);
+        CardSlotsComponent.ShowSlot(SlotTypes.MA, !MA);
     }
 
     # endregion

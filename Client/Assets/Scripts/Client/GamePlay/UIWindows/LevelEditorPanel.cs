@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -44,6 +42,8 @@ public class LevelEditorPanel : BaseUIForm
         InitializeCardPropertyForm();
         InitializePreviewCardGrid();
         PicSelectPanel.OnClickPicAction = SetLevelPicID;
+        PicSelectPanel.OnOpenPanelAction = delegate { SetMaskPanelEnable(false); };
+        PicSelectPanel.OnClosePanelAction = delegate { SetMaskPanelEnable(true); };
         PicSelectPanel.InitializePicSelectGrid("LevelEditorPanel_PicSelectGridLabel");
     }
 
@@ -189,7 +189,7 @@ public class LevelEditorPanel : BaseUIForm
                     buildInfo: new BuildInfo(
                         buildID: -1,
                         buildName: "TempDeck",
-                        buildCards: new BuildInfo.BuildCards(),
+                        buildCards: new BuildCards(),
                         drawCardNum: 1,
                         life: 20,
                         energy: 10,
@@ -380,6 +380,7 @@ public class LevelEditorPanel : BaseUIForm
         else
         {
             Cur_Level = level;
+            SetLevelType(Cur_Level.LevelType.ToString());
             SetLevelName_en(Cur_Level.LevelNames["en"]);
             SetLevelName_zh(Cur_Level.LevelNames["zh"]);
             SetLevelPicID(Cur_Level.LevelPicID.ToString());
@@ -387,13 +388,22 @@ public class LevelEditorPanel : BaseUIForm
             {
                 case Enemy enemy:
                 {
-                    SetEnemyType(enemy.EnemyType.ToString());
                     SetEnemyBeginMetal(enemy.BuildInfo.BeginMetal.ToString());
                     SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString());
                     SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
                     SetEnemyLife(enemy.BuildInfo.Life.ToString());
-                    Row_CardSelection.Initialize(enemy.BuildInfo.M_BuildCards, delegate { });
-                    SelectCardsByBuildCards(enemy.BuildInfo.M_BuildCards);
+
+                    Row_CardSelection.Initialize(enemy.BuildInfo.M_BuildCards);
+                    Row_CardSelection.SetButtonActions(delegate { },
+                        clearAction: delegate
+                        {
+                            enemy.BuildInfo.M_BuildCards.ClearAllCardCounts();
+                            Row_CardSelection.Initialize(enemy.BuildInfo.M_BuildCards);
+                            SelectCardsByBuildCards(enemy.BuildInfo.M_BuildCards, CardStatTypes.Total);
+                        },
+                        showCardStatTypeChange: delegate(CardStatTypes cardStatType) { SelectCardsByBuildCards(enemy.BuildInfo.M_BuildCards, cardStatType); });
+
+                    SelectCardsByBuildCards(enemy.BuildInfo.M_BuildCards, CardStatTypes.Total);
                     break;
                 }
                 case Shop shop:
@@ -534,6 +544,13 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
+    [SerializeField] private Image MaskPanelForCardLibrary;
+
+    private void SetMaskPanelEnable(bool enable)
+    {
+        MaskPanelForCardLibrary.enabled = enable;
+    }
+
     private Dictionary<int, CardBase> AllCards = new Dictionary<int, CardBase>();
     public Dictionary<int, PoolObject> AllCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
     [SerializeField] private GridLayoutGroup CardLibraryGridLayout;
@@ -542,7 +559,8 @@ public class LevelEditorPanel : BaseUIForm
     {
         foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
         {
-            if (cardInfo.CardID == 99999) continue;
+            if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.EmptyCard) continue;
+            if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.NoCard) continue;
             if (cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoGridLayout(cardInfo.Clone());
@@ -552,13 +570,14 @@ public class LevelEditorPanel : BaseUIForm
     public void AddCardIntoGridLayout(CardInfo_Base cardInfo)
     {
         CardSelectWindowCardContainer newCardContainer = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardSelectWindowCardContainer].AllocateGameObject<CardSelectWindowCardContainer>(CardLibraryGridLayout.transform);
+        cardInfo.BaseInfo.LimitNum = 0;
         newCardContainer.Initialize(cardInfo);
         newCardContainer.M_ChildCard.BeDimColor();
         AllCards.Add(cardInfo.CardID, newCardContainer.M_ChildCard);
         AllCardContainers.Add(cardInfo.CardID, newCardContainer);
     }
 
-    private BuildInfo.BuildCards BuildCards
+    private BuildCards BuildCards
     {
         get
         {
@@ -568,7 +587,7 @@ public class LevelEditorPanel : BaseUIForm
             }
             else if (Cur_Level is Shop shop)
             {
-                return new BuildInfo.BuildCards();
+                return new BuildCards();
             }
 
             return null;
@@ -616,7 +635,7 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (clearBuildCard)
         {
-            foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in BuildCards.CardSelectInfos)
+            foreach (KeyValuePair<int, BuildCards.CardSelectInfo> kv in BuildCards.CardSelectInfos)
             {
                 kv.Value.CardSelectCount = 0;
             }
@@ -630,13 +649,14 @@ public class LevelEditorPanel : BaseUIForm
         if (clearBuildCard) Row_CardSelection.Refresh();
     }
 
-    private void SelectCardsByBuildCards(BuildInfo.BuildCards buildCards)
+    private void SelectCardsByBuildCards(BuildCards buildCards, CardStatTypes cardStatType)
     {
         UnSelectAllCards(false);
-        foreach (KeyValuePair<int, BuildInfo.BuildCards.CardSelectInfo> kv in buildCards.CardSelectInfos)
+        foreach (KeyValuePair<int, BuildCards.CardSelectInfo> kv in buildCards.CardSelectInfos)
         {
             if (AllCards.ContainsKey(kv.Key))
             {
+                AllCardContainers[kv.Key].gameObject.SetActive(cardStatType == CardStatTypes.Total || AllCards[kv.Key].CardInfo.CardStatType == cardStatType);
                 RefreshCard(AllCards[kv.Key], kv.Value.CardSelectCount);
             }
         }

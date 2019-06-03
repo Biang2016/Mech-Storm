@@ -10,11 +10,11 @@
     {
         this.winnerClientId = winnerClientId;
     }
+
     public override NetProtocols GetProtocol()
     {
         return NetProtocols.GAME_STOP_BY_WIN_REQUEST;
     }
-
 
     public override void Serialize(DataStream writer)
     {

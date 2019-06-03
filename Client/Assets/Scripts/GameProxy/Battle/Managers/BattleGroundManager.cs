@@ -107,6 +107,7 @@ internal class BattleGroundManager
             BattlePlayer.GameManager.DebugLog.PrintWarning("BattleGroundRemoveMech not exist mech：" + mech.M_MechID);
             return;
         }
+
         Mechs.Remove(mech);
         MechCount = Mechs.Count;
         if (mech.CardInfo.MechInfo.IsSoldier)

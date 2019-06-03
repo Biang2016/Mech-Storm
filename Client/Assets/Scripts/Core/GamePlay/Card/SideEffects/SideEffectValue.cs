@@ -33,6 +33,7 @@ public abstract class SideEffectValue : IClone<SideEffectValue>
                 {
                     if (!AllCards.CardDict.ContainsKey(int.Parse(value)))
                     {
+                        s.Value = (int) AllCards.EmptyCardTypes.NoCard;
                         return;
                     }
 

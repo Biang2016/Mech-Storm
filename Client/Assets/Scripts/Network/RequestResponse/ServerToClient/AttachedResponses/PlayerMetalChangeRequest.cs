@@ -35,5 +35,4 @@
         metal_left = reader.ReadSInt32();
         metal_max = reader.ReadSInt32();
     }
-
 }

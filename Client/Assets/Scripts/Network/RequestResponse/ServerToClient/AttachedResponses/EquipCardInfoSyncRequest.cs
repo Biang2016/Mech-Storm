@@ -1,5 +1,4 @@
-﻿
-public class EquipCardInfoSyncRequest : ServerRequestBase
+﻿public class EquipCardInfoSyncRequest : ServerRequestBase
 {
     public int clientId;
     public int instanceId;
@@ -20,7 +19,6 @@ public class EquipCardInfoSyncRequest : ServerRequestBase
     {
         return NetProtocols.SE_EQUIP_CARDINFO_SYNC;
     }
-
 
     public override void Serialize(DataStream writer)
     {

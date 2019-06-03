@@ -1,13 +1,9 @@
 using UnityEngine;
-using System.Collections;
-
 
 namespace TMPro.Examples
 {
-    
     public class Benchmark04 : MonoBehaviour
     {
-
         public int SpawnType = 0;
 
         public int MinPointSize = 12;
@@ -18,14 +14,13 @@ namespace TMPro.Examples
         //private TextMeshProFloatingText floatingText_Script;
         //public Material material;
 
-
         void Start()
         {
             m_Transform = transform;
 
             float lineHeight = 0;
             float orthoSize = Camera.main.orthographicSize = Screen.height / 2;
-            float ratio = (float)Screen.width / Screen.height;
+            float ratio = (float) Screen.width / Screen.height;
 
             for (int i = MinPointSize; i <= MaxPointSize; i += Steps)
             {
@@ -80,6 +75,5 @@ namespace TMPro.Examples
                 }
             }
         }
-
     }
 }

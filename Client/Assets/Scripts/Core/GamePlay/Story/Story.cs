@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Xml;
 
 public class Story : IClone<Story>, IVariant<Story>
@@ -28,6 +26,7 @@ public class Story : IClone<Story>, IVariant<Story>
             Base_CardLimitDict = kv.Value.M_BuildCards.GetBaseCardLimitDict();
             break;
         }
+
         StoryGamePlaySettings = storyGamePlaySettings;
         RefreshLevelPointer();
     }
@@ -37,7 +36,6 @@ public class Story : IClone<Story>, IVariant<Story>
     /// </summary>
     public void RefreshBaseCardLimitDict()
     {
-
     }
 
     public Story Variant() //变换关卡
@@ -125,7 +123,7 @@ public class Story : IClone<Story>, IVariant<Story>
         //TODO 减少上限时要删掉对应的牌
         foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
         {
-            SortedDictionary<int, BuildInfo.BuildCards.CardSelectInfo> csis = kv.Value.M_BuildCards.CardSelectInfos;
+            SortedDictionary<int, BuildCards.CardSelectInfo> csis = kv.Value.M_BuildCards.CardSelectInfos;
             int remainChange = changeValue;
             if (csis[cardID].CardSelectUpperLimit + changeValue >= 0)
             {
@@ -267,8 +265,6 @@ public class Story : IClone<Story>, IVariant<Story>
             chapter.RefreshLevelMap();
         }
     }
-
-  
 
     /// <summary>
     /// Can only be used in StoryEditor!!

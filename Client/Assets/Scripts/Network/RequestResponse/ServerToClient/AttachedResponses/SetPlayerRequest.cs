@@ -55,5 +55,4 @@
         energyLeft = reader.ReadSInt32();
         energyMax = reader.ReadSInt32();
     }
-
 }

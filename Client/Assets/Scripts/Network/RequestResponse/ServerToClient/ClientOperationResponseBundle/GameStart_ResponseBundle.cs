@@ -3,9 +3,9 @@
     public GameStart_ResponseBundle()
     {
     }
+
     public override NetProtocols GetProtocol()
     {
         return NetProtocols.GAME_START_RESPONSE;
     }
-
 }

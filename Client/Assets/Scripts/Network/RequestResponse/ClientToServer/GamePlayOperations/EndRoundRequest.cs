@@ -12,5 +12,4 @@
     {
         return NetProtocols.END_ROUND_REQUEST;
     }
-
 }

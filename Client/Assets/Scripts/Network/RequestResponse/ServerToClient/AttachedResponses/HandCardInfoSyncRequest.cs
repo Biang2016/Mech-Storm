@@ -1,5 +1,4 @@
-﻿
-public class HandCardInfoSyncRequest : ServerRequestBase
+﻿public class HandCardInfoSyncRequest : ServerRequestBase
 {
     public int clientId;
     public int instanceId;

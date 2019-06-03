@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class CardEditorPanel : BaseUIForm
@@ -1532,9 +1531,12 @@ public class CardEditorPanel : BaseUIForm
         CardPreviewButtons.Clear();
         foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
         {
-            CardEditorPanel_CardPreviewButton cpb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardEditorPanel_CardPreviewButton].AllocateGameObject<CardEditorPanel_CardPreviewButton>(ExistingCardGridContainer.transform);
-            cpb.Initialize(kv.Value, delegate { ChangeCard(kv.Key); });
-            CardPreviewButtons.Add(kv.Key, cpb);
+            if (kv.Key != (int) AllCards.EmptyCardTypes.EmptyCard)
+            {
+                CardEditorPanel_CardPreviewButton cpb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardEditorPanel_CardPreviewButton].AllocateGameObject<CardEditorPanel_CardPreviewButton>(ExistingCardGridContainer.transform);
+                cpb.Initialize(kv.Value, delegate { ChangeCard(kv.Key); });
+                CardPreviewButtons.Add(kv.Key, cpb);
+            }
         }
     }
 

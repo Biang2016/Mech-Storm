@@ -35,5 +35,4 @@
         mechId = reader.ReadSInt32();
         canAttack = reader.ReadByte() == 0x01;
     }
-
 }

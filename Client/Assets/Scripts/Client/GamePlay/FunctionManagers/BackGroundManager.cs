@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,10 +70,7 @@ public class BackGroundManager : MonoSingleton<BackGroundManager>
         img.transform.DOPause();
         img.transform.localScale = 1.5f * Vector3.one;
         img.DOFade(1, 3f);
-        img.transform.DOScale(1, 3f).OnComplete(delegate
-        {
-            img.transform.DOScale(1.2f, 10f).SetLoops(-1, LoopType.Yoyo);
-        });
+        img.transform.DOScale(1, 3f).OnComplete(delegate { img.transform.DOScale(1.2f, 10f).SetLoops(-1, LoopType.Yoyo); });
     }
 
     private void ChangePictureFadeOut(Image img)

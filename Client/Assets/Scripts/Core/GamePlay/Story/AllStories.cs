@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -8,6 +7,8 @@ public class AllStories
     public static string StoriesDirectory => LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/";
 
     public static Dictionary<string, Story> StoryDict = new Dictionary<string, Story>();
+
+    private static bool NeedReload = false;
 
     public static void AddAllStories()
     {
@@ -27,8 +28,9 @@ public class AllStories
             doc.LoadXml(text);
             XmlElement story = doc.DocumentElement;
 
-            BuildInfo buildInfo = AllBuilds.GetBuildInfoFromXML(story.ChildNodes.Item(0));
-            GamePlaySettings gps = GetGamePlaySettingsFromXML(story.ChildNodes.Item(1));
+            BuildInfo buildInfo = BuildInfo.GetBuildInfoFromXML(story.ChildNodes.Item(0), out bool needRefresh);
+            NeedReload |= needRefresh;
+            GamePlaySettings gps = GamePlaySettings.GetGamePlaySettingsFromXML(story.ChildNodes.Item(1));
 
             SortedDictionary<int, Chapter> Chapters = new SortedDictionary<int, Chapter>();
             XmlNode node_Chapters = story.ChildNodes.Item(2);
@@ -40,8 +42,16 @@ public class AllStories
 
             SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
             playerBuildInfos.Add(buildInfo.BuildID, buildInfo);
-            Story newStory = new Story(pureName, Chapters,  playerBuildInfos, gps);
+            Story newStory = new Story(pureName, Chapters, playerBuildInfos, gps);
             StoryDict.Add(newStory.StoryName, newStory);
+        }
+
+        //If any problem, refresh XML and reload
+        if (NeedReload)
+        {
+            NeedReload = false;
+            RefreshAllStoryXML();
+            ReloadStoryXML();
         }
     }
 
@@ -67,6 +77,20 @@ public class AllStories
         AddAllStories();
     }
 
+    public static void RefreshAllStoryXML()
+    {
+        List<Story> allStories = new List<Story>();
+        foreach (KeyValuePair<string, Story> kv in StoryDict)
+        {
+            allStories.Add(kv.Value);
+        }
+
+        foreach (Story s in allStories)
+        {
+            RefreshStoryXML(s);
+        }
+    }
+
     public static void RefreshStoryXML(Story story)
     {
         FileInfo fi = new FileInfo(StoriesDirectory + story.StoryName + ".xml");
@@ -86,34 +110,6 @@ public class AllStories
         {
             doc.Save(sw);
         }
-
-    }
-
-    public static GamePlaySettings GetGamePlaySettingsFromXML(XmlNode node_gps)
-    {
-        int DefaultCoin = int.Parse(node_gps.Attributes["DefaultCoin"].Value);
-        int DefaultLife = int.Parse(node_gps.Attributes["DefaultLife"].Value);
-        int DefaultLifeMax = int.Parse(node_gps.Attributes["DefaultLifeMax"].Value);
-        int DefaultLifeMin = int.Parse(node_gps.Attributes["DefaultLifeMin"].Value);
-        int DefaultEnergy = int.Parse(node_gps.Attributes["DefaultEnergy"].Value);
-        int DefaultEnergyMax = int.Parse(node_gps.Attributes["DefaultEnergyMax"].Value);
-
-        int DefaultDrawCardNum = int.Parse(node_gps.Attributes["DefaultDrawCardNum"].Value);
-        int MinDrawCardNum = int.Parse(node_gps.Attributes["MinDrawCardNum"].Value);
-        int MaxDrawCardNum = int.Parse(node_gps.Attributes["MaxDrawCardNum"].Value);
-
-        GamePlaySettings gps = new GamePlaySettings();
-        gps.DefaultCoin = DefaultCoin;
-        gps.DefaultLife = DefaultLife;
-        gps.DefaultLifeMax = DefaultLifeMax;
-        gps.DefaultLifeMin = DefaultLifeMin;
-        gps.DefaultEnergy = DefaultEnergy;
-        gps.DefaultEnergyMax = DefaultEnergyMax;
-
-        gps.DefaultDrawCardNum = DefaultDrawCardNum;
-        gps.MinDrawCardNum = MinDrawCardNum;
-        gps.MaxDrawCardNum = MaxDrawCardNum;
-        return gps;
     }
 
     private static Chapter GetChapterFromXML(XmlNode node_ChapterInfo)

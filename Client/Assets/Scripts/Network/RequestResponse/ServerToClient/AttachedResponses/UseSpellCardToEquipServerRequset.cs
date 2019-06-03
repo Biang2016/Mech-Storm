@@ -1,5 +1,4 @@
-﻿
-public class UseSpellCardToEquipServerRequset : ServerRequestBase
+﻿public class UseSpellCardToEquipServerRequset : ServerRequestBase
 {
     public int clientId;
     public int handCardInstanceId;
@@ -9,7 +8,7 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
     {
     }
 
-    public UseSpellCardToEquipServerRequset(int clientId, int handCardInstanceId, int targetEquipId) 
+    public UseSpellCardToEquipServerRequset(int clientId, int handCardInstanceId, int targetEquipId)
     {
         this.clientId = clientId;
         this.handCardInstanceId = handCardInstanceId;
@@ -34,5 +33,4 @@ public class UseSpellCardToEquipServerRequset : ServerRequestBase
         handCardInstanceId = reader.ReadSInt32();
         targetEquipId = reader.ReadSInt32();
     }
-
 }

@@ -1,5 +1,4 @@
-﻿
-public class SummonMechRequest : ClientRequestBase
+﻿public class SummonMechRequest : ClientRequestBase
 {
     public int handCardInstanceId;
     public int battleGroundIndex;
@@ -11,7 +10,7 @@ public class SummonMechRequest : ClientRequestBase
     {
     }
 
-    public SummonMechRequest(int clientId, int handCardInstanceId, int battleGroundIndex,  int targetMechId, bool isTargetMechIdTempId, int clientMechTempId) : base(clientId)
+    public SummonMechRequest(int clientId, int handCardInstanceId, int battleGroundIndex, int targetMechId, bool isTargetMechIdTempId, int clientMechTempId) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
         this.battleGroundIndex = battleGroundIndex;
@@ -44,5 +43,4 @@ public class SummonMechRequest : ClientRequestBase
         isTargetMechIdTempId = reader.ReadByte() == 0x01;
         clientMechTempId = reader.ReadSInt32();
     }
-
 }

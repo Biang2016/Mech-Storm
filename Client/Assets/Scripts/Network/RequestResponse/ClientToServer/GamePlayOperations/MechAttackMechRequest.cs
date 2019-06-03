@@ -35,5 +35,4 @@
         BeAttackedMechClientId = reader.ReadSInt32();
         BeAttackedMechId = reader.ReadSInt32();
     }
-
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(CardCoinComponent), true)]
-class CardCoinComponentEditor : CardComponentBaseEditor
+internal class CardCoinComponentEditor : CardComponentBaseEditor
 {
     private CardCoinComponent CardCoinComponent;
 

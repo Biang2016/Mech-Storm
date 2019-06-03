@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml;
+﻿using System.Xml;
 
 public class CardInfo_Spell : CardInfo_Base
 {

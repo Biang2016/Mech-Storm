@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -8,7 +7,7 @@ using SideEffects;
 
 public static class AllBuffs
 {
-    private static string BuffsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath+ "/Basic/Buffs.xml";
+    private static string BuffsXMLFile => LoadAllBasicXMLFiles.ConfigFolderPath + "/Basic/Buffs.xml";
 
     public static Dictionary<string, PlayerBuffSideEffects> BuffDict = new Dictionary<string, PlayerBuffSideEffects>();
 
