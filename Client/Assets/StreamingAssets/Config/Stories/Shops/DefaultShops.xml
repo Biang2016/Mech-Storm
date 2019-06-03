@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AllShops>
-  <LevelInfo levelThemeCategory="Soldiers" levelType="Shop" name_en="Small Shop4" name_zh="小商店5" picID="1001">
-    <ShopInfo itemPrices="(0,1);(1,1)" />
-  </LevelInfo>
   <LevelInfo name_en="Small Shop0" name_zh="小商店0" picID="12" levelThemeCategory="Soldiers" levelType="Shop">
     <ShopInfo itemPrices="(0,1)" />
   </LevelInfo>
@@ -13,6 +10,9 @@
     <ShopInfo itemPrices="(0,1)" />
   </LevelInfo>
   <LevelInfo name_en="Small Shop3" name_zh="小商店4" picID="1001" levelThemeCategory="Soldiers" levelType="Shop">
+    <ShopInfo itemPrices="(0,1)" />
+  </LevelInfo>
+  <LevelInfo name_en="Small Shop4" name_zh="小商店5" picID="1001" levelThemeCategory="Soldiers" levelType="Shop">
     <ShopInfo itemPrices="(0,1)" />
   </LevelInfo>
 </AllShops>

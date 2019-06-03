@@ -148,6 +148,13 @@ public static class AllCards
         for (int i = 0; i < node_AllCards.ChildNodes.Count; i++)
         {
             XmlNode node_Card = node_AllCards.ChildNodes.Item(i);
+            
+            int cardID = int.Parse(node_Card.Attributes["id"].Value);
+            if (cardID == 556)
+            {
+                int a = 0;
+            }
+            
             BaseInfo baseInfo = new BaseInfo();
             UpgradeInfo upgradeInfo = new UpgradeInfo();
             LifeInfo lifeInfo = new LifeInfo();
@@ -266,7 +273,7 @@ public static class AllCards
             {
                 case CardTypes.Mech:
                     addCard(new CardInfo_Mech(
-                        cardID: int.Parse(node_Card.Attributes["id"].Value),
+                        cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         lifeInfo: lifeInfo,
@@ -276,7 +283,7 @@ public static class AllCards
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
-                        cardID: int.Parse(node_Card.Attributes["id"].Value),
+                        cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         equipInfo: equipInfo,
@@ -288,14 +295,14 @@ public static class AllCards
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
-                        cardID: int.Parse(node_Card.Attributes["id"].Value),
+                        cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         sideEffectBundle: sideEffectBundle));
                     break;
                 case CardTypes.Energy:
                     addCard(new CardInfo_Spell(
-                        cardID: int.Parse(node_Card.Attributes["id"].Value),
+                        cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
                         sideEffectBundle: sideEffectBundle));
