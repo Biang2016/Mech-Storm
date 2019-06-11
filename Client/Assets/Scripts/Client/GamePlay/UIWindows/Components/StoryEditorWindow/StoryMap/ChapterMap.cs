@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ChapterMap : PoolObject
 {
@@ -26,15 +28,15 @@ public class ChapterMap : PoolObject
 
     void Awake()
     {
-        foreach (string name in Enum.GetNames(typeof(NodeTypes)))
+        foreach (string str in Enum.GetNames(typeof(NodeTypes)))
         {
-            NodeTypes type = (NodeTypes) Enum.Parse(typeof(NodeTypes), name);
+            NodeTypes type = (NodeTypes) Enum.Parse(typeof(NodeTypes), str);
             NodeCategory.Add(type, new List<int>());
         }
 
-        foreach (string name in Enum.GetNames(typeof(RouteTypes)))
+        foreach (string str in Enum.GetNames(typeof(RouteTypes)))
         {
-            RouteTypes type = (RouteTypes) Enum.Parse(typeof(RouteTypes), name);
+            RouteTypes type = (RouteTypes) Enum.Parse(typeof(RouteTypes), str);
             RouteCategory.Add(type, new List<int>());
         }
     }
@@ -64,17 +66,32 @@ public class ChapterMap : PoolObject
         {
             kv.Value.Clear();
         }
+
+        Cur_SelectedNode = null;
     }
 
     internal int RoundCount = 2;
 
-    internal void Initialize(int roundCount, float routeLength, float lineWidth)
+    internal void Initialize(Chapter chapter)
     {
         Reset();
 
+        Cur_Chapter = chapter;
+
+        DrawMap(chapter.ChapterMapRoundCount);
+
+        SetPicForNodes();
+
+        SetLevels(Cur_Chapter.Levels);
+    }
+
+    private void DrawMap(int roundCount)
+    {
         RoundCount = roundCount;
+
+        float routeLength = 520f / (roundCount + 2);
+        lineWidth = 4f;
         routeIndex = 0;
-        this.lineWidth = lineWidth;
 
         Vector2 a = new Vector2(1, 0);
         Vector2 b = new Vector2(0.5f, 0.866f);
@@ -129,6 +146,11 @@ public class ChapterMap : PoolObject
             NodeCategory[NodeTypes.All].Add(index);
             NodeCategory[NodeTypes.Treasure].Add(index);
             nodeLocations[index++] = (((roundCount + 1) / 2.0f) * directions[i + 1] + ((roundCount + 1) / 2.0f) * directions[i]) * routeLength * 1.1f;
+        }
+
+        for (int i = 0; i < nodeLocations.Length; i++)
+        {
+            GenerateNode(i);
         }
 
         // 画线
@@ -250,13 +272,14 @@ public class ChapterMap : PoolObject
             int node_index = end1 + 1 + roundCount * i + roundCount / 2;
             GenerateRoute(node_index, end2 + i + 6 + 1, new List<RouteTypes> {RouteTypes.All, RouteTypes.ToTreasure});
         }
+    }
 
-        for (int i = 0; i < nodeLocations.Length; i++)
+    private void SetLevels(SortedDictionary<int, Level> levels)
+    {
+        foreach (KeyValuePair<int, Level> kv in levels)
         {
-            GenerateNode(i);
+            SetNodeLevel(kv.Key, kv.Value);
         }
-
-        SetPicForNodes();
     }
 
     public enum RouteTypes
@@ -301,6 +324,8 @@ public class ChapterMap : PoolObject
         int index = routeIndex++;
         ChapterMapRoute r = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapRoute].AllocateGameObject<ChapterMapRoute>(ChapterMapRoutesTransform);
         r.Refresh(nodeLocations[startIndex], nodeLocations[endIndex], index, startIndex, endIndex, lineWidth);
+        ChapterMapNodes[startIndex].AdjacentRoutes.Add(index);
+        ChapterMapNodes[endIndex].AdjacentRoutes.Add(index);
         ChapterMapRoutes.Add(index, r);
         foreach (RouteTypes routeType in routeTypes)
         {
@@ -311,14 +336,25 @@ public class ChapterMap : PoolObject
     private float shopRatio = 0.1f;
     private float restRatio = 0.1f;
 
+    private void OnHoverNode(ChapterMapNode node)
+    {
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
+        {
+            if (kv.Value != node)
+            {
+                kv.Value.IsHovered = false;
+            }
+        }
+    }
+
     private void SetPicForNodes()
     {
         foreach (int i in NodeCategory[NodeTypes.Common])
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Enemy, EnemyType.Soldier);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Enemy, EnemyType.Soldier);
         }
 
-        ChapterMapNodes[0].Initialize(0, SelectNode, LevelType.Start);
+        ChapterMapNodes[0].Initialize(0, SelectNode, OnHoverNode, LevelType.Start);
 
         int shopNumMax = Mathf.CeilToInt(shopRatio * NodeCategory[NodeTypes.Common].Count);
         int restNumMax = Mathf.CeilToInt(restRatio * NodeCategory[NodeTypes.Common].Count);
@@ -335,24 +371,26 @@ public class ChapterMap : PoolObject
 
         foreach (int i in shops)
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Shop);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Shop);
         }
 
         foreach (int i in rests)
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Rest);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Rest);
         }
 
         foreach (int i in NodeCategory[NodeTypes.Treasure])
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Treasure);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Treasure);
         }
 
         foreach (int i in NodeCategory[NodeTypes.Boss])
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, LevelType.Enemy, EnemyType.Boss);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Enemy, EnemyType.Boss);
         }
     }
+
+    private ChapterMapNode Cur_SelectedNode;
 
     private void SelectNode(int nodeIndex)
     {
@@ -362,5 +400,33 @@ public class ChapterMap : PoolObject
         }
 
         ChapterMapNodes[nodeIndex].IsSelected = true;
+        Cur_SelectedNode = ChapterMapNodes[nodeIndex];
+    }
+
+    public void SetNodeLevel(int nodeIndex, Level level)
+    {
+        ChapterMapNodes[nodeIndex].SetLevel(level);
+    }
+
+    public void SetCurrentNodeLevel(Level level)
+    {
+        if (Cur_SelectedNode != null)
+        {
+            Cur_SelectedNode.SetLevel(level);
+        }
+    }
+
+    public Chapter Cur_Chapter;
+
+    public void SaveChapter()
+    {
+        Cur_Chapter.Levels.Clear();
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
+        {
+            if (kv.Value.Cur_Level != null)
+            {
+                Cur_Chapter.Levels.Add(kv.Key, kv.Value.Cur_Level.Clone());
+            }
+        }
     }
 }

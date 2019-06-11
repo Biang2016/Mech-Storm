@@ -831,6 +831,10 @@
 		"zh": "是否从关卡库中删除关卡(将从所有剧情中该关卡)",
 		"en": "Delete Level from Library (remove from all Stories as well)?"
 	},
+	"StoryEditorPanel_Notice_ChangeChapterRoundCount": {
+		"zh": "此操作将清空当前章节内的所有信息，是否继续？",
+		"en": "This operation will clear all levels of current chapter. Proceed?"
+	},
 
 	
 	"StoryEditorPanel_ChapterLabel": {
@@ -860,16 +864,28 @@
 
 
 	"StoryEditorPanel_CardCountLabelText": {
-		"zh": "卡牌数:",
-		"en": "Cards:"
+		"zh": "卡牌数",
+		"en": "Cards"
+	},	
+	"StoryEditorPanel_ShopItemCountLabelText": {
+		"zh": "商品数",
+		"en": "Items"
+	},		
+	"StoryEditorPanel_ShopItemAVGPriceLabelText": {
+		"zh": "均价",
+		"en": "Avg-Price"
+	},	
+	"LevelEditorPanel_CardSelection": {
+		"zh": "物品数",
+		"en": "Items"
 	},
 	"StoryEditorPanel_LifeLabelText": {
-		"zh": "生命值:",
-		"en": "Life:"
+		"zh": "生命值",
+		"en": "Life"
 	},
 	"StoryEditorPanel_EnergyLabelText": {
-		"zh": "能量值:",
-		"en": "Energy:"
+		"zh": "能量值",
+		"en": "Energy"
 	},
 
 	"StoryEditorPanel_EnemyTabButtonTitle": {
@@ -1248,6 +1264,38 @@
 		"zh": "卡组",
 		"en": "Enemy Deck"
 	},
+	"LevelEditorPanel_ShopItems": {
+		"zh": "商品",
+		"en": "Goods"
+	},
+	"LevelEditorPanel_ShopItemPriceLabel": {
+		"zh": "价格: ",
+		"en": "Price: "
+	},
+	"LevelEditorPanel_ShopItemTypeLabel": {
+		"zh": "类型: ",
+		"en": "Type: "
+	},
+	"LevelEditorPanel_ShopItemNameLabel": {
+		"zh": "名称: ",
+		"en": "Name: "
+	},
+	"LevelEditorPanel_ClearConfirm": {
+		"zh": "确定要清除所有选择吗？ ",
+		"en": "Sure to clear all selections?"
+	},
+	"LevelEditorPanel_SetPrice": {
+		"zh": "请设置商品单价: ",
+		"en": "Please set the price: "
+	},
+	"LevelEditorPanel_PricePlaceHolder": {
+		"zh": "商品单价",
+		"en": "Price: "
+	},
+	"Notice_LevelEditorPanel_PleaseInputInteger": {
+		"zh": "请输入整数",
+		"en": "Please enter an integer!"
+	},
 
 	"Notice_LevelEditorPanel_EnemyLifeMax": {
 		"zh": "敌人生命上限为{0}",
@@ -1256,5 +1304,19 @@
 	"Notice_LevelEditorPanel_EnemyEnergyMax": {
 		"zh": "敌人能量上限为{0}",
 		"en": "Enemy Energy upperlimit is {0}"
+	},
+
+	"Notice_ReturnWarningSave": {
+		"zh": "未保存的更改将会丢失，是否返回？",
+		"en": "Unsaved changes will be discarded. Proceed to return?"
+	},
+
+	"ChapterMap_LevelNameLabel":{
+		"zh": "关卡名称:",
+		"en": "Level name: "
+	},
+	"ChapterMap_LevelTypeLabel":{
+		"zh": "关卡类型:",
+		"en": "Level type: "
 	},
 }

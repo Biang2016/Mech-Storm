@@ -68,6 +68,9 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         LevelEditorPanel_HeroCardPicIcon,
         LevelEditorPanel_TypeCardCount,
         LevelEditorPanel_CostStatBar,
+        LevelPropertyForm_ShopItem,
+        LevelPropertyForm_ShopItems,
+        LevelPropertyForm_ShopItemTypeDropdown,
 
         StoryPropertyForm_GamePlaySettings,
         StoryPropertyForm_Chapters,
@@ -143,6 +146,9 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.LevelEditorPanel_HeroCardPicIcon, 4},
         {PrefabNames.LevelEditorPanel_TypeCardCount, 5},
         {PrefabNames.LevelEditorPanel_CostStatBar, 11},
+        {PrefabNames.LevelPropertyForm_ShopItem, 5},
+        {PrefabNames.LevelPropertyForm_ShopItems, 1},
+        {PrefabNames.LevelPropertyForm_ShopItemTypeDropdown, 1},
 
         {PrefabNames.StoryPropertyForm_GamePlaySettings, 1},
         {PrefabNames.StoryPropertyForm_Chapters, 1},

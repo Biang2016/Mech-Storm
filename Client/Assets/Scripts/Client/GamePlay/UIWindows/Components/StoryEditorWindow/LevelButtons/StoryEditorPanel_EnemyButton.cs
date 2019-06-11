@@ -21,19 +21,19 @@ public class StoryEditorPanel_EnemyButton : StoryEditorPanel_LevelButton
     protected override void ChildrenInitialize()
     {
         CardCountSlider = AddSlider("StoryEditorPanel_CardCountLabelText", CardCountSliderColor);
-        CardCountSlider.SetValueText(((Enemy) Level).BuildInfo.CardCount.ToString());
-        CardCountSlider.ChangeSliderValue((float)((Enemy)Level).BuildInfo.CardCount / 50);
+        CardCountSlider.SetValueText(((Enemy) Cur_Level).BuildInfo.CardCount.ToString());
+        CardCountSlider.ChangeSliderValue((float)((Enemy)Cur_Level).BuildInfo.CardCount / 50);
 
         LifeSlider = AddSlider("StoryEditorPanel_LifeLabelText", LifeSliderColor);
-        LifeSlider.SetValueText(((Enemy) Level).BuildInfo.Life.ToString());
-        SetLifeBarLengthColor(((Enemy) Level).BuildInfo.Life);
+        LifeSlider.SetValueText(((Enemy) Cur_Level).BuildInfo.Life.ToString());
+        SetLifeBarLengthColor(((Enemy) Cur_Level).BuildInfo.Life);
 
         EnergySlider = AddSlider("StoryEditorPanel_EnergyLabelText", EnergySliderColor);
-        EnergySlider.SetValueText(((Enemy) Level).BuildInfo.Energy.ToString());
-        SetEnergyBarLengthColor(((Enemy) Level).BuildInfo.Energy);
+        EnergySlider.SetValueText(((Enemy) Cur_Level).BuildInfo.Energy.ToString());
+        SetEnergyBarLengthColor(((Enemy) Cur_Level).BuildInfo.Energy);
 
-        DrawCardNumText.text = ((Enemy)Level).BuildInfo.DrawCardNum.ToString();
-        BeginMetalNumText.text = ((Enemy)Level).BuildInfo.BeginMetal.ToString();
+        DrawCardNumText.text = ((Enemy)Cur_Level).BuildInfo.DrawCardNum.ToString();
+        BeginMetalNumText.text = ((Enemy)Cur_Level).BuildInfo.BeginMetal.ToString();
     }
 
     private int[] lifeBarColorThresholds = new[] {10, 50, 100, 500, 1000, 5000, 10000};

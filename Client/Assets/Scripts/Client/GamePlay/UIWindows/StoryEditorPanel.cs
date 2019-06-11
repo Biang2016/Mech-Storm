@@ -40,6 +40,7 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);
 
         ReturnToGamerButton.onClick.AddListener(ReturnToGame);
+        SaveChapterButton.onClick.AddListener(SaveChapter);
 
         InitializeCardPropertyForm();
 
@@ -100,13 +101,24 @@ public class StoryEditorPanel : BaseUIForm
 
     private void ReturnToGame()
     {
-        SceneManager.LoadScene("MainScene");
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            LanguageManager.Instance.GetText("Notice_ReturnWarningSave"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            leftButtonClick: delegate
+            {
+                SceneManager.LoadScene("MainScene");
+                cp.CloseUIForm();
+            },
+            rightButtonClick: delegate { cp.CloseUIForm(); });
     }
 
     [SerializeField] private Text StoryEditorWindowText;
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
     [SerializeField] private Button ReturnToGamerButton;
+    [SerializeField] private Button SaveChapterButton;
     [SerializeField] private Text ReturnToGamerButtonText;
 
     #region Left StoryProperties
@@ -153,20 +165,19 @@ public class StoryEditorPanel : BaseUIForm
         Cur_Story.StoryName = value_str;
     }
 
-    public bool SetStory(Story story)
+    public void SetStory(Story story)
     {
         Cur_Story = story;
         Row_GamePlaySettings.SetGamePlaySettings(story.StoryGamePlaySettings);
         SetStoryName(story.StoryName);
         Row_Chapters.Initialize(Cur_Story.Chapters, onChangeSelectedChapter:
-            delegate(Chapter chapter)
+            delegate(Chapter chapter, bool showAnimation)
             {
                 //TODO
                 NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames["zh"], 0, 1f);
-                GenerateChapterMap(chapter.ChapterMapRoundCount);
+                GenerateChapterMap(chapter, showAnimation);
             },
-            onChapterMapRoundCountChange: GenerateChapterMap);
-        return false;
+            onRefreshStory: delegate { SetStory(story); });
     }
 
     [SerializeField] private Button SaveStoryButton;
@@ -176,6 +187,7 @@ public class StoryEditorPanel : BaseUIForm
 
     public void SaveStory()
     {
+        ChapterMap?.SaveChapter();
         AllStories.RefreshStoryXML(Cur_Story);
         AllStories.ReloadStoryXML();
         SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
@@ -187,19 +199,24 @@ public class StoryEditorPanel : BaseUIForm
     }
 
     #region Center ChapterMap
-
+    
     [SerializeField] private Transform ChapterMapContainer;
     private ChapterMap ChapterMap;
 
-    private void GenerateChapterMap(int roundCount)
+    private void GenerateChapterMap(Chapter chapter, bool showAnimation = true)
     {
         ChapterMap oldChapterMap = ChapterMap;
         ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
-        float routeLength = 520f / (roundCount + 2);
-        ChapterMap.Initialize(roundCount: roundCount, routeLength: routeLength, lineWidth: 4f);
-        ChapterMap.transform.localScale = Vector3.zero;
-
-        StartCoroutine(Co_ChapterMapAnimation(oldChapterMap, ChapterMap));
+        ChapterMap.Initialize(chapter);
+        if (showAnimation)
+        {
+            ChapterMap.transform.localScale = Vector3.zero;
+            StartCoroutine(Co_ChapterMapAnimation(oldChapterMap, ChapterMap));
+        }
+        else
+        {
+            oldChapterMap?.PoolRecycle();
+        }
     }
 
     IEnumerator Co_ChapterMapAnimation(ChapterMap oldMap, ChapterMap newMap)
@@ -221,6 +238,12 @@ public class StoryEditorPanel : BaseUIForm
 
         yield return new WaitForSeconds(0.7f);
         oldMap?.PoolRecycle();
+    }
+
+    private void SaveChapter()
+    {
+        ChapterMap?.SaveChapter();
+        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
     }
 
     #endregion
@@ -251,6 +274,7 @@ public class StoryEditorPanel : BaseUIForm
                 StoryEditorPanel_LevelButton btn = StoryEditorPanel_LevelButton.BaseInitialize(
                     level: _kv.Value.Clone(),
                     parent: LevelContainerDict[kv.Key],
+                    onSetButtonClick: delegate(Level level) { ChapterMap.SetCurrentNodeLevel(level); },
                     onEditButtonClick: delegate
                     {
                         UIManager.Instance.CloseUIForm<StoryEditorPanel>();

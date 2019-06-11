@@ -130,24 +130,16 @@ public class AllLevels
             case LevelType.Shop:
             {
                 XmlNode node_ShopInfo = node_levelInfo.FirstChild;
-                SortedDictionary<int, int> itemPrices = new SortedDictionary<int, int>();
-                string[] itemPrices_strs = node_ShopInfo.Attributes["itemPrices"].Value.Split(';');
-                foreach (string s in itemPrices_strs)
+                List<ShopItem> shopItems = new List<ShopItem>();
+                for (int i = 0; i < node_ShopInfo.ChildNodes.Count; i++)
                 {
-                    if (string.IsNullOrEmpty(s)) continue;
-                    string[] itemPrice = s.Trim('(').Trim(')').Split(',');
-                    int cardID = int.Parse(itemPrice[0]);
-                    if (!AllCards.CardDict.ContainsKey(cardID))
-                    {
-                        needRefresh = true;
-                        continue;
-                    }
-
-                    int price = int.Parse(itemPrice[1]);
-                    itemPrices.Add(cardID, price);
+                    XmlNode node_ShopItem = node_ShopInfo.ChildNodes.Item(i);
+                    ShopItem si = ShopItem.GenerateShopItemFroXML(node_ShopItem, out bool _needRefresh);
+                    needRefresh |= _needRefresh;
+                    if (si != null) shopItems.Add(si);
                 }
 
-                Shop shop = new Shop(levelThemeType, picID, names, itemPrices);
+                Shop shop = new Shop(levelThemeType, picID, names, shopItems);
                 return shop;
             }
         }

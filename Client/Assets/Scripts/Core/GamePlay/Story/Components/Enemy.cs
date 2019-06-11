@@ -21,7 +21,7 @@ public class Enemy : Level
 
     public override Level Clone()
     {
-        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo, EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
+        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
     }
 
     public override Level Variant()
@@ -85,28 +85,5 @@ public class Enemy : Level
         {
             bonus.Serialize(writer);
         }
-    }
-
-    public static Enemy Deserialize(DataStream reader) // 除Level类外 不可直接调用
-    {
-        BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
-        EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
-        int hardFactor = reader.ReadSInt32();
-
-        int alwaysBonusCount = reader.ReadSInt32();
-        List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
-        for (int i = 0; i < alwaysBonusCount; i++)
-        {
-            AlwaysBonusGroup.Add(BonusGroup.Deserialize(reader));
-        }
-
-        int optionalBonusCount = reader.ReadSInt32();
-        List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
-        for (int i = 0; i < optionalBonusCount; i++)
-        {
-            OptionalBonusGroup.Add(BonusGroup.Deserialize(reader));
-        }
-
-        return new Enemy(LevelThemeCategory.Energy, 0, null, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
     }
 }

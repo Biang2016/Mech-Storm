@@ -76,38 +76,55 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         LevelThemeCategory levelThemeCategory = (LevelThemeCategory) reader.ReadSInt32();
         int levelID = reader.ReadSInt32();
         int levelPicID = reader.ReadSInt32();
+        int levelNameCount = reader.ReadSInt32();
+        SortedDictionary<string, string> LevelNames = new SortedDictionary<string, string>();
+        for (int i = 0; i < levelNameCount; i++)
+        {
+            string ls = reader.ReadString8();
+            string value = reader.ReadString8();
+            LevelNames[ls] = value;
+        }
+
         Level res = null;
         switch (levelType)
         {
             case LevelType.Enemy:
-                res = Enemy.Deserialize(reader);
+                BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
+                EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
+                int hardFactor = reader.ReadSInt32();
+
+                int alwaysBonusCount = reader.ReadSInt32();
+                List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
+                for (int i = 0; i < alwaysBonusCount; i++)
+                {
+                    AlwaysBonusGroup.Add(BonusGroup.Deserialize(reader));
+                }
+
+                int optionalBonusCount = reader.ReadSInt32();
+                List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
+                for (int i = 0; i < optionalBonusCount; i++)
+                {
+                    OptionalBonusGroup.Add(BonusGroup.Deserialize(reader));
+                }
+
+                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
+
                 break;
             case LevelType.Shop:
-                res = Shop.Deserialize(reader);
+                int count = reader.ReadSInt32();
+                List<ShopItem> shopItems = new List<ShopItem>();
+                for (int i = 0; i < count; i++)
+                {
+                    ShopItem si = ShopItem.Deserialize(reader);
+                    shopItems.Add(si);
+                }
+
+                res = new Shop(levelThemeCategory, levelPicID, LevelNames, shopItems);
                 break;
         }
 
-        if (res != null)
-        {
-            res.LevelID = levelID;
-            res.LevelThemeCategory = levelThemeCategory;
-            res.LevelPicID = levelPicID;
-            int levelNameCount = reader.ReadSInt32();
-            SortedDictionary<string, string> LevelNames = new SortedDictionary<string, string>();
-            for (int i = 0; i < levelNameCount; i++)
-            {
-                string ls = reader.ReadString8();
-                string value = reader.ReadString8();
-                LevelNames[ls] = value;
-            }
-
-            res.LevelNames = LevelNames;
-            return res;
-        }
-        else
-        {
-            return null;
-        }
+        res.LevelID = levelID;
+        return res;
     }
 }
 

@@ -36,7 +36,7 @@ public class AllStories
             XmlNode node_Chapters = story.ChildNodes.Item(2);
             for (int i = 0; i < node_Chapters.ChildNodes.Count; i++)
             {
-                Chapter chapter = GetChapterFromXML(node_Chapters.ChildNodes[i]);
+                Chapter chapter = Chapter.GetChapterFromXML(node_Chapters.ChildNodes[i]);
                 Chapters.Add(chapter.ChapterID, chapter);
             }
 
@@ -110,39 +110,6 @@ public class AllStories
         {
             doc.Save(sw);
         }
-    }
-
-    private static Chapter GetChapterFromXML(XmlNode node_ChapterInfo)
-    {
-        int chapterID = int.Parse(node_ChapterInfo.Attributes["chapterID"].Value);
-        string Name_zh = node_ChapterInfo.Attributes["name_zh"].Value;
-        string Name_en = node_ChapterInfo.Attributes["name_en"].Value;
-        SortedDictionary<string, string> names = new SortedDictionary<string, string> {{"zh", Name_zh}, {"en", Name_en}};
-
-        SortedDictionary<int, Level> allLevels = new SortedDictionary<int, Level>();
-
-        int levelID = 0;
-        XmlNode node_EnemyInfos = node_ChapterInfo.ChildNodes[0];
-        XmlNode node_ShopInfos = node_ChapterInfo.ChildNodes[1];
-
-        for (int i = 0; i < node_EnemyInfos.ChildNodes.Count; i++)
-        {
-            XmlNode enemyInfo = node_EnemyInfos.ChildNodes[i];
-            Enemy enemy = (Enemy) AllLevels.GetLevel(LevelType.Enemy, enemyInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
-            allLevels.Add(levelID++, enemy);
-        }
-
-        for (int i = 0; i < node_ShopInfos.ChildNodes.Count; i++)
-        {
-            XmlNode shopInfo = node_ShopInfos.ChildNodes[i];
-            Shop shop = (Shop) AllLevels.GetLevel(LevelType.Enemy, shopInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
-            allLevels.Add(levelID++, shop);
-        }
-
-        int chapterMapRoundCount = int.Parse(node_ChapterInfo.Attributes["chapterMapRoundCount"].Value);
-
-        Chapter chapter = new Chapter(chapterID, names, allLevels, chapterMapRoundCount);
-        return chapter;
     }
 
     public static void Reset()

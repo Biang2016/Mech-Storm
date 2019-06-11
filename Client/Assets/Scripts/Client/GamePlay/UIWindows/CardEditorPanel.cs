@@ -73,9 +73,22 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    public void ReturnToGame()
+    private void ReturnToGame()
     {
-        SceneManager.LoadScene("MainScene");
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            LanguageManager.Instance.GetText("Notice_ReturnWarningSave"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            leftButtonClick: delegate
+            {
+                SceneManager.LoadScene("MainScene");
+                cp.CloseUIForm();
+            },
+            rightButtonClick: delegate
+            {
+                cp.CloseUIForm();
+            });
     }
 
     [SerializeField] private Text CardEditorWindowText;
@@ -147,6 +160,7 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_CardType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_CardType", OnCardTypeChange, out SetCardType, cardTypeList);
         PropertyFormRow Row_CardID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardIDLabelText", OnCardIDChange, out SetCardID);
         PropertyFormRow Row_CardPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardPicIDLabelText", OnCardPicIDChange, out SetCardPicID);
+        Row_CardPicID.SetReadOnly(true);
         PropertyFormRow Row_CardDegradeID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardDegradeIDLabelText", OnCardDegradeIDChange, out SetCardDegradeID, null, OnDegradeIDButtonClick);
         PropertyFormRow Row_CardUpgradeID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardUpgradeIDLabelText", OnCardUpgradeIDChange, out SetCardUpgradeID, null, OnUpgradeIDButtonClick);
         PropertyFormRow Row_CardName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardNameLabelText_zh", OnCardNameChange_zh, out SetCardName_zh);

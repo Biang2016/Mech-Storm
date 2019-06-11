@@ -5,7 +5,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
 {
     public int ChapterID; //章节层号
     public SortedDictionary<string, string> ChapterNames;
-    public SortedDictionary<int, Level> Levels = new SortedDictionary<int, Level>();
+    public SortedDictionary<int, Level> Levels = new SortedDictionary<int, Level>(); // key: 六边形阵图的nodeLocation编号
 
     public int ChapterMapRoundCount;
     public const int SystemMaxMapRoundCount = 6;
@@ -73,14 +73,53 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
             {
                 XmlElement enemy_ele = doc.CreateElement("EnemyInfo");
                 enemies_ele.AppendChild(enemy_ele);
+                enemy_ele.SetAttribute("id", kv.Key.ToString());
                 enemy_ele.SetAttribute("name", ((Enemy) kv.Value).LevelNames["en"]);
             }
             else if (kv.Value.LevelType == LevelType.Shop)
             {
+                XmlElement shop_ele = doc.CreateElement("ShopInfo");
+                shops_ele.AppendChild(shop_ele);
+                shop_ele.SetAttribute("id", kv.Key.ToString());
+                shop_ele.SetAttribute("name", ((Shop) kv.Value).LevelNames["en"]);
             }
         }
 
         chapter_ele.SetAttribute("chapterMapRoundCount", ChapterMapRoundCount.ToString());
+    }
+
+    public static Chapter GetChapterFromXML(XmlNode node_ChapterInfo)
+    {
+        int chapterID = int.Parse(node_ChapterInfo.Attributes["chapterID"].Value);
+        string Name_zh = node_ChapterInfo.Attributes["name_zh"].Value;
+        string Name_en = node_ChapterInfo.Attributes["name_en"].Value;
+        SortedDictionary<string, string> names = new SortedDictionary<string, string> {{"zh", Name_zh}, {"en", Name_en}};
+
+        SortedDictionary<int, Level> allLevels = new SortedDictionary<int, Level>();
+
+        XmlNode node_EnemyInfos = node_ChapterInfo.ChildNodes[0];
+        XmlNode node_ShopInfos = node_ChapterInfo.ChildNodes[1];
+
+        for (int i = 0; i < node_EnemyInfos.ChildNodes.Count; i++)
+        {
+            XmlNode enemyInfo = node_EnemyInfos.ChildNodes[i];
+            Enemy enemy = (Enemy) AllLevels.GetLevel(LevelType.Enemy, enemyInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
+            int id = int.Parse(enemyInfo.Attributes["id"].Value);
+            allLevels.Add(id, enemy);
+        }
+
+        for (int i = 0; i < node_ShopInfos.ChildNodes.Count; i++)
+        {
+            XmlNode shopInfo = node_ShopInfos.ChildNodes[i];
+            Shop shop = (Shop) AllLevels.GetLevel(LevelType.Shop, shopInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
+            int id = int.Parse(shopInfo.Attributes["id"].Value);
+            allLevels.Add(id, shop);
+        }
+
+        int chapterMapRoundCount = int.Parse(node_ChapterInfo.Attributes["chapterMapRoundCount"].Value);
+
+        Chapter chapter = new Chapter(chapterID, names, allLevels, chapterMapRoundCount);
+        return chapter;
     }
 
     public Chapter Clone()

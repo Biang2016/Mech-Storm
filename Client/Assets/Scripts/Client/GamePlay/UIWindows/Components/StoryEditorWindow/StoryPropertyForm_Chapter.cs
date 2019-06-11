@@ -38,14 +38,15 @@ public class StoryPropertyForm_Chapter : PoolObject
         {
             isSelected = value;
             SelectedBG.enabled = isSelected;
+            Row_ChapterMapRoundCount?.SetReadOnly(!isSelected);
         }
     }
 
     private List<PropertyFormRow> ChapterPropertyFormRows = new List<PropertyFormRow>();
+    private PropertyFormRow Row_ChapterMapRoundCount = null;
 
-    public void Initialize(UnityAction onSelected, UnityAction onMoveUp, UnityAction onMoveDown, UnityAction onDeleteButtonClick, UnityAction<int> onChapterMapRoundCountChange)
+    public void Initialize(UnityAction onSelected, UnityAction onMoveUp, UnityAction onMoveDown, UnityAction onDeleteButtonClick, UnityAction onRefreshStory)
     {
-        IsSelected = false;
         LanguageManager.Instance.RegisterTextKey(Label, "StoryEditorPanel_ChapterLabel");
         SelectButton.onClick.RemoveAllListeners();
         SelectButton.onClick.AddListener(onSelected);
@@ -70,7 +71,8 @@ public class StoryPropertyForm_Chapter : PoolObject
 
         PropertyFormRow Row_ChapterName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterNameText_zh", OnChapterNameChange_zh, out SetChapterName_zh);
         PropertyFormRow Row_ChapterName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterNameText_en", OnChapterNameChange_en, out SetChapterName_en);
-        PropertyFormRow Row_ChapterMapRoundCount = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterMapRoundCountLabelText", delegate(string value_str) { OnChapterMapRoundCountChange(value_str, onChapterMapRoundCountChange); }, out SetChapterMapRoundCount);
+        Row_ChapterMapRoundCount = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterMapRoundCountLabelText", delegate(string value_str) { OnChapterMapRoundCountChange(value_str, onRefreshStory); }, out SetChapterMapRoundCount);
+        IsSelected = false;
     }
 
     private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
@@ -102,12 +104,20 @@ public class StoryPropertyForm_Chapter : PoolObject
         Cur_Chapter.ChapterNames["en"] = value_str;
     }
 
+    private int RoundCountBefore = 0;
     private UnityAction<string> SetChapterMapRoundCount;
+    private bool isReturning = false;
 
-    private void OnChapterMapRoundCountChange(string value_str, UnityAction<int> action)
+    private void OnChapterMapRoundCountChange(string value_str, UnityAction onRefreshStory)
     {
         if (int.TryParse(value_str, out int value))
         {
+            if (isReturning)
+            {
+                Cur_Chapter.ChapterMapRoundCount = value;
+                return;
+            }
+
             if (value < Chapter.SystemMinMapRoundCount)
             {
                 SetChapterMapRoundCount(Chapter.SystemMinMapRoundCount.ToString());
@@ -118,8 +128,30 @@ public class StoryPropertyForm_Chapter : PoolObject
             }
             else
             {
+                RoundCountBefore = Cur_Chapter.ChapterMapRoundCount;
                 Cur_Chapter.ChapterMapRoundCount = value;
-                if (isSelected) action(value);
+                if (isSelected)
+                {
+                    ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                    cp.Initialize(LanguageManager.Instance.GetText("StoryEditorPanel_Notice_ChangeChapterRoundCount"),
+                        LanguageManager.Instance.GetText("Common_Yes"),
+                        LanguageManager.Instance.GetText("Common_No"),
+                        delegate
+                        {
+                            cp.CloseUIForm();
+                            Cur_Chapter.Levels.Clear();
+                            onRefreshStory();
+                        },
+                        delegate
+                        {
+                            cp.CloseUIForm();
+                            isReturning = true;
+                            SetChapterMapRoundCount(RoundCountBefore.ToString());
+                            isReturning = false;
+                        });
+                    cp.UIType.IsESCClose = false;
+                    cp.UIType.IsClickElsewhereClose = false;
+                }
             }
         }
         else

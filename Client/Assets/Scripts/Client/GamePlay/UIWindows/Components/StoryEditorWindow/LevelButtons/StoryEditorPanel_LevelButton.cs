@@ -7,6 +7,7 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 {
     public override void PoolRecycle()
     {
+        SetButton.onClick.RemoveAllListeners();
         EditButton.onClick.RemoveAllListeners();
         DeleteButton.onClick.RemoveAllListeners();
 
@@ -21,15 +22,16 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 
     [SerializeField] private Image PicImage;
     [SerializeField] private Text LevelNameText;
+    [SerializeField] private Button SetButton;
     [SerializeField] private Button EditButton;
     [SerializeField] private Button DeleteButton;
     [SerializeField] private Transform SliderBarContainer;
 
-    public Level Level;
+    public Level Cur_Level;
 
     protected List<StoryEditorPanel_LevelButtonSliderBar> Sliders = new List<StoryEditorPanel_LevelButtonSliderBar>();
 
-    public static StoryEditorPanel_LevelButton BaseInitialize(Level level, Transform parent, UnityAction onEditButtonClick, UnityAction onDeleteButtonClick)
+    public static StoryEditorPanel_LevelButton BaseInitialize(Level level, Transform parent, UnityAction<Level> onSetButtonClick, UnityAction onEditButtonClick, UnityAction onDeleteButtonClick)
     {
         StoryEditorPanel_LevelButton btn = null;
         switch (level.LevelType)
@@ -46,14 +48,16 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
             }
         }
 
-        btn.Level = level;
+        btn.Cur_Level = level;
+        btn.SetButton.onClick.RemoveAllListeners();
+        btn.SetButton.onClick.AddListener(delegate { onSetButtonClick(btn.Cur_Level); });
         btn.EditButton.onClick.RemoveAllListeners();
-        btn.DeleteButton.onClick.RemoveAllListeners();
         btn.EditButton.onClick.AddListener(onEditButtonClick);
+        btn.DeleteButton.onClick.RemoveAllListeners();
         btn.DeleteButton.onClick.AddListener(onDeleteButtonClick);
 
-        ClientUtils.ChangeImagePicture(btn.PicImage, btn.Level.LevelPicID);
-        btn.LevelNameText.text = btn.Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
+        ClientUtils.ChangeImagePicture(btn.PicImage, btn.Cur_Level.LevelPicID);
+        btn.LevelNameText.text = btn.Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
 
         foreach (StoryEditorPanel_LevelButtonSliderBar slider in btn.Sliders)
         {
@@ -78,6 +82,6 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 
     public void OnLanguageChange()
     {
-        LevelNameText.text = Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
+        LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
     }
 }

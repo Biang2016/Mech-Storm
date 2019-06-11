@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 public class Shop : Level
@@ -14,7 +12,7 @@ public class Shop : Level
 
     public override Level Clone()
     {
-        return new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), Cards.Clone(), ItemPrices.ToArray().ToList());
+        return new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), CloneVariantUtils.List(ShopItems));
     }
 
     public override Level Variant()
@@ -26,15 +24,42 @@ public class Shop : Level
     {
     }
 
+    public int AVGPrice
+    {
+        get
+        {
+            if (ShopItems.Count == 0) return 0;
+            int sum_price = 0;
+            foreach (ShopItem si in ShopItems)
+            {
+                sum_price += si.Price;
+            }
+
+            int avg_price = sum_price / ShopItems.Count;
+            return avg_price;
+        }
+    }
+
     /// <summary>
     /// Can only be executed in StoryEditor/CardEditor/LevelEditor
     /// </summary>
     public override bool DeleteCard(int cardID)
     {
-        if (ItemPrices.ContainsKey(cardID))
+        List<ShopItem> remove_SI = new List<ShopItem>();
+        foreach (ShopItem si in ShopItems)
         {
-            ItemPrices.Remove(cardID);
-            return true;
+            if (si is ShopItem_Card si_card)
+            {
+                if (si_card.CardID == cardID)
+                {
+                    remove_SI.Add(si);
+                }
+            }
+        }
+
+        foreach (ShopItem si in remove_SI)
+        {
+            ShopItems.Remove(si);
         }
 
         return false;
@@ -45,42 +70,20 @@ public class Shop : Level
         XmlDocument doc = level_ele.OwnerDocument;
         XmlElement shopInfo_ele = doc.CreateElement("ShopInfo");
         level_ele.AppendChild(shopInfo_ele);
-        StringBuilder sb = new StringBuilder();
-        foreach (KeyValuePair<int, int> kv in ItemPrices)
-        {
-            sb.Append(string.Format("({0},{1});", kv.Key, kv.Value));
-        }
 
-        string itemPrices_str = sb.ToString().Trim(';');
-        shopInfo_ele.SetAttribute("itemPrices", itemPrices_str);
+        foreach (ShopItem si in ShopItems)
+        {
+            si.ExportToXML(shopInfo_ele);
+        }
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(ItemPrices.Count);
-        foreach (KeyValuePair<int, int> kv in ItemPrices)
+        writer.WriteSInt32(ShopItems.Count);
+        foreach (ShopItem si in ShopItems)
         {
-            writer.WriteSInt32(kv.Key);
-            writer.WriteSInt32(kv.Value);
+            si.Serialize(writer);
         }
-
-        Cards.Serialize(writer);
-    }
-
-    public static Shop Deserialize(DataStream reader) // 除Level类外 不可直接调用
-    {
-        SortedDictionary<int, int> ItemPrices = new SortedDictionary<int, int>();
-        int count = reader.ReadSInt32();
-        for (int i = 0; i < count; i++)
-        {
-            int cardID = reader.ReadSInt32();
-            int itemCount = reader.ReadSInt32();
-            ItemPrices.Add(cardID, itemCount);
-        }
-
-        BuildCards cards = BuildCards.Deserialize(reader);
-
-        return new Shop(LevelThemeCategory.Energy, 0, null, cards, ItemPrices);
     }
 }

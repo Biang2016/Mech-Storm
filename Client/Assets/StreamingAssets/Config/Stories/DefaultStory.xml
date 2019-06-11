@@ -8,9 +8,28 @@
   <Chapters>
     <Chapter chapterID="0" name_en="Starter Chapter" name_zh="新手试炼" chapterMapRoundCount="4">
       <EnemyInfos>
-        <EnemyInfo name="Mind the mines333" />
+        <EnemyInfo id="0" name="Mind the mines333" />
+        <EnemyInfo id="1" name="Mind the mines333" />
+        <EnemyInfo id="21" name="Mind the mines333" />
+        <EnemyInfo id="26" name="Mind the mines333" />
       </EnemyInfos>
-      <ShopInfos />
+      <ShopInfos>
+        <ShopInfo id="2" name="Rice car 4s" />
+        <ShopInfo id="3" name="Small Shop0" />
+        <ShopInfo id="4" name="Rice car 4s" />
+        <ShopInfo id="5" name="Small Shop0" />
+        <ShopInfo id="68" name="Rice car 4s" />
+      </ShopInfos>
+    </Chapter>
+    <Chapter chapterID="1" name_en="New Chapter" name_zh="新章节" chapterMapRoundCount="3">
+      <EnemyInfos>
+        <EnemyInfo id="10" name="Mind the mines333" />
+        <EnemyInfo id="26" name="Mind the mines333" />
+      </EnemyInfos>
+      <ShopInfos>
+        <ShopInfo id="1" name="Small Shop0" />
+        <ShopInfo id="33" name="Rice car 4s" />
+      </ShopInfos>
     </Chapter>
   </Chapters>
 </Story>

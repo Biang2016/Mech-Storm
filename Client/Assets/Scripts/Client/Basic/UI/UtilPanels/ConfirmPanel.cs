@@ -9,6 +9,8 @@ public class ConfirmPanel : BaseUIForm
     [SerializeField] private Text RightButtonText;
     [SerializeField] private Button LeftButton;
     [SerializeField] private Button RightButton;
+    [SerializeField] private InputField InputField;
+    [SerializeField] private Text InputFieldPlaceHolderText;
 
     void Awake()
     {
@@ -32,7 +34,7 @@ public class ConfirmPanel : BaseUIForm
 
     private UnityAction ConfirmClick = null;
 
-    public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick)
+    public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick, string inputFieldPlaceHolderText = null)
     {
         UIType.InitUIType(
             isClearStack: false,
@@ -49,5 +51,15 @@ public class ConfirmPanel : BaseUIForm
         RightButton.onClick.RemoveAllListeners();
         LeftButton.onClick.AddListener(leftButtonClick);
         RightButton.onClick.AddListener(rightButtonClick);
+
+        if (inputFieldPlaceHolderText != null)
+        {
+            InputFieldPlaceHolderText.text = inputFieldPlaceHolderText;
+            InputField.ActivateInputField();
+        }
+
+        InputField.gameObject.SetActive(inputFieldPlaceHolderText != null);
     }
+
+    public string InputText => InputField.text;
 }
