@@ -760,10 +760,6 @@
       <Project>{7F24B9D5-CA2C-D3DF-6105-8036A13F501D}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="BattleProxy.csproj">
-      <Project>{08212D5B-C38E-151D-525B-5320A97CEEE2}</Project>
-      <Name>BattleProxy</Name>
-    </ProjectReference>
     <ProjectReference Include="OutGameLogic.csproj">
       <Project>{97C57F31-373C-EFFE-AAD8-03EE13BF3BC9}</Project>
       <Name>OutGameLogic</Name>
@@ -779,6 +775,10 @@
     <ProjectReference Include="ServerConsole.csproj">
       <Project>{16DF0A75-8024-C246-277C-F8796F7E2451}</Project>
       <Name>ServerConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="BattleProxy.csproj">
+      <Project>{08212D5B-C38E-151D-525B-5320A97CEEE2}</Project>
+      <Name>BattleProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
