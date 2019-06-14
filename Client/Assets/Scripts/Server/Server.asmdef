@@ -4,9 +4,7 @@
         "Core",
         "Network",
         "GameProxy",
-        "BattleProxy",
-        "BuildProxy",
-        "StoryProxy"
+        "BattleProxy"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
