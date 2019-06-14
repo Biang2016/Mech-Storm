@@ -66,7 +66,7 @@ internal class ServerProxy : ProxyBase
         Response();
     }
 
-    public ResponseBundleBase CurrentClientRequestResponseBundle;
+    public ResponseBundleBase CurrentClientRequestResponseBundle = null;
 
     /// <summary>
     /// Dispose of all request received before game start
