@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-internal class ServerLog : ILog
+public class ServerLog : ILog
 {
     public static ServerLog Instance = new ServerLog();
 
@@ -12,7 +12,7 @@ internal class ServerLog : ILog
 
     private Queue<Log> LogQueue { get; set; }
 
-    internal ServerLogVerbosity ServerLogVerbosity;
+    public ServerLogVerbosity ServerLogVerbosity;
 
     private void Print(string logStr, ConsoleColor consoleColor)
     {
@@ -104,7 +104,7 @@ public class Log : LogBase
 }
 
 [Flags]
-internal enum ServerLogVerbosity
+public enum ServerLogVerbosity
 {
     Normal,
     Warning,

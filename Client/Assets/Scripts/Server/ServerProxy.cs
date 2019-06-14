@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-internal class ServerProxy : ProxyBase
+public class ServerProxy : ProxyBase
 {
     private Queue<ServerRequestBase> SendRequestsQueue = new Queue<ServerRequestBase>();
     private Queue<ClientRequestBase> ReceiveRequestsQueue = new Queue<ClientRequestBase>();

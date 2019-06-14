@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 
-internal class Server
+public class Server
 {
     private static Server _sv;
 
@@ -34,12 +34,14 @@ internal class Server
 
     public ServerGameMatchManager SGMM;
 
+    public static string ServerRoot => "./MyFirstCardGame/ServerBuild/";
+
     public void Start()
     {
         Utils.DebugLog = ServerLog.Instance.PrintError;
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
-        LoadAllBasicXMLFiles.Load(ServerConsole.ServerRoot + "Config/");
+        LoadAllBasicXMLFiles.Load(ServerRoot + "Config/");
 
         ServerLog.Instance.PrintServerStates("CardDeck Loaded");
 
