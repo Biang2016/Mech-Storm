@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-internal class ServerGameMatchManager
+public class ServerGameMatchManager
 {
     List<Battle> Battles = new List<Battle>();
     Dictionary<int, Battle> clientBattleMapping = new Dictionary<int, Battle>();
