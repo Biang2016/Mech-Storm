@@ -409,7 +409,7 @@ internal partial class GameManager
 
     public delegate void OnEndGameDelegate(BattlePlayer winner);
 
-    public OnEndGameDelegate OnEndGameHandler;
+    private OnEndGameDelegate OnEndGameHandler = null;
 
     public void OnEndGameByServerError()
     {

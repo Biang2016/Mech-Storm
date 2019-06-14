@@ -21,9 +21,9 @@ namespace Common
             mProtocolMapping = new Dictionary<int, Func<DataStream, RequestBase>>();
             mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
 
-            List<Type> types = Utils.GetClassesByBaseClass(typeof(ClientRequestBase));
-            types.AddRange(Utils.GetClassesByBaseClass(typeof(ServerRequestBase)));
-            types.AddRange(Utils.GetClassesByBaseClass(typeof(ResponseBundleBase)));
+            List<Type> types = Utils.GetClassesByBaseClass(typeof(ClientRequestBase), Assembly.GetAssembly(typeof(ClientRequestBase)));
+            types.AddRange(Utils.GetClassesByBaseClass(typeof(ServerRequestBase), Assembly.GetAssembly(typeof(ClientRequestBase))));
+            types.AddRange(Utils.GetClassesByBaseClass(typeof(ResponseBundleBase), Assembly.GetAssembly(typeof(ClientRequestBase))));
             MethodInfo mi = typeof(ProtoManager).GetMethod("AddProtocol");
             foreach (Type type in types)
             {

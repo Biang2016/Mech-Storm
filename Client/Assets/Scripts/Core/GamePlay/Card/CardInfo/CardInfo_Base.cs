@@ -107,11 +107,6 @@ public class CardInfo_Base : IClone<CardInfo_Base>
 
     public virtual CardInfo_Base Clone()
     {
-        if (SideEffectBundle == null)
-        {
-            int a = 0;
-        }
-
         return new CardInfo_Base(CardID, BaseInfo, UpgradeInfo, SideEffectBundle.Clone());
     }
 

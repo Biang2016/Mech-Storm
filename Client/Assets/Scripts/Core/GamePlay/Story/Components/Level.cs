@@ -108,8 +108,6 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                 }
 
                 return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
-
-                break;
             case LevelType.Shop:
                 int count = reader.ReadSInt32();
                 List<ShopItem> shopItems = new List<ShopItem>();

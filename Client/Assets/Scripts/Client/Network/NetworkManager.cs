@@ -20,11 +20,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         OnRestartSideEffects();
     }
 
-    void Start()
-    {
-    }
-
-    public void OnRestartProtocols()
+    private void OnRestartProtocols()
     {
         foreach (NetProtocols num in Enum.GetValues(typeof(NetProtocols)))
         {

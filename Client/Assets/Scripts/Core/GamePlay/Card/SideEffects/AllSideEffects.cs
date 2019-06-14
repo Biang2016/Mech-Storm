@@ -75,11 +75,6 @@ public static class AllSideEffects
 
             if (se is TargetSideEffect t_se)
             {
-                if (t_se.ValidTargetSelects == null || t_se.ValidTargetSelects.Count <= 0)
-                {
-                    int a = 0;
-                }
-
                 t_se.M_SideEffectParam.GetParam("TargetSelect").SetValue(t_se.ValidTargetSelects[0].ToString());
                 Dictionary<TargetSelect, List<TargetRange>> validTargetRangeDict = TargetSelector.TargetSelectorPresets[t_se.TargetSelectorType];
                 TargetRange validTargetRange = validTargetRangeDict[t_se.ValidTargetSelects[0]][0];

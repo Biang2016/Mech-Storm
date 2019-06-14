@@ -30,13 +30,11 @@ public partial class Utils
         return res;
     }
 
-    public static List<Type> GetClassesByBaseClass(Type baseType)
+    public static List<Type> GetClassesByBaseClass(Type baseType,Assembly assembly)
     {
-        Assembly asm = Assembly.GetExecutingAssembly();
-
         List<Type> res = new List<Type>();
 
-        foreach (Type type in asm.GetTypes())
+        foreach (Type type in assembly.GetTypes())
         {
             if (type.IsAbstract) continue;
             if (type.BaseType == baseType)

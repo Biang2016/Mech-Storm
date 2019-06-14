@@ -428,7 +428,6 @@ public class BattleProxyAI : BattleProxy
 
     private ModuleMech SelectMechToEquipWeapon(List<ModuleMech> mechs, CardInfo_Equip cardInfo)
     {
-        ModuleMech res = null;
         List<ModuleMech> mechs_NoWeapon = new List<ModuleMech>(); //优先给没有武器的装备
 
         List<ModuleMech> optionalMech = new List<ModuleMech>();
