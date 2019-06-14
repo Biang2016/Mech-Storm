@@ -3,17 +3,28 @@ git pull
 rm -rf ./ServerBuild/*
 cd ./ServerBuild
 
-find ../Common -name '*.cs' -type f | xargs -i cp {} ./
-cp ../Common/Plugins/* ./
-csc /r:Newtonsoft.Json.dll /target:library /out:MyCardGameCommon.dll ./*.cs
-rm -f ./*.cs
+cp ../Client/Build/osx/MechStorm.app/Contents/Resources/Data/Managed/*.dll ./
+chmod 777  ./*
+find . -name "Server.dll" -exec rm -f {} \;
+find . -name "Client.dll" -exec rm -f {} \;
+find . -name "OutGameLogic.dll" -exec rm -f {} \;
+find . -name "Assembly-CSharp.dll" -exec rm -f {} \;
+find . -name "Unity*.dll" -exec rm -f {} \;
+find . -name "DOTween*.dll" -exec rm -f {} \;
+find . -name "TextMeshPro*.dll" -exec rm -f {} \;
 
-chmod 777 MyCardGameCommon.dll
-find ../Server -name '*.cs' -type f | xargs -i cp {} ./
-csc /reference:"MyCardGameCommon.dll" ./*.cs 
+cmd='csc '
+for dllName in $(ls)
+  do
+    cmd=$cmd'/reference:"'$dllName'" '
+  done
+
+cmd=$cmd" *.cs"
+echo $cmd
+find ../Client/Assets/Scripts/Server -name '*.cs' -type f | xargs -i cp {} ./;
+result=`$cmd`
+
 rm -f ./*.cs
 
 cp -r ../Client/Assets/StreamingAssets/Config ./ 
-find . -name '*.meta' -type f | xargs rm
-
-cp -r ../Server/Config/* ./Config/
+find . -name '*.meta' -type f | xargs rm;
