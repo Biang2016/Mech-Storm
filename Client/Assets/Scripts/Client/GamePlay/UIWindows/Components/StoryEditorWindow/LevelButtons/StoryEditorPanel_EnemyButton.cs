@@ -22,7 +22,7 @@ public class StoryEditorPanel_EnemyButton : StoryEditorPanel_LevelButton
     {
         CardCountSlider = AddSlider("StoryEditorPanel_CardCountLabelText", CardCountSliderColor);
         CardCountSlider.SetValueText(((Enemy) Cur_Level).BuildInfo.CardCount.ToString());
-        CardCountSlider.ChangeSliderValue((float)((Enemy)Cur_Level).BuildInfo.CardCount / 50);
+        CardCountSlider.ChangeSliderValue((float) ((Enemy) Cur_Level).BuildInfo.CardCount / 50);
 
         LifeSlider = AddSlider("StoryEditorPanel_LifeLabelText", LifeSliderColor);
         LifeSlider.SetValueText(((Enemy) Cur_Level).BuildInfo.Life.ToString());
@@ -32,8 +32,8 @@ public class StoryEditorPanel_EnemyButton : StoryEditorPanel_LevelButton
         EnergySlider.SetValueText(((Enemy) Cur_Level).BuildInfo.Energy.ToString());
         SetEnergyBarLengthColor(((Enemy) Cur_Level).BuildInfo.Energy);
 
-        DrawCardNumText.text = ((Enemy)Cur_Level).BuildInfo.DrawCardNum.ToString();
-        BeginMetalNumText.text = ((Enemy)Cur_Level).BuildInfo.BeginMetal.ToString();
+        DrawCardNumText.text = ((Enemy) Cur_Level).BuildInfo.DrawCardNum.ToString();
+        BeginMetalNumText.text = ((Enemy) Cur_Level).BuildInfo.BeginMetal.ToString();
     }
 
     private int[] lifeBarColorThresholds = new[] {10, 50, 100, 500, 1000, 5000, 10000};

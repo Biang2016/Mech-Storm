@@ -851,7 +851,7 @@ namespace vietlabs.fr2
             var t = Time.realtimeSinceStartup;
 
 #if FR2_DEBUG
-    //Debug.Log(Mathf.Round(t) + " : " + progress*workCount + "/" + workCount + ":" + isReady);
+//Debug.Log(Mathf.Round(t) + " : " + progress*workCount + "/" + workCount + ":" + isReady);
 #endif
 
             if (!AsyncWork(queueLoadContent, AsyncLoadContent, t)) return;

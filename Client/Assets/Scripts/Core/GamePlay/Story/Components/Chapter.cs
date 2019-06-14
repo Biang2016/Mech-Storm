@@ -38,6 +38,18 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         //TODO 分配LevelID  生成关卡关系等
     }
 
+    public Chapter Clone()
+    {
+        SortedDictionary<int, Level> New_ChapterAllStoryPaces = CloneVariantUtils.SortedDictionary(Levels);
+        foreach (KeyValuePair<int, Level> kv in New_ChapterAllStoryPaces)
+        {
+            kv.Value.LevelID = kv.Key;
+        }
+        //TODO 各level之间的连接关系Clone
+
+        return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces, ChapterMapRoundCount);
+    }
+
     public Chapter Variant()
     {
         SortedDictionary<int, Level> New_ChapterAllStoryPaces = CloneVariantUtils.SortedDictionary(Levels, CloneVariantUtils.OperationType.Variant);
@@ -120,18 +132,6 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
 
         Chapter chapter = new Chapter(chapterID, names, allLevels, chapterMapRoundCount);
         return chapter;
-    }
-
-    public Chapter Clone()
-    {
-        SortedDictionary<int, Level> New_ChapterAllStoryPaces = CloneVariantUtils.SortedDictionary(Levels);
-        foreach (KeyValuePair<int, Level> kv in New_ChapterAllStoryPaces)
-        {
-            kv.Value.LevelID = kv.Key;
-        }
-        //TODO 各level之间的连接关系Clone
-
-        return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), New_ChapterAllStoryPaces, ChapterMapRoundCount);
     }
 
     public void Serialize(DataStream writer)

@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public class AllBuilds
 {
@@ -215,6 +217,7 @@ public class AllBuilds
     }
 }
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum BuildGroups
 {
     EnemyBuilds = 1,

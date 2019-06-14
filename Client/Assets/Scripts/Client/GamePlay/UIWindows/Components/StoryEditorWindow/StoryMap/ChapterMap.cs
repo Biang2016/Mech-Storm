@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class ChapterMap : PoolObject
 {
@@ -24,21 +22,6 @@ public class ChapterMap : PoolObject
     {
         Reset();
         base.PoolRecycle();
-    }
-
-    void Awake()
-    {
-        foreach (string str in Enum.GetNames(typeof(NodeTypes)))
-        {
-            NodeTypes type = (NodeTypes) Enum.Parse(typeof(NodeTypes), str);
-            NodeCategory.Add(type, new List<int>());
-        }
-
-        foreach (string str in Enum.GetNames(typeof(RouteTypes)))
-        {
-            RouteTypes type = (RouteTypes) Enum.Parse(typeof(RouteTypes), str);
-            RouteCategory.Add(type, new List<int>());
-        }
     }
 
     internal void Reset()
@@ -70,10 +53,28 @@ public class ChapterMap : PoolObject
         Cur_SelectedNode = null;
     }
 
-    internal int RoundCount = 2;
+    private int RoundCount = 2;
 
     internal void Initialize(Chapter chapter)
     {
+        if (NodeCategory.Count == 0)
+        {
+            foreach (string str in Enum.GetNames(typeof(NodeTypes)))
+            {
+                NodeTypes type = (NodeTypes) Enum.Parse(typeof(NodeTypes), str);
+                NodeCategory.Add(type, new List<int>());
+            }
+        }
+
+        if (RouteCategory.Count == 0)
+        {
+            foreach (string str in Enum.GetNames(typeof(RouteTypes)))
+            {
+                RouteTypes type = (RouteTypes) Enum.Parse(typeof(RouteTypes), str);
+                RouteCategory.Add(type, new List<int>());
+            }
+        }
+
         Reset();
 
         Cur_Chapter = chapter;
@@ -282,7 +283,7 @@ public class ChapterMap : PoolObject
         }
     }
 
-    public enum RouteTypes
+    private enum RouteTypes
     {
         All,
         Common,
@@ -299,7 +300,7 @@ public class ChapterMap : PoolObject
         ToBoss,
     }
 
-    public enum NodeTypes
+    private enum NodeTypes
     {
         All,
         Common,
@@ -403,7 +404,7 @@ public class ChapterMap : PoolObject
         Cur_SelectedNode = ChapterMapNodes[nodeIndex];
     }
 
-    public void SetNodeLevel(int nodeIndex, Level level)
+    private void SetNodeLevel(int nodeIndex, Level level)
     {
         ChapterMapNodes[nodeIndex].SetLevel(level);
     }

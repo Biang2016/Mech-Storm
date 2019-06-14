@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 public class ModuleMech : ModuleBase
@@ -388,6 +390,7 @@ public class ModuleMech : ModuleBase
         }
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     private enum AttackLevel
     {
         Sword = 0,

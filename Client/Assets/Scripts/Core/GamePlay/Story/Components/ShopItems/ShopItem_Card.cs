@@ -38,6 +38,11 @@ public class ShopItem_Card : ShopItem
         }
     }
 
+    public override void OnEdit()
+    {
+        base.OnEdit();
+    }
+
     public override ShopItem Clone()
     {
         return new ShopItem_Card(Price, CardID);

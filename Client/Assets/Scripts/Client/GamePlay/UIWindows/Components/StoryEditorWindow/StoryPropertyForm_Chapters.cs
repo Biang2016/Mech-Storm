@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class StoryPropertyForm_Chapters : PoolObject
 {
+    public const int MAX_CHAPTER_NUM = 10;
+
     [SerializeField] private Text Label;
     [SerializeField] private Transform ChaptersRowContainer;
     [SerializeField] private Button AddButton;
+    [SerializeField] private Button GotoButton;
 
     public override void PoolRecycle()
     {
@@ -27,18 +30,19 @@ public class StoryPropertyForm_Chapters : PoolObject
     private Chapter SelectedChapter;
     private SortedDictionary<int, StoryPropertyForm_Chapter> StoryChapterRows = new SortedDictionary<int, StoryPropertyForm_Chapter>();
 
-    public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction<Chapter, bool> onChangeSelectedChapter, UnityAction onRefreshStory)
+    public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction gotoAction, UnityAction<Chapter, bool> onChangeSelectedChapter, UnityAction onRefreshStory, UnityAction<Chapter> onRefreshChapterTitle)
     {
         Cur_Chapters = chapters;
         LanguageManager.Instance.RegisterTextKey(Label, "StoryEditorPanel_ChaptersLabel");
+
         AddButton.onClick.RemoveAllListeners();
         AddButton.onClick.AddListener(
             delegate
             {
-                if (Cur_Chapters.Count < 3)
+                if (Cur_Chapters.Count < MAX_CHAPTER_NUM)
                 {
                     int newChapterID = -1;
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < MAX_CHAPTER_NUM; i++)
                     {
                         if (!Cur_Chapters.ContainsKey(i))
                         {
@@ -53,7 +57,7 @@ public class StoryPropertyForm_Chapters : PoolObject
                         new SortedDictionary<int, Level>(),
                         4));
 
-                    Initialize(Cur_Chapters, onChangeSelectedChapter, onRefreshStory);
+                    Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onRefreshStory, onRefreshChapterTitle);
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ChaptersRowContainer));
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<StoryEditorPanel>().StoryPropertiesContainer));
                 }
@@ -62,6 +66,8 @@ public class StoryPropertyForm_Chapters : PoolObject
                     NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_StoryEditorWindow_CannotCreateChapter"), 0, 1f);
                 }
             });
+        GotoButton.onClick.RemoveAllListeners();
+        GotoButton.onClick.AddListener(gotoAction);
 
         foreach (KeyValuePair<int, StoryPropertyForm_Chapter> kv in StoryChapterRows)
         {
@@ -84,7 +90,7 @@ public class StoryPropertyForm_Chapters : PoolObject
                         }
 
                         chapterRow.IsSelected = true;
-                        onChangeSelectedChapter(chapterRow.Cur_Chapter, true);
+                        onChangeSelectedChapter(chapterRow.Cur_Chapter, false);
                         SelectedChapter = chapterRow.Cur_Chapter;
                     }
                 },
@@ -93,7 +99,24 @@ public class StoryPropertyForm_Chapters : PoolObject
                     int index = chapterRow.transform.GetSiblingIndex();
                     if (index > 0)
                     {
+                        Chapter curChapter = chapters[index];
+                        Chapter swapChapter = chapters[index - 1];
+                        chapters.Remove(index);
+                        chapters.Remove(index - 1);
+                        chapters.Add(index - 1, curChapter);
+                        chapters.Add(index, swapChapter);
+                        curChapter.ChapterID = index - 1;
+                        swapChapter.ChapterID = index;
                         chapterRow.transform.SetSiblingIndex(index - 1);
+
+                        StoryPropertyForm_Chapter curChapterRow = StoryChapterRows[index];
+                        StoryPropertyForm_Chapter swapChapterRow = StoryChapterRows[index - 1];
+                        StoryChapterRows.Remove(index);
+                        StoryChapterRows.Remove(index - 1);
+                        StoryChapterRows.Add(index - 1, curChapterRow);
+                        StoryChapterRows.Add(index, swapChapterRow);
+
+                        onRefreshChapterTitle(kv.Value);
                     }
                 },
                 onMoveDown: delegate
@@ -101,13 +124,30 @@ public class StoryPropertyForm_Chapters : PoolObject
                     int index = chapterRow.transform.GetSiblingIndex();
                     if (index < Cur_Chapters.Count - 1)
                     {
+                        Chapter curChapter = chapters[index];
+                        Chapter swapChapter = chapters[index + 1];
+                        chapters.Remove(index);
+                        chapters.Remove(index + 1);
+                        chapters.Add(index + 1, curChapter);
+                        chapters.Add(index, swapChapter);
+                        curChapter.ChapterID = index + 1;
+                        swapChapter.ChapterID = index;
                         chapterRow.transform.SetSiblingIndex(index + 1);
+
+                        StoryPropertyForm_Chapter curChapterRow = StoryChapterRows[index];
+                        StoryPropertyForm_Chapter swapChapterRow = StoryChapterRows[index + 1];
+                        StoryChapterRows.Remove(index);
+                        StoryChapterRows.Remove(index + 1);
+                        StoryChapterRows.Add(index + 1, curChapterRow);
+                        StoryChapterRows.Add(index, swapChapterRow);
+
+                        onRefreshChapterTitle(kv.Value);
                     }
                 },
                 onDeleteButtonClick: delegate
                 {
                     Cur_Chapters.Remove(kv.Key);
-                    Initialize(Cur_Chapters, onChangeSelectedChapter, onRefreshStory);
+                    Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onRefreshStory, onRefreshChapterTitle);
                 },
                 onRefreshStory: onRefreshStory);
             chapterRow.SetChapter(kv.Value);
@@ -126,5 +166,10 @@ public class StoryPropertyForm_Chapters : PoolObject
             kv.Value.IsSelected = true;
             break;
         }
+    }
+
+    public void OnSelectedRow(int index)
+    {
+        StoryChapterRows[index].OnSelected();
     }
 }

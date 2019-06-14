@@ -72,11 +72,6 @@ public class UIManager : MonoSingleton<UIManager>
                 break;
         }
 
-        if (CurrentUIFormsStack.Count > 0)
-        {
-            Debug.Log("CurrentUIFormsStack.Peek: " + CurrentUIFormsStack.Peek().GetType());
-        }
-
         return baseUIForms;
     }
 

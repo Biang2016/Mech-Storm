@@ -2,10 +2,7 @@
 
 public abstract class RequestBase
 {
-    public string ProtocolName
-    {
-        get { return GetProtocol().ToString(); }
-    }
+    public string ProtocolName => GetProtocol().ToString();
 
     public string CreateAt;
     public int RequestId;
@@ -37,9 +34,13 @@ public abstract class RequestBase
         RequestId = reader.ReadSInt32();
     }
 
-    public virtual string DeserializeLog()
+    public string DeserializeLog()
     {
-        return "[" + ProtocolName + "]:\n" + JsonConvert.SerializeObject(this, Formatting.None, Utils.JsonSettings);
+#if UNITY_EDITOR
+        return "[" + ProtocolName + "]:" + JsonConvert.SerializeObject(this, Formatting.None, Utils.JsonSettings);
+#else
+        return "[" + ProtocolName + "]:";
+#endif
     }
 }
 

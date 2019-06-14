@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -179,6 +181,7 @@ public class HandManager : MonoBehaviour
 
     private GameObject GetCardPlacePivot;
 
+    [JsonConverter(typeof(StringEnumConverter))]
     enum HandCardOrientation
     {
         LeftToRight,

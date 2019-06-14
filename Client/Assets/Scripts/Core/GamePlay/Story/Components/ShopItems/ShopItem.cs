@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public class ShopItem : IClone<ShopItem>
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ShopItemTypes
     {
         Card = 0,
@@ -49,6 +52,10 @@ public class ShopItem : IClone<ShopItem>
     {
     }
 
+    public virtual void OnEdit()
+    {
+    }
+
     public static ShopItem GenerateShopItemFroXML(XmlNode node_ShopItem, out bool needRefresh)
     {
         needRefresh = false;
@@ -67,6 +74,21 @@ public class ShopItem : IClone<ShopItem>
                 }
 
                 return new ShopItem_Card(price, cardID);
+            }
+            case ShopItemTypes.Budget:
+            {
+                int budget = int.Parse(node_ShopItem.Attributes["budget"].Value);
+                return new ShopItem_Budget(price, budget);
+            }
+            case ShopItemTypes.LifeUpperLimit:
+            {
+                int lifeUpperLimit = int.Parse(node_ShopItem.Attributes["lifeUpperLimit"].Value);
+                return new ShopItem_LifeUpperLimit(price, lifeUpperLimit);
+            }
+            case ShopItemTypes.EnergyUpperLimit:
+            {
+                int energyUpperLimit = int.Parse(node_ShopItem.Attributes["energyUpperLimit"].Value);
+                return new ShopItem_EnergyUpperLimit(price, energyUpperLimit);
             }
         }
 
@@ -90,6 +112,24 @@ public class ShopItem : IClone<ShopItem>
             {
                 int cardID = reader.ReadSInt32();
                 si = new ShopItem_Card(price, cardID);
+                break;
+            }
+            case ShopItemTypes.Budget:
+            {
+                int budget = reader.ReadSInt32();
+                si = new ShopItem_Budget(price, budget);
+                break;
+            }
+            case ShopItemTypes.LifeUpperLimit:
+            {
+                int lifeUpperLimit = reader.ReadSInt32();
+                si = new ShopItem_LifeUpperLimit(price, lifeUpperLimit);
+                break;
+            }
+            case ShopItemTypes.EnergyUpperLimit:
+            {
+                int energyUpperLimit = reader.ReadSInt32();
+                si = new ShopItem_EnergyUpperLimit(price, energyUpperLimit);
                 break;
             }
         }

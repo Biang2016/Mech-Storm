@@ -81,7 +81,6 @@
     <Compile Include="Assets\Scripts\Client\Effects\Bullet.cs" />
     <Compile Include="Assets\Scripts\Client\Effects\Hit.cs" />
     <Compile Include="Assets\Scripts\Client\Effects\HitManager.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\LensFlareIdle.cs" />
     <Compile Include="Assets\Scripts\Client\Effects\NormalParticle.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleEffectsManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleGroundManager.cs" />
@@ -166,6 +165,7 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffect.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectBundle.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectExecute.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\EditorWindowCommon\CardSelectPanel.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\EditorWindowCommon\PicPreviewButton.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\EditorWindowCommon\PicSelectPanel.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\EditorWindowCommon\PropertyFormRow.cs" />
@@ -459,12 +459,6 @@
     <Reference Include="UnityEditor.OSXStandalone.Extensions">
       <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="TextMeshPro-2017.3-Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Runtime">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -497,6 +491,12 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

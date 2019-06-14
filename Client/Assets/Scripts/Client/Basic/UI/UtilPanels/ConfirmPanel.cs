@@ -9,8 +9,10 @@ public class ConfirmPanel : BaseUIForm
     [SerializeField] private Text RightButtonText;
     [SerializeField] private Button LeftButton;
     [SerializeField] private Button RightButton;
-    [SerializeField] private InputField InputField;
-    [SerializeField] private Text InputFieldPlaceHolderText;
+    [SerializeField] private InputField InputField1;
+    [SerializeField] private InputField InputField2;
+    [SerializeField] private Text InputFieldPlaceHolderText1;
+    [SerializeField] private Text InputFieldPlaceHolderText2;
 
     void Awake()
     {
@@ -34,7 +36,7 @@ public class ConfirmPanel : BaseUIForm
 
     private UnityAction ConfirmClick = null;
 
-    public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick, string inputFieldPlaceHolderText = null)
+    public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick, string inputFieldPlaceHolderText1 = null, string inputFieldPlaceHolderText2 = null)
     {
         UIType.InitUIType(
             isClearStack: false,
@@ -52,14 +54,23 @@ public class ConfirmPanel : BaseUIForm
         LeftButton.onClick.AddListener(leftButtonClick);
         RightButton.onClick.AddListener(rightButtonClick);
 
-        if (inputFieldPlaceHolderText != null)
+        if (inputFieldPlaceHolderText1 != null)
         {
-            InputFieldPlaceHolderText.text = inputFieldPlaceHolderText;
-            InputField.ActivateInputField();
+            InputFieldPlaceHolderText1.text = inputFieldPlaceHolderText1;
+            InputField1.ActivateInputField();
         }
 
-        InputField.gameObject.SetActive(inputFieldPlaceHolderText != null);
+        InputField1.gameObject.SetActive(inputFieldPlaceHolderText1 != null);
+
+        if (inputFieldPlaceHolderText2 != null)
+        {
+            InputFieldPlaceHolderText2.text = inputFieldPlaceHolderText2;
+            InputField2.ActivateInputField();
+        }
+
+        InputField2.gameObject.SetActive(inputFieldPlaceHolderText2 != null);
     }
 
-    public string InputText => InputField.text;
+    public string InputText1 => InputField1.text;
+    public string InputText2 => InputField2.text;
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -52,13 +51,30 @@ public class LevelPropertyForm_ShopItem : PoolObject
         EditButton.onClick.AddListener(onEditButtonClick);
         DeleteButton.onClick.RemoveAllListeners();
         DeleteButton.onClick.AddListener(onDeleteButtonClick);
+
+        ClientUtils.ChangeImagePicture(Pic, shopItem.PicID);
+        PriceText.text = shopItem.Price.ToString();
+        TypeText.text = shopItem.ShopItemType.ToString();
         switch (shopItem)
         {
             case ShopItem_Card sic:
             {
-                ClientUtils.ChangeImagePicture(Pic, sic.PicID);
                 NameText.text = sic.Name;
-                PriceText.text = sic.Price.ToString();
+                break;
+            }
+            case ShopItem_Budget sib:
+            {
+                NameText.text = string.Format(LanguageManager.Instance.GetText("LevelEditorPanel_BudgetValueText"), sib.Budget);
+                break;
+            }
+            case ShopItem_LifeUpperLimit silu:
+            {
+                NameText.text = string.Format(LanguageManager.Instance.GetText("LevelEditorPanel_LifeUpperLimitValueText"), silu.LifeUpperLimit);
+                break;
+            }
+            case ShopItem_EnergyUpperLimit sieu:
+            {
+                NameText.text = string.Format(LanguageManager.Instance.GetText("LevelEditorPanel_EnergyUpperLimitValueText"), sieu.EnergyUpperLimit);
                 break;
             }
         }
@@ -66,14 +82,30 @@ public class LevelPropertyForm_ShopItem : PoolObject
 
     public void Refresh()
     {
+        PriceText.text = Cur_ShopItem.Price.ToString();
+        TypeText.text = Cur_ShopItem.ShopItemType.ToString();
+
         switch (Cur_ShopItem)
         {
             case ShopItem_Card sic:
             {
                 ClientUtils.ChangeImagePicture(Pic, sic.PicID);
                 NameText.text = sic.Name;
-                PriceText.text = sic.Price.ToString();
-                TypeText.text = sic.ShopItemType.ToString();
+                break;
+            }
+            case ShopItem_Budget sib:
+            {
+                NameText.text = string.Format(LanguageManager.Instance.GetText("LevelEditorPanel_BudgetValueText"), sib.Budget);
+                break;
+            }
+            case ShopItem_LifeUpperLimit silu:
+            {
+                NameText.text = string.Format(LanguageManager.Instance.GetText("LevelEditorPanel_LifeUpperLimitValueText"), silu.LifeUpperLimit);
+                break;
+            }
+            case ShopItem_EnergyUpperLimit sieu:
+            {
+                NameText.text = string.Format(LanguageManager.Instance.GetText("LevelEditorPanel_EnergyUpperLimitValueText"), sieu.EnergyUpperLimit);
                 break;
             }
         }
@@ -81,6 +113,6 @@ public class LevelPropertyForm_ShopItem : PoolObject
 
     public void OnLanguageChange()
     {
-        NameText.text = Cur_ShopItem.Name;
+        Refresh();
     }
 }

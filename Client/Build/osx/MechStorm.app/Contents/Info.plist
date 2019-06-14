@@ -12,7 +12,7 @@
 	<key>CFBundleExecutable</key>
 	<string>MechStorm</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Unity Player version 2018.3.2f1 (b3c100a4b73a). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
+	<string>Unity Player version 2018.3.10f1 (f88de2c96e63). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>PlayerIcon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -38,7 +38,7 @@
 	<key>NSPrincipalClass</key>
 	<string>PlayerApplication</string>
 	<key>UnityBuildNumber</key>
-	<string>b3c100a4b73a</string>
+	<string>f88de2c96e63</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.9.0</string>
 </dict>

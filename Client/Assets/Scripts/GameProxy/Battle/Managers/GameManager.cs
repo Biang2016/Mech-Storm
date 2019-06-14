@@ -437,7 +437,7 @@ internal partial class GameManager
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
-            OnEndGameHandler(PlayerA);
+            OnEndGameHandler?.Invoke(PlayerA);
 //            Server.SV.SGMM.RemoveGame(ClientA);
 
             PlayerA?.OnDestroyed();

@@ -66,8 +66,14 @@
     <Compile Include="Assets\Editor\InGameTools\RandomNumberTest.cs" />
     <Compile Include="Assets\Editor\Pack\AssetBundlePacker.cs" />
     <Compile Include="Assets\Editor\Pack\BuildPlayer.cs" />
+    <Reference Include="Unity.CacheServer.Client.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.CacheServer.Client.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
@@ -86,6 +92,9 @@
     </Reference>
     <Reference Include="Unity.2D.Triangle.Runtime">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.2D.Triangle.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Editor">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
@@ -330,12 +339,6 @@
     <Reference Include="UnityEditor.OSXStandalone.Extensions">
       <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="TextMeshPro-2017.3-Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Runtime">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -368,6 +371,12 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -725,9 +734,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{079D398E-4AFC-CD7E-7881-F923D075EBD1}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{12F44184-A422-5F27-22E6-507969043F15}</Project>
+      <Name>Assembly-CSharp</Name>
     </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
       <Project>{2292066C-03A4-5733-4636-43653C20A180}</Project>

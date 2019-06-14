@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 public class Initialization : MonoSingleton<Initialization>
 {
     public bool IsABMode = false;
-    [SerializeField] private GameObject Manager;
+    [SerializeField] private ManagerTypes ManagerType;
     [SerializeField] private string StartUIPanel;
     [SerializeField] private string[] WarmUpUIPanels;
 
@@ -67,17 +67,27 @@ public class Initialization : MonoSingleton<Initialization>
         UIManager.Instance.ShowUIForm(StartUIPanel);
     }
 
+    enum ManagerTypes
+    {
+        MainManager,
+        CardEditorManager,
+        StoryEditorManager,
+    }
+
+    private const string ManagerResourcesPath = "Prefabs/Managers/";
+
     private void LoadManager_AB()
     {
         AssetBundle manager_bundle = ABManager.LoadAssetBundle("prefabs");
-        GameObject manager = manager_bundle.LoadAsset<GameObject>("Assets/Prefabs/Manager.prefab");
+        GameObject manager = manager_bundle.LoadAsset<GameObject>("Assets/Resources/" + ManagerResourcesPath + ManagerType + ".prefab");
         Instantiate(manager);
         Debug.Log("LoadManager_AB");
     }
 
     private void LoadManager_Editor()
     {
-        Instantiate(Manager);
+        RootManager manager_go = Resources.Load<RootManager>(ManagerResourcesPath + ManagerType);
+        Instantiate(manager_go);
     }
 
     private void LoadShaders_AB()

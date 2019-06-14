@@ -188,8 +188,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Manager
       value: 
-      objectReference: {fileID: 4186579307409117128, guid: 58a3b895c185b4317974054a7516a3c4,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3236308121717095129, guid: 34f1c0918f0dd4661b115de28c599e16,
         type: 3}
       propertyPath: StartUIPanel
@@ -199,6 +198,16 @@ PrefabInstance:
         type: 3}
       propertyPath: WarmUpUIPanels.Array.data[0]
       value: LevelEditorPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3236308121717095129, guid: 34f1c0918f0dd4661b115de28c599e16,
+        type: 3}
+      propertyPath: IsABMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3236308121717095129, guid: 34f1c0918f0dd4661b115de28c599e16,
+        type: 3}
+      propertyPath: ManagerType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f1c0918f0dd4661b115de28c599e16, type: 3}

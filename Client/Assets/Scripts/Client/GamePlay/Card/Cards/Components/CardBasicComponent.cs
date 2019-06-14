@@ -48,11 +48,13 @@ public class CardBasicComponent : CardComponentBase
         ClientUtils.ChangeColor(Picture, color, intensity);
         PictureColor = color;
         PictureColorIntensity = intensity;
+        Picture.size = new Vector2(10.575f, 12.37f);
     }
 
     public void ChangePicture(int picID)
     {
         ClientUtils.ChangeImagePicture(Picture, picID);
+        Picture.size = new Vector2(10.575f, 12.37f);
     }
 
     void Awake()

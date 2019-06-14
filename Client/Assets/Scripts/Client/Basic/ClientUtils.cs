@@ -90,34 +90,28 @@ public class ClientUtils
         rd.SetPropertyBlock(mpb);
     }
 
-    public static void ChangeImagePicture(Image image, int pictureID)
+    public static Sprite GetPicByID(int pictureID)
     {
         string pid_str = string.Format("{0:000}", pictureID);
         SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
         Sprite sprite = atlas.GetSprite(pid_str);
-        if (sprite != null)
-        {
-            image.sprite = sprite;
-        }
-        else
+        if (sprite == null)
         {
             Debug.LogError("所选卡片没有图片资源：" + pid_str);
+            return GetPicByID(1004);
         }
+
+        return sprite;
+    }
+
+    public static void ChangeImagePicture(Image image, int pictureID)
+    {
+        image.sprite = GetPicByID(pictureID);
     }
 
     public static void ChangeImagePicture(SpriteRenderer image, int pictureID)
     {
-        string pid_str = string.Format("{0:000}", pictureID);
-        SpriteAtlas atlas = AtlasManager.LoadAtlas("CardPics_" + (pictureID / 100));
-        Sprite sprite = atlas.GetSprite(pid_str);
-        if (sprite != null)
-        {
-            image.sprite = sprite;
-        }
-        else
-        {
-            Debug.LogError("所选卡片没有图片资源：" + pid_str);
-        }
+        image.sprite = GetPicByID(pictureID);
     }
 
     public static void ChangeColor(RawImage image, Color newColor)

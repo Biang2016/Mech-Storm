@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 /// <summary>
 /// 选牌窗口
@@ -36,6 +38,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
 
     private BuildInfo lastSaveBuildInfo; //上一次保存的卡组信息，一旦切换编辑卡组，就自动发送服务端保存卡组，并刷新lastSaveBuildInfo
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum GameMode
     {
         None,

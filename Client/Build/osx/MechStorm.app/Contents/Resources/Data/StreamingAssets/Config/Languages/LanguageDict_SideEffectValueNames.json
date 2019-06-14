@@ -1,0 +1,137 @@
+{
+	"SideEffectValueNames_ChoiceCount": {
+		"zh": "目标数量",
+		"en": "Choice Count"
+	},
+	"SideEffectValueNames_Energy": {
+		"zh": "能量",
+		"en": "Energy"
+	},
+	"SideEffectValueNames_SummonCardID": {
+		"zh": "召唤卡片ID",
+		"en": "Summon Card ID"
+	},
+	"SideEffectValueNames_Value": {
+		"zh": "值",
+		"en": "Value"
+	},
+	"SideEffectValueNames_ValueBasic": {
+		"zh": "基本值",
+		"en": "Basic Value"
+	},
+	"SideEffectValueNames_ValuePlus": {
+		"zh": "附加值",
+		"en": "Plus Value"
+	},
+	"SideEffectValueNames_LifeValue": {
+		"zh": "生命值",
+		"en": "Life"
+	},
+	"SideEffectValueNames_HealValue": {
+		"zh": "治疗量",
+		"en": "Heal Value"
+	},
+	"SideEffectValueNames_ArmorValue": {
+		"zh": "护甲",
+		"en": "Armor Value"
+	},
+	"SideEffectValueNames_AttackValue": {
+		"zh": "攻击力",
+		"en": "Attack Value"
+	},
+	"SideEffectValueNames_ShieldValue": {
+		"zh": "护盾",
+		"en": "Shield Value"
+	},
+	"SideEffectValueNames_Rounds": {
+		"zh": "回合数",
+		"en": "Number of Rounds"
+	},
+
+	"SideEffectValueNames_CardCount": {
+		"zh": "卡片数量",
+		"en": "Number of Cards"
+	},
+	"SideEffectValueNames_CardID": {
+		"zh": "卡片ID",
+		"en": "Card ID"
+	},
+	"SideEffectValueNames_DrawCardType": {
+		"zh": "抽牌类型",
+		"en": "Type of Draw Card"
+	},
+	"SideEffectValueNames_DecValue": {
+		"zh": "递减值",
+		"en": "Decrease Value"
+	},
+	"SideEffectValueNames_BuffName": {
+		"zh": "Buff名称",
+		"en": "Buff Name"
+	},
+	"SideEffectValueNames_Damage": {
+		"zh": "伤害",
+		"en": "Damage"
+	},
+
+	"SideEffectValueNames_BuffPicId": {
+		"zh": "Buff 图片ID",
+		"en": "Buff Pic ID"
+	},
+	"SideEffectValueNames_BuffColor": {
+		"zh": "Buff 颜色",
+		"en": "Buff Color"
+	},
+	"SideEffectValueNames_HasNumberShow": {
+		"zh": "显示Buff数字",
+		"en": "Show Buff Number"
+	},
+	"SideEffectValueNames_CanPiled": {
+		"zh": "能否堆叠",
+		"en": "Can be Piled"
+	},
+	"SideEffectValueNames_Singleton": {
+		"zh": "是否唯一",
+		"en": "Is Singleton"
+	},
+	"SideEffectValueNames_PiledBy": {
+		"zh": "堆叠值名称",
+		"en": "Pile By"
+	},
+	"SideEffectValueNames_TriggerTime": {
+		"zh": "触发时机",
+		"en": "Trigger Time"
+	},
+	"SideEffectValueNames_TriggerRange": {
+		"zh": "对象范围",
+		"en": "Trigger Range"
+	},
+	"SideEffectValueNames_TriggerDelayTimes": {
+		"zh": "延迟触发次数",
+		"en": "Trigger Delay Times"
+	},
+	"SideEffectValueNames_TriggerTimes": {
+		"zh": "触发次数",
+		"en": "Trigger Times"
+	},
+	"SideEffectValueNames_RemoveTriggerTime": {
+		"zh": "效果移除时机",
+		"en": "Remove Trigger Time"
+	},
+	"SideEffectValueNames_RemoveTriggerRange": {
+		"zh": "效果移除触发范围",
+		"en": "Remove Trigger Range"
+	},
+	"SideEffectValueNames_RemoveTriggerTimes": {
+		"zh": "效果移除触发次数",
+		"en": "Remove Trigger Times"
+	},
+	"SideEffectValueNames_TargetSelect": {
+		"zh": "选择方式",
+		"en": "Select Method"
+	},
+	"SideEffectValueNames_TargetRange": {
+		"zh": "对象范围",
+		"en": "Target Range"
+	},
+	
+}

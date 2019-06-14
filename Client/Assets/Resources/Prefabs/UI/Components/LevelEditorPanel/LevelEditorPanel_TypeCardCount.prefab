@@ -259,11 +259,11 @@ MonoBehaviour:
   CountText: {fileID: 3320597326721223507}
   SpritePresets:
   - {fileID: 21300000, guid: e8ccb091546eaa5498a479a498a25c0d, type: 3}
-  - {fileID: 21300000, guid: ffba5cc083db9e94a9b952a05c060262, type: 3}
-  - {fileID: 21300000, guid: 960ba805c3b1a7e4bb7b4b0721f87489, type: 3}
-  - {fileID: 21300000, guid: 64f5ae7266efcb84e927b74a3e4b69c3, type: 3}
-  - {fileID: 21300000, guid: 71d438be8a11c5c419f6161021d02adb, type: 3}
-  - {fileID: 21300000, guid: 00e2a073b6679a6428a6bc94222ab72a, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &7303255187144361146
 MonoBehaviour:
   m_ObjectHideFlags: 0

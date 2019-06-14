@@ -62,18 +62,35 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                 sitd.PoolRecycle();
             }, onAddShopItem: delegate(ShopItem.ShopItemTypes type)
             {
+                My_LevelPropertyForm_ShopItemTypeDropdown.Remove(sitd);
+                sitd.PoolRecycle();
+                ShopItem si = null;
                 switch (type)
                 {
                     case ShopItem.ShopItemTypes.Card:
                     {
-                        My_LevelPropertyForm_ShopItemTypeDropdown.Remove(sitd);
-                        sitd.PoolRecycle();
-                        ShopItem_Card sic = new ShopItem_Card(100, (int) AllCards.EmptyCardTypes.EmptyCard);
-                        Cur_ShopItems.Add(sic);
-                        Refresh();
+                        si = new ShopItem_Card(100, (int) AllCards.EmptyCardTypes.EmptyCard);
+                        break;
+                    }
+                    case ShopItem.ShopItemTypes.Budget:
+                    {
+                        si = new ShopItem_Budget(100, 50);
+                        break;
+                    }
+                    case ShopItem.ShopItemTypes.LifeUpperLimit:
+                    {
+                        si = new ShopItem_LifeUpperLimit(100, 2);
+                        break;
+                    }
+                    case ShopItem.ShopItemTypes.EnergyUpperLimit:
+                    {
+                        si = new ShopItem_EnergyUpperLimit(100, 2);
                         break;
                     }
                 }
+
+                Cur_ShopItems.Add(si);
+                Refresh();
             });
             My_LevelPropertyForm_ShopItemTypeDropdown.Add(sitd);
         });
@@ -127,7 +144,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         }
 
 //        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
-        UIManager.Instance.GetBaseUIForm<StoryEditorPanel>().StartCoroutine(Co_refresh);
+        UIManager.Instance.GetBaseUIForm<LevelEditorPanel>().StartCoroutine(Co_refresh);
     }
 
     private void GenerateNewShopItem(ShopItem si)
@@ -138,9 +155,119 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
             delegate
             {
                 CurEdit_ShopItem = row_si;
-                if (si is ShopItem_Card sic)
+
+                switch (si)
                 {
-                    OnStartSelectCard(true, sic.CardID, 1);
+                    case ShopItem_Card sic:
+                    {
+                        OnStartSelectCard(true, sic.CardID, 1);
+                        break;
+                    }
+                    case ShopItem_Budget sib:
+                    {
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(
+                            descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetBudgetPrice"),
+                            leftButtonClick: delegate
+                            {
+                                if (int.TryParse(cp.InputText1, out int budget))
+                                {
+                                    if (int.TryParse(cp.InputText2, out int price))
+                                    {
+                                        cp.CloseUIForm();
+                                        sib.Budget = budget;
+                                        sib.Price = price;
+                                        Refresh();
+                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                    }
+                                    else
+                                    {
+                                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                    }
+                                }
+                                else
+                                {
+                                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                }
+                            },
+                            rightButtonClick: delegate { cp.CloseUIForm(); },
+                            leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
+                            rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
+                            inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_BudgetPlaceHolder"),
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder")
+                        );
+                        break;
+                    }
+                    case ShopItem_LifeUpperLimit silu:
+                    {
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(
+                            descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetLifeUpperLimitPrice"),
+                            leftButtonClick: delegate
+                            {
+                                if (int.TryParse(cp.InputText1, out int lifeUpperLimit))
+                                {
+                                    if (int.TryParse(cp.InputText2, out int price))
+                                    {
+                                        cp.CloseUIForm();
+                                        silu.LifeUpperLimit = lifeUpperLimit;
+                                        silu.Price = price;
+                                        Refresh();
+                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                    }
+                                    else
+                                    {
+                                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                    }
+                                }
+                                else
+                                {
+                                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                }
+                            },
+                            rightButtonClick: delegate { cp.CloseUIForm(); },
+                            leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
+                            rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
+                            inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_LifeUpperLimitLabelValueText"),
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder")
+                        );
+                        break;
+                    }
+                    case ShopItem_EnergyUpperLimit sieu:
+                    {
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(
+                            descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetEnergyUpperLimitPrice"),
+                            leftButtonClick: delegate
+                            {
+                                if (int.TryParse(cp.InputText1, out int energyUpperLimit))
+                                {
+                                    if (int.TryParse(cp.InputText2, out int price))
+                                    {
+                                        cp.CloseUIForm();
+                                        sieu.EnergyUpperLimit = energyUpperLimit;
+                                        sieu.Price = price;
+                                        Refresh();
+                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                    }
+                                    else
+                                    {
+                                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                    }
+                                }
+                                else
+                                {
+                                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                }
+                            },
+                            rightButtonClick: delegate { cp.CloseUIForm(); },
+                            leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
+                            rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
+                            inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_EnergyUpperLimitLabelValueText"),
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder")
+                        );
+                        break;
+                    }
                 }
 
                 foreach (LevelPropertyForm_ShopItem _rsi in My_LevelPropertyForm_ShopItem)

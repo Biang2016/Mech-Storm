@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using SideEffects;
 
 /// <summary>
@@ -15,6 +17,7 @@ public static class AllCards
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict = new SortedDictionary<int, List<CardInfo_Base>>();
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum EmptyCardTypes
     {
         NoCard = -1,

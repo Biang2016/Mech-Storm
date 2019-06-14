@@ -85,10 +85,7 @@ public class CardEditorPanel : BaseUIForm
                 SceneManager.LoadScene("MainScene");
                 cp.CloseUIForm();
             },
-            rightButtonClick: delegate
-            {
-                cp.CloseUIForm();
-            });
+            rightButtonClick: delegate { cp.CloseUIForm(); });
     }
 
     [SerializeField] private Text CardEditorWindowText;
@@ -360,7 +357,7 @@ public class CardEditorPanel : BaseUIForm
                     count++;
                     if (count == 2)
                     {
-                        PropertyFormRow cpfr = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.TwoToggle, CardPropertiesContainer, "Nulll", null, out temp, null, null);
+                        PropertyFormRow cpfr = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.TwoToggle, CardPropertiesContainer, "Null", null, out temp, null, null);
                         int index = toggleRow.transform.GetSiblingIndex();
                         cpfr.transform.SetSiblingIndex(index);
                         ((PropertyFormRow_TwoToggleRow) cpfr).ToggleLeft = lastToggle;

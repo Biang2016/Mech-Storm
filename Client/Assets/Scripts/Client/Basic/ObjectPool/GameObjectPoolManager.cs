@@ -43,7 +43,6 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         Affix,
         ParticleSystem,
         Bullet,
-        LensFlareIdle,
 
         BigBonusItem,
         SmallBonusItem,
@@ -122,7 +121,6 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.Affix, 5},
         {PrefabNames.ParticleSystem, 5},
         {PrefabNames.Bullet, 2},
-        {PrefabNames.LensFlareIdle, 2},
 
         {PrefabNames.BigBonusItem, 3},
         {PrefabNames.SmallBonusItem, 5},

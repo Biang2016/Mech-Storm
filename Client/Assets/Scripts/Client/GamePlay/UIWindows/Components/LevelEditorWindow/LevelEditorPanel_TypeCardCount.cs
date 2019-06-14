@@ -25,6 +25,15 @@ public class LevelEditorPanel_TypeCardCount : PoolObject
 
     internal CardStatTypes CardStatType;
 
+    void Awake()
+    {
+        SpritePresets[(int) CardStatTypes.HeroMech] = ClientUtils.GetPicByID(0);
+        SpritePresets[(int) CardStatTypes.SoldierMech] = ClientUtils.GetPicByID(58);
+        SpritePresets[(int) CardStatTypes.Equip] = ClientUtils.GetPicByID(103);
+        SpritePresets[(int) CardStatTypes.Spell] = ClientUtils.GetPicByID(612);
+        SpritePresets[(int) CardStatTypes.Energy] = ClientUtils.GetPicByID(701);
+    }
+
     public void Initialize(CardStatTypes cardStatType, int count, UnityAction onClick)
     {
         CardStatType = cardStatType;

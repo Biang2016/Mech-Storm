@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -34,6 +36,8 @@ public class StoryEditorPanel : BaseUIForm
                 (SaveStoryButtonText, "StoryEditorPanel_SaveStoryButtonText"),
                 (ResetStoryButtonText, "StoryEditorPanel_ResetStoryButtonText"),
                 (ReturnToGamerButtonText, "StoryEditorPanel_ReturnToGamerButtonText"),
+                (NextChapterButtonText, "StoryEditorPanel_NextChapterButtonText"),
+                (PreviousChapterButtonText, "StoryEditorPanel_PreviousChapterButtonText"),
             });
 
         LanguageDropdown.ClearOptions();
@@ -41,6 +45,8 @@ public class StoryEditorPanel : BaseUIForm
 
         ReturnToGamerButton.onClick.AddListener(ReturnToGame);
         SaveChapterButton.onClick.AddListener(SaveChapter);
+        NextChapterButton.onClick.AddListener(SwitchToNextChapter);
+        PreviousChapterButton.onClick.AddListener(SwitchToPreviousChapter);
 
         InitializeCardPropertyForm();
 
@@ -68,7 +74,6 @@ public class StoryEditorPanel : BaseUIForm
 #endif
 
         bool controlPress = Input.GetKey(controlKey);
-        bool leftShiftPress = Input.GetKey(KeyCode.LeftShift);
 
         if (controlPress)
         {
@@ -76,6 +81,11 @@ public class StoryEditorPanel : BaseUIForm
             {
                 SaveStory();
             }
+        }
+
+        if (CardSelectPanel.gameObject.activeInHierarchy)
+        {
+            CardSelectPanel.CardSelectPanelUpdate();
         }
     }
 
@@ -86,6 +96,16 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.value = LanguageManager.Instance.LanguagesShorts.IndexOf(LanguageManager.Instance.GetCurrentLanguage());
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
+        OnLanguageChange(0);
+        CardSelectPanel.Initialize(SelectCard, UnSelectCard, Row_CardSelection);
+        CardSelectPanel.gameObject.SetActive(false);
+        ChapterMapContainer.gameObject.SetActive(true);
+    }
+
+    public override void Hide()
+    {
+        CardSelectPanel.RecycleAllCards();
+        base.Hide();
     }
 
     private void OnLanguageChange(int _)
@@ -130,6 +150,7 @@ public class StoryEditorPanel : BaseUIForm
     private List<PropertyFormRow> MyPropertiesRows = new List<PropertyFormRow>();
     private StoryPropertyForm_GamePlaySettings Row_GamePlaySettings;
     private StoryPropertyForm_Chapters Row_Chapters;
+    private LevelPropertyForm_CardSelection Row_CardSelection;
 
     private void InitializeCardPropertyForm()
     {
@@ -146,6 +167,8 @@ public class StoryEditorPanel : BaseUIForm
         PropertyFormRow Row_StoryName = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_StoryNameLabelText", OnStoryNameChange, out SetStoryName);
         Row_GamePlaySettings = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_GamePlaySettings].AllocateGameObject<StoryPropertyForm_GamePlaySettings>(StoryPropertiesContainer);
         Row_GamePlaySettings.Initialize();
+        Row_CardSelection = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_CardSelection].AllocateGameObject<LevelPropertyForm_CardSelection>(StoryPropertiesContainer);
+        MyPropertiesRows.Add(Row_CardSelection);
         Row_Chapters = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_Chapters].AllocateGameObject<StoryPropertyForm_Chapters>(StoryPropertiesContainer);
     }
 
@@ -165,19 +188,38 @@ public class StoryEditorPanel : BaseUIForm
         Cur_Story.StoryName = value_str;
     }
 
-    public void SetStory(Story story)
+    private Story resetStoryBackup;
+
+    private void SetStory(Story story)
     {
+        resetStoryBackup = story.Clone();
         Cur_Story = story;
         Row_GamePlaySettings.SetGamePlaySettings(story.StoryGamePlaySettings);
         SetStoryName(story.StoryName);
-        Row_Chapters.Initialize(Cur_Story.Chapters, onChangeSelectedChapter:
+        Row_Chapters.Initialize(
+            chapters: Cur_Story.Chapters,
+            gotoAction: delegate
+            {
+                CardSelectPanel.gameObject.SetActive(false);
+                ChapterMapContainer.gameObject.SetActive(true);
+            },
+            onChangeSelectedChapter:
             delegate(Chapter chapter, bool showAnimation)
             {
                 //TODO
                 NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames["zh"], 0, 1f);
                 GenerateChapterMap(chapter, showAnimation);
             },
-            onRefreshStory: delegate { SetStory(story); });
+            onRefreshStory: delegate { SetStory(story); },
+            onRefreshChapterTitle: OnRefreshChapterTitle);
+
+        CardSelectPanel.SetBuildCards(
+            buildCards: BuildCards,
+            gotoAction: delegate
+            {
+                CardSelectPanel.gameObject.SetActive(true);
+                ChapterMapContainer.gameObject.SetActive(false);
+            });
     }
 
     [SerializeField] private Button SaveStoryButton;
@@ -185,7 +227,7 @@ public class StoryEditorPanel : BaseUIForm
     [SerializeField] private Text SaveStoryButtonText;
     [SerializeField] private Text ResetStoryButtonText;
 
-    public void SaveStory()
+    private void SaveStory()
     {
         ChapterMap?.SaveChapter();
         AllStories.RefreshStoryXML(Cur_Story);
@@ -194,17 +236,22 @@ public class StoryEditorPanel : BaseUIForm
         NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
     }
 
-    public void ResetStory()
+    private void ResetStory()
     {
+        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_StoryEditorPanel_ResetSuccess"), 0f, 1f);
+        SetStory(resetStoryBackup);
+        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) StoryPropertiesContainer));
     }
 
     #region Center ChapterMap
-    
+
     [SerializeField] private Transform ChapterMapContainer;
+    [SerializeField] private TextMeshProUGUI ChapterNameText;
     private ChapterMap ChapterMap;
 
     private void GenerateChapterMap(Chapter chapter, bool showAnimation = true)
     {
+        OnRefreshChapterTitle(chapter);
         ChapterMap oldChapterMap = ChapterMap;
         ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
         ChapterMap.Initialize(chapter);
@@ -217,6 +264,12 @@ public class StoryEditorPanel : BaseUIForm
         {
             oldChapterMap?.PoolRecycle();
         }
+    }
+
+    private void OnRefreshChapterTitle(Chapter chapter)
+    {
+        string chapterTitle = string.Format(LanguageManager.Instance.GetText("StoryEditorPanel_ChapterTitle"), chapter.ChapterID + 1, chapter.ChapterNames[LanguageManager.Instance.GetCurrentLanguage()]);
+        ChapterNameText.text = chapterTitle;
     }
 
     IEnumerator Co_ChapterMapAnimation(ChapterMap oldMap, ChapterMap newMap)
@@ -244,6 +297,78 @@ public class StoryEditorPanel : BaseUIForm
     {
         ChapterMap?.SaveChapter();
         NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+    }
+
+    [SerializeField] private Button NextChapterButton;
+    [SerializeField] private Text NextChapterButtonText;
+    [SerializeField] private Button PreviousChapterButton;
+    [SerializeField] private Text PreviousChapterButtonText;
+
+    private void SwitchToNextChapter()
+    {
+        if (ChapterMap.Cur_Chapter.ChapterID < Cur_Story.Chapters.Count - 1)
+        {
+            Row_Chapters.OnSelectedRow(ChapterMap.Cur_Chapter.ChapterID + 1);
+        }
+    }
+
+    private void SwitchToPreviousChapter()
+    {
+        if (ChapterMap.Cur_Chapter.ChapterID > 0)
+        {
+            Row_Chapters.OnSelectedRow(ChapterMap.Cur_Chapter.ChapterID - 1);
+        }
+    }
+
+    #endregion
+
+    #region Center CardLibrary
+
+    [SerializeField] private CardSelectPanel CardSelectPanel;
+
+    private BuildCards BuildCards
+    {
+        get
+        {
+            if (Cur_Story?.PlayerBuildInfos != null && Cur_Story.PlayerBuildInfos.Count != 0)
+            {
+                BuildInfo startBuildInfo = Cur_Story.PlayerBuildInfos.Values.ToList()[0];
+                if (startBuildInfo != null)
+                {
+                    return startBuildInfo.M_BuildCards;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    private void SelectCard(CardBase card)
+    {
+        if (BuildCards != null)
+        {
+            if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && BuildCards.GetTypeCardCountDict()[CardStatTypes.HeroMech] >= 4)
+            {
+                return;
+            }
+
+            BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount++;
+            int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
+            CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
+            Row_CardSelection.Refresh();
+        }
+    }
+
+    private void UnSelectCard(CardBase card)
+    {
+        if (BuildCards != null)
+        {
+            if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount == 0) return;
+            BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount--;
+            int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
+            CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
+            Row_CardSelection.Refresh();
+        }
     }
 
     #endregion
