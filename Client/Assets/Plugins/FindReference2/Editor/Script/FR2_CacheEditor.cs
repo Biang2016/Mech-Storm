@@ -10,13 +10,12 @@ internal class FR2_CacheEditor : Editor
 
     public override void OnInspectorGUI()
     {
-	    var c = (FR2_Cache) target;
-	    
-	    GUILayout.Label("Total : " + c.AssetList.Count);
-	    
-		c.priority = EditorGUILayout.IntSlider("Priority", c.priority, 0, 5);	
-	    
-	    
+        var c = (FR2_Cache) target;
+
+        GUILayout.Label("Total : " + c.AssetList.Count);
+
+        c.priority = EditorGUILayout.IntSlider("Priority", c.priority, 0, 5);
+
         var s = Selection.activeObject;
         if (s == null) return;
 

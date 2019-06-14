@@ -1,0 +1,17 @@
+{
+    "name": "Client",
+    "references": [
+        "Core",
+        "Network",
+        "GameProxy",
+        "BattleProxy"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

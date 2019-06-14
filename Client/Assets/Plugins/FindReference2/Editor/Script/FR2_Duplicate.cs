@@ -33,7 +33,7 @@ namespace vietlabs.fr2
                 EditorGUIUtility.systemCopyBuffer = asset.guid;
                 Selection.objects = (parent as FR2_DuplicateFolder).children.Select(
                     a => FR2_Unity.LoadAssetAtPath<Object>(((FR2_DuplicateAsset) a).asset.assetPath)
-                    ).ToArray();
+                ).ToArray();
                 FR2_Export.MergeDuplicate();
             }
 
@@ -89,9 +89,9 @@ namespace vietlabs.fr2
         {
             return fileSize <= 1024
                 ? fileSize + " B"
-                : fileSize <= 1024*1024
-                    ? Mathf.RoundToInt(fileSize/1024f) + " KB"
-                    : Mathf.RoundToInt(fileSize/1024f/1024f) + " MB";
+                : fileSize <= 1024 * 1024
+                    ? Mathf.RoundToInt(fileSize / 1024f) + " KB"
+                    : Mathf.RoundToInt(fileSize / 1024f / 1024f) + " MB";
         }
 
         protected override void Draw(Rect r)
@@ -151,7 +151,7 @@ namespace vietlabs.fr2
             if (fc.nChunks > 0 && fc.nScaned < fc.nChunks)
             {
                 var rect = GUILayoutUtility.GetRect(1, Screen.width, 18f, 18f);
-                var p = fc.nScaned/(float) fc.nChunks;
+                var p = fc.nScaned / (float) fc.nChunks;
 
                 EditorGUI.ProgressBar(rect, p, string.Format("Scanning {0} / {1}", fc.nScaned, fc.nChunks));
                 GUILayout.FlexibleSpace();
@@ -232,7 +232,7 @@ namespace vietlabs.fr2
             }
 
             var file = new FileInfo(files[0]);
-            var nChunk = Mathf.CeilToInt(file.Length/(float) FR2_Head.chunkSize);
+            var nChunk = Mathf.CeilToInt(file.Length / (float) FR2_Head.chunkSize);
 
             heads.Add(new FR2_Head
             {
@@ -377,7 +377,7 @@ namespace vietlabs.fr2
                 return;
             }
 
-            var from = currentChunk*chunkSize;
+            var from = currentChunk * chunkSize;
             size = (int) Mathf.Min(fileSize - from, chunkSize);
 
             for (var i = 0; i < chunkList.Count; i++)

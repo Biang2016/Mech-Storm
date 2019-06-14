@@ -10,6 +10,10 @@ TagManager:
   - SelfBattleGroundArea
   - EnemyBattleGroundArea
   - Retinue
+  - _TagCanvas
+  - _TagUICamera
+  - HandArea
+  - BattleGroundArea
   layers:
   - Default
   - TransparentFX
@@ -20,30 +24,33 @@ TagManager:
   - 
   - 
   - Cards
-  - Retinues
+  - Mechs
   - BoardAreas
   - Slots
   - Modules
-  - 
-  - CardSelect
-  - Numbers
-  - 
-  - 
+  - Background
   - Ships
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - UX
   - Pivot
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2059754203
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

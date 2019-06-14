@@ -12,7 +12,7 @@ namespace vietlabs.fr2
         {
             EditorGUIUtility.systemCopyBuffer = AssetDatabase.AssetPathToGUID(
                 AssetDatabase.GetAssetPath(Selection.activeObject)
-                );
+            );
         }
 
         [MenuItem("Assets/FR2/Export Selection", false, 21)]
@@ -63,8 +63,10 @@ namespace vietlabs.fr2
                 {
                     list.RemoveAt(i);
                 }
+
                 //Debug.Log(i + ":" + list[i] + ":" + list[i].GetType());
             }
+
             Selection.objects = list.ToArray();
             FR2_Unity.ExportSelection();
         }
@@ -107,7 +109,7 @@ namespace vietlabs.fr2
                 var from = assetList[i].guid;
 
                 var arr = assetList[i].UsedByMap.Values.ToList();
-                for (var j = 0; j < arr.Count; j ++)
+                for (var j = 0; j < arr.Count; j++)
                 {
                     var a = arr[j];
                     var result = a.ReplaceReference(from, guid);
@@ -186,7 +188,6 @@ namespace vietlabs.fr2
             Selection.objects = dict.Values.ToArray();
         }
 
-
         //-------------------------- UTILS ---------------------
 
         internal static void AddToDict(Dictionary<string, Object> dict, params FR2_Asset[] list)
@@ -209,13 +210,14 @@ namespace vietlabs.fr2
                 Debug.LogWarning("FR2 cache not yet ready, please open Window > FR2_Window !");
                 return null;
             }
+
             return FR2_Cache.FindUsage(FR2_Unity.Selection_AssetGUIDs).Select(
                 guid =>
                 {
                     var assetPath = AssetDatabase.GUIDToAssetPath(guid);
                     return FR2_Unity.LoadAssetAtPath<Object>(assetPath);
                 }
-                ).ToList();
+            ).ToList();
         }
 
         //	AssetDatabase.ImportAsset(oAssetPath, ImportAssetOptions.Default);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 public class CardScreenShotEditor : ScriptableObject
 {
@@ -8,12 +8,13 @@ public class CardScreenShotEditor : ScriptableObject
     public static void CaptureScreen()
     {
         int i = 1;
-        foreach (KeyValuePair<int, CardBase> kv in SelectBuildManager.Instance.allCards)
+        foreach (KeyValuePair<int, CardBase> kv in UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards)
         {
-            SelectBuildManager.Instance.ShowPreviewCardPanel(kv.Value);
-            SelectBuildManager.Instance.HideOtherThingsExceptShowCard();
+            CardPreviewPanel cpp = UIManager.Instance.ShowUIForms<CardPreviewPanel>();
+            cpp?.ShowPreviewCardPanel(kv.Value, false);
+            cpp?.HideOtherThingsExceptShowCard();
 
-            Camera camera = GameManager.Instance.SelectCardWindowForeCamera;
+            Camera camera = BackGroundManager.Instance.BattleGroundCamera;
             RenderTexture rt = new RenderTexture(Screen.width, Screen.height, 0);
 
             camera.targetTexture = rt;

@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "PengLu/ImageEffect/Unlit/BlurBox" {  
+Shader "Biang/ImageEffect/Unlit/BlurBox" {  
     Properties {  
     _MainTex ("Base (RGB)", 2D) = "white" {}  
 }  

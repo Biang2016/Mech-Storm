@@ -1,0 +1,19 @@
+{
+    "name": "Server",
+    "references": [
+        "Core",
+        "Network",
+        "GameProxy",
+        "BattleProxy",
+        "BuildProxy",
+        "StoryProxy"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

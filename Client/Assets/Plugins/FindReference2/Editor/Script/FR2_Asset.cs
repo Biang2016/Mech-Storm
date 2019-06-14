@@ -26,7 +26,7 @@ namespace vietlabs.fr2
         TERRAIN,
         NON_READABLE
     }
-	
+
     public enum FR2_AssetState
     {
         NEW,
@@ -39,19 +39,35 @@ namespace vietlabs.fr2
     {
         // ------------------------------ CONSTANTS ---------------------------
 
-	    private static readonly HashSet<string> SCRIPT_EXTENSIONS = new HashSet<string>()
-	    {
-	    	".cs", ".js", ".boo"
-	    };
-
-	    private static readonly HashSet<string> REFERENCABLE_EXTENSIONS = new HashSet<string>()
+        private static readonly HashSet<string> SCRIPT_EXTENSIONS = new HashSet<string>()
         {
-            ".anim", ".controller", ".mat", ".unity", ".guiskin", ".prefab",
-            ".overridecontroller", ".mask", ".rendertexture", ".cubemap", ".flare",
-	        ".mat", ".prefab", ".physicsmaterial", ".fontsettings", ".asset", ".prefs"
+            ".cs",
+            ".js",
+            ".boo"
         };
 
-	    private static readonly HashSet<string> IGNORE_GUIDS = new HashSet<string>()
+        private static readonly HashSet<string> REFERENCABLE_EXTENSIONS = new HashSet<string>()
+        {
+            ".anim",
+            ".controller",
+            ".mat",
+            ".unity",
+            ".guiskin",
+            ".prefab",
+            ".overridecontroller",
+            ".mask",
+            ".rendertexture",
+            ".cubemap",
+            ".flare",
+            ".mat",
+            ".prefab",
+            ".physicsmaterial",
+            ".fontsettings",
+            ".asset",
+            ".prefs"
+        };
+
+        private static readonly HashSet<string> IGNORE_GUIDS = new HashSet<string>()
         {
             "00000000000000001000000000000000", // Assets
             "00000000000000002000000000000000", // ProjectSettings/InputManager.asset
@@ -62,7 +78,7 @@ namespace vietlabs.fr2
             "00000000000000007000000000000000", // ProjectSettings/TimeManager.asset
             "00000000000000008000000000000000", // ProjectSettings/DynamicsManager.asset
             "00000000000000009000000000000000", // ProjectSettings/QualitySettings.asset
-		
+
             // Reserved
             "00000000000000000000000000000000",
             "0000000000000000a000000000000000",
@@ -72,28 +88,123 @@ namespace vietlabs.fr2
             "0000000000000000e000000000000000",
             "0000000000000000f000000000000000"
         };
-	    
-	    private static readonly HashSet<string> SCRIPT_KEYWORDS = new HashSet<string>()
-	    {
-		    "abstract", "as", "base", "break", "case", "catch", "checked", "class", "const", "continue",
-		    "default", "delegate", "do", "else", "enum", "event", "explicit", "extern", "finally",
-		    "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface", "internal", "is",
-		    "lock", "namespace", "new", "operator", "out", "override", "params", "private",
-		    "protected", "public", "readonly", "ref", "return", "sealed", "sizeof", "stackalloc", "static",
-		    "struct", "switch", "this", "throw", "try", "typeof", "unchecked", "unsafe", "using", "virtual",
-		    "volatile", "while",
-		    "define", "elif", "else", "endif", "endregion", "error", "if", "line", "pragma", "region", "undef",
-		    "warning",
-		    "bool", "byte", "char", "decimal", "double", "float", "int", "long", "object", "sbyte", "short",
-		    "string", "uint", "ulong", "ushort", "void",
-		    "var", "true", "false", "Rect", "RectOffset", "CustomEditor", "null", "UNITY_4_3",
-		    "UNITY_5", "UNITY_4", "Type", "BindingFlags", "get", "set", "NonSerialized", "Serialized", "Package",
-		    "GUIContent", "AppDomain"
-	    };
-	    
-	    private static readonly HashSet<string> SCRIPT_SYMBOL = new HashSet<string>()
+
+        private static readonly HashSet<string> SCRIPT_KEYWORDS = new HashSet<string>()
         {
-            "class", "interface", "enum", "struct", "delegate"
+            "abstract",
+            "as",
+            "base",
+            "break",
+            "case",
+            "catch",
+            "checked",
+            "class",
+            "const",
+            "continue",
+            "default",
+            "delegate",
+            "do",
+            "else",
+            "enum",
+            "event",
+            "explicit",
+            "extern",
+            "finally",
+            "fixed",
+            "for",
+            "foreach",
+            "goto",
+            "if",
+            "implicit",
+            "in",
+            "interface",
+            "internal",
+            "is",
+            "lock",
+            "namespace",
+            "new",
+            "operator",
+            "out",
+            "override",
+            "params",
+            "private",
+            "protected",
+            "public",
+            "readonly",
+            "ref",
+            "return",
+            "sealed",
+            "sizeof",
+            "stackalloc",
+            "static",
+            "struct",
+            "switch",
+            "this",
+            "throw",
+            "try",
+            "typeof",
+            "unchecked",
+            "unsafe",
+            "using",
+            "virtual",
+            "volatile",
+            "while",
+            "define",
+            "elif",
+            "else",
+            "endif",
+            "endregion",
+            "error",
+            "if",
+            "line",
+            "pragma",
+            "region",
+            "undef",
+            "warning",
+            "bool",
+            "byte",
+            "char",
+            "decimal",
+            "double",
+            "float",
+            "int",
+            "long",
+            "object",
+            "sbyte",
+            "short",
+            "string",
+            "uint",
+            "ulong",
+            "ushort",
+            "void",
+            "var",
+            "true",
+            "false",
+            "Rect",
+            "RectOffset",
+            "CustomEditor",
+            "null",
+            "UNITY_4_3",
+            "UNITY_5",
+            "UNITY_4",
+            "Type",
+            "BindingFlags",
+            "get",
+            "set",
+            "NonSerialized",
+            "Serialized",
+            "Package",
+            "GUIContent",
+            "AppDomain"
+        };
+
+        private static readonly HashSet<string> SCRIPT_SYMBOL = new HashSet<string>()
+        {
+            "class",
+            "interface",
+            "enum",
+            "struct",
+            "delegate"
         };
 
         internal string assetFolder;
@@ -112,7 +223,6 @@ namespace vietlabs.fr2
         internal bool inPlugins;
         internal bool inResources;
         internal bool inStreamingAsset;
-
 
         internal bool loaded;
         public List<string> ScriptSymbols; // class, enum, delegate, interface definitions
@@ -135,12 +245,11 @@ namespace vietlabs.fr2
         //}
 
         internal FR2_AssetState state;
-	    public FR2_AssetType type;
-	    public List<string> UseGUIDs;
-	    
+        public FR2_AssetType type;
+        public List<string> UseGUIDs;
+
         //[NonSerialized] internal List<FR2_Asset> UsedBy		= new List<FR2_Asset>();
         internal Dictionary<string, FR2_Asset> UsedByMap = new Dictionary<string, FR2_Asset>();
-        
 
         public FR2_Asset(string guid)
         {
@@ -151,7 +260,6 @@ namespace vietlabs.fr2
             ScriptSymbols = new List<string>();
             ScriptTokens = new List<string>();
         }
-
 
         // ------------------------------- GETTERS -----------------------------
 
@@ -199,15 +307,15 @@ namespace vietlabs.fr2
 
         internal static bool IsValidGUID(string guid)
         {
-	        if (IGNORE_GUIDS.Contains(guid))
+            if (IGNORE_GUIDS.Contains(guid))
             {
                 return false;
             }
 
             var p = AssetDatabase.GUIDToAssetPath(guid);
-	        if (p != null && !p.StartsWith("Assets/", StringComparison.Ordinal))
+            if (p != null && !p.StartsWith("Assets/", StringComparison.Ordinal))
                 return false; // Asset can be missing but can not be at invalid path 
-	        return p != FR2_Cache.CachePath;
+            return p != FR2_Cache.CachePath;
         }
 
         internal void MarkAsDirty()
@@ -223,11 +331,11 @@ namespace vietlabs.fr2
 
         internal void GuessAssetType()
         {
-	        if (SCRIPT_EXTENSIONS.Contains(extension))
+            if (SCRIPT_EXTENSIONS.Contains(extension))
             {
                 type = FR2_AssetType.SCRIPT;
             }
-	        else if (REFERENCABLE_EXTENSIONS.Contains(extension))
+            else if (REFERENCABLE_EXTENSIONS.Contains(extension))
             {
                 var isUnity = extension == ".unity";
                 type = isUnity ? FR2_AssetType.SCENE : FR2_AssetType.REFERENCABLE;
@@ -380,6 +488,7 @@ namespace vietlabs.fr2
 #endif
                 return; // nothing changed
             }
+
             stamp = newStamp;
 
             UseGUIDs.Clear();
@@ -425,20 +534,20 @@ namespace vietlabs.fr2
             if (asset == null) return null;
 
             var refs = FR2_Cache.Api.FindAssets(asset.UseGUIDs.ToArray(), true);
-	        
-	        if (asset.ScriptUsage != null)
-	        {
-	        	for (var i = 0; i < asset.ScriptUsage.Count; i++)
-	        	{
-		        	var symbolList = FR2_Cache.Api.FindAllSymbol(asset.ScriptUsage[i]);
-		        	if (symbolList.Contains(asset)) continue;
-		        	
-		        	var symbol = symbolList[0];
-		        	if (symbol == null || refs.Contains(symbol)) continue;
-		        	refs.Add(symbol);
-	        	}	
-	        }
-	        
+
+            if (asset.ScriptUsage != null)
+            {
+                for (var i = 0; i < asset.ScriptUsage.Count; i++)
+                {
+                    var symbolList = FR2_Cache.Api.FindAllSymbol(asset.ScriptUsage[i]);
+                    if (symbolList.Contains(asset)) continue;
+
+                    var symbol = symbolList[0];
+                    if (symbol == null || refs.Contains(symbol)) continue;
+                    refs.Add(symbol);
+                }
+            }
+
             return refs;
         }
 
@@ -446,46 +555,45 @@ namespace vietlabs.fr2
         {
             return asset.UsedByMap.Values.ToList();
         }
-	    
-	    
-	    internal static List<string> FindUsageGUIDs(FR2_Asset asset, bool includeScriptSymbols)
-	    {
-	    	var result = new HashSet<string>();
-	    	if (asset == null) 
-	    	{
-	    		Debug.LogWarning("Asset invalid : " + asset.assetName);
-	    		return result.ToList();
-	    	}
-	    	
-	    	for (var i = 0;i < asset.UseGUIDs.Count; i++)
-	    	{
-	    		result.Add(asset.UseGUIDs[i]);
-	    	}
-	    	
-	    	if (!includeScriptSymbols) return result.ToList();
-	    	
-	    	if (asset.ScriptUsage != null)
-	    	{
-		    	for (var i = 0; i < asset.ScriptUsage.Count; i++)
-		    	{
-			    	var symbolList = FR2_Cache.Api.FindAllSymbol(asset.ScriptUsage[i]);
-			    	if (symbolList.Contains(asset)) continue;
-			    	
-			    	var symbol = symbolList[0];
-			    	if (symbol == null || result.Contains(symbol.guid)) continue;
-			    	
-			    	result.Add(symbol.guid);
-		    	}	
-	    	}
-	    	
-	    	return result.ToList();
-	    }
-	    
-	    internal static List<string> FindUsedByGUIDs(FR2_Asset asset)
-	    {
-		    return asset.UsedByMap.Keys.ToList();
-	    }
-	    
+
+        internal static List<string> FindUsageGUIDs(FR2_Asset asset, bool includeScriptSymbols)
+        {
+            var result = new HashSet<string>();
+            if (asset == null)
+            {
+                Debug.LogWarning("Asset invalid : " + asset.assetName);
+                return result.ToList();
+            }
+
+            for (var i = 0; i < asset.UseGUIDs.Count; i++)
+            {
+                result.Add(asset.UseGUIDs[i]);
+            }
+
+            if (!includeScriptSymbols) return result.ToList();
+
+            if (asset.ScriptUsage != null)
+            {
+                for (var i = 0; i < asset.ScriptUsage.Count; i++)
+                {
+                    var symbolList = FR2_Cache.Api.FindAllSymbol(asset.ScriptUsage[i]);
+                    if (symbolList.Contains(asset)) continue;
+
+                    var symbol = symbolList[0];
+                    if (symbol == null || result.Contains(symbol.guid)) continue;
+
+                    result.Add(symbol.guid);
+                }
+            }
+
+            return result.ToList();
+        }
+
+        internal static List<string> FindUsedByGUIDs(FR2_Asset asset)
+        {
+            return asset.UsedByMap.Keys.ToList();
+        }
+
         // ----------------------------- DRAW  ---------------------------------------
 
         internal float Draw(Rect r, bool highlight, bool drawPath = true)
@@ -499,14 +607,14 @@ namespace vietlabs.fr2
 
             if (hasMouse && Event.current.button == 1)
             {
-	            var menu = new GenericMenu();
-	            if (extension == ".prefab")
-	            {
-	            	menu.AddItem(new GUIContent("Edit in Scene"), false, EditPrefab);	
-	            }
-	            
+                var menu = new GenericMenu();
+                if (extension == ".prefab")
+                {
+                    menu.AddItem(new GUIContent("Edit in Scene"), false, EditPrefab);
+                }
+
                 menu.AddItem(new GUIContent("Open"), false, Open);
-	            menu.AddItem(new GUIContent("Ping"), false, Ping);
+                menu.AddItem(new GUIContent("Ping"), false, Ping);
                 menu.AddItem(new GUIContent(guid), false, CopyGUID);
                 //menu.AddItem(new GUIContent("Reload"), false, Reload);
 
@@ -519,7 +627,7 @@ namespace vietlabs.fr2
                 {
                     menu.AddSeparator(string.Empty);
                     AddArray(menu, ScriptSymbols, "+ ", "Definitions", "No Definition", false);
-	                
+
                     menu.AddSeparator(string.Empty);
                     AddArray(menu, ScriptUsage, "-> ", "Depends", "No Dependency", true);
                 }
@@ -554,12 +662,12 @@ namespace vietlabs.fr2
 
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
             {
-            	var pingRect = FR2_Setting.PingRow ? new Rect(0,r.y, r.x + r.width, r.height) : iconRect;
-            	if (pingRect.Contains(Event.current.mousePosition))
-            	{
-            		Ping();	
-            		Event.current.Use();
-            	}
+                var pingRect = FR2_Setting.PingRow ? new Rect(0, r.y, r.x + r.width, r.height) : iconRect;
+                if (pingRect.Contains(Event.current.mousePosition))
+                {
+                    Ping();
+                    Event.current.Use();
+                }
             }
 
             //if (UsedByMap != null && UsedByMap.Count > 0)
@@ -571,12 +679,9 @@ namespace vietlabs.fr2
             //    usageRect.xMax += 2f;
             //    GUI.Label(usageRect, str);
             //}
-	        
-	        
-	        
 
-	        var pathW = drawPath ? EditorStyles.miniLabel.CalcSize(new GUIContent(assetFolder)).x : 0;
-	        var nameW = EditorStyles.boldLabel.CalcSize(new GUIContent(assetName)).x;
+            var pathW = drawPath ? EditorStyles.miniLabel.CalcSize(new GUIContent(assetFolder)).x : 0;
+            var nameW = EditorStyles.boldLabel.CalcSize(new GUIContent(assetName)).x;
 
             if (singleLine)
             {
@@ -588,6 +693,7 @@ namespace vietlabs.fr2
                     GUI.DrawTexture(lbRect, EditorGUIUtility.whiteTexture);
                     GUI.color = c;
                 }
+
                 if (drawPath)
                 {
                     GUI.Label(LeftRect(pathW, ref lbRect), assetFolder, EditorStyles.miniLabel);
@@ -612,6 +718,7 @@ namespace vietlabs.fr2
                     GUI.DrawTexture(lbRect, EditorGUIUtility.whiteTexture);
                     GUI.color = c;
                 }
+
                 GUI.Label(lbRect, assetName, EditorStyles.boldLabel);
             }
 
@@ -704,12 +811,12 @@ namespace vietlabs.fr2
                 AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object))
             );
         }
-	    
-	    internal void EditPrefab()
-	    {
-	    	var prefab = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object));
-	    	Object.Instantiate(prefab);
-	    }
+
+        internal void EditPrefab()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object));
+            Object.Instantiate(prefab);
+        }
 
         internal void OpenScript(string definition)
         {
@@ -718,7 +825,7 @@ namespace vietlabs.fr2
 
             EditorGUIUtility.PingObject(
                 AssetDatabase.LoadAssetAtPath(asset.assetPath, typeof(Object))
-                );
+            );
         }
 
         internal void Reload()
@@ -800,7 +907,7 @@ namespace vietlabs.fr2
 
                 var refGUID = AssetDatabase.AssetPathToGUID(
                     AssetDatabase.GetAssetPath(refObj)
-                    );
+                );
 
                 //Debug.Log("Found Reference BinaryAsset <" + assetPath + "> : " + refGUID + ":" + refObj);
                 AddUseGUID(refGUID);
@@ -811,7 +918,7 @@ namespace vietlabs.fr2
         {
             var arr = terrain.detailPrototypes;
 
-            for (var i = 0; i < arr.Length; i ++)
+            for (var i = 0; i < arr.Length; i++)
             {
                 var aPath = AssetDatabase.GetAssetPath(arr[i].prototypeTexture);
                 var refGUID = AssetDatabase.AssetPathToGUID(aPath);
@@ -819,7 +926,7 @@ namespace vietlabs.fr2
             }
 
             var arr2 = terrain.treePrototypes;
-            for (var i = 0; i < arr2.Length; i ++)
+            for (var i = 0; i < arr2.Length; i++)
             {
                 var aPath = AssetDatabase.GetAssetPath(arr2[i].prefab);
                 var refGUID = AssetDatabase.AssetPathToGUID(aPath);
@@ -827,7 +934,7 @@ namespace vietlabs.fr2
             }
 
             var arr3 = terrain.splatPrototypes;
-            for (var i = 0; i < arr3.Length; i ++)
+            for (var i = 0; i < arr3.Length; i++)
             {
                 var aPath = AssetDatabase.GetAssetPath(arr3[i].texture);
                 var refGUID = AssetDatabase.AssetPathToGUID(aPath);
@@ -893,8 +1000,8 @@ namespace vietlabs.fr2
                 state = FR2_AssetState.MISSING;
                 return;
             }
-	        
-	        // PERFORMANCE HOG!
+
+            // PERFORMANCE HOG!
             var matches = Regex.Matches(text, @"\bguid: [a-f0-9]{32}\b");
 
             foreach (Match match in matches)
@@ -903,26 +1010,26 @@ namespace vietlabs.fr2
                 if (UseGUIDs.Contains(refGUID)) continue;
                 AddUseGUID(refGUID);
             }
-	        
-	        //var idx = text.IndexOf("guid: ");
-			//var counter=0;
-	        //while (idx != -1)
-	        //{
-	        //	var guid = text.Substring(idx + 6, 32);
-	        //	if (UseGUIDs.Contains(guid)) continue;
-	        //	AddUseGUID(guid);
-				
-			//	idx += 39;
-			//	if (idx > text.Length-40) break;
-				
-	        //	//Debug.Log(assetName + ":" +  guid);
-	        //	idx = text.IndexOf("guid: ", idx + 39);
-			//	if (counter++ > 100) break;
-	        //}
-			
-			//if (counter > 100){
-			//	Debug.LogWarning("Never finish on " + assetName);
-			//}
+
+            //var idx = text.IndexOf("guid: ");
+            //var counter=0;
+            //while (idx != -1)
+            //{
+            //	var guid = text.Substring(idx + 6, 32);
+            //	if (UseGUIDs.Contains(guid)) continue;
+            //	AddUseGUID(guid);
+
+            //	idx += 39;
+            //	if (idx > text.Length-40) break;
+
+            //	//Debug.Log(assetName + ":" +  guid);
+            //	idx = text.IndexOf("guid: ", idx + 39);
+            //	if (counter++ > 100) break;
+            //}
+
+            //if (counter > 100){
+            //	Debug.LogWarning("Never finish on " + assetName);
+            //}
         }
 
         internal void LoadFolder()
@@ -940,7 +1047,7 @@ namespace vietlabs.fr2
 
                 foreach (var f in files)
                 {
-	                if (f.EndsWith(".meta", StringComparison.Ordinal)) continue;
+                    if (f.EndsWith(".meta", StringComparison.Ordinal)) continue;
 
                     var fguid = AssetDatabase.AssetPathToGUID(f);
                     if (string.IsNullOrEmpty(fguid)) continue;
@@ -964,6 +1071,7 @@ namespace vietlabs.fr2
 #endif
                 state = FR2_AssetState.MISSING;
             }
+
             //Debug.Log("Load Folder :: " + assetName + ":" + type + ":" + UseGUIDs.Count);
         }
 
@@ -1138,9 +1246,9 @@ namespace vietlabs.fr2
                     //isSymbol = false;
                 }
 
-	            if (SCRIPT_KEYWORDS.Contains(word))
+                if (SCRIPT_KEYWORDS.Contains(word))
                 {
-		            var isSymbol = SCRIPT_SYMBOL.Contains(word);
+                    var isSymbol = SCRIPT_SYMBOL.Contains(word);
                     var isScope = word == "namespace" || word == "class";
                     var hasBrace = false;
 
@@ -1175,6 +1283,7 @@ namespace vietlabs.fr2
                                 c = text[idx];
                                 if (!char.IsLetterOrDigit(c) && c != '_') break;
                             }
+
                             nextWord = text.Substring(fromIdx, idx - fromIdx).Trim();
 
 //#if FR2_DEBUG_SYMBOL
@@ -1355,6 +1464,7 @@ namespace vietlabs.fr2
                             arr[i].prototypeTexture = (Texture2D) toObj;
                         }
                     }
+
                     terrain.detailPrototypes = arr;
 
                     var arr3 = terrain.splatPrototypes;
@@ -1387,6 +1497,7 @@ namespace vietlabs.fr2
                             arr2[i].prefab = (GameObject) toObj;
                         }
                     }
+
                     terrain.treePrototypes = arr2;
                 }
 

@@ -7,13 +7,13 @@ using UnityEngine;
 public class AssetBundlePacker
 {
     [MenuItem("AssetBundle/Packer/Windows")]
-    static void AssetBundlePacker_StandaloneWindows()
+    public static void AssetBundlePacker_StandaloneWindows()
     {
         Pack(BuildTarget.StandaloneWindows64);
     }
 
     [MenuItem("AssetBundle/Packer/MacOS")]
-    static void AssetBundlePacker_MacOS()
+    public static void AssetBundlePacker_MacOS()
     {
         Pack(BuildTarget.StandaloneOSX);
     }
@@ -64,13 +64,10 @@ public class AssetBundlePacker
             //| BuildAssetBundleOptions.DisableWriteTypeTree
             ;
 
-        SetPack("Prefabs", "*.prefab", PackFolderToABOption.UseABName,"prefabs");
         SetPack("Animations", "*", PackFolderToABOption.UseABName, "animations");
         SetPack("Materials", "*", PackFolderToABOption.UseABName, "materials");
         SetPack("Materials", "*.shader", PackFolderToABOption.UseABName, "shaders");
-        SetPack("Materials", "*.png", PackFolderToABOption.UseABName, "material_txs");
-        SetPack("Models", "*.fbx", PackFolderToABOption.UseABName, "models");
-        SetPack("Models", "*.mesh", PackFolderToABOption.UseABName, "models");
+        SetPack("Models", "*", PackFolderToABOption.UseABName, "models");
         SetPack("Fonts", "*", PackFolderToABOption.UseABName, "fonts");
         SetPack("Resources/SpriteAtlas", "*.spriteatlas", PackFolderToABOption.UseFileName, "atlas");
         SetPack("Resources/Audios/sfx", "*", PackFolderToABOption.UseABName, "audio_sfx");
@@ -79,6 +76,8 @@ public class AssetBundlePacker
         SetPack("Textures/Card", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card");
         SetPack("Textures/Card/CardComponents", "*.png", PackFolderToABOption.UseSubFolderName, "textures_card_cardcomponents");
         SetPack("Textures/UI", "*.png", PackFolderToABOption.UseSubFolderName, "textures_ui");
+        SetPack("Resources/Prefabs", "*.prefab", PackFolderToABOption.UseABName, "prefabs");
+
         CompatibilityBuildPipeline.BuildAssetBundles(out_path, GetAssetBundleBuild(), option, build_target);
     }
 

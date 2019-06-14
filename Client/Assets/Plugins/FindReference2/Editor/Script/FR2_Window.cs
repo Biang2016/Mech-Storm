@@ -25,39 +25,55 @@ namespace vietlabs.fr2
         //[NonSerialized] FR2_ScrollList duplicateScroller;
 
         [NonSerialized] private List<FR2_Asset> unusedArray;
+
         [NonSerialized] private FR2_TreeUI unusedScroller;
         //[NonSerialized] internal FR2_RefTree<FR2_Asset> UsedBy;
-	    //[NonSerialized] internal FR2_RefTree<FR2_Asset> Uses;
-	    
-	    [NonSerialized] internal FR2_RefDrawer UsesDrawer;
-	    [NonSerialized] internal FR2_RefDrawer UsedByDrawer;
-	    
-        private bool IsFocusingUses { get { return selectedTab == 0; } }
-        private bool IsFocusingUsedBy { get { return selectedTab == 1; } }
-        private bool IsFocusingDuplicate { get { return selectedTab == 2; } }
-	    private bool IsFocusingUnused { get { return selectedTab == 3; } }
-	    private bool IsFocusingGUIDs { get { return selectedTab == 4; } }
+        //[NonSerialized] internal FR2_RefTree<FR2_Asset> Uses;
+
+        [NonSerialized] internal FR2_RefDrawer UsesDrawer;
+        [NonSerialized] internal FR2_RefDrawer UsedByDrawer;
+
+        private bool IsFocusingUses
+        {
+            get { return selectedTab == 0; }
+        }
+
+        private bool IsFocusingUsedBy
+        {
+            get { return selectedTab == 1; }
+        }
+
+        private bool IsFocusingDuplicate
+        {
+            get { return selectedTab == 2; }
+        }
+
+        private bool IsFocusingUnused
+        {
+            get { return selectedTab == 3; }
+        }
+
+        private bool IsFocusingGUIDs
+        {
+            get { return selectedTab == 4; }
+        }
 
         public void AddItemsToMenu(GenericMenu menu)
-	    {
-		    var api = FR2_Cache.Api;
+        {
+            var api = FR2_Cache.Api;
             if (api == null) return;
-		    
-		    menu.AddDisabledItem(new GUIContent("FR2 - v1.2.10"));
-		    menu.AddSeparator(string.Empty);
-		    
-		    menu.AddItem(new GUIContent("Enable"), !api.disabled, () => 
-		    {
-			    api.disabled = !api.disabled;
-		    });
-		    menu.AddItem(new GUIContent("Refresh"), false, () => FR2_Cache.Api.Check4Changes(true, true));
-		    
-			#if FR2_DEV
+
+            menu.AddDisabledItem(new GUIContent("FR2 - v1.2.10"));
+            menu.AddSeparator(string.Empty);
+
+            menu.AddItem(new GUIContent("Enable"), !api.disabled, () => { api.disabled = !api.disabled; });
+            menu.AddItem(new GUIContent("Refresh"), false, () => FR2_Cache.Api.Check4Changes(true, true));
+
+#if FR2_DEV
 		    menu.AddItem(new GUIContent("Refresh Usage"), false, () => FR2_Cache.Api.Check4Usage());
 		    menu.AddItem(new GUIContent("Refresh Selected"), false, ()=> FR2_Cache.Api.RefreshSelection());
 		    menu.AddItem(new GUIContent("Clear Cache"), false, () => FR2_Cache.Api.Clear());
-			#endif
-		    
+#endif
         }
 
         [MenuItem("Window/Find Reference 2")]
@@ -76,12 +92,12 @@ namespace vietlabs.fr2
         private void Init()
         {
             //Uses = new FR2_RefTree<FR2_Asset>(FR2_Asset.FindUsage, DrawAsset);
-	        //UsedBy = new FR2_RefTree<FR2_Asset>(FR2_Asset.FindUsedBy, DrawAsset);
-	        
-	        UsesDrawer		= new FR2_RefDrawer();
-	        UsedByDrawer	= new FR2_RefDrawer();
-	        
-            Duplicated		= new FR2_DuplicateTree();
+            //UsedBy = new FR2_RefTree<FR2_Asset>(FR2_Asset.FindUsedBy, DrawAsset);
+
+            UsesDrawer = new FR2_RefDrawer();
+            UsedByDrawer = new FR2_RefDrawer();
+
+            Duplicated = new FR2_DuplicateTree();
             //    (item=>item.GetChildren(), (item, rect, s, b) =>
             //{
             //    item.Draw(rect);
@@ -129,78 +145,79 @@ namespace vietlabs.fr2
         private void OnSelectionChange()
         {
             if (!FR2_Cache.isReady) return;
-	        
-	        if (UsesDrawer == null) Init();
+
+            if (UsesDrawer == null) Init();
             //if (Uses == null) Init();
 
-	        //Selected = FR2_Cache.Api.FindAssets(FR2_Unity.Selection_AssetGUIDs, true);
+            //Selected = FR2_Cache.Api.FindAssets(FR2_Unity.Selection_AssetGUIDs, true);
 
             level = 0;
-	        //Uses.Reset(Selected);
-	        //UsedBy.Reset(Selected);
-	        UsesDrawer.Reset(FR2_Unity.Selection_AssetGUIDs, true);
-	        UsedByDrawer.Reset(FR2_Unity.Selection_AssetGUIDs, false);
+            //Uses.Reset(Selected);
+            //UsedBy.Reset(Selected);
+            UsesDrawer.Reset(FR2_Unity.Selection_AssetGUIDs, true);
+            UsedByDrawer.Reset(FR2_Unity.Selection_AssetGUIDs, false);
 
             Repaint();
             EditorApplication.delayCall += Repaint;
         }
-	    
-	    bool DrawEnable()
-	    {
-	    	var api = FR2_Cache.Api;
-	    	if (api == null) return false;
-	    	
-	    	var v = api.disabled;
-	    	
-	    	if (v)
-	    	{
-	    		EditorGUILayout.HelpBox("Find References 2 is disabled!", MessageType.Warning);
-	    		if (GUILayout.Button("Enable"))
-	    		{
-	    			api.disabled = !api.disabled;	
-	    			Repaint();
-	    		}
-	    		
-	    		return !api.disabled;
-	    	}
-	    	
-	    	if (!api.ready)
-	    	{
-	    		var w = EditorGUIUtility.labelWidth;
-		    	EditorGUIUtility.labelWidth = 70f;
-		    	api.priority = EditorGUILayout.IntSlider("Priority", api.priority, 0, 5);
-		    	EditorGUIUtility.labelWidth = w;
-	    	}
-	    
-		    return !api.disabled;
-	    }
-	    
-	    private static GUIContent[] TOOLBARS = new GUIContent[]
-	    {
-	    	new GUIContent("Uses"),
-		    new GUIContent("Used By"),
-		    new GUIContent("Duplicate"),
-		    new GUIContent("No Refs"),
-		    new GUIContent("GUIDs")
-	    };
-	    
+
+        bool DrawEnable()
+        {
+            var api = FR2_Cache.Api;
+            if (api == null) return false;
+
+            var v = api.disabled;
+
+            if (v)
+            {
+                EditorGUILayout.HelpBox("Find References 2 is disabled!", MessageType.Warning);
+                if (GUILayout.Button("Enable"))
+                {
+                    api.disabled = !api.disabled;
+                    Repaint();
+                }
+
+                return !api.disabled;
+            }
+
+            if (!api.ready)
+            {
+                var w = EditorGUIUtility.labelWidth;
+                EditorGUIUtility.labelWidth = 70f;
+                api.priority = EditorGUILayout.IntSlider("Priority", api.priority, 0, 5);
+                EditorGUIUtility.labelWidth = w;
+            }
+
+            return !api.disabled;
+        }
+
+        private static GUIContent[] TOOLBARS = new GUIContent[]
+        {
+            new GUIContent("Uses"),
+            new GUIContent("Used By"),
+            new GUIContent("Duplicate"),
+            new GUIContent("No Refs"),
+            new GUIContent("GUIDs")
+        };
+
         private void OnGUI()
         {
             if (window == null)
             {
                 Initialize();
             }
-	        
+
             if (EditorSettings.serializationMode != SerializationMode.ForceText)
             {
-				EditorGUILayout.HelpBox("FR2 requires serialization mode set to FORCE TEXT!", MessageType.Warning);
+                EditorGUILayout.HelpBox("FR2 requires serialization mode set to FORCE TEXT!", MessageType.Warning);
                 if (GUILayout.Button("FORCE TEXT"))
                 {
                     EditorSettings.serializationMode = SerializationMode.ForceText;
                 }
+
                 return;
             }
-	        
+
             if (!FR2_Cache.isReady)
             {
                 if (!FR2_Cache.hasCache)
@@ -210,22 +227,23 @@ namespace vietlabs.fr2
                     {
                         FR2_Cache.CreateCache();
                     }
+
                     return;
                 }
-	            
-	            if (!DrawEnable()) return;
-	            
+
+                if (!DrawEnable()) return;
+
                 var api = FR2_Cache.Api;
-                var text = "Refreshing ... " + (int) (api.progress*api.workCount) + " / " + api.workCount;
+                var text = "Refreshing ... " + (int) (api.progress * api.workCount) + " / " + api.workCount;
                 var rect = GUILayoutUtility.GetRect(1f, Screen.width, 18f, 18f);
                 EditorGUI.ProgressBar(rect, api.progress, text);
                 Repaint();
                 return;
             }
-	        
-	        if (!DrawEnable()) return;
-	        
-	        var newTab = GUILayout.Toolbar(selectedTab, TOOLBARS);
+
+            if (!DrawEnable()) return;
+
+            var newTab = GUILayout.Toolbar(selectedTab, TOOLBARS);
 
             if (newTab != selectedTab)
             {
@@ -246,16 +264,15 @@ namespace vietlabs.fr2
             //	GUILayout.Label("Nothing selected");
             //} 
 
-
             if (IsFocusingUses)
             {
-	            //Uses.Draw();
-	            UsesDrawer.Draw();
+                //Uses.Draw();
+                UsesDrawer.Draw();
             }
             else if (IsFocusingUsedBy)
             {
-	            //UsedBy.Draw();
-	            UsedByDrawer.Draw();
+                //UsedBy.Draw();
+                UsedByDrawer.Draw();
             }
             else if (IsFocusingDuplicate)
             {
@@ -269,7 +286,7 @@ namespace vietlabs.fr2
             {
                 DrawGUIDs();
             }
-	        
+
             if (willRepaint) Repaint();
         }
 
@@ -293,8 +310,8 @@ namespace vietlabs.fr2
                 {
                     tempGUID = guid;
 
-	                tempObject = FR2_Unity.LoadAssetAtPath<Object>
-	                (
+                    tempObject = FR2_Unity.LoadAssetAtPath<Object>
+                    (
                         AssetDatabase.GUIDToAssetPath(tempGUID)
                     );
                 }
@@ -331,7 +348,7 @@ namespace vietlabs.fr2
                 FR2_Export.MergeDuplicate();
             }
         }
-	    
+
         private void DrawUnused()
         {
             if (unusedArray == null) unusedArray = new List<FR2_Asset>();

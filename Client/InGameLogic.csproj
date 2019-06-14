@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>4</LangVersion>
+    <LangVersion>latest</LangVersion>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup>
@@ -9,13 +9,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{CB263AC7-42BE-3C47-D98A-74A74A6F1B06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>InGameLogic</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -24,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_2;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;NET_LEGACY;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;UNITY_POST_PROCESSING_STACK_V2</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_10;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -55,158 +54,191 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Card\Affixs\Affix.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardDeckCard.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\CardSpell.cs" />
-    <Compile Include="Assets\Scripts\Card\Cards\ColliderReplace.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleBase.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleMA.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModulePack.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleShield.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\ModuleWeapon.cs" />
-    <Compile Include="Assets\Scripts\Card\Modules\Slot.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\CardNumber.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\CardNumberSet.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\TextFly.cs" />
-    <Compile Include="Assets\Scripts\Card\Number\TextFlyPile.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToEnemyDeck.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\TriggerOneHandCard.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\DoubleEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\Exile.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenAttack.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenRoundBegin.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenUseMetal.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenAttack.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\AddAttackRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\RetinueRelatedSideEffects\SummonRetinue.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddArmorOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddEnergyPerMechs.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddLifeRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddShieldOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\AddWeaponEnergy.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Cooperation.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\DamageRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Degenerate.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HalfShield.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\HealRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\IllusionToOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillAll.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillOne.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\KillRandom.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\RunAway.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\Sacrifice.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\SummonRetinuePerMechs.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TargetSideEffects\TargetSideEffectToEquip\BreakEquip.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
-    <Compile Include="Assets\Scripts\Card\SideEffects\UseAllEnergyDamageShip.cs" />
-    <Compile Include="Assets\Scripts\Common\ABManager.cs" />
-    <Compile Include="Assets\Scripts\Common\AtlasManager.cs" />
-    <Compile Include="Assets\Scripts\Common\ClientLog.cs" />
-    <Compile Include="Assets\Scripts\Common\ClientUtils.cs" />
-    <Compile Include="Assets\Scripts\Common\DebugConsole.cs" />
-    <Compile Include="Assets\Scripts\Common\GameObjectPool.cs" />
-    <Compile Include="Assets\Scripts\Common\GameObjectPoolManager.cs" />
-    <Compile Include="Assets\Scripts\Common\Initialization.cs" />
-    <Compile Include="Assets\Scripts\Common\iTween.cs" />
-    <Compile Include="Assets\Scripts\Common\MonoSingleton.cs" />
-    <Compile Include="Assets\Scripts\Common\MonoSingletonManager.cs" />
-    <Compile Include="Assets\Scripts\Common\PoolObject.cs" />
-    <Compile Include="Assets\Scripts\Effects\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Effects\Hit.cs" />
-    <Compile Include="Assets\Scripts\Effects\HitManager.cs" />
-    <Compile Include="Assets\Scripts\Effects\LensFlareIdle.cs" />
-    <Compile Include="Assets\Scripts\Effects\NormalParticle.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\AffixManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\BattleEffectsManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\BattleGroundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\CardDeckManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ClientPlayer.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\CoolDownCardManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ExitMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\GameBoardManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\HandManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\InGameUIManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\LoginManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\MetalLifeEnergyManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\NoticeManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\PlayerBuffManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\RoundManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\RoundManager_Response.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Build.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_LifeMagicCoinCardnum.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_PreviewUpgrade.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SelectBuildManager_Select.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\SettingMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\ShowCardDetailInBattleManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\StartMenuManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\StoryManager.cs" />
-    <Compile Include="Assets\Scripts\GamePlay\WinLostPanelManager.cs" />
-    <Compile Include="Assets\Scripts\Network\Client.cs" />
-    <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
-    <Compile Include="Assets\Scripts\Network\Proxy.cs" />
-    <Compile Include="Assets\Scripts\UI\BattleFieldObjs\CoolDownCardIcon.cs" />
-    <Compile Include="Assets\Scripts\UI\BattleFieldObjs\PlayerBuff.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\BigBonusItem.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\BonusButton.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\BonusItem_Base.cs" />
-    <Compile Include="Assets\Scripts\UI\Bonus\SmallBonusItem.cs" />
-    <Compile Include="Assets\Scripts\UI\ButtonEffects.cs" />
-    <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\ConfirmWindow\ConfirmWindowManager.cs" />
-    <Compile Include="Assets\Scripts\UI\CostBar\MetalBarBlock.cs" />
-    <Compile Include="Assets\Scripts\UI\CostBar\MetalBarManager.cs" />
-    <Compile Include="Assets\Scripts\UI\DebugUILine.cs" />
-    <Compile Include="Assets\Scripts\UI\ImageEffectBlurBox.cs" />
-    <Compile Include="Assets\Scripts\UI\InputNavigator.cs" />
-    <Compile Include="Assets\Scripts\UI\ScreenFitness.cs" />
-    <Compile Include="Assets\Scripts\UI\ScreenSetting.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButton.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildButtonClick.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\BuildRenamePanel.cs" />
-    <Compile Include="Assets\Scripts\UI\SelectBuildWindow\SelectCard.cs" />
-    <Compile Include="Assets\Scripts\UI\ShrinkText.cs" />
-    <Compile Include="Assets\Scripts\UI\Story\StoryCol.cs" />
-    <Compile Include="Assets\Scripts\UI\Story\StoryLevelButton.cs" />
-    <Compile Include="Assets\Scripts\UI\TransitManager.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\Arrow.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\ArrowAiming.cs" />
-    <Compile Include="Assets\Scripts\UX\Arrows\ArrowArrow.cs" />
-    <Compile Include="Assets\Scripts\UX\DragComponent.cs" />
-    <Compile Include="Assets\Scripts\UX\DragManager.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverComponent.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverManager.cs" />
-    <Compile Include="Assets\Scripts\UX\MouseHoverUI.cs" />
-    <Compile Include="Assets\Scripts\UX\OnClick.cs" />
-    <Compile Include="Assets\Scripts\UX\OnPointerHoverAndLeave.cs" />
-    <Compile Include="Assets\Scripts\UX\PreviewPanelBG.cs" />
-    <Compile Include="Assets\Scripts\UX\Ship.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\CameraEffects\ImageEffectBlurBox.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\ClientUtils.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\Initialization.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\Localization\LanguageManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\Log\ClientLog.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\Log\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\MonoSingleton.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\ObjectPool\GameObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\ObjectPool\GameObjectPoolManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\ObjectPool\PoolObject.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\PrefabManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\DebugUILine.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\InputNavigator.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\OnMouseClick.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\OnPointerHoverAndLeave.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\BaseUIForm.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\EventTriggerListener.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIDefines.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIMaskMgr.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIType.cs" />
+    <Compile Include="Assets\Scripts\Client\Basic\UI\UtilPanels\ConfirmPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\Hit.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\HitManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\LensFlareIdle.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\NormalParticle.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleEffectsManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleGroundManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattlePlayer.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\CardDeckManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\ClientPlayer.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\CoolDownCardManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\HandManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\MetalLifeEnergyManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\PlayerBuffManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\RoundManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\RoundManager_Response.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\Ship.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Battle\ShipStyleManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\CardBase.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\CardDeckCard.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\CardEquip.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\CardMech.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\CardSelectWindowCardContainer.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\CardSpell.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\ColliderReplace.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardBackComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardBasicComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardCoinComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardComponentBase.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardCostIconComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardDescComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardLifeComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardNoticeComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardSelectCountComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardSlotsComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Cards\Components\CardStarsComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechAttrShapesComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechBattleInfoComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechBattleInfoIcon.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechBloomComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechComponentBase.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechEquipSystemComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechLifeComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechSwordShieldArmorComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechTargetPreviewArrowsComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechTriggerIcon.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Components\MechComponents\MechTriggerIconComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModuleBase.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModuleEquip.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModuleMA.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModuleMech.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModulePack.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModuleShield.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\ModuleWeapon.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Modules\Slot.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Number\TextFly.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\Number\TextFlyPile.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToDeck.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardDeckRelatedSideEffects\AddTempCardToEnemyDeck.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardDeckRelatedSideEffects\CopyNextDrawCard.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardDeckRelatedSideEffects\DrawCards.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardDeckRelatedSideEffects\DrawTypeCards.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardRelatedSideEffects\GetHandCardCopy.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardRelatedSideEffects\TriggerOneHandCard.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\CardRelatedSideEffects\WaitInHandDecreaseMagic.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\DoubleEnergy.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\Exile.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenAttack.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenRoundBegin.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddEnergyWhenUseMetal.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\AddPlayerBuff.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DamageEnemyShipWhenUseCards.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\PlayerBuffRelatedSideEffects\NextSpellDamageDouble.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\SummonMech.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\EquipBased\BreakEquip.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\AddLife.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\Damage.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\Heal.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\LifeBased\Kill.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddArmor.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddAttack.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddShield.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\AddWeaponEnergy.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Cooperation.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Degenerate.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\HalfShield.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Illusion.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\RunAway.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\Sacrifice.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\StealEnergyByMechCount.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\MechBased\SummonMechByMechCount.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TargetSideEffects\ShipBased\AddEnergy.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Card\SideEffects\UseAllEnergyDamageShip.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\FunctionManagers\BackGroundManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\FunctionManagers\NoticeManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\FunctionManagers\ShowCardDetailInBattleManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Online\OnlineManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\CardEditorManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\RootManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\BuildButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\SelectCard.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\SelectBuildManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\StoryManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\AffixPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\BattleResultPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\BattleUIPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\BuildRenamePanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\CardEditorPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\CardPreviewPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Affix.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\BattleFieldObjs\CoolDownCardIcon.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\BattleFieldObjs\PlayerBuff.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Bonus\BigBonusItem.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Bonus\BonusButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Bonus\BonusItem_Base.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Bonus\SmallBonusItem.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPreviewButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_ExecuteSetting.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffect.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectBundle.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectExecute.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PicPreviewButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow_Dropdown.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow_InputField.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow_Toggle.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\PropertyFormRow_TwoToggleRow.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ExitMenuButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\MetalBar\MetalBarBlock.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\MetalBar\MetalBarManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShrinkText.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StarsGroup.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StartMenuButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\ExitMenuPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\LevelEditorPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\LoginPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_Bars.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_Builds.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_Cards.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_SelectCards.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SettingPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StartMenuPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\Network\Client.cs" />
+    <Compile Include="Assets\Scripts\Client\Network\NetworkManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Network\Proxy.cs" />
+    <Compile Include="Assets\Scripts\Client\Packing\ABManager.cs" />
+    <Compile Include="Assets\Scripts\Client\Packing\AtlasManager.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\Arrows\Arrow.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\Arrows\ArrowAiming.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\Arrows\ArrowArrow.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\DragComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\DragManager.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\MouseHoverComponent.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\MouseHoverManager.cs" />
+    <Compile Include="Assets\Scripts\Client\UX\MouseHoverUI.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -435,26 +467,26 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.WebGL.Extensions">
-      <HintPath>/Applications/Unity/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>/Applications/Unity/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.OSXStandalone.Extensions">
       <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="MyCardGameCommon">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/MyCardGameCommon.dll</HintPath>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.2d.common@1.0.10-preview/Tests/Editor/Lib/NSubstitute/NSubstitute.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Advertisements">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
@@ -465,36 +497,372 @@
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Purchasing">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+    <Reference Include="DOTween50">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/DOTween/DOTween50.dll</HintPath>
     </Reference>
-    <Reference Include="mscorlib">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll</HintPath>
+    <Reference Include="DOTween">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/DOTween/DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="System">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.dll</HintPath>
+    <Reference Include="DOTween46">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/DOTween/DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/DOTween/DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.NonGeneric">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.NonGeneric.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Specialized.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.EventBasedAsync">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.EventBasedAsync.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Common">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Contracts">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.FileVersionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TextWriterTraceListener">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tools">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.TraceSource">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TraceSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tracing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Drawing.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Dynamic.Runtime">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Dynamic.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Extensions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.DriveInfo">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.DriveInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Watcher">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Watcher.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.IsolatedStorage">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.IsolatedStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.MemoryMappedFiles">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.MemoryMappedFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipes">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Pipes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.UnmanagedMemoryStream">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.UnmanagedMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Parallel">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Queryable">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Queryable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NameResolution">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NameResolution.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.NetworkInformation">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NetworkInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Ping">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Ping.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Requests">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Requests.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Security">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebHeaderCollection">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebHeaderCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Extensions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Reader">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.ResourceManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Writer">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Writer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.VisualC">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.CompilerServices.VisualC.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Handles">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Handles.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Numerics">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Formatters.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Json">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Xml">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Claims">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Claims.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Csp">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Csp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Principal.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.SecureString">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Security.SecureString.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.Extensions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Text.RegularExpressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Overlapped">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Overlapped.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Parallel">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.Parallel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.ThreadPool">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.ThreadPool.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Timer">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Timer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XDocument">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XPath">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.XmlSerializer">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.ComponentModel.Composition.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll</HintPath>
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.IO.Compression.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Runtime.Serialization.dll</HintPath>
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Runtime.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll</HintPath>
+    <Reference Include="System.ServiceModel.Web">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.ServiceModel.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Transactions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.Linq.dll</HintPath>
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="UnityScript">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.dll</HintPath>
+    <Reference Include="System.Xml.Serialization">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="UnityScript.Lang">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.Lang.dll</HintPath>
+    <Reference Include="System.Xml">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.Xml.dll</HintPath>
     </Reference>
-    <Reference Include="Boo.Lang">
-      <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/Boo.Lang.dll</HintPath>
+    <Reference Include="System">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/System.dll</HintPath>
     </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Core.csproj">
+      <Project>{7F24B9D5-CA2C-D3DF-6105-8036A13F501D}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
