@@ -26050,20 +26050,6 @@ MonoBehaviour:
     - 7c474a98f9c4449f48a9560c316591a6
     - af57829c885654927b35e6098e974324
     - 1f6b3e1ed2070495da22f58ca92f52db
-  - guid: af57829c885654927b35e6098e974324
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1560526669
-    type: 1
-    UseGUIDs:
-    - 0dabf1a07d49a4caf83418bc77de961c
-  - guid: 1f6b3e1ed2070495da22f58ca92f52db
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1560526669
-    type: 1
-    UseGUIDs:
-    - 6c4c4ef8df4f64706a8ca798a0e3d81c
   - guid: 4e5a7fb939c114c2ab8edfd6c0aaa607
     ScriptSymbols: []
     ScriptTokens: []
