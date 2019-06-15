@@ -10,7 +10,7 @@ if [ -n "$1" ]; then
     zip_name="$build_dir/MechStorm-MacOS-V$1.app.zip"
     echo "归档压缩包名称: $zip_name"
     if [ ! -f "$zip_name" ];then
-      zip -r $zip_name /root/GameServer/MyFirstCardGame/Client/Build/osx/*
+      zip -r $zip_name /root/GameServer/MechStorm/Client/Build/osx/*
     else
       echo "已存在该版本zip，取消归档"
     fi
