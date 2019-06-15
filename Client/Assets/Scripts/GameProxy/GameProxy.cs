@@ -143,7 +143,7 @@ public class GameProxy
                 break;
             }
             case MatchStandaloneRequest r:
-
+            {
                 DebugLog.PrintClientStates("Client " + ClientID + " state: " + ClientState);
 
                 if (ClientState != ProxyBase.ClientStates.Login)
@@ -186,6 +186,7 @@ public class GameProxy
                 }
 
                 break;
+            }
             case BonusGroupRequest r:
             {
                 Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
