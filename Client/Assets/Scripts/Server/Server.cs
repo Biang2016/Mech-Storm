@@ -34,7 +34,7 @@ public class Server
 
     public ServerGameMatchManager SGMM;
 
-    public static string ServerRoot => "./MyFirstCardGame/ServerBuild/";
+    public static string ServerRoot => "./MechStorm/ServerBuild/";
 
     public void Start()
     {
