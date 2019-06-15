@@ -83,7 +83,7 @@ public class Server
 
     private void OnRestartSideEffects() //所有的副作用在此注册
     {
-        List<Type> types = Utils.GetClassesByNameSpace("SideEffects");
+        List<Type> types = Utils.GetClassesByNameSpace("SideEffects", Assembly.GetAssembly(typeof(Battle)));
         MethodInfo mi = typeof(SideEffectManager).GetMethod("AddSideEffectTypes");
         foreach (Type type in types)
         {

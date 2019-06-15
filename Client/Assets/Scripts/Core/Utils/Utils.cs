@@ -15,13 +15,11 @@ public partial class Utils
     public static DebugLogDelegate DebugLog;
     public static NoticeCenterMsgDelegate NoticeCenterMsg;
 
-    public static List<Type> GetClassesByNameSpace(string nameSpace)
+    public static List<Type> GetClassesByNameSpace(string nameSpace,Assembly assembly)
     {
-        Assembly asm = Assembly.GetCallingAssembly();
-
         List<Type> res = new List<Type>();
 
-        foreach (Type type in asm.GetTypes())
+        foreach (Type type in assembly.GetTypes())
         {
             if (type.Namespace == nameSpace)
                 res.Add(type);
