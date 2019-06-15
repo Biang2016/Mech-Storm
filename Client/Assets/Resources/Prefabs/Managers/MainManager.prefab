@@ -569,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23e5ab0be1ea4c4a86dd51032721fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LocalSerailizeRequest: 1
 --- !u!1 &5478889856200420692
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +710,7 @@ GameObject:
   - component: {fileID: -3201438887945825591}
   - component: {fileID: 8539236677115644909}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: MainManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

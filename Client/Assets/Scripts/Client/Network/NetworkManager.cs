@@ -252,17 +252,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
         try
         {
-            DataStream bufferWriter = new DataStream(true);
-            request.Serialize(bufferWriter);
-            byte[] msg = bufferWriter.ToByteArray();
-
-            byte[] buffer = new byte[msg.Length + 4];
-            DataStream writer = new DataStream(buffer, true);
-
-            writer.WriteSInt32(msg.Length); //增加数据长度
-            writer.WriteRaw(msg);
-
-            byte[] data = writer.ToByteArray();
+            byte[] data = SerializeRequest(request);
 
             IAsyncResult asyncSend = ServerSocket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), ServerSocket);
             bool success = asyncSend.AsyncWaitHandle.WaitOne(5000, true);
@@ -279,6 +269,22 @@ public class NetworkManager : MonoSingleton<NetworkManager>
             ClientLog.Instance.PrintError("[C]Send error : " + e.ToString());
             RoundManager.Instance.StopGame();
         }
+    }
+
+    public static byte[] SerializeRequest(RequestBase request)
+    {
+        DataStream bufferWriter = new DataStream(true);
+        request.Serialize(bufferWriter);
+        byte[] msg = bufferWriter.ToByteArray();
+
+        byte[] buffer = new byte[msg.Length + 4];
+        DataStream writer = new DataStream(buffer, true);
+
+        writer.WriteSInt32(msg.Length); //增加数据长度
+        writer.WriteRaw(msg);
+
+        byte[] data = writer.ToByteArray();
+        return data;
     }
 
     private void SendCallback(IAsyncResult asyncConnect)

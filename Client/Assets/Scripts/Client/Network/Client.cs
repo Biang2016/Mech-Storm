@@ -23,6 +23,12 @@
         Proxy.OnClientStateChange = null;
     }
 
+#if UNITY_EDITOR
+    private bool LocalSerailizeRequest = true;
+#else
+    private bool LocalSerailizeRequest = false;
+#endif
+
     public void SetNetwork(bool isOnline)
     {
         if (isOnline)
@@ -34,7 +40,15 @@
             NetworkManager.Instance.Closed();
             NetworkManager.Instance.TerminateConnection();
             Proxy.Socket = null;
-            Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxy);
+            if (LocalSerailizeRequest)
+            {
+                Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxyWithSerialization);
+            }
+            else
+            {
+                Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxy);
+            }
+
             GameProxy = new GameProxy(999, "Player1", NetworkManager.ClientVersion, SendFromLocalGameProxyToClient, ClientLog.Instance);
             GameProxy.SendClientIDRequest();
         }
@@ -43,6 +57,13 @@
     private void SendToLocalGameProxy(object obj)
     {
         GameProxy.ReceiveRequest((ClientRequestBase) obj);
+    }
+
+    private void SendToLocalGameProxyWithSerialization(object obj)
+    {
+        byte[] data = NetworkManager.SerializeRequest((ClientRequestBase) obj);
+        DataStream stream = new DataStream(data, true);
+        ProtoManager.TryLocalDeserialize(stream, GameProxy.ReceiveRequest);
     }
 
     private void SendFromLocalGameProxyToClient(ServerRequestBase request)

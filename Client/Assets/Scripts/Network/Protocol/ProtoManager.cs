@@ -7,9 +7,9 @@ public static class ProtoManager
 {
     private static Dictionary<int, Func<DataStream, RequestBase>> mProtocolMapping;
 
-    public delegate void requestDelegate(RequestBase requestBase);
+    public delegate void RequestDelegate(RequestBase requestBase);
 
-    private static Dictionary<int, List<requestDelegate>> mDelegateMapping;
+    private static Dictionary<int, List<RequestDelegate>> mDelegateMapping;
 
     /// <summary>
     /// 所有协议在此注册
@@ -17,7 +17,7 @@ public static class ProtoManager
     static ProtoManager()
     {
         mProtocolMapping = new Dictionary<int, Func<DataStream, RequestBase>>();
-        mDelegateMapping = new Dictionary<int, List<requestDelegate>>();
+        mDelegateMapping = new Dictionary<int, List<RequestDelegate>>();
 
         List<Type> types = Utils.GetClassesByBaseClass(typeof(ClientRequestBase), Assembly.GetAssembly(typeof(ClientRequestBase)));
         types.AddRange(Utils.GetClassesByBaseClass(typeof(ServerRequestBase), Assembly.GetAssembly(typeof(ClientRequestBase))));
@@ -52,9 +52,9 @@ public static class ProtoManager
     /// </summary>
     /// <param name="protocol">Protocol.</param>
     /// <param name="d">D.</param>
-    public static void AddRequestDelegate(int protocol, requestDelegate d)
+    public static void AddRequestDelegate(int protocol, RequestDelegate d)
     {
-        List<requestDelegate> dels;
+        List<RequestDelegate> dels;
         if (mDelegateMapping.ContainsKey(protocol))
         {
             dels = mDelegateMapping[protocol];
@@ -68,18 +68,18 @@ public static class ProtoManager
         }
         else
         {
-            dels = new List<requestDelegate>();
+            dels = new List<RequestDelegate>();
             mDelegateMapping.Add(protocol, dels);
         }
 
         dels.Add(d);
     }
 
-    public static void DelRespDelegate(int protocol, requestDelegate d)
+    public static void DelRespDelegate(int protocol, RequestDelegate d)
     {
         if (mDelegateMapping.ContainsKey(protocol))
         {
-            List<requestDelegate> dels = mDelegateMapping[protocol];
+            List<RequestDelegate> dels = mDelegateMapping[protocol];
             dels.Remove(d);
         }
     }
@@ -95,12 +95,33 @@ public static class ProtoManager
             {
                 if (mDelegateMapping.ContainsKey(protocol))
                 {
-                    List<requestDelegate> dels = mDelegateMapping[protocol];
-                    foreach (requestDelegate del in dels)
+                    List<RequestDelegate> dels = mDelegateMapping[protocol];
+                    foreach (RequestDelegate del in dels)
                     {
                         del(requestBase);
                     }
                 }
+            }
+        }
+        else
+        {
+            throw new Exception("no register protocol : " + protocol + "!please reg to RegisterResp.");
+        }
+
+        return requestBase;
+    }
+
+    public static RequestBase TryLocalDeserialize(DataStream stream, RequestDelegate del)
+    {
+        int length = stream.ReadSInt32(); //useless length
+        int protocol = stream.ReadSInt32();
+        RequestBase requestBase = null;
+        if (mProtocolMapping.ContainsKey(protocol))
+        {
+            requestBase = mProtocolMapping[protocol](stream);
+            if (requestBase != null)
+            {
+                del(requestBase);
             }
         }
         else

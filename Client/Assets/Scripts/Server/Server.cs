@@ -25,11 +25,11 @@ public class Server
         Port = port;
     }
 
-    public string IP;
-    public int Port;
+    private string IP;
+    private int Port;
     public static string ServerVersion = "1.0.1";
     private Socket SeverSocket;
-    public Dictionary<int, ServerProxy> ClientsDict = new Dictionary<int, ServerProxy>();
+    private Dictionary<int, ServerProxy> ClientsDict = new Dictionary<int, ServerProxy>();
     private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();
 
     public ServerGameMatchManager SGMM;
@@ -99,7 +99,7 @@ public class Server
     /// 所有的客户端提前异常退出、正常退出都走此方法
     /// </summary>
     /// <param name="clientProxy"></param>
-    public void ClientProxyClose(ServerProxy clientProxy)
+    private void ClientProxyClose(ServerProxy clientProxy)
     {
         SGMM.OnClientCancelMatch(clientProxy);
         SGMM.RemoveGame(clientProxy);
@@ -108,7 +108,7 @@ public class Server
         UserDatabase.Instance.RemoveLoginUser(clientProxy.ClientID);
     }
 
-    public void StartSeverSocket()
+    private void StartSeverSocket()
     {
         try
         {
@@ -134,7 +134,7 @@ public class Server
 
     private int clientIdGenerator = 1000;
 
-    public int GenerateClientId()
+    private int GenerateClientId()
     {
         return clientIdGenerator++;
     }
@@ -197,7 +197,6 @@ public class Server
                 if (i <= 0)
                 {
                     ServerLog.Instance.PrintClientStates("Client shutdown, ID: " + clientProxy.ClientID + " IP: " + clientProxy.Socket.RemoteEndPoint + "  Clients count: " + ClientsDict.Count);
-
                     ClientProxyClose(clientProxy);
                     break;
                 }

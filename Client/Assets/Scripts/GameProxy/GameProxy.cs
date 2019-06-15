@@ -51,8 +51,9 @@ public class GameProxy
         SendMessage(request);
     }
 
-    public void ReceiveRequest(ClientRequestBase request)
+    public void ReceiveRequest(RequestBase requestBase)
     {
+        ClientRequestBase request = (ClientRequestBase) requestBase;
         switch (request)
         {
             case ClientVersionValidRequest _:
