@@ -3,26 +3,36 @@ git pull
 rm -rf ./ServerBuild/*
 cd ./ServerBuild
 
-cp ../Client/Build/osx/MechStorm.app/Contents/Resources/Data/Managed/*.dll ./
+find ../Client/Assets/Scripts/Core -name '*.cs' -type f | xargs -i cp {} ./
+cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
+csc /r:Newtonsoft.Json.dll /target:library /out:Core.dll ./*.cs
+rm -f ./*.cs
+
+find ../Client/Assets/Scripts/Network -name '*.cs' -type f | xargs -i cp {} ./
+cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
+csc /r:Core.dll /r:Newtonsoft.Json.dll /target:library /out:Network.dll ./*.cs
+rm -f ./*.cs
+
+find ../Client/Assets/Scripts/BattleProxy -name '*.cs' -type f | xargs -i cp {} ./
+cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
+csc /r:Core.dll /r:Network.dll /r:Newtonsoft.Json.dll /target:library /out:BattleProxy.dll ./*.cs
+rm -f ./*.cs
+
+find ../Client/Assets/Scripts/GameProxy -name '*.cs' -type f | xargs -i cp {} ./
+cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
+csc /r:Core.dll /r:Network.dll /r:BattleProxy.dll /r:Newtonsoft.Json.dll /target:library /out:GameProxy.dll ./*.cs
+rm -f ./*.cs
+
+find ../Client/Assets/Scripts/Server -name '*.cs' -type f | xargs -i cp {} ./
+cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
+csc /r:Core.dll /r:Network.dll /r:BattleProxy.dll /r:GameProxy.dll /r:Newtonsoft.Json.dll /target:library /out:Server.dll ./*.cs
+rm -f ./*.cs
+
+cp ../Client/Assets/Scripts/ServerConsole/ServerConsole.cs ./
+
 chmod 777  ./*
-find . -name "Server.dll" -exec rm -f {} \;
-find . -name "Client.dll" -exec rm -f {} \;
-find . -name "OutGameLogic.dll" -exec rm -f {} \;
-find . -name "Assembly-CSharp.dll" -exec rm -f {} \;
-find . -name "Unity*.dll" -exec rm -f {} \;
-find . -name "DOTween*.dll" -exec rm -f {} \;
-find . -name "TextMeshPro*.dll" -exec rm -f {} \;
 
-cmd='csc '
-for dllName in $(ls)
-  do
-    cmd=$cmd'/reference:"'$dllName'" '
-  done
-
-cmd=$cmd" *.cs"
-echo $cmd
-find ../Client/Assets/Scripts/Server -name '*.cs' -type f | xargs -i cp {} ./;
-result=`$cmd`
+csc /reference:Core.dll /reference:BattleProxy.dll /reference:GameProxy.dll /reference:Network.dll /reference:Server.dll *.cs
 
 rm -f ./*.cs
 
