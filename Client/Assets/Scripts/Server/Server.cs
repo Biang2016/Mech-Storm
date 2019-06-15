@@ -34,14 +34,12 @@ public class Server
 
     public ServerGameMatchManager SGMM;
 
-    private static string ServerRoot => "./MechStorm/ServerBuild/";
-
     public void Start()
     {
         Utils.DebugLog = ServerLog.Instance.PrintError;
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
-        LoadAllBasicXMLFiles.Load(ServerRoot + "Config/");
+        LoadAllBasicXMLFiles.Load("./MechStorm/ServerBuild/" + "Config/");
 
         ServerLog.Instance.PrintServerStates("CardDeck Loaded");
 
