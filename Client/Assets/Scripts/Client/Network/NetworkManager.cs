@@ -24,7 +24,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
     {
         foreach (NetProtocols num in Enum.GetValues(typeof(NetProtocols)))
         {
-            Common.ProtoManager.AddRequestDelegate((int) num, Response);
+            ProtoManager.AddRequestDelegate((int) num, Response);
         }
     }
 
@@ -69,7 +69,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
             {
                 ReceiveSocketData rsd = receiveDataQueue.Dequeue();
                 DataStream stream = new DataStream(rsd.Data, true);
-                Common.ProtoManager.TryDeserialize(stream, rsd.Socket);
+                ProtoManager.TryDeserialize(stream, rsd.Socket);
             }
 
             Client.Instance.Proxy.Send();

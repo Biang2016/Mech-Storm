@@ -374,6 +374,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="TextMeshPro-2017.3-Editor">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMeshPro-2017.3-Runtime">
+      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/DOTween/DOTween.dll</HintPath>
     </Reference>
@@ -394,12 +400,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Runtime">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="TextMeshPro-2017.3-Editor">
-      <HintPath>/Users/biang/WorkSpace/GameDev/MechStorm/Client/Assets/Plugins/TextMeshPro/Plugins/Editor DLL/TextMeshPro-2017.3-Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -756,9 +756,21 @@
       <Project>{5C9396A4-DE3C-951F-0062-8D31DDECEBF4}</Project>
       <Name>Network</Name>
     </ProjectReference>
+    <ProjectReference Include="ServerConsole.csproj">
+      <Project>{16DF0A75-8024-C246-277C-F8796F7E2451}</Project>
+      <Name>ServerConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="Server.csproj">
+      <Project>{6FF4F0B1-A046-7D07-31A8-84E6EFE374D6}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
     <ProjectReference Include="Core.csproj">
       <Project>{7F24B9D5-CA2C-D3DF-6105-8036A13F501D}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="BattleProxy.csproj">
+      <Project>{08212D5B-C38E-151D-525B-5320A97CEEE2}</Project>
+      <Name>BattleProxy</Name>
     </ProjectReference>
     <ProjectReference Include="OutGameLogic.csproj">
       <Project>{97C57F31-373C-EFFE-AAD8-03EE13BF3BC9}</Project>
@@ -767,18 +779,6 @@
     <ProjectReference Include="Client.csproj">
       <Project>{F37325C5-33E2-B21F-F37E-D72BA7227AEE}</Project>
       <Name>Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="Server.csproj">
-      <Project>{6FF4F0B1-A046-7D07-31A8-84E6EFE374D6}</Project>
-      <Name>Server</Name>
-    </ProjectReference>
-    <ProjectReference Include="ServerConsole.csproj">
-      <Project>{16DF0A75-8024-C246-277C-F8796F7E2451}</Project>
-      <Name>ServerConsole</Name>
-    </ProjectReference>
-    <ProjectReference Include="BattleProxy.csproj">
-      <Project>{08212D5B-C38E-151D-525B-5320A97CEEE2}</Project>
-      <Name>BattleProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

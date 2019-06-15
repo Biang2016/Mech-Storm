@@ -79,7 +79,7 @@ public class Server
     {
         foreach (NetProtocols num in Enum.GetValues(typeof(NetProtocols)))
         {
-            Common.ProtoManager.AddRequestDelegate((int) num, Response);
+            ProtoManager.AddRequestDelegate((int) num, Response);
         }
     }
 
@@ -236,7 +236,7 @@ public class Server
         {
             ReceiveSocketData rsd = ReceiveDataQueue.Dequeue();
             DataStream stream = new DataStream(rsd.Data, true);
-            Common.ProtoManager.TryDeserialize(stream, rsd.Socket);
+            ProtoManager.TryDeserialize(stream, rsd.Socket);
         }
     }
 
