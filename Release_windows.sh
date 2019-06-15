@@ -10,7 +10,7 @@ if [ -n "$1" ]; then
     zip_name="$build_dir/MechStorm-Windows-V$1.zip"
     echo "归档压缩包名称: $zip_name"
     if [ ! -f "$zip_name" ];then
-      zip -r $zip_name /root/GameServer/MyFirstCardGame/Client/Build/windows/*
+      zip -r $zip_name /root/GameServer/MechStorm/Client/Build/windows/*
     else
       echo "已存在该版本zip，取消归档"
     fi

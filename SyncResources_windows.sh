@@ -4,7 +4,7 @@ mv ./MechStorm_Data/GetAllFileNames.sh ./
 mv ./MechStorm_Data/.downloadIgnore ./
 mv ./MechStorm_Data/ServerVersion ./
 rm -rf ./MechStorm_Data/
-cp -r ~/GameServer/MyFirstCardGame/Client/Build/windows/MechStorm_Data/ ./ 
+cp -r ~/GameServer/MechStorm/Client/Build/windows/MechStorm_Data/ ./ 
 rm -rf ./MechStorm_Data/Resources/
 rm -rf ./MechStorm_Data/StreamingAssets/AssetBundle/osx/
 mv ./GetAllFileNames.sh ./MechStorm_Data/
