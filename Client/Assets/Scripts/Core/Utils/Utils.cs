@@ -53,7 +53,7 @@ public partial class Utils
         foreach (Type type in asm.GetTypes())
         {
             if (type.IsAbstract) continue;
-            if (IsParent(type, baseType))
+            if (IsBaseType(type, baseType))
             {
                 res.Add(type);
             }
@@ -62,18 +62,18 @@ public partial class Utils
         return res;
     }
 
-    public static bool IsParent(Type test, Type parent)
+    public static bool IsBaseType(Type type, Type baseType)
     {
-        if (test == null || parent == null || test == parent || test.BaseType == null)
+        if (type == null || baseType == null || type == baseType || type.BaseType == null)
         {
             return false;
         }
 
-        if (parent.IsInterface)
+        if (baseType.IsInterface)
         {
-            foreach (var t in test.GetInterfaces())
+            foreach (var t in type.GetInterfaces())
             {
-                if (t == parent)
+                if (t == baseType)
                 {
                     return true;
                 }
@@ -83,13 +83,13 @@ public partial class Utils
         {
             do
             {
-                if (test.BaseType == parent)
+                if (type.BaseType == baseType)
                 {
                     return true;
                 }
 
-                test = test.BaseType;
-            } while (test != null);
+                type = type.BaseType;
+            } while (type != null);
         }
 
         return false;

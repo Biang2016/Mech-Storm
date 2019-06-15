@@ -87,7 +87,7 @@ public class Server
         MethodInfo mi = typeof(SideEffectManager).GetMethod("AddSideEffectTypes");
         foreach (Type type in types)
         {
-            if (type == typeof(SideEffectBase))
+            if (Utils.IsBaseType(type, typeof(SideEffectBase)))
             {
                 MethodInfo mi_temp = mi.MakeGenericMethod(type);
                 mi_temp.Invoke(null, null);
