@@ -7,34 +7,40 @@ find ../Client/Assets/Scripts/Core -name '*.cs' -type f | xargs -i cp {} ./
 cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
 csc /r:Newtonsoft.Json.dll /target:library /out:Core.dll ./*.cs
 rm -f ./*.cs
+echo "Build Core.dll Suc."
 
 find ../Client/Assets/Scripts/Network -name '*.cs' -type f | xargs -i cp {} ./
 cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
 csc /r:Core.dll /r:Newtonsoft.Json.dll /target:library /out:Network.dll ./*.cs
 rm -f ./*.cs
+echo "Build Network.dll Suc."
 
 find ../Client/Assets/Scripts/BattleProxy -name '*.cs' -type f | xargs -i cp {} ./
 cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
 csc /r:Core.dll /r:Network.dll /r:Newtonsoft.Json.dll /target:library /out:BattleProxy.dll ./*.cs
 rm -f ./*.cs
+echo "Build BattleProxy.dll Suc."
 
 find ../Client/Assets/Scripts/GameProxy -name '*.cs' -type f | xargs -i cp {} ./
 cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
 csc /r:Core.dll /r:Network.dll /r:BattleProxy.dll /r:Newtonsoft.Json.dll /target:library /out:GameProxy.dll ./*.cs
 rm -f ./*.cs
+echo "Build GameProxy.dll Suc."
 
 find ../Client/Assets/Scripts/Server -name '*.cs' -type f | xargs -i cp {} ./
 cp ../Client/Assets/Plugins/NewtonsoftJson/Newtonsoft.Json.dll ./
 csc /r:Core.dll /r:Network.dll /r:BattleProxy.dll /r:GameProxy.dll /r:Newtonsoft.Json.dll /target:library /out:Server.dll ./*.cs
 rm -f ./*.cs
+echo "Build Server.dll Suc."
 
 cp ../Client/Assets/Scripts/ServerConsole/ServerConsole.cs ./
 
 chmod 777  ./*
 
 csc /reference:Core.dll /reference:BattleProxy.dll /reference:GameProxy.dll /reference:Network.dll /reference:Server.dll *.cs
-
 rm -f ./*.cs
+echo "Build ServerConsole.exe Suc."
 
 cp -r ../Client/Assets/StreamingAssets/Config ./ 
 find . -name '*.meta' -type f | xargs rm;
+echo "Copy Config Suc."
