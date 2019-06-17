@@ -28,7 +28,7 @@
 
   <SideEffect name="WaitInHandDecreaseEnergy" desc_zh="该牌的能量花费减少{0}点, " desc_en="decrease {0} energy cost for this card. "></SideEffect>
 
-  <SideEffect name="SummonMech" desc_zh="召唤机甲[{0}]" desc_en="summon [{0}]. "></SideEffect>
+  <SideEffect name="SummonMech" desc_zh="为{1}召唤机甲[{0}]" desc_en="summon [{0}] for {1}. "></SideEffect>
 
   <SideEffect name="Sacrifice" desc_zh="摧毁{0},对敌方全体造成{1}点伤害,该机甲每拥有一个装备,造成的伤害+{2}, " desc_en="destroy {0} and deal {1} damage to all enemy's mechs. for every equip it has, deal {2} additional damage. "></SideEffect>
   <SideEffect name="HalfShield" desc_zh="使{0}的护盾值减半, " desc_en="half the shield of {0}. "></SideEffect>

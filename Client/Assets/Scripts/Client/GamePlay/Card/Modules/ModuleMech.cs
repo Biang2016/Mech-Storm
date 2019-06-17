@@ -12,7 +12,7 @@ public class ModuleMech : ModuleBase
     public override void PoolRecycle()
     {
         MechEquipSystemComponent.PoolRecycle();
-        M_ClientTempMechID = -1;
+        M_ClientTempMechID = (int) Const.SpecialMechID.ClientTempMechIDNormal;
         base.PoolRecycle();
         ResetMech();
     }
@@ -98,7 +98,7 @@ public class ModuleMech : ModuleBase
 
         IsInitializing = false;
 
-        M_ClientTempMechID = -1;
+        M_ClientTempMechID = (int) Const.SpecialMechID.ClientTempMechIDNormal;
 
         CanAttack = false;
 
@@ -163,12 +163,17 @@ public class ModuleMech : ModuleBase
 
     public int M_MechID { get; set; }
 
-    public enum MechID
-    {
-        Empty = -1
-    }
-
     public int M_ClientTempMechID { get; set; }
+
+    public (int, bool) M_TargetMechID
+    {
+        get
+        {
+            bool isTemp = M_ClientTempMechID != (int) Const.SpecialMechID.ClientTempMechIDNormal;
+            int targetMechID = isTemp ? M_ClientTempMechID : M_MechID;
+            return (targetMechID, isTemp);
+        }
+    }
 
     private int m_ImmuneLeftRounds = 0;
 
@@ -801,6 +806,8 @@ public class ModuleMech : ModuleBase
 
     IEnumerator Co_OnAttack(WeaponTypes weaponType, ModuleMech targetMech)
     {
+        int order = MechOrder;
+        MechOrder = 50;
         switch (weaponType)
         {
             case WeaponTypes.None:
@@ -838,6 +845,7 @@ public class ModuleMech : ModuleBase
         }
 
         yield return null;
+        MechOrder = order;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

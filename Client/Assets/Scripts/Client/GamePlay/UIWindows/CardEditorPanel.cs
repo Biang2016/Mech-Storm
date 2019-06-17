@@ -1055,10 +1055,7 @@ public class CardEditorPanel : BaseUIForm
         isPreviewExistingCards = true;
 
         cur_PreviewCard?.PoolRecycle();
-        cur_PreviewCard = CardBase.InstantiateCardByCardInfo(ci, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
-        cur_PreviewCard.transform.localScale = Vector3.one * 35;
-        cur_PreviewCard.transform.localPosition = new Vector3(-25, 0, 0);
-        cur_PreviewCard.ShowCardBloom(true);
+        cur_PreviewCard = null;
 
         cur_PreviewCard_Up?.PoolRecycle();
         cur_PreviewCard_Up = null;
@@ -1082,19 +1079,19 @@ public class CardEditorPanel : BaseUIForm
             cur_PreviewCard_De.ShowCardBloom(true);
         }
 
-        SetCardType(cur_PreviewCard.CardInfo.BaseInfo.CardType.ToString());
+        SetCardType(ci.BaseInfo.CardType.ToString());
         SetCardID(string.Format("{0:000}", ci.CardID));
         SetCardPicID(string.Format("{0:000}", ci.BaseInfo.PictureID));
         SetCardUpgradeID(ci.UpgradeInfo.UpgradeCardID.ToString());
         SetCardDegradeID(ci.UpgradeInfo.DegradeCardID.ToString());
-        SetCardName_zh(cur_PreviewCard.CardInfo.BaseInfo.CardNames["zh"]);
-        SetCardName_en(cur_PreviewCard.CardInfo.BaseInfo.CardNames["en"]);
-        SetCardCoinCost(cur_PreviewCard.CardInfo.BaseInfo.Coin.ToString());
-        SetCardMetalCost(cur_PreviewCard.CardInfo.BaseInfo.Metal.ToString());
-        SetCardEnergyCost(cur_PreviewCard.CardInfo.BaseInfo.Energy.ToString());
-        SetCardSelectLimit(cur_PreviewCard.CardInfo.BaseInfo.LimitNum.ToString());
-        SetCardIsTemp(cur_PreviewCard.CardInfo.BaseInfo.IsTemp.ToString());
-        SetCardIsHide(cur_PreviewCard.CardInfo.BaseInfo.IsHide.ToString());
+        SetCardName_zh(ci.BaseInfo.CardNames["zh"]);
+        SetCardName_en(ci.BaseInfo.CardNames["en"]);
+        SetCardCoinCost(ci.BaseInfo.Coin.ToString());
+        SetCardMetalCost(ci.BaseInfo.Metal.ToString());
+        SetCardEnergyCost(ci.BaseInfo.Energy.ToString());
+        SetCardSelectLimit(ci.BaseInfo.LimitNum.ToString());
+        SetCardIsTemp(ci.BaseInfo.IsTemp.ToString());
+        SetCardIsHide(ci.BaseInfo.IsHide.ToString());
 
         switch (ci.BaseInfo.CardType)
         {
@@ -1163,6 +1160,11 @@ public class CardEditorPanel : BaseUIForm
                 break;
             }
         }
+
+        cur_PreviewCard = CardBase.InstantiateCardByCardInfo(ci, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
+        cur_PreviewCard.transform.localScale = Vector3.one * 35;
+        cur_PreviewCard.transform.localPosition = new Vector3(-25, 0, 0);
+        cur_PreviewCard.ShowCardBloom(true);
 
         Row_SideEffectBundle.Initialize(cur_PreviewCard.CardInfo, cur_PreviewCard.CardInfo.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
 

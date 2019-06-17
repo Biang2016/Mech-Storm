@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Exile : SideEffectBase
+    public class Exile : Exile_Base
     {
         public Exile()
         {

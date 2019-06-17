@@ -122,7 +122,7 @@ public class BattleProxyAI : BattleProxy
                 ModuleMech mech = GetTargetMechByTargetInfo(ti);
                 if (mech != null)
                 {
-                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, mech.M_MechID, false, 0));
+                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {mech.M_TargetMechID}));
                     return true;
                 }
             }
@@ -132,12 +132,12 @@ public class BattleProxyAI : BattleProxy
                 {
                     case TargetRange.EnemyShip:
                     {
-                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, BattleGameManager.PlayerA.ClientId));
+                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
                         return true;
                     }
                     case TargetRange.SelfShip:
                     {
-                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, ClientID));
+                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
                         return true;
                     }
                 }
@@ -189,7 +189,7 @@ public class BattleProxyAI : BattleProxy
 
             if (canSummonDirectly)
             {
-                BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, Const.TARGET_MECH_SELECT_NONE, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
+                BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, (int) Const.SpecialMechID.ClientTempMechIDNormal, null, null));
                 return true;
             }
 
@@ -198,7 +198,7 @@ public class BattleProxyAI : BattleProxy
                 ModuleMech mech = GetTargetMechByTargetInfo(ti);
                 if (mech != null)
                 {
-                    BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, mech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL));
+                    BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, (int) Const.SpecialMechID.ClientTempMechIDNormal, new List<int> {mech.M_MechID}, new List<bool> {false}));
                     return true;
                 }
             }

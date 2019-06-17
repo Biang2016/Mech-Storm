@@ -135,10 +135,10 @@ internal class BattleGroundManager
 
     public void AddMech(CardInfo_Mech mechCardInfo)
     {
-        AddMech(mechCardInfo, Mechs.Count, targetMechId: Const.TARGET_MECH_SELECT_NONE, clientMechTempId: Const.CLIENT_TEMP_MECH_ID_NORMAL, handCardInstanceId: Const.CARD_INSTANCE_ID_NONE);
+        AddMech(mechCardInfo, Mechs.Count, targetMechIds: null, clientMechTempId: (int) Const.SpecialMechID.ClientTempMechIDNormal, handCardInstanceId: Const.CARD_INSTANCE_ID_NONE);
     }
 
-    public void AddMech(CardInfo_Mech mechCardInfo, int mechPlaceIndex, int targetMechId, int clientMechTempId, int handCardInstanceId)
+    public void AddMech(CardInfo_Mech mechCardInfo, int mechPlaceIndex, List<int> targetMechIds, int clientMechTempId, int handCardInstanceId)
     {
         if (BattleGroundIsFull) return;
         int mechId = BattlePlayer.GameManager.GenerateNewMechId();
@@ -147,7 +147,7 @@ internal class BattleGroundManager
 
         ModuleMech mech = new ModuleMech();
         mech.M_MechID = mechId;
-        mech.M_UsedClientMechTempId = clientMechTempId;
+        mech.M_ClientTempMechID = clientMechTempId;
         mech.OriginCardInstanceId = handCardInstanceId;
         mech.Initiate(mechCardInfo, BattlePlayer);
 
@@ -155,7 +155,7 @@ internal class BattleGroundManager
 
         BattleGroundAddMech(mechPlaceIndex, mech);
 
-        ExecutorInfo info = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: mechId, targetMechIds: new List<int> {targetMechId});
+        ExecutorInfo info = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: mechId, targetMechIds: targetMechIds);
         if (mechCardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierSummon, info);
         else BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroSummon, info);
     }
@@ -244,7 +244,7 @@ internal class BattleGroundManager
     {
         foreach (ModuleMech serverModuleMech in Mechs)
         {
-            if (serverModuleMech.M_UsedClientMechTempId == clientMechTempId)
+            if (serverModuleMech.M_ClientTempMechID == clientMechTempId)
             {
                 return serverModuleMech.M_MechID;
             }

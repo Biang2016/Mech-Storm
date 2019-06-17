@@ -192,14 +192,25 @@ internal partial class GameManager
 
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Mech info = (CardInfo_Mech) sp.HandManager.GetHandCardInfo(r.handCardInstanceId);
-        int targetMechId = r.targetMechId;
-        if (r.isTargetMechIdTempId)
+        List<int> targetMechIds = r.targetMechIds;
+        List<int> targetMechIds_real = new List<int>();
+        for (int i = 0; i < targetMechIds.Count; i++)
         {
-            targetMechId = sp.BattleGroundManager.GetMechIdByClientMechTempId(r.clientMechTempId);
+            bool isTemp = r.isTargetMechIdTempIds[i];
+            int realMechId = r.targetMechIds[i];
+            if (isTemp)
+            {
+                realMechId = sp.BattleGroundManager.GetMechIdByClientMechTempId(realMechId);
+            }
+
+            if (realMechId != -1)
+            {
+                targetMechIds_real.Add(realMechId);
+            }
         }
 
-        sp.HandManager.UseCard(r.handCardInstanceId, targetMechId);
-        sp.BattleGroundManager.AddMech(info, r.battleGroundIndex, targetMechId, r.clientMechTempId, r.handCardInstanceId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetMechIds);
+        sp.BattleGroundManager.AddMech(info, r.battleGroundIndex, targetMechIds_real, r.clientMechTempId, r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
     }
@@ -272,13 +283,15 @@ internal partial class GameManager
 
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
 
-        int targetMechId = r.targetMechId;
-        if (r.isTargetMechIdTempId)
+        List<(int, bool)> targetMechIds = r.targetMechIds;
+        List<int> targetMechIds_real = new List<int>();
+        for (int i = 0; i < targetMechIds.Count; i++)
         {
-            targetMechId = sp.BattleGroundManager.GetMechIdByClientMechTempId(r.clientMechTempId);
+            int realMechID = targetMechIds[i].Item2 ? sp.BattleGroundManager.GetMechIdByClientMechTempId(targetMechIds[i].Item1) : targetMechIds[i].Item1;
+            targetMechIds_real.Add(realMechID);
         }
 
-        sp.HandManager.UseCard(r.handCardInstanceId, targetMechId: targetMechId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetMechIds: targetMechIds_real);
         Broadcast_SendOperationResponse();
     }
 
@@ -287,7 +300,7 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
-        sp.HandManager.UseCard(r.handCardInstanceId, targetEquipId: r.targetEquipId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetEquipIds: r.targetEquipIds);
         Broadcast_SendOperationResponse();
     }
 
@@ -296,7 +309,7 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
-        sp.HandManager.UseCard(r.handCardInstanceId, targetClientId: r.targetClientId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetClientIds: r.targetClientIds);
         Broadcast_SendOperationResponse();
     }
 

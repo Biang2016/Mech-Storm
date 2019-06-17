@@ -54,12 +54,16 @@ internal class ModuleMech : ModuleBase, ILife
         set { m_MechID = value; }
     }
 
-    private int m_UsedClientMechTempId;
+    public int M_ClientTempMechID { get; set; }
 
-    public int M_UsedClientMechTempId //曾用过的客户端临时Id
+    public (int, bool) M_TargetMechID
     {
-        get { return m_UsedClientMechTempId; }
-        set { m_UsedClientMechTempId = value; }
+        get
+        {
+            bool isTemp = M_ClientTempMechID != (int) Const.SpecialMechID.ClientTempMechIDNormal;
+            int targetMechID = isTemp ? M_ClientTempMechID : M_MechID;
+            return (targetMechID, isTemp);
+        }
     }
 
     private bool m_IsDead;

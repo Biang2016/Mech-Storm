@@ -24,7 +24,7 @@ public class PropertyFormRow_TwoToggleRow : PropertyFormRow
     public override void SetReadOnly(bool isReadOnly)
     {
         base.SetReadOnly(isReadOnly);
-        ToggleLeft.SetReadOnly(isReadOnly);
-        ToggleLeft.SetReadOnly(isReadOnly);
+        ToggleLeft?.SetReadOnly(isReadOnly);
+        ToggleLeft?.SetReadOnly(isReadOnly);
     }
 }

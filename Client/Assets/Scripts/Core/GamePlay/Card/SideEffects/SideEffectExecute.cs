@@ -187,7 +187,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnMechSummon,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
-                triggerTimes: 99999,
+                triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
@@ -197,7 +197,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnEquipEquiped,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
-                triggerTimes: 99999,
+                triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)

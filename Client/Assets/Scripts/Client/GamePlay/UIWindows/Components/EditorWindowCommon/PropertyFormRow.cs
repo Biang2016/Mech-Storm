@@ -11,6 +11,7 @@ public abstract class PropertyFormRow : PoolObject
     public override void PoolRecycle()
     {
         base.PoolRecycle();
+        SetReadOnly(false);
         LanguageManager.Instance.UnregisterText(Label);
     }
 

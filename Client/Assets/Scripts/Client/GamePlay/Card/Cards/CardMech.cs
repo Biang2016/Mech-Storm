@@ -118,7 +118,7 @@ public class CardMech : CardBase
         {
             if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //脱手即出牌
             {
-                summonMech(dragLastPosition, Const.TARGET_MECH_SELECT_NONE);
+                summonMech(dragLastPosition);
             }
             else
             {
@@ -145,7 +145,7 @@ public class CardMech : CardBase
     #region 卡牌效果
 
     //召唤机甲
-    private void summonMech(Vector3 dragLastPosition, int targetMechId)
+    private void summonMech(Vector3 dragLastPosition)
     {
         if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull)
         {
@@ -154,7 +154,7 @@ public class CardMech : CardBase
         }
 
         int aliveIndex = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePositionInAliveMechs(dragLastPosition);
-        SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, aliveIndex, targetMechId, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
+        SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, aliveIndex, (int) Const.SpecialMechID.ClientTempMechIDNormal, null, null);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }
@@ -172,7 +172,7 @@ public class CardMech : CardBase
 
         if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsEmpty) //场上为空直接召唤
         {
-            summonMech(dragLastPosition, Const.TARGET_MECH_SELECT_NONE);
+            summonMech(dragLastPosition);
         }
         else //预览
         {

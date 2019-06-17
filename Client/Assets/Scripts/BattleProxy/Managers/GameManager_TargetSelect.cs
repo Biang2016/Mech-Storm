@@ -180,7 +180,13 @@ internal partial class GameManager
             {
                 foreach (BattlePlayer player in mech_players)
                 {
+                    List<ModuleMech> remove = new List<ModuleMech>();
                     foreach (ModuleMech mech in player.BattleGroundManager.Mechs)
+                    {
+                        remove.Add(mech);
+                    }
+
+                    foreach (ModuleMech mech in remove)
                     {
                         action(mech);
                     }

@@ -23,7 +23,7 @@
             }
 
             BaseInfo bi = AllCards.GetCard(cardID).BaseInfo;
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], bi.CardNames[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
         public override void Execute(ExecutorInfo executorInfo)

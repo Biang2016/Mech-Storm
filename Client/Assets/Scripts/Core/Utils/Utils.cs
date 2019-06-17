@@ -15,7 +15,7 @@ public partial class Utils
     public static DebugLogDelegate DebugLog;
     public static NoticeCenterMsgDelegate NoticeCenterMsg;
 
-    public static List<Type> GetClassesByNameSpace(string nameSpace,Assembly assembly)
+    public static List<Type> GetClassesByNameSpace(string nameSpace, Assembly assembly)
     {
         List<Type> res = new List<Type>();
 
@@ -28,7 +28,7 @@ public partial class Utils
         return res;
     }
 
-    public static List<Type> GetClassesByBaseClass(Type baseType,Assembly assembly)
+    public static List<Type> GetClassesByBaseClass(Type baseType, Assembly assembly)
     {
         List<Type> res = new List<Type>();
 

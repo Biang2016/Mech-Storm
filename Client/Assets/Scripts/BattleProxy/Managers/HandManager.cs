@@ -143,7 +143,7 @@ internal class Battle_HandManager
         if (!dropCard.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
-    internal void UseCard(int cardInstanceId, int targetMechId = ExecutorInfo.EXECUTE_INFO_NONE, int targetEquipId = ExecutorInfo.EXECUTE_INFO_NONE, int targetClientId = -1, bool onlyTriggerNotUse = false)
+    internal void UseCard(int cardInstanceId, List<int> targetMechIds = null, List<int> targetEquipIds = null, List<int> targetClientIds = null, bool onlyTriggerNotUse = false)
     {
         CardBase useCard = GetCardByCardInstanceId(cardInstanceId);
 
@@ -153,11 +153,11 @@ internal class Battle_HandManager
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayCard,
                 new ExecutorInfo(
                     clientId: BattlePlayer.ClientId,
-                    targetClientIds: new List<int> {targetClientId},
-                    targetMechIds: new List<int> {targetMechId},
+                    targetClientIds: targetClientIds,
+                    targetMechIds: targetMechIds,
                     cardId: copyCard.CardInfo.CardID,
                     cardInstanceId: copyCard.M_CardInstanceId,
-                    targetEquipIds: new List<int> {targetEquipId}));
+                    targetEquipIds: targetEquipIds));
             copyCard.UnRegisterSideEffect();
         }
         else
@@ -169,11 +169,11 @@ internal class Battle_HandManager
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayCard,
                 new ExecutorInfo(
                     clientId: BattlePlayer.ClientId,
-                    targetClientIds: new List<int> {targetClientId},
-                    targetMechIds: new List<int> {targetMechId},
+                    targetClientIds: targetClientIds,
+                    targetMechIds: targetMechIds,
                     cardId: useCard.CardInfo.CardID,
                     cardInstanceId: cardInstanceId,
-                    targetEquipIds: new List<int> {targetEquipId}));
+                    targetEquipIds: targetEquipIds));
             if (!useCard.CardInfo.BaseInfo.IsTemp)
             {
                 if (useCard.CardInfo.BaseInfo.CardType == CardTypes.Spell || useCard.CardInfo.BaseInfo.CardType == CardTypes.Energy)

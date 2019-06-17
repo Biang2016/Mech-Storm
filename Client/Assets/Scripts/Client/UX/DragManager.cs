@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 鼠标拖拽管理器
@@ -128,12 +130,9 @@ public class DragManager : MonoSingleton<DragManager>
     internal bool IsSummonPreview;
     internal bool IsArrowShowBegin;
     internal ModuleMech CurrentSummonPreviewMech;
-    public BattleGroundManager.SummonMechTarget SummonMechTargetHandler;
     public TargetRange SummonMechTargetRange;
 
-    public const int TARGET_SELECT_NONE = -2;
-
-    public void StartArrowAiming(ModuleMech mech, TargetRange targetRange)
+    public void StartSummonMechTargetArrowAiming(ModuleMech mech, TargetRange targetRange)
     {
         IsSummonPreview = true;
         CurrentSummonPreviewMech = mech;
@@ -150,6 +149,7 @@ public class DragManager : MonoSingleton<DragManager>
             CurrentArrow.Render(CurrentSummonPreviewMech.transform.position, cameraPosition);
         }
 
+        UnityAction<List<int>, List<bool>> summonConfirmAction = RoundManager.Instance.CurrentClientPlayer.BattlePlayer.BattleGroundManager.SummonMechTargetConfirm;
         if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -157,20 +157,16 @@ public class DragManager : MonoSingleton<DragManager>
             Physics.Raycast(ray, out raycast, 10f, GameManager.Instance.Layer_Mechs);
             if (raycast.collider == null) //没有选中目标，则撤销
             {
-                SummonMechTargetHandler(-2);
-                if (CurrentArrow) CurrentArrow.PoolRecycle();
-                IsSummonPreview = false;
-                IsArrowShowBegin = false;
+                summonConfirmAction(null, null);
+                CancelSummonPreview();
             }
             else
             {
                 ModuleMech mech = raycast.collider.GetComponent<ModuleMech>();
                 if (mech == null)
                 {
-                    SummonMechTargetHandler(-2);
-                    if (CurrentArrow) CurrentArrow.PoolRecycle();
-                    IsSummonPreview = false;
-                    IsArrowShowBegin = false;
+                    summonConfirmAction(null, null);
+                    CancelSummonPreview();
                 }
                 else
                 {
@@ -178,76 +174,69 @@ public class DragManager : MonoSingleton<DragManager>
                         || RoundManager.Instance.SelfClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechs.Contains(mech) //不可是死亡对象
                         || RoundManager.Instance.EnemyClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechs.Contains(mech)) //不可是死亡对象
                     {
-                        SummonMechTargetHandler(-2);
-                        if (CurrentArrow) CurrentArrow.PoolRecycle();
-                        IsSummonPreview = false;
-                        IsArrowShowBegin = false;
+                        summonConfirmAction(null, null);
+                        CancelSummonPreview();
                     }
                     else
                     {
-                        int targetMechID = mech.M_MechID;
-                        bool isClientMechTempId = false;
-                        if (mech.M_MechID == -1) //如果该机甲还未从服务器取得ID，则用tempID
-                        {
-                            targetMechID = mech.M_ClientTempMechID;
-                            isClientMechTempId = true;
-                        }
+                        bool isTargetMechTempID = mech.M_ClientTempMechID != (int) Const.SpecialMechID.ClientTempMechIDNormal;
+                        int targetMechID = isTargetMechTempID ? mech.M_ClientTempMechID : mech.M_MechID;
 
+                        bool isTargetValid = false;
                         switch (SummonMechTargetRange)
                         {
                             case TargetRange.None:
-                                SummonMechTargetHandler(-2);
+                                isTargetValid = false;
                                 break;
                             case TargetRange.Mechs:
-                                SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                isTargetValid = true;
                                 break;
                             case TargetRange.SelfMechs:
-                                if (mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer;
                                 break;
                             case TargetRange.EnemyMechs:
-                                if (mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer;
                                 break;
                             case TargetRange.Heroes:
-                                if (!mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = !mech.CardInfo.MechInfo.IsSoldier;
                                 break;
                             case TargetRange.SelfHeroes:
-                                if (mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !mech.CardInfo.MechInfo.IsSoldier;
                                 break;
                             case TargetRange.EnemyHeroes:
-                                if (mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !mech.CardInfo.MechInfo.IsSoldier;
                                 break;
                             case TargetRange.Soldiers:
-                                if (mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.CardInfo.MechInfo.IsSoldier;
                                 break;
                             case TargetRange.SelfSoldiers:
-                                if (mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && mech.CardInfo.MechInfo.IsSoldier;
                                 break;
                             case TargetRange.EnemySoldiers:
-                                if (mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && mech.CardInfo.MechInfo.IsSoldier) SummonMechTargetHandler(targetMechID, isClientMechTempId);
-                                else SummonMechTargetHandler(-2);
+                                isTargetValid = mech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && mech.CardInfo.MechInfo.IsSoldier;
                                 break;
                             case TargetRange.SelfShip:
-                                SummonMechTargetHandler(-2);
+                                isTargetValid = false;
                                 break;
                             case TargetRange.EnemyShip:
-                                SummonMechTargetHandler(-2);
+                                isTargetValid = false;
                                 break;
                             case TargetRange.AllLife:
-                                SummonMechTargetHandler(targetMechID, isClientMechTempId);
+                                isTargetValid = true;
                                 break;
+                        }
+
+                        if (isTargetValid)
+                        {
+                            summonConfirmAction(new List<int> {targetMechID}, new List<bool> {isTargetMechTempID});
+                        }
+                        else
+                        {
+                            summonConfirmAction(null, null);
                         }
                     }
 
-                    if (CurrentArrow) CurrentArrow.PoolRecycle();
-                    IsSummonPreview = false;
-                    IsArrowShowBegin = false;
+                    CancelSummonPreview();
                 }
             }
 
@@ -255,12 +244,17 @@ public class DragManager : MonoSingleton<DragManager>
         }
         else if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
         {
-            SummonMechTargetHandler(-2);
-            if (CurrentArrow) CurrentArrow.PoolRecycle();
-            IsSummonPreview = false;
-            IsArrowShowBegin = false;
+            summonConfirmAction(null, null);
+            CancelSummonPreview();
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         }
+    }
+
+    private void CancelSummonPreview()
+    {
+        if (CurrentArrow) CurrentArrow.PoolRecycle();
+        IsSummonPreview = false;
+        IsArrowShowBegin = false;
     }
 
     #endregion
