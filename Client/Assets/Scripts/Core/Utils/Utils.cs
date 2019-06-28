@@ -189,7 +189,7 @@ public partial class Utils
                     }
                     else
                     {
-                        if (!pr.Singleton)
+                        if (!pr.IsSingleton)
                         {
                             res.Add((T) pr.ProbabilityClone());
                         }

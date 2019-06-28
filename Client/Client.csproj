@@ -78,10 +78,11 @@
     <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIMaskMgr.cs" />
     <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIType.cs" />
     <Compile Include="Assets\Scripts\Client\Basic\UI\UtilPanels\ConfirmPanel.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\Hit.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\HitManager.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\NormalParticle.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FX_Particle.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FX_Projectile.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FX_Sprite.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FXBase.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FXManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleEffectsManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleManager.cs" />
@@ -140,7 +141,6 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\FunctionManagers\ShowCardDetailInBattleManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Online\OnlineManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\CardEditorManager.cs" />
-    <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\RootManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\BuildButton.cs" />
@@ -177,6 +177,10 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CostStatBar.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_HeroCardPicIcon.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_TypeCardCount.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_Bonus.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_BonusGroup.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_BonusGroups.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_BonusTypeDropdown.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_CardSelection.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_ShopItem.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_ShopItems.cs" />

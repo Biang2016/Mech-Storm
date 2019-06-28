@@ -42,8 +42,20 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
     private BuildCards BuildCards;
 
-    public void Initialize(BuildCards buildCards)
+    private Editor_CardSelectModes M_SelectMode;
+
+    public void Initialize(Editor_CardSelectModes selectMode, BuildCards buildCards)
     {
+        M_SelectMode = selectMode;
+        if (M_SelectMode == Editor_CardSelectModes.SelectCount)
+        {
+            LanguageManager.Instance.RegisterTextKey(Label, "LevelEditorPanel_CardSelection_SelectCount");
+        }
+        else if (M_SelectMode == Editor_CardSelectModes.UpperLimit)
+        {
+            LanguageManager.Instance.RegisterTextKey(Label, "LevelEditorPanel_CardSelection_UpperLimit");
+        }
+
         BuildCards = buildCards;
         Refresh();
         RefreshTypeCardCountButtons(CardStatTypes.Total);
@@ -51,8 +63,11 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
 
     private UnityAction<CardStatTypes> ShowCardStatTypeChange;
 
+    private UnityAction GotoAction;
+
     public void SetButtonActions(UnityAction gotoAction, UnityAction clearAction, UnityAction<CardStatTypes> showCardStatTypeChange)
     {
+        GotoAction = gotoAction;
         GoToButton.onClick.RemoveAllListeners();
         GoToButton.onClick.AddListener(gotoAction);
         ClearButton.onClick.RemoveAllListeners();
@@ -95,22 +110,26 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
     {
         Clear();
 
-        foreach (int heroCardID in BuildCards.GetHeroCardIDs())
+        if (M_SelectMode == Editor_CardSelectModes.SelectCount)
         {
-            int pid = AllCards.GetCard(heroCardID).BaseInfo.PictureID;
-            LevelEditorPanel_HeroCardPicIcon heroCardPicIcon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_HeroCardPicIcon].AllocateGameObject<LevelEditorPanel_HeroCardPicIcon>(HeroCardPicIconContainer);
-            heroCardPicIcon.Initialize(pid, heroCardID);
-            HeroCardPicIcons.Add(heroCardPicIcon);
+            foreach (int heroCardID in BuildCards.GetHeroCardIDs(M_SelectMode))
+            {
+                int pid = AllCards.GetCard(heroCardID).BaseInfo.PictureID;
+                LevelEditorPanel_HeroCardPicIcon heroCardPicIcon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_HeroCardPicIcon].AllocateGameObject<LevelEditorPanel_HeroCardPicIcon>(HeroCardPicIconContainer);
+                heroCardPicIcon.Initialize(pid, heroCardID);
+                HeroCardPicIcons.Add(heroCardPicIcon);
+            }
         }
 
-        foreach (KeyValuePair<CardStatTypes, int> kv in BuildCards.GetTypeCardCountDict())
+        foreach (KeyValuePair<CardStatTypes, int> kv in BuildCards.GetTypeCardCountDict(M_SelectMode))
         {
             LevelEditorPanel_TypeCardCount typeCardCount = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_TypeCardCount].AllocateGameObject<LevelEditorPanel_TypeCardCount>(TypeCardCountContainer);
             typeCardCount.Initialize(
                 kv.Key,
                 kv.Value,
-                delegate
+                onClick: delegate
                 {
+                    GotoAction?.Invoke();
                     RefreshTypeCardCountButtons(typeCardCount.CardStatType);
                     RefreshBars(typeCardCount.CardStatType);
                     ShowCardStatTypeChange?.Invoke(typeCardCount.CardStatType);
@@ -145,7 +164,7 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
         }
 
         CostStatBars_Energy.Clear();
-        SortedDictionary<int, int> costDict_Metal = BuildCards.GetCostDictByMetal(cardStatType);
+        SortedDictionary<int, int> costDict_Metal = BuildCards.GetCostDictByMetal(M_SelectMode, cardStatType);
         int maxCount_Metal = 0;
         foreach (KeyValuePair<int, int> kv in costDict_Metal)
         {
@@ -153,14 +172,15 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
             maxCount_Metal = Mathf.Max(maxCount_Metal, kv.Value);
         }
 
-        foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByMetal(cardStatType))
+        foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByMetal(M_SelectMode, cardStatType))
         {
+            if (kv.Key == 0) continue;
             LevelEditorPanel_CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_CostStatBar].AllocateGameObject<LevelEditorPanel_CostStatBar>(CostStatBarContainer_Metal);
-            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Metal, LevelEditorPanel_CostStatBar.ColorTypes.Metal, CostStatBarBaseLine_Metal);
+            csb.Initialize(kv.Key, kv.Value, maxCount_Metal, LevelEditorPanel_CostStatBar.ColorTypes.Metal, CostStatBarBaseLine_Metal);
             CostStatBars_Metal.Add(csb);
         }
 
-        SortedDictionary<int, int> costDict_Energy = BuildCards.GetCostDictByEnergy(cardStatType);
+        SortedDictionary<int, int> costDict_Energy = BuildCards.GetCostDictByEnergy(M_SelectMode, cardStatType);
         int maxCount_Energy = 0;
         foreach (KeyValuePair<int, int> kv in costDict_Energy)
         {
@@ -168,10 +188,11 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
             maxCount_Energy = Mathf.Max(maxCount_Energy, kv.Value);
         }
 
-        foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByEnergy(cardStatType))
+        foreach (KeyValuePair<int, int> kv in BuildCards.GetCostDictByEnergy(M_SelectMode, cardStatType))
         {
+            if (kv.Key == 0) continue;
             LevelEditorPanel_CostStatBar csb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_CostStatBar].AllocateGameObject<LevelEditorPanel_CostStatBar>(CostStatBarContainer_Energy);
-            csb.Initialize(kv.Key, kv.Value, kv.Key == 0 ? kv.Value : maxCount_Energy, LevelEditorPanel_CostStatBar.ColorTypes.Energy, CostStatBarBaseLine_Energy);
+            csb.Initialize(kv.Key, kv.Value, maxCount_Energy, LevelEditorPanel_CostStatBar.ColorTypes.Energy, CostStatBarBaseLine_Energy);
             CostStatBars_Energy.Add(csb);
         }
     }

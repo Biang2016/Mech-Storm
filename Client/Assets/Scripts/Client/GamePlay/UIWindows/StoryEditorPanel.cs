@@ -97,7 +97,7 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(SelectCard, UnSelectCard, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
         CardSelectPanel.gameObject.SetActive(false);
         ChapterMapContainer.gameObject.SetActive(true);
     }
@@ -347,14 +347,25 @@ public class StoryEditorPanel : BaseUIForm
     {
         if (BuildCards != null)
         {
-            if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && BuildCards.GetTypeCardCountDict()[CardStatTypes.HeroMech] >= 4)
+            BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectUpperLimit++;
+            int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectUpperLimit;
+            CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
+            Row_CardSelection.Refresh();
+        }
+    }
+
+    private void SelectOneForEachActiveCards(List<int> activeCardIDs)
+    {
+        if (BuildCards != null)
+        {
+            foreach (int cardID in activeCardIDs)
             {
-                return;
+                BuildCards.CardSelectInfo csi = BuildCards.CardSelectInfos[cardID];
+                csi.CardSelectUpperLimit++;
+                int count = csi.CardSelectUpperLimit;
+                CardSelectPanel.RefreshCard(cardID, count);
             }
 
-            BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount++;
-            int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
-            CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
             Row_CardSelection.Refresh();
         }
     }
@@ -363,10 +374,26 @@ public class StoryEditorPanel : BaseUIForm
     {
         if (BuildCards != null)
         {
-            if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount == 0) return;
-            BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount--;
-            int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
+            if (BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectUpperLimit == 0) return;
+            BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectUpperLimit--;
+            int count = BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectUpperLimit;
             CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
+            Row_CardSelection.Refresh();
+        }
+    }
+
+    private void UnSelectAllActiveCards(List<int> activeCardIDs)
+    {
+        if (BuildCards != null)
+        {
+            foreach (int cardID in activeCardIDs)
+            {
+                BuildCards.CardSelectInfo csi = BuildCards.CardSelectInfos[cardID];
+                csi.CardSelectCount = 0;
+                csi.CardSelectUpperLimit = 0;
+                CardSelectPanel.RefreshCard(cardID, 0);
+            }
+
             Row_CardSelection.Refresh();
         }
     }

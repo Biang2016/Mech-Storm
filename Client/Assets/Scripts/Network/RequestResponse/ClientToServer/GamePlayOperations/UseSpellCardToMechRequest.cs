@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class UseSpellCardToMechRequest : ClientRequestBase
 {
     public int handCardInstanceId;
-    public List<(int, bool)> targetMechIds;
+    public List<(int, bool)> targetMechIds = new List<(int, bool)>();
 
     public UseSpellCardToMechRequest()
     {

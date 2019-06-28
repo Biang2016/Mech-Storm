@@ -6,11 +6,12 @@ public class CardInfo_Mech : CardInfo_Base
     {
     }
 
-    public CardInfo_Mech(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, MechInfo mechInfo, SideEffectBundle sideEffectBundle)
+    public CardInfo_Mech(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, LifeInfo lifeInfo, BattleInfo battleInfo, MechInfo mechInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_BattleGroundAura)
         : base(cardID: cardID,
             upgradeInfo: upgradeInfo,
             baseInfo: baseInfo,
-            sideEffectBundle: sideEffectBundle)
+            sideEffectBundle: sideEffectBundle,
+            sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura)
     {
         LifeInfo = lifeInfo;
         BattleInfo = battleInfo;
@@ -57,7 +58,8 @@ public class CardInfo_Mech : CardInfo_Base
             lifeInfo: LifeInfo,
             battleInfo: BattleInfo,
             mechInfo: MechInfo,
-            sideEffectBundle: SideEffectBundle.Clone());
+            sideEffectBundle: SideEffectBundle.Clone(),
+            sideEffectBundle_BattleGroundAura: SideEffectBundle_BattleGroundAura.Clone());
         return cb;
     }
 

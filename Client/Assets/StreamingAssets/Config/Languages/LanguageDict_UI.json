@@ -310,6 +310,10 @@
 		"en": "Cards Workshop"
 	},
 
+	"LoginMenu_NeedNetwork": {
+		"zh": "是否要联网?",
+		"en": "Do you want to play online?"
+	},
 	"LoginMenu_LoginText": {
 		"zh": "登录",
 		"en": "Login"
@@ -388,8 +392,8 @@
 	},
 
 	"ModuleMech_DecreaseDamageNumberFly": {
-		"zh": "阻挡 -",
-		"en": "Dec -"
+		"zh": "伤害减免 ",
+		"en": "Damage -"
 	},
 	"ModuleMech_LifeNumberFly": {
 		"zh": "生命 ",
@@ -398,6 +402,10 @@
 	"ModuleMech_AttackChangeNumberFly": {
 		"zh": "伤害 ",
 		"en": "Attack "
+	},
+	"ModuleMech_AttackMaxChangeNumberFly": {
+		"zh": "伤害极限 +",
+		"en": "Max Atk +"
 	},
 	"ModuleMech_ArmorChangeNumberFly": {
 		"zh": "护甲 ",
@@ -886,10 +894,6 @@
 		"zh": "均价",
 		"en": "Avg-Price"
 	},	
-	"LevelEditorPanel_CardSelection": {
-		"zh": "物品数",
-		"en": "Items"
-	},
 	"StoryEditorPanel_LifeLabelText": {
 		"zh": "生命值",
 		"en": "Life"
@@ -1016,6 +1020,10 @@
 		"zh": "卡牌效果",
 		"en": "Card Effects"
 	},
+	"CardEditorPanel_SideEffectBundleAuraText": {
+		"zh": "光环效果",
+		"en": "Aura Effects"
+	},
 	"CardEditorPanel_CardType": {
 		"zh": "卡牌类型",
 		"en": "Card Type"
@@ -1059,6 +1067,10 @@
 	"CardEditorPanel_CardSelectLimitLabelText": {
 		"zh": "卡牌上限",
 		"en": "Select Limit"
+	},
+	"CardEditorPanel_CardRareLevelLabelText": {
+		"zh": "卡牌稀有度",
+		"en": "Rare Level"
 	},
 	"CardEditorPanel_CardIsTempLabelText": {
 		"zh": "临时卡",
@@ -1173,10 +1185,6 @@
 		"en": "Effect"
 	},
 
-	"CardEditorPanel_SideEffectBundle": {
-		"zh": "出牌效果",
-		"en": "Playout Effects"
-	},
 	"CardEditorPanel_TriggerTime": {
 		"zh": "触发时机",
 		"en": "Trigger Time"
@@ -1275,9 +1283,21 @@
 		"zh": "敌人初始金属",
 		"en": "Initial Metal"
 	},
-	"LevelEditorPanel_CardSelection": {
-		"zh": "卡组",
-		"en": "Enemy Deck"
+	"LevelEditorPanel_CardSelection_SelectCount": {
+		"zh": "卡组卡片",
+		"en": "Deck"
+	},
+	"LevelEditorPanel_CardSelection_UpperLimit": {
+		"zh": "已解锁卡片",
+		"en": "Unlocked Cards"
+	},
+	"LevelEditorPanel_BonusGroups": {
+		"zh": "奖励组",
+		"en": "Bonus Groups"
+	},
+	"LevelEditorPanel_BonusGroup": {
+		"zh": "奖励",
+		"en": "Bonus"
 	},
 	"LevelEditorPanel_ShopItems": {
 		"zh": "商品",
@@ -1343,6 +1363,70 @@
 		"zh": "请设置能量上限和相应的价格: ",
 		"en": "Please set the Energy upperlimit and its price: "
 	},
+	"LevelEditorPanel_BonusTypeLabel": {
+		"zh": "奖励类型: ",
+		"en": "Bonus Type: "
+	},
+
+	"LevelEditorPanel_SetUnlockCardLevelNum": {
+		"zh": "请设置解锁卡牌对应的卡牌稀有度 ",
+		"en": "Please set the rare level of card: "
+	},
+	"LevelEditorPanel_CardLevelNum": {
+		"zh": "卡牌稀有度",
+		"en": "Card rare level"
+	},
+	"LevelEditorPanel_SetBudget": {
+		"zh": "请设置预算奖励",
+		"en": "Please set budget"
+	},
+	"LevelEditorPanel_Budget": {
+		"zh": "预算",
+		"en": "Budget"
+	},
+	"LevelEditorPanel_SetLifeUpperLimit": {
+		"zh": "请设置生命上限奖励",
+		"en": "Please set life upper limit"
+	},
+	"LevelEditorPanel_LifeUpperLimit": {
+		"zh": "生命上限",
+		"en": "Life upper limit"
+	},
+	"LevelEditorPanel_SetEnergyUpperLimit": {
+		"zh": "请设置能量上限奖励",
+		"en": "Please set energy upper limit"
+	},
+	"LevelEditorPanel_EnergyUpperLimit": {
+		"zh": "能量上限",
+		"en": "Energy upper limit"
+	},
+
+	"LevelEditorPanel_BonusGroupIsAlways": {
+		"zh": "固定奖励",
+		"en": "Fixed Bonus"
+	},
+	"LevelEditorPanel_BonusGroupProbability": {
+		"zh": "奖励频率(0-100)",
+		"en": "Probability (0-100)"
+	},
+	"LevelEditorPanel_BonusGroupIsSingleton": {
+		"zh": "唯一出现",
+		"en": "Is Unique"
+	},
+
+	"CardSelectPanel_ShowAllCardToggleLabel":{
+		"zh": "显示所有卡片",
+		"en": "Show all cards"
+	},
+	"CardSelectPanel_UnselectAllButtonLabel":{
+		"zh": "清除所有选择",
+		"en": "Unselect all"
+	},
+	"CardSelectPanel_SelectOneOfEachButtonLabel":{
+		"zh": "均选1个",
+		"en": "Take one of each"
+	},
+
 	"Notice_LevelEditorPanel_PleaseInputInteger": {
 		"zh": "请输入整数",
 		"en": "Please enter an integer!"

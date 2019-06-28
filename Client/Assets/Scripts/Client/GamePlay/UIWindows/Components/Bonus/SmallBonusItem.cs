@@ -19,36 +19,30 @@ internal class SmallBonusItem : BonusItem_Base
         base.Initialize(bonus);
         IconImageContainer.SetActive(true);
         CardImageContainer.SetActive(false);
-        switch (bonus.M_BonusType)
+        switch (bonus.BonusType)
         {
-            case Bonus.BonusType.AdjustDeck:
-            {
-                ItemImage.sprite = AdjustDeckIcon;
-                ItemImage.preserveAspect = true;
-                break;
-            }
-            case Bonus.BonusType.LifeUpperLimit:
+            case Bonus.BonusTypes.LifeUpperLimit:
             {
                 ItemImage.sprite = LifeIcon;
                 ItemImage.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.LifeIconColor);
                 ItemImage.preserveAspect = true;
                 break;
             }
-            case Bonus.BonusType.EnergyUpperLimit:
+            case Bonus.BonusTypes.EnergyUpperLimit:
             {
                 ItemImage.sprite = EnergyIcon;
                 ItemImage.color = ClientUtils.GetColorFromColorDict(AllColors.ColorType.EnergyIconColor);
                 ItemImage.preserveAspect = true;
                 break;
             }
-            case Bonus.BonusType.Budget:
+            case Bonus.BonusTypes.Budget:
             {
                 ItemImage.sprite = BudgetIcon;
                 ItemImage.color = Color.white;
                 ItemImage.preserveAspect = true;
                 break;
             }
-            case Bonus.BonusType.UnlockCardByID:
+            case Bonus.BonusTypes.UnlockCardByID:
             {
                 IconImageContainer.SetActive(false);
                 CardImageContainer.SetActive(true);

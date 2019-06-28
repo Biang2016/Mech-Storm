@@ -45,7 +45,7 @@ public class GamePlaySettings
 
     public static int LifeToCoin = 50;
     public static int EnergyToCoin = 50;
-    public static int[] DrawCardNumToCoin = new[] {0, 10000, 15000, 18000, 23000, 26000};
+    public static int[] DrawCardNumToCoin = new[] {0, 0, 1500, 4000, 7500, 12000};
 
     public int DefaultCoin = 1500;
     public int DefaultLife = 100;

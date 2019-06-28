@@ -40,8 +40,16 @@ public partial class SelectBuildPanel
         set
         {
             currentSelectedBuildButton = value;
-            SelectBuildManager.Instance.CurrentSelectedBuildInfo = currentSelectedBuildButton.BuildInfo;
-            UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract(currentSelectedBuildButton.BuildInfo);
+            if (currentSelectedBuildButton != null)
+            {
+                SelectBuildManager.Instance.CurrentSelectedBuildInfo = currentSelectedBuildButton.BuildInfo;
+                UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract(currentSelectedBuildButton.BuildInfo);
+            }
+            else
+            {
+                SelectBuildManager.Instance.CurrentSelectedBuildInfo = null;
+                UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract(null);
+            }
         }
     }
 

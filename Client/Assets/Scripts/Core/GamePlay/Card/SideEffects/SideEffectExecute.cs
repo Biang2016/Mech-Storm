@@ -142,6 +142,17 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             return true;
         }
 
+        public void ExportToXML(XmlElement ele)
+        {
+            ele.SetAttribute("triggerTime", TriggerTime.ToString());
+            ele.SetAttribute("triggerRange", TriggerRange.ToString());
+            ele.SetAttribute("triggerDelayTimes", TriggerDelayTimes.ToString());
+            ele.SetAttribute("triggerTimes", TriggerTimes.ToString());
+            ele.SetAttribute("removeTriggerTime", RemoveTriggerTime.ToString());
+            ele.SetAttribute("removeTriggerRange", RemoveTriggerRange.ToString());
+            ele.SetAttribute("removeTriggerTimes", RemoveTriggerTimes.ToString());
+        }
+
         public void Serialize(DataStream writer)
         {
             writer.WriteSInt32((int) TriggerTime);

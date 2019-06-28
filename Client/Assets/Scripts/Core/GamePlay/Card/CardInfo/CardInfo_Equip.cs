@@ -6,11 +6,12 @@ public class CardInfo_Equip : CardInfo_Base
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_BattleGroundAura)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             upgradeInfo: upgradeInfo,
-            sideEffectBundle: sideEffectBundle)
+            sideEffectBundle: sideEffectBundle,
+            sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura)
     {
         switch (equipInfo.SlotType)
         {
@@ -167,7 +168,8 @@ public class CardInfo_Equip : CardInfo_Base
             shieldInfo: ShieldInfo,
             packInfo: PackInfo,
             maInfo: MAInfo,
-            sideEffectBundle: SideEffectBundle.Clone()
+            sideEffectBundle: SideEffectBundle.Clone(),
+            sideEffectBundle_BattleGroundAura: SideEffectBundle_BattleGroundAura.Clone()
         );
         return cb;
     }

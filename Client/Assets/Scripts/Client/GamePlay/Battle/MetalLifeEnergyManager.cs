@@ -12,6 +12,9 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     [SerializeField] private TextMeshPro MetalNumberText;
 
+    [SerializeField] private Transform CenterTrans;
+    [SerializeField] private Transform LeftTrans;
+    [SerializeField] private Transform RightTrans;
     [SerializeField] private Text LifeText;
     [SerializeField] private Text LifeNumber;
     [SerializeField] private Text TotalLifeNumber;
@@ -81,7 +84,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         else if (change < 0)
         {
             LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
-            HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, "#FFFFFF", 0.2f);
+            FXManager.Instance.PlayFX(LifeIcon.transform, FXManager.FXType.FX_Blade, "#FFFFFF", 0.3f, 1.5f);
             AudioManager.Instance.SoundPlay("sfx/OnHitShip");
             AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
         }
@@ -104,6 +107,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         if (change > 0)
         {
             EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up);
+            FXManager.Instance.PlayFX(RightTrans, FXManager.FXType.FX_ShipAddEnergy, "#FFFFFF", 0.7f, 4);
         }
         else if (change < 0)
         {

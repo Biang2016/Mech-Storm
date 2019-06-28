@@ -830,15 +830,13 @@ public class ModuleMech : ModuleBase
             }
             case WeaponTypes.Gun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetMech.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetMech.transform.position, delegate { FXManager.Instance.PlayFX(targetMech.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetMech.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetMech.transform.position, delegate { FXManager.Instance.PlayFX(targetMech.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
             }
@@ -880,15 +878,13 @@ public class ModuleMech : ModuleBase
             }
             case WeaponTypes.Gun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetShip.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetShip.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
             }

@@ -104,6 +104,11 @@
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\AllLevels.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\AllStories.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\Bonus.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\Bonus_Budget.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\Bonus_EnergyUpperLimit.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\Bonus_LifeUpperLimit.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\Bonus_UnlockCardByID.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\Bonus_UnlockCardByLevelNum.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\BonusGroup.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\BuildGroup.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\BuildStoryDatabase.cs" />

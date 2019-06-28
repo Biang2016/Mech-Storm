@@ -336,7 +336,6 @@ Transform:
   - {fileID: 7160762465679227368}
   - {fileID: 2033366154225575239}
   - {fileID: 6035019911588787593}
-  - {fileID: 3896241811739850503}
   - {fileID: 3776769017806467220}
   - {fileID: 52974901854758856}
   - {fileID: 536672438734480453}
@@ -400,8 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f7b369dd1caf54bad5b9830b8f9beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pool_HitPool: []
-  HitPrefab: []
 --- !u!1 &1125475773716131892
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,50 +479,6 @@ MonoBehaviour:
     type: 2}
   SoundAudioMixerGroup: {fileID: 243418471019597234, guid: 79d9f7b7b8ec987409d5445962dc1b87,
     type: 2}
---- !u!1 &4261925435827446098
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3896241811739850503}
-  - component: {fileID: 8953680317635397576}
-  m_Layer: 0
-  m_Name: Effects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3896241811739850503
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261925435827446098}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: -1160252385069544119}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8953680317635397576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4261925435827446098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f1222e62f9a12342a27b092134edba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectRoot: {fileID: 3896241811739850503}
 --- !u!1 &4471414249548777951
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23e5ab0be1ea4c4a86dd51032721fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalSerailizeRequest: 1
 --- !u!1 &5478889856200420692
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67538aef8c543894099eb4760d1d72a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logVerbosity: 2
 --- !u!1 &6128851707934717136
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9be8ee7b2247bda978e047ddac7323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowClientLogs: 1
+  ShowClientLogs: 0
   ImageEffectBlurBox: {fileID: 8468670075267149003}
 --- !u!1 &9178352836993783922
 GameObject:
@@ -843,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 3146354636212886838, guid: 386c9dc95ead08d42af7a7917f8dd151,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3146354636212886838, guid: 386c9dc95ead08d42af7a7917f8dd151,
         type: 3}
@@ -983,7 +936,7 @@ PrefabInstance:
     - target: {fileID: 3422582430864289601, guid: 13f6860f420144535b05e7ab775ca200,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3422582430864289601, guid: 13f6860f420144535b05e7ab775ca200,
         type: 3}
@@ -1130,7 +1083,7 @@ PrefabInstance:
     - target: {fileID: 6541442930441034905, guid: 03ed38e9ccc8a41e7a4c6f55c58c952e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6541442930441034905, guid: 03ed38e9ccc8a41e7a4c6f55c58c952e,
         type: 3}
@@ -1205,7 +1158,7 @@ PrefabInstance:
     - target: {fileID: 7574745312018746254, guid: 2118a377e4c8baa44b182ea77079d2ea,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7574745312018746254, guid: 2118a377e4c8baa44b182ea77079d2ea,
         type: 3}
@@ -1286,7 +1239,7 @@ PrefabInstance:
     - target: {fileID: 5624501484578031430, guid: 20d5661e9336647cc861eec432f6b48e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5624501484578031430, guid: 20d5661e9336647cc861eec432f6b48e,
         type: 3}

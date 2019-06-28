@@ -38,7 +38,7 @@ public class ShopItem_Card : ShopItem
         }
     }
 
-    public override void OnEdit()
+    protected override void OnEdit()
     {
         base.OnEdit();
     }

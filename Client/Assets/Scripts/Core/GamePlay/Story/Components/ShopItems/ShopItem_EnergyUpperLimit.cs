@@ -11,7 +11,7 @@ public class ShopItem_EnergyUpperLimit : ShopItem
 
     public override string Name => LanguageManager_Common.GetText("LevelEditorPanel_EnergyUpperLimitLabelValueText");
 
-    public override int PicID => 1010;
+    public override int PicID => (int) AllCards.SpecialPicIDs.EnergyUpperLimit;
 
     public override ShopItem Clone()
     {

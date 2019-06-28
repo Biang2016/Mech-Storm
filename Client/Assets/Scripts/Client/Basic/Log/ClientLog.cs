@@ -19,13 +19,19 @@ public class ClientLog : MonoSingleton<ClientLog>, ILog
 
     public void Print(string logStr)
     {
-        Print(logStr, Color.white);
+        if ((LogVerbosity & LogVerbosity.Normal) == LogVerbosity.Normal)
+        {
+            Print(logStr, Color.white);
+        }
     }
 
     private void Print(string logStr, Color color)
     {
-        Log log = new Log(logStr, color);
-        LogQueue.Enqueue(log);
+        if (RootManager.Instance.ShowClientLogs)
+        {
+            Log log = new Log(logStr, color);
+            LogQueue.Enqueue(log);
+        }
     }
 
     //private static StreamWriter sw;
@@ -41,13 +47,10 @@ public class ClientLog : MonoSingleton<ClientLog>, ILog
             Log log = LogQueue.Dequeue();
             if (log != null)
             {
-                if (RootManager.Instance.ShowClientLogs)
-                {
-                    Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
+                Debug.Log("<color=#" + log.Color + ">" + log.LogStr + "</color>");
 #if DEBUG
-                    //sw.WriteLine(log.LogStr);
+                //sw.WriteLine(log.LogStr);
 #endif
-                }
             }
         }
 #if DEBUG
@@ -55,34 +58,60 @@ public class ClientLog : MonoSingleton<ClientLog>, ILog
 #endif
     }
 
+    [SerializeField] private LogVerbosity logVerbosity;
+
+    public LogVerbosity LogVerbosity
+    {
+        get { return logVerbosity; }
+        set { logVerbosity = value; }
+    }
+
     public void PrintWarning(string logStr)
     {
-        Print(logStr, Color.yellow);
+        if ((LogVerbosity & LogVerbosity.Warning) == LogVerbosity.Warning)
+        {
+            Print(logStr, Color.yellow);
+        }
     }
 
     public void PrintError(string logStr)
     {
-        Print(logStr, Color.red);
+        if ((LogVerbosity & LogVerbosity.Error) == LogVerbosity.Error)
+        {
+            Print(logStr, Color.red);
+        }
     }
 
     public void PrintClientStates(string logStr)
     {
-        Print(logStr, Color.green);
+        if ((LogVerbosity & LogVerbosity.ClientState) == LogVerbosity.ClientState)
+        {
+            Print(logStr, Color.green);
+        }
     }
 
     public void PrintServerStates(string logStr)
     {
-        Print(logStr, Color.gray);
+        if ((LogVerbosity & LogVerbosity.ServerState) == LogVerbosity.ServerState)
+        {
+            Print(logStr, Color.grey);
+        }
     }
 
     public void PrintReceive(string logStr)
     {
-        Print(logStr, new Color(0.5f, 0.5f, 1f));
+        if ((LogVerbosity & LogVerbosity.Receive) == LogVerbosity.Receive)
+        {
+            Print(logStr, Color.blue);
+        }
     }
 
     public void PrintSend(string logStr)
     {
-        Print(logStr, Color.magenta);
+        if ((LogVerbosity & LogVerbosity.Send) == LogVerbosity.Send)
+        {
+            Print(logStr, Color.magenta);
+        }
     }
 
     public void PrintBattleEffectsStart(string logStr)

@@ -1,119 +1,164 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-public class Bonus : IHardFactor, IClone<Bonus>
+public class Bonus : IClone<Bonus>
 {
-    public BonusType M_BonusType;
-    public HardFactorValue BonusBaseValue;
-    private int hardFactor;
-
-    public Bonus(BonusType mBonusType, HardFactorValue bonusBaseValue, int hardFactor)
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum BonusTypes
     {
-        M_BonusType = mBonusType;
-        BonusBaseValue = bonusBaseValue;
-        this.hardFactor = hardFactor;
+        UnlockCardByID,
+        UnlockCardByLevelNum,
+        LifeUpperLimit,
+        EnergyUpperLimit,
+        Budget,
     }
 
-    public List<HardFactorValue> Values
+    public BonusTypes BonusType;
+
+    public virtual int PicID { get; set; } = (int) AllCards.EmptyCardTypes.EmptyCard;
+
+    public Bonus(BonusTypes mBonusType)
     {
-        get { return new List<HardFactorValue> {BonusBaseValue}; }
+        BonusType = mBonusType;
     }
 
-    public int GetFactor()
+    public virtual string GetDesc()
     {
-        return hardFactor;
+        return "";
     }
 
-    public void SetFactor(int value)
-    {
-        hardFactor = value;
-    }
-
-    public int BonusFinalValue
-    {
-        get
-        {
-            if (M_BonusType == BonusType.LifeUpperLimit || M_BonusType == BonusType.EnergyUpperLimit || M_BonusType == BonusType.Budget)
-            {
-                if (GetFactor() == 0)
-                {
-                    return 0;
-                }
-
-                int res = (int) (BonusBaseValue.Value * ((float) GetFactor() / 100));
-                if (res == 0) res = 1;
-                return res;
-            }
-            else
-            {
-                return BonusBaseValue.Value;
-            }
-        }
-    }
-
-    public string GetDesc()
-    {
-        Dictionary<BonusType, string> dic = BonusDescRaw[LanguageManager_Common.GetCurrentLanguage()];
-        return string.Format(dic[M_BonusType], BonusFinalValue > 0 ? ("+" + BonusFinalValue) : ("-" + BonusFinalValue));
-    }
-
-    static Dictionary<string, Dictionary<BonusType, string>> BonusDescRaw = new Dictionary<string, Dictionary<BonusType, string>>
+    protected static Dictionary<string, Dictionary<BonusTypes, string>> BonusDescRaw = new Dictionary<string, Dictionary<BonusTypes, string>>
     {
         {
-            "zh", new Dictionary<BonusType, string>
+            "zh", new Dictionary<BonusTypes, string>
             {
-                {BonusType.UnlockCardByID, "解锁卡片"},
-                {BonusType.UnlockCardByLevelNum, "解锁卡片"},
-                {BonusType.AdjustDeck, "获得一次调整卡组的机会"},
-                {BonusType.LifeUpperLimit, "生命上限{0}"},
-                {BonusType.EnergyUpperLimit, "能量上限{0}"},
-                {BonusType.Budget, "预算{0}"},
+                {BonusTypes.UnlockCardByID, "解锁卡片[{0}]"},
+                {BonusTypes.UnlockCardByLevelNum, "解锁一张稀有度为{0}的卡片"},
+                {BonusTypes.LifeUpperLimit, "生命上限{0}"},
+                {BonusTypes.EnergyUpperLimit, "能量上限{0}"},
+                {BonusTypes.Budget, "预算{0}"},
             }
         },
         {
-            "en", new Dictionary<BonusType, string>
+            "en", new Dictionary<BonusTypes, string>
             {
-                {BonusType.UnlockCardByID, "Unlock card"},
-                {BonusType.UnlockCardByLevelNum, "Unlock card"},
-                {BonusType.AdjustDeck, "A chance to adjust deck"},
-                {BonusType.LifeUpperLimit, "Life {0}"},
-                {BonusType.EnergyUpperLimit, "Energy {0}"},
-                {BonusType.Budget, "Budget {0}"},
+                {BonusTypes.UnlockCardByID, "Unlock card [{0}]"},
+                {BonusTypes.UnlockCardByLevelNum, "Unlock card of rare [{0}]"},
+                {BonusTypes.LifeUpperLimit, "Life {0}"},
+                {BonusTypes.EnergyUpperLimit, "Energy {0}"},
+                {BonusTypes.Budget, "Budget {0}"},
             }
         }
     };
 
-    public void Serialize(DataStream writer)
+    public virtual Bonus Clone()
     {
-        writer.WriteSInt32((int) M_BonusType);
-        writer.WriteSInt32(BonusBaseValue.Value);
-        writer.WriteSInt32(hardFactor);
+        return new Bonus(BonusType);
+    }
+
+    public virtual void Serialize(DataStream writer)
+    {
+        writer.WriteSInt32((int) BonusType);
     }
 
     public static Bonus Deserialize(DataStream reader)
     {
-        BonusType type = (BonusType) reader.ReadSInt32();
-        int value = reader.ReadSInt32();
-        int hardFactor = reader.ReadSInt32();
-        HardFactorValue bonusBaseValue = new HardFactorValue(value);
-        Bonus newBonus = new Bonus(type, bonusBaseValue, hardFactor);
-        return newBonus;
+        BonusTypes type = (BonusTypes) reader.ReadSInt32();
+        Bonus bonus = null;
+        switch (type)
+        {
+            case BonusTypes.UnlockCardByID:
+            {
+                int cardID = reader.ReadSInt32();
+                bonus = new Bonus_UnlockCardByID(cardID);
+                break;
+            }
+            case BonusTypes.UnlockCardByLevelNum:
+            {
+                int levelNum = reader.ReadSInt32();
+                bonus = new Bonus_UnlockCardByLevelNum(levelNum);
+                break;
+            }
+            case BonusTypes.LifeUpperLimit:
+            {
+                int lifeUpperLimit = reader.ReadSInt32();
+                bonus = new Bonus_LifeUpperLimit(lifeUpperLimit);
+                break;
+            }
+            case BonusTypes.EnergyUpperLimit:
+            {
+                int energyUpperLimit = reader.ReadSInt32();
+                bonus = new Bonus_EnergyUpperLimit(energyUpperLimit);
+                break;
+            }
+            case BonusTypes.Budget:
+            {
+                int budget = reader.ReadSInt32();
+                bonus = new Bonus_Budget(budget);
+                break;
+            }
+        }
+
+        return bonus;
     }
 
-    public Bonus Clone()
+    public void ExportToXML(XmlElement parent_ele)
     {
-        return new Bonus(M_BonusType, new HardFactorValue(BonusBaseValue.Value), GetFactor());
+        XmlDocument doc = parent_ele.OwnerDocument;
+        XmlElement bonus_ele = doc.CreateElement("BonusInfo");
+        parent_ele.AppendChild(bonus_ele);
+
+        bonus_ele.SetAttribute("bonusType", BonusType.ToString());
+        ChildrenExportToXML(bonus_ele);
     }
 
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum BonusType
+    protected virtual void ChildrenExportToXML(XmlElement my_ele)
     {
-        UnlockCardByID,
-        UnlockCardByLevelNum,
-        AdjustDeck,
-        LifeUpperLimit,
-        EnergyUpperLimit,
-        Budget,
+    }
+
+    public static Bonus GenerateBonusFromXML(XmlNode node_Bonus, out bool needRefresh)
+    {
+        needRefresh = false;
+        BonusTypes type = (BonusTypes) Enum.Parse(typeof(BonusTypes), node_Bonus.Attributes["bonusType"].Value);
+
+        switch (type)
+        {
+            case BonusTypes.UnlockCardByID:
+            {
+                int cardID = int.Parse(node_Bonus.Attributes["cardID"].Value);
+                if (!AllCards.CardDict.ContainsKey(cardID))
+                {
+                    needRefresh = true;
+                    return null;
+                }
+
+                return new Bonus_UnlockCardByID(cardID);
+            }
+            case BonusTypes.UnlockCardByLevelNum:
+            {
+                int levelNum = int.Parse(node_Bonus.Attributes["levelNum"].Value);
+                return new Bonus_UnlockCardByLevelNum(levelNum);
+            }
+            case BonusTypes.LifeUpperLimit:
+            {
+                int lifeUpperLimit = int.Parse(node_Bonus.Attributes["lifeUpperLimit"].Value);
+                return new Bonus_LifeUpperLimit(lifeUpperLimit);
+            }
+            case BonusTypes.EnergyUpperLimit:
+            {
+                int energyUpperLimit = int.Parse(node_Bonus.Attributes["energyUpperLimit"].Value);
+                return new Bonus_EnergyUpperLimit(energyUpperLimit);
+            }
+            case BonusTypes.Budget:
+            {
+                int budget = int.Parse(node_Bonus.Attributes["budget"].Value);
+                return new Bonus_Budget(budget);
+            }
+        }
+
+        return null;
     }
 }

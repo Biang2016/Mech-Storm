@@ -102,29 +102,20 @@ public class AllLevels
                 XmlNode node_EnemyInfo = node_levelInfo.FirstChild;
                 EnemyType enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), node_EnemyInfo.Attributes["enemyType"].Value);
 
-                BuildInfo bi = BuildInfo.GetBuildInfoFromXML(node_EnemyInfo.FirstChild, out bool _needRefresh);
-
-                needRefresh |= _needRefresh;
+                BuildInfo bi = BuildInfo.GetBuildInfoFromXML(node_EnemyInfo.FirstChild, out bool _needRefresh_build);
+                needRefresh |= _needRefresh_build;
 
                 XmlNode node_BonusGroupInfos = node_EnemyInfo.ChildNodes.Item(1);
-                List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
-                List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
+                List<BonusGroup> BonusGroups = new List<BonusGroup>();
                 for (int i = 0; i < node_BonusGroupInfos.ChildNodes.Count; i++)
                 {
                     XmlNode bonusGroupInfo = node_BonusGroupInfos.ChildNodes.Item(i);
-                    BonusGroup bg = GetBonusGroupFromXML(bonusGroupInfo);
-
-                    if (bg.IsAlways)
-                    {
-                        AlwaysBonusGroup.Add(bg);
-                    }
-                    else
-                    {
-                        OptionalBonusGroup.Add(bg);
-                    }
+                    BonusGroup bg = BonusGroup.GenerateBonusGroupFromXML(bonusGroupInfo, out bool _needRefresh_bonus);
+                    needRefresh |= _needRefresh_bonus;
+                    BonusGroups.Add(bg);
                 }
 
-                Enemy enemy = new Enemy(levelThemeType, picID, names, bi, enemyType, 100, AlwaysBonusGroup, OptionalBonusGroup);
+                Enemy enemy = new Enemy(levelThemeType, picID, names, bi, enemyType, 100, BonusGroups);
                 return enemy;
             }
             case LevelType.Shop:
@@ -134,8 +125,8 @@ public class AllLevels
                 for (int i = 0; i < node_ShopInfo.ChildNodes.Count; i++)
                 {
                     XmlNode node_ShopItem = node_ShopInfo.ChildNodes.Item(i);
-                    ShopItem si = ShopItem.GenerateShopItemFroXML(node_ShopItem, out bool _needRefresh);
-                    needRefresh |= _needRefresh;
+                    ShopItem si = ShopItem.GenerateShopItemFromXML(node_ShopItem, out bool _needRefresh_shop);
+                    needRefresh |= _needRefresh_shop;
                     if (si != null) shopItems.Add(si);
                 }
 
@@ -145,36 +136,6 @@ public class AllLevels
         }
 
         return null;
-    }
-
-    public static BonusGroup GetBonusGroupFromXML(XmlNode bonusGroupInfo)
-    {
-        bool isAlways = bonusGroupInfo.Attributes["isAlways"].Value == "True";
-        List<Bonus> bonuses = new List<Bonus>();
-        int probability = 0;
-        bool singleton = false;
-        if (isAlways)
-        {
-            probability = 0;
-            singleton = true;
-        }
-        else
-        {
-            probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
-            singleton = bonusGroupInfo.Attributes["singleton"].Value == "True";
-        }
-
-        BonusGroup bg = new BonusGroup(isAlways, bonuses, probability, singleton);
-        for (int i = 0; i < bonusGroupInfo.ChildNodes.Count; i++)
-        {
-            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(i);
-            Bonus.BonusType bonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
-            HardFactorValue bonusBaseValue = new HardFactorValue(int.Parse(bonusInfo.Attributes["value"].Value));
-            Bonus bonus = new Bonus(bonusType, bonusBaseValue, 100);
-            bg.Bonuses.Add(bonus);
-        }
-
-        return bg;
     }
 
     public static void ReloadLevelXML()

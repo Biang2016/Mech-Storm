@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AllShops>
+  <LevelInfo name_en="newShop" name_zh="新商店" picID="992" levelThemeCategory="Energy" levelType="Shop">
+    <ShopInfo>
+      <ShopItem shopItemType="Card" price="333" cardID="60050" />
+      <ShopItem shopItemType="Budget" price="6" budget="44" />
+      <ShopItem shopItemType="LifeUpperLimit" price="222" lifeUpperLimit="6" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="212" energyUpperLimit="666" />
+    </ShopInfo>
+  </LevelInfo>
   <LevelInfo name_en="Rice car 4s" name_zh="跑车店" picID="735" levelThemeCategory="Soldiers" levelType="Shop">
     <ShopInfo>
       <ShopItem shopItemType="Card" price="23423" cardID="120" />
@@ -11,14 +19,6 @@
   <LevelInfo name_en="Small Shop0" name_zh="小卖铺" picID="703" levelThemeCategory="Soldiers" levelType="Shop">
     <ShopInfo>
       <ShopItem shopItemType="Card" price="131" cardID="50110" />
-    </ShopInfo>
-  </LevelInfo>
-  <LevelInfo name_en="newShop" name_zh="新商店" picID="992" levelThemeCategory="Energy" levelType="Shop">
-    <ShopInfo>
-      <ShopItem shopItemType="Card" price="333" cardID="60050" />
-    <ShopItem shopItemType="Budget" price="6" budget="44" />
-      <ShopItem shopItemType="LifeUpperLimit" price="222" lifeUpperLimit="6" />
-      <ShopItem shopItemType="EnergyUpperLimit" price="212" energyUpperLimit="666" />
     </ShopInfo>
   </LevelInfo>
 </AllShops>

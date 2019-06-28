@@ -195,43 +195,43 @@ public class GameProxy
                 {
                     foreach (Bonus bonus in r.BonusGroup.Bonuses)
                     {
-                        switch (bonus.M_BonusType)
+                        switch (bonus)
                         {
-                            case Bonus.BonusType.AdjustDeck:
+                            case Bonus_UnlockCardByID b_UnlockCardByID:
                             {
-                                //Todo
+                                story.EditAllCardLimitDict(b_UnlockCardByID.CardID, 1);
                                 break;
                             }
-                            case Bonus.BonusType.LifeUpperLimit:
+                            case Bonus_UnlockCardByLevelNum b_UnlockCardByLevelNum:
                             {
-                                story.StoryGamePlaySettings.DefaultLifeMax += bonus.BonusFinalValue;
-                                story.StoryGamePlaySettings.DefaultLife += bonus.BonusFinalValue;
+//                                story.EditAllCardLimitDict(bonus.BonusFinalValue, 1);
+                                break;
+                            }
+                            case Bonus_LifeUpperLimit b_LifeUpperLimit:
+                            {
+                                story.StoryGamePlaySettings.DefaultLifeMax += b_LifeUpperLimit.LifeUpperLimit;
+                                story.StoryGamePlaySettings.DefaultLife += b_LifeUpperLimit.LifeUpperLimit;
                                 foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
                                 {
-                                    kv.Value.Life += bonus.BonusFinalValue;
+                                    kv.Value.Life += b_LifeUpperLimit.LifeUpperLimit;
                                 }
 
                                 break;
                             }
-                            case Bonus.BonusType.EnergyUpperLimit:
+                            case Bonus_EnergyUpperLimit b_EnergyUpperLimit:
                             {
-                                story.StoryGamePlaySettings.DefaultEnergyMax += bonus.BonusFinalValue;
-                                story.StoryGamePlaySettings.DefaultEnergy += bonus.BonusFinalValue;
+                                story.StoryGamePlaySettings.DefaultEnergyMax += b_EnergyUpperLimit.EnergyUpperLimit;
+                                story.StoryGamePlaySettings.DefaultEnergy += b_EnergyUpperLimit.EnergyUpperLimit;
                                 foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
                                 {
-                                    kv.Value.Energy += bonus.BonusFinalValue;
+                                    kv.Value.Energy += b_EnergyUpperLimit.EnergyUpperLimit;
                                 }
 
                                 break;
                             }
-                            case Bonus.BonusType.Budget:
+                            case Bonus_Budget b_Budget:
                             {
-                                story.StoryGamePlaySettings.DefaultCoin += bonus.BonusFinalValue;
-                                break;
-                            }
-                            case Bonus.BonusType.UnlockCardByID:
-                            {
-                                story.EditAllCardLimitDict(bonus.BonusFinalValue, 1);
+                                story.StoryGamePlaySettings.DefaultCoin += b_Budget.Budget;
                                 break;
                             }
                         }

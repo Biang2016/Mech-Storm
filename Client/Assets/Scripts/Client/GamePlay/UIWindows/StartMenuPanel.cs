@@ -350,12 +350,11 @@ public class StartMenuPanel : BaseUIForm
             ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
             string desc = LanguageManager.Instance.GetText("Notice_StartMenu_DoYouWantToStartANewSingleGame") + (StoryManager.Instance.HasStory ? LanguageManager.Instance.GetText("Notice_StartMenu_CurrentGameWillBeRemoved") : "");
 
-            UnityAction action = StartNewStory;
             cp.Initialize(
                 desc,
                 LanguageManager.Instance.GetText("Common_Yes"),
                 LanguageManager.Instance.GetText("Common_Cancel"),
-                action + cp.CloseUIForm,
+                new UnityAction(StartNewStory) + cp.CloseUIForm,
                 cp.CloseUIForm
             );
         }
@@ -378,6 +377,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleResumeButtonClick()
     {
+        UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
     }
 
     public void StartGameCore(RoundManager.PlayMode playMode, int chapterID, int levelID)

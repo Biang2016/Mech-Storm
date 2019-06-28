@@ -11,7 +11,7 @@ public class ShopItem_Budget : ShopItem
 
     public override string Name => LanguageManager_Common.GetText("CardEditorPanel_CardCoinCostLabelText");
 
-    public override int PicID => 1008;
+    public override int PicID => (int) AllCards.SpecialPicIDs.Budget;
 
     public override ShopItem Clone()
     {

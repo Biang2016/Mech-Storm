@@ -6,7 +6,7 @@ public class TextFly : PoolObject
 {
     public override void PoolRecycle()
     {
-        if (removeTextFlyHandler != null) removeTextFlyHandler(this);
+        removeTextFlyHandler?.Invoke(this);
         transform.localScale = Vector3.one;
         base.PoolRecycle();
         Anim.SetTrigger("EndFly");

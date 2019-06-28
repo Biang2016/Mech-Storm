@@ -679,6 +679,10 @@
       <Project>{6FF4F0B1-A046-7D07-31A8-84E6EFE374D6}</Project>
       <Name>Server</Name>
     </ProjectReference>
+    <ProjectReference Include="Core.csproj">
+      <Project>{7F24B9D5-CA2C-D3DF-6105-8036A13F501D}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,6 +13,7 @@
         Initiate();
         isInitialized = true;
         BattlePlayer.GameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.RegisterEvent(CardInfo.SideEffectBundle_BattleGroundAura);
     }
 
     protected abstract void Initiate();
@@ -22,6 +23,7 @@
     public void UnRegisterSideEffect()
     {
         BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle_BattleGroundAura);
     }
 
     public abstract CardInfo_Base GetCurrentCardInfo();

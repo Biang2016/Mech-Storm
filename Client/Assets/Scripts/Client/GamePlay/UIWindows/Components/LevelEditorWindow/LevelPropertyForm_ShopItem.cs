@@ -8,12 +8,12 @@ public class LevelPropertyForm_ShopItem : PoolObject
     [SerializeField] private Button EditButton;
     [SerializeField] private Image Pic;
     [SerializeField] private Image EditBG;
+    [SerializeField] private Text TypeLabel;
+    [SerializeField] private Text TypeText;
     [SerializeField] private Text NameLabel;
     [SerializeField] private Text NameText;
     [SerializeField] private Text PriceLabel;
     [SerializeField] private Text PriceText;
-    [SerializeField] private Text TypeLabel;
-    [SerializeField] private Text TypeText;
 
     public override void PoolRecycle()
     {
@@ -25,9 +25,9 @@ public class LevelPropertyForm_ShopItem : PoolObject
 
     void Awake()
     {
+        LanguageManager.Instance.RegisterTextKey(TypeLabel, "LevelEditorPanel_ShopItemTypeLabel");
         LanguageManager.Instance.RegisterTextKey(NameLabel, "LevelEditorPanel_ShopItemNameLabel");
         LanguageManager.Instance.RegisterTextKey(PriceLabel, "LevelEditorPanel_ShopItemPriceLabel");
-        LanguageManager.Instance.RegisterTextKey(TypeLabel, "LevelEditorPanel_ShopItemTypeLabel");
     }
 
     public ShopItem Cur_ShopItem;

@@ -94,20 +94,13 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                 int hardFactor = reader.ReadSInt32();
 
                 int alwaysBonusCount = reader.ReadSInt32();
-                List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
+                List<BonusGroup> BonusGroups = new List<BonusGroup>();
                 for (int i = 0; i < alwaysBonusCount; i++)
                 {
-                    AlwaysBonusGroup.Add(BonusGroup.Deserialize(reader));
+                    BonusGroups.Add(BonusGroup.Deserialize(reader));
                 }
 
-                int optionalBonusCount = reader.ReadSInt32();
-                List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
-                for (int i = 0; i < optionalBonusCount; i++)
-                {
-                    OptionalBonusGroup.Add(BonusGroup.Deserialize(reader));
-                }
-
-                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
+                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, hardFactor, BonusGroups);
             case LevelType.Shop:
                 int count = reader.ReadSInt32();
                 List<ShopItem> shopItems = new List<ShopItem>();

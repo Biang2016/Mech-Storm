@@ -173,6 +173,7 @@ public static class AllCards
             MAInfo maInfo = new MAInfo();
 
             SideEffectBundle sideEffectBundle = new SideEffectBundle();
+            SideEffectBundle sideEffectBundle_BattleGroundAura = new SideEffectBundle();
 
             for (int j = 0; j < node_Card.ChildNodes.Count; j++)
             {
@@ -272,6 +273,11 @@ public static class AllCards
                         ExtractSideEffectBundle(baseInfo.CardType, node_CardInfo, sideEffectBundle);
                         break;
                     }
+                    case "sideEffectsBundle_Aura":
+                    {
+                        ExtractSideEffectBundle(baseInfo.CardType, node_CardInfo, sideEffectBundle_BattleGroundAura);
+                        break;
+                    }
                 }
             }
 
@@ -285,7 +291,8 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         mechInfo: mechInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -297,21 +304,24 @@ public static class AllCards
                         shieldInfo: shieldInfo,
                         packInfo: packInfo,
                         maInfo: maInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
                         cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
                 case CardTypes.Energy:
                     addCard(new CardInfo_Spell(
                         cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
             }
         }
@@ -858,5 +868,46 @@ public static class AllCards
     public static CardInfo_Base GetDegradeCardInfo(int cardId)
     {
         return GetDegradeCardInfo(GetCard(cardId));
+    }
+
+    public static int GetPicIDByCardID(int cardID)
+    {
+        CardDict.TryGetValue(cardID, out CardInfo_Base ci);
+        if (ci != null)
+        {
+            return ci.BaseInfo.PictureID;
+        }
+        else
+        {
+            return (int) SpecialPicIDs.Empty;
+        }
+    }
+
+    public static string GetCardNameByCardID(int cardID)
+    {
+        CardDict.TryGetValue(cardID, out CardInfo_Base ci);
+        if (ci != null)
+        {
+            return ci.BaseInfo.CardNames[LanguageManager_Common.GetCurrentLanguage()];
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public enum SpecialPicIDs
+    {
+        LockedEmeny = 1000,
+        Shop = 1001,
+        LockedShop = 1002,
+        LockedBoss = 1003,
+        Empty = 1004,
+        Treasure = 1005,
+        Rest = 1006,
+        Skills = 1007,
+        Budget = 1008,
+        LifeUpperLimit = 1009,
+        EnergyUpperLimit = 1010,
     }
 }

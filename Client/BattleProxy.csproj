@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\BattleProxy\Managers\GameManager_TargetSelect.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Managers\HandManager.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Modules\ModuleBase.cs" />
+    <Compile Include="Assets\Scripts\BattleProxy\Modules\ModuleEquip.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Modules\ModuleMA.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Modules\ModuleMech.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Modules\ModulePack.cs" />

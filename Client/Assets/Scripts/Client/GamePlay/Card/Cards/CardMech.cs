@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardMech : CardBase
@@ -154,8 +155,10 @@ public class CardMech : CardBase
         }
 
         int aliveIndex = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePositionInAliveMechs(dragLastPosition);
+        Debug.Log("summon start second: " + DateTime.Now.Second);
         SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, aliveIndex, (int) Const.SpecialMechID.ClientTempMechIDNormal, null, null);
         Client.Instance.Proxy.SendMessage(request);
+        Debug.Log("summon end second: " + DateTime.Now.Second);
         Usable = false;
     }
 

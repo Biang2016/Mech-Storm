@@ -71,6 +71,7 @@ public class GameObjectPool : MonoBehaviour
                     }
 
                     isUsed[i] = true;
+                    gameObjectPool[i].IsRecycled = false;
                     return (T) gameObjectPool[i];
                 }
             }

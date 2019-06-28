@@ -29,11 +29,11 @@ internal class BigBonusItem : BonusItem_Base
         UnlockText.enabled = false;
         UnlockImage.enabled = false;
         CardMask.enabled = false;
-        switch (bonus.M_BonusType)
+        switch (bonus)
         {
-            case Bonus.BonusType.UnlockCardByID:
+            case Bonus_UnlockCardByID _b:
             {
-                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(bonus.BonusFinalValue), CardContainer, CardBase.CardShowMode.CardReward, RoundManager.Instance.SelfClientPlayer);
+                CurrentCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(_b.CardID), CardContainer, CardBase.CardShowMode.CardReward, RoundManager.Instance.SelfClientPlayer);
                 CurrentCard.transform.localScale = CardRotationSample.localScale;
                 CurrentCard.transform.rotation = CardRotationSample.rotation;
                 CurrentCard.transform.position = CardRotationSample.position;

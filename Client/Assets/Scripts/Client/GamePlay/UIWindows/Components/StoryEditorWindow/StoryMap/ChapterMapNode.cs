@@ -85,13 +85,13 @@ public class ChapterMapNode : PoolObject
                 {
                     case EnemyType.Soldier:
                     {
-                        picID = 1000;
+                        picID = (int) AllCards.SpecialPicIDs.LockedEmeny;
                         break;
                     }
                     case EnemyType.Boss:
                     {
                         Button.transform.localScale = Vector3.one * 1.5f;
-                        picID = 1003;
+                        picID = (int) AllCards.SpecialPicIDs.LockedBoss;
                         break;
                     }
                 }
@@ -100,23 +100,23 @@ public class ChapterMapNode : PoolObject
             }
             case LevelType.Rest:
             {
-                picID = 1006;
+                picID = (int) AllCards.SpecialPicIDs.Rest;
                 break;
             }
             case LevelType.Shop:
             {
-                picID = 1001;
+                picID = (int) AllCards.SpecialPicIDs.Shop;
                 break;
             }
             case LevelType.Start:
             {
-                picID = 1007;
+                picID = (int) AllCards.SpecialPicIDs.Skills;
                 break;
             }
             case LevelType.Treasure:
             {
                 Button.transform.localScale = Vector3.one * 1.2f;
-                picID = 1005;
+                picID = (int) AllCards.SpecialPicIDs.Treasure;
                 break;
             }
         }

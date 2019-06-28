@@ -30,6 +30,19 @@ internal class ModuleMech : ModuleBase, ILife
                 );
             }
         }
+
+        foreach (SideEffectExecute see in CardInfo.SideEffectBundle_BattleGroundAura.SideEffectExecutes)
+        {
+            foreach (SideEffectBase se in see.SideEffectBases)
+            {
+                se.Player = BattlePlayer;
+                se.M_ExecutorInfo = new ExecutorInfo(
+                    BattlePlayer.ClientId,
+                    sideEffectExecutorID: see.ID,
+                    mechId: M_MechID
+                );
+            }
+        }
     }
 
     public override CardInfo_Base GetCurrentCardInfo()
@@ -41,7 +54,8 @@ internal class ModuleMech : ModuleBase, ILife
             lifeInfo: CardInfo.LifeInfo,
             battleInfo: CardInfo.BattleInfo,
             mechInfo: CardInfo.MechInfo,
-            sideEffectBundle: CardInfo.SideEffectBundle);
+            sideEffectBundle: CardInfo.SideEffectBundle,
+            sideEffectBundle_BattleGroundAura: CardInfo.SideEffectBundle_BattleGroundAura);
     }
 
     #region 属性
@@ -1181,6 +1195,7 @@ internal class ModuleMech : ModuleBase, ILife
     public void UnregisterEvent()
     {
         BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle);
+        BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle_BattleGroundAura);
     }
 
     private void OnMakeDamage(int damage)

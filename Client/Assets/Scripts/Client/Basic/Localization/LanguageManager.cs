@@ -30,6 +30,11 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     void Awake()
     {
+        FontDict = new Dictionary<string, Font>
+        {
+            {"zh", ChineseFont},
+            {"en", EnglishFont},
+        };
         string playerPrefLanguage = PlayerPrefs.GetString("Language");
         if (LanguagesAbbrDict.ContainsKey(playerPrefLanguage))
         {
@@ -39,14 +44,6 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         {
             CurrentLanguage = DefaultLanguage;
         }
-
-        FontDict = new Dictionary<string, Font>
-        {
-            {"zh", ChineseFont},
-            {"en", EnglishFont},
-        };
-
-        SettingPanel sp = UIManager.Instance.GetBaseUIForm<SettingPanel>();
     }
 
     void Start()
@@ -65,10 +62,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         return CurrentLanguage;
     }
 
-    public bool IsEnglish
-    {
-        get { return CurrentLanguage.Equals("en"); }
-    }
+    public bool IsEnglish => CurrentLanguage.Equals("en");
 
     public SortedDictionary<string, string> LanguagesAbbrDict = new SortedDictionary<string, string>
     {

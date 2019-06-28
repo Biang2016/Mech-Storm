@@ -19,7 +19,7 @@ internal class BonusItem_Base : PoolObject
     public static BonusItem_Base InstantiateBonusItem(Bonus bonus, Transform parent)
     {
         BonusItem_Base bib;
-        if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+        if (bonus.BonusType == Bonus.BonusTypes.UnlockCardByID)
         {
             bib = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BigBonusItem].AllocateGameObject<BonusItem_Base>(parent);
         }
@@ -36,9 +36,9 @@ internal class BonusItem_Base : PoolObject
     {
         Bonus = bonus;
         ItemDesc.text = Bonus.GetDesc();
-        if (bonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+        if (bonus is Bonus_UnlockCardByID b_UnlockCardByID)
         {
-            BonusCardInfo = AllCards.GetCard(bonus.BonusFinalValue);
+            BonusCardInfo = AllCards.GetCard(b_UnlockCardByID.CardID);
         }
     }
 

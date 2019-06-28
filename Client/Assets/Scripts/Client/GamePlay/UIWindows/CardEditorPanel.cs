@@ -111,6 +111,7 @@ public class CardEditorPanel : BaseUIForm
     private Dictionary<ShieldTypes, List<PropertyFormRow>> ShieldTypePropertiesDict = new Dictionary<ShieldTypes, List<PropertyFormRow>>();
 
     private CardPropertyForm_SideEffectBundle Row_SideEffectBundle = null;
+    private CardPropertyForm_SideEffectBundle Row_SideEffectBundle_BattleGroundAura = null;
 
     private void InitializeCardPropertyForm()
     {
@@ -166,6 +167,7 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_CardMetalCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
         PropertyFormRow Row_CardEnergyCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
         PropertyFormRow Row_CardSelectLimit = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
+        PropertyFormRow Row_CardRareLevel = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardRareLevelLabelText", OnCardRareLevelChange, out SetCardRareLevel);
         PropertyFormRow Row_CardIsTemp = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
         PropertyFormRow Row_CardIsHide = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
 
@@ -199,8 +201,11 @@ public class CardEditorPanel : BaseUIForm
 
         Row_SideEffectBundle?.PoolRecycle();
         Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
-
         Row_SideEffectBundle.Initialize(null, null, null);
+
+        Row_SideEffectBundle_BattleGroundAura?.PoolRecycle();
+        Row_SideEffectBundle_BattleGroundAura = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
+        Row_SideEffectBundle_BattleGroundAura.Initialize(null, null, null);
 
         CardPropertiesCommon = new List<PropertyFormRow>
         {
@@ -215,6 +220,7 @@ public class CardEditorPanel : BaseUIForm
             Row_CardMetalCost,
             Row_CardEnergyCost,
             Row_CardSelectLimit,
+            Row_CardRareLevel,
             Row_CardIsTemp,
             Row_CardIsHide,
         };
@@ -610,6 +616,19 @@ public class CardEditorPanel : BaseUIForm
             {
                 cur_PreviewCard.CardInfo.BaseInfo.LimitNum = value;
                 cur_PreviewCard.ChangeCardSelectLimit(value, true);
+            }
+        }
+    }
+
+    private UnityAction<string> SetCardRareLevel;
+
+    private void OnCardRareLevelChange(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (cur_PreviewCard)
+            {
+                cur_PreviewCard.CardInfo.BaseInfo.CardRareLevel = value;
             }
         }
     }
@@ -1034,10 +1053,6 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    #region SideEffect
-
-    #endregion
-
     #endregion
 
     #region Center CardPreview
@@ -1090,6 +1105,7 @@ public class CardEditorPanel : BaseUIForm
         SetCardMetalCost(ci.BaseInfo.Metal.ToString());
         SetCardEnergyCost(ci.BaseInfo.Energy.ToString());
         SetCardSelectLimit(ci.BaseInfo.LimitNum.ToString());
+        SetCardRareLevel(ci.BaseInfo.CardRareLevel.ToString());
         SetCardIsTemp(ci.BaseInfo.IsTemp.ToString());
         SetCardIsHide(ci.BaseInfo.IsHide.ToString());
 
@@ -1167,6 +1183,8 @@ public class CardEditorPanel : BaseUIForm
         cur_PreviewCard.ShowCardBloom(true);
 
         Row_SideEffectBundle.Initialize(cur_PreviewCard.CardInfo, cur_PreviewCard.CardInfo.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
+        Row_SideEffectBundle_BattleGroundAura.gameObject.SetActive(cur_PreviewCard.CardInfo.BaseInfo.CardType == CardTypes.Mech);
+        Row_SideEffectBundle_BattleGroundAura.Initialize(cur_PreviewCard.CardInfo, cur_PreviewCard.CardInfo.SideEffectBundle_BattleGroundAura, cur_PreviewCard.RefreshCardTextLanguage);
 
         cur_PreviewCard.RefreshCardTextLanguage();
         cur_PreviewCard.RefreshCardAllColors();

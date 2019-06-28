@@ -11,7 +11,7 @@ public class ShopItem_LifeUpperLimit : ShopItem
 
     public override string Name => LanguageManager_Common.GetText("LevelEditorPanel_LifeUpperLimitLabelValueText");
 
-    public override int PicID => 1009;
+    public override int PicID => (int) AllCards.SpecialPicIDs.LifeUpperLimit;
 
     public override ShopItem Clone()
     {

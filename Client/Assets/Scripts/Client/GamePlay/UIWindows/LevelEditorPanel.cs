@@ -55,7 +55,7 @@ public class LevelEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
 
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(SelectCard, UnSelectCard, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, SelectCard, UnSelectCard, null, null, Row_CardSelection);
     }
 
     public override void Hide()
@@ -68,6 +68,7 @@ public class LevelEditorPanel : BaseUIForm
     {
         CardSelectPanel.OnLanguageChange(_);
         Row_ShopItems.OnLanguageChange();
+        Row_BonusGroups.OnLanguageChange();
     }
 
     private void ReturnToStoryEditor()
@@ -106,15 +107,11 @@ public class LevelEditorPanel : BaseUIForm
 
     private LevelPropertyForm_CardSelection Row_CardSelection;
     private LevelPropertyForm_ShopItems Row_ShopItems;
+    private LevelPropertyForm_BonusGroups Row_BonusGroups;
 
     private void InitializeCardPropertyForm()
     {
-        foreach (PropertyFormRow pfr in MyPropertiesRows)
-        {
-            pfr.PoolRecycle();
-        }
-
-        MyPropertiesRows.Clear();
+        Clear();
 
         IEnumerable<LevelType> types_level = Enum.GetValues(typeof(LevelType)) as IEnumerable<LevelType>;
         List<string> levelTypeList = new List<string>();
@@ -148,6 +145,8 @@ public class LevelEditorPanel : BaseUIForm
         MyPropertiesRows.Add(Row_CardSelection);
         Row_ShopItems = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_ShopItems].AllocateGameObject<LevelPropertyForm_ShopItems>(LevelPropertiesContainer);
         MyPropertiesRows.Add(Row_ShopItems);
+        Row_BonusGroups = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_BonusGroups].AllocateGameObject<LevelPropertyForm_BonusGroups>(LevelPropertiesContainer);
+        MyPropertiesRows.Add(Row_BonusGroups);
 
         LevelPropertiesCommon = new List<PropertyFormRow>
         {
@@ -165,6 +164,7 @@ public class LevelEditorPanel : BaseUIForm
             Row_EnemyEnergy,
             Row_EnemyBeginMetal,
             Row_CardSelection,
+            Row_BonusGroups
         };
 
         LevelTypePropertiesDict[LevelType.Shop] = new List<PropertyFormRow>
@@ -180,6 +180,24 @@ public class LevelEditorPanel : BaseUIForm
         PropertyFormRow cpfr = PropertyFormRow.BaseInitialize(type, LevelPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         MyPropertiesRows.Add(cpfr);
         return cpfr;
+    }
+
+    private void Clear()
+    {
+        Cur_Level = null;
+        Row_CardSelection = null;
+        Row_ShopItems = null;
+        Row_BonusGroups = null;
+
+        foreach (PropertyFormRow pfr in MyPropertiesRows)
+        {
+            pfr.PoolRecycle();
+        }
+
+        MyPropertiesRows.Clear();
+        LevelTypePropertiesDict.Clear();
+        EnemyTypePropertiesDict.Clear();
+        LevelPropertiesCommon.Clear();
     }
 
     private UnityAction<string> SetLevelType;
@@ -225,8 +243,7 @@ public class LevelEditorPanel : BaseUIForm
                             gamePlaySettings: null),
                         enemyType: EnemyType.Soldier,
                         hardFactor: 100,
-                        alwaysBonusGroup: new List<BonusGroup>(),
-                        optionalBonusGroup: new List<BonusGroup>()
+                        bonusGroups: new List<BonusGroup>()
                     );
                     break;
                 }
@@ -421,12 +438,38 @@ public class LevelEditorPanel : BaseUIForm
                     SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString());
                     SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
                     SetEnemyLife(enemy.BuildInfo.Life.ToString());
-                    CardSelectPanel.SetBuildCards(enemy.BuildInfo.M_BuildCards);
+                    Row_BonusGroups.Initialize(enemy.BonusGroups, ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer),
+                        addAction: delegate
+                        {
+                            enemy.BonusGroups.Add(new BonusGroup(false, new List<Bonus>(), 1, false));
+                            Row_BonusGroups.Refresh();
+                            StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
+                        }, clearAction: delegate
+                        {
+                            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                            cp.Initialize(
+                                descText: LanguageManager.Instance.GetText("LevelEditorPanel_ClearConfirm"),
+                                leftButtonText: LanguageManager.Instance.GetText("Common_Yes"),
+                                rightButtonText: LanguageManager.Instance.GetText("Common_No"),
+                                leftButtonClick: delegate
+                                {
+                                    cp.CloseUIForm();
+                                    enemy.BonusGroups.Clear();
+                                    Row_BonusGroups.Refresh();
+                                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
+                                },
+                                rightButtonClick: delegate { cp.CloseUIForm(); });
+                        }, onStartSelectCard: OnStartSelectCard);
+                    CardSelectPanel.SetBuildCards(enemy.BuildInfo.M_BuildCards, gotoAction: delegate
+                    {
+                        M_SelectCardContents = SelectCardContents.SelectDeckCards;
+                        CardSelectPanel.SetCardLibraryPanelEnable(true);
+                    });
                     break;
                 }
                 case Shop shop:
                 {
-                    CardSelectPanel.UnSelectAllCards();
+                    CardSelectPanel.UnselectAllCards();
                     CardSelectPanel.SetCardLibraryPanelEnable(false);
                     Row_ShopItems.Initialize(shop.ShopItems, ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
                     Row_ShopItems.SetButtonActions(
@@ -446,18 +489,34 @@ public class LevelEditorPanel : BaseUIForm
                                 },
                                 rightButtonClick: delegate { cp.CloseUIForm(); });
                         },
-                        onStartSelectCard: delegate(bool isShow, int refreshCardID, int refreshCardCount)
-                        {
-                            CardSelectPanel.UnSelectAllCards();
-                            CardSelectPanel.RefreshCard(refreshCardID, refreshCardCount);
-                            CardSelectPanel.SetCardLibraryPanelEnable(isShow);
-                        });
+                        onStartSelectCard: OnStartSelectCard);
                     break;
                 }
             }
         }
 
         return false;
+    }
+
+    private SelectCardContents M_SelectCardContents;
+
+    public enum SelectCardContents
+    {
+        SelectDeckCards,
+        SelectShopItemCards,
+        SelectBonusCards,
+    }
+
+    private void OnStartSelectCard(bool isShow, int refreshCardID, int refreshCardCount, SelectCardContents selectCardContents)
+    {
+        M_SelectCardContents = selectCardContents;
+        if (selectCardContents != SelectCardContents.SelectDeckCards)
+        {
+            CardSelectPanel.UnselectAllCards();
+        }
+
+        CardSelectPanel.RefreshCard(refreshCardID, refreshCardCount);
+        CardSelectPanel.SetCardLibraryPanelEnable(isShow);
     }
 
     private void SaveLevel()
@@ -538,48 +597,59 @@ public class LevelEditorPanel : BaseUIForm
 
     private void SelectCard(CardBase card)
     {
-        if (Enemy_BuildCards != null)
+        switch (M_SelectCardContents)
         {
-            if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && Enemy_BuildCards.GetTypeCardCountDict()[CardStatTypes.HeroMech] >= 4)
+            case SelectCardContents.SelectDeckCards:
             {
-                return;
-            }
-
-            Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount++;
-            int count = Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
-            CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
-            Row_CardSelection.Refresh();
-        }
-
-        else if (Shop_ShopItems != null)
-        {
-            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-            cp.Initialize(
-                descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetPrice"),
-                leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
-                rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
-                leftButtonClick: delegate
+                if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && Enemy_BuildCards.GetTypeCardCountDict(Editor_CardSelectModes.SelectCount)[CardStatTypes.HeroMech] >= 4)
                 {
-                    if (int.TryParse(cp.InputText1, out int price))
+                    return;
+                }
+
+                Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount++;
+                int count = Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
+                CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
+                Row_CardSelection.Refresh();
+                break;
+            }
+            case SelectCardContents.SelectShopItemCards:
+            {
+                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                cp.Initialize(
+                    descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetPrice"),
+                    leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
+                    rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
+                    leftButtonClick: delegate
+                    {
+                        if (int.TryParse(cp.InputText1, out int price))
+                        {
+                            cp.CloseUIForm();
+                            Row_ShopItems.OnCurEditShopItemCardChangeCard(card.CardInfo.CardID, price);
+                            Row_ShopItems.Refresh();
+                            StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
+                            CardSelectPanel.SetCardLibraryPanelEnable(false);
+                        }
+                        else
+                        {
+                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                        }
+                    },
+                    rightButtonClick: delegate
                     {
                         CardSelectPanel.SetCardLibraryPanelEnable(false);
                         cp.CloseUIForm();
-                        Row_ShopItems.OnCurEditShopItemCardChangeCard(card.CardInfo.CardID, price);
-                        Row_ShopItems.Refresh();
-                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
-                        CardSelectPanel.SetCardLibraryPanelEnable(false);
-                    }
-                    else
-                    {
-                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
-                    }
-                },
-                rightButtonClick: delegate
-                {
-                    CardSelectPanel.SetCardLibraryPanelEnable(false);
-                    cp.CloseUIForm();
-                },
-                inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder"));
+                    },
+                    inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder"));
+                break;
+            }
+            case SelectCardContents.SelectBonusCards:
+            {
+                CardSelectPanel.SetCardLibraryPanelEnable(false);
+                Row_BonusGroups.OnCurEditBonusUnlockCardChangeCard(card.CardInfo.CardID);
+                Row_BonusGroups.Refresh();
+                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
+                break;
+            }
         }
     }
 

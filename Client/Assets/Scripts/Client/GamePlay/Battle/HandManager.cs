@@ -165,7 +165,6 @@ public class HandManager : MonoBehaviour
         {
             count++;
             Transform result = GetCardPlace(count, cardCount);
-            Debug.Log("Replace: " + count + "/" + cardCount);
             Vector3 position = result.position;
             Vector3 rotation = result.rotation.eulerAngles;
             Vector3 scale = result.localScale;

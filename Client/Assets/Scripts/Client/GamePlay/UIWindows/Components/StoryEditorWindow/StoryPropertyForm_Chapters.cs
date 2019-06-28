@@ -82,6 +82,7 @@ public class StoryPropertyForm_Chapters : PoolObject
             chapterRow.Initialize(
                 onSelected: delegate
                 {
+                    gotoAction();
                     if (SelectedChapter != chapterRow.Cur_Chapter)
                     {
                         foreach (KeyValuePair<int, StoryPropertyForm_Chapter> _kv in StoryChapterRows)

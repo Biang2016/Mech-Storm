@@ -3,16 +3,16 @@ CompatibilityAssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: animations
-      Hash: 6c5f27fed434a857dcefe78813735760
-      CRC: 1816760237
-        Dependency_0: textures_ui_arrow    Info_1:
+      Hash: 72a7656d8f1709d9c41d0289c5e65945
+      CRC: 2873845463
+        Dependency_0: textures_ui_arrow        Dependency_1: textures_effects    Info_1:
       Name: materials
-      Hash: 045b9fc0fa946d2caf3694df0f193c98
-      CRC: 4138066588
+      Hash: 4968af955433da8806fc536683f2f9a1
+      CRC: 1599716166
         Dependency_0: shaders        Dependency_1: textures_ui_arrow        Dependency_2: textures_card_cardcomponents        Dependency_3: textures_card_mechicons        Dependency_4: textures_card_ma        Dependency_5: textures_card_pack        Dependency_6: textures_card_shield        Dependency_7: textures_card_weapon        Dependency_8: textures_card_mechattrshapes        Dependency_9: textures_ui_menu        Dependency_10: textures_ships        Dependency_11: textures_ui_common        Dependency_12: fonts    Info_2:
       Name: shaders
-      Hash: 9d407ab519c3f5f8dd7e75a3156f0c2b
-      CRC: 715420865
+      Hash: b15401c0691a681271a4c69f69e5baf0
+      CRC: 2882493926
       Dependencies: {}
     Info_3:
       Name: models
@@ -21,8 +21,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_4:
       Name: fonts
-      Hash: 71820929e97584f79a0a3686837cc433
-      CRC: 2437728824
+      Hash: 23d433c65f4852766b1bee49407d308b
+      CRC: 3806371577
         Dependency_0: shaders    Info_5:
       Name: atlas_bgs
       Hash: dd1b08ffa2e563294295f81946071628
@@ -110,8 +110,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_22:
       Name: textures_effects
-      Hash: 80fac52c05ce0891031c3c28630a6dba
-      CRC: 1079292716
+      Hash: 45744202864600c09ea8d5fff14a2ae5
+      CRC: 1594961819
       Dependencies: {}
     Info_23:
       Name: textures_ships
@@ -200,6 +200,6 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_40:
       Name: prefabs
-      Hash: 414a804376ac2328ccbde9d6c9ab442d
-      CRC: 1823752751
+      Hash: 78ebe0965772d7493e9b4a442dd6aa01
+      CRC: 2959336004
         Dependency_0: textures_ui_arrow        Dependency_1: shaders        Dependency_2: animations        Dependency_3: materials        Dependency_4: models        Dependency_5: textures_ships        Dependency_6: fonts        Dependency_7: textures_card_mechicons        Dependency_8: textures_ui_common        Dependency_9: textures_ui_playerbuff        Dependency_10: textures_ui_cardrelated        Dependency_11: textures_card_cardcomponents        Dependency_12: textures_effects        Dependency_13: textures_card_pack        Dependency_14: textures_card_weapon        Dependency_15: textures_card_ma        Dependency_16: textures_card_shield        Dependency_17: textures_card_mechattrshapes        Dependency_18: textures_ui_menu        Dependency_19: textures_ui_story        Dependency_20: textures_card_affix        Dependency_21: atlas_cardpics_7        Dependency_22: atlas_bgs        Dependency_23: textures_ui_tips

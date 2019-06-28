@@ -33,10 +33,6 @@ public class ShopItem : IClone<ShopItem>
     public virtual string Name => "";
     public virtual int PicID => (int) AllCards.EmptyCardTypes.EmptyCard;
 
-    protected void BaseExportToXML(XmlElement my_ele)
-    {
-    }
-
     public void ExportToXML(XmlElement parent_ele)
     {
         XmlDocument doc = parent_ele.OwnerDocument;
@@ -52,11 +48,11 @@ public class ShopItem : IClone<ShopItem>
     {
     }
 
-    public virtual void OnEdit()
+    protected virtual void OnEdit()
     {
     }
 
-    public static ShopItem GenerateShopItemFroXML(XmlNode node_ShopItem, out bool needRefresh)
+    public static ShopItem GenerateShopItemFromXML(XmlNode node_ShopItem, out bool needRefresh)
     {
         needRefresh = false;
         ShopItemTypes type = (ShopItemTypes) Enum.Parse(typeof(ShopItemTypes), node_ShopItem.Attributes["shopItemType"].Value);

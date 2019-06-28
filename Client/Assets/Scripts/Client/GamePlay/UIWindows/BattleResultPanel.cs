@@ -299,11 +299,11 @@ internal class BattleResultPanel : BaseUIForm
             GetBonusBuildChangeInfo(bg);
             BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, bg);
             Client.Instance.Proxy.SendMessage(request);
-            foreach (Bonus bgBonus in bg.Bonuses)
+            foreach (Bonus bonus in bg.Bonuses)
             {
-                if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+                if (bonus is Bonus_Budget _b)
                 {
-                    StoryManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
+                    StoryManager.Instance.JustGetNewCards.Add(_b.Budget);
                 }
             }
         }
@@ -313,17 +313,28 @@ internal class BattleResultPanel : BaseUIForm
     {
         if (!StoryManager.Instance.JustGetSomeCard)
         {
-            if (bg.Bonuses[0].M_BonusType == Bonus.BonusType.UnlockCardByID) StoryManager.Instance.JustGetSomeCard = true;
+            if (bg.Bonuses[0].BonusType == Bonus.BonusTypes.UnlockCardByID) StoryManager.Instance.JustGetSomeCard = true;
         }
 
         foreach (Bonus b in bg.Bonuses)
         {
-            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.BonusFinalValue > 0) StoryManager.Instance.JustLifeAdd = true;
-            if (b.M_BonusType == Bonus.BonusType.LifeUpperLimit && b.BonusFinalValue < 0) StoryManager.Instance.JustLifeLost = true;
-            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.BonusFinalValue > 0) StoryManager.Instance.JustLifeAdd = true;
-            if (b.M_BonusType == Bonus.BonusType.EnergyUpperLimit && b.BonusFinalValue < 0) StoryManager.Instance.JustEnergyLost = true;
-            if (b.M_BonusType == Bonus.BonusType.Budget && b.BonusFinalValue > 0) StoryManager.Instance.JustBudgetAdd = true;
-            if (b.M_BonusType == Bonus.BonusType.Budget && b.BonusFinalValue < 0) StoryManager.Instance.JustBudgetLost = true;
+            if (b is Bonus_LifeUpperLimit bl)
+            {
+                StoryManager.Instance.JustLifeLost = bl.LifeUpperLimit < 0;
+                StoryManager.Instance.JustLifeAdd = bl.LifeUpperLimit > 0;
+            }
+
+            if (b is Bonus_EnergyUpperLimit be)
+            {
+                StoryManager.Instance.JustEnergyLost = be.EnergyUpperLimit < 0;
+                StoryManager.Instance.JustEnergyAdd = be.EnergyUpperLimit > 0;
+            }
+
+            if (b is Bonus_Budget bb)
+            {
+                StoryManager.Instance.JustBudgetLost = bb.Budget < 0;
+                StoryManager.Instance.JustBudgetAdd = bb.Budget > 0;
+            }
         }
     }
 

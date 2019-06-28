@@ -1104,7 +1104,7 @@ MonoBehaviour:
   ResetLevelButton: {fileID: 3801522891270877657}
   SaveLevelButtonText: {fileID: 879080120282216886}
   ResetLevelButtonText: {fileID: 4679205401801513656}
-  CardSelectPanel: {fileID: 6394001399878407895}
+  CardSelectPanel: {fileID: 1889358624198860210}
 --- !u!1 &2043038656933047743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,7 +1300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000000004025758}
+  m_AnchoredPosition: {x: 0, y: 0.00000822347}
   m_SizeDelta: {x: 4.25, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &3892952294754740871
@@ -4423,7 +4423,7 @@ PrefabInstance:
     - target: {fileID: 3584190143943222096, guid: 75cd820891e9248179cfb4ab330555b0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000003818723
+      value: 0.000012092271
       objectReference: {fileID: 0}
     - target: {fileID: 3584190143943222096, guid: 75cd820891e9248179cfb4ab330555b0,
         type: 3}
@@ -4433,16 +4433,6 @@ PrefabInstance:
     - target: {fileID: 9053174494759728706, guid: 75cd820891e9248179cfb4ab330555b0,
         type: 3}
       propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4306545810312195774, guid: 75cd820891e9248179cfb4ab330555b0,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4306545810312195774, guid: 75cd820891e9248179cfb4ab330555b0,
-        type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3965133955371526302, guid: 75cd820891e9248179cfb4ab330555b0,
@@ -4465,6 +4455,51 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4306545810312195774, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4306545810312195774, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8561371588181837665, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00003492635
+      objectReference: {fileID: 0}
+    - target: {fileID: 8561371588181837665, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514738042877410333, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514738042877410333, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166563075812705687, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_Size
+      value: 0.9473685
+      objectReference: {fileID: 0}
+    - target: {fileID: 2246461735714764458, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2246461735714764458, guid: 75cd820891e9248179cfb4ab330555b0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75cd820891e9248179cfb4ab330555b0, type: 3}
 --- !u!224 &6485905915296586594 stripped
@@ -4473,9 +4508,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4714208535071225298}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6394001399878407895 stripped
+--- !u!114 &1889358624198860210 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1860045792083092229, guid: 75cd820891e9248179cfb4ab330555b0,
+  m_CorrespondingSourceObject: {fileID: 6580992738147788896, guid: 75cd820891e9248179cfb4ab330555b0,
     type: 3}
   m_PrefabInstance: {fileID: 4714208535071225298}
   m_PrefabAsset: {fileID: 0}

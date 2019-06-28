@@ -31,8 +31,15 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         {
             if (currentEditBuildInfo != null) OnSaveBuildInfo(currentEditBuildInfo);
             currentEditBuildInfo = value;
-            lastSaveBuildInfo = currentEditBuildInfo.Clone();
-            lastSaveBuildInfo.BuildID = currentEditBuildInfo.BuildID;
+            if (currentEditBuildInfo != null)
+            {
+                lastSaveBuildInfo = currentEditBuildInfo.Clone();
+                lastSaveBuildInfo.BuildID = currentEditBuildInfo.BuildID;
+            }
+            else
+            {
+                lastSaveBuildInfo = null;
+            }
         }
     }
 

@@ -96,11 +96,11 @@ internal class BonusButton : PoolObject
         UIManager.Instance.GetBaseUIForm<BattleResultPanel>().GetBonusBuildChangeInfo(BonusGroup);
         BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, BonusGroup);
         Client.Instance.Proxy.SendMessage(request);
-        foreach (Bonus bgBonus in BonusGroup.Bonuses)
+        foreach (Bonus bonus in BonusGroup.Bonuses)
         {
-            if (bgBonus.M_BonusType == Bonus.BonusType.UnlockCardByID)
+            if (bonus is Bonus_UnlockCardByID b_UnlockCardByID)
             {
-                StoryManager.Instance.JustGetNewCards.Add(bgBonus.BonusFinalValue);
+                StoryManager.Instance.JustGetNewCards.Add(b_UnlockCardByID.CardID);
             }
         }
     }

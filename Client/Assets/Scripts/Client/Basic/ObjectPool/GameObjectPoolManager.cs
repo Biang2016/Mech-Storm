@@ -39,10 +39,21 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         SelectCard,
         BuildButton,
 
+        FX_Hit0,
+        FX_Hit1,
+        FX_Blade1,
+        FX_Blade2,
+        FX_WeaponEnergyUp,
+        FX_ShipAddEnergy,
+        FX_Particle,
+        FX_GunBullet,
+        FX_GunBulletHit,
+        FX_Shield,
+        FX_MechAddLife,
+
         TextFly,
+
         Affix,
-        ParticleSystem,
-        Bullet,
 
         BigBonusItem,
         SmallBonusItem,
@@ -70,6 +81,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         LevelPropertyForm_ShopItem,
         LevelPropertyForm_ShopItems,
         LevelPropertyForm_ShopItemTypeDropdown,
+        LevelPropertyForm_BonusGroups,
+        LevelPropertyForm_BonusGroup,
+        LevelPropertyForm_Bonus,
+        LevelPropertyForm_BonusTypeDropdown,
 
         StoryPropertyForm_GamePlaySettings,
         StoryPropertyForm_Chapters,
@@ -117,10 +132,20 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.SelectCard, 50},
         {PrefabNames.BuildButton, 5},
 
+        {PrefabNames.FX_Hit0, 3},
+        {PrefabNames.FX_Hit1, 3},
+        {PrefabNames.FX_Blade1, 2},
+        {PrefabNames.FX_Blade2, 2},
+        {PrefabNames.FX_WeaponEnergyUp, 3},
+        {PrefabNames.FX_ShipAddEnergy, 2},
         {PrefabNames.TextFly, 10},
+        {PrefabNames.FX_Particle, 5},
+        {PrefabNames.FX_GunBullet, 3},
+        {PrefabNames.FX_GunBulletHit, 3},
+        {PrefabNames.FX_Shield, 2},
+        {PrefabNames.FX_MechAddLife, 2},
+
         {PrefabNames.Affix, 5},
-        {PrefabNames.ParticleSystem, 5},
-        {PrefabNames.Bullet, 2},
 
         {PrefabNames.BigBonusItem, 3},
         {PrefabNames.SmallBonusItem, 5},
@@ -147,6 +172,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.LevelPropertyForm_ShopItem, 5},
         {PrefabNames.LevelPropertyForm_ShopItems, 1},
         {PrefabNames.LevelPropertyForm_ShopItemTypeDropdown, 1},
+        {PrefabNames.LevelPropertyForm_BonusGroups, 2},
+        {PrefabNames.LevelPropertyForm_BonusGroup, 5},
+        {PrefabNames.LevelPropertyForm_Bonus, 5},
+        {PrefabNames.LevelPropertyForm_BonusTypeDropdown, 1},
 
         {PrefabNames.StoryPropertyForm_GamePlaySettings, 1},
         {PrefabNames.StoryPropertyForm_Chapters, 1},
@@ -174,9 +203,6 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
     public Dictionary<PrefabNames, GameObjectPool> PoolDict = new Dictionary<PrefabNames, GameObjectPool>();
 
-    public GameObjectPool[] Pool_HitPool;
-    public PoolObject[] HitPrefab;
-
     void Awake()
     {
         foreach (KeyValuePair<PrefabNames, int> kv in PoolConfigs)
@@ -201,11 +227,6 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
 
             pool.Initiate(po, kv.Value);
             pool.transform.SetParent(transform);
-        }
-
-        for (int i = 0; i < Pool_HitPool.Length; i++)
-        {
-            Pool_HitPool[i].Initiate(HitPrefab[i], 3);
         }
     }
 

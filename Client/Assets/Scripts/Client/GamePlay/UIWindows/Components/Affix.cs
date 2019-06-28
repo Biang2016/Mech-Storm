@@ -12,6 +12,8 @@ public class Affix : PoolObject
 
     [SerializeField] private Color NoneColor;
 
+    [SerializeField] private Color AuraColor;
+
     [SerializeField] private Color DieColor;
     [SerializeField] private Color BattleCryColor;
 
@@ -38,6 +40,8 @@ public class Affix : PoolObject
         AffixColorDict = new Dictionary<AffixType, Color>
         {
             {AffixType.None, NoneColor},
+
+            {AffixType.Aura, AuraColor},
 
             {AffixType.Die, DieColor},
             {AffixType.BattleCry, BattleCryColor},
@@ -82,6 +86,8 @@ public class Affix : PoolObject
             {
                 {AffixType.None, ""},
 
+                {AffixType.Aura, "光环"},
+
                 {AffixType.Die, "亡语"},
                 {AffixType.BattleCry, "战吼"},
 
@@ -110,6 +116,8 @@ public class Affix : PoolObject
             "en", new Dictionary<AffixType, string>
             {
                 {AffixType.None, ""},
+
+                {AffixType.Aura, "Aura"},
 
                 {AffixType.Die, "Die"},
                 {AffixType.BattleCry, "BattleCry"},
@@ -144,6 +152,8 @@ public class Affix : PoolObject
             {
                 {AffixType.None, ""},
 
+                {AffixType.Aura, "若机甲或装备在场，在某些情况下触发"},
+
                 {AffixType.Die, "当机甲死亡或装备被摧毁时触发"},
                 {AffixType.BattleCry, "当机甲或装备被召唤到场上时触发"},
 
@@ -172,6 +182,8 @@ public class Affix : PoolObject
             "en", new Dictionary<AffixType, string>
             {
                 {AffixType.None, ""},
+
+                {AffixType.Aura, "If mech or equip is on battlefield, something will be triggered in certain case. "},
 
                 {AffixType.Die, "When this mech is killed or equip is destroyed, something will be triggered. "},
                 {AffixType.BattleCry, "When this mech or equip is summoned, something will be triggered."},
@@ -203,6 +215,8 @@ public class Affix : PoolObject
 public enum AffixType
 {
     None,
+
+    Aura,
 
     Die,
     BattleCry,

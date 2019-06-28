@@ -34,7 +34,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
     private List<ShopItem> Cur_ShopItems;
     private List<LevelPropertyForm_ShopItem> My_LevelPropertyForm_ShopItem = new List<LevelPropertyForm_ShopItem>();
     private List<LevelPropertyForm_ShopItemTypeDropdown> My_LevelPropertyForm_ShopItemTypeDropdown = new List<LevelPropertyForm_ShopItemTypeDropdown>();
-    private UnityAction<bool, int, int> OnStartSelectCard;
+    private UnityAction<bool, int, int, LevelEditorPanel.SelectCardContents> OnStartSelectCard;
     private IEnumerator Co_refresh;
 
     public void Initialize(List<ShopItem> shopItems, IEnumerator co_refresh)
@@ -48,7 +48,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         Refresh();
     }
 
-    public void SetButtonActions(UnityAction gotoAction, UnityAction clearAction, UnityAction<bool, int, int> onStartSelectCard)
+    public void SetButtonActions(UnityAction gotoAction, UnityAction clearAction, UnityAction<bool, int, int, LevelEditorPanel.SelectCardContents> onStartSelectCard)
     {
         GoToButton.onClick.RemoveAllListeners();
         GoToButton.onClick.AddListener(gotoAction);
@@ -113,7 +113,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         }
 
         My_LevelPropertyForm_ShopItemTypeDropdown.Clear();
-        OnStartSelectCard?.Invoke(false, (int) AllCards.EmptyCardTypes.NoCard, 0);
+        OnStartSelectCard?.Invoke(false, (int) AllCards.EmptyCardTypes.NoCard, 0, LevelEditorPanel.SelectCardContents.SelectShopItemCards);
     }
 
     private LevelPropertyForm_ShopItem CurEdit_ShopItem;
@@ -143,7 +143,6 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
             GenerateNewShopItem(si);
         }
 
-//        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
         UIManager.Instance.GetBaseUIForm<LevelEditorPanel>().StartCoroutine(Co_refresh);
     }
 
@@ -160,7 +159,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                 {
                     case ShopItem_Card sic:
                     {
-                        OnStartSelectCard(true, sic.CardID, 1);
+                        OnStartSelectCard(true, sic.CardID, 1, LevelEditorPanel.SelectCardContents.SelectShopItemCards);
                         break;
                     }
                     case ShopItem_Budget sib:
