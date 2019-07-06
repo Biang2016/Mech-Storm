@@ -31,7 +31,7 @@ public class CardNoticeComponent : CardComponentBase
                 break;
             case BannerTypes.NewCard:
                 BannerBlock.SetActive(true);
-                BannerText.text = LanguageManager.Instance.GetText("CardBase_NewCardBanner");
+                LanguageManager.Instance.RegisterTextKey(BannerText, "CardBase_NewCardBanner");
                 break;
         }
     }

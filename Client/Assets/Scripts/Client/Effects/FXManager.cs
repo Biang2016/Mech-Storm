@@ -29,7 +29,7 @@ internal class FXManager : MonoSingleton<FXManager>
     {
         FX_Hit0,
         FX_Hit1,
-        FX_Blade,
+        FX_Blade1,
         FX_Blade2,
         FX_WeaponEnergyUp,
         FX_ShipAddEnergy,

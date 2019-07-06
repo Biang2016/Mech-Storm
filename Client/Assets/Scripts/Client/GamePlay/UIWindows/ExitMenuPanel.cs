@@ -136,6 +136,11 @@ public class ExitMenuPanel : BaseUIForm
         );
     }
 
+    internal void SetSurrenderButtonShow(bool isShow)
+    {
+        ExitMenuButtonDict["Surrender"].gameObject.SetActive(isShow);
+    }
+
     private void SurrenderCore()
     {
         Client.Instance.Proxy.LeaveGame();

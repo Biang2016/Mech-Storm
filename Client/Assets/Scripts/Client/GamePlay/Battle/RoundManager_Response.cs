@@ -22,6 +22,8 @@ public partial class RoundManager
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
         BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
+        UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(false);
+        UIManager.Instance.CloseUIForm<ExitMenuPanel>();
         if (r.winnerClientId == Client.Instance.Proxy.ClientID)
         {
             ClientLog.Instance.PrintClientStates("你赢了");
@@ -385,7 +387,7 @@ public partial class RoundManager
     private void OnBattleGroundAddMech(BattleGroundAddMechRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        if (cp == SelfClientPlayer && r.clientMechTempId >= 0) return;
+        if (cp == SelfClientPlayer && r.clientMechTempId != (int) Const.SpecialMechID.ClientTempMechIDNormal) return;
         cp.BattlePlayer.BattleGroundManager.AddMech(r.battleGroundIndex);
     }
 

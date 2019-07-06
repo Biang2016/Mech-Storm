@@ -821,7 +821,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
     {
         string str_tt = TriggerTimeDesc_ForRemoveTriggerTime[LanguageManager_Common.GetCurrentLanguage()][removeTriggerTime];
         string str_tr = TriggerRangeDesc[LanguageManager_Common.GetCurrentLanguage()][tr];
-        return SideEffectBase.HighlightStringFormat(str_tt, removeTriggerTimes, str_tr);
+        return Utils.HighlightStringFormat(str_tt, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], removeTriggerTimes, str_tr);
     }
 
     private static Dictionary<string, string> EachTimeDesc = new Dictionary<string, string>

@@ -17,11 +17,12 @@ internal partial class GameManager
 
     public ILog DebugLog => Battle.DebugLog;
 
-    public GameManager(Battle battle, BattleProxy clientA, BattleProxy clientB)
+    public GameManager(Battle battle, BattleProxy clientA, BattleProxy clientB, Battle.OnEndGameDelegate onEndGameDelegate)
     {
         Battle = battle;
         ClientA = clientA;
         ClientB = clientB;
+        OnEndGameHandler = onEndGameDelegate;
 
         ClientA.BattleGameManager = this;
         ClientB.BattleGameManager = this;
@@ -156,7 +157,11 @@ internal partial class GameManager
 
     void OnBeginRound()
     {
-        CurrentPlayer.MetalMaxChange(GamePlaySettings.MetalIncrease);
+        if (CurrentPlayer.MetalMax < GamePlaySettings.MaxMetal)
+        {
+            CurrentPlayer.MetalMaxChange(GamePlaySettings.MetalIncrease);
+        }
+
         CurrentPlayer.AddAllMetal();
         CurrentPlayer.HandManager.BeginRound();
         CurrentPlayer.BattleGroundManager.BeginRound();
@@ -394,35 +399,13 @@ internal partial class GameManager
     public void OnEndGame(BattlePlayer winner)
     {
         if (IsStopped) return;
+        OnEndGameHandler?.Invoke(winner.ClientId);
         GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
         Broadcast_AddRequestToOperationResponse(request);
-        OnEndGameHandler(winner);
-        //if (ClientB is ClientProxyAI AI && AI.IsStoryMode)
-        //{
-        //    if (winner == PlayerA)
-        //    {
-        //        BeatEnemyRequest request2 = new BeatEnemyRequest();
-        //        ClientA.SendMessage(request2);
-
-        //        Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
-        //        story.BeatEnemy(AI.LevelID, AI.EnemyPicID);
-        //        if (AI.LevelID < story.Chapters.Count - 1)
-        //        {
-        //            story.UnlockChapterEnemies(AI.LevelID + 1);
-        //            List<int> nextLevelBossPicIDs = new List<int>();
-        //            nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
-        //            NextChapterEnemiesRequest request3 = new NextChapterEnemiesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
-        //            ClientA.SendMessage(request3);
-        //        }
-        //    }
-        //}
-
         IsStopped = true;
     }
 
-    public delegate void OnEndGameDelegate(BattlePlayer winner);
-
-    private OnEndGameDelegate OnEndGameHandler = null;
+    private Battle.OnEndGameDelegate OnEndGameHandler = null;
 
     public void OnEndGameByServerError()
     {
@@ -450,7 +433,7 @@ internal partial class GameManager
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
-            OnEndGameHandler?.Invoke(PlayerA);
+            OnEndGameHandler?.Invoke(PlayerA.ClientId);
 //            Server.SV.SGMM.RemoveGame(ClientA);
 
             PlayerA?.OnDestroyed();

@@ -265,7 +265,7 @@ public class Proxy : ProxyBase
                 case NetProtocols.BEAT_ENEMY_REQUSET:
                 {
                     BeatEnemyRequest request = (BeatEnemyRequest) r;
-                    StoryManager.Instance.SetStoryPaceBeated(request.LevelID);
+                    StoryManager.Instance.SetEnemyBeated(request.LevelID);
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

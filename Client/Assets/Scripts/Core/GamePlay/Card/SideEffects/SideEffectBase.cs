@@ -117,33 +117,14 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
     {
     }
 
-    public static string HighlightStringFormat(string src, params object[] args)
+    protected static string HighlightStringFormat(string src, params object[] args)
     {
-        string[] colorStrings = new string[args.Length];
-        for (int i = 0; i < args.Length; i++)
-        {
-            colorStrings[i] = "<" + AllColors.ColorDict[AllColors.ColorType.CardHighLightColor] + ">" + args[i] + "</color>";
-        }
-
-        return string.Format(src, colorStrings);
+        return Utils.HighlightStringFormat(src, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], args);
     }
 
-    public static string HighlightStringFormat(string src, bool[] needTint, params object[] args)
+    protected static string HighlightStringFormat(string src, bool[] needTint, params object[] args)
     {
-        string[] colorStrings = new string[args.Length];
-        for (int i = 0; i < args.Length; i++)
-        {
-            if (needTint[i])
-            {
-                colorStrings[i] = "<" + AllColors.ColorDict[AllColors.ColorType.CardHighLightColor] + ">" + args[i] + "</color>";
-            }
-            else
-            {
-                colorStrings[i] = args[i].ToString();
-            }
-        }
-
-        return string.Format(src, colorStrings);
+        return Utils.HighlightStringFormat(src, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], needTint, args);
     }
 
     public void ExportToXML(XmlElement ele)

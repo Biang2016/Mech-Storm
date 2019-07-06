@@ -116,15 +116,6 @@ public class UIManager : MonoSingleton<UIManager>
         }
     }
 
-    public void ClickElsewhereClosePeekUIForm()
-    {
-        BaseUIForm ui = GetPeekUIForm();
-        if (ui && ui.UIType.IsClickElsewhereClose)
-        {
-            ui.CloseUIForm();
-        }
-    }
-
     public T GetBaseUIForm<T>() where T : BaseUIForm
     {
         string uiFormNameStr = typeof(T).ToString();

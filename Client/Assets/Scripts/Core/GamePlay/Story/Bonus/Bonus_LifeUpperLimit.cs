@@ -14,7 +14,7 @@ public class Bonus_LifeUpperLimit : Bonus
     public override string GetDesc()
     {
         Dictionary<BonusTypes, string> dic = BonusDescRaw[LanguageManager_Common.GetCurrentLanguage()];
-        return string.Format(dic[BonusType], LifeUpperLimit);
+        return Utils.HighlightStringFormat(dic[BonusType], AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], LifeUpperLimit);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)

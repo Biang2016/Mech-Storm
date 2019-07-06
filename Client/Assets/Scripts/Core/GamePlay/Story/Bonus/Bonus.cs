@@ -36,10 +36,10 @@ public class Bonus : IClone<Bonus>
             "zh", new Dictionary<BonusTypes, string>
             {
                 {BonusTypes.UnlockCardByID, "解锁卡片[{0}]"},
-                {BonusTypes.UnlockCardByLevelNum, "解锁一张稀有度为{0}的卡片"},
-                {BonusTypes.LifeUpperLimit, "生命上限{0}"},
-                {BonusTypes.EnergyUpperLimit, "能量上限{0}"},
-                {BonusTypes.Budget, "预算{0}"},
+                {BonusTypes.UnlockCardByLevelNum, "解锁一张稀有度为({0})的卡片"},
+                {BonusTypes.LifeUpperLimit, "生命上限({0})"},
+                {BonusTypes.EnergyUpperLimit, "能量上限({0})"},
+                {BonusTypes.Budget, "预算({0})"},
             }
         },
         {
@@ -47,9 +47,9 @@ public class Bonus : IClone<Bonus>
             {
                 {BonusTypes.UnlockCardByID, "Unlock card [{0}]"},
                 {BonusTypes.UnlockCardByLevelNum, "Unlock card of rare [{0}]"},
-                {BonusTypes.LifeUpperLimit, "Life {0}"},
-                {BonusTypes.EnergyUpperLimit, "Energy {0}"},
-                {BonusTypes.Budget, "Budget {0}"},
+                {BonusTypes.LifeUpperLimit, "Life ({0})"},
+                {BonusTypes.EnergyUpperLimit, "Energy ({0})"},
+                {BonusTypes.Budget, "Budget ({0})"},
             }
         }
     };

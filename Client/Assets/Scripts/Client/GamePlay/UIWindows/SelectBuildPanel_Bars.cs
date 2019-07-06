@@ -145,12 +145,16 @@ public partial class SelectBuildPanel
         }
     }
 
-    private void RefreshCoinLifeEnergy()
+    private bool ShowMessages = false;
+
+    private void RefreshCoinLifeEnergy(bool showMessages = true)
     {
+        ShowMessages = showMessages;
         CurrentEditBuildButton.BuildInfo.GamePlaySettings = CurrentGamePlaySettings;
         CoinSlider.value = CurrentGamePlaySettings.DefaultMaxCoin - CurrentEditBuildButton.BuildInfo.BuildConsumeCoin;
         LifeSlider.value = CurrentEditBuildButton.BuildInfo.Life;
         EnergySlider.value = CurrentEditBuildButton.BuildInfo.Energy;
+        ShowMessages = true;
     }
 
     private void RefreshDrawCardNum()
@@ -176,10 +180,13 @@ public partial class SelectBuildPanel
         if (value > maxValueNow)
         {
             LifeSlider.value = maxValueNow;
-            if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+            if (ShowMessages)
             {
-                lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
+                if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+                {
+                    lastNoBudgetNoticeTime = Time.time;
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
+                }
             }
 
             return;
@@ -187,10 +194,13 @@ public partial class SelectBuildPanel
         else if (value < minValue)
         {
             LifeSlider.value = minValue;
-            if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+            if (ShowMessages)
             {
-                lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerLifeMagicCoinCardnum_UnsafeIfLifeLow"), 0f, 1f);
+                if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+                {
+                    lastNoBudgetNoticeTime = Time.time;
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerLifeMagicCoinCardnum_UnsafeIfLifeLow"), 0f, 1f);
+                }
             }
 
             return;
@@ -210,10 +220,13 @@ public partial class SelectBuildPanel
         if (value > maxValueNow)
         {
             EnergySlider.value = maxValueNow;
-            if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+            if (ShowMessages)
             {
-                lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
+                if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+                {
+                    lastNoBudgetNoticeTime = Time.time;
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
+                }
             }
 
             return;
@@ -256,10 +269,13 @@ public partial class SelectBuildPanel
         if (drawCardNum > maxDrawCardNum)
         {
             DrawCardNumberSlider.value = maxDrawCardNum;
-            if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+            if (ShowMessages)
             {
-                lastNoBudgetNoticeTime = Time.time;
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
+                if (Time.time - lastNoBudgetNoticeTime > noBudgetNoticeInterval)
+                {
+                    lastNoBudgetNoticeTime = Time.time;
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_BudgetLimitedChooseFewerCards"), 0f, 1f);
+                }
             }
 
             return;

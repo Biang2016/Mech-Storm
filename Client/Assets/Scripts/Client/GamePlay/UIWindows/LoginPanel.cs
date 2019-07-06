@@ -230,13 +230,16 @@ public class LoginPanel : BaseUIForm
 
     public void ShowTipText(string text, float delay, float last, bool showDots)
     {
-        if (ShowTipTextCoroutine != null)
+        if (gameObject.activeInHierarchy)
         {
-            StopCoroutine(ShowTipTextCoroutine);
-        }
+            if (ShowTipTextCoroutine != null)
+            {
+                StopCoroutine(ShowTipTextCoroutine);
+            }
 
-        ShowTipTextCoroutine = Co_ShowTipText(text, delay, last, showDots);
-        StartCoroutine(ShowTipTextCoroutine);
+            ShowTipTextCoroutine = Co_ShowTipText(text, delay, last, showDots);
+            StartCoroutine(ShowTipTextCoroutine);
+        }
     }
 
     IEnumerator Co_ShowTipText(string text, float delay, float last, bool showDots)

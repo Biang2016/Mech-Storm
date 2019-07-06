@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public partial class SelectBuildPanel : BaseUIForm
 {
@@ -17,7 +18,7 @@ public partial class SelectBuildPanel : BaseUIForm
             isClickElsewhereClose: false,
             uiForms_Type: UIFormTypes.Normal,
             uiForms_ShowMode: UIFormShowModes.HideOther,
-            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
 
         Awake_Bars();
         Awake_Cards();
@@ -107,6 +108,8 @@ public partial class SelectBuildPanel : BaseUIForm
             SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
         }
 
+        UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
+
         UIManager.Instance.CloseUIForm<AffixPanel>();
         currentPreviewCard?.PoolRecycle();
         MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
@@ -117,8 +120,11 @@ public partial class SelectBuildPanel : BaseUIForm
     public Dictionary<int, PoolObject> AllCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
     public Dictionary<int, CardBase> AllShownCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
 
-    public void Init(bool force = false)
+    internal UnityAction StartGameAction;
+
+    public void Init(UnityAction startGameAction, bool force = false)
     {
+        StartGameAction = startGameAction;
         if (!force && IsInit) return;
 
         Init_Bars();

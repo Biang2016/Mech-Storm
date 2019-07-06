@@ -50,14 +50,8 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     public void SetEnemyIconImage()
     {
-        if (ClientPlayer.WhichPlayer == Players.Enemy)
-        {
-            PlayerIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
-            if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
-            {
-                ClientUtils.ChangeImagePicture(PlayerIconImage, 0);
-            }
-        }
+        PlayerIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single && ClientPlayer.WhichPlayer == Players.Enemy);
+        ClientUtils.ChangeImagePicture(PlayerIconImage, 0);
     }
 
     public void SetMetal(int value)
@@ -84,7 +78,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         else if (change < 0)
         {
             LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
-            FXManager.Instance.PlayFX(LifeIcon.transform, FXManager.FXType.FX_Blade, "#FFFFFF", 0.3f, 1.5f);
+            FXManager.Instance.PlayFX(LifeIcon.transform, FXManager.FXType.FX_Blade1, "#FFFFFF", 0.3f, 1.5f);
             AudioManager.Instance.SoundPlay("sfx/OnHitShip");
             AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
         }

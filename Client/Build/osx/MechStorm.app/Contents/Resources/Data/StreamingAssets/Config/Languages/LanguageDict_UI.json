@@ -23,9 +23,17 @@
 		"zh": "继续",
 		"en": "Consume"
 	},
+	"Common_GotIt": {
+		"zh": "好的",
+		"en": "Got it"
+	},
 	"Common_GoAhead": {
 		"zh": "继续",
 		"en": "Go Ahead"
+	},
+	"Common_Ignore": {
+		"zh": "无视",
+		"en": "Ignore"
 	},
 	"Common_Edit": {
 		"zh": "编辑",
@@ -240,10 +248,6 @@
 		"zh": "开始单人模式",
 		"en": "Begin single mode"
 	},
-	"StartMenu_BeginCustomMode": {
-		"zh": "开始自定义人机模式",
-		"en": "Begin single custom mode"
-	},
 	"StartMenu_NewCardTipText": {
 		"zh": "新卡片",
 		"en": "New!"
@@ -262,7 +266,7 @@
 		"en": " Your deck is empty"
 	},
 	"Notice_StartMenu_CardEnergyOverYourEnergy": {
-		"zh": " 您的卡组中有些牌的能量消耗大于您的能量上限，是否继续？",
+		"zh": " 您的卡组中有些牌的能量消耗大于您的能量上限",
 		"en": " Some cards consume more energy than your upper limit."
 	},
 	"Notice_StartMenu_QuitGameConfirm": {
@@ -501,8 +505,12 @@
 		"en": "{0} cards in total."
 	},
 
+	"WinLostPanelManager_SelectTipText": {
+		"zh": "选择您的奖励",
+		"en": "Select your rewards"
+	},
 	"WinLostPanelManager_WinText": {
-		"zh": "您赢了！",
+		"zh": "胜利！",
 		"en": "You win!"
 	},
 	"WinLostPanelManager_LostText": {
@@ -521,10 +529,6 @@
 		"zh": "提示: ",
 		"en": "Tips: "
 	},
-	"WinLostPanelManager_RewardsTitleText": {
-		"zh": "奖励",
-		"en": "Rewards"
-	},
 	"WinLostPanelManager_NoRewardText": {
 		"zh": "设计师是个吝啬鬼，这里没有任何奖励",
 		"en": "The designer is so mean that here isn't any reward."
@@ -532,6 +536,14 @@
 	"WinLostPanelManager_FixedBonusText": {
 		"zh": "固定\n奖励",
 		"en": "Fixed Bonus"
+	},
+	"WinLostPanelManager_OptionalBonusText": {
+		"zh": "可选\n奖励",
+		"en": "Optional Bonus"
+	},
+	"WinLostPanelManager_ChapterBonusText": {
+		"zh": "章节\n奖励",
+		"en": "Chapter Bonus"
 	},
 	"WinLostPanelManager_ConfirmButtonText": {
 		"zh": "确认",
@@ -737,6 +749,11 @@
 		"en": "First deck is created automatically."
 	},
 
+	"Notice_SelectEmptyLevel": {
+		"zh": "该剧情关卡为空，请检查剧情文件是否有误",
+		"en": "Empty level information. Do check the Story's file."
+	},
+
 
 	"Notice_CardEquip_SniperGunOnlySniper": {
 		"zh": "狙击枪只能装在狙击手上",
@@ -844,8 +861,8 @@
 		"en": "Reset"
 	},
 	"StoryEditorPanel_DeleteLevelFormLibrary0": {
-		"zh": "是否从关卡库中删除关卡(将从所有剧情中该关卡)",
-		"en": "Delete Level from Library (remove from all Stories as well)?"
+		"zh": "是否从关卡库中删除关卡(将从所有剧情中该关卡)。建议先保存当前剧情，再进行此操作。",
+		"en": "Delete Level from Library (remove from all Stories as well)? Unsaved changes of current story would be lost."
 	},
 	"StoryEditorPanel_Notice_ChangeChapterRoundCount": {
 		"zh": "此操作将清空当前章节内的所有信息，是否继续？",
@@ -1457,5 +1474,9 @@
 	"ChapterMap_LevelTypeLabel":{
 		"zh": "关卡类型:",
 		"en": "Level type: "
+	},
+	"ChapterMap_BeatedText":{
+		"zh": "通过",
+		"en": "Beated"
 	},
 }

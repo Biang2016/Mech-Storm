@@ -1,4 +1,6 @@
-﻿public class Client : MonoSingleton<Client>
+﻿using UnityEngine;
+
+public class Client : MonoSingleton<Client>
 {
     private Proxy proxy;
 
@@ -22,11 +24,11 @@
     {
         Proxy.OnClientStateChange = null;
     }
-
+    
 #if UNITY_EDITOR
-    private bool LocalSerailizeRequest = true;
+    private static bool LocalSerailizeRequest = true;
 #else
-    private bool LocalSerailizeRequest = false;
+    private static bool LocalSerailizeRequest = true;
 #endif
 
     public void SetNetwork(bool isOnline)
@@ -42,6 +44,7 @@
             Proxy.Socket = null;
             if (LocalSerailizeRequest)
             {
+                ClientLog.Instance.Print("LocalSerailizeRequest On.");
                 Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxyWithSerialization);
             }
             else

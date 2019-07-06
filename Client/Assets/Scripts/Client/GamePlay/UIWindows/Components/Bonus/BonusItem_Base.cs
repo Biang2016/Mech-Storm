@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ internal class BonusItem_Base : PoolObject
         base.PoolRecycle();
     }
 
-    [SerializeField] private Text ItemDesc;
+    [SerializeField] private TextMeshProUGUI ItemDesc;
     public Image ItemImage;
     public Bonus Bonus;
 
@@ -35,7 +36,7 @@ internal class BonusItem_Base : PoolObject
     public virtual void Initialize(Bonus bonus)
     {
         Bonus = bonus;
-        ItemDesc.text = Bonus.GetDesc();
+        if (ItemDesc) ItemDesc.text = Utils.TextMeshProColorStringConvertToText(Bonus.GetDesc());
         if (bonus is Bonus_UnlockCardByID b_UnlockCardByID)
         {
             BonusCardInfo = AllCards.GetCard(b_UnlockCardByID.CardID);

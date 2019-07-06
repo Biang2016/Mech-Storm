@@ -48,9 +48,9 @@ public class CardSelectPanel : MonoBehaviour
         SelectOneOfEachButton.onClick.RemoveAllListeners();
         SelectOneOfEachButton.onClick.AddListener(SelectOneOfEachActiveCards);
         ShowAllCardToggle.onValueChanged.RemoveAllListeners();
-        ShowAllCardToggle.isOn = false;
-        ShowAllCardToggle.onValueChanged.AddListener(ShowAllCardSwitch);
         ShowAllCardToggle.isOn = true;
+        ShowAllCardToggle.onValueChanged.AddListener(ShowAllCardSwitch);
+        ShowAllCardToggle.isOn = false;
 
         foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
         {
@@ -60,6 +60,15 @@ public class CardSelectPanel : MonoBehaviour
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoGridLayout(cardInfo.Clone());
         }
+    }
+
+    internal void SwitchSingleSelect(bool isSingleSelect)
+    {
+        ShowAllCardSwitch(isSingleSelect);
+        if (isSingleSelect) UnselectAllCards();
+        ShowAllCardToggle.gameObject.SetActive(!isSingleSelect);
+        SelectOneOfEachButton.gameObject.SetActive(!isSingleSelect);
+        UnselectAllButton.gameObject.SetActive(!isSingleSelect);
     }
 
     private BuildCards BuildCards;
@@ -72,6 +81,7 @@ public class CardSelectPanel : MonoBehaviour
             gotoAction: delegate
             {
                 gotoAction();
+                SwitchSingleSelect(false);
                 SelectCardsByBuildCards(CardStatTypes.Total);
             },
             clearAction: delegate
@@ -107,6 +117,14 @@ public class CardSelectPanel : MonoBehaviour
         if (BuildCards != null)
         {
             SelectCardsByBuildCards(Cur_CardStatType);
+        }
+        else
+        {
+            UnselectAllCards();
+            foreach (KeyValuePair<int, CardSelectWindowCardContainer> kv in AllCardContainers)
+            {
+                kv.Value.gameObject.SetActive(true);
+            }
         }
     }
 

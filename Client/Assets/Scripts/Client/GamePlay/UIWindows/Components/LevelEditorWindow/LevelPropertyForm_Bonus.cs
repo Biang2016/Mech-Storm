@@ -52,7 +52,7 @@ public class LevelPropertyForm_Bonus : PoolObject
 
         ClientUtils.ChangeImagePicture(Pic, Cur_Bonus.PicID);
         TypeText.text = Cur_Bonus.BonusType.ToString();
-        NameText.text = Cur_Bonus.GetDesc();
+        NameText.text = Utils.TextMeshProColorStringConvertToText(Cur_Bonus.GetDesc());
         if (Cur_Bonus is Bonus_UnlockCardByID b_UnlockCardByID)
         {
             ClientUtils.ChangeImagePicture(Pic, AllCards.GetPicIDByCardID(b_UnlockCardByID.CardID));
@@ -62,7 +62,7 @@ public class LevelPropertyForm_Bonus : PoolObject
     public void Refresh()
     {
         TypeText.text = Cur_Bonus.BonusType.ToString();
-        NameText.text = Cur_Bonus.GetDesc();
+        NameText.text = Utils.TextMeshProColorStringConvertToText(Cur_Bonus.GetDesc());
         if (Cur_Bonus is Bonus_UnlockCardByID b_UnlockCardByID)
         {
             ClientUtils.ChangeImagePicture(Pic, AllCards.GetPicIDByCardID(b_UnlockCardByID.CardID));

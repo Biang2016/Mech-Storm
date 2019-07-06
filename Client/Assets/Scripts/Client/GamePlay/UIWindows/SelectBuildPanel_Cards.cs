@@ -62,8 +62,10 @@ public partial class SelectBuildPanel
     {
         if (!IsInit) return;
         CardPreviewPanel previewPanel = UIManager.Instance.GetBaseUIForm<CardPreviewPanel>();
+        ConfirmPanel confirmPanel = UIManager.Instance.GetBaseUIForm<ConfirmPanel>();
         BuildRenamePanel buildRenamePanel = UIManager.Instance.GetBaseUIForm<BuildRenamePanel>();
         if (previewPanel != null && previewPanel.gameObject.activeInHierarchy) return;
+        if (confirmPanel != null && confirmPanel.gameObject.activeInHierarchy) return;
         if (buildRenamePanel != null && buildRenamePanel.gameObject.activeInHierarchy) return;
 
         if (Input.GetMouseButtonDown(0))

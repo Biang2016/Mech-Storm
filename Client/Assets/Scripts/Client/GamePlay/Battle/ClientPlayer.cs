@@ -119,9 +119,16 @@ public class ClientPlayer : Player
     {
         if (request.energy_left != EnergyLeft)
         {
-            if (request.energy_left - EnergyLeft > 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
-            else if (request.energy_left - EnergyLeft < 0) AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
-            AddEnergy(request.energy_left - EnergyLeft);
+            if (request.energy_left - EnergyLeft > 0)
+            {
+                AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
+                AddEnergy(request.energy_left - EnergyLeft);
+            }
+            else if (request.energy_left - EnergyLeft < 0)
+            {
+                AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
+                UseEnergy(EnergyLeft - request.energy_left);
+            }
         }
         else if (request.isOverflow)
         {

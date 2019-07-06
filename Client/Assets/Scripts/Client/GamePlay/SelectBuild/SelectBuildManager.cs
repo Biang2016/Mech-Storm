@@ -61,7 +61,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         if (!StoryManager.Instance.HasStory && gameMode == GameMode.Single) return;
         CurrentGameMode = gameMode;
         InitBuildInfos();
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().Init(true);
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().Init(null, true);
     }
 
     private void InitBuildInfos()

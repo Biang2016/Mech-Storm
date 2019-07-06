@@ -99,7 +99,7 @@ public class BattleGroundManager : MonoBehaviour
         SoldierCount = 0;
         RemoveMechs.Clear();
         AddPrePassMechQueue.Clear();
-        CLIENT_TEMP_ID = 0;
+        CLIENT_TEMP_ID = -100;
         relatedSlots.Clear();
         if (currentSummonPreviewMechCard) currentSummonPreviewMechCard.PoolRecycle();
         if (CurrentSummonPreviewMech) CurrentSummonPreviewMech.PoolRecycle();
@@ -147,7 +147,7 @@ public class BattleGroundManager : MonoBehaviour
         previewMechPlace = PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW;
 
         bool isSummonedBeforeByPreview = false;
-        if (clientMechTempId >= 0)
+        if (clientMechTempId != (int) Const.SpecialMechID.ClientTempMechIDNormal)
         {
             foreach (ModuleMech moduleMech in Mechs)
             {
@@ -234,8 +234,6 @@ public class BattleGroundManager : MonoBehaviour
                 {
                     Soldiers.Remove(mech);
                 }
-
-                ClientLog.Instance.Print("remove:" + mech.M_MechID);
             }
         }
     }

@@ -6,6 +6,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
     public int ChapterID; //章节层号
     public SortedDictionary<string, string> ChapterNames;
     public SortedDictionary<int, Level> Levels = new SortedDictionary<int, Level>(); // key: 六边形阵图的nodeLocation编号
+    public SortedDictionary<int, bool> LevelBeatedDictionary = new SortedDictionary<int, bool>(); // key: 六边形阵图的nodeLocation编号, value: 是否已经过关
 
     public int ChapterMapRoundCount;
     public const int SystemMaxMapRoundCount = 6;
@@ -15,13 +16,26 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
     {
     }
 
-    public Chapter(int chapterID, SortedDictionary<string, string> chapterNames, SortedDictionary<int, Level> chapterAllLevels, int chapterMapRoundCount)
+    public Chapter(int chapterID, SortedDictionary<string, string> chapterNames, SortedDictionary<int, Level> chapterAllLevels, int chapterMapRoundCount, SortedDictionary<int, bool> levelBeatedDictionary = null)
     {
         ChapterID = chapterID;
         ChapterNames = chapterNames;
         Levels = chapterAllLevels;
+
         ChapterMapRoundCount = chapterMapRoundCount;
         RefreshLevelMap();
+
+        if (levelBeatedDictionary == null)
+        {
+            foreach (KeyValuePair<int, Level> kv in Levels)
+            {
+                LevelBeatedDictionary.Add(kv.Key, false);
+            }
+        }
+        else
+        {
+            LevelBeatedDictionary = levelBeatedDictionary;
+        }
     }
 
     public Story.InfoRefreshDelegate InfoRefresh; // 信息更新委托
@@ -145,13 +159,20 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         }
 
         writer.WriteSInt32(Levels.Count);
-        foreach (KeyValuePair<int, Level> KV in Levels)
+        foreach (KeyValuePair<int, Level> kv in Levels)
         {
-            writer.WriteSInt32(KV.Key);
-            KV.Value.Serialize(writer);
+            writer.WriteSInt32(kv.Key);
+            kv.Value.Serialize(writer);
         }
 
         writer.WriteSInt32(ChapterMapRoundCount);
+
+        writer.WriteSInt32(LevelBeatedDictionary.Count);
+        foreach (KeyValuePair<int, bool> kv in LevelBeatedDictionary)
+        {
+            writer.WriteSInt32(kv.Key);
+            writer.WriteByte((byte) (kv.Value ? 0x01 : 0x00));
+        }
     }
 
     public static Chapter Deserialize(DataStream reader)
@@ -167,16 +188,25 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         }
 
         int count = reader.ReadSInt32();
-        SortedDictionary<int, Level> chapterAllStoryPaces = new SortedDictionary<int, Level>();
+        SortedDictionary<int, Level> chapterAllLevels = new SortedDictionary<int, Level>();
         for (int i = 0; i < count; i++)
         {
-            int storyPaceID = reader.ReadSInt32();
-            Level storyPace = Level.BaseDeserialize(reader);
-            chapterAllStoryPaces.Add(storyPaceID, storyPace);
+            int levelID = reader.ReadSInt32();
+            Level level = Level.BaseDeserialize(reader);
+            chapterAllLevels.Add(levelID, level);
         }
 
         int chapterMapRoundCount = reader.ReadSInt32();
 
-        return new Chapter(chapterID, chapterNames, chapterAllStoryPaces, chapterMapRoundCount);
+        count = reader.ReadSInt32();
+        SortedDictionary<int, bool> levelBeatedDictionary = new SortedDictionary<int, bool>();
+        for (int i = 0; i < count; i++)
+        {
+            int levelID = reader.ReadSInt32();
+            bool isBeated = reader.ReadByte() == 0x01;
+            levelBeatedDictionary.Add(levelID, isBeated);
+        }
+
+        return new Chapter(chapterID, chapterNames, chapterAllLevels, chapterMapRoundCount, levelBeatedDictionary);
     }
 }

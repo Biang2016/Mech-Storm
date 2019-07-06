@@ -443,6 +443,7 @@ public class StoryEditorPanel : BaseUIForm
                                 cp.CloseUIForm();
                                 AllLevels.DeleteLevel(LevelType.Enemy, _kv.Value.LevelNames["en"]);
                                 InitializeLevelList();
+                                SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
                             },
                             delegate { cp.CloseUIForm(); });
                     }

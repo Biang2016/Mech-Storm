@@ -13,6 +13,8 @@ public class ChapterMapNode : PoolObject
     [SerializeField] private Text LevelNameText;
     [SerializeField] private Text LevelTypeLabel;
     [SerializeField] private Text LevelTypeText;
+    [SerializeField] private Image BeatedImage;
+    [SerializeField] private Text BeatedText;
 
     public HashSet<int> AdjacentRoutes = new HashSet<int>();
 
@@ -20,12 +22,14 @@ public class ChapterMapNode : PoolObject
     {
         LanguageManager.Instance.RegisterTextKey(LevelNameLabel, "ChapterMap_LevelNameLabel");
         LanguageManager.Instance.RegisterTextKey(LevelTypeLabel, "ChapterMap_LevelTypeLabel");
+        LanguageManager.Instance.RegisterTextKey(BeatedText, "ChapterMap_BeatedText");
     }
 
     public override void PoolRecycle()
     {
         IsSelected = false;
         IsHovered = false;
+        IsBeated = false;
         OnHovered = null;
         Button.onClick.RemoveAllListeners();
         Cur_Level = null;
@@ -38,9 +42,14 @@ public class ChapterMapNode : PoolObject
 
     public bool IsSelected
     {
-        get { return isSelected; }
+        get
+        {
+            if (isBeated) return false;
+            return isSelected;
+        }
         set
         {
+            if (isBeated) return;
             isSelected = value;
             SelectedBorder.enabled = value;
         }
@@ -50,9 +59,14 @@ public class ChapterMapNode : PoolObject
 
     public bool IsHovered
     {
-        get { return isHovered; }
+        get
+        {
+            if (isBeated) return false;
+            return isHovered;
+        }
         set
         {
+            if (isBeated) return;
             isHovered = value;
             InfoPanel.SetActive(isHovered);
             if (isHovered)
@@ -60,6 +74,19 @@ public class ChapterMapNode : PoolObject
                 transform.SetAsFirstSibling();
                 OnHovered?.Invoke(this);
             }
+        }
+    }
+
+    private bool isBeated;
+
+    public bool IsBeated
+    {
+        get { return isBeated; }
+        set
+        {
+            isBeated = value;
+            Button.interactable = !isBeated;
+            BeatedImage.gameObject.SetActive(isBeated);
         }
     }
 
@@ -110,7 +137,7 @@ public class ChapterMapNode : PoolObject
             }
             case LevelType.Start:
             {
-                picID = (int) AllCards.SpecialPicIDs.Skills;
+                picID = (int) AllCards.SpecialPicIDs.Empty;
                 break;
             }
             case LevelType.Treasure:

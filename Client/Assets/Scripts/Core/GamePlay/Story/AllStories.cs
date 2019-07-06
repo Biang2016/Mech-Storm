@@ -42,7 +42,7 @@ public class AllStories
 
             SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
             playerBuildInfos.Add(buildInfo.BuildID, buildInfo);
-            Story newStory = new Story(pureName, Chapters, playerBuildInfos, gps);
+            Story newStory = new Story(pureName, Chapters, playerBuildInfos, gps, 0);
             StoryDict.Add(newStory.StoryName, newStory);
         }
 

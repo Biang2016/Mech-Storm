@@ -14,7 +14,7 @@ public class Bonus_Budget : Bonus
     public override string GetDesc()
     {
         Dictionary<BonusTypes, string> dic = BonusDescRaw[LanguageManager_Common.GetCurrentLanguage()];
-        return string.Format(dic[BonusType], Budget);
+        return Utils.HighlightStringFormat(dic[BonusType], AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], Budget);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)

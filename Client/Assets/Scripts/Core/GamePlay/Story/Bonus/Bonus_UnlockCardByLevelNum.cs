@@ -15,7 +15,7 @@ public class Bonus_UnlockCardByLevelNum : Bonus
     public override string GetDesc()
     {
         Dictionary<BonusTypes, string> dic = BonusDescRaw[LanguageManager_Common.GetCurrentLanguage()];
-        return string.Format(dic[BonusType], LevelNum);
+        return Utils.HighlightStringFormat(dic[BonusType], AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], LevelNum);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 internal class BonusButton : PoolObject
@@ -17,7 +18,6 @@ internal class BonusButton : PoolObject
     [SerializeField] private Button Button;
     [SerializeField] private Image BorderSelected;
     [SerializeField] private Image Border;
-    [SerializeField] private ParticleSystem Particle;
 
     public List<BonusItem_Base> M_BonusItems = new List<BonusItem_Base>();
 
@@ -35,10 +35,9 @@ internal class BonusButton : PoolObject
         Border.gameObject.SetActive(true);
         card = null;
         IsSelected = false;
-        Particle.gameObject.SetActive(false);
     }
 
-    public void Initialize(BonusGroup bonusGroup)
+    public void Initialize(BonusGroup bonusGroup, UnityAction onClickAction)
     {
         Reset();
 
@@ -54,7 +53,11 @@ internal class BonusButton : PoolObject
             Button.interactable = true;
             Button.enabled = true;
             Button.onClick.RemoveAllListeners();
-            Button.onClick.AddListener(OnButtonClick);
+            Button.onClick.AddListener(delegate
+            {
+                onClickAction();
+                AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
+            });
         }
 
         foreach (Bonus bonus in BonusGroup.Bonuses)
@@ -66,44 +69,16 @@ internal class BonusButton : PoolObject
         if (M_BonusItems.Count == 1 && M_BonusItems[0] is BigBonusItem)
         {
             BigBonusItem bigBonusItem = (BigBonusItem) M_BonusItems[0];
-            if (bigBonusItem.CurrentCard != null)
-            {
-                card = bigBonusItem.CurrentCard;
-                card.BeBrightColor();
-                BG_Image.gameObject.SetActive(false);
-                BorderSelected.gameObject.SetActive(false);
-                Border.gameObject.SetActive(false);
-            }
-            else
-            {
-                int a = 0;
-            }
+            card = bigBonusItem.CurrentCard;
+            card.BeDimColor();
+            card.ShowCardBloom(false);
+            BG_Image.gameObject.SetActive(false);
+            BorderSelected.gameObject.SetActive(false);
+            Border.gameObject.SetActive(false);
         }
-
-        Particle.gameObject.SetActive(false);
     }
 
     private CardBase card = null;
-
-    public void OnButtonClick()
-    {
-        UIManager.Instance.GetBaseUIForm<BattleResultPanel>().SetBonusButtonSelected(this);
-        AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
-    }
-
-    public void OnConfirmButtonClickDelegate()
-    {
-        UIManager.Instance.GetBaseUIForm<BattleResultPanel>().GetBonusBuildChangeInfo(BonusGroup);
-        BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, BonusGroup);
-        Client.Instance.Proxy.SendMessage(request);
-        foreach (Bonus bonus in BonusGroup.Bonuses)
-        {
-            if (bonus is Bonus_UnlockCardByID b_UnlockCardByID)
-            {
-                StoryManager.Instance.JustGetNewCards.Add(b_UnlockCardByID.CardID);
-            }
-        }
-    }
 
     private bool IsSelected = false;
 
@@ -111,7 +86,15 @@ internal class BonusButton : PoolObject
     {
         IsSelected = isSelected;
         BorderSelected.enabled = isSelected;
-        Particle.gameObject.SetActive(!card && isSelected);
+        card?.ShowCardBloom(isSelected);
+        if (isSelected)
+        {
+            card?.BeBrightColor();
+        }
+        else
+        {
+            card?.BeDimColor();
+        }
     }
 
     public void OnHover()
@@ -119,9 +102,8 @@ internal class BonusButton : PoolObject
         if (card)
         {
             UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> {card.CardInfo}, null);
+            card?.BeBrightColor();
         }
-
-        if (IsSelected) return;
     }
 
     public void OnExit()
@@ -129,8 +111,10 @@ internal class BonusButton : PoolObject
         if (card)
         {
             UIManager.Instance.CloseUIForm<AffixPanel>();
+            if (!IsSelected)
+            {
+                card?.BeDimColor();
+            }
         }
-
-        if (IsSelected) return;
     }
 }

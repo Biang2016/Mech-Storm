@@ -33,24 +33,14 @@ public struct BaseInfo
         CardType = cardType;
     }
 
-    private static string GetHighLightColor()
-    {
-        return AllColors.ColorDict[AllColors.ColorType.CardHighLightColor];
-    }
-
-    private static string GetImportantColor()
-    {
-        return AllColors.ColorDict[AllColors.ColorType.CardImportantColor];
-    }
-
     public static string AddHighLightColorToText(string highLightText)
     {
-        return "<" + GetHighLightColor() + ">" + highLightText + "</color>";
+        return Utils.AddHighLightColorToText(highLightText, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor]);
     }
 
     public static string AddImportantColorToText(string highLightText)
     {
-        return "<" + GetImportantColor() + ">" + highLightText + "</color>";
+        return Utils.AddHighLightColorToText(highLightText, AllColors.ColorDict[AllColors.ColorType.CardImportantColor]);
     }
 
     public float BaseValue()

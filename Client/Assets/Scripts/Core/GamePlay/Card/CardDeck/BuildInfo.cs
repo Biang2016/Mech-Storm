@@ -115,6 +115,7 @@ public class BuildInfo : IClone<BuildInfo>
     {
         foreach (KeyValuePair<int, BuildCards.CardSelectInfo> kv in M_BuildCards.CardSelectInfos)
         {
+            if (kv.Value.CardSelectCount <= 0) continue;
             if (AllCards.GetCard(kv.Key).BaseInfo.Energy > Energy)
             {
                 return false;

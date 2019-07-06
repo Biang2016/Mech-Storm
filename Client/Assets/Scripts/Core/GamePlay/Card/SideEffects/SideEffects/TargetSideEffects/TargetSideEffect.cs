@@ -31,7 +31,7 @@ public abstract class TargetSideEffect : SideEffectBase
             if (TargetSelect == TargetSelect.Multiple) return true;
             if (TargetSelect == TargetSelect.Single)
             {
-                if (TargetRange == TargetRange.SelfShip || TargetRange == TargetRange.EnemyShip || TargetRange == TargetRange.Self)
+                if (TargetRange == TargetRange.SelfShip || TargetRange == TargetRange.EnemyShip || TargetRange == TargetRange.Self || TargetRange == TargetRange.SelfDeck || TargetRange == TargetRange.EnemyDeck)
                 {
                     return false;
                 }

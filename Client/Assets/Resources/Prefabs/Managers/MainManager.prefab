@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67538aef8c543894099eb4760d1d72a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logVerbosity: 2
+  logVerbosity: 7
 --- !u!1 &6128851707934717136
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9be8ee7b2247bda978e047ddac7323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowClientLogs: 0
+  ShowClientLogs: 1
   ImageEffectBlurBox: {fileID: 8468670075267149003}
 --- !u!1 &9178352836993783922
 GameObject:

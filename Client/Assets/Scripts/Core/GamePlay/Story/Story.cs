@@ -11,14 +11,18 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public GamePlaySettings StoryGamePlaySettings;
 
+    public int CurrentFightingChapterID;
+    public Chapter CurrentFightingChapter => Chapters[CurrentFightingChapterID];
+
     private Story()
     {
     }
 
-    public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings)
+    public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings, int currentFightingChapterID)
     {
         StoryName = storyName;
         Chapters = chapters;
+        
         PlayerBuildInfos = playerBuildInfos;
 
         foreach (KeyValuePair<int, BuildInfo> kv in playerBuildInfos)
@@ -29,6 +33,8 @@ public class Story : IClone<Story>, IVariant<Story>
 
         StoryGamePlaySettings = storyGamePlaySettings;
         RefreshLevelPointer();
+
+        CurrentFightingChapterID = currentFightingChapterID;
     }
 
     /// <summary>
@@ -56,7 +62,9 @@ public class Story : IClone<Story>, IVariant<Story>
             StoryName,
             newChapters,
             newPlayerBuildInfos,
-            StoryGamePlaySettings.Clone());
+            StoryGamePlaySettings.Clone(),
+            0
+        );
         return newStory;
     }
 
@@ -71,7 +79,8 @@ public class Story : IClone<Story>, IVariant<Story>
         Story newStory = new Story(
             StoryName,
             newChapters,
-            PlayerBuildInfos, StoryGamePlaySettings.Clone());
+            PlayerBuildInfos, StoryGamePlaySettings.Clone(),
+            0);
         return newStory;
     }
 
@@ -113,9 +122,16 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public void BeatChapter(int chapterID)
     {
-        //TODO
+        if (Chapters.ContainsKey(chapterID + 1))
+        {
+            CurrentFightingChapterID = chapterID + 1;
+        }
+        else
+        {
+            //TODO game end success
+        }
 
-        InfoRefresh();
+        InfoRefresh?.Invoke();
     }
 
     public void EditAllCardLimitDict(int cardID, int changeValue) // 更改某卡牌上限数量
@@ -153,7 +169,7 @@ public class Story : IClone<Story>, IVariant<Story>
         int baseCardID = AllCards.GetCardBaseCardID(cardID);
         Base_CardLimitDict[baseCardID] += changeValue;
 
-        InfoRefresh();
+        InfoRefresh?.Invoke();
     }
 
     public void Serialize(DataStream writer)
@@ -179,6 +195,7 @@ public class Story : IClone<Story>, IVariant<Story>
         }
 
         StoryGamePlaySettings.Serialize(writer);
+        writer.WriteSInt32(CurrentFightingChapterID);
     }
 
     public static Story Deserialize(DataStream reader)
@@ -233,6 +250,8 @@ public class Story : IClone<Story>, IVariant<Story>
 
         newStory.StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);
 
+        int currentFightingChapterID = reader.ReadSInt32();
+        newStory.CurrentFightingChapterID = currentFightingChapterID;
         return newStory;
     }
 

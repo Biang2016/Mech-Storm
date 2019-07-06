@@ -47,12 +47,16 @@ public class ConfirmPanel : BaseUIForm
             uiForm_LucencyType: UIFormLucencyTypes.Blur);
         ConfirmClick = leftButtonClick;
         DescText.text = descText;
-        LeftButtonText.text = leftButtonText;
-        RightButtonText.text = rightButtonText;
+
         LeftButton.onClick.RemoveAllListeners();
+        LeftButton.gameObject.SetActive(leftButtonText != null);
+        LeftButtonText.text = leftButtonText;
+        LeftButton.onClick.AddListener(leftButtonClick ?? delegate { });
+
         RightButton.onClick.RemoveAllListeners();
-        LeftButton.onClick.AddListener(leftButtonClick);
-        RightButton.onClick.AddListener(rightButtonClick);
+        RightButton.gameObject.SetActive(rightButtonText != null);
+        RightButtonText.text = rightButtonText;
+        RightButton.onClick.AddListener(rightButtonClick ?? delegate { });
 
         if (inputFieldPlaceHolderText1 != null)
         {

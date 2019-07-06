@@ -110,15 +110,12 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
     {
         Clear();
 
-        if (M_SelectMode == Editor_CardSelectModes.SelectCount)
+        foreach (int heroCardID in BuildCards.GetHeroCardIDs(M_SelectMode))
         {
-            foreach (int heroCardID in BuildCards.GetHeroCardIDs(M_SelectMode))
-            {
-                int pid = AllCards.GetCard(heroCardID).BaseInfo.PictureID;
-                LevelEditorPanel_HeroCardPicIcon heroCardPicIcon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_HeroCardPicIcon].AllocateGameObject<LevelEditorPanel_HeroCardPicIcon>(HeroCardPicIconContainer);
-                heroCardPicIcon.Initialize(pid, heroCardID);
-                HeroCardPicIcons.Add(heroCardPicIcon);
-            }
+            int pid = AllCards.GetCard(heroCardID).BaseInfo.PictureID;
+            LevelEditorPanel_HeroCardPicIcon heroCardPicIcon = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelEditorPanel_HeroCardPicIcon].AllocateGameObject<LevelEditorPanel_HeroCardPicIcon>(HeroCardPicIconContainer);
+            heroCardPicIcon.Initialize(pid, heroCardID);
+            HeroCardPicIcons.Add(heroCardPicIcon);
         }
 
         foreach (KeyValuePair<CardStatTypes, int> kv in BuildCards.GetTypeCardCountDict(M_SelectMode))

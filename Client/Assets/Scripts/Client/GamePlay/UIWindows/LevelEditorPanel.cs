@@ -55,7 +55,7 @@ public class LevelEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
 
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, SelectCard, UnSelectCard, null, null, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
     }
 
     public override void Hide()
@@ -86,6 +86,38 @@ public class LevelEditorPanel : BaseUIForm
                 cp.CloseUIForm();
             },
             rightButtonClick: delegate { cp.CloseUIForm(); });
+    }
+
+    private void SelectOneForEachActiveCards(List<int> activeCardIDs)
+    {
+        if (Enemy_BuildCards != null)
+        {
+            foreach (int cardID in activeCardIDs)
+            {
+                BuildCards.CardSelectInfo csi = Enemy_BuildCards.CardSelectInfos[cardID];
+                csi.CardSelectCount++;
+                int count = csi.CardSelectCount;
+                CardSelectPanel.RefreshCard(cardID, count);
+            }
+
+            Row_CardSelection.Refresh();
+        }
+    }
+
+    private void UnSelectAllActiveCards(List<int> activeCardIDs)
+    {
+        if (Enemy_BuildCards != null)
+        {
+            foreach (int cardID in activeCardIDs)
+            {
+                BuildCards.CardSelectInfo csi = Enemy_BuildCards.CardSelectInfos[cardID];
+                csi.CardSelectCount = 0;
+                csi.CardSelectUpperLimit = 0;
+                CardSelectPanel.RefreshCard(cardID, 0);
+            }
+
+            Row_CardSelection.Refresh();
+        }
     }
 
     [SerializeField] private Text LevelEditorWindowText;
@@ -510,11 +542,7 @@ public class LevelEditorPanel : BaseUIForm
     private void OnStartSelectCard(bool isShow, int refreshCardID, int refreshCardCount, SelectCardContents selectCardContents)
     {
         M_SelectCardContents = selectCardContents;
-        if (selectCardContents != SelectCardContents.SelectDeckCards)
-        {
-            CardSelectPanel.UnselectAllCards();
-        }
-
+        CardSelectPanel.SwitchSingleSelect(selectCardContents != SelectCardContents.SelectDeckCards);
         CardSelectPanel.RefreshCard(refreshCardID, refreshCardCount);
         CardSelectPanel.SetCardLibraryPanelEnable(isShow);
     }
@@ -601,11 +629,6 @@ public class LevelEditorPanel : BaseUIForm
         {
             case SelectCardContents.SelectDeckCards:
             {
-                if (card.CardInfo.CardStatType == CardStatTypes.HeroMech && Enemy_BuildCards.GetTypeCardCountDict(Editor_CardSelectModes.SelectCount)[CardStatTypes.HeroMech] >= 4)
-                {
-                    return;
-                }
-
                 Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount++;
                 int count = Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
                 CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);

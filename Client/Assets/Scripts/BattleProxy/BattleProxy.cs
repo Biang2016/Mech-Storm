@@ -107,15 +107,6 @@ public class BattleProxy
                             break;
                     }
                 }
-                else
-                {
-                    switch (r)
-                    {
-                        case LeaveGameRequest req: //quit game normally
-                            BattleGameManager?.OnLeaveGameRequest(req);
-                            break;
-                    }
-                }
             }
             catch (Exception e)
             {

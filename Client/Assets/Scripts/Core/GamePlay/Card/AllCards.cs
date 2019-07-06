@@ -218,8 +218,8 @@ public static class AllCards
                     case "battleInfo":
                         battleInfo = new BattleInfo(
                             basicAttack: int.Parse(node_CardInfo.Attributes["basicAttack"].Value),
-                            basicArmor: int.Parse(node_CardInfo.Attributes["basicShield"].Value),
-                            basicShield: int.Parse(node_CardInfo.Attributes["basicArmor"].Value));
+                            basicArmor: int.Parse(node_CardInfo.Attributes["basicArmor"].Value),
+                            basicShield: int.Parse(node_CardInfo.Attributes["basicShield"].Value));
                         break;
                     case "mechInfo":
                         mechInfo = new MechInfo(

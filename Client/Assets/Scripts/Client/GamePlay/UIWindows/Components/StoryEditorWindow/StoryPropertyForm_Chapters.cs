@@ -54,7 +54,7 @@ public class StoryPropertyForm_Chapters : PoolObject
                     Cur_Chapters.Add(newChapterID, new Chapter(
                         newChapterID,
                         new SortedDictionary<string, string> {{"zh", "新章节"}, {"en", "New Chapter"}},
-                        new SortedDictionary<int, Level>(),
+                        null,
                         4));
 
                     Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onRefreshStory, onRefreshChapterTitle);

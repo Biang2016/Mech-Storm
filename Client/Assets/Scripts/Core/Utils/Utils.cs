@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 public partial class Utils
@@ -223,5 +224,53 @@ public partial class Utils
                 File.Copy(i.FullName, destPath + "/" + i.Name, true); //不是文件夹即复制文件，true表示可以覆盖同名文件
             }
         }
+    }
+
+    public static string HighlightStringFormat(string src, string color, params object[] args)
+    {
+        string[] coloredStrings = new string[args.Length];
+        for (int i = 0; i < args.Length; i++)
+        {
+            coloredStrings[i] = "<" + color + ">" + args[i] + "</color>";
+        }
+
+        return string.Format(src, coloredStrings);
+    }
+
+    public static string HighlightStringFormat(string src, string color, bool[] needTint, params object[] args)
+    {
+        string[] coloredStrings = new string[args.Length];
+        for (int i = 0; i < args.Length; i++)
+        {
+            if (needTint[i])
+            {
+                coloredStrings[i] = "<" + color + ">" + args[i] + "</color>";
+            }
+            else
+            {
+                coloredStrings[i] = args[i].ToString();
+            }
+        }
+
+        return string.Format(src, coloredStrings);
+    }
+
+    public static string AddHighLightColorToText(string highLightText, string color)
+    {
+        return "<" + color + ">" + highLightText + "</color>";
+    }
+
+    private static string colorStringPattern = @"(.*)(<#)([0-9a-fA-F]{6,8}>.*</color>)(.*)";
+
+    public static string TextMeshProColorStringConvertToText(string colorString)
+    {
+        Regex rg = new Regex(colorStringPattern);
+        if (rg.IsMatch(colorString))
+        {
+            string replace = rg.Replace(colorString, "$1<color=#$3$4");
+            return replace;
+        }
+
+        return colorString;
     }
 }

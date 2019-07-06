@@ -151,11 +151,11 @@ internal partial class GameManager
             }
             case TargetSelect.Single:
             {
-                if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip)
+                if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip || targetRange == TargetRange.SelfDeck || targetRange == TargetRange.EnemyDeck)
                 {
                     action(players[0]);
                 }
-                else if (targetRange == TargetRange.Ships)
+                else if (targetRange == TargetRange.Ships || targetRange == TargetRange.Decks)
                 {
                     action(GetPlayerByClientId(targetClientIds[0]));
                 }
@@ -484,9 +484,19 @@ internal partial class GameManager
     public static List<BattlePlayer> GetShipsPlayerByTargetRange(TargetRange targetRange, BattlePlayer player)
     {
         List<BattlePlayer> res = new List<BattlePlayer>();
+        if ((targetRange & TargetRange.SelfDeck) != 0)
+        {
+            res.Add(player);
+        }
+
         if ((targetRange & TargetRange.SelfShip) != 0)
         {
             res.Add(player);
+        }
+
+        if ((targetRange & TargetRange.EnemyDeck) != 0)
+        {
+            res.Add(player.MyEnemyPlayer);
         }
 
         if ((targetRange & TargetRange.EnemyShip) != 0)

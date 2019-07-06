@@ -97,7 +97,7 @@ public class GameProxy
                 }
                 else
                 {
-                    ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(BuildStoryDatabase.Instance.GetPlayerBuilds(UserName), GamePlaySettings.OnlineGamePlaySettings, false);
+                    ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(BuildStoryDatabase.Instance.GetPlayerBuilds(UserName), GamePlaySettings.OnlineGamePlaySettings);
                     SendMessage(request1);
                 }
 
@@ -165,9 +165,7 @@ public class GameProxy
                         int AI_ClientId = 998;
                         BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
                         clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
-
-                        CurrentBattle = new Battle(clientA, clientB, DebugLog);
-
+                        CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
                         DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
                     }
                     else
@@ -180,7 +178,28 @@ public class GameProxy
                         BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
                         clientB.BuildInfo = ((Enemy) BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Chapters[r.ChapterID].Levels[r.LevelID]).BuildInfo.Clone();
 
-                        CurrentBattle = new Battle(clientA, clientB, DebugLog);
+                        CurrentBattle = new Battle(clientA, clientB, DebugLog, delegate(int winnerClientID)
+                        {
+                            if (clientB is BattleProxyAI AI)
+                            {
+                                if (winnerClientID == clientA.ClientID)
+                                {
+                                    BeatEnemyRequest request2 = new BeatEnemyRequest(r.LevelID);
+                                    clientA.SendMessage(request2);
+
+//                                    Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
+//                                    story.BeatEnemy(AI.LevelID, AI.EnemyPicID);
+//                                    if (AI.LevelID < story.Chapters.Count - 1)
+//                                    {
+//                                        story.UnlockChapterEnemies(AI.LevelID + 1);
+//                                        List<int> nextLevelBossPicIDs = new List<int>();
+//                                        nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
+//                                        NextChapterEnemiesRequest request3 = new NextChapterEnemiesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
+//                                        ClientA.SendMessage(request3);
+//                                    }
+                                }
+                            }
+                        });
 
                         DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
                     }

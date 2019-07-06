@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ChapterMap : PoolObject
 {
@@ -54,6 +55,7 @@ public class ChapterMap : PoolObject
     }
 
     private int RoundCount = 2;
+    public Chapter Cur_Chapter;
 
     internal void Initialize(Chapter chapter)
     {
@@ -103,6 +105,8 @@ public class ChapterMap : PoolObject
         nodeLocations[index++] = Vector2.zero;
 
         // 画点
+        NodeCategory[NodeTypes.All].Add(0);
+
         for (int round = 1; round <= roundCount; round++)
         {
             for (int i = 0; i < 6; i++)
@@ -350,51 +354,64 @@ public class ChapterMap : PoolObject
 
     private void SetPicForNodes()
     {
-        foreach (int i in NodeCategory[NodeTypes.Common])
+        foreach (int i in NodeCategory[NodeTypes.All])
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Enemy, EnemyType.Soldier);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Start);
         }
 
-        ChapterMapNodes[0].Initialize(0, SelectNode, OnHoverNode, LevelType.Start);
-
-        int shopNumMax = Mathf.CeilToInt(shopRatio * NodeCategory[NodeTypes.Common].Count);
-        int restNumMax = Mathf.CeilToInt(restRatio * NodeCategory[NodeTypes.Common].Count);
-
-        int finalRoundEdgeShopNumber = Mathf.Min(shopNumMax, 3);
-        int otherShopNumber = shopNumMax - finalRoundEdgeShopNumber;
-        List<int> shops = Utils.GetRandomFromList(NodeCategory[NodeTypes.FinalRoundEdge], finalRoundEdgeShopNumber);
-        shops.AddRange(Utils.GetRandomFromList(NodeCategory[NodeTypes.Common], otherShopNumber, shops));
-
-        int finalRoundEdgeRestNumber = Mathf.Min(shopNumMax, 6);
-        int otherRestNumber = restNumMax - finalRoundEdgeRestNumber;
-        List<int> rests = Utils.GetRandomFromList(NodeCategory[NodeTypes.FinalRoundCorner], finalRoundEdgeRestNumber);
-        rests.AddRange(Utils.GetRandomFromList(NodeCategory[NodeTypes.Common], otherRestNumber, rests));
-
-        foreach (int i in shops)
-        {
-            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Shop);
-        }
-
-        foreach (int i in rests)
-        {
-            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Rest);
-        }
-
-        foreach (int i in NodeCategory[NodeTypes.Treasure])
-        {
-            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Treasure);
-        }
-
-        foreach (int i in NodeCategory[NodeTypes.Boss])
-        {
-            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Enemy, EnemyType.Boss);
-        }
+//        int shopNumMax = Mathf.CeilToInt(shopRatio * NodeCategory[NodeTypes.Common].Count);
+//        int restNumMax = Mathf.CeilToInt(restRatio * NodeCategory[NodeTypes.Common].Count);
+//
+//        int finalRoundEdgeShopNumber = Mathf.Min(shopNumMax, 3);
+//        int otherShopNumber = shopNumMax - finalRoundEdgeShopNumber;
+//        List<int> shops = Utils.GetRandomFromList(NodeCategory[NodeTypes.FinalRoundEdge], finalRoundEdgeShopNumber);
+//        shops.AddRange(Utils.GetRandomFromList(NodeCategory[NodeTypes.Common], otherShopNumber, shops));
+//
+//        int finalRoundEdgeRestNumber = Mathf.Min(shopNumMax, 6);
+//        int otherRestNumber = restNumMax - finalRoundEdgeRestNumber;
+//        List<int> rests = Utils.GetRandomFromList(NodeCategory[NodeTypes.FinalRoundCorner], finalRoundEdgeRestNumber);
+//        rests.AddRange(Utils.GetRandomFromList(NodeCategory[NodeTypes.Common], otherRestNumber, rests));
+//
+//        foreach (int i in shops)
+//        {
+//            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Shop);
+//        }
+//
+//        foreach (int i in rests)
+//        {
+//            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Rest);
+//        }
+//
+//        foreach (int i in NodeCategory[NodeTypes.Treasure])
+//        {
+//            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Treasure);
+//        }
+//
+//        foreach (int i in NodeCategory[NodeTypes.Boss])
+//        {
+//            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Enemy, EnemyType.Boss);
+//        }
     }
 
-    private ChapterMapNode Cur_SelectedNode;
+    internal ChapterMapNode Cur_SelectedNode;
+
+    public void UnSelectAllNode()
+    {
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
+        {
+            kv.Value.IsSelected = false;
+        }
+
+        Cur_SelectedNode = null;
+    }
 
     private void SelectNode(int nodeIndex)
     {
+        if (ChapterMapNodes[nodeIndex].IsBeated)
+        {
+            return;
+        }
+
         foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
         {
             kv.Value.IsSelected = false;
@@ -402,12 +419,17 @@ public class ChapterMap : PoolObject
 
         ChapterMapNodes[nodeIndex].IsSelected = true;
         Cur_SelectedNode = ChapterMapNodes[nodeIndex];
+        OnSelectChapterNode?.Invoke(Cur_SelectedNode);
     }
+
+    internal UnityAction<ChapterMapNode> OnSelectChapterNode;
 
     private void SetNodeLevel(int nodeIndex, Level level)
     {
         ChapterMapNodes[nodeIndex].SetLevel(level);
     }
+
+    #region LevelEditor
 
     public void SetCurrentNodeLevel(Level level)
     {
@@ -417,8 +439,7 @@ public class ChapterMap : PoolObject
         }
     }
 
-    public Chapter Cur_Chapter;
-
+    // 仅用于关卡编辑器
     public void SaveChapter()
     {
         Cur_Chapter.Levels.Clear();
@@ -430,4 +451,56 @@ public class ChapterMap : PoolObject
             }
         }
     }
+
+    #endregion
+
+    #region GameStory
+
+    public void RefreshKnownLevels()
+    {
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
+        {
+            kv.Value.IsSelected = false;
+            kv.Value.IsHovered = false;
+            kv.Value.IsBeated = false;
+        }
+
+        foreach (KeyValuePair<int,ChapterMapNode> kv in ChapterMapNodes)
+        {
+            kv.Value.gameObject.SetActive(false);
+        }
+
+        foreach (KeyValuePair<int,ChapterMapRoute> kv in ChapterMapRoutes)
+        {
+            kv.Value.gameObject.SetActive(false);
+        }
+        
+        foreach (KeyValuePair<int, bool> kv in Cur_Chapter.LevelBeatedDictionary)
+        {
+            ChapterMapNodes[kv.Key].IsBeated = kv.Value;
+            ChapterMapNodes[kv.Key].gameObject.SetActive(kv.Value);
+        }
+
+        foreach (KeyValuePair<int, bool> kv in Cur_Chapter.LevelBeatedDictionary)
+        {
+            foreach (int ri in ChapterMapNodes[kv.Key].AdjacentRoutes)
+            {
+                ChapterMapRoute route = ChapterMapRoutes[ri];
+                if (Cur_Chapter.LevelBeatedDictionary[route.NodeIndex_0] || Cur_Chapter.LevelBeatedDictionary[route.NodeIndex_1])
+                {
+                    ChapterMapNodes[route.NodeIndex_0].gameObject.SetActive(true);
+                    ChapterMapNodes[route.NodeIndex_1].gameObject.SetActive(true);
+                    route.gameObject.SetActive(true);
+                }
+                else
+                {
+                    route.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        ChapterMapNodes[0].gameObject.SetActive(true);
+    }
+
+    #endregion
 }

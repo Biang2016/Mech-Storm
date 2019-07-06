@@ -13,11 +13,15 @@ internal class BattleResultPanel : BaseUIForm
 
     #region Common
 
+    internal bool IsShow = false;
+    
     [SerializeField] private Animator PanelAnimator;
 
     [SerializeField] private GameObject OnlineResultContent;
     [SerializeField] private Text OnlineWinText;
     [SerializeField] private Text OnlineLostText;
+    [SerializeField] private Button OnlineGoAheadButton;
+    [SerializeField] private Text OnlineGoAheadButtonText;
 
     #endregion
 
@@ -25,20 +29,38 @@ internal class BattleResultPanel : BaseUIForm
 
     [SerializeField] private GameObject WinContent;
     [SerializeField] private Text WinText;
-    [SerializeField] private Text RewardsTitleText;
     [SerializeField] private Text SelectTipText;
-    [SerializeField] private Transform BonusButtonContainer;
-    public List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
-    private List<SmallBonusItem> M_CurrentFixedBonusItems = new List<SmallBonusItem>();
-    [SerializeField] private Text NoRewardText;
+
+    [SerializeField] private Text NoRewardText_OptionalBonus;
+    [SerializeField] private Text NoRewardText_ChapterBonus;
+    [SerializeField] private Text NoRewardText_FixedBonus;
+
+    [SerializeField] private GameObject OptionalBonus;
+    [SerializeField] private GameObject OptionalBonusSeperator;
+    [SerializeField] private Text OptionalBonusText;
+    [SerializeField] private Transform OptionalBonusContainer;
+    [SerializeField] private GameObject ChapterBonus;
+    [SerializeField] private GameObject ChapterBonusSeperator;
+    [SerializeField] private Text ChapterBonusText;
+    [SerializeField] private Transform ChapterBonusContainer;
+    [SerializeField] private GameObject FixedBonus;
+    [SerializeField] private GameObject FixedBonusSeperator;
     [SerializeField] private Text FixedBonusText;
     [SerializeField] private Transform FixedBonusContainer;
+
     [SerializeField] private Transform CardPreviewContainer;
     [SerializeField] private Transform CardRotationSample;
     [SerializeField] private Animator CardPreviewContainerAnim;
+
+    [SerializeField] private Button ConfirmButton;
     [SerializeField] private Text ConfirmButtonText;
-    private List<BonusGroup> AlwaysBonusGroup;
-    private List<BonusGroup> OptionalBonusGroup;
+
+    private List<BonusButton> M_CurrentBonusButtons = new List<BonusButton>();
+    private List<SmallBonusItem> M_CurrentFixedBonusItems = new List<SmallBonusItem>();
+
+    private List<BonusGroup> AllBonusGroups;
+    private List<BonusGroup> AlwaysBonusGroups;
+    private List<BonusGroup> OptionalBonusGroups;
 
     #endregion
 
@@ -48,7 +70,8 @@ internal class BattleResultPanel : BaseUIForm
     [SerializeField] private Text LostText;
     [SerializeField] private Text LostTipTitle;
     [SerializeField] private Text LostTipText;
-    [SerializeField] private Text GoAheadButtonText;
+    [SerializeField] private Button LostGoAheadButton;
+    [SerializeField] private Text LostGoAheadButtonText;
 
     #endregion
 
@@ -56,24 +79,32 @@ internal class BattleResultPanel : BaseUIForm
     {
         LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
         {
+            (SelectTipText, "WinLostPanelManager_SelectTipText"),
             (WinText, "WinLostPanelManager_WinText"),
             (LostText, "WinLostPanelManager_LostText"),
             (OnlineWinText, "WinLostPanelManager_OnlineWinText"),
             (OnlineLostText, "WinLostPanelManager_OnlineLostText"),
             (LostTipTitle, "WinLostPanelManager_LostTipTitle"),
-            (RewardsTitleText, "WinLostPanelManager_RewardsTitleText"),
-            (NoRewardText, "WinLostPanelManager_NoRewardText"),
+            (NoRewardText_OptionalBonus, "WinLostPanelManager_NoRewardText"),
+            (NoRewardText_ChapterBonus, "WinLostPanelManager_NoRewardText"),
+            (NoRewardText_FixedBonus, "WinLostPanelManager_NoRewardText"),
+            (OptionalBonusText, "WinLostPanelManager_OptionalBonusText"),
+            (ChapterBonusText, "WinLostPanelManager_ChapterBonusText"),
             (FixedBonusText, "WinLostPanelManager_FixedBonusText"),
             (ConfirmButtonText, "WinLostPanelManager_ConfirmButtonText"),
-            (GoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
+            (OnlineGoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
+            (LostGoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
+            (LostGoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
             (CardUpgradeUnlockText, "WinLostPanelManager_CardUpgradeUnlockText"),
             (CardUpgradeUnlockDescText, "WinLostPanelManager_CardUpgradeUnlockDescText"),
         });
+
+        OnlineGoAheadButton.onClick.AddListener(OnGoAheadButtonClick);
+        LostGoAheadButton.onClick.AddListener(OnGoAheadButtonClick);
+        ConfirmButton.onClick.AddListener(OnConfirmButtonClick);
     }
 
     #region  Common
-
-    public bool IsShow = false;
 
     public void Reset()
     {
@@ -99,7 +130,7 @@ internal class BattleResultPanel : BaseUIForm
                 CurrentPreivewCard = null;
             }
 
-            OnConfirmButtonClickHandler = null;
+            Cur_SelectedBonusButton = null;
             WinContent.SetActive(true);
 
             ResetCardUpgradeShowPanel();
@@ -111,21 +142,21 @@ internal class BattleResultPanel : BaseUIForm
 
     IEnumerator Co_OnGameStopByWin(bool isWin)
     {
-        IsShow = true;
         UIManager.Instance.CloseUIForm<SelectBuildPanel>();
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
         AudioManager.Instance.BGMStop();
         if (isWin)
         {
-            PanelAnimator.SetTrigger("Show");
             AudioManager.Instance.SoundPlay("sfx/Victory");
         }
         else
         {
+          
             AudioManager.Instance.SoundPlay("sfx/Lose");
         }
-
+        
         PanelAnimator.SetTrigger("Show");
+        IsShow = true;
         RootManager.Instance.StartBlurBackGround();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -134,10 +165,10 @@ internal class BattleResultPanel : BaseUIForm
     public void EndWinLostPanel()
     {
         PanelAnimator.SetTrigger("Hide");
+        IsShow = false;
         RootManager.Instance.StopBlurBackGround();
         RoundManager.Instance.OnGameStop();
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
-        IsShow = false;
         Reset();
     }
 
@@ -154,17 +185,29 @@ internal class BattleResultPanel : BaseUIForm
         {
             StoryManager.Instance.ResetStoryBonusInfo();
 
-            //AlwaysBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(false, -1); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
-            //OptionalBonusGroup = StoryManager.Instance.GetCurrentBonusGroup(true, Random.Range(3, 4));
-
-            foreach (BonusGroup bg in OptionalBonusGroup)
+            AllBonusGroups = StoryManager.Instance.GetCurrentBonusGroup(); //Always要执行，因为如果Always里面解锁了某些卡片，则要去掉避免重复
+            AlwaysBonusGroups = new List<BonusGroup>();
+            OptionalBonusGroups = new List<BonusGroup>();
+            foreach (BonusGroup bg in AllBonusGroups)
             {
-                BonusButton bb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BonusButton].AllocateGameObject<BonusButton>(BonusButtonContainer);
-                bb.Initialize(bg);
+                if (bg.IsAlways)
+                {
+                    AlwaysBonusGroups.Add(bg);
+                }
+                else
+                {
+                    OptionalBonusGroups.Add(bg);
+                }
+            }
+
+            foreach (BonusGroup bg in OptionalBonusGroups)
+            {
+                BonusButton bb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BonusButton].AllocateGameObject<BonusButton>(OptionalBonusContainer);
+                bb.Initialize(bg, onClickAction: delegate { SetBonusButtonSelected(bb); });
                 M_CurrentBonusButtons.Add(bb);
             }
 
-            foreach (BonusGroup bg in AlwaysBonusGroup)
+            foreach (BonusGroup bg in AlwaysBonusGroups)
             {
                 foreach (Bonus bonus in bg.Bonuses)
                 {
@@ -174,12 +217,25 @@ internal class BattleResultPanel : BaseUIForm
                 }
             }
 
-            if (OptionalBonusGroup.Count == 1)
+            ConfirmButton.gameObject.SetActive(false);
+
+            if (OptionalBonusGroups.Count == 1)
             {
                 M_CurrentBonusButtons[0].SetSelected(true);
+                ConfirmButton.gameObject.SetActive(true);
+                Cur_SelectedBonusButton = M_CurrentBonusButtons[0];
             }
 
-            NoRewardText.enabled = AlwaysBonusGroup.Count == 0 && OptionalBonusGroup.Count == 0;
+            OptionalBonus.SetActive(true);
+            OptionalBonusSeperator.SetActive(true);
+            ChapterBonus.SetActive(false);
+            ChapterBonusSeperator.SetActive(false);
+            FixedBonus.SetActive(true);
+            FixedBonusSeperator.SetActive(true);
+
+            NoRewardText_OptionalBonus.enabled = OptionalBonusGroups.Count == 0;
+            NoRewardText_ChapterBonus.enabled = true; //TODO    
+            NoRewardText_FixedBonus.enabled = AlwaysBonusGroups.Count == 0;
         }
         else
         {
@@ -259,6 +315,8 @@ internal class BattleResultPanel : BaseUIForm
 
     #endregion
 
+    private BonusButton Cur_SelectedBonusButton = null;
+
     public void SetBonusButtonSelected(BonusButton bonusButton)
     {
         foreach (BonusButton bb in M_CurrentBonusButtons)
@@ -266,25 +324,22 @@ internal class BattleResultPanel : BaseUIForm
             bb.SetSelected(bb == bonusButton);
         }
 
-        OnConfirmButtonClickHandler = bonusButton.OnConfirmButtonClickDelegate;
+        Cur_SelectedBonusButton = bonusButton;
+        ConfirmButton.gameObject.SetActive(Cur_SelectedBonusButton != null);
     }
 
-    public delegate void OnConfirmButtonClickDelegate();
-
-    public OnConfirmButtonClickDelegate OnConfirmButtonClickHandler;
-
-    public void OnConfirmButtonClick()
+    private void OnConfirmButtonClick()
     {
-        OnConfirmButtonClickHandler?.Invoke();
-        if (OptionalBonusGroup.Count != 0 && OnConfirmButtonClickHandler == null)
-        {
-            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("WinLostPanelManager_YouNeedToChooseACard"), 0, 0.8f);
-        }
-        else
-        {
-            SendAlwaysBonusRequest();
-            ShowCardsUpgrade();
-        }
+        SendOptionalBonusRequest();
+        SendAlwaysBonusRequest();
+
+        List<BonusGroup> getBonusGroups = new List<BonusGroup>();
+        getBonusGroups.Add(Cur_SelectedBonusButton.BonusGroup);
+        getBonusGroups.AddRange(AlwaysBonusGroups.ToArray());
+
+        ApplyBonusChange(getBonusGroups);
+
+        ShowCardsUpgrade();
 
         EndBattleRequest request = new EndBattleRequest(Client.Instance.Proxy.ClientID);
         Client.Instance.Proxy.SendMessage(request);
@@ -292,50 +347,71 @@ internal class BattleResultPanel : BaseUIForm
 
     #region Bonus
 
-    private void SendAlwaysBonusRequest()
+    private void SendOptionalBonusRequest()
     {
-        foreach (BonusGroup bg in AlwaysBonusGroup)
+        if (Cur_SelectedBonusButton != null)
         {
-            GetBonusBuildChangeInfo(bg);
-            BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, bg);
-            Client.Instance.Proxy.SendMessage(request);
-            foreach (Bonus bonus in bg.Bonuses)
-            {
-                if (bonus is Bonus_Budget _b)
-                {
-                    StoryManager.Instance.JustGetNewCards.Add(_b.Budget);
-                }
-            }
+            BonusGroupRequest request1 = new BonusGroupRequest(Client.Instance.Proxy.ClientID, Cur_SelectedBonusButton.BonusGroup);
+            Client.Instance.Proxy.SendMessage(request1);
         }
     }
 
-    public void GetBonusBuildChangeInfo(BonusGroup bg)
+    private void SendAlwaysBonusRequest()
     {
-        if (!StoryManager.Instance.JustGetSomeCard)
+        foreach (BonusGroup bg in AlwaysBonusGroups)
         {
-            if (bg.Bonuses[0].BonusType == Bonus.BonusTypes.UnlockCardByID) StoryManager.Instance.JustGetSomeCard = true;
+            BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, bg);
+            Client.Instance.Proxy.SendMessage(request);
+        }
+    }
+
+    private void ApplyBonusChange(List<BonusGroup> getBonusGroups)
+    {
+        foreach (BonusGroup bg in getBonusGroups)
+        {
+            foreach (Bonus b in bg.Bonuses)
+            {
+                switch (b)
+                {
+                    case Bonus_LifeUpperLimit bl:
+                    {
+                        StoryManager.Instance.JustLifeChange += bl.LifeUpperLimit;
+                        break;
+                    }
+
+                    case Bonus_EnergyUpperLimit be:
+                    {
+                        StoryManager.Instance.JustEnergyChange += be.EnergyUpperLimit;
+                        break;
+                    }
+                    case Bonus_Budget bb:
+                    {
+                        StoryManager.Instance.JustBudgetChange += bb.Budget;
+                        break;
+                    }
+                    case Bonus_UnlockCardByID bu:
+                    {
+                        StoryManager.Instance.JustGetNewCards.Add(bu.CardID);
+                        break;
+                    }
+                }
+            }
         }
 
-        foreach (Bonus b in bg.Bonuses)
+        foreach (int cardID in StoryManager.Instance.JustGetNewCards)
         {
-            if (b is Bonus_LifeUpperLimit bl)
-            {
-                StoryManager.Instance.JustLifeLost = bl.LifeUpperLimit < 0;
-                StoryManager.Instance.JustLifeAdd = bl.LifeUpperLimit > 0;
-            }
-
-            if (b is Bonus_EnergyUpperLimit be)
-            {
-                StoryManager.Instance.JustEnergyLost = be.EnergyUpperLimit < 0;
-                StoryManager.Instance.JustEnergyAdd = be.EnergyUpperLimit > 0;
-            }
-
-            if (b is Bonus_Budget bb)
-            {
-                StoryManager.Instance.JustBudgetLost = bb.Budget < 0;
-                StoryManager.Instance.JustBudgetAdd = bb.Budget > 0;
-            }
+            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
         }
+
+        foreach (int cardID in StoryManager.Instance.JustUpgradeCards)
+        {
+            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
+        }
+
+        UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
+        UIManager.Instance.GetBaseUIForm<StoryPanel>().UnSelectNode();
+        UIManager.Instance.GetBaseUIForm<StoryPanel>().Cur_ChapterMap.UnSelectAllNode();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().StartGameAction = null;
     }
 
     private CardBase CurrentPreivewCard;
@@ -355,7 +431,9 @@ internal class BattleResultPanel : BaseUIForm
         CurrentPreivewCard.transform.parent.position = new Vector3(cameraPosition.x, CardRotationSample.position.y, CardRotationSample.position.z);
         CurrentPreivewCard.CardOrder = 2;
         CurrentPreivewCard.BeBrightColor();
+        CurrentPreivewCard.ShowCardBloom(true);
         CardPreviewContainerAnim.SetTrigger("Hover");
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixTips(new List<CardInfo_Base> {cb}, null);
     }
 
     public void HideCardPreview()
@@ -365,6 +443,7 @@ internal class BattleResultPanel : BaseUIForm
             CurrentPreivewCard.PoolRecycle();
             CurrentPreivewCard = null;
             CardPreviewContainerAnim.SetTrigger("Exit");
+            UIManager.Instance.CloseUIForm<AffixPanel>();
         }
     }
 
@@ -413,7 +492,7 @@ internal class BattleResultPanel : BaseUIForm
         WinContent.SetActive(false);
         CardUpgradeUnlockContent.SetActive(true);
         isBeginCardUpgradeShow = true;
-        if (StoryManager.Instance.IsThisLevelNumberUp)
+        if (StoryManager.Instance.JustBeatedChapter)
         {
             foreach (int cardID in StoryManager.Instance.GetStory().Base_CardLimitDict.Keys.ToList())
             {
@@ -423,7 +502,7 @@ internal class BattleResultPanel : BaseUIForm
                     if (cb.UpgradeInfo.UpgradeCardID != -1)
                     {
                         CardInfo_Base cb_upgrade = AllCards.GetCard(cb.UpgradeInfo.UpgradeCardID);
-                        if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.UnlockedCardLevelNum)
+                        if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.JustUnlockedCardRareLevelNum)
                         {
                             StoryManager.Instance.JustUpgradeCards.Add(cb.CardID);
                             yield return Co_UnlockCardShowOne(cb.CardID, cb.UpgradeInfo.UpgradeCardID);

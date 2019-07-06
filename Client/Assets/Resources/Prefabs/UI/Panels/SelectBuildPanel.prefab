@@ -173,7 +173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90637884934693117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: 0, z: -1089}
+  m_LocalPosition: {x: -34.69, y: 33.9, z: -1089}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7796774833126857709}
@@ -205,7 +205,7 @@ Camera:
   far clip plane: 10.1
   field of view: 42
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 5.58
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1612,7 +1612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00001826079}
+  m_AnchoredPosition: {x: 0, y: 0.000010628275}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6691626823319201842
@@ -1915,7 +1915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000034260265}
+  m_AnchoredPosition: {x: -0.00012207031, y: 2.0000038}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3776524657462983685
@@ -3098,7 +3098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000011372083}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.000019050623}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7765827298561472003
@@ -6662,8 +6662,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4267011362769823852}
   m_HandleRect: {fileID: 576019817061990998}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.0000019073468
+  m_Size: 0.84615374
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8958,7 +8958,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 1500}
+  m_SizeDelta: {x: 1500, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4774079103360573408
 CanvasRenderer:
@@ -9858,8 +9858,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8264869608668901594}
   m_HandleRect: {fileID: 4110736402730736435}
   m_Direction: 0
-  m_Value: 0.5
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
