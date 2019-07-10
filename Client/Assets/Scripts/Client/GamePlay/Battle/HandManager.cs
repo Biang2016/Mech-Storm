@@ -347,6 +347,18 @@ public class HandManager : MonoBehaviour
 
     public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
     {
+        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        {
+            if (cardBase)
+            {
+                cardBase.OnPlayOut();
+                cards.Remove(cardBase);
+                cardBase.PoolRecycle();
+                RefreshCardsPlace();
+            }
+        }
+
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(handCardInstanceId, cardInfo), "Co_UseCardShow");
     }
 
@@ -405,13 +417,6 @@ public class HandManager : MonoBehaviour
                 currentShowCard.PoolRecycle();
                 currentShowCard = null;
             }
-        }
-        else
-        {
-            cardBase.OnPlayOut();
-            cards.Remove(cardBase);
-            cardBase.PoolRecycle();
-            RefreshCardsPlace();
         }
 
         yield return null;

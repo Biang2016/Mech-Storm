@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TabControl : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class TabControl : MonoBehaviour
 
     private string CurSelectedTabButtonStrKey = "";
 
-    public Transform AddTab(string tabTitleStrKey)
+    public Transform AddTab(string tabTitleStrKey,UnityAction onAddButtonClick)
     {
         if (PanelsDict.ContainsKey(tabTitleStrKey))
         {
@@ -44,6 +45,7 @@ public class TabControl : MonoBehaviour
         btn.Initialize(tabTitleStrKey, delegate { SelectTab(tabTitleStrKey); });
         TabsDict.Add(tabTitleStrKey, btn);
         TabControl_Panel panel = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.TabControl_Panel].AllocateGameObject<TabControl_Panel>(PanelsContainer);
+        panel.Initialize(onAddButtonClick);
         PanelsDict.Add(tabTitleStrKey, panel);
         return panel.Container;
     }

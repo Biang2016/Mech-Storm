@@ -209,6 +209,11 @@ public class SideEffectBundle : IClone<SideEffectBundle>
                     XmlElement buff_ele = doc.CreateElement("Buff");
                     sideEffect_ele.AppendChild(buff_ele);
                     addBuff_SE.ExportToXML(buff_ele);
+                    foreach (SideEffectBase _se in addBuff_SE.AttachedBuffSEE.SideEffectBases)
+                    {
+                        _se.ExportToXML(buff_ele);
+                    }
+
                     addBuff_SE.AttachedBuffSEE.M_ExecuteSetting.ExportToXML(buff_ele);
                     foreach (SideEffectBase buff_SubSE in addBuff_SE.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect)
                     {

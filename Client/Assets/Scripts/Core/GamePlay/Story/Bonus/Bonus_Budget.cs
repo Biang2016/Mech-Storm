@@ -31,6 +31,6 @@ public class Bonus_Budget : Bonus
 
     public override Bonus Clone()
     {
-        return new Bonus_EnergyUpperLimit(Budget);
+        return new Bonus_Budget(Budget);
     }
 }

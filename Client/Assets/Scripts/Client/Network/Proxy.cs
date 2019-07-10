@@ -233,7 +233,15 @@ public class Proxy : ProxyBase
                     StoryManager.Instance.InitializeStory(request.Story);
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
+                    UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
+                    break;
+                }
+                case NetProtocols.REFRESH_STORY_REQUEST:
+                {
+                    RefreshStoryRequest request = (RefreshStoryRequest) r;
+                    StoryManager.Instance.InitializeStory(request.Story);
+                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     break;
                 }
                 case NetProtocols.CREATE_BUILD_REQUEST_RESPONSE:
@@ -262,7 +270,12 @@ public class Proxy : ProxyBase
                     StoryManager.Instance.InitializeStory(request.Story);
                     break;
                 }
-                case NetProtocols.BEAT_ENEMY_REQUSET:
+                case NetProtocols.START_FIGHTING_ENEMY_REQUEST:
+                {
+                    StoryManager.Instance.StartFightEnemy(((StartFightingEnemyRequest) r).LevelID);
+                    break;
+                }
+                case NetProtocols.BEAT_ENEMY_REQUEST:
                 {
                     BeatEnemyRequest request = (BeatEnemyRequest) r;
                     StoryManager.Instance.SetEnemyBeated(request.LevelID);

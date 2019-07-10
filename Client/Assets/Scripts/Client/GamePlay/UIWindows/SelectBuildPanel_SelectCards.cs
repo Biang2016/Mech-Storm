@@ -289,8 +289,8 @@ public partial class SelectBuildPanel
             return false;
         }
 
-        card.SetBannerType(CardNoticeComponent.BannerTypes.None);
-        StoryManager.Instance.JustUpgradeCards.Remove(card.CardInfo.CardID);
+        if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod) card.SetBannerType(CardNoticeComponent.BannerTypes.None);
+
         StoryManager.Instance.JustGetNewCards.Remove(card.CardInfo.CardID);
         if (selectCards.ContainsKey(card.CardInfo.CardID))
         {

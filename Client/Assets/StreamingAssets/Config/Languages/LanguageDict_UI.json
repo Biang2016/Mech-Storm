@@ -778,6 +778,10 @@
 		"zh": "可升级",
 		"en": "Upgrade!"
 	},
+	"CardBase_StorageIncrease": {
+		"zh": "库存增加",
+		"en": "Storage"
+	},
 	"CardSpell_SelectCorrectMech": {
 		"zh": "请选择正确的机甲",
 		"en": "You should select a correct mech!"
@@ -939,6 +943,10 @@
 	"StoryEditorPanel_TreasureTabButtonTitle": {
 		"zh": "宝藏",
 		"en": "Treasures"
+	},
+	"StoryEditorPanel_AddNewButtonText": {
+		"zh": "新增",
+		"en": "Add new"
 	},
 	"Notice_StoryEditorPanel_ResetSuccess": {
 		"zh": "重置剧情成功",
@@ -1344,6 +1352,10 @@
 		"zh": "请设置预算数值和相应的价格: ",
 		"en": "Please set the Coin Cost and its price: "
 	},
+	"LevelEditorPanel_SetMixedValuePrice": {
+		"zh": "请设置预算混合价值和相应的价格: ",
+		"en": "Please set the Mixed Value and its price: "
+	},
 	"LevelEditorPanel_PricePlaceHolder": {
 		"zh": "商品价格",
 		"en": "Price: "
@@ -1351,6 +1363,10 @@
 	"LevelEditorPanel_BudgetPlaceHolder": {
 		"zh": "预算量",
 		"en": "Coin"
+	},
+	"LevelEditorPanel_ValuePlaceHolder": {
+		"zh": "价值",
+		"en": "Value"
 	},
 	"LevelEditorPanel_BudgetValueText": {
 		"zh": "预算({0})",
@@ -1451,6 +1467,10 @@
 	"Notice_LevelEditorPanel_ResetSuccess": {
 		"zh": "重置关卡成功",
 		"en": "Reset level successfully."
+	},
+	"Notice_LevelEditorPanel_SaveLevelInvalidName": {
+		"zh": "关卡英文名称不能为[{0}]",
+		"en": "Invalid level English name [{0}]"
 	},
 
 	"Notice_LevelEditorPanel_EnemyLifeMax": {

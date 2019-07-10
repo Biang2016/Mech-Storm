@@ -15,7 +15,8 @@
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()]);
+            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+                GetDescOfTargetRange());
         }
 
         public override void Execute(ExecutorInfo executorInfo)

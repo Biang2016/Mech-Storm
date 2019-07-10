@@ -7,6 +7,7 @@ public class Story : IClone<Story>, IVariant<Story>
     public SortedDictionary<int, Chapter> Chapters = new SortedDictionary<int, Chapter>();
 
     public SortedDictionary<int, int> Base_CardLimitDict = new SortedDictionary<int, int>(); // 玩家牌库已解锁各牌的上限信息（以基本牌为key）
+    public SortedDictionary<int, bool> CardUnlockInfos; // 玩家牌库已解锁各牌 Key: CardID
     public SortedDictionary<int, BuildInfo> PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();
 
     public GamePlaySettings StoryGamePlaySettings;
@@ -18,17 +19,32 @@ public class Story : IClone<Story>, IVariant<Story>
     {
     }
 
-    public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, BuildInfo> playerBuildInfos, GamePlaySettings storyGamePlaySettings, int currentFightingChapterID)
+    public Story(string storyName, SortedDictionary<int, Chapter> chapters, SortedDictionary<int, BuildInfo> playerBuildInfos, SortedDictionary<int, bool> cardUnlockInfos, GamePlaySettings storyGamePlaySettings, int currentFightingChapterID)
     {
         StoryName = storyName;
         Chapters = chapters;
-        
+
         PlayerBuildInfos = playerBuildInfos;
 
         foreach (KeyValuePair<int, BuildInfo> kv in playerBuildInfos)
         {
             Base_CardLimitDict = kv.Value.M_BuildCards.GetBaseCardLimitDict();
             break;
+        }
+
+        CardUnlockInfos = new SortedDictionary<int, bool>();
+
+        foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+        {
+            CardUnlockInfos.Add(kv.Key, false);
+        }
+
+        if (cardUnlockInfos != null)
+        {
+            foreach (KeyValuePair<int, bool> kv in cardUnlockInfos)
+            {
+                CardUnlockInfos[kv.Key] = kv.Value;
+            }
         }
 
         StoryGamePlaySettings = storyGamePlaySettings;
@@ -58,10 +74,13 @@ public class Story : IClone<Story>, IVariant<Story>
             kv.Value.ChapterID = kv.Key;
         }
 
+        SortedDictionary<int, bool> cardUnlockInfos = CloneVariantUtils.SortedDictionary(CardUnlockInfos);
+
         Story newStory = new Story(
             StoryName,
             newChapters,
             newPlayerBuildInfos,
+            cardUnlockInfos,
             StoryGamePlaySettings.Clone(),
             0
         );
@@ -76,10 +95,14 @@ public class Story : IClone<Story>, IVariant<Story>
             kv.Value.ChapterID = kv.Key;
         }
 
+        SortedDictionary<int, bool> cardUnlockInfos = CloneVariantUtils.SortedDictionary(CardUnlockInfos);
+
         Story newStory = new Story(
             StoryName,
             newChapters,
-            PlayerBuildInfos, StoryGamePlaySettings.Clone(),
+            PlayerBuildInfos,
+            cardUnlockInfos,
+            StoryGamePlaySettings.Clone(),
             0);
         return newStory;
     }
@@ -136,7 +159,14 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public void EditAllCardLimitDict(int cardID, int changeValue) // 更改某卡牌上限数量
     {
-        //TODO 减少上限时要删掉对应的牌
+        if (changeValue > 0)
+        {
+            if (!CardUnlockInfos[cardID])
+            {
+                CardUnlockInfos[cardID] = true;
+            }
+        }
+
         foreach (KeyValuePair<int, BuildInfo> kv in PlayerBuildInfos)
         {
             SortedDictionary<int, BuildCards.CardSelectInfo> csis = kv.Value.M_BuildCards.CardSelectInfos;
@@ -144,8 +174,13 @@ public class Story : IClone<Story>, IVariant<Story>
             if (csis[cardID].CardSelectUpperLimit + changeValue >= 0)
             {
                 csis[cardID].CardSelectUpperLimit += changeValue;
+
+                if (csis[cardID].CardSelectUpperLimit < csis[cardID].CardSelectCount)
+                {
+                    csis[cardID].CardSelectCount = csis[cardID].CardSelectUpperLimit;
+                }
             }
-            else
+            else // 如果本身的上限不够扣，则扣掉该系列卡牌的其他牌的上限
             {
                 remainChange += csis[cardID].CardSelectUpperLimit;
                 csis[cardID].CardSelectUpperLimit = 0;
@@ -155,12 +190,18 @@ public class Story : IClone<Story>, IVariant<Story>
                     if (csis[i].CardSelectUpperLimit + remainChange >= 0)
                     {
                         csis[i].CardSelectUpperLimit += remainChange;
+                        if (csis[i].CardSelectUpperLimit < csis[i].CardSelectCount)
+                        {
+                            csis[i].CardSelectCount = csis[i].CardSelectUpperLimit;
+                        }
+
                         break;
                     }
                     else
                     {
                         remainChange += csis[i].CardSelectUpperLimit;
                         csis[i].CardSelectUpperLimit = 0;
+                        csis[i].CardSelectCount = 0;
                     }
                 }
             }
@@ -186,6 +227,13 @@ public class Story : IClone<Story>, IVariant<Story>
         {
             writer.WriteSInt32(kv.Key);
             writer.WriteSInt32(kv.Value);
+        }
+
+        writer.WriteSInt32(CardUnlockInfos.Count);
+        foreach (KeyValuePair<int, bool> kv in CardUnlockInfos)
+        {
+            writer.WriteSInt32(kv.Key);
+            writer.WriteByte((byte) (kv.Value ? 0x01 : 0x00));
         }
 
         writer.WriteSInt32(PlayerBuildInfos.Count);
@@ -232,6 +280,17 @@ public class Story : IClone<Story>, IVariant<Story>
                 newStory.Base_CardLimitDict.Add(key, value);
             }
         }
+
+        int cardUnlockInfoCount = reader.ReadSInt32();
+        SortedDictionary<int, bool> cardUnlockInfos = new SortedDictionary<int, bool>();
+        for (int i = 0; i < cardUnlockInfoCount; i++)
+        {
+            int cardID = reader.ReadSInt32();
+            bool unlock = reader.ReadByte() == 0x01;
+            cardUnlockInfos.Add(cardID, unlock);
+        }
+
+        newStory.CardUnlockInfos = cardUnlockInfos;
 
         int buildCount = reader.ReadSInt32();
         newStory.PlayerBuildInfos = new SortedDictionary<int, BuildInfo>();

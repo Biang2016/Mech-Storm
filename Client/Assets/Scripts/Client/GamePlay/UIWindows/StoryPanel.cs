@@ -24,17 +24,19 @@ public class StoryPanel : BaseUIForm
 
     public void InitiateStoryCanvas()
     {
+        Cur_ChapterMap?.PoolRecycle();
         Cur_ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
         Cur_ChapterMap.Initialize(StoryManager.Instance.GetStory().Chapters[0]);
         Cur_ChapterMap.OnSelectChapterNode = SelectNode;
         Cur_ChapterMap.RefreshKnownLevels();
+        StartButton.gameObject.SetActive(false);
     }
 
     public ChapterMap Cur_ChapterMap;
 
     private void SelectNode(ChapterMapNode node)
     {
-        StartButton.enabled = true;
+        StartButton.gameObject.SetActive(true);
         StartButton.onClick.RemoveAllListeners();
         StartButton.onClick.AddListener(delegate
         {
@@ -59,7 +61,7 @@ public class StoryPanel : BaseUIForm
     internal void UnSelectNode()
     {
         StartButton.onClick.RemoveAllListeners();
-        StartButton.enabled = false;
+        StartButton.gameObject.SetActive(false);
     }
 
     public UnityAction CurrentStartGameAction;

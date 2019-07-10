@@ -53,7 +53,16 @@ public class StoryEditorPanel : BaseUIForm
         foreach (string s in Enum.GetNames(typeof(LevelType)))
         {
             LevelType lt = (LevelType) Enum.Parse(typeof(LevelType), s);
-            LevelContainerDict.Add(lt, LevelListTabControl.AddTab("StoryEditorPanel_" + lt + "TabButtonTitle"));
+            LevelContainerDict.Add(lt, LevelListTabControl.AddTab(
+                tabTitleStrKey: "StoryEditorPanel_" + lt + "TabButtonTitle",
+                onAddButtonClick: delegate
+                {
+                    Level newLevel = Level.BaseGenerateEmptyLevel(lt);
+                    InitializeLevelList();
+                    SelectTab(lt);
+                    UIManager.Instance.CloseUIForm<StoryEditorPanel>();
+                    UIManager.Instance.ShowUIForms<LevelEditorPanel>().SetLevel(newLevel.Clone());
+                }));
             MyLevelButtons.Add(lt, new List<StoryEditorPanel_LevelButton>());
         }
 
@@ -207,7 +216,7 @@ public class StoryEditorPanel : BaseUIForm
             delegate(Chapter chapter, bool showAnimation)
             {
                 //TODO
-                NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames["zh"], 0, 1f);
+                NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames[LanguageManager.Instance.GetCurrentLanguage()], 0, 1f);
                 GenerateChapterMap(chapter, showAnimation);
             },
             onRefreshStory: delegate { SetStory(story); },
@@ -234,6 +243,11 @@ public class StoryEditorPanel : BaseUIForm
         AllStories.ReloadStoryXML();
         SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
         NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+    }
+
+    public void RefreshStory()
+    {
+        SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
     }
 
     private void ResetStory()
@@ -423,6 +437,7 @@ public class StoryEditorPanel : BaseUIForm
         {
             foreach (KeyValuePair<string, Level> _kv in kv.Value)
             {
+                if (_kv.Key.Equals("New" + kv.Key)) continue;
                 StoryEditorPanel_LevelButton btn = StoryEditorPanel_LevelButton.BaseInitialize(
                     level: _kv.Value.Clone(),
                     parent: LevelContainerDict[kv.Key],
@@ -441,8 +456,9 @@ public class StoryEditorPanel : BaseUIForm
                             delegate
                             {
                                 cp.CloseUIForm();
-                                AllLevels.DeleteLevel(LevelType.Enemy, _kv.Value.LevelNames["en"]);
+                                AllLevels.DeleteLevel(kv.Key, _kv.Value.LevelNames["en"]);
                                 InitializeLevelList();
+                                SelectTab(kv.Key);
                                 SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
                             },
                             delegate { cp.CloseUIForm(); });

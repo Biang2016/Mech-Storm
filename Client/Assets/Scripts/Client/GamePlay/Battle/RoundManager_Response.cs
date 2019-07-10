@@ -255,8 +255,9 @@ public partial class RoundManager
 
     private void OnSetPlayer_PrePass(ServerRequestBase r)
     {
+        SetPlayerRequest request = (SetPlayerRequest) r;
         NetworkManager.Instance.SuccessMatched();
-        InitializePlayers((SetPlayerRequest) r);
+        InitializePlayers(request);
     }
 
     private void OnSetPlayersMetal(PlayerMetalChangeRequest r)
@@ -296,7 +297,7 @@ public partial class RoundManager
         }
         else
         {
-            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(true);
+            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(false);
             ClientLog.Instance.PrintClientStates("EnemyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EnemyTurn"), 0, 0.8f);
             yield return new WaitForSeconds(0.5f);

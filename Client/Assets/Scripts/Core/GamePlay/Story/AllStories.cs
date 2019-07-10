@@ -42,7 +42,26 @@ public class AllStories
 
             SortedDictionary<int, BuildInfo> playerBuildInfos = new SortedDictionary<int, BuildInfo>();
             playerBuildInfos.Add(buildInfo.BuildID, buildInfo);
-            Story newStory = new Story(pureName, Chapters, playerBuildInfos, gps, 0);
+
+            SortedDictionary<int, bool> cardUnlockInfos = new SortedDictionary<int, bool>();
+
+            foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
+            {
+                cardUnlockInfos.Add(kv.Key, false);
+            }
+
+            foreach (KeyValuePair<int, BuildInfo> kv in playerBuildInfos)
+            {
+                foreach (KeyValuePair<int, BuildCards.CardSelectInfo> _kv in kv.Value.M_BuildCards.CardSelectInfos)
+                {
+                    if (_kv.Value.CardSelectUpperLimit > 0)
+                    {
+                        cardUnlockInfos[_kv.Key] = true;
+                    }
+                }
+            }
+
+            Story newStory = new Story(pureName, Chapters, playerBuildInfos, cardUnlockInfos, gps, 0);
             StoryDict.Add(newStory.StoryName, newStory);
         }
 

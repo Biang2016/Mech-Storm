@@ -373,7 +373,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleResumeButtonClick()
     {
-        UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
+        UIManager.Instance.ShowUIForms<StoryPanel>();
     }
 
     public void StartGameCore(RoundManager.PlayMode playMode, int chapterID, int levelID)
@@ -406,27 +406,27 @@ public class StartMenuPanel : BaseUIForm
 
     private void StartOnlineMatch()
     {
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
         Client.Instance.Proxy.OnBeginMatch();
         ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginMatching"));
         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("StartMenu_Matching"), 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
-        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
     }
 
     private void StartSingleGame(int chapterID, int levelID)
     {
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
         Client.Instance.Proxy.OnBeginSingleMode(chapterID, levelID);
         ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginSingleMode"));
-        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
     }
 
     private void StartSingleCustomGame()
     {
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.SingleCustom;
         Client.Instance.Proxy.OnBeginSingleMode(-1, -1);
         ClientLog.Instance.Print("Begin single custom mode");
-        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.SingleCustom;
     }
-        
+
     public void OnCancelMatchGameButtonClick()
     {
         Client.Instance.Proxy.CancelMatch();

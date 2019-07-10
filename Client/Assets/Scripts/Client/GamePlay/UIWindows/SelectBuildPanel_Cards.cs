@@ -404,7 +404,7 @@ public partial class SelectBuildPanel
         HideNoLimitCards();
     }
 
-    public void ShowNewCardBanner()
+    public void ShowNewCardNotice()
     {
         foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
@@ -413,20 +413,16 @@ public partial class SelectBuildPanel
 
         foreach (int cardID in StoryManager.Instance.JustGetNewCards)
         {
-            AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
-        }
-    }
-
-    public void ShowUpgradeCardBanner()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in AllCards)
-        {
-            kv.Value.SetArrowType(CardNoticeComponent.ArrowTypes.None);
-        }
-
-        foreach (int cardID in StoryManager.Instance.JustUpgradeCards)
-        {
-            AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
+            if (AllShownCards.ContainsKey(cardID))
+            {
+                AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.None);
+                AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.StorageIncrease);
+            }
+            else
+            {
+                AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
+                AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.None);
+            }
         }
     }
 }

@@ -66,11 +66,9 @@ public class CardPreviewPanel : BaseUIForm
         RefreshPreviewCard();
         RefreshUpgradePanel();
 
-        StoryManager.Instance.JustUpgradeCards.Remove(card.CardInfo.CardID);
         StoryManager.Instance.JustGetNewCards.Remove(card.CardInfo.CardID);
 
-        bool hasNewCard = StoryManager.Instance.JustGetNewCards.Count != 0 || StoryManager.Instance.JustUpgradeCards.Count != 0;
-        UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(hasNewCard);
+        UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
     }
 
@@ -132,8 +130,8 @@ public class CardPreviewPanel : BaseUIForm
         {
             int u_id = PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID;
             int d_id = PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID;
-            hasUpgradeCard = u_id != -1 && AllCards.GetCard(u_id).BaseInfo.CardRareLevel <= StoryManager.Instance.JustUnlockedCardRareLevelNum;
-            hasDegradeCard = d_id != -1 && AllCards.GetCard(d_id).BaseInfo.CardRareLevel <= StoryManager.Instance.JustUnlockedCardRareLevelNum;
+            hasUpgradeCard = u_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[u_id];
+            hasDegradeCard = d_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[d_id];
         }
         else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
         {
@@ -261,8 +259,8 @@ public class CardPreviewPanel : BaseUIForm
         {
             int u_id = PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID;
             int d_id = PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID;
-            hasUpgradeCard = u_id != -1 && AllCards.GetCard(u_id).BaseInfo.CardRareLevel <= StoryManager.Instance.JustUnlockedCardRareLevelNum;
-            hasDegradeCard = d_id != -1 && AllCards.GetCard(d_id).BaseInfo.CardRareLevel <= StoryManager.Instance.JustUnlockedCardRareLevelNum;
+            hasUpgradeCard = u_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[u_id];
+            hasDegradeCard = d_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[d_id];
         }
         else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
         {

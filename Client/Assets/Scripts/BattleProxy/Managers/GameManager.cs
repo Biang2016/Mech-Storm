@@ -93,6 +93,12 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
+        if (ClientB is BattleProxyAI ai)
+        {
+            StartFightingEnemyRequest request = new StartFightingEnemyRequest(ai.LevelID);
+            BroadcastRequest(request);
+        }
+       
         SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientID, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
         SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientID, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC);

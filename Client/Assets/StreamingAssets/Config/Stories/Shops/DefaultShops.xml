@@ -8,6 +8,9 @@
       <ShopItem shopItemType="EnergyUpperLimit" price="212" energyUpperLimit="666" />
     </ShopInfo>
   </LevelInfo>
+  <LevelInfo name_en="NewShop" name_zh="新商店" picID="1001" levelThemeCategory="Energy" levelType="Shop">
+    <ShopInfo />
+  </LevelInfo>
   <LevelInfo name_en="Rice car 4s" name_zh="跑车店" picID="735" levelThemeCategory="Soldiers" levelType="Shop">
     <ShopInfo>
       <ShopItem shopItemType="Card" price="23423" cardID="120" />

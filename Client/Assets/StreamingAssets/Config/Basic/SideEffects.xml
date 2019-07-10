@@ -24,7 +24,7 @@
   <SideEffect name="AddShield" desc_zh="为{0}增加{1}点护盾, " desc_en="add {1} shield for {0}. "></SideEffect>
 
   <SideEffect name="StealEnergyByMechCount" desc_zh="对每{0},从敌舰偷取{1}点能量, " desc_en="steal {1} energy from enemy ship for every {0}. "></SideEffect>
-  <SideEffect name="DoubleEnergy" desc_zh="使我方能量翻倍, " desc_en="double your energy. "></SideEffect>
+  <SideEffect name="DoubleEnergy" desc_zh="使{0}能量翻倍, " desc_en="double {0} energy. "></SideEffect>
 
   <SideEffect name="WaitInHandDecreaseEnergy" desc_zh="该牌的能量花费减少{0}点, " desc_en="decrease {0} energy cost for this card. "></SideEffect>
 

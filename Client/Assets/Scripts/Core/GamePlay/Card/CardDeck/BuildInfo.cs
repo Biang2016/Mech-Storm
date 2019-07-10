@@ -19,7 +19,6 @@ public class BuildInfo : IClone<BuildInfo>
     public int Life;
     public int Energy;
     public int BeginMetal;
-    public bool IsHighLevelCardLocked = false;
     public GamePlaySettings GamePlaySettings; //只对客户端选卡起到限制作用，服务端这个字段没有作用
 
     public int CardConsumeCoin
@@ -79,7 +78,7 @@ public class BuildInfo : IClone<BuildInfo>
     {
     }
 
-    public BuildInfo(int buildID, string buildName, BuildCards buildCards, int drawCardNum, int life, int energy, int beginMetal, bool isHighLevelCardLocked, GamePlaySettings gamePlaySettings)
+    public BuildInfo(int buildID, string buildName, BuildCards buildCards, int drawCardNum, int life, int energy, int beginMetal, GamePlaySettings gamePlaySettings)
     {
         BuildID = buildID;
         BuildName = buildName;
@@ -88,7 +87,6 @@ public class BuildInfo : IClone<BuildInfo>
         Life = life;
         Energy = energy;
         BeginMetal = beginMetal;
-        IsHighLevelCardLocked = isHighLevelCardLocked;
         GamePlaySettings = gamePlaySettings;
     }
 
@@ -127,7 +125,7 @@ public class BuildInfo : IClone<BuildInfo>
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(GenerateBuildID(), BuildName, M_BuildCards, DrawCardNum, Life, Energy, BeginMetal, IsHighLevelCardLocked, GamePlaySettings);
+        return new BuildInfo(GenerateBuildID(), BuildName, M_BuildCards, DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings);
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
@@ -160,7 +158,6 @@ public class BuildInfo : IClone<BuildInfo>
                     buildInfo.Life = int.Parse(cardInfo.Attributes["Life"].Value);
                     buildInfo.Energy = int.Parse(cardInfo.Attributes["Energy"].Value);
                     buildInfo.BeginMetal = int.Parse(cardInfo.Attributes["BeginMetal"].Value);
-                    buildInfo.IsHighLevelCardLocked = cardInfo.Attributes["IsHighLevelCardLocked"].Value.Equals("True");
                     break;
                 case "cardIDs":
                     buildInfo.M_BuildCards = new BuildCards();
@@ -217,7 +214,6 @@ public class BuildInfo : IClone<BuildInfo>
         baseInfo.SetAttribute("Life", Life.ToString());
         baseInfo.SetAttribute("Energy", Energy.ToString());
         baseInfo.SetAttribute("BeginMetal", BeginMetal.ToString());
-        baseInfo.SetAttribute("IsHighLevelCardLocked", IsHighLevelCardLocked.ToString());
 
         XmlElement cardIDs = doc.CreateElement("Info");
         buildInfo_Node.AppendChild(cardIDs);
@@ -241,7 +237,6 @@ public class BuildInfo : IClone<BuildInfo>
         writer.WriteSInt32(Life);
         writer.WriteSInt32(Energy);
         writer.WriteSInt32(BeginMetal);
-        writer.WriteByte((byte) (IsHighLevelCardLocked ? 0x01 : 0x00));
     }
 
     public static BuildInfo Deserialize(DataStream reader)
@@ -253,8 +248,7 @@ public class BuildInfo : IClone<BuildInfo>
         int Life = reader.ReadSInt32();
         int Energy = reader.ReadSInt32();
         int BeginMetal = reader.ReadSInt32();
-        bool IsHighLevelCardLocked = reader.ReadByte() == 0x01;
-        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, m_BuildCards, DrawCardNum, Life, Energy, BeginMetal, IsHighLevelCardLocked, null);
+        BuildInfo buildInfo = new BuildInfo(BuildID, BuildName, m_BuildCards, DrawCardNum, Life, Energy, BeginMetal, null);
         return buildInfo;
     }
 }

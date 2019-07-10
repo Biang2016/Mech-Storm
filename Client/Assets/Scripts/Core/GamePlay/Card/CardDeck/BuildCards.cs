@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Security.Permissions;
 
 public class BuildCards : IClone<BuildCards>
 {
     public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
 
-    public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos = null)
+    public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos = null, SortedDictionary<int, bool> cardUnlockInfos = null)
     {
         CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
         foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
@@ -223,13 +224,13 @@ public class BuildCards : IClone<BuildCards>
 
     public BuildCards Clone()
     {
-        SortedDictionary<int, CardSelectInfo> res = new SortedDictionary<int, CardSelectInfo>();
+        SortedDictionary<int, CardSelectInfo> cardSelectInfo = new SortedDictionary<int, CardSelectInfo>();
         foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
         {
-            res.Add(kv.Key, kv.Value.Clone());
+            cardSelectInfo.Add(kv.Key, kv.Value.Clone());
         }
 
-        return new BuildCards(res);
+        return new BuildCards(cardSelectInfo);
     }
 
     public bool Equals(BuildCards o)

@@ -5,7 +5,7 @@ public class Bonus_UnlockCardByLevelNum : Bonus
 {
     public int LevelNum;
 
-    public override int PicID { get; set; } = (int) AllCards.SpecialPicIDs.Empty;
+    public override int PicID { get; set; } = (int) AllCards.SpecialPicIDs.LevelCards;
 
     public Bonus_UnlockCardByLevelNum(int levelNum) : base(BonusTypes.UnlockCardByLevelNum)
     {
@@ -32,6 +32,6 @@ public class Bonus_UnlockCardByLevelNum : Bonus
 
     public override Bonus Clone()
     {
-        return new Bonus_EnergyUpperLimit(LevelNum);
+        return new Bonus_UnlockCardByLevelNum(LevelNum);
     }
 }

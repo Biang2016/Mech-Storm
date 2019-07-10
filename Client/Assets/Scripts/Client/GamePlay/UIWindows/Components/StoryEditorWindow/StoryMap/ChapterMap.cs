@@ -6,7 +6,60 @@ using UnityEngine.Events;
 
 public class ChapterMap : PoolObject
 {
-    private float lineWidth = 7f;
+    #region  MouseControlMove
+
+    Vector2 mouseWheelPos_Last;
+    private bool startDrag = false;
+    [SerializeField] private RectTransform Root;
+
+    void Update()
+    {
+        if (IsMouseHoverChapterMap)
+        {
+            if (!startDrag)
+            {
+                if (Input.GetMouseButtonDown(2))
+                {
+                    startDrag = true;
+                    mouseWheelPos_Last = Input.mousePosition;
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButton(2))
+                {
+                    Vector2 diff = (Vector2) Input.mousePosition - mouseWheelPos_Last;
+                    mouseWheelPos_Last = (Vector2) Input.mousePosition;
+                    Root.anchoredPosition += diff;
+                }
+
+                if (Input.GetMouseButtonUp(2))
+                {
+                    startDrag = false;
+                }
+            }
+
+            float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+            if ((!(mouseScroll > 0) || !(Root.localScale.x >= 2)) && (!(mouseScroll < 0) || !(Root.localScale.x <= 0.5f)))
+            {
+                Root.localScale += Vector3.one * 0.3f * mouseScroll;
+            }
+        }
+        else
+        {
+            startDrag = false;
+        }
+    }
+
+    public bool IsMouseHoverChapterMap = false;
+
+    public void SetMouseHover(bool isHover)
+    {
+        IsMouseHoverChapterMap = isHover;
+    }
+
+    #endregion
+
     private Vector2[] nodeLocations;
 
     [SerializeField] private Transform ChapterMapRoutesTransform;
@@ -92,8 +145,8 @@ public class ChapterMap : PoolObject
     {
         RoundCount = roundCount;
 
-        float routeLength = 520f / (roundCount + 2);
-        lineWidth = 4f;
+        //float routeLength = 520f / (roundCount + 2);
+        float routeLength = 200f;
         routeIndex = 0;
 
         Vector2 a = new Vector2(1, 0);
@@ -320,6 +373,7 @@ public class ChapterMap : PoolObject
     private void GenerateNode(int nodeLocationIndex)
     {
         ChapterMapNode cmn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapNode].AllocateGameObject<ChapterMapNode>(ChapterMapNodesTransform);
+        cmn.AdjacentRoutes.Clear();
         ChapterMapNodes.Add(nodeLocationIndex, cmn);
         cmn.transform.localPosition = nodeLocations[nodeLocationIndex];
     }
@@ -328,7 +382,7 @@ public class ChapterMap : PoolObject
     {
         int index = routeIndex++;
         ChapterMapRoute r = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapRoute].AllocateGameObject<ChapterMapRoute>(ChapterMapRoutesTransform);
-        r.Refresh(nodeLocations[startIndex], nodeLocations[endIndex], index, startIndex, endIndex, lineWidth);
+        r.Refresh(nodeLocations[startIndex], nodeLocations[endIndex], index, startIndex, endIndex);
         ChapterMapNodes[startIndex].AdjacentRoutes.Add(index);
         ChapterMapNodes[endIndex].AdjacentRoutes.Add(index);
         ChapterMapRoutes.Add(index, r);
@@ -465,16 +519,16 @@ public class ChapterMap : PoolObject
             kv.Value.IsBeated = false;
         }
 
-        foreach (KeyValuePair<int,ChapterMapNode> kv in ChapterMapNodes)
+        foreach (KeyValuePair<int, ChapterMapNode> kv in ChapterMapNodes)
         {
             kv.Value.gameObject.SetActive(false);
         }
 
-        foreach (KeyValuePair<int,ChapterMapRoute> kv in ChapterMapRoutes)
+        foreach (KeyValuePair<int, ChapterMapRoute> kv in ChapterMapRoutes)
         {
-            kv.Value.gameObject.SetActive(false);
+            kv.Value.SetRouteState(ChapterMapRoute.RouteStates.None);
         }
-        
+
         foreach (KeyValuePair<int, bool> kv in Cur_Chapter.LevelBeatedDictionary)
         {
             ChapterMapNodes[kv.Key].IsBeated = kv.Value;
@@ -486,15 +540,42 @@ public class ChapterMap : PoolObject
             foreach (int ri in ChapterMapNodes[kv.Key].AdjacentRoutes)
             {
                 ChapterMapRoute route = ChapterMapRoutes[ri];
-                if (Cur_Chapter.LevelBeatedDictionary[route.NodeIndex_0] || Cur_Chapter.LevelBeatedDictionary[route.NodeIndex_1])
+
+                bool hasLevel_0 = Cur_Chapter.LevelBeatedDictionary.ContainsKey(route.NodeIndex_0);
+                bool beated_0 = hasLevel_0 && Cur_Chapter.LevelBeatedDictionary[route.NodeIndex_0];
+                bool hasLevel_1 = Cur_Chapter.LevelBeatedDictionary.ContainsKey(route.NodeIndex_1);
+                bool beated_1 = hasLevel_1 && Cur_Chapter.LevelBeatedDictionary[route.NodeIndex_1];
+
+                if (beated_0 && beated_1)
                 {
-                    ChapterMapNodes[route.NodeIndex_0].gameObject.SetActive(true);
-                    ChapterMapNodes[route.NodeIndex_1].gameObject.SetActive(true);
-                    route.gameObject.SetActive(true);
+                    ChapterMapNodes[route.NodeIndex_0].gameObject.SetActive(hasLevel_0);
+                    ChapterMapNodes[route.NodeIndex_1].gameObject.SetActive(hasLevel_1);
+                    route.SetRouteState(ChapterMapRoute.RouteStates.Conquered);
+                }
+                else if (beated_0 || beated_1)
+                {
+                    ChapterMapNodes[route.NodeIndex_0].gameObject.SetActive(hasLevel_0);
+                    ChapterMapNodes[route.NodeIndex_1].gameObject.SetActive(hasLevel_1);
+
+                    if (hasLevel_0 && hasLevel_1)
+                    {
+                        route.SetRouteState(ChapterMapRoute.RouteStates.NextStep);
+                    }
+                    else
+                    {
+                        route.SetRouteState(ChapterMapRoute.RouteStates.None);
+                    }
                 }
                 else
                 {
-                    route.gameObject.SetActive(false);
+                    if (hasLevel_0 && hasLevel_1)
+                    {
+                        route.SetRouteState(ChapterMapRoute.RouteStates.Dashed);
+                    }
+                    else
+                    {
+                        route.SetRouteState(ChapterMapRoute.RouteStates.None);
+                    }
                 }
             }
         }

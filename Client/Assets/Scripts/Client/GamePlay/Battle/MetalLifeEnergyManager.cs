@@ -50,8 +50,9 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     public void SetEnemyIconImage()
     {
-        PlayerIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single && ClientPlayer.WhichPlayer == Players.Enemy);
-        ClientUtils.ChangeImagePicture(PlayerIconImage, 0);
+        bool isShow = RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single && ClientPlayer.WhichPlayer == Players.Enemy;
+        PlayerIcon.SetActive(isShow);
+        if (isShow) ClientUtils.ChangeImagePicture(PlayerIconImage, StoryManager.Instance.CurrentFightingEnemy.LevelPicID);
     }
 
     public void SetMetal(int value)

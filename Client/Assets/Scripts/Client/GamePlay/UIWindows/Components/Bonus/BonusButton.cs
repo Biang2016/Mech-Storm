@@ -37,7 +37,7 @@ internal class BonusButton : PoolObject
         IsSelected = false;
     }
 
-    public void Initialize(BonusGroup bonusGroup, UnityAction onClickAction)
+    public void Initialize(BonusGroup bonusGroup, UnityAction onClickAction, HashSet<int> exceptionCardIDs, List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb> exceptionBudgetLifeEnergyComb)
     {
         Reset();
 
@@ -58,6 +58,102 @@ internal class BonusButton : PoolObject
                 onClickAction();
                 AudioManager.Instance.SoundPlay("sfx/OnStoryButtonClick");
             });
+        }
+
+        List<int> newBonusCardIDs = new List<int>();
+        List<Bonus> removeBonuses = new List<Bonus>();
+        List<Bonus> addBonuses = new List<Bonus>();
+
+        foreach (Bonus bonus in BonusGroup.Bonuses)
+        {
+            if (bonus is Bonus_UnlockCardByID b_id)
+            {
+                if (exceptionCardIDs.Contains(b_id.CardID))
+                {
+                    removeBonuses.Add(bonus);
+                }
+                else
+                {
+                    exceptionCardIDs.Add(b_id.CardID);
+                }
+            }
+        }
+
+        foreach (Bonus bonus in BonusGroup.Bonuses)
+        {
+            if (bonus is Bonus_UnlockCardByLevelNum b_level)
+            {
+                CardInfo_Base ci = AllCards.GetRandomCardInfoByLevelNum(b_level.LevelNum, exceptionCardIDs);
+                removeBonuses.Add(bonus);
+
+                if (ci != null)
+                {
+                    exceptionCardIDs.Add(ci.CardID);
+                    newBonusCardIDs.Add(ci.CardID);
+                }
+            }
+
+            if (bonus is Bonus_BudgetLifeEnergyMixed b_mixed)
+            {
+                Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb comb = null;
+                bool needRetry = true;
+                int retryTime = 100;
+                while (needRetry && retryTime > 0)
+                {
+                    comb = Bonus_BudgetLifeEnergyMixed.GetBonusFromMixedBonus(b_mixed.TotalValue, retryTime);
+                    if (comb == null)
+                    {
+                        needRetry = true;
+                    }
+                    else
+                    {
+                        needRetry = false;
+                        foreach (Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb c in exceptionBudgetLifeEnergyComb)
+                        {
+                            if (c.HaveSameMeaningTo(comb))
+                            {
+                                needRetry = true;
+                            }
+                        }
+
+                        if (needRetry)
+                        {
+                            comb = null;
+                        }
+                    }
+
+                    retryTime--;
+                }
+
+                removeBonuses.Add(bonus);
+
+                if (comb != null)
+                {
+                    exceptionBudgetLifeEnergyComb.Add(comb);
+                    addBonuses.AddRange(comb.GenerateBonuses());
+                }
+            }
+        }
+
+        foreach (Bonus b in addBonuses)
+        {
+            BonusGroup.Bonuses.Add(b);
+        }
+
+        foreach (int newBonusCardID in newBonusCardIDs)
+        {
+            exceptionCardIDs.Add(newBonusCardID);
+            BonusGroup.Bonuses.Add(new Bonus_UnlockCardByID(newBonusCardID));
+        }
+
+        foreach (Bonus removeBonus in removeBonuses)
+        {
+            BonusGroup.Bonuses.Remove(removeBonus);
+        }
+
+        if (BonusGroup.Bonuses.Count == 0)
+        {
+            int a = 0;
         }
 
         foreach (Bonus bonus in BonusGroup.Bonuses)

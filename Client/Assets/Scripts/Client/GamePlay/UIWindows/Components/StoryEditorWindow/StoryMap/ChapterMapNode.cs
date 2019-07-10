@@ -27,12 +27,7 @@ public class ChapterMapNode : PoolObject
 
     public override void PoolRecycle()
     {
-        IsSelected = false;
-        IsHovered = false;
-        IsBeated = false;
-        OnHovered = null;
-        Button.onClick.RemoveAllListeners();
-        Cur_Level = null;
+        Reset();
         base.PoolRecycle();
     }
 
@@ -90,13 +85,24 @@ public class ChapterMapNode : PoolObject
         }
     }
 
+    public void Reset()
+    {
+        IsSelected = false;
+        IsHovered = false;
+        IsBeated = false;
+        OnHovered = null;
+        Button.onClick.RemoveAllListeners();
+        Cur_Level = null;
+    }
+
     private UnityAction<ChapterMapNode> OnHovered;
 
     public void Initialize(int nodeIndex, UnityAction<int> onSelected, UnityAction<ChapterMapNode> onHovered, LevelType levelType = LevelType.Enemy, EnemyType enemyType = EnemyType.Soldier)
     {
-        AdjacentRoutes.Clear();
-        OnHovered = onHovered;
         IsSelected = false;
+        IsHovered = false;
+
+        OnHovered = onHovered;
         NodeIndex = nodeIndex;
 
         Button.onClick.RemoveAllListeners();

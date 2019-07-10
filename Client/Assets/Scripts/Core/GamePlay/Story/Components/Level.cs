@@ -54,6 +54,35 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         ChildrenExportToXML(level_ele);
     }
 
+    private static int NewLevelID = 0;
+
+    private static int GenerateNewLevelID()
+    {
+        return NewLevelID++;
+    }
+
+    public static Level BaseGenerateEmptyLevel(LevelType levelType)
+    {
+        Level newLevel = null;
+        int levelIDPostFix = GenerateNewLevelID();
+        while (AllLevels.LevelDict[levelType].ContainsKey("New" + levelType + "_" + levelIDPostFix))
+        {
+            levelIDPostFix = GenerateNewLevelID();
+        }
+
+        newLevel = AllLevels.LevelDict[levelType]["New" + levelType]?.Clone();
+
+        if (newLevel != null)
+        {
+            newLevel.LevelNames["zh"] = "新关卡_" + levelIDPostFix;
+            newLevel.LevelNames["en"] = "New" + levelType + "_" + levelIDPostFix;
+            AllLevels.RefreshLevelXML(newLevel);
+            AllLevels.ReloadLevelXML();
+        }
+
+        return newLevel;
+    }
+
     protected abstract void ChildrenExportToXML(XmlElement level_ele);
 
     public virtual void Serialize(DataStream writer)

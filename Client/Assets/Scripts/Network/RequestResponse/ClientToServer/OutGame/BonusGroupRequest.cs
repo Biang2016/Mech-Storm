@@ -13,7 +13,7 @@
 
     public override NetProtocols GetProtocol()
     {
-        return NetProtocols.BONUSGROUP_REQUEST;
+        return NetProtocols.BONUS_GROUP_REQUEST;
     }
 
     public override void Serialize(DataStream writer)

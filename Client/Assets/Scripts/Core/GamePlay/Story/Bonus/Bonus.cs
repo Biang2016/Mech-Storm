@@ -14,6 +14,7 @@ public class Bonus : IClone<Bonus>
         LifeUpperLimit,
         EnergyUpperLimit,
         Budget,
+        BudgetLifeEnergyMixed,
     }
 
     public BonusTypes BonusType;
@@ -40,6 +41,7 @@ public class Bonus : IClone<Bonus>
                 {BonusTypes.LifeUpperLimit, "生命上限({0})"},
                 {BonusTypes.EnergyUpperLimit, "能量上限({0})"},
                 {BonusTypes.Budget, "预算({0})"},
+                {BonusTypes.BudgetLifeEnergyMixed, "混合价值({0})"},
             }
         },
         {
@@ -50,6 +52,7 @@ public class Bonus : IClone<Bonus>
                 {BonusTypes.LifeUpperLimit, "Life ({0})"},
                 {BonusTypes.EnergyUpperLimit, "Energy ({0})"},
                 {BonusTypes.Budget, "Budget ({0})"},
+                {BonusTypes.BudgetLifeEnergyMixed, "Mixed Value ({0})"},
             }
         }
     };
@@ -98,6 +101,12 @@ public class Bonus : IClone<Bonus>
             {
                 int budget = reader.ReadSInt32();
                 bonus = new Bonus_Budget(budget);
+                break;
+            }
+            case BonusTypes.BudgetLifeEnergyMixed:
+            {
+                int value = reader.ReadSInt32();
+                bonus = new Bonus_BudgetLifeEnergyMixed(value);
                 break;
             }
         }
@@ -156,6 +165,11 @@ public class Bonus : IClone<Bonus>
             {
                 int budget = int.Parse(node_Bonus.Attributes["budget"].Value);
                 return new Bonus_Budget(budget);
+            }
+            case BonusTypes.BudgetLifeEnergyMixed:
+            {
+                int value = int.Parse(node_Bonus.Attributes["value"].Value);
+                return new Bonus_BudgetLifeEnergyMixed(value);
             }
         }
 

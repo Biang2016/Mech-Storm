@@ -60,7 +60,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PicImage: {fileID: 1098770091034695480}
   LevelNameText: {fileID: 4102939291012618236}
-  SetButton: {fileID: 615727132786908751}
   EditButton: {fileID: 2734746510271048498}
   DeleteButton: {fileID: 6726772312474307071}
   SliderBarContainer: {fileID: 1240351096959290467}
@@ -228,6 +227,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5138389628700198262, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2182340715005113214}
+    - target: {fileID: 5138389628700198262, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSetButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138389628700198262, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8839440275647210670, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -248,6 +262,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7572725468504007510, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
+        type: 3}
+      propertyPath: LeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2182340715005113214}
+    - target: {fileID: 7572725468504007510, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
+        type: 3}
+      propertyPath: LeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSetButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572725468504007510, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
+        type: 3}
+      propertyPath: LeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d437d5cd03e77594d87e4cd0c7fec3c8, type: 3}
 --- !u!224 &2750871316343462973 stripped
@@ -256,18 +285,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1664829623814536546}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &615727132786908751 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2274644539771085613, guid: d437d5cd03e77594d87e4cd0c7fec3c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1664829623814536546}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1098770091034695480 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1739854192063900250, guid: d437d5cd03e77594d87e4cd0c7fec3c8,

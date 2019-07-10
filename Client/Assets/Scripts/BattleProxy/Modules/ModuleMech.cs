@@ -130,10 +130,12 @@ internal class ModuleMech : ModuleBase, ILife
 
     protected virtual void OnHeal(int change, bool isOverflow)
     {
+        OnBeHealed(change);
     }
 
     protected virtual void OnDamage(int change)
     {
+        OnBeDamaged(change);
     }
 
     protected virtual void OnMaxLifeChanged(int change)
@@ -1059,6 +1061,7 @@ internal class ModuleMech : ModuleBase, ILife
                     else
                     {
                         targetMech.BeAttacked(damage);
+                        targetMech.OnBeDamaged(damage);
                         OnMakeDamage(damage);
                         if (M_MechWeaponEnergy < M_MechWeaponEnergyMax) M_MechWeaponEnergy++;
                     }
@@ -1094,6 +1097,7 @@ internal class ModuleMech : ModuleBase, ILife
                         else
                         {
                             targetMech.BeAttacked(M_MechAttack);
+                            targetMech.OnBeDamaged(damage);
                             OnMakeDamage(M_MechAttack);
                         }
 
@@ -1118,6 +1122,7 @@ internal class ModuleMech : ModuleBase, ILife
                     else
                     {
                         targetMech.BeAttacked(M_MechAttack);
+                        targetMech.OnBeDamaged(damage);
                         OnMakeDamage(M_MechAttack);
                     }
 
@@ -1141,6 +1146,7 @@ internal class ModuleMech : ModuleBase, ILife
             else
             {
                 targetMech.BeAttacked(damage);
+                targetMech.OnBeDamaged(damage);
                 OnMakeDamage(damage);
             }
 

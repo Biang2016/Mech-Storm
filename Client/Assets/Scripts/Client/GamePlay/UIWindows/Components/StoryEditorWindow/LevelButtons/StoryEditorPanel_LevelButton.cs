@@ -7,7 +7,6 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 {
     public override void PoolRecycle()
     {
-        SetButton.onClick.RemoveAllListeners();
         EditButton.onClick.RemoveAllListeners();
         DeleteButton.onClick.RemoveAllListeners();
 
@@ -22,7 +21,6 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 
     [SerializeField] private Image PicImage;
     [SerializeField] private Text LevelNameText;
-    [SerializeField] private Button SetButton;
     [SerializeField] private Button EditButton;
     [SerializeField] private Button DeleteButton;
     [SerializeField] private Transform SliderBarContainer;
@@ -49,9 +47,7 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         }
 
         btn.Cur_Level = level;
-        btn.SetButton.onClick.RemoveAllListeners();
-        btn.SetButton.onClick.AddListener(delegate { onSetButtonClick(btn.Cur_Level); });
-        btn.EditButton.onClick.RemoveAllListeners();
+        btn.OnSetButtonClickAction = delegate { onSetButtonClick(btn.Cur_Level); };
         btn.EditButton.onClick.AddListener(onEditButtonClick);
         btn.DeleteButton.onClick.RemoveAllListeners();
         btn.DeleteButton.onClick.AddListener(onDeleteButtonClick);
@@ -68,6 +64,13 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 
         btn.ChildrenInitialize();
         return btn;
+    }
+
+    public UnityAction OnSetButtonClickAction;
+
+    public void OnSetButtonClick()
+    {
+        OnSetButtonClickAction?.Invoke();
     }
 
     protected abstract void ChildrenInitialize();

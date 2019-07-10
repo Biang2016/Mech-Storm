@@ -7,8 +7,11 @@
 /// </summary>
 public class BattleProxyAI : BattleProxy
 {
-    public BattleProxyAI(int clientId, string userName) : base(clientId, userName, null, null)
+    public int LevelID;
+
+    public BattleProxyAI(int clientId, string userName, int levelID) : base(clientId, userName, null, null)
     {
+        LevelID = levelID;
         SendMessage = sendMessage;
     }
 

@@ -163,7 +163,7 @@ public class GameProxy
                         BattleProxy clientA = BattleProxy;
 
                         int AI_ClientId = 998;
-                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
+                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", 0);
                         clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
                         CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
                         DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
@@ -175,7 +175,7 @@ public class GameProxy
                         BattleProxy clientA = BattleProxy;
 
                         int AI_ClientId = 998;
-                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI");
+                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "StoryAI", r.LevelID);
                         clientB.BuildInfo = ((Enemy) BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Chapters[r.ChapterID].Levels[r.LevelID]).BuildInfo.Clone();
 
                         CurrentBattle = new Battle(clientA, clientB, DebugLog, delegate(int winnerClientID)
@@ -186,17 +186,6 @@ public class GameProxy
                                 {
                                     BeatEnemyRequest request2 = new BeatEnemyRequest(r.LevelID);
                                     clientA.SendMessage(request2);
-
-//                                    Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
-//                                    story.BeatEnemy(AI.LevelID, AI.EnemyPicID);
-//                                    if (AI.LevelID < story.Chapters.Count - 1)
-//                                    {
-//                                        story.UnlockChapterEnemies(AI.LevelID + 1);
-//                                        List<int> nextLevelBossPicIDs = new List<int>();
-//                                        nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
-//                                        NextChapterEnemiesRequest request3 = new NextChapterEnemiesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
-//                                        ClientA.SendMessage(request3);
-//                                    }
                                 }
                             }
                         });
@@ -221,18 +210,13 @@ public class GameProxy
                                 story.EditAllCardLimitDict(b_UnlockCardByID.CardID, 1);
                                 break;
                             }
-                            case Bonus_UnlockCardByLevelNum b_UnlockCardByLevelNum:
-                            {
-//                                story.EditAllCardLimitDict(bonus.BonusFinalValue, 1);
-                                break;
-                            }
                             case Bonus_LifeUpperLimit b_LifeUpperLimit:
                             {
                                 story.StoryGamePlaySettings.DefaultLifeMax += b_LifeUpperLimit.LifeUpperLimit;
-                                story.StoryGamePlaySettings.DefaultLife += b_LifeUpperLimit.LifeUpperLimit;
+                                //story.StoryGamePlaySettings.DefaultLife += b_LifeUpperLimit.LifeUpperLimit;
                                 foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
                                 {
-                                    kv.Value.Life += b_LifeUpperLimit.LifeUpperLimit;
+                                    //kv.Value.Life += b_LifeUpperLimit.LifeUpperLimit;
                                 }
 
                                 break;
@@ -240,10 +224,10 @@ public class GameProxy
                             case Bonus_EnergyUpperLimit b_EnergyUpperLimit:
                             {
                                 story.StoryGamePlaySettings.DefaultEnergyMax += b_EnergyUpperLimit.EnergyUpperLimit;
-                                story.StoryGamePlaySettings.DefaultEnergy += b_EnergyUpperLimit.EnergyUpperLimit;
+                                //story.StoryGamePlaySettings.DefaultEnergy += b_EnergyUpperLimit.EnergyUpperLimit;
                                 foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
                                 {
-                                    kv.Value.Energy += b_EnergyUpperLimit.EnergyUpperLimit;
+                                    //kv.Value.Energy += b_EnergyUpperLimit.EnergyUpperLimit;
                                 }
 
                                 break;
@@ -262,7 +246,7 @@ public class GameProxy
             case EndBattleRequest _:
             {
                 Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
-                StartNewStoryRequestResponse response = new StartNewStoryRequestResponse(story);
+                RefreshStoryRequest response = new RefreshStoryRequest(story);
                 SendMessage(response);
 
                 EndBattleRequestResponse r = new EndBattleRequestResponse();

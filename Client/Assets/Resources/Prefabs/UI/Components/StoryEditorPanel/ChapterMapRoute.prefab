@@ -170,6 +170,12 @@ MonoBehaviour:
   Body: {fileID: 5436886959378529773}
   BodyRect: {fileID: 7105039367812965266}
   Head: {fileID: 7932394825028598707}
+  HeadImage: {fileID: 0}
+  BodySprites:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 73d41493d0e0fd24396be217527a9222, type: 3}
+  - {fileID: 21300000, guid: e914f68d6b5504d4783ffc734cc874d2, type: 3}
+  - {fileID: 21300000, guid: d4cfb6ea326fce849aa1ec69b0ecbbf4, type: 3}
   ControlDirectionGo: {fileID: 7932412660933343537}
 --- !u!222 &8045250541417855358
 CanvasRenderer:

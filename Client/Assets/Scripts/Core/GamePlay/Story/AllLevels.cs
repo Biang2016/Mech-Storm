@@ -163,6 +163,7 @@ public class AllLevels
 
     public static void RefreshLevelXML(Level level)
     {
+        if (level == null) return;
         level = level.Clone();
         SortedDictionary<string, Level> dict = LevelDict[level.LevelType];
         if (dict.ContainsKey(level.LevelNames["en"]))
@@ -259,6 +260,73 @@ public class AllLevels
                 }
             }
 
+            AllStories.RefreshStoryXML(story);
+            AllStories.ReloadStoryXML();
+        }
+    }
+
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public static void RenameLevel(LevelType levelType, string levelName_en_ori, Level newLevel)
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(LevelDefaultXMLDict[levelType]))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allLevel = doc.DocumentElement;
+        SortedDictionary<string, XmlElement> levelNodesDict = new SortedDictionary<string, XmlElement>();
+        foreach (XmlElement node in allLevel.ChildNodes)
+        {
+            string name = node.Attributes["name_en"].Value;
+            if (name != levelName_en_ori)
+            {
+                levelNodesDict.Add(name, node);
+            }
+            else
+            {
+                newLevel.ExportToXML(allLevel);
+            }
+        }
+
+        allLevel.RemoveAll();
+        foreach (KeyValuePair<string, XmlElement> kv in levelNodesDict)
+        {
+            allLevel.AppendChild(kv.Value);
+        }
+
+        using (StreamWriter sw = new StreamWriter(LevelDefaultXMLDict[levelType]))
+        {
+            doc.Save(sw);
+        }
+
+        ReloadLevelXML();
+
+        // 从Story中移除该Level
+        HashSet<string> changeList = new HashSet<string>();
+
+        foreach (KeyValuePair<string, Story> kv in AllStories.StoryDict)
+        {
+            foreach (KeyValuePair<int, Chapter> _kv in kv.Value.Chapters)
+            {
+                foreach (KeyValuePair<int, Level> KV in _kv.Value.Levels)
+                {
+                    if (KV.Value.LevelNames["en"].Equals(levelName_en_ori))
+                    {
+                        changeList.Add(kv.Key);
+                        KV.Value.LevelNames["en"] = newLevel.LevelNames["en"];
+                    }
+                }
+            }
+        }
+
+        foreach (string storyName in changeList)
+        {
+            Story story = AllStories.StoryDict[storyName];
             AllStories.RefreshStoryXML(story);
             AllStories.ReloadStoryXML();
         }

@@ -83,6 +83,11 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
                         bonus = new Bonus_Budget(25);
                         break;
                     }
+                    case Bonus.BonusTypes.BudgetLifeEnergyMixed:
+                    {
+                        bonus = new Bonus_BudgetLifeEnergyMixed(150);
+                        break;
+                    }
                     case Bonus.BonusTypes.LifeUpperLimit:
                     {
                         bonus = new Bonus_LifeUpperLimit(2);
@@ -190,6 +195,7 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         SetBonusGroupIsAlways(Cur_BonusGroup.IsAlways.ToString());
         SetBonusGroupProbability(Cur_BonusGroup.Probability.ToString());
         SetBonusGroupIsSingleton(Cur_BonusGroup.IsSingleton.ToString());
+
         foreach (Bonus bonus in Cur_BonusGroup.Bonuses)
         {
             GenerateNewBonus(bonus);
@@ -266,6 +272,32 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
                             leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
                             rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
                             inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_Budget")
+                        );
+                        break;
+                    }
+                    case Bonus_BudgetLifeEnergyMixed b_blem:
+                    {
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(
+                            descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetMixedValuePrice"),
+                            leftButtonClick: delegate
+                            {
+                                if (int.TryParse(cp.InputText1, out int value))
+                                {
+                                    cp.CloseUIForm();
+                                    b_blem.TotalValue = value;
+                                    Refresh();
+                                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) BonusContainer));
+                                }
+                                else
+                                {
+                                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                }
+                            },
+                            rightButtonClick: delegate { cp.CloseUIForm(); },
+                            leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
+                            rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
+                            inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_ValuePlaceHolder")
                         );
                         break;
                     }

@@ -14,7 +14,7 @@ internal class BattleResultPanel : BaseUIForm
     #region Common
 
     internal bool IsShow = false;
-    
+
     [SerializeField] private Animator PanelAnimator;
 
     [SerializeField] private GameObject OnlineResultContent;
@@ -151,10 +151,9 @@ internal class BattleResultPanel : BaseUIForm
         }
         else
         {
-          
             AudioManager.Instance.SoundPlay("sfx/Lose");
         }
-        
+
         PanelAnimator.SetTrigger("Show");
         IsShow = true;
         RootManager.Instance.StartBlurBackGround();
@@ -175,6 +174,9 @@ internal class BattleResultPanel : BaseUIForm
     #endregion
 
     #region Win
+
+    private const int WinBonusCountMin = 3;
+    private const int WinBonusCountMax = 5;
 
     public void WinGame()
     {
@@ -200,10 +202,15 @@ internal class BattleResultPanel : BaseUIForm
                 }
             }
 
-            foreach (BonusGroup bg in OptionalBonusGroups)
+            List<BonusGroup> RandomOptionalBonusGroup = Utils.GetRandomWithProbabilityFromList(OptionalBonusGroups, 5);
+
+            List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb> exceptionBudgetLifeEnergyComb = new List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb>();
+            HashSet<int> exceptionCardIDs = new HashSet<int>();
+
+            foreach (BonusGroup bg in RandomOptionalBonusGroup)
             {
                 BonusButton bb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BonusButton].AllocateGameObject<BonusButton>(OptionalBonusContainer);
-                bb.Initialize(bg, onClickAction: delegate { SetBonusButtonSelected(bb); });
+                bb.Initialize(bg, onClickAction: delegate { SetBonusButtonSelected(bb); }, exceptionCardIDs, exceptionBudgetLifeEnergyComb);
                 M_CurrentBonusButtons.Add(bb);
             }
 
@@ -224,6 +231,11 @@ internal class BattleResultPanel : BaseUIForm
                 M_CurrentBonusButtons[0].SetSelected(true);
                 ConfirmButton.gameObject.SetActive(true);
                 Cur_SelectedBonusButton = M_CurrentBonusButtons[0];
+            }
+            else if (OptionalBonusGroups.Count == 0)
+            {
+                ConfirmButton.gameObject.SetActive(true);
+                Cur_SelectedBonusButton = null;
             }
 
             OptionalBonus.SetActive(true);
@@ -334,12 +346,16 @@ internal class BattleResultPanel : BaseUIForm
         SendAlwaysBonusRequest();
 
         List<BonusGroup> getBonusGroups = new List<BonusGroup>();
-        getBonusGroups.Add(Cur_SelectedBonusButton.BonusGroup);
+        if (Cur_SelectedBonusButton)
+        {
+            getBonusGroups.Add(Cur_SelectedBonusButton.BonusGroup);
+        }
+
         getBonusGroups.AddRange(AlwaysBonusGroups.ToArray());
 
         ApplyBonusChange(getBonusGroups);
-
-        ShowCardsUpgrade();
+        EndWinLostPanel();
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
 
         EndBattleRequest request = new EndBattleRequest(Client.Instance.Proxy.ClientID);
         Client.Instance.Proxy.SendMessage(request);
@@ -396,16 +412,6 @@ internal class BattleResultPanel : BaseUIForm
                     }
                 }
             }
-        }
-
-        foreach (int cardID in StoryManager.Instance.JustGetNewCards)
-        {
-            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
-        }
-
-        foreach (int cardID in StoryManager.Instance.JustUpgradeCards)
-        {
-            UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
         }
 
         UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
@@ -480,82 +486,6 @@ internal class BattleResultPanel : BaseUIForm
         CardUpgradeUnlockContent.SetActive(false);
         Cur_BaseCard = null;
         Cur_UpgradeCard = null;
-    }
-
-    private void ShowCardsUpgrade()
-    {
-        StartCoroutine(Co_ShowCardsUpgrade());
-    }
-
-    IEnumerator Co_ShowCardsUpgrade()
-    {
-        WinContent.SetActive(false);
-        CardUpgradeUnlockContent.SetActive(true);
-        isBeginCardUpgradeShow = true;
-        if (StoryManager.Instance.JustBeatedChapter)
-        {
-            foreach (int cardID in StoryManager.Instance.GetStory().Base_CardLimitDict.Keys.ToList())
-            {
-                if (StoryManager.Instance.GetStory().Base_CardLimitDict[cardID] != 0)
-                {
-                    CardInfo_Base cb = AllCards.GetCard(cardID);
-                    if (cb.UpgradeInfo.UpgradeCardID != -1)
-                    {
-                        CardInfo_Base cb_upgrade = AllCards.GetCard(cb.UpgradeInfo.UpgradeCardID);
-                        if (cb_upgrade.BaseInfo.CardRareLevel == StoryManager.Instance.JustUnlockedCardRareLevelNum)
-                        {
-                            StoryManager.Instance.JustUpgradeCards.Add(cb.CardID);
-                            yield return Co_UnlockCardShowOne(cb.CardID, cb.UpgradeInfo.UpgradeCardID);
-                        }
-                    }
-                }
-            }
-        }
-
-        isBeginCardUpgradeShow = false;
-        CardUpgradeUnlockAnim.SetTrigger("Reset");
-        EndWinLostPanel();
-
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardBanner();
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowUpgradeCardBanner();
-    }
-
-    IEnumerator Co_UnlockCardShowOne(int baseCardID, int upgradeCardID)
-    {
-        if (Cur_BaseCard != null) Cur_BaseCard.PoolRecycle();
-        if (Cur_UpgradeCard != null) Cur_UpgradeCard.PoolRecycle();
-        isOneCardUpgradeShowOver = false;
-        Cur_BaseCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(baseCardID), CardUpgradeUnlockCardContainter, CardBase.CardShowMode.CardUpgradeAnim, RoundManager.Instance.SelfClientPlayer);
-        Cur_BaseCard.transform.position = CardUpgradeUnlockCardSample.position;
-        Cur_BaseCard.transform.rotation = CardUpgradeUnlockCardSample.rotation;
-        Cur_BaseCard.transform.localScale = CardUpgradeUnlockCardSample.localScale;
-        Cur_BaseCard.CardOrder = 20;
-        Cur_BaseCard.BeBrightColor();
-        Cur_UpgradeCard = CardBase.InstantiateCardByCardInfo(AllCards.GetCard(upgradeCardID), CardUpgradeUnlockCardContainter_Upgrade, CardBase.CardShowMode.CardUpgradeAnim, RoundManager.Instance.SelfClientPlayer);
-        Cur_UpgradeCard.transform.position = CardUpgradeUnlockCardSample_Upgrade.position;
-        Cur_UpgradeCard.transform.rotation = CardUpgradeUnlockCardSample_Upgrade.rotation;
-        Cur_UpgradeCard.transform.localScale = CardUpgradeUnlockCardSample_Upgrade.localScale;
-        Cur_UpgradeCard.CardOrder = 19;
-        Cur_UpgradeCard.BeBrightColor();
-
-        CardUpgradeUnlockAnim.speed = 3;
-        CardUpgradeUnlockAnim.SetTrigger("Jump");
-        AudioManager.Instance.SoundPlay("sfx/OnCardUpgradeShow");
-        yield return new WaitForSeconds(1f);
-        isOneCardUpgradeShowOver = true;
-
-        while (true)
-        {
-            if (isMouseClickSkip)
-            {
-                isMouseClickSkip = false;
-                break;
-            }
-
-            yield return null;
-        }
-
-        isOneCardUpgradeShowOver = true;
     }
 
     void Update()

@@ -83,6 +83,7 @@ public class LevelEditorPanel : BaseUIForm
                 CloseUIForm();
                 StoryEditorPanel sep = UIManager.Instance.ShowUIForms<StoryEditorPanel>();
                 sep.InitializeLevelList();
+                sep.RefreshStory();
                 cp.CloseUIForm();
             },
             rightButtonClick: delegate { cp.CloseUIForm(); });
@@ -162,6 +163,7 @@ public class LevelEditorPanel : BaseUIForm
         }
 
         PropertyFormRow Row_LevelType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorPanel_LevelType", OnLevelTypeChange, out SetLevelType, levelTypeList);
+        Row_LevelType.SetReadOnly(true);
         PropertyFormRow Row_LevelPicID = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelPicIDLabelText", OnLevelPicIDChange, out SetLevelPicID);
         Row_LevelPicID.SetReadOnly(true);
         PropertyFormRow Row_LevelName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelNameLabelText_zh", OnLevelNameChange_zh, out SetLevelName_zh);
@@ -271,7 +273,6 @@ public class LevelEditorPanel : BaseUIForm
                             life: 20,
                             energy: 10,
                             beginMetal: 1,
-                            isHighLevelCardLocked: false,
                             gamePlaySettings: null),
                         enemyType: EnemyType.Soldier,
                         hardFactor: 100,
@@ -456,6 +457,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             resetLevelBackup = level.Clone();
             Cur_Level = level;
+            LastLevelEnglishName = Cur_Level.LevelNames["en"];
             OnChangeLevelTypeByEdit = false;
             SetLevelType(Cur_Level.LevelType.ToString());
             OnChangeLevelTypeByEdit = true;
@@ -547,9 +549,22 @@ public class LevelEditorPanel : BaseUIForm
         CardSelectPanel.SetCardLibraryPanelEnable(isShow);
     }
 
+    private string LastLevelEnglishName = "";
+
     private void SaveLevel()
     {
-        AllLevels.RefreshLevelXML(Cur_Level);
+        if (Cur_Level.LevelNames["en"].Equals("New" + Cur_Level.LevelType.ToString()))
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_SaveLevelInvalidName"), Cur_Level.LevelNames["en"]), 0f, 1f);
+            return;
+        }
+
+        if (!LastLevelEnglishName.Equals(Cur_Level.LevelNames["en"]))
+        {
+            AllLevels.RenameLevel(Cur_Level.LevelType, LastLevelEnglishName, Cur_Level);
+        }
+
+        LastLevelEnglishName = Cur_Level.LevelNames["en"];
         AllLevels.ReloadLevelXML();
         NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
     }

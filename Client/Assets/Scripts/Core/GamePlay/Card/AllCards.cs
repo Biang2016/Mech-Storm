@@ -15,7 +15,6 @@ public static class AllCards
 
     public static SortedDictionary<int, CardInfo_Base> CardDict = new SortedDictionary<int, CardInfo_Base>();
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict = new SortedDictionary<int, List<CardInfo_Base>>();
-    public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
     [JsonConverter(typeof(StringEnumConverter))]
     public enum EmptyCardTypes
@@ -28,7 +27,6 @@ public static class AllCards
     {
         CardDict.Clear();
         CardLevelDict.Clear();
-        CardLevelDict_Remain.Clear();
     }
 
     private static void addCard(CardInfo_Base cardInfo)
@@ -49,12 +47,10 @@ public static class AllCards
                 if (!CardLevelDict.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
                 {
                     CardLevelDict.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
-                    CardLevelDict_Remain.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
                 }
                 else
                 {
                     CardLevelDict[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
-                    CardLevelDict_Remain[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
                 }
             }
         }
@@ -68,9 +64,9 @@ public static class AllCards
         }
 
         CardInfo_Base res = null;
-        if (CardLevelDict_Remain.ContainsKey(levelNum))
+        if (CardLevelDict.ContainsKey(levelNum))
         {
-            List<CardInfo_Base> levelCards = CardLevelDict_Remain[levelNum];
+            List<CardInfo_Base> levelCards = CardLevelDict[levelNum];
             List<CardInfo_Base> removeLevelCards = new List<CardInfo_Base>();
             foreach (CardInfo_Base cb in levelCards)
             {
@@ -92,34 +88,6 @@ public static class AllCards
         }
 
         return res == null ? res : res.Clone();
-    }
-
-    public static void ResetCardLevelDictRemain(List<int> unlockedCards)
-    {
-        CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>();
-        foreach (KeyValuePair<int, List<CardInfo_Base>> kv in CardLevelDict)
-        {
-            foreach (CardInfo_Base cardInfo in kv.Value)
-            {
-                if (!CardLevelDict_Remain.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
-                {
-                    CardLevelDict_Remain.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
-                }
-                else
-                {
-                    CardLevelDict_Remain[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
-                }
-            }
-        }
-
-        foreach (int id in unlockedCards)
-        {
-            CardInfo_Base cb = CardDict[id];
-            if (CardLevelDict_Remain.ContainsKey(cb.BaseInfo.CardRareLevel))
-            {
-                CardLevelDict_Remain[cb.BaseInfo.CardRareLevel].Remove(cb);
-            }
-        }
     }
 
     public static void ReloadCardXML()
@@ -909,5 +877,6 @@ public static class AllCards
         Budget = 1008,
         LifeUpperLimit = 1009,
         EnergyUpperLimit = 1010,
+        LevelCards = 1011,
     }
 }

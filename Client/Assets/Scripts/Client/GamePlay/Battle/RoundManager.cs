@@ -64,6 +64,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             SelfClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
             BattleManager.Instance.SelfBattlePlayer = SelfClientPlayer.BattlePlayer;
+            SelfClientPlayer.BattlePlayer.MetalLifeEnergyManager.SetEnemyIconImage();
         }
         else
         {

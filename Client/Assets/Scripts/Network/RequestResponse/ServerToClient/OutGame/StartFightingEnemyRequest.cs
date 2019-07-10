@@ -1,19 +1,19 @@
-﻿public class BeatEnemyRequest : ServerRequestBase
+﻿public class StartFightingEnemyRequest : ServerRequestBase
 {
     public int LevelID;
 
-    public BeatEnemyRequest()
+    public StartFightingEnemyRequest()
     {
     }
 
-    public BeatEnemyRequest(int levelID)
+    public StartFightingEnemyRequest(int levelID)
     {
         LevelID = levelID;
     }
 
     public override NetProtocols GetProtocol()
     {
-        return NetProtocols.BEAT_ENEMY_REQUEST;
+        return NetProtocols.START_FIGHTING_ENEMY_REQUEST;
     }
 
     public override void Serialize(DataStream writer)
