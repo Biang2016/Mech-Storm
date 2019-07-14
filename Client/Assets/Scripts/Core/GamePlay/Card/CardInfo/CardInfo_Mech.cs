@@ -26,6 +26,7 @@ public class CardInfo_Mech : CardInfo_Base
         if (MechInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper") + ". ");
         if (MechInfo.IsCharger) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Charger") + ". ");
         if (MechInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ");
+        if (MechInfo.IsSentry) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sentry") + ". ");
         if (BattleInfo.BasicAttack != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_AttackValue")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicAttack) + ". ";
         if (BattleInfo.BasicArmor != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Armor")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicArmor) + ". ";
         if (BattleInfo.BasicShield != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Shield")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicShield) + ". ";
@@ -75,6 +76,7 @@ public class CardInfo_Mech : CardInfo_Base
         mechInfo_ele.SetAttribute("isSniper", MechInfo.IsSniper.ToString());
         mechInfo_ele.SetAttribute("isCharger", MechInfo.IsCharger.ToString());
         mechInfo_ele.SetAttribute("isFrenzy", MechInfo.IsFrenzy.ToString());
+        mechInfo_ele.SetAttribute("isSentry", MechInfo.IsSentry.ToString());
         mechInfo_ele.SetAttribute("slot1", MechInfo.Slots[0].ToString());
         mechInfo_ele.SetAttribute("slot2", MechInfo.Slots[1].ToString());
         mechInfo_ele.SetAttribute("slot3", MechInfo.Slots[2].ToString());

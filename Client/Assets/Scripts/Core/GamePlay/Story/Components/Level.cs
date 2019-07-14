@@ -5,14 +5,14 @@ using Newtonsoft.Json.Converters;
 
 public abstract class Level : IClone<Level>, IVariant<Level>
 {
-    public LevelType LevelType;
+    public LevelTypes LevelType;
     public LevelThemeCategory LevelThemeCategory;
     public int LevelPicID;
     public SortedDictionary<string, string> LevelNames;
 
     public int LevelID;
 
-    public Level(LevelType levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames)
+    public Level(LevelTypes levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames)
     {
         LevelThemeCategory = levelThemeCategory;
         LevelType = levelType;
@@ -61,7 +61,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         return NewLevelID++;
     }
 
-    public static Level BaseGenerateEmptyLevel(LevelType levelType)
+    public static Level BaseGenerateEmptyLevel(LevelTypes levelType)
     {
         Level newLevel = null;
         int levelIDPostFix = GenerateNewLevelID();
@@ -101,7 +101,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 
     public static Level BaseDeserialize(DataStream reader)
     {
-        LevelType levelType = (LevelType) reader.ReadSInt32();
+        LevelTypes levelType = (LevelTypes) reader.ReadSInt32();
         LevelThemeCategory levelThemeCategory = (LevelThemeCategory) reader.ReadSInt32();
         int levelID = reader.ReadSInt32();
         int levelPicID = reader.ReadSInt32();
@@ -117,20 +117,19 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         Level res = null;
         switch (levelType)
         {
-            case LevelType.Enemy:
+            case LevelTypes.Enemy:
                 BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
                 EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
-                int hardFactor = reader.ReadSInt32();
-
-                int alwaysBonusCount = reader.ReadSInt32();
+                int level = reader.ReadSInt32();
+                int bonusCount = reader.ReadSInt32();
                 List<BonusGroup> BonusGroups = new List<BonusGroup>();
-                for (int i = 0; i < alwaysBonusCount; i++)
+                for (int i = 0; i < bonusCount; i++)
                 {
                     BonusGroups.Add(BonusGroup.Deserialize(reader));
                 }
 
-                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, hardFactor, BonusGroups);
-            case LevelType.Shop:
+                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, level, BonusGroups);
+            case LevelTypes.Shop:
                 int count = reader.ReadSInt32();
                 List<ShopItem> shopItems = new List<ShopItem>();
                 for (int i = 0; i < count; i++)
@@ -146,10 +145,15 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         res.LevelID = levelID;
         return res;
     }
+
+    public static string GetLevelTypeDesc(LevelTypes levelType)
+    {
+        return LanguageManager_Common.GetText("LevelType_" + levelType);
+    }
 }
 
 [JsonConverter(typeof(StringEnumConverter))]
-public enum LevelType
+public enum LevelTypes
 {
     Enemy = 0,
     Shop = 1,

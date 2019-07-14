@@ -27,7 +27,7 @@ public class MechTriggerIconComponent : MechComponentBase
             ShowIcon(MechTriggerIcon.IconTypes.Die, true);
         }
 
-        foreach (SideEffectExecute see in Mech.CardInfo.SideEffectBundle.SideEffectExecutes)
+        foreach (SideEffectExecute see in Mech.CardInfo.SideEffectBundle_BattleGroundAura.SideEffectExecutes)
         {
             if (!(see.M_ExecuteSetting.TriggerTime == SideEffectExecute.TriggerTime.OnMechDie && see.M_ExecuteSetting.TriggerRange == SideEffectExecute.TriggerRange.Self)
                 && !(see.M_ExecuteSetting.TriggerTime == SideEffectExecute.TriggerTime.OnMechSummon && see.M_ExecuteSetting.TriggerRange == SideEffectExecute.TriggerRange.Self))

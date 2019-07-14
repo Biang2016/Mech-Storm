@@ -231,6 +231,7 @@ public class Proxy : ProxyBase
                 {
                     StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
                     StoryManager.Instance.InitializeStory(request.Story);
+                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
                     UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
@@ -279,6 +280,7 @@ public class Proxy : ProxyBase
                 {
                     BeatEnemyRequest request = (BeatEnemyRequest) r;
                     StoryManager.Instance.SetEnemyBeated(request.LevelID);
+                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().StartGameAction = null;
                     break;
                 }
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:

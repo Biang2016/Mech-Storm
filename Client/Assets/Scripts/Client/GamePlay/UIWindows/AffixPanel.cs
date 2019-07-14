@@ -101,7 +101,7 @@ public class AffixPanel : BaseUIForm
             affixTypes.Add(AffixType.Charger);
         }
 
-        if (cardInfo.WeaponInfo.IsSentry)
+        if (cardInfo.MechInfo.IsSentry || cardInfo.WeaponInfo.IsSentry)
         {
             affixTypes.Add(AffixType.Sentry);
         }

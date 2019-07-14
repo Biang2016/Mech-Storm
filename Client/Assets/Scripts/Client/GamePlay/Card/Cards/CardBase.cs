@@ -156,6 +156,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         M_Name = CardInfo.BaseInfo.CardNames[cur_Language] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
 
+        CardDescComponent.SetTempCard(false);
         ChangeCardPicture(CardInfo.BaseInfo.PictureID);
         CardDescComponent?.SetCardTypeText(CardInfo.GetCardTypeDesc());
         SetBlockCountValue(0, true);
@@ -261,7 +262,17 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    public int M_CardInstanceId;
+    public int m_CardInstanceId;
+
+    public int M_CardInstanceId
+    {
+        get { return m_CardInstanceId; }
+        set
+        {
+            m_CardInstanceId = value;
+            CardDescComponent.SetTempCard(value < 0);
+        }
+    }
 
     #endregion
 

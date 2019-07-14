@@ -34,12 +34,12 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         StoryEditorPanel_LevelButton btn = null;
         switch (level.LevelType)
         {
-            case LevelType.Enemy:
+            case LevelTypes.Enemy:
             {
                 btn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_EnemyButton].AllocateGameObject<StoryEditorPanel_EnemyButton>(parent);
                 break;
             }
-            case LevelType.Shop:
+            case LevelTypes.Shop:
             {
                 btn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_ShopButton].AllocateGameObject<StoryEditorPanel_ShopButton>(parent);
                 break;
@@ -47,13 +47,13 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         }
 
         btn.Cur_Level = level;
+        btn.RefreshLevelName();
         btn.OnSetButtonClickAction = delegate { onSetButtonClick(btn.Cur_Level); };
         btn.EditButton.onClick.AddListener(onEditButtonClick);
         btn.DeleteButton.onClick.RemoveAllListeners();
         btn.DeleteButton.onClick.AddListener(onDeleteButtonClick);
 
         ClientUtils.ChangeImagePicture(btn.PicImage, btn.Cur_Level.LevelPicID);
-        btn.LevelNameText.text = btn.Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
 
         foreach (StoryEditorPanel_LevelButtonSliderBar slider in btn.Sliders)
         {
@@ -83,8 +83,15 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         return slider;
     }
 
-    public void OnLanguageChange()
+    public void RefreshLevelName()
     {
-        LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
+        if (Cur_Level is Enemy enemy)
+        {
+            LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()] + " (Lv." + enemy.Level + ")";
+        }
+        else
+        {
+            LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
+        }
     }
 }

@@ -34,7 +34,7 @@ public class TabControl : MonoBehaviour
 
     private string CurSelectedTabButtonStrKey = "";
 
-    public Transform AddTab(string tabTitleStrKey,UnityAction onAddButtonClick)
+    public Transform AddTab(string tabTitleStrKey, UnityAction onAddButtonClick)
     {
         if (PanelsDict.ContainsKey(tabTitleStrKey))
         {

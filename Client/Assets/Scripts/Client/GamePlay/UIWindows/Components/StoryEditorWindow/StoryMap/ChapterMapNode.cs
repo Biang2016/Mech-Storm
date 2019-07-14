@@ -8,13 +8,18 @@ public class ChapterMapNode : PoolObject
     [SerializeField] private Image PicImage;
     [SerializeField] private Image SelectedBorder;
     [SerializeField] private Button Button;
+
+    [SerializeField] private Image BeatedImage;
+    [SerializeField] private Text BeatedText;
+
     [SerializeField] private GameObject InfoPanel;
     [SerializeField] private Text LevelNameLabel;
     [SerializeField] private Text LevelNameText;
     [SerializeField] private Text LevelTypeLabel;
     [SerializeField] private Text LevelTypeText;
-    [SerializeField] private Image BeatedImage;
-    [SerializeField] private Text BeatedText;
+    [SerializeField] private GameObject EnemyLeveGO;
+    [SerializeField] private Text EnemyLevelLabel;
+    [SerializeField] private Text EnemyLevelText;
 
     public HashSet<int> AdjacentRoutes = new HashSet<int>();
 
@@ -22,6 +27,7 @@ public class ChapterMapNode : PoolObject
     {
         LanguageManager.Instance.RegisterTextKey(LevelNameLabel, "ChapterMap_LevelNameLabel");
         LanguageManager.Instance.RegisterTextKey(LevelTypeLabel, "ChapterMap_LevelTypeLabel");
+        LanguageManager.Instance.RegisterTextKey(EnemyLevelLabel, "ChapterMap_EnemyLevelLabel");
         LanguageManager.Instance.RegisterTextKey(BeatedText, "ChapterMap_BeatedText");
     }
 
@@ -87,6 +93,9 @@ public class ChapterMapNode : PoolObject
 
     public void Reset()
     {
+        LevelNameText.text = "";
+        LevelTypeText.text = "";
+        EnemyLevelText.text = "";
         IsSelected = false;
         IsHovered = false;
         IsBeated = false;
@@ -97,7 +106,7 @@ public class ChapterMapNode : PoolObject
 
     private UnityAction<ChapterMapNode> OnHovered;
 
-    public void Initialize(int nodeIndex, UnityAction<int> onSelected, UnityAction<ChapterMapNode> onHovered, LevelType levelType = LevelType.Enemy, EnemyType enemyType = EnemyType.Soldier)
+    public void Initialize(int nodeIndex, UnityAction<int> onSelected, UnityAction<ChapterMapNode> onHovered, LevelTypes levelType = LevelTypes.Enemy, EnemyType enemyType = EnemyType.Soldier)
     {
         IsSelected = false;
         IsHovered = false;
@@ -112,7 +121,7 @@ public class ChapterMapNode : PoolObject
         transform.localScale = Vector3.one * 1f;
         switch (levelType)
         {
-            case LevelType.Enemy:
+            case LevelTypes.Enemy:
             {
                 switch (enemyType)
                 {
@@ -131,22 +140,22 @@ public class ChapterMapNode : PoolObject
 
                 break;
             }
-            case LevelType.Rest:
+            case LevelTypes.Rest:
             {
                 picID = (int) AllCards.SpecialPicIDs.Rest;
                 break;
             }
-            case LevelType.Shop:
+            case LevelTypes.Shop:
             {
                 picID = (int) AllCards.SpecialPicIDs.Shop;
                 break;
             }
-            case LevelType.Start:
+            case LevelTypes.Start:
             {
                 picID = (int) AllCards.SpecialPicIDs.Empty;
                 break;
             }
-            case LevelType.Treasure:
+            case LevelTypes.Treasure:
             {
                 Button.transform.localScale = Vector3.one * 1.2f;
                 picID = (int) AllCards.SpecialPicIDs.Treasure;
@@ -163,7 +172,22 @@ public class ChapterMapNode : PoolObject
     {
         Cur_Level = level;
         LevelNameText.text = level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
-        LevelTypeText.text = level.LevelType.ToString();
+
+        if (level.LevelType != LevelTypes.Enemy)
+        {
+            LevelTypeText.text = Level.GetLevelTypeDesc(level.LevelType);
+        }
+        else
+        {
+            LevelTypeText.text = Level.GetLevelTypeDesc(level.LevelType) + " (" + Enemy.GetEnemyTypeDesc(((Enemy) level).EnemyType) + ")";
+        }
+
+        EnemyLeveGO.SetActive(level is Enemy);
+        if (level is Enemy enemy)
+        {
+            EnemyLevelText.text = "Lv." + enemy.Level;
+        }
+
         ClientUtils.ChangeImagePicture(PicImage, Cur_Level.LevelPicID);
     }
 }

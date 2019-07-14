@@ -53,6 +53,13 @@ internal partial class GameManager
         return gameCardInstanceIdGenerator++;
     }
 
+    private int gameTempCardInstanceIdGenerator = -2000;
+
+    public int GenerateNewTempCardInstanceId()
+    {
+        return gameTempCardInstanceIdGenerator--;
+    }
+
     private int gameEquipIdGenerator = 100;
 
     public int GenerateNewEquipId()
@@ -93,12 +100,12 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        if (ClientB is BattleProxyAI ai)
+        if (ClientB is BattleProxyAI ai && ai.LevelID != -1)
         {
             StartFightingEnemyRequest request = new StartFightingEnemyRequest(ai.LevelID);
             BroadcastRequest(request);
         }
-       
+
         SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientID, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
         SetPlayerRequest request2 = new SetPlayerRequest(ClientA.UserName, ClientB.ClientID, 0, PB_BEGINMETAL, PB_LIFE, PB_LIFE, 0, PB_MAGIC);

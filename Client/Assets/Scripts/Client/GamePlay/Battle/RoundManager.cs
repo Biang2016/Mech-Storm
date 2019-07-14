@@ -51,6 +51,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().SetState(SelectBuildPanel.States.ReadOnly);
         UIManager.Instance.CloseUIForm<SelectBuildPanel>();
         UIManager.Instance.CloseUIForm<StoryPanel>();
+        UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(true);
+        UIManager.Instance.CloseUIForm<ExitMenuPanel>();
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         SelfClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();

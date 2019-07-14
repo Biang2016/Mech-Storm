@@ -278,7 +278,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
-                            new MechInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            new MechInfo(false, false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
                             ci.SideEffectBundle.Clone(),
                             ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Mech;
@@ -320,7 +320,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
-                            new MechInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            new MechInfo(false, false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
                             ci.SideEffectBundle.Clone(),
                             ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Mech;

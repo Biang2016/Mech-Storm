@@ -156,10 +156,12 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         if (CurrentGameMode == GameMode.Online)
         {
             OnlineManager.Instance.OnlineBuildInfos[buildInfo.BuildID] = buildInfo;
+            buildInfo.GamePlaySettings = OnlineManager.Instance.OnlineGamePlaySettings;
         }
         else if (CurrentGameMode == GameMode.Single)
         {
             StoryManager.Instance.GetStory().PlayerBuildInfos[buildInfo.BuildID] = buildInfo;
+            buildInfo.GamePlaySettings = StoryManager.Instance.GetStory().StoryGamePlaySettings;
         }
 
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshSomeBuild(buildInfo);

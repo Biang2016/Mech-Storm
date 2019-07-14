@@ -35,7 +35,8 @@ public class StoryEditorPanel : BaseUIForm
                 (LanguageLabelText, "SettingMenu_Languages"),
                 (SaveStoryButtonText, "StoryEditorPanel_SaveStoryButtonText"),
                 (ResetStoryButtonText, "StoryEditorPanel_ResetStoryButtonText"),
-                (ReturnToGamerButtonText, "StoryEditorPanel_ReturnToGamerButtonText"),
+                (ReturnToGameButtonText, "StoryEditorPanel_ReturnToGameButtonText"),
+                (CardEditorButtonText, "StoryEditorPanel_CardEditorButtonText"),
                 (NextChapterButtonText, "StoryEditorPanel_NextChapterButtonText"),
                 (PreviousChapterButtonText, "StoryEditorPanel_PreviousChapterButtonText"),
             });
@@ -43,16 +44,17 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.ClearOptions();
         LanguageDropdown.AddOptions(LanguageManager.Instance.LanguageDescs);
 
-        ReturnToGamerButton.onClick.AddListener(ReturnToGame);
+        ReturnToGameButton.onClick.AddListener(ReturnToGame);
+        CardEditorButton.onClick.AddListener(GoToCardEditorPanel);
         SaveChapterButton.onClick.AddListener(SaveChapter);
         NextChapterButton.onClick.AddListener(SwitchToNextChapter);
         PreviousChapterButton.onClick.AddListener(SwitchToPreviousChapter);
 
         InitializeCardPropertyForm();
 
-        foreach (string s in Enum.GetNames(typeof(LevelType)))
+        foreach (string s in Enum.GetNames(typeof(LevelTypes)))
         {
-            LevelType lt = (LevelType) Enum.Parse(typeof(LevelType), s);
+            LevelTypes lt = (LevelTypes) Enum.Parse(typeof(LevelTypes), s);
             LevelContainerDict.Add(lt, LevelListTabControl.AddTab(
                 tabTitleStrKey: "StoryEditorPanel_" + lt + "TabButtonTitle",
                 onAddButtonClick: delegate
@@ -119,11 +121,11 @@ public class StoryEditorPanel : BaseUIForm
 
     private void OnLanguageChange(int _)
     {
-        foreach (KeyValuePair<LevelType, List<StoryEditorPanel_LevelButton>> kv in MyLevelButtons)
+        foreach (KeyValuePair<LevelTypes, List<StoryEditorPanel_LevelButton>> kv in MyLevelButtons)
         {
             foreach (StoryEditorPanel_LevelButton btn in kv.Value)
             {
-                btn.OnLanguageChange();
+                btn.RefreshLevelName();
             }
         }
     }
@@ -143,12 +145,29 @@ public class StoryEditorPanel : BaseUIForm
             rightButtonClick: delegate { cp.CloseUIForm(); });
     }
 
+    private void GoToCardEditorPanel()
+    {
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            LanguageManager.Instance.GetText("Notice_ReturnWarningSave"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            leftButtonClick: delegate
+            {
+                SceneManager.LoadScene("CardEditorScene");
+                cp.CloseUIForm();
+            },
+            rightButtonClick: delegate { cp.CloseUIForm(); });
+    }
+
     [SerializeField] private Text StoryEditorWindowText;
     [SerializeField] private Text LanguageLabelText;
     [SerializeField] private Dropdown LanguageDropdown;
-    [SerializeField] private Button ReturnToGamerButton;
+    [SerializeField] private Button ReturnToGameButton;
+    [SerializeField] private Button CardEditorButton;
     [SerializeField] private Button SaveChapterButton;
-    [SerializeField] private Text ReturnToGamerButtonText;
+    [SerializeField] private Text ReturnToGameButtonText;
+    [SerializeField] private Text CardEditorButtonText;
 
     #region Left StoryProperties
 
@@ -229,6 +248,11 @@ public class StoryEditorPanel : BaseUIForm
                 CardSelectPanel.gameObject.SetActive(true);
                 ChapterMapContainer.gameObject.SetActive(false);
             });
+
+        if (story.Chapters.Count != 0)
+        {
+            GenerateChapterMap(story.Chapters[0], false);
+        }
     }
 
     [SerializeField] private Button SaveStoryButton;
@@ -247,6 +271,7 @@ public class StoryEditorPanel : BaseUIForm
 
     public void RefreshStory()
     {
+        AllStories.ReloadStoryXML();
         SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
     }
 
@@ -417,13 +442,13 @@ public class StoryEditorPanel : BaseUIForm
     #region Right Level List
 
     public TabControl LevelListTabControl;
-    private Dictionary<LevelType, Transform> LevelContainerDict = new Dictionary<LevelType, Transform>();
-    private SortedDictionary<LevelType, List<StoryEditorPanel_LevelButton>> MyLevelButtons = new SortedDictionary<LevelType, List<StoryEditorPanel_LevelButton>>();
+    private Dictionary<LevelTypes, Transform> LevelContainerDict = new Dictionary<LevelTypes, Transform>();
+    private SortedDictionary<LevelTypes, List<StoryEditorPanel_LevelButton>> MyLevelButtons = new SortedDictionary<LevelTypes, List<StoryEditorPanel_LevelButton>>();
 
     public void InitializeLevelList()
     {
-        SelectTab(LevelType.Enemy);
-        foreach (KeyValuePair<LevelType, List<StoryEditorPanel_LevelButton>> kv in MyLevelButtons)
+        SelectTab(LevelTypes.Enemy);
+        foreach (KeyValuePair<LevelTypes, List<StoryEditorPanel_LevelButton>> kv in MyLevelButtons)
         {
             foreach (StoryEditorPanel_LevelButton btn in kv.Value)
             {
@@ -433,43 +458,98 @@ public class StoryEditorPanel : BaseUIForm
             kv.Value.Clear();
         }
 
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
         {
-            foreach (KeyValuePair<string, Level> _kv in kv.Value)
+            SortedDictionary<int, List<Level>> sortedListByLevelDifficulty = new SortedDictionary<int, List<Level>>();
+
+            if (kv.Key == LevelTypes.Enemy)
             {
-                if (_kv.Key.Equals("New" + kv.Key)) continue;
-                StoryEditorPanel_LevelButton btn = StoryEditorPanel_LevelButton.BaseInitialize(
-                    level: _kv.Value.Clone(),
-                    parent: LevelContainerDict[kv.Key],
-                    onSetButtonClick: delegate(Level level) { ChapterMap.SetCurrentNodeLevel(level); },
-                    onEditButtonClick: delegate
+                foreach (KeyValuePair<string, Level> _kv in kv.Value)
+                {
+                    if (_kv.Value is Enemy enemy)
                     {
-                        UIManager.Instance.CloseUIForm<StoryEditorPanel>();
-                        UIManager.Instance.ShowUIForms<LevelEditorPanel>().SetLevel(_kv.Value.Clone());
-                    },
-                    onDeleteButtonClick: delegate
-                    {
-                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-                        cp.Initialize(LanguageManager.Instance.GetText("StoryEditorPanel_DeleteLevelFormLibrary0"),
-                            LanguageManager.Instance.GetText("Common_Yes"),
-                            LanguageManager.Instance.GetText("Common_No"),
-                            delegate
-                            {
-                                cp.CloseUIForm();
-                                AllLevels.DeleteLevel(kv.Key, _kv.Value.LevelNames["en"]);
-                                InitializeLevelList();
-                                SelectTab(kv.Key);
-                                SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
-                            },
-                            delegate { cp.CloseUIForm(); });
+                        if (!sortedListByLevelDifficulty.ContainsKey(enemy.Level))
+                        {
+                            sortedListByLevelDifficulty.Add(enemy.Level, new List<Level>());
+                        }
+
+                        sortedListByLevelDifficulty[enemy.Level].Add(enemy);
                     }
-                );
-                MyLevelButtons[kv.Key].Add(btn);
+                }
+
+                foreach (KeyValuePair<int, List<Level>> KV in sortedListByLevelDifficulty)
+                {
+                    foreach (Level lv in KV.Value)
+                    {
+                        if (lv.LevelNames["en"].Equals("New" + kv.Key)) continue;
+                        StoryEditorPanel_LevelButton btn = StoryEditorPanel_LevelButton.BaseInitialize(
+                            level: lv.Clone(),
+                            parent: LevelContainerDict[kv.Key],
+                            onSetButtonClick: delegate(Level level) { ChapterMap.SetCurrentNodeLevel(level); },
+                            onEditButtonClick: delegate
+                            {
+                                UIManager.Instance.CloseUIForm<StoryEditorPanel>();
+                                UIManager.Instance.ShowUIForms<LevelEditorPanel>().SetLevel(lv.Clone());
+                            },
+                            onDeleteButtonClick: delegate
+                            {
+                                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                                cp.Initialize(LanguageManager.Instance.GetText("StoryEditorPanel_DeleteLevelFormLibrary0"),
+                                    LanguageManager.Instance.GetText("Common_Yes"),
+                                    LanguageManager.Instance.GetText("Common_No"),
+                                    delegate
+                                    {
+                                        cp.CloseUIForm();
+                                        AllLevels.DeleteLevel(kv.Key, lv.LevelNames["en"]);
+                                        InitializeLevelList();
+                                        SelectTab(kv.Key);
+                                        SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
+                                    },
+                                    delegate { cp.CloseUIForm(); });
+                            }
+                        );
+                        MyLevelButtons[kv.Key].Add(btn);
+                    }
+                }
+            }
+            else
+            {
+                foreach (KeyValuePair<string, Level> _kv in kv.Value)
+                {
+                    if (_kv.Key.Equals("New" + kv.Key)) continue;
+                    StoryEditorPanel_LevelButton btn = StoryEditorPanel_LevelButton.BaseInitialize(
+                        level: _kv.Value.Clone(),
+                        parent: LevelContainerDict[kv.Key],
+                        onSetButtonClick: delegate(Level level) { ChapterMap.SetCurrentNodeLevel(level); },
+                        onEditButtonClick: delegate
+                        {
+                            UIManager.Instance.CloseUIForm<StoryEditorPanel>();
+                            UIManager.Instance.ShowUIForms<LevelEditorPanel>().SetLevel(_kv.Value.Clone());
+                        },
+                        onDeleteButtonClick: delegate
+                        {
+                            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                            cp.Initialize(LanguageManager.Instance.GetText("StoryEditorPanel_DeleteLevelFormLibrary0"),
+                                LanguageManager.Instance.GetText("Common_Yes"),
+                                LanguageManager.Instance.GetText("Common_No"),
+                                delegate
+                                {
+                                    cp.CloseUIForm();
+                                    AllLevels.DeleteLevel(kv.Key, _kv.Value.LevelNames["en"]);
+                                    InitializeLevelList();
+                                    SelectTab(kv.Key);
+                                    SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
+                                },
+                                delegate { cp.CloseUIForm(); });
+                        }
+                    );
+                    MyLevelButtons[kv.Key].Add(btn);
+                }
             }
         }
     }
 
-    private void SelectTab(LevelType levelType)
+    private void SelectTab(LevelTypes levelType)
     {
         LevelListTabControl.SelectTab("StoryEditorPanel_" + levelType + "TabButtonTitle");
     }

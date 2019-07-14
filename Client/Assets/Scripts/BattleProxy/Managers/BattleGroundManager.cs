@@ -135,7 +135,7 @@ internal class BattleGroundManager
 
     public void AddMech(CardInfo_Mech mechCardInfo)
     {
-        AddMech(mechCardInfo, Mechs.Count, targetMechIds: null, clientMechTempId: (int) Const.SpecialMechID.ClientTempMechIDNormal, handCardInstanceId: Const.CARD_INSTANCE_ID_NONE);
+        AddMech(mechCardInfo, Mechs.Count, targetMechIds: null, clientMechTempId: (int) Const.SpecialMechID.ClientTempMechIDNormal, handCardInstanceId: -1);
     }
 
     public void AddMech(CardInfo_Mech mechCardInfo, int mechPlaceIndex, List<int> targetMechIds, int clientMechTempId, int handCardInstanceId)

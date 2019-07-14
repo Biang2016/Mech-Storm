@@ -125,7 +125,7 @@ public class BuildInfo : IClone<BuildInfo>
 
     public BuildInfo Clone()
     {
-        return new BuildInfo(GenerateBuildID(), BuildName, M_BuildCards, DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings);
+        return new BuildInfo(GenerateBuildID(), BuildName, M_BuildCards.Clone(), DrawCardNum, Life, Energy, BeginMetal, GamePlaySettings?.Clone());
     }
 
     public bool EqualsTo(BuildInfo targetBuildInfo)
@@ -137,11 +137,15 @@ public class BuildInfo : IClone<BuildInfo>
         if (Life != targetBuildInfo.Life) return false;
         if (Energy != targetBuildInfo.Energy) return false;
         if (BeginMetal != targetBuildInfo.BeginMetal) return false;
+        if (GamePlaySettings != null && targetBuildInfo.GamePlaySettings != null)
+        {
+            if (!GamePlaySettings.EqualsTo(targetBuildInfo.GamePlaySettings)) return false;
+        }
 
         return true;
     }
 
-    public static BuildInfo GetBuildInfoFromXML(XmlNode buildInfoNode, out bool needRefresh)
+    public static BuildInfo GetBuildInfoFromXML(XmlNode buildInfoNode, out bool needRefresh, BuildCards.DefaultCardLimitNumTypes defaultCardLimitNumTypes)
     {
         needRefresh = false;
         BuildInfo buildInfo = new BuildInfo();
@@ -160,7 +164,7 @@ public class BuildInfo : IClone<BuildInfo>
                     buildInfo.BeginMetal = int.Parse(cardInfo.Attributes["BeginMetal"].Value);
                     break;
                 case "cardIDs":
-                    buildInfo.M_BuildCards = new BuildCards();
+                    buildInfo.M_BuildCards = new BuildCards(defaultCardLimitNumTypes);
                     string[] cardID_strs = cardInfo.Attributes["ids"].Value.Split(';');
                     foreach (string s in cardID_strs)
                     {

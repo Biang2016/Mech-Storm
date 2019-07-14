@@ -44,7 +44,7 @@ public class AllBuilds
             for (int i = 0; i < allBuilds.ChildNodes.Count; i++)
             {
                 XmlNode buildInfoNode = allBuilds.ChildNodes.Item(i);
-                BuildInfo buildInfo = BuildInfo.GetBuildInfoFromXML(buildInfoNode, out bool needRefresh);
+                BuildInfo buildInfo = BuildInfo.GetBuildInfoFromXML(buildInfoNode, out bool needRefresh, BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum);
                 NeedReload |= needRefresh;
                 BuildStoryDatabase.Instance.AddOrModifyBuild(kv.Key.ToString(), buildInfo);
                 BuildGroupDict[kv.Key].AddBuild(buildInfo.BuildName, buildInfo);
@@ -185,8 +185,8 @@ public class AllBuilds
         ReloadBuildXML();
 
         //删除Story中同名的Level
-        SortedDictionary<LevelType, List<string>> removeLevelPath = new SortedDictionary<LevelType, List<string>>();
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
+        SortedDictionary<LevelTypes, List<string>> removeLevelPath = new SortedDictionary<LevelTypes, List<string>>();
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
         {
             removeLevelPath.Add(kv.Key, new List<string>());
             foreach (KeyValuePair<string, Level> _kv in kv.Value)
@@ -201,7 +201,7 @@ public class AllBuilds
             }
         }
 
-        foreach (KeyValuePair<LevelType, List<string>> kv in removeLevelPath)
+        foreach (KeyValuePair<LevelTypes, List<string>> kv in removeLevelPath)
         {
             SortedDictionary<string, Level> dict = AllLevels.LevelDict[kv.Key];
             foreach (string s in kv.Value)

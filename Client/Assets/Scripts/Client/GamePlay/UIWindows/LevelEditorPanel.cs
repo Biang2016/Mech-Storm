@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelEditorPanel : BaseUIForm
@@ -25,6 +26,7 @@ public class LevelEditorPanel : BaseUIForm
         SaveLevelButton.onClick.AddListener(SaveLevel);
         ResetLevelButton.onClick.AddListener(ResetLevel);
         ReturnToStoryEditorButton.onClick.AddListener(ReturnToStoryEditor);
+        CardEditorButton.onClick.AddListener(GoToCardEditorPanel);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -34,6 +36,7 @@ public class LevelEditorPanel : BaseUIForm
                 (SaveLevelButtonText, "LevelEditorPanel_SaveLevelButtonText"),
                 (ResetLevelButtonText, "LevelEditorPanel_ResetLevelButtonText"),
                 (ReturnToStoryEditorButtonText, "LevelEditorPanel_ReturnToStoryEditorButtonText"),
+                (CardEditorButtonText, "StoryEditorPanel_CardEditorButtonText"),
             });
 
         LanguageDropdown.ClearOptions();
@@ -89,6 +92,21 @@ public class LevelEditorPanel : BaseUIForm
             rightButtonClick: delegate { cp.CloseUIForm(); });
     }
 
+    private void GoToCardEditorPanel()
+    {
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            LanguageManager.Instance.GetText("Notice_ReturnWarningSave"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            leftButtonClick: delegate
+            {
+                SceneManager.LoadScene("CardEditorScene");
+                cp.CloseUIForm();
+            },
+            rightButtonClick: delegate { cp.CloseUIForm(); });
+    }
+
     private void SelectOneForEachActiveCards(List<int> activeCardIDs)
     {
         if (Enemy_BuildCards != null)
@@ -126,6 +144,8 @@ public class LevelEditorPanel : BaseUIForm
     [SerializeField] private Dropdown LanguageDropdown;
     [SerializeField] private Button ReturnToStoryEditorButton;
     [SerializeField] private Text ReturnToStoryEditorButtonText;
+    [SerializeField] private Button CardEditorButton;
+    [SerializeField] private Text CardEditorButtonText;
 
     #region Left LevelProperties
 
@@ -134,7 +154,7 @@ public class LevelEditorPanel : BaseUIForm
     public Level Cur_Level;
 
     private List<PropertyFormRow> MyPropertiesRows = new List<PropertyFormRow>();
-    private Dictionary<LevelType, List<PropertyFormRow>> LevelTypePropertiesDict = new Dictionary<LevelType, List<PropertyFormRow>>();
+    private Dictionary<LevelTypes, List<PropertyFormRow>> LevelTypePropertiesDict = new Dictionary<LevelTypes, List<PropertyFormRow>>();
     private Dictionary<EnemyType, List<PropertyFormRow>> EnemyTypePropertiesDict = new Dictionary<EnemyType, List<PropertyFormRow>>();
     private List<PropertyFormRow> LevelPropertiesCommon = new List<PropertyFormRow>();
 
@@ -146,9 +166,9 @@ public class LevelEditorPanel : BaseUIForm
     {
         Clear();
 
-        IEnumerable<LevelType> types_level = Enum.GetValues(typeof(LevelType)) as IEnumerable<LevelType>;
+        IEnumerable<LevelTypes> types_level = Enum.GetValues(typeof(LevelTypes)) as IEnumerable<LevelTypes>;
         List<string> levelTypeList = new List<string>();
-        foreach (LevelType levelType in types_level)
+        foreach (LevelTypes levelType in types_level)
         {
             levelTypeList.Add(levelType.ToString());
             LevelTypePropertiesDict.Add(levelType, new List<PropertyFormRow>());
@@ -170,6 +190,7 @@ public class LevelEditorPanel : BaseUIForm
         PropertyFormRow Row_LevelName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelNameLabelText_en", OnLevelNameChange_en, out SetLevelName_en);
 
         PropertyFormRow Row_EnemyType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorPanel_EnemyType", OnEnemyTypeChange, out SetEnemyType, enemyTypeList);
+        PropertyFormRow Row_EnemyLevel = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyLevel", OnEnemyLevelChange, out SetEnemyLevel);
         PropertyFormRow Row_EnemyDrawCardNum = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyDrawCardNum", OnEnemyDrawCardNumChange, out SetEnemyDrawCardNum);
         PropertyFormRow Row_EnemyLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyLife", OnEnemyLifeChange, out SetEnemyLife);
         PropertyFormRow Row_EnemyEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyEnergy", OnEnemyEnergyChange, out SetEnemyEnergy);
@@ -190,9 +211,10 @@ public class LevelEditorPanel : BaseUIForm
             Row_LevelName_en,
         };
 
-        LevelTypePropertiesDict[LevelType.Enemy] = new List<PropertyFormRow>
+        LevelTypePropertiesDict[LevelTypes.Enemy] = new List<PropertyFormRow>
         {
             Row_EnemyType,
+            Row_EnemyLevel,
             Row_EnemyDrawCardNum,
             Row_EnemyLife,
             Row_EnemyEnergy,
@@ -201,7 +223,7 @@ public class LevelEditorPanel : BaseUIForm
             Row_BonusGroups
         };
 
-        LevelTypePropertiesDict[LevelType.Shop] = new List<PropertyFormRow>
+        LevelTypePropertiesDict[LevelTypes.Shop] = new List<PropertyFormRow>
         {
             Row_ShopItems
         };
@@ -238,7 +260,7 @@ public class LevelEditorPanel : BaseUIForm
 
     private void OnLevelTypeChange(string value_str)
     {
-        LevelType type = (LevelType) Enum.Parse(typeof(LevelType), value_str);
+        LevelTypes type = (LevelTypes) Enum.Parse(typeof(LevelTypes), value_str);
         foreach (PropertyFormRow lpfr in LevelPropertiesCommon)
         {
             lpfr.gameObject.SetActive(true);
@@ -259,7 +281,7 @@ public class LevelEditorPanel : BaseUIForm
 
             switch (type)
             {
-                case LevelType.Enemy:
+                case LevelTypes.Enemy:
                 {
                     Cur_Level = new Enemy(
                         levelThemeCategory: LevelThemeCategory.Energy,
@@ -268,19 +290,19 @@ public class LevelEditorPanel : BaseUIForm
                         buildInfo: new BuildInfo(
                             buildID: -1,
                             buildName: "TempDeck",
-                            buildCards: new BuildCards(),
+                            buildCards: new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum),
                             drawCardNum: 1,
                             life: 20,
                             energy: 10,
                             beginMetal: 1,
                             gamePlaySettings: null),
                         enemyType: EnemyType.Soldier,
-                        hardFactor: 100,
+                        level: 1,
                         bonusGroups: new List<BonusGroup>()
                     );
                     break;
                 }
-                case LevelType.Shop:
+                case LevelTypes.Shop:
                 {
                     Cur_Level = new Shop(
                         levelThemeCategory: LevelThemeCategory.Energy,
@@ -324,6 +346,34 @@ public class LevelEditorPanel : BaseUIForm
 
     private void OnEnemyTypeChange(string value_str)
     {
+        if (Cur_Level is Enemy enemy)
+        {
+            enemy.EnemyType = (EnemyType) Enum.Parse(typeof(EnemyType), value_str);
+        }
+    }
+
+    private UnityAction<string> SetEnemyLevel;
+
+    private void OnEnemyLevelChange(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (value < 1)
+            {
+                SetEnemyLevel(1.ToString());
+            }
+            else
+            {
+                if (Cur_Level is Enemy enemy)
+                {
+                    enemy.Level = value;
+                }
+            }
+        }
+        else
+        {
+            SetEnemyLevel(1.ToString());
+        }
     }
 
     private UnityAction<string> SetEnemyDrawCardNum;
@@ -450,8 +500,8 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (level == null)
         {
-            SetLevelType(LevelType.Shop.ToString());
-            SetLevelType(LevelType.Enemy.ToString());
+            SetLevelType(LevelTypes.Shop.ToString());
+            SetLevelType(LevelTypes.Enemy.ToString());
         }
         else
         {
@@ -468,6 +518,8 @@ public class LevelEditorPanel : BaseUIForm
             {
                 case Enemy enemy:
                 {
+                    SetEnemyType(enemy.EnemyType.ToString());
+                    SetEnemyLevel(enemy.Level.ToString());
                     SetEnemyBeginMetal(enemy.BuildInfo.BeginMetal.ToString());
                     SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString());
                     SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
@@ -553,20 +605,74 @@ public class LevelEditorPanel : BaseUIForm
 
     private void SaveLevel()
     {
-        if (Cur_Level.LevelNames["en"].Equals("New" + Cur_Level.LevelType.ToString()))
+        bool isExistedInLibrary = AllLevels.LevelDict[Cur_Level.LevelType].ContainsKey(Cur_Level.LevelNames["en"]);
+        bool isNameChanged = !LastLevelEnglishName.Equals(Cur_Level.LevelNames["en"]);
+        bool isInvalidName = Cur_Level.LevelNames["en"].Equals("New" + Cur_Level.LevelType);
+
+        if (isInvalidName)
         {
             NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_SaveLevelInvalidName"), Cur_Level.LevelNames["en"]), 0f, 1f);
             return;
         }
 
-        if (!LastLevelEnglishName.Equals(Cur_Level.LevelNames["en"]))
+        if (isExistedInLibrary)
         {
-            AllLevels.RenameLevel(Cur_Level.LevelType, LastLevelEnglishName, Cur_Level);
+            if (isNameChanged)
+            {
+                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                cp.Initialize(String.Format(LanguageManager.Instance.GetText("LevelEditorPanel_OverrideExistedLevel"), Cur_Level.LevelNames["en"]),
+                    LanguageManager.Instance.GetText("Common_Yes"),
+                    LanguageManager.Instance.GetText("Common_No"),
+                    delegate
+                    {
+                        cp.CloseUIForm();
+                        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+                        AllLevels.RenameLevel(Cur_Level.LevelType, LastLevelEnglishName, Cur_Level);
+                        LastLevelEnglishName = Cur_Level.LevelNames["en"];
+                        AllLevels.ReloadLevelXML();
+                    },
+                    delegate { cp.CloseUIForm(); });
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+                AllLevels.RefreshLevelXML(Cur_Level);
+                LastLevelEnglishName = Cur_Level.LevelNames["en"];
+                AllLevels.ReloadLevelXML();
+            }
         }
-
-        LastLevelEnglishName = Cur_Level.LevelNames["en"];
-        AllLevels.ReloadLevelXML();
-        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+        else
+        {
+            if (isNameChanged)
+            {
+                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                cp.Initialize(String.Format(LanguageManager.Instance.GetText("LevelEditorPanel_DeleteOriginalLevel"), LastLevelEnglishName),
+                    LanguageManager.Instance.GetText("Common_Yes"),
+                    LanguageManager.Instance.GetText("Common_No"),
+                    delegate
+                    {
+                        cp.CloseUIForm();
+                        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+                        AllLevels.RenameLevel(Cur_Level.LevelType, LastLevelEnglishName, Cur_Level);
+                        LastLevelEnglishName = Cur_Level.LevelNames["en"];
+                        AllLevels.ReloadLevelXML();
+                    },
+                    delegate
+                    {
+                        cp.CloseUIForm();
+                        NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+                        AllLevels.RefreshLevelXML(Cur_Level);
+                        LastLevelEnglishName = Cur_Level.LevelNames["en"];
+                        AllLevels.ReloadLevelXML();
+                    });
+            }
+            else
+            {
+                NoticeManager.Instance.ShowInfoPanelCenter("Success", 0, 1f);
+                AllLevels.RefreshLevelXML(Cur_Level);
+                AllLevels.ReloadLevelXML();
+            }
+        }
     }
 
     private void ResetLevel()

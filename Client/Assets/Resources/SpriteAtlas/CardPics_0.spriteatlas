@@ -42,7 +42,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: dd6076daa801a2e469f0838ac0471c89, type: 3}
-    totalSpriteSurfaceArea: 2263040
+    totalSpriteSurfaceArea: 2998528
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -57,33 +57,46 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2641add10c06db74c99efcfef23ca627, type: 3}
   - {fileID: 21300000, guid: 6f57bd22db9183b49a97fd9dd9829f7c, type: 3}
   - {fileID: 21300000, guid: bc39be42f3711244e968c6dda800946c, type: 3}
+  - {fileID: 21300000, guid: 20f07992ac6408a4696ef8123b9c9505, type: 3}
   - {fileID: 21300000, guid: c91f2cc2dd669ae45902c2df44f8fe2a, type: 3}
+  - {fileID: 21300000, guid: 30299623f34c5c442945b8c9008da57f, type: 3}
+  - {fileID: 21300000, guid: ceeb9c73bcc9f04429584a124f4416e2, type: 3}
   - {fileID: 21300000, guid: 6468c49357a77514792a29e9cc43e1c8, type: 3}
   - {fileID: 21300000, guid: 1258c504859b1994fa7b38f29e1d04b3, type: 3}
+  - {fileID: 21300000, guid: 82b5b614a6ab3484396030461c567fed, type: 3}
   - {fileID: 21300000, guid: 73401ca4d30b2964d946e05537edf88c, type: 3}
   - {fileID: 21300000, guid: 960ba805c3b1a7e4bb7b4b0721f87489, type: 3}
+  - {fileID: 21300000, guid: ff4d386536034a9459abd94f8991a5b3, type: 3}
   - {fileID: 21300000, guid: 48d892f5713a9b640bd2311b9df2c5a0, type: 3}
   - {fileID: 21300000, guid: de727306cbdc8a34a859c8df115420f9, type: 3}
   - {fileID: 21300000, guid: b90302a636b08e349bf63fdbfb53f912, type: 3}
   - {fileID: 21300000, guid: efb0dac6ee9e406418232841a385c021, type: 3}
+  - {fileID: 21300000, guid: ef2792f635c68a64c963d249484076e1, type: 3}
   - {fileID: 21300000, guid: b1ce1317b21905f47a3055f3ad116078, type: 3}
   - {fileID: 21300000, guid: b1f96847790c33c4f925b7ff8e69e53f, type: 3}
+  - {fileID: 21300000, guid: 8ca80f77ea0eb1b4b881734594c75148, type: 3}
   - {fileID: 21300000, guid: 17b83b9740a20884bb571c48b3033a17, type: 3}
+  - {fileID: 21300000, guid: 039358c736091ab468eb36f33c0f5d8e, type: 3}
   - {fileID: 21300000, guid: de1eb8e8d8c7b7547ab9c57f78ea50c8, type: 3}
   - {fileID: 21300000, guid: f9df2019225e92645baba1fef1476589, type: 3}
   - {fileID: 21300000, guid: ed1c6f89ed29a0c4683538409c60d37f, type: 3}
   - {fileID: 21300000, guid: 90d948d90ea479a45a75396f897a29c3, type: 3}
   - {fileID: 21300000, guid: f326191a09feea942951f2be804010dd, type: 3}
   - {fileID: 21300000, guid: e0ba0e1aa87eba34fa72d12ebfbb87ff, type: 3}
+  - {fileID: 21300000, guid: 43acde4a5a0baa041981ce43e036a19e, type: 3}
   - {fileID: 21300000, guid: c45c217af1f998146b8bab626af87cc9, type: 3}
+  - {fileID: 21300000, guid: 6df007fa6d0c27545953a15f23e89a34, type: 3}
   - {fileID: 21300000, guid: 270e3cfaafac58a46a28163d0a07964b, type: 3}
   - {fileID: 21300000, guid: 0424d93b9e950584c80ec8febe63ab0f, type: 3}
   - {fileID: 21300000, guid: c081bf1c88f7c1f4386afca7b19ba43b, type: 3}
   - {fileID: 21300000, guid: eeb3873c2eed0a44eb41b441bcd03a04, type: 3}
+  - {fileID: 21300000, guid: 8b9392dc1d5ba214da4014b4180933c4, type: 3}
   - {fileID: 21300000, guid: 34cee9dc98eb3a4499fbe01860e64df8, type: 3}
+  - {fileID: 21300000, guid: 462f895d230c6524a8984fe1491a4f23, type: 3}
   - {fileID: 21300000, guid: 96cc6b8d2f391d44381df7217bf0005f, type: 3}
   - {fileID: 21300000, guid: d9189a0e07940654193b3c02424684a0, type: 3}
   - {fileID: 21300000, guid: 453d1f5e784863843abf7fc52255459a, type: 3}
+  - {fileID: 21300000, guid: 9322696e480a64348b7615468bbabb01, type: 3}
   - {fileID: 21300000, guid: aac75aefa2c364a468d3b3e5508d0edb, type: 3}
   - {fileID: 21300000, guid: b5f43cffee0370a4ebf2d4465e78c2cb, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -98,33 +111,46 @@ SpriteAtlas:
   - 065
   - 068
   - 021
+  - 078
   - 006
+  - 070
+  - 073
   - 002
   - 004
+  - 076
   - 063
   - 058
+  - 079
   - 067
   - 009
   - 054
   - 014
+  - 081
   - 061
   - 056
+  - 075
   - 008
+  - 074
   - 011
   - 055
   - 053
   - 057
   - 012
   - 017
+  - 069
   - 066
+  - 077
   - 015
   - 018
   - 051
   - 019
+  - 072
   - 016
+  - 071
   - 022
   - 001
   - 064
+  - 080
   - 007
   - 003
   m_Tag: CardPics_0

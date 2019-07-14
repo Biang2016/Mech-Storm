@@ -183,6 +183,7 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_MechIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnMechIsSniperChange, out SetMechIsSniper);
         PropertyFormRow Row_MechIsCharger = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsChargerLabelText", OnMechIsChargerChange, out SetMechIsCharger);
         PropertyFormRow Row_MechIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnMechIsFrenzyChange, out SetMechIsFrenzy);
+        PropertyFormRow Row_MechIsSentry = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSentryLabelText", OnMechIsSentryChange, out SetMechIsSentry);
         PropertyFormRow Row_MechIsSoldier = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSoldierLabelText", OnMechIsSoldierChange, out SetMechIsSoldier);
 
         PropertyFormRow Row_SlotType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
@@ -239,6 +240,7 @@ public class CardEditorPanel : BaseUIForm
             Row_MechIsSniper,
             Row_MechIsCharger,
             Row_MechIsFrenzy,
+            Row_MechIsSentry,
         };
         CardTypePropertiesDict[CardTypes.Energy] = new List<PropertyFormRow>
         {
@@ -844,6 +846,19 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
+    private UnityAction<string> SetMechIsSentry;
+
+    private void OnMechIsSentryChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MechInfo.IsSentry = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
     private UnityAction<string> SetMechIsSoldier;
 
     private void OnMechIsSoldierChange(string value_str)
@@ -1122,6 +1137,7 @@ public class CardEditorPanel : BaseUIForm
                 SetMechIsSniper((ci.MechInfo.IsSniper).ToString());
                 SetMechIsCharger((ci.MechInfo.IsCharger).ToString());
                 SetMechIsFrenzy((ci.MechInfo.IsFrenzy).ToString());
+                SetMechIsSentry((ci.MechInfo.IsSentry).ToString());
                 SetMechWeaponSlot((ci.MechInfo.Slots[0] == SlotTypes.Weapon).ToString());
                 SetMechShieldSlot((ci.MechInfo.Slots[1] == SlotTypes.Shield).ToString());
                 SetMechPackSlot((ci.MechInfo.Slots[2] == SlotTypes.Pack).ToString());

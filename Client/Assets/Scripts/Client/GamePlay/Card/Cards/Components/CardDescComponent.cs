@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDescComponent : CardComponentBase
 {
@@ -8,6 +9,9 @@ public class CardDescComponent : CardComponentBase
     [SerializeField] private TextMeshPro CardDescText;
     [SerializeField] private SpriteRenderer CardDescBG;
     [SerializeField] private TextMeshPro CardTypeText;
+
+    [SerializeField] private SpriteRenderer TempCardImage;
+    [SerializeField] private TextMeshPro TempCardText;
 
     public void SetCardName(string cardName)
     {
@@ -44,6 +48,12 @@ public class CardDescComponent : CardComponentBase
         CardTypeText.color = color;
     }
 
+    public void SetTempCard(bool isTempCard)
+    {
+        TempCardImage.gameObject.SetActive(isTempCard);
+        LanguageManager.Instance.RegisterTextKey(TempCardText, "Card_TempCardText");
+    }
+
     void Awake()
     {
         CardNameTextDefaultSortingOrder = CardNameText.sortingOrder;
@@ -51,6 +61,8 @@ public class CardDescComponent : CardComponentBase
         CardDescTextDefaultSortingOrder = CardDescText.sortingOrder;
         CardDescBGDefaultSortingOrder = CardDescBG.sortingOrder;
         CardTypeTextDefaultSortingOrder = CardTypeText.sortingOrder;
+        TempCardImageDefaultSortingOrder = TempCardImage.sortingOrder;
+        TempCardTextDefaultSortingOrder = TempCardText.sortingOrder;
     }
 
     private int CardNameTextDefaultSortingOrder;
@@ -58,6 +70,8 @@ public class CardDescComponent : CardComponentBase
     private int CardDescTextDefaultSortingOrder;
     private int CardDescBGDefaultSortingOrder;
     private int CardTypeTextDefaultSortingOrder;
+    private int TempCardImageDefaultSortingOrder;
+    private int TempCardTextDefaultSortingOrder;
 
     protected override void SetSortingIndexOfCard(int cardSortingIndex)
     {
@@ -66,5 +80,7 @@ public class CardDescComponent : CardComponentBase
         CardDescText.sortingOrder = cardSortingIndex * 50 + CardDescTextDefaultSortingOrder;
         CardDescBG.sortingOrder = cardSortingIndex * 50 + CardDescBGDefaultSortingOrder;
         CardTypeText.sortingOrder = cardSortingIndex * 50 + CardTypeTextDefaultSortingOrder;
+        TempCardImage.sortingOrder = cardSortingIndex * 50 + TempCardImageDefaultSortingOrder;
+        TempCardText.sortingOrder = cardSortingIndex * 50 + TempCardTextDefaultSortingOrder;
     }
 }

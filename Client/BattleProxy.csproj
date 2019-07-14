@@ -63,9 +63,6 @@
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\AttachedEquipSideEffects\AttachedEquipSideEffects.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\Exile.cs" />
-     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\HandCardRelatedSideEffects\GetHandCardCopy.cs" />
-     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\HandCardRelatedSideEffects\TriggerHandCard.cs" />
-     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\HandCardRelatedSideEffects\WaitInHandDecreaseEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\PlayerBuffSideEffects\AddPlayerBuff.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\PlayerBuffSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\DeckBased\AddTempCardToDeck.cs" />
@@ -73,6 +70,9 @@
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\DeckBased\DrawCards.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\DeckBased\DrawTypeCards.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\EquipBased\BreakEquip.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\HandCardBased\GetHandCardCopy.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\HandCardBased\TriggerHandCard.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\HandCardBased\WaitInHandDecreaseEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\LifeBased\AddLife.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\LifeBased\Damage.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\LifeBased\Heal.cs" />
@@ -82,6 +82,7 @@
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\AddShield.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\AddWeaponEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\Cooperation.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\DecreaseAttack.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\Degenerate.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\HalfShield.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\Illusion.cs" />
@@ -90,6 +91,7 @@
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\StealEnergyByMechCount.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\MechBased\SummonMechByMechCount.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\ShipBased\AddEnergy.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\ShipBased\AddEnergyForEachMech.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\ShipBased\DoubleEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\ShipBased\SummonMech.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />

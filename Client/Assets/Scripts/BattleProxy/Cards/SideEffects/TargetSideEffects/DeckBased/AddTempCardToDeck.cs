@@ -10,7 +10,7 @@
         {
             base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("CardCount", 0);
-            M_SideEffectParam.SetParam_ConstInt("CardID", 0, typeof(CardDeck));
+            M_SideEffectParam.SetParam_ConstInt("CardID", (int) AllCards.EmptyCardTypes.EmptyCard, typeof(CardDeck));
         }
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.DeckBased;

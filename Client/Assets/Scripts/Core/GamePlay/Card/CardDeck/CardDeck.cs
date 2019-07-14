@@ -293,7 +293,7 @@ public class CardDeck
 
     public void AddCardInstanceId(int cardId, int cardInstanceId)
     {
-        if (cardInstanceId == Const.CARD_INSTANCE_ID_NONE) return;
+        if (cardInstanceId < 0) return;
         if (CardInstanceIdDict.ContainsKey(cardInstanceId))
         {
             CardInstanceIdDict[cardInstanceId] = cardId;
@@ -306,6 +306,7 @@ public class CardDeck
 
     public void RecycleCardInstanceID(int cardInstanceId)
     {
+        if (cardInstanceId < 0) return; // 临时卡不参与卡组循环
         if (CardInstanceIdDict.ContainsKey(cardInstanceId))
         {
             CardInfo_Base cib = AllCards.GetCard(CardInstanceIdDict[cardInstanceId]);

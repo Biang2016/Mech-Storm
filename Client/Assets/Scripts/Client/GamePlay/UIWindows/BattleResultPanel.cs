@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -417,7 +416,6 @@ internal class BattleResultPanel : BaseUIForm
         UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
         UIManager.Instance.GetBaseUIForm<StoryPanel>().UnSelectNode();
         UIManager.Instance.GetBaseUIForm<StoryPanel>().Cur_ChapterMap.UnSelectAllNode();
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().StartGameAction = null;
     }
 
     private CardBase CurrentPreivewCard;

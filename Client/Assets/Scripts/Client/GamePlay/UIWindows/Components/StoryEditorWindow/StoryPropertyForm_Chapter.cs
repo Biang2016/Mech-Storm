@@ -50,7 +50,7 @@ public class StoryPropertyForm_Chapter : PoolObject
     public void Initialize(UnityAction onSelected, UnityAction onMoveUp, UnityAction onMoveDown, UnityAction onDeleteButtonClick, UnityAction onRefreshStory)
     {
         OnSelected = onSelected;
-        
+
         LanguageManager.Instance.RegisterTextKey(Label, "StoryEditorPanel_ChapterLabel");
         SelectButton.onClick.RemoveAllListeners();
         SelectButton.onClick.AddListener(onSelected);

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class LevelPropertyForm_Bonus : PoolObject

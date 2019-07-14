@@ -169,4 +169,18 @@ public class GamePlaySettings
         res.MaxDrawCardNum = reader.ReadSInt32();
         return res;
     }
+
+    public bool EqualsTo(GamePlaySettings o)
+    {
+        if (DefaultCoin != o.DefaultCoin) return false;
+        if (DefaultLife != o.DefaultLife) return false;
+        if (DefaultLifeMax != o.DefaultLifeMax) return false;
+        if (DefaultLifeMin != o.DefaultLifeMin) return false;
+        if (DefaultEnergy != o.DefaultEnergy) return false;
+        if (DefaultEnergyMax != o.DefaultEnergyMax) return false;
+        if (DefaultDrawCardNum != o.DefaultDrawCardNum) return false;
+        if (MinDrawCardNum != o.MinDrawCardNum) return false;
+        if (MaxDrawCardNum != o.MaxDrawCardNum) return false;
+        return true;
+    }
 }

@@ -5,7 +5,7 @@ public class Shop : Level
 {
     public List<ShopItem> ShopItems = new List<ShopItem>();
 
-    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, List<ShopItem> shopItems) : base(LevelType.Shop, levelThemeCategory, levelPicId, levelNames)
+    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, List<ShopItem> shopItems) : base(LevelTypes.Shop, levelThemeCategory, levelPicId, levelNames)
     {
         ShopItems = shopItems;
     }

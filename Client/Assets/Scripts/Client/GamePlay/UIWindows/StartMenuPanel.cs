@@ -153,7 +153,7 @@ public class StartMenuPanel : BaseUIForm
         }
     }
 
-    private States state;
+    public States state;
 
     [Flags]
     public enum States

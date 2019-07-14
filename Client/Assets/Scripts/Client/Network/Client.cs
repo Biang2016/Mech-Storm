@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Client : MonoSingleton<Client>
+﻿public class Client : MonoSingleton<Client>
 {
     private Proxy proxy;
 
@@ -24,7 +22,7 @@ public class Client : MonoSingleton<Client>
     {
         Proxy.OnClientStateChange = null;
     }
-    
+
 #if UNITY_EDITOR
     private static bool LocalSerailizeRequest = true;
 #else

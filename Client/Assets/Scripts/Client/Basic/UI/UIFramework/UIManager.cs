@@ -372,9 +372,23 @@ public class UIManager : MonoSingleton<UIManager>
         baseUIForm.Hide();
         CurrentShowUIFormDict.Remove(uiFormName);
 
+        bool showAll = true;
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
-            baseUI.Display();
+            if (baseUI.UIType.UIForms_ShowMode == UIFormShowModes.HideOther)
+            {
+                baseUI.Display();
+                showAll = false;
+                break;
+            }
+        }
+
+        if (showAll)
+        {
+            foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
+            {
+                baseUI.Display();
+            }
         }
 
         foreach (BaseUIForm staUI in CurrentUIFormsStack)

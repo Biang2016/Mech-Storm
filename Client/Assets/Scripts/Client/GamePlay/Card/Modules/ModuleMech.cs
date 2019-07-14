@@ -109,6 +109,7 @@ public class ModuleMech : ModuleBase
     {
         base.InitializeComponents();
         CardDescComponent.SetCardName(CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()]);
+        CardDescComponent.SetTempCard(false);
         CardBasicComponent.ChangePicture(CardInfo.BaseInfo.PictureID);
         CardSlotsComponent.SetSlot(ClientPlayer, this, CardInfo.MechInfo);
         CardSlotsComponent.ShowAllSlotBlooms(false);
@@ -347,7 +348,7 @@ public class ModuleMech : ModuleBase
                             (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsFrenzy) ||
                             (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsFrenzy);
 
-    public bool IsSentry => (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry);
+    public bool IsSentry => (CardInfo.MechInfo.IsSentry || (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry));
 
     public bool IsSniper => CardInfo.MechInfo.IsSniper ||
                             (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsSniper) ||

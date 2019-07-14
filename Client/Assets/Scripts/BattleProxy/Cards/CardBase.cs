@@ -45,11 +45,6 @@
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
-                if (se is HandCardRelatedSideEffect)
-                {
-                    ((HandCardRelatedSideEffect) se).TargetCardInstanceId = M_CardInstanceId;
-                }
-
                 se.M_ExecutorInfo = new ExecutorInfo(clientId: BattlePlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
             }
         }

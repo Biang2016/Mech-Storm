@@ -163,7 +163,7 @@ public class GameProxy
                         BattleProxy clientA = BattleProxy;
 
                         int AI_ClientId = 998;
-                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", 0);
+                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", -1);
                         clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
                         CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
                         DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");

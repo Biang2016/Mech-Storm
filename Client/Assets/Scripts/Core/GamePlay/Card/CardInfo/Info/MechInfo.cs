@@ -8,15 +8,17 @@ public struct MechInfo
     public bool IsSniper;
     public bool IsCharger;
     public bool IsFrenzy;
+    public bool IsSentry;
     public SlotTypes[] Slots;
 
-    public MechInfo(bool isSoldier, bool isDefense, bool isSniper, bool isCharger, bool isFrenzy, SlotTypes slot1, SlotTypes slot2, SlotTypes slot3, SlotTypes slot4)
+    public MechInfo(bool isSoldier, bool isDefense, bool isSniper, bool isCharger, bool isFrenzy, bool isSentry, SlotTypes slot1, SlotTypes slot2, SlotTypes slot3, SlotTypes slot4)
     {
         IsSoldier = isSoldier;
         IsDefense = isDefense;
         IsSniper = isSniper;
         IsCharger = isCharger;
         IsFrenzy = isFrenzy;
+        IsSentry = isSentry;
         Slots = new SlotTypes[] {slot1, slot2, slot3, slot4};
     }
 
@@ -27,6 +29,7 @@ public struct MechInfo
         writer.WriteByte(IsSniper ? (byte) 0x01 : (byte) 0x00);
         writer.WriteByte(IsCharger ? (byte) 0x01 : (byte) 0x00);
         writer.WriteByte(IsFrenzy ? (byte) 0x01 : (byte) 0x00);
+        writer.WriteByte(IsSentry ? (byte) 0x01 : (byte) 0x00);
         if (Slots == null)
         {
             Slots = new SlotTypes[] {SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None};
@@ -45,11 +48,12 @@ public struct MechInfo
         bool IsSniper = reader.ReadByte() == 0x01;
         bool IsCharger = reader.ReadByte() == 0x01;
         bool IsFrenzy = reader.ReadByte() == 0x01;
+        bool IsSentry = reader.ReadByte() == 0x01;
         SlotTypes Slot1 = (SlotTypes) reader.ReadSInt32();
         SlotTypes Slot2 = (SlotTypes) reader.ReadSInt32();
         SlotTypes Slot3 = (SlotTypes) reader.ReadSInt32();
         SlotTypes Slot4 = (SlotTypes) reader.ReadSInt32();
-        return new MechInfo(IsSoldier, IsDefense, IsSniper, IsCharger, IsFrenzy, Slot1, Slot2, Slot3, Slot4);
+        return new MechInfo(IsSoldier, IsDefense, IsSniper, IsCharger, IsFrenzy, IsSentry, Slot1, Slot2, Slot3, Slot4);
     }
 
     public bool HasSlotType(SlotTypes slotType)

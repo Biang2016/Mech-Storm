@@ -170,6 +170,12 @@ internal partial class GameManager
         }
     }
 
+    public void SideEffect_ForeachMech(Action<int> action, BattlePlayer callerPlayer, TargetRange targetRange)
+    {
+        int valueTargetCount = GetValidTargetCountByTargetRange(targetRange, callerPlayer);
+        action(valueTargetCount);
+    }
+
     public void SideEffect_ILifeAction(Action<ILife> action, BattlePlayer callerPlayer, int count, TargetRange targetRange, TargetSelect targetSelect, List<int> targetClientIds, List<int> targetMechIds)
     {
         List<BattlePlayer> mech_players = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
@@ -479,6 +485,32 @@ internal partial class GameManager
         }
 
         return res;
+    }
+
+    public static int GetValidTargetCountByTargetRange(TargetRange targetRange, BattlePlayer callerPlayer)
+    {
+        int count = 0;
+        if ((targetRange & TargetRange.SelfHeroes) != 0)
+        {
+            count += callerPlayer.BattleGroundManager.HeroCount;
+        }
+
+        if ((targetRange & TargetRange.SelfSoldiers) != 0)
+        {
+            count += callerPlayer.BattleGroundManager.SoldierCount;
+        }
+
+        if ((targetRange & TargetRange.EnemyHeroes) != 0)
+        {
+            count += callerPlayer.MyEnemyPlayer.BattleGroundManager.HeroCount;
+        }
+
+        if ((targetRange & TargetRange.EnemySoldiers) != 0)
+        {
+            count += callerPlayer.MyEnemyPlayer.BattleGroundManager.SoldierCount;
+        }
+
+        return count;
     }
 
     public static List<BattlePlayer> GetShipsPlayerByTargetRange(TargetRange targetRange, BattlePlayer player)

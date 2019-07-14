@@ -803,9 +803,13 @@
 		"zh": "剧情名称",
 		"en": "Story Name"
 	},
-	"StoryEditorPanel_ReturnToGamerButtonText": {
+	"StoryEditorPanel_ReturnToGameButtonText": {
 		"zh": "返回游戏",
 		"en": "Return to game"
+	},
+	"StoryEditorPanel_CardEditorButtonText": {
+		"zh": "卡牌编辑器",
+		"en": "Card Editor"
 	},
 	"StoryEditorPanel_NextChapterButtonText": {
 		"zh": "下一章",
@@ -1145,6 +1149,10 @@
 		"zh": "狂暴",
 		"en": "Is Frenzy"
 	},
+	"CardEditorPanel_MechIsSentryLabelText": {
+		"zh": "哨戒",
+		"en": "Is Sentry"
+	},
 	"CardEditorPanel_MechWeaponSlotLabelText": {
 		"zh": "武器槽",
 		"en": "Weapon Slot"
@@ -1291,6 +1299,10 @@
 	"LevelEditorPanel_EnemyType": {
 		"zh": "敌人类型",
 		"en": "Enemy Type"
+	},
+	"LevelEditorPanel_EnemyLevel": {
+		"zh": "难度",
+		"en": "Level"
 	},
 	"LevelEditorPanel_EnemyDrawCardNum": {
 		"zh": "敌人抽牌数",
@@ -1446,10 +1458,18 @@
 		"zh": "唯一出现",
 		"en": "Is Unique"
 	},
+	"LevelEditorPanel_OverrideExistedLevel": {
+		"zh": "已经存在名为“{0}”的关卡，是否覆盖？",
+		"en": "There exists a level named '{0}'. Sure to override?"
+	},
+	"LevelEditorPanel_DeleteOriginalLevel": {
+		"zh": "您修改了关卡名称，是否删除原关卡 '{0}' ?",
+		"en": "Level name is modified. Delete the original level '{0}'?"
+	},
 
 	"CardSelectPanel_ShowAllCardToggleLabel":{
-		"zh": "显示所有卡片",
-		"en": "Show all cards"
+		"zh": "所有卡片",
+		"en": "All"
 	},
 	"CardSelectPanel_UnselectAllButtonLabel":{
 		"zh": "清除所有选择",
@@ -1483,8 +1503,8 @@
 	},
 
 	"Notice_ReturnWarningSave": {
-		"zh": "未保存的更改将会丢失，是否返回？",
-		"en": "Unsaved changes will be discarded. Proceed to return?"
+		"zh": "未保存的更改将会丢失，是否继续？",
+		"en": "Unsaved changes will be discarded. Proceed?"
 	},
 
 	"ChapterMap_LevelNameLabel":{
@@ -1495,8 +1515,56 @@
 		"zh": "关卡类型:",
 		"en": "Level type: "
 	},
+	"ChapterMap_EnemyLevelLabel":{
+		"zh": "难度:",
+		"en": "Level: "
+	},
 	"ChapterMap_BeatedText":{
 		"zh": "通过",
 		"en": "Beated"
+	},
+
+	"LevelType_Start":{
+		"zh": "起点",
+		"en": "Start"
+	},
+	"LevelType_Enemy":{
+		"zh": "敌人",
+		"en": "Enemy"
+	},
+	"LevelType_Shop":{
+		"zh": "商店",
+		"en": "Shop"
+	},
+	"LevelType_Rest":{
+		"zh": "休息区",
+		"en": "Rest"
+	},
+	"LevelType_Treasure":{
+		"zh": "宝藏",
+		"en": "Treasure"
+	},
+	"LevelType_Treasure":{
+		"zh": "宝藏",
+		"en": "Treasure"
+	},
+
+	"EnemyType_Soldier":{
+		"zh": "士兵",
+		"en": "Rest"
+	},
+	"EnemyType_Elite":{
+		"zh": "精英",
+		"en": "Elite"
+	},
+	"EnemyType_Boss":{
+		"zh": "Boss",
+		"en": "Boss"
+	},
+
+
+	"Card_TempCardText": {
+		"zh": "临",
+		"en": "T"
 	},
 }

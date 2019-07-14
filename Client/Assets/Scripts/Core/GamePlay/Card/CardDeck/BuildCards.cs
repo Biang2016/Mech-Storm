@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Security.Permissions;
 
 public class BuildCards : IClone<BuildCards>
 {
     public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
 
-    public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos = null, SortedDictionary<int, bool> cardUnlockInfos = null)
+    public BuildCards(DefaultCardLimitNumTypes defaultCardLimitNumType, SortedDictionary<int, CardSelectInfo> cardSelectInfos = null, SortedDictionary<int, bool> cardUnlockInfos = null)
     {
         CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
         foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
         {
-            CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, kv.Value.BaseInfo.LimitNum));
+            CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, (defaultCardLimitNumType == DefaultCardLimitNumTypes.BasedOnZero) ? 0 : kv.Value.BaseInfo.LimitNum));
         }
 
         if (cardSelectInfos != null)
@@ -23,6 +22,12 @@ public class BuildCards : IClone<BuildCards>
                 }
             }
         }
+    }
+
+    public enum DefaultCardLimitNumTypes
+    {
+        BasedOnCardBaseInfoLimitNum,
+        BasedOnZero,
     }
 
     public void ClearAllCardCounts()
@@ -230,7 +235,7 @@ public class BuildCards : IClone<BuildCards>
             cardSelectInfo.Add(kv.Key, kv.Value.Clone());
         }
 
-        return new BuildCards(cardSelectInfo);
+        return new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum, cardSelectInfo);
     }
 
     public bool Equals(BuildCards o)
@@ -273,7 +278,7 @@ public class BuildCards : IClone<BuildCards>
             cardSelectInfos.Add(csi.CardID, csi);
         }
 
-        return new BuildCards(cardSelectInfos);
+        return new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum, cardSelectInfos);
     }
 
     public class CardSelectInfo : IClone<CardSelectInfo>

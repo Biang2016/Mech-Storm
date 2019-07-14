@@ -95,14 +95,14 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
 
         foreach (KeyValuePair<int, Level> kv in Levels)
         {
-            if (kv.Value.LevelType == LevelType.Enemy)
+            if (kv.Value.LevelType == LevelTypes.Enemy)
             {
                 XmlElement enemy_ele = doc.CreateElement("EnemyInfo");
                 enemies_ele.AppendChild(enemy_ele);
                 enemy_ele.SetAttribute("id", kv.Key.ToString());
                 enemy_ele.SetAttribute("name", ((Enemy) kv.Value).LevelNames["en"]);
             }
-            else if (kv.Value.LevelType == LevelType.Shop)
+            else if (kv.Value.LevelType == LevelTypes.Shop)
             {
                 XmlElement shop_ele = doc.CreateElement("ShopInfo");
                 shops_ele.AppendChild(shop_ele);
@@ -129,7 +129,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         for (int i = 0; i < node_EnemyInfos.ChildNodes.Count; i++)
         {
             XmlNode enemyInfo = node_EnemyInfos.ChildNodes[i];
-            Enemy enemy = (Enemy) AllLevels.GetLevel(LevelType.Enemy, enemyInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
+            Enemy enemy = (Enemy) AllLevels.GetLevel(LevelTypes.Enemy, enemyInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
             int id = int.Parse(enemyInfo.Attributes["id"].Value);
             allLevels.Add(id, enemy);
         }
@@ -137,7 +137,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         for (int i = 0; i < node_ShopInfos.ChildNodes.Count; i++)
         {
             XmlNode shopInfo = node_ShopInfos.ChildNodes[i];
-            Shop shop = (Shop) AllLevels.GetLevel(LevelType.Shop, shopInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
+            Shop shop = (Shop) AllLevels.GetLevel(LevelTypes.Shop, shopInfo.Attributes["name"].Value, CloneVariantUtils.OperationType.Clone);
             int id = int.Parse(shopInfo.Attributes["id"].Value);
             allLevels.Add(id, shop);
         }

@@ -5,7 +5,6 @@ internal class Battle_HandManager
 {
     public BattlePlayer BattlePlayer;
     public List<CardBase> Cards = new List<CardBase>();
-    public HashSet<int> CardInstanceIDSet = new HashSet<int>();
     public HashSet<int> UsableCards = new HashSet<int>();
 
     public Battle_HandManager(BattlePlayer battlePlayer)
@@ -30,7 +29,6 @@ internal class Battle_HandManager
         {
             CardBase newCard = CardBase.InstantiateCardByCardInfo(cb, BattlePlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
             Cards.Add(newCard);
-            CardInstanceIDSet.Add(newCard.M_CardInstanceId);
             BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
             cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
         }
@@ -57,11 +55,26 @@ internal class Battle_HandManager
 
     #endregion
 
-    internal int GetRandomHandCardId()
+    internal int GetRandomHandCardId(HashSet<int> exceptionInstanceIDList = null)
     {
-        Random rd = new Random();
-        int randomIndex = rd.Next(0, Cards.Count);
-        return Cards[randomIndex].CardInfo.CardID;
+        List<int> validCardIDs = new List<int>();
+        foreach (CardBase cb in Cards)
+        {
+            if (!exceptionInstanceIDList.Contains(cb.M_CardInstanceId))
+            {
+                validCardIDs.Add(cb.CardInfo.CardID);
+            }
+        }
+
+        List<int> res = Utils.GetRandomFromList(validCardIDs, 1);
+        if (res.Count > 0)
+        {
+            return res[0];
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     internal List<int> GetRandomSpellCardInstanceIds(int count, int exceptCardInstanceID)
@@ -87,10 +100,9 @@ internal class Battle_HandManager
     internal void GetATempCardByID(int cardID)
     {
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
-        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, -1);
+        CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, BattlePlayer.GameManager.GenerateNewTempCardInstanceId());
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         Cards.Add(newCard);
-        CardInstanceIDSet.Add(newCard.M_CardInstanceId);
     }
 
     internal void GetACardByID(int cardID, int overrideCardInstanceID = -1)
@@ -99,7 +111,7 @@ internal class Battle_HandManager
         CardBase newCard;
         if (overrideCardInstanceID == -1)
         {
-            newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
+            newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, BattlePlayer.GameManager.GenerateNewTempCardInstanceId());
         }
         else
         {
@@ -108,7 +120,6 @@ internal class Battle_HandManager
 
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         Cards.Add(newCard);
-        CardInstanceIDSet.Add(newCard.M_CardInstanceId);
     }
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
@@ -139,7 +150,6 @@ internal class Battle_HandManager
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
         Cards.Remove(dropCard);
         UsableCards.Remove(dropCard.M_CardInstanceId);
-        CardInstanceIDSet.Remove(dropCard.M_CardInstanceId);
         if (!dropCard.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(dropCard.M_CardInstanceId);
     }
 
@@ -149,7 +159,7 @@ internal class Battle_HandManager
 
         if (onlyTriggerNotUse)
         {
-            CardBase copyCard = CardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.BattlePlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
+            CardBase copyCard = CardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.BattlePlayer, BattlePlayer.GameManager.GenerateNewTempCardInstanceId());
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayCard,
                 new ExecutorInfo(
                     clientId: BattlePlayer.ClientId,
@@ -185,7 +195,6 @@ internal class Battle_HandManager
             useCard.UnRegisterSideEffect();
             Cards.Remove(useCard);
             UsableCards.Remove(useCard.M_CardInstanceId);
-            CardInstanceIDSet.Remove(useCard.M_CardInstanceId);
         }
     }
 

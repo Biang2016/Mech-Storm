@@ -409,6 +409,7 @@ public partial class SelectBuildPanel
         foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             kv.Value.SetBannerType(CardNoticeComponent.BannerTypes.None);
+            kv.Value.SetArrowType(CardNoticeComponent.ArrowTypes.None);
         }
 
         foreach (int cardID in StoryManager.Instance.JustGetNewCards)

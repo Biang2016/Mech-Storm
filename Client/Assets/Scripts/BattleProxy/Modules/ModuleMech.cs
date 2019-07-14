@@ -538,7 +538,7 @@ internal class ModuleMech : ModuleBase, ILife
             {
                 AttackTimesThisRound = 2;
             }
-            else if (M_Weapon.CardInfo.WeaponInfo.IsSentry) //如果枪械为哨戒模式，则攻击次数清零
+            else if (CardInfo.MechInfo.IsSentry || M_Weapon.CardInfo.WeaponInfo.IsSentry) //如果枪械为哨戒模式，则攻击次数清零
             {
                 AttackTimesThisRound = 0;
             }

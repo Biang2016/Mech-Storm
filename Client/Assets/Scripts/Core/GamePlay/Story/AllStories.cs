@@ -28,7 +28,7 @@ public class AllStories
             doc.LoadXml(text);
             XmlElement story = doc.DocumentElement;
 
-            BuildInfo buildInfo = BuildInfo.GetBuildInfoFromXML(story.ChildNodes.Item(0), out bool needRefresh);
+            BuildInfo buildInfo = BuildInfo.GetBuildInfoFromXML(story.ChildNodes.Item(0), out bool needRefresh, BuildCards.DefaultCardLimitNumTypes.BasedOnZero);
             NeedReload |= needRefresh;
             GamePlaySettings gps = GamePlaySettings.GetGamePlaySettingsFromXML(story.ChildNodes.Item(1));
 

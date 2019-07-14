@@ -196,6 +196,7 @@ public static class AllCards
                             isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
                             isCharger: node_CardInfo.Attributes["isCharger"].Value == "True",
                             isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
+                            isSentry: node_CardInfo.Attributes["isSentry"].Value == "True",
                             slot1: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot1"].Value),
                             slot2: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot2"].Value),
                             slot3: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot3"].Value),
@@ -641,7 +642,7 @@ public static class AllCards
 
         //Levels
         List<Level> refreshLevel = new List<Level>();
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
         {
             foreach (KeyValuePair<string, Level> _kv in kv.Value)
             {

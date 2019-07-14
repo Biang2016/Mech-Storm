@@ -9,7 +9,7 @@
   <Card id="10">
     <CardInfo name="baseInfo" pictureID="1" cardName_en="Strike" cardName_zh="强袭" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="1" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="11" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -22,7 +22,7 @@
   <Card id="11">
     <CardInfo name="baseInfo" pictureID="16" cardName_en="FA Strike" cardName_zh="重装强袭" isTemp="False" isHide="False" metal="6" energy="0" coin="400" limitNum="1" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="6" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -35,7 +35,7 @@
   <Card id="20">
     <CardInfo name="baseInfo" pictureID="2" cardName_en="RX-782" cardName_zh="元祖高达" isTemp="False" isHide="False" metal="5" energy="0" coin="350" limitNum="1" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -48,7 +48,7 @@
   <Card id="30">
     <CardInfo name="baseInfo" pictureID="3" cardName_en="Mistery" cardName_zh="神秘人" isTemp="False" isHide="False" metal="9" energy="0" coin="700" limitNum="1" cardRareLevel="6" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="18" totalLife="18" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
@@ -61,7 +61,7 @@
   <Card id="40">
     <CardInfo name="baseInfo" pictureID="4" cardName_en="Evil Gundam" cardName_zh="恶魔高达" isTemp="False" isHide="False" metal="3" energy="0" coin="250" limitNum="1" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -74,7 +74,7 @@
   <Card id="50">
     <CardInfo name="baseInfo" pictureID="5" cardName_en="Unicorn" cardName_zh="独角兽高达" isTemp="False" isHide="False" metal="7" energy="0" coin="500" limitNum="1" cardRareLevel="6" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="51" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
@@ -87,7 +87,7 @@
   <Card id="51">
     <CardInfo name="baseInfo" pictureID="10" cardName_en="FA Unicorn" cardName_zh="全装甲独角兽" isTemp="False" isHide="False" metal="8" energy="0" coin="700" limitNum="0" cardRareLevel="7" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="16" totalLife="16" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
@@ -96,7 +96,7 @@
   <Card id="60">
     <CardInfo name="baseInfo" pictureID="6" cardName_en="New Zeon" cardName_zh="新安洲" isTemp="False" isHide="False" metal="6" energy="0" coin="250" limitNum="1" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="12" totalLife="12" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
@@ -105,7 +105,7 @@
   <Card id="70">
     <CardInfo name="baseInfo" pictureID="7" cardName_en="Strike Freedom" cardName_zh="强袭自由" isTemp="False" isHide="False" metal="8" energy="0" coin="400" limitNum="1" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="MA" />
     <CardInfo name="lifeInfo" life="16" totalLife="16" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -114,7 +114,7 @@
   <Card id="90">
     <CardInfo name="baseInfo" pictureID="9" cardName_en="Water Swing" cardName_zh="水翼" isTemp="False" isHide="False" metal="0" energy="12" coin="200" limitNum="1" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="4" />
     <CardInfo name="sideEffectsBundle" />
@@ -123,7 +123,7 @@
   <Card id="110">
     <CardInfo name="baseInfo" pictureID="11" cardName_en="Gundam Exia" cardName_zh="能天使高达" isTemp="False" isHide="False" metal="5" energy="5" coin="250" limitNum="1" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="111" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -136,7 +136,7 @@
   <Card id="111">
     <CardInfo name="baseInfo" pictureID="20" cardName_en="Gundam Exia X" cardName_zh="能天使高达X" isTemp="False" isHide="False" metal="5" energy="5" coin="300" limitNum="0" cardRareLevel="7" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="110" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="2" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -149,7 +149,7 @@
   <Card id="120">
     <CardInfo name="baseInfo" pictureID="12" cardName_en="Gundam Dynames" cardName_zh="力天使高达" isTemp="False" isHide="False" metal="4" energy="5" coin="250" limitNum="1" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="121" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
@@ -158,7 +158,7 @@
   <Card id="121">
     <CardInfo name="baseInfo" pictureID="22" cardName_en="Gundam Dynames X" cardName_zh="力天使高达X" isTemp="False" isHide="False" metal="4" energy="5" coin="300" limitNum="0" cardRareLevel="7" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="120" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="5" totalLife="5" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="2" basicArmor="3" />
     <CardInfo name="sideEffectsBundle" />
@@ -167,7 +167,7 @@
   <Card id="130">
     <CardInfo name="baseInfo" pictureID="13" cardName_en="Gundam Virtue" cardName_zh="德天使高达" isTemp="False" isHide="False" metal="4" energy="5" coin="250" limitNum="1" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="131" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="4" basicArmor="3" />
     <CardInfo name="sideEffectsBundle" />
@@ -176,7 +176,7 @@
   <Card id="131">
     <CardInfo name="baseInfo" pictureID="18" cardName_en="Gundam Virtue X" cardName_zh="德天使高达X" isTemp="False" isHide="False" metal="4" energy="5" coin="300" limitNum="0" cardRareLevel="7" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="130" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="4" basicArmor="3" />
     <CardInfo name="sideEffectsBundle" />
@@ -185,7 +185,7 @@
   <Card id="140">
     <CardInfo name="baseInfo" pictureID="14" cardName_en="Gundam Kyrios" cardName_zh="主天使高达" isTemp="False" isHide="False" metal="4" energy="5" coin="250" limitNum="1" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="141" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -198,7 +198,7 @@
   <Card id="141">
     <CardInfo name="baseInfo" pictureID="15" cardName_en="Gundam Kyrios X" cardName_zh="主天使高达X" isTemp="False" isHide="False" metal="4" energy="5" coin="300" limitNum="0" cardRareLevel="7" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="140" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="4" basicShield="2" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
@@ -211,7 +211,7 @@
   <Card id="170">
     <CardInfo name="baseInfo" pictureID="17" cardName_en="God Gundam" cardName_zh="神高达" isTemp="False" isHide="False" metal="4" energy="15" coin="400" limitNum="1" cardRareLevel="6" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="6" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -220,7 +220,7 @@
   <Card id="5011">
     <CardInfo name="baseInfo" pictureID="51" cardName_en="Repair Team X" cardName_zh="支援小队" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="2" cardRareLevel="1" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5012" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -233,7 +233,7 @@
   <Card id="5012">
     <CardInfo name="baseInfo" pictureID="52" cardName_en="Repair Team XX" cardName_zh="支援中队" isTemp="False" isHide="False" metal="2" energy="0" coin="100" limitNum="0" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5013" degradeCardID="5011" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -246,7 +246,7 @@
   <Card id="5013">
     <CardInfo name="baseInfo" pictureID="61" cardName_en="Repair Team XXX" cardName_zh="支援大队" isTemp="False" isHide="False" metal="2" energy="0" coin="150" limitNum="0" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5012" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -259,7 +259,7 @@
   <Card id="5021">
     <CardInfo name="baseInfo" pictureID="53" cardName_en="Mech Mine I" cardName_zh="太空机雷I" isTemp="False" isHide="False" metal="2" energy="0" coin="50" limitNum="2" cardRareLevel="1" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5022" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -272,7 +272,7 @@
   <Card id="5022">
     <CardInfo name="baseInfo" pictureID="53" cardName_en="Mech Mine II" cardName_zh="太空机雷II" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="0" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5021" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -285,7 +285,7 @@
   <Card id="5031">
     <CardInfo name="baseInfo" pictureID="54" cardName_en="Field Engineer" cardName_zh="战场工兵I" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="5" cardRareLevel="1" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5032" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -298,7 +298,7 @@
   <Card id="5032">
     <CardInfo name="baseInfo" pictureID="55" cardName_en="Field Engineer" cardName_zh="战场工兵II" isTemp="False" isHide="False" metal="2" energy="0" coin="50" limitNum="0" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5031" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -311,7 +311,7 @@
   <Card id="5040">
     <CardInfo name="baseInfo" pictureID="56" cardName_en="Gun Canon" cardName_zh="钢加农" isTemp="False" isHide="False" metal="3" energy="0" coin="100" limitNum="3" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
@@ -320,9 +320,9 @@
   <Card id="5050">
     <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom Team" cardName_zh="大魔分队" isTemp="False" isHide="False" metal="3" energy="0" coin="400" limitNum="1" cardRareLevel="3" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
-    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
         <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="5060" />
@@ -334,7 +334,7 @@
   <Card id="5060">
     <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom(Attack)" cardName_zh="大魔[攻击]" isTemp="True" isHide="True" metal="2" energy="0" coin="0" limitNum="1" cardRareLevel="1" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -343,7 +343,7 @@
   <Card id="5070">
     <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom(Defence)" cardName_zh="大魔[防守]" isTemp="True" isHide="True" metal="2" energy="0" coin="0" limitNum="1" cardRareLevel="1" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -352,7 +352,7 @@
   <Card id="5080">
     <CardInfo name="baseInfo" pictureID="58" cardName_en="Strike Team" cardName_zh="突袭小队" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="3" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
@@ -365,7 +365,7 @@
   <Card id="5081">
     <CardInfo name="baseInfo" pictureID="58" cardName_en="Striker" cardName_zh="突袭者" isTemp="True" isHide="True" metal="1" energy="0" coin="0" limitNum="3" cardRareLevel="0" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -374,7 +374,7 @@
   <Card id="5090">
     <CardInfo name="baseInfo" pictureID="59" cardName_en="Sniper Jim" cardName_zh="狙击型吉姆" isTemp="False" isHide="False" metal="3" energy="0" coin="350" limitNum="2" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
@@ -383,7 +383,7 @@
   <Card id="5100">
     <CardInfo name="baseInfo" pictureID="60" cardName_en="GAT-X131" cardName_zh="GAT-X131" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="7" totalLife="7" />
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -392,25 +392,38 @@
   <Card id="5110">
     <CardInfo name="baseInfo" pictureID="63" cardName_en="RX-785" cardName_zh="RX-785" isTemp="False" isHide="False" metal="5" energy="0" coin="200" limitNum="3" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="5" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="5120">
-    <CardInfo name="baseInfo" pictureID="64" cardName_en="MS-08TX[EXAM]" cardName_zh="伊芙利特改" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="3" cardRareLevel="2" cardType="Mech" />
+    <CardInfo name="baseInfo" pictureID="64" cardName_en="MS-08TX" cardName_zh="伊芙利特改" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="3" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
+  <Card id="5121">
+    <CardInfo name="baseInfo" pictureID="64" cardName_en="MS-08TX [EXAM]" cardName_zh="伊芙利特改-进阶" isTemp="False" isHide="True" metal="4" energy="3" coin="350" limitNum="3" cardRareLevel="3" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="6" totalLife="6" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="BattleCry">
+        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemySoldiers" ChoiceCount="1" Damage="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
   <Card id="5130">
     <CardInfo name="baseInfo" pictureID="620" cardName_en="Spider" cardName_zh="减速机器人" isTemp="True" isHide="True" metal="0" energy="3" coin="400" limitNum="3" cardRareLevel="3" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
@@ -419,7 +432,7 @@
   <Card id="5140">
     <CardInfo name="baseInfo" pictureID="65" cardName_en="Jesta" cardName_zh="杰斯塔" isTemp="False" isHide="False" metal="4" energy="0" coin="200" limitNum="3" cardRareLevel="4" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
@@ -428,7 +441,7 @@
   <Card id="5150">
     <CardInfo name="baseInfo" pictureID="66" cardName_en="Zaku" cardName_zh="扎古" isTemp="False" isHide="False" metal="2" energy="0" coin="250" limitNum="3" cardRareLevel="3" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="2" totalLife="2" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
     <CardInfo name="sideEffectsBundle" />
@@ -437,7 +450,7 @@
   <Card id="5160">
     <CardInfo name="baseInfo" pictureID="67" cardName_en="Gelgoog" cardName_zh="狙击格鲁古古" isTemp="False" isHide="False" metal="5" energy="0" coin="200" limitNum="3" cardRareLevel="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="True" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="4" totalLife="4" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="4" />
     <CardInfo name="sideEffectsBundle" />
@@ -446,7 +459,7 @@
   <Card id="5171">
     <CardInfo name="baseInfo" pictureID="68" cardName_en="Training Recruit" cardName_zh="训练场新兵" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="5" cardRareLevel="1" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5172" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
@@ -455,7 +468,7 @@
   <Card id="5172">
     <CardInfo name="baseInfo" pictureID="68" cardName_en="Training Veteran" cardName_zh="训练场老兵" isTemp="False" isHide="False" metal="2" energy="0" coin="100" limitNum="0" cardRareLevel="2" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5173" degradeCardID="5171" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
@@ -464,9 +477,31 @@
   <Card id="5173">
     <CardInfo name="baseInfo" pictureID="68" cardName_en="Training Elite" cardName_zh="训练场精英" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="0" cardRareLevel="3" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="5172" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="3" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="5180">
+    <CardInfo name="baseInfo" pictureID="945" cardName_en="Reaper" cardName_zh="收割者" isTemp="False" isHide="False" metal="3" energy="0" coin="150" limitNum="3" cardRareLevel="2" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="2" totalLife="2" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnSoldierDie" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
+      </SideEffectExecute>
+    </CardInfo>
+  </Card>
+  <Card id="5190">
+    <CardInfo name="baseInfo" pictureID="203" cardName_en="Sentry Gun" cardName_zh="哨戒炮" isTemp="False" isHide="False" metal="2" energy="4" coin="175" limitNum="3" cardRareLevel="2" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="True" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="6" totalLife="6" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
@@ -494,7 +529,7 @@
   <Card id="10020">
     <CardInfo name="baseInfo" pictureID="103" cardName_en="Dagger" cardName_zh="匕首" isTemp="False" isHide="False" metal="2" energy="0" coin="250" limitNum="3" cardRareLevel="2" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="weaponInfo" energy="1" energyMax="2" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
+    <CardInfo name="weaponInfo" energy="1" energyMax="2" attack="0" weaponType="Sword" isSentry="False" isFrenzy="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
@@ -592,21 +627,21 @@
   <Card id="20021">
     <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor Ⅰ" cardName_zh="新兵盾牌Ⅰ" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="3" cardRareLevel="2" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20022" degradeCardID="-1" />
-    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefense="False" />
+    <CardInfo name="shieldInfo" armor="2" shield="0" shieldType="Armor" isDefense="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20022">
     <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor Ⅱ" cardName_zh="新兵盾牌Ⅱ" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="0" cardRareLevel="4" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20023" degradeCardID="20021" />
-    <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" isDefense="False" />
+    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefense="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20023">
     <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor Ⅲ" cardName_zh="新兵盾牌Ⅲ" isTemp="False" isHide="False" metal="3" energy="0" coin="300" limitNum="0" cardRareLevel="5" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20022" />
-    <CardInfo name="shieldInfo" armor="8" shield="0" shieldType="Armor" isDefense="True" />
+    <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" isDefense="True" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
@@ -719,10 +754,20 @@
   </Card>
   <Card id="50070">
     <CardInfo name="baseInfo" pictureID="605" cardName_en="Titanium Cube" cardName_zh="钛金魔方" isTemp="False" isHide="False" metal="0" energy="5" coin="200" limitNum="3" cardRareLevel="1" cardType="Spell" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="50071" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="CopyNextDrawCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50071">
+    <CardInfo name="baseInfo" pictureID="605" cardName_en="Titanium Cube II" cardName_zh="钛金魔方II" isTemp="False" isHide="False" metal="0" energy="5" coin="300" limitNum="3" cardRareLevel="1" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50070" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="CopyNextDrawCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -755,7 +800,7 @@
         <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="10" />
       </SideEffectExecute>
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnEndRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-        <SideEffect name="WaitInHandDecreaseEnergy" DecValue="2" />
+        <SideEffect name="WaitInHandDecreaseEnergy" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DecValue="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1038,7 +1083,27 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="TriggerHandCard" CardCount="3" />
+        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="3" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50330">
+    <CardInfo name="baseInfo" pictureID="727" cardName_en="Raser Repair" cardName_zh="激光修复" isTemp="False" isHide="False" metal="0" energy="4" coin="150" limitNum="3" cardRareLevel="2" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfSoldiers" ChoiceCount="1" HealValue="3" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50340">
+    <CardInfo name="baseInfo" pictureID="947" cardName_en="Hack" cardName_zh="伺机破坏" isTemp="False" isHide="False" metal="0" energy="4" coin="175" limitNum="3" cardRareLevel="3" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="DecreaseAttack" TargetSelect="All" TargetRange="EnemySoldiers" ChoiceCount="1" AttackValue="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1055,7 +1120,7 @@
   </Card>
   <Card id="60012">
     <CardInfo name="baseInfo" pictureID="701" cardName_en="M Energy Cube" cardName_zh="中型能量块" isTemp="False" isHide="False" metal="0" energy="0" coin="250" limitNum="0" cardRareLevel="2" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="60013" degradeCardID="60011" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60011" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="4" />
@@ -1065,7 +1130,7 @@
   </Card>
   <Card id="60013">
     <CardInfo name="baseInfo" pictureID="701" cardName_en="L Energy Cube" cardName_zh="大型能量块" isTemp="False" isHide="False" metal="0" energy="0" coin="300" limitNum="0" cardRareLevel="3" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60012" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="6" />
@@ -1099,19 +1164,30 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60031" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawTypeCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DrawCardType="Energy" CardCount="1" />
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="4" />
+        <SideEffect name="DrawTypeCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DrawCardType="Energy" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="60040">
-    <CardInfo name="baseInfo" pictureID="705" cardName_en="AI Upgrade" cardName_zh="AI升级" isTemp="False" isHide="False" metal="2" energy="0" coin="300" limitNum="3" cardRareLevel="1" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="baseInfo" pictureID="705" cardName_en="Forge" cardName_zh="伪造" isTemp="False" isHide="False" metal="2" energy="0" coin="300" limitNum="3" cardRareLevel="1" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60041" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="3" />
+        <SideEffect name="GetHandCardCopy" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60041">
+    <CardInfo name="baseInfo" pictureID="705" cardName_en="Forge II" cardName_zh="伪造II" isTemp="False" isHide="False" metal="2" energy="0" coin="350" limitNum="3" cardRareLevel="1" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60040" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Energy="5" />
-        <SideEffect name="GetHandCardCopy" />
+        <SideEffect name="GetHandCardCopy" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1138,7 +1214,7 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="60070">
-    <CardInfo name="baseInfo" pictureID="708" cardName_en="Blue Storm" cardName_zh="蓝色风暴" isTemp="False" isHide="False" metal="0" energy="0" coin="600" limitNum="1" cardRareLevel="3" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="708" cardName_en="Blue Storm" cardName_zh="蓝色风暴" isTemp="False" isHide="False" metal="0" energy="0" coin="350" limitNum="1" cardRareLevel="3" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
@@ -1149,11 +1225,65 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="60110">
-    <CardInfo name="baseInfo" pictureID="21" cardName_en="Power Release" cardName_zh="全能释放" isTemp="False" isHide="False" metal="2" energy="0" coin="400" limitNum="1" cardRareLevel="3" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="21" cardName_en="Power Release" cardName_zh="全能释放" isTemp="False" isHide="False" metal="0" energy="0" coin="400" limitNum="1" cardRareLevel="3" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddEnergyForEachMech" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" Energy="5" />
+        <SideEffect name="Kill" TargetSelect="All" TargetRange="SelfMechs" ChoiceCount="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60210">
+    <CardInfo name="baseInfo" pictureID="747" cardName_en="Energy Dissipation" cardName_zh="能量耗散" isTemp="False" isHide="False" metal="0" energy="3" coin="300" limitNum="2" cardRareLevel="3" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="DoubleEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60220">
+    <CardInfo name="baseInfo" pictureID="620" cardName_en="Decelerate" cardName_zh="减速" isTemp="False" isHide="False" metal="0" energy="6" coin="300" limitNum="3" cardRareLevel="3" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddTempCardToDeck" TargetSelect="Single" TargetRange="EnemyDeck" ChoiceCount="1" CardID="5130" CardCount="3" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60230">
+    <CardInfo name="baseInfo" pictureID="742" cardName_en="Vacant Armorr" cardName_zh="虚无之甲" isTemp="False" isHide="False" metal="0" energy="0" coin="150" limitNum="3" cardRareLevel="2" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60231" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddLife" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" LifeValue="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60231">
+    <CardInfo name="baseInfo" pictureID="742" cardName_en="Vacant Armorr" cardName_zh="虚无之甲" isTemp="False" isHide="False" metal="0" energy="0" coin="250" limitNum="3" cardRareLevel="2" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60232" degradeCardID="60230" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddLife" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" LifeValue="1" />
+        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60232">
+    <CardInfo name="baseInfo" pictureID="742" cardName_en="Vacant Armorr" cardName_zh="虚无之甲" isTemp="False" isHide="False" metal="0" energy="0" coin="350" limitNum="3" cardRareLevel="2" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60231" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddLife" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" LifeValue="1" />
+        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="1" />
+        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />

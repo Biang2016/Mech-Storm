@@ -410,7 +410,7 @@ public class ChapterMap : PoolObject
     {
         foreach (int i in NodeCategory[NodeTypes.All])
         {
-            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelType.Start);
+            ChapterMapNodes[i].Initialize(i, SelectNode, OnHoverNode, LevelTypes.Start);
         }
 
 //        int shopNumMax = Mathf.CeilToInt(shopRatio * NodeCategory[NodeTypes.Common].Count);

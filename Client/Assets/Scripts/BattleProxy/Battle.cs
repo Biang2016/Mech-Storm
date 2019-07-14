@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class Battle
+﻿public class Battle
 {
     public delegate void OnEndGameDelegate(int winnerClientID);
 

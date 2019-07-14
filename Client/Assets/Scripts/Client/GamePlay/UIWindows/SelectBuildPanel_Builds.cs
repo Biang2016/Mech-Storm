@@ -173,9 +173,9 @@ public partial class SelectBuildPanel
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildCards(new SortedDictionary<int, BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
+        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum, new SortedDictionary<int, BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
             CurrentGamePlaySettings.DefaultEnergy,
-            0,  CurrentGamePlaySettings);
+            0, CurrentGamePlaySettings);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
         BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, bi, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);

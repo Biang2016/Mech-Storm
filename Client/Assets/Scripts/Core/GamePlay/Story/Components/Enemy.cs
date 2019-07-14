@@ -5,21 +5,21 @@ public class Enemy : Level
 {
     public BuildInfo BuildInfo;
     public EnemyType EnemyType;
-    private int hardFactor;
+    public int Level;
     public List<BonusGroup> BonusGroups;
 
-    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int hardFactor, List<BonusGroup> bonusGroups)
-        : base(LevelType.Enemy, levelThemeCategory, levelPicID, levelNames)
+    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int level, List<BonusGroup> bonusGroups)
+        : base(LevelTypes.Enemy, levelThemeCategory, levelPicID, levelNames)
     {
         BuildInfo = buildInfo;
         EnemyType = enemyType;
-        this.hardFactor = hardFactor;
+        Level = level;
         BonusGroups = bonusGroups;
     }
 
     public override Level Clone()
     {
-        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, hardFactor, CloneVariantUtils.List(BonusGroups));
+        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, Level, CloneVariantUtils.List(BonusGroups));
     }
 
     public override Level Variant()
@@ -49,6 +49,7 @@ public class Enemy : Level
         level_ele.AppendChild(enemy_ele);
 
         enemy_ele.SetAttribute("enemyType", EnemyType.ToString());
+        enemy_ele.SetAttribute("level", Level.ToString());
         BuildInfo.ExportToXML(enemy_ele);
 
         XmlElement bonusGroupInfos_ele = doc.CreateElement("BonusGroupInfos");
@@ -65,12 +66,17 @@ public class Enemy : Level
         base.Serialize(writer);
         BuildInfo.Serialize(writer);
         writer.WriteSInt32((int) EnemyType);
-        writer.WriteSInt32(hardFactor);
+        writer.WriteSInt32(Level);
 
         writer.WriteSInt32(BonusGroups.Count);
         foreach (BonusGroup bonus in BonusGroups)
         {
             bonus.Serialize(writer);
         }
+    }
+
+    public static string GetEnemyTypeDesc(EnemyType enemyType)
+    {
+        return LanguageManager_Common.GetText("EnemyType_" + enemyType);
     }
 }
