@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddAttack : TargetSideEffect
+    public class AddAttack : TargetSideEffect, IStrengthen
     {
         public AddAttack()
         {
@@ -25,6 +25,7 @@
         {
             BattlePlayer player = (BattlePlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("AttackValue");
+            if (value < 0) return;
             if (TargetRange == TargetRange.Self) // 对自身
             {
                 player.GameManager.GetMech(executorInfo.MechId).M_MechAttack += value;

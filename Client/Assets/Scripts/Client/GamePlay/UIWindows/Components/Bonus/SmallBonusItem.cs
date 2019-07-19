@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 internal class SmallBonusItem : BonusItem_Base
 {
-    [SerializeField] private Sprite AdjustDeckIcon;
     [SerializeField] private Sprite LifeIcon;
     [SerializeField] private Sprite EnergyIcon;
     [SerializeField] private Sprite BudgetIcon;

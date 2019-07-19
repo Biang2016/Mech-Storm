@@ -403,6 +403,8 @@ public class HandManager : MonoBehaviour
                 currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
                 currentShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
 
+                AudioManager.Instance.SoundPlay("sfx/OnShowUseCard", 0.5f);
+
                 RefreshCardsPlace();
                 yield return new WaitForSeconds(USE_CARD_SHOW_FLY_DURATION);
 
@@ -510,7 +512,7 @@ public class HandManager : MonoBehaviour
 
     private bool isEnlarge = false;
 
-    void HandCardEnlarge(CardBase focusCard)
+    public void HandCardEnlarge(CardBase focusCard)
     {
         if (ClientPlayer == null) return;
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;
@@ -535,7 +537,7 @@ public class HandManager : MonoBehaviour
         isEnlarge = true;
     }
 
-    void HandCardShrink(CardBase lostFocusCard)
+    public void HandCardShrink(CardBase lostFocusCard)
     {
         if (ClientPlayer == null) return;
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;

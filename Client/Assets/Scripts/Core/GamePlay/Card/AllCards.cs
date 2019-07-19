@@ -167,6 +167,7 @@ public static class AllCards
                             effectFactor: 1,
                             limitNum: int.Parse(node_CardInfo.Attributes["limitNum"].Value),
                             cardRareLevel: int.Parse(node_CardInfo.Attributes["cardRareLevel"].Value),
+                            shopPrice: int.Parse(node_CardInfo.Attributes["shopPrice"].Value),
                             cardType: (CardTypes) Enum.Parse(typeof(CardTypes), node_CardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":

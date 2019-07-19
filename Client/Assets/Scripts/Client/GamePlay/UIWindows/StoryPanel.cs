@@ -21,18 +21,32 @@ public class StoryPanel : BaseUIForm
 
     [SerializeField] private RectTransform ChapterMapContainer;
     [SerializeField] private Button StartButton;
+    [SerializeField] private Text ChapterNameText;
 
     public void InitiateStoryCanvas()
     {
         Cur_ChapterMap?.PoolRecycle();
         Cur_ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
         Cur_ChapterMap.Initialize(StoryManager.Instance.GetStory().Chapters[0]);
+        ChapterNameText.text = string.Format(LanguageManager.Instance.GetText("StoryEditorPanel_ChapterTitle"), Cur_ChapterMap.Cur_Chapter.ChapterID+1, Cur_ChapterMap.Cur_Chapter.ChapterNames[LanguageManager.Instance.GetCurrentLanguage()]);
         Cur_ChapterMap.OnSelectChapterNode = SelectNode;
         Cur_ChapterMap.RefreshKnownLevels();
         StartButton.gameObject.SetActive(false);
     }
 
-    public ChapterMap Cur_ChapterMap;
+    public override void Display()
+    {
+        base.Display();
+        UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().Display();
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+        UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().Hide();
+    }
+
+    internal ChapterMap Cur_ChapterMap;
 
     private void SelectNode(ChapterMapNode node)
     {
@@ -42,9 +56,29 @@ public class StoryPanel : BaseUIForm
         {
             if (node.Cur_Level != null)
             {
-                UnityAction action = delegate { UIManager.Instance.GetBaseUIForm<StartMenuPanel>().StartGameCore(RoundManager.PlayMode.Single, Cur_ChapterMap.Cur_Chapter.ChapterID, node.Cur_Level.LevelID); };
-                action.Invoke();
-                CurrentStartGameAction = action;
+                if (node.IsBeated)
+                {
+                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("StoryPanel_CannotStartBeatedLevel"), 0, 1f);
+                }
+                else
+                {
+                    switch (node.Cur_Level)
+                    {
+                        case Enemy enemy:
+                        {
+                            UnityAction action = delegate { UIManager.Instance.GetBaseUIForm<StartMenuPanel>().StartGameCore(RoundManager.PlayMode.Single, Cur_ChapterMap.Cur_Chapter.ChapterID, node.Cur_Level.LevelID); };
+                            action.Invoke();
+                            CurrentStartGameAction = action;
+                            break;
+                        }
+                        case Shop shop:
+                        {
+                            StandaloneStartLevelRequest request = new StandaloneStartLevelRequest(Client.Instance.Proxy.ClientID, -1, Cur_ChapterMap.Cur_Chapter.ChapterID, node.Cur_Level.LevelID);
+                            Client.Instance.Proxy.SendMessage(request);
+                            break;
+                        }
+                    }
+                }
             }
             else
             {

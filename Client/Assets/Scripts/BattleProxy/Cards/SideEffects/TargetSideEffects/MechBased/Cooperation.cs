@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Cooperation : TargetSideEffect
+    public class Cooperation : TargetSideEffect, IStrengthen
     {
         public Cooperation()
         {

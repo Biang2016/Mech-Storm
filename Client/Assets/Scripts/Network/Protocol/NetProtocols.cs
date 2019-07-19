@@ -4,44 +4,47 @@
 
     #region Server
 
-    CLIENT_ID_REQUEST = 0, //服务器发送的客户端ID号，协议号固定，不随版本变化
-    HEART_BEAT_REQUEST = 1, //服务器发送的心跳包
-    CLIENT_BUILDINFOS_REQUEST = 2, //玩家所有卡组信息
-    GAME_STOP_BY_LEAVE_REQUEST = 3, //由于玩家离开导致游戏结束
-    GAME_STOP_BY_SERVER_ERROR_REQUEST = 4, //由于服务器错误导致游戏结束
-    GAME_STOP_BY_WIN_REQUEST = 5, //由于比赛输赢导致游戏结束
-    RANDOM_NUMBER_SEED_REQUEST = 6, //分配客户端随机数种子
-    REGISTER_RESULT_REQUEST = 7, //注册结果，协议号固定，不随版本变化
-    LOGIN_RESULT_REQUEST = 8, //登录结果，协议号固定，不随版本变化
-    LOGOUT_RESULT_REQUEST = 9, //登出结果
-    START_NEW_STORY_REQUEST_RESPONSE = 10, //新故事回应
-    REFRESH_STORY_REQUEST = 11, //新故事回应
-    CREATE_BUILD_REQUEST_RESPONSE = 12, //新卡组回应
-    BUILD_UPDATE_RESPONSE = 13, //更新卡组
-    DELETE_BUILD_REQUEST_RESPONSE = 14, //删除卡组
-    REFRESH_GAMEPLAYSETTINGS_REQUEST = 15, //更新单人模式的GamePlaySettings
+    CLIENT_ID_REQUEST, //服务器发送的客户端ID号，协议号固定，不随版本变化
+    HEART_BEAT_REQUEST, //服务器发送的心跳包
+    CLIENT_BUILDINFOS_REQUEST, //玩家所有卡组信息
+    GAME_STOP_BY_LEAVE_REQUEST, //由于玩家离开导致游戏结束
+    GAME_STOP_BY_SERVER_ERROR_REQUEST, //由于服务器错误导致游戏结束
+    GAME_STOP_BY_WIN_REQUEST, //由于比赛输赢导致游戏结束
+    RANDOM_NUMBER_SEED_REQUEST, //分配客户端随机数种子
+    REGISTER_RESULT_REQUEST, //注册结果，协议号固定，不随版本变化
+    LOGIN_RESULT_REQUEST, //登录结果，协议号固定，不随版本变化
+    LOGOUT_RESULT_REQUEST, //登出结果
+    START_NEW_STORY_REQUEST_RESPONSE, //新故事回应
+    REFRESH_STORY_REQUEST, //新故事回应
+    CREATE_BUILD_REQUEST_RESPONSE, //新卡组回应
+    BUILD_UPDATE_RESPONSE, //更新卡组
+    DELETE_BUILD_REQUEST_RESPONSE, //删除卡组
+    REFRESH_GAMEPLAYSETTINGS_REQUEST, //更新单人模式的GamePlaySettings
 
-    BEAT_ENEMY_REQUEST = 16, //打败enemy
-    START_FIGHTING_ENEMY_REQUEST = 17, //打败enemy
+    VISIT_SHOP_REQUEST_RESPONSE, //光顾商店
+    START_FIGHTING_ENEMY_REQUEST, //开打enemy
+    BEAT_LEVEL_REQUEST, //过关
 
     #endregion
 
     # region Client
 
-    CARD_DECK_REQUEST = 18, //卡组信息
-    MATCH_REQUEST = 19, //申请匹配
-    MATCH_STANDALONE_REQUEST = 20, //申请单机模式
-    CANCEL_MATCH_REQUEST = 21, //玩家取消匹配
-    CLIENT_VERSION_VALID_REQUEST = 22, //客户端拿到服务器版本号后，如果版本匹配，给服务器返回此协议，如未返回此协议，在下条协议收到时将会踢出客户端连接
-    REGISTER_REQUEST = 23, //注册，协议号固定，不随版本变化
-    LOGIN_REQUEST = 24, //登录，协议号固定，不随版本变化
-    LEAVE_GAME_REQUEST = 25, //玩家离开游戏
-    LOGOUT_REQUEST = 26, //登出
-    START_NEW_STORY_REQUEST = 27, //开始新故事
-    BUILD_REQUEST = 28, //编辑卡组
-    SINGLE_BUILD_REQUEST = 29, //编辑单机卡组
-    DELETE_BUILD_REQUEST = 30, //删除卡组
-    BONUS_GROUP_REQUEST = 31, //奖励请求
+    CARD_DECK_REQUEST, //卡组信息
+    MATCH_REQUEST, //申请匹配
+    STANDALONE_START_LEVEL_REQUEST, //申请单机模式开始关卡
+    CANCEL_MATCH_REQUEST, //玩家取消匹配
+    CLIENT_VERSION_VALID_REQUEST, //客户端拿到服务器版本号后，如果版本匹配，给服务器返回此协议，如未返回此协议，在下条协议收到时将会踢出客户端连接
+    REGISTER_REQUEST, //注册，协议号固定，不随版本变化
+    LOGIN_REQUEST, //登录，协议号固定，不随版本变化
+    LEAVE_GAME_REQUEST, //玩家离开游戏
+    LOGOUT_REQUEST, //登出
+    START_NEW_STORY_REQUEST, //开始新故事
+    BUILD_REQUEST, //编辑卡组
+    SINGLE_BUILD_REQUEST, //编辑单机卡组
+    DELETE_BUILD_REQUEST, //删除卡组
+    BONUS_GROUP_REQUEST, //奖励请求
+    BUY_SHOP_ITEM_REQUEST, //购物请求
+    LEAVE_SHOP_REQUEST, //离开商店
 
     #endregion
 
@@ -65,9 +68,8 @@
     MECH_ATTACK_MECH_REQUEST_RESPONSE, //随从攻击随从_服务器响应
 
     END_ROUND_REQUEST_RESPONSE, //结束回合_服务器响应
-    END_BATTLE_REQUEST_RESPONSE, //结束战斗_服务器响应
     WIN_DIRECTLY_REQUEST_RESPONSE, //直接获胜_服务器响应
-
+    BUY_SHOP_ITEM_REQUEST_RESPONSE,// 购物请求返回
     #endregion
 
     #region SideEffects

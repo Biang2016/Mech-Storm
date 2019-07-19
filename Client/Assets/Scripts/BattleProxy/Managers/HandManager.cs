@@ -14,6 +14,12 @@ internal class Battle_HandManager
 
     #region DrawCards
 
+    private void HandAddCard(CardBase newCard)
+    {
+        Cards.Add(newCard);
+        BattlePlayer.BattleStatistics.Draws++;
+    }
+
     internal void DrawCards(int cardNumber)
     {
         int maxDrawCardNumber = Math.Min(Math.Min(cardNumber, GamePlaySettings.MaxHandCard - Cards.Count), BattlePlayer.CardDeckManager.CardDeck.CardCount());
@@ -28,7 +34,7 @@ internal class Battle_HandManager
         foreach (CardInfo_Base cb in BattlePlayer.CardDeckManager.DrawCardsOnTop(maxDrawCardNumber))
         {
             CardBase newCard = CardBase.InstantiateCardByCardInfo(cb, BattlePlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
-            Cards.Add(newCard);
+            HandAddCard(newCard);
             BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
             cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
         }
@@ -102,7 +108,7 @@ internal class Battle_HandManager
         CardInfo_Base cardInfo = AllCards.GetCard(cardID);
         CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, BattlePlayer.GameManager.GenerateNewTempCardInstanceId());
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
-        Cards.Add(newCard);
+        HandAddCard(newCard);
     }
 
     internal void GetACardByID(int cardID, int overrideCardInstanceID = -1)
@@ -119,7 +125,7 @@ internal class Battle_HandManager
         }
 
         OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
-        Cards.Add(newCard);
+        HandAddCard(newCard);
     }
 
     public void OnPlayerGetCard(int cardId, int cardInstanceId)
@@ -156,6 +162,7 @@ internal class Battle_HandManager
     internal void UseCard(int cardInstanceId, List<int> targetMechIds = null, List<int> targetEquipIds = null, List<int> targetClientIds = null, bool onlyTriggerNotUse = false)
     {
         CardBase useCard = GetCardByCardInstanceId(cardInstanceId);
+        Utils.DebugLog("AI UseCard:" + useCard.CardInfo.BaseInfo.CardNames["zh"]);
 
         if (onlyTriggerNotUse)
         {
@@ -172,6 +179,7 @@ internal class Battle_HandManager
         }
         else
         {
+            BattlePlayer.BattleStatistics.UseCard(useCard.CardInfo);
             UseCardRequest request = new UseCardRequest(BattlePlayer.ClientId, useCard.M_CardInstanceId, useCard.CardInfo.Clone());
             BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             BattlePlayer.UseMetal(useCard.CardInfo.BaseInfo.Metal);

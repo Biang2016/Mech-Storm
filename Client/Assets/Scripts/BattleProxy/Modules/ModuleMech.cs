@@ -208,12 +208,16 @@ internal class ModuleMech : ModuleBase, ILife
     public void Heal(int healValue)
     {
         LifeChange(healValue);
+        BattlePlayer.BattleStatistics.MechHeal += healValue;
+        BattlePlayer.BattleStatistics.TotalHeal += healValue;
     }
 
     public void Damage(int damage)
     {
         BeAttacked(damage);
         CheckAlive();
+        BattlePlayer.BattleStatistics.MechInjury += damage;
+        BattlePlayer.BattleStatistics.TotalInjury += damage;
     }
 
     public void Change(int changeValue)
@@ -1062,6 +1066,7 @@ internal class ModuleMech : ModuleBase, ILife
                     {
                         targetMech.BeAttacked(damage);
                         targetMech.OnBeDamaged(damage);
+                        BattlePlayer.BattleStatistics.DamageToMech += damage;
                         OnMakeDamage(damage);
                         if (M_MechWeaponEnergy < M_MechWeaponEnergyMax) M_MechWeaponEnergy++;
                     }
@@ -1098,6 +1103,7 @@ internal class ModuleMech : ModuleBase, ILife
                         {
                             targetMech.BeAttacked(M_MechAttack);
                             targetMech.OnBeDamaged(damage);
+                            BattlePlayer.BattleStatistics.DamageToMech += damage;
                             OnMakeDamage(M_MechAttack);
                         }
 
@@ -1123,6 +1129,7 @@ internal class ModuleMech : ModuleBase, ILife
                     {
                         targetMech.BeAttacked(M_MechAttack);
                         targetMech.OnBeDamaged(damage);
+                        BattlePlayer.BattleStatistics.DamageToMech += damage;
                         OnMakeDamage(M_MechAttack);
                     }
 
@@ -1147,6 +1154,7 @@ internal class ModuleMech : ModuleBase, ILife
             {
                 targetMech.BeAttacked(damage);
                 targetMech.OnBeDamaged(damage);
+                BattlePlayer.BattleStatistics.DamageToMech += damage;
                 OnMakeDamage(damage);
             }
 
@@ -1192,6 +1200,19 @@ internal class ModuleMech : ModuleBase, ILife
         M_Shield = null;
         M_Pack = null;
         M_MA = null;
+        BattlePlayer.BattleStatistics.TotalLost++;
+        BattlePlayer.MyEnemyPlayer.BattleStatistics.TotalKill++;
+        if (CardInfo.MechInfo.IsSoldier)
+        {
+            BattlePlayer.BattleStatistics.SoldierLost++;
+            BattlePlayer.MyEnemyPlayer.BattleStatistics.SoldierKill++;
+        }
+        else
+        {
+            BattlePlayer.BattleStatistics.HeroLost++;
+            BattlePlayer.MyEnemyPlayer.BattleStatistics.HeroKill++;
+        }
+
         BattlePlayer.GameManager.AddDieTogetherMechsInfo(M_MechID);
         ExecutorInfo info = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
         if (CardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierDie, info);
@@ -1210,35 +1231,39 @@ internal class ModuleMech : ModuleBase, ILife
 
         if (CardInfo.MechInfo.IsSoldier)
         {
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierMakeDamage, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierMakeDamage, ei);
         }
         else
         {
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroMakeDamage, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroMakeDamage, ei);
+        }
+
+        BattlePlayer.BattleStatistics.TotalDamage += damage;
+    }
+
+    private void OnBeDamaged(int damage)
+    {
+        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
+        if (CardInfo.MechInfo.IsSoldier)
+        {
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierInjured, ei);
+        }
+        else
+        {
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroInjured, ei);
         }
     }
 
-    private void OnBeDamaged(int i)
+    private void OnBeHealed(int heal)
     {
+        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
         if (CardInfo.MechInfo.IsSoldier)
         {
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierInjured, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierBeHealed, ei);
         }
         else
         {
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroInjured, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
-        }
-    }
-
-    private void OnBeHealed(int i)
-    {
-        if (CardInfo.MechInfo.IsSoldier)
-        {
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierBeHealed, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
-        }
-        else
-        {
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroBeHealed, new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroBeHealed, ei);
         }
     }
 
@@ -1256,6 +1281,7 @@ internal class ModuleMech : ModuleBase, ILife
                     OnAttackShip(WeaponTypes.Sword, ship.ClientId);
                     damage = M_MechAttack * M_MechWeaponEnergy;
                     ship.Damage(damage);
+                    BattlePlayer.BattleStatistics.DamageToShip += damage;
                     OnMakeDamage(damage);
                     if (M_MechWeaponEnergy < M_MechWeaponEnergyMax) M_MechWeaponEnergy++;
                     break;
@@ -1265,6 +1291,7 @@ internal class ModuleMech : ModuleBase, ILife
                     {
                         OnAttackShip(WeaponTypes.Gun, ship.ClientId);
                         ship.Damage(M_MechAttack);
+                        BattlePlayer.BattleStatistics.DamageToShip += M_MechAttack;
                         OnMakeDamage(M_MechAttack);
                         M_MechWeaponEnergy--;
                     }
@@ -1273,6 +1300,7 @@ internal class ModuleMech : ModuleBase, ILife
                 case WeaponTypes.SniperGun:
                     OnAttackShip(WeaponTypes.SniperGun, ship.ClientId);
                     ship.Damage(M_MechAttack);
+                    BattlePlayer.BattleStatistics.DamageToShip += M_MechAttack;
                     OnMakeDamage(M_MechAttack);
                     M_MechWeaponEnergy--;
                     break;
@@ -1283,6 +1311,7 @@ internal class ModuleMech : ModuleBase, ILife
             OnAttackShip(WeaponTypes.None, ship.ClientId);
             damage = M_MechAttack;
             ship.Damage(damage);
+            BattlePlayer.BattleStatistics.DamageToShip += damage;
             OnMakeDamage(damage);
         }
 

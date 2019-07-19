@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class DrawCards : TargetSideEffect
+    public class DrawCards : TargetSideEffect, IPositive, IPriorUsed
     {
         public DrawCards()
         {

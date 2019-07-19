@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public partial class RoundManager
@@ -22,9 +23,11 @@ public partial class RoundManager
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
         BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
+        brp.BattleStatistics = r.BattleStatistics;
+        brp.SetCrystalInfo();
         UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(false);
         UIManager.Instance.CloseUIForm<ExitMenuPanel>();
-        if (r.winnerClientId == Client.Instance.Proxy.ClientID)
+        if (r.WinnerClientId == Client.Instance.Proxy.ClientID)
         {
             ClientLog.Instance.PrintClientStates("你赢了");
             brp.WinGame();
@@ -268,13 +271,13 @@ public partial class RoundManager
 
     private void OnSetPlayersLife(PlayerLifeChangeRequest r)
     {
-        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        ClientPlayer cp = GetPlayerByClientId(r.ClientID);
         cp.DoChangeLife(r);
     }
 
     private void OnSetPlayersEnergy(PlayerEnergyChangeRequest r)
     {
-        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        ClientPlayer cp = GetPlayerByClientId(r.ClientID);
         cp.DoChangeEnergy(r);
     }
 
@@ -354,27 +357,13 @@ public partial class RoundManager
 
     IEnumerator Co_MechDieShock(List<ModuleMech> dieMechs) //机甲一起死亡效果
     {
-        int shockTimes = 3;
         AudioManager.Instance.SoundPlay("sfx/OnDie");
-        for (int i = 0; i < shockTimes; i++)
+        foreach (ModuleMech moduleMech in dieMechs)
         {
-            foreach (ModuleMech moduleMech in dieMechs)
-            {
-                moduleMech.transform.Rotate(Vector3.up, 3, Space.Self);
-            }
-
-            yield return new WaitForSeconds(0.04f);
-            foreach (ModuleMech moduleMech in dieMechs)
-            {
-                moduleMech.transform.Rotate(Vector3.up, -6, Space.Self);
-            }
-
-            yield return new WaitForSeconds(0.04f);
-            foreach (ModuleMech moduleMech in dieMechs)
-            {
-                moduleMech.transform.Rotate(Vector3.up, 3, Space.Self);
-            }
+            moduleMech.transform.DOShakePosition(0.15f, new Vector3(1f, 0f, 1f) * 0.1f, 10, 20f);
         }
+
+        yield return new WaitForSeconds(0.3f);
 
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

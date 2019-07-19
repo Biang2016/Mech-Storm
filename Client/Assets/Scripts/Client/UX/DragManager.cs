@@ -64,16 +64,12 @@ public class DragManager : MonoSingleton<DragManager>
 
     void Update()
     {
-        //if (ConfirmWindowManager.Instance.IsConfirmWindowShow) return;
-        //if (ExitMenuPanel.Instance.M_StateMachine.GetState() == ExitMenuPanel.StateMachine.States.Show) ResetCurrentDrag();
-        //if (SelectBuildManager.Instance.M_StateMachine.GetState() == SelectBuildManager.StateMachine.States.Show) ResetCurrentDrag();
         if (!Client.Instance.IsPlaying())
         {
             ResetCurrentDrag();
             return;
         }
 
-        //if (BattleResultPanel.Instance.IsShow) ResetCurrentDrag();
         if (!IsSummonPreview)
         {
             CommonDrag();
@@ -116,8 +112,20 @@ public class DragManager : MonoSingleton<DragManager>
         }
     }
 
-    private void ResetCurrentDrag()
+    public void ResetCurrentDrag()
     {
+        if (CurrentDrag)
+        {
+            CurrentDrag.IsOnDrag = false;
+            CurrentDrag = null;
+        }
+    }
+
+    public bool IsCanceling = false;
+
+    public void CancelCurrentDrag()
+    {
+        IsCanceling = true;
         if (CurrentDrag)
         {
             CurrentDrag.IsOnDrag = false;
@@ -150,6 +158,14 @@ public class DragManager : MonoSingleton<DragManager>
         }
 
         UnityAction<List<int>, List<bool>> summonConfirmAction = RoundManager.Instance.CurrentClientPlayer.BattlePlayer.BattleGroundManager.SummonMechTargetConfirm;
+        if (IsCanceling)
+        {
+            summonConfirmAction(null, null);
+            CancelSummonPreview();
+            IsCanceling = false;
+            return;
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -240,13 +256,19 @@ public class DragManager : MonoSingleton<DragManager>
                 }
             }
 
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+            if ((MouseHoverManager.Instance.M_StateMachine.GetState() & MouseHoverManager.StateMachine.States.BattleSpecial) != 0)
+            {
+                MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+            }
         }
         else if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonUp(1))
         {
             summonConfirmAction(null, null);
             CancelSummonPreview();
-            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+            if ((MouseHoverManager.Instance.M_StateMachine.GetState() & MouseHoverManager.StateMachine.States.BattleSpecial) != 0)
+            {
+                MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+            }
         }
     }
 

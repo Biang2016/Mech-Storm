@@ -78,15 +78,18 @@ internal class BattleGroundManager
         int aliveIndex = GetIndexOfAliveMechs(mechPlaceIndex);
         Mechs.Insert(aliveIndex, mech);
         MechCount = Mechs.Count;
+        BattlePlayer.BattleStatistics.TotalSummon++;
         if (mech.CardInfo.MechInfo.IsSoldier)
         {
             Soldiers.Add(mech);
             SoldierCount = Soldiers.Count;
+            BattlePlayer.BattleStatistics.SoldierSummon++;
         }
         else
         {
             Heroes.Add(mech);
             HeroCount = Heroes.Count;
+            BattlePlayer.BattleStatistics.HeroSummon++;
         }
     }
 
@@ -288,6 +291,21 @@ internal class BattleGroundManager
             int aliveCount = CountAliveMechExcept(mechType, exceptMechId);
             Random rd = new Random();
             return GameManager.GetAliveMechExcept(rd.Next(0, aliveCount), mechs, exceptMechId);
+        }
+    }
+
+    public ModuleMech GetRandomAliveMechExcept(MechTypes mechType, int exceptMechId)
+    {
+        int count = CountAliveMechExcept(mechType, exceptMechId);
+        Random rd = new Random();
+        int ranResult = rd.Next(0, count);
+        if (ranResult < count)
+        {
+            return GetRandomMech(mechType, exceptMechId);
+        }
+        else
+        {
+            return GetRandomMech(mechType, exceptMechId);
         }
     }
 

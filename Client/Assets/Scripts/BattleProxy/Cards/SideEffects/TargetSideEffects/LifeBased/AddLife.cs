@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddLife : TargetSideEffect
+    public class AddLife : TargetSideEffect, IStrengthen
     {
         public AddLife()
         {
@@ -25,6 +25,7 @@
         {
             BattlePlayer player = (BattlePlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("LifeValue");
+            if (value < 0) return;
             if (TargetRange == TargetRange.Self) // 对自身
             {
                 player.BattleGroundManager.GetMech(executorInfo.MechId).AddLife(value);

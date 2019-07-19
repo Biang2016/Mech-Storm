@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Heal : TargetSideEffect
+    public class Heal : TargetSideEffect, IPositive
     {
         public Heal()
         {

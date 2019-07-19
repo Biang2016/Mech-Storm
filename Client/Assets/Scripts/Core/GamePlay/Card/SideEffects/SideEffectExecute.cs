@@ -415,7 +415,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             {
                 if (se is Exile_Base)
                 {
-                    res = BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_Disposable")) + res;
+                    res = BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_Disposable")) + "." + res;
                 }
             }
         }
@@ -426,6 +426,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
 
         foreach (SideEffectBase se in SideEffectBases)
         {
+            if (se is Exile_Base) continue;
             string sebDesc = se.GenerateDesc();
             sebDesc = sebDesc.TrimEnd("，。;,.;/n ".ToCharArray());
             if (sebDesc.EndsWith("</color>"))

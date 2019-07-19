@@ -16,6 +16,9 @@
 
             sub_desc = sub_desc.TrimEnd("& ".ToCharArray());
 
+            var a = DescRaws;
+            var b = MyBuffSEE;
+
             return HighlightStringFormat(
                 DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 new[] {false, false, false, false},

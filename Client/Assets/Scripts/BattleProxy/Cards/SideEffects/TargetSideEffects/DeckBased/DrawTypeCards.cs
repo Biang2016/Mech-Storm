@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class DrawTypeCards : TargetSideEffect
+    public class DrawTypeCards : TargetSideEffect, IPriorUsed, IPositive
     {
         public DrawTypeCards()
         {
@@ -29,10 +29,7 @@
         {
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.SideEffect_ShipAction(
-                delegate(BattlePlayer sp)
-                {
-                    sp.HandManager.DrawCardsByType((CardTypes)M_SideEffectParam.GetParam_ConstInt("DrawCardType"), M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
-                },
+                delegate(BattlePlayer sp) { sp.HandManager.DrawCardsByType((CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType"), M_SideEffectParam.GetParam_MultipliedInt("CardCount")); },
                 player,
                 ChoiceCount,
                 TargetRange,

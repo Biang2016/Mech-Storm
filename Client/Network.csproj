@@ -75,15 +75,17 @@
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\GamePlayOperations\WinDirectlyRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\BonusGroupRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\BuildRequest.cs" />
+     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\BuyShopItemRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\CancelMatchRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\ClientValidRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\DeleteBuildRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\LeaveGameRequest.cs" />
+     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\LeaveShopRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\LoginRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\LogoutRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\MatchRequest.cs" />
-     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\MatchStandAloneRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\RegisterRequest.cs" />
+     <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\StandaloneStartLevelRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ClientToServer\OutGame\StartNewStoryRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\RequestBase.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\BattleGroundAddMechRequest.cs" />
@@ -92,7 +94,6 @@
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\CardDeckLeftChangeRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\DrawCardRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\DropCardRequest.cs" />
-     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\EndBattleRequestResponse.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\EquipCardInfoSyncRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\EquipMAerverRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\EquipPackServerRequest.cs" />
@@ -137,8 +138,9 @@
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\ClientOperationResponseBundle\SummonMechRequest_ResponseBundle.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\ClientOperationResponseBundle\UseSpellCardRequset_ResponseBundle.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\ClientOperationResponseBundle\WinDirectlyRequest_ResponseBundle.cs" />
-     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\BeatEnemyRequest.cs" />
+     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\BeatLevelRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\BuildUpdateRequest.cs" />
+     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\BuyShopItemRequestResponse.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\ClientBuildInfosRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\ClientIdRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\CreateBuildRequestResponse.cs" />
@@ -153,6 +155,7 @@
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\RegisterResultRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\StartFightingEnemyRequest.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\StartNewStoryRequestResponse.cs" />
+     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\OutGame\VisitShopRequestResponse.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\ResponseBundleBase.cs" />
      <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\ServerRequestBase.cs" />
  <Reference Include="UnityEngine.AIModule">

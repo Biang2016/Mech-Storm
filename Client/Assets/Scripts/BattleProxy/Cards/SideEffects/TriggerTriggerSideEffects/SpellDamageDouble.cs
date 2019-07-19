@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class SpellDamageDouble : TriggerTriggerSideEffects
+    public class SpellDamageDouble : TriggerTriggerSideEffects, IStrengthen
     {
         public SpellDamageDouble()
         {

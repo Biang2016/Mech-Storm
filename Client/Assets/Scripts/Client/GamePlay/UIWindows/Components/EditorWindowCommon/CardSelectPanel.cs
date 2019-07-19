@@ -30,7 +30,7 @@ public class CardSelectPanel : MonoBehaviour
 
     private Editor_CardSelectModes M_SelectMode;
 
-    internal void Initialize(Editor_CardSelectModes selectModes, UnityAction<CardBase> leftClickCard, UnityAction<CardBase> rightClickCard, UnityAction<List<int>> selectOneOfEachActiveCards, UnityAction<List<int>> unselectAllActiveCards, LevelPropertyForm_CardSelection row_CardSelection)
+    internal void Initialize(Editor_CardSelectModes selectModes, bool showHideCards, UnityAction<CardBase> leftClickCard, UnityAction<CardBase> rightClickCard, UnityAction<List<int>> selectOneOfEachActiveCards, UnityAction<List<int>> unselectAllActiveCards, LevelPropertyForm_CardSelection row_CardSelection)
     {
         M_SelectMode = selectModes;
 
@@ -56,7 +56,7 @@ public class CardSelectPanel : MonoBehaviour
         {
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.EmptyCard) continue;
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.NoCard) continue;
-            if (cardInfo.BaseInfo.IsHide) continue;
+            if (showHideCards && cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoGridLayout(cardInfo.Clone());
         }

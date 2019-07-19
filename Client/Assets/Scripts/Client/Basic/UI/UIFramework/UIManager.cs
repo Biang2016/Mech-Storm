@@ -72,6 +72,7 @@ public class UIManager : MonoSingleton<UIManager>
                 break;
         }
 
+        //Debug.Log("showUI  " + uiFormName);
         return baseUIForms;
     }
 
@@ -110,10 +111,7 @@ public class UIManager : MonoSingleton<UIManager>
                 break;
         }
 
-        if (CurrentUIFormsStack.Count > 0)
-        {
-//            Debug.Log(CurrentUIFormsStack.Peek().GetType());
-        }
+        //Debug.Log("closeUI  " + uiFormName);
     }
 
     public T GetBaseUIForm<T>() where T : BaseUIForm
@@ -316,6 +314,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
+            if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
             baseUI.Hide();
         }
 
@@ -345,6 +344,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
+            if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
             baseUI.Hide();
         }
 
@@ -387,6 +387,7 @@ public class UIManager : MonoSingleton<UIManager>
         {
             foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
             {
+                if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
                 baseUI.Display();
             }
         }
@@ -414,6 +415,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
+            if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
             baseUI.Display();
         }
 

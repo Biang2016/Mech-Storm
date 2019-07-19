@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddTempCardToDeck : TargetSideEffect, ICardDeckLinked
+    public class AddTempCardToDeck : TargetSideEffect, ICardDeckLinked, IPositive
     {
         public AddTempCardToDeck()
         {
@@ -34,7 +34,13 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             BattlePlayer player = (BattlePlayer) Player;
-            player.CardDeckManager.RandomInsertTempCard(M_SideEffectParam.GetParam_ConstInt("CardID"), M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
+            player.GameManager.SideEffect_ShipAction(
+                delegate(BattlePlayer sp) { sp.CardDeckManager.RandomInsertTempCard(M_SideEffectParam.GetParam_ConstInt("CardID"), M_SideEffectParam.GetParam_MultipliedInt("CardCount")); },
+                player,
+                ChoiceCount,
+                TargetRange,
+                TargetSelect,
+                executorInfo.TargetClientIds);
         }
 
         public SideEffectValue_ConstInt GetCardIDSideEffectValue()

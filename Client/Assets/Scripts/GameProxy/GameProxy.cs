@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Proxy of all game events like battles, stories, builds, card edits and so on.
@@ -143,7 +144,7 @@ public class GameProxy
                 SendMessage(response);
                 break;
             }
-            case MatchStandaloneRequest r:
+            case StandaloneStartLevelRequest r:
             {
                 DebugLog.PrintClientStates("Client " + ClientID + " state: " + ClientState);
 
@@ -154,46 +155,70 @@ public class GameProxy
 
                 if (ClientState == ProxyBase.ClientStates.Login)
                 {
-                    BattleProxy.BuildInfo = BuildStoryDatabase.Instance.GetBuildInfoByID(r.BuildID);
-                    ClientState = ProxyBase.ClientStates.Matching;
-                    if (r.LevelID == -1)
+                    if (r.BuildID != -1)
                     {
-                        DebugLog.PrintServerStates("Player " + ClientID + " begin standalone custom game.");
+                        BattleProxy.BuildInfo = BuildStoryDatabase.Instance.GetBuildInfoByID(r.BuildID);
+                        ClientState = ProxyBase.ClientStates.Matching;
+                        if (r.LevelID == -1) // Custom Game
+                        {
+                            DebugLog.PrintServerStates("Player " + ClientID + " begin standalone custom game.");
 
-                        BattleProxy clientA = BattleProxy;
+                            BattleProxy clientA = BattleProxy;
 
-                        int AI_ClientId = 998;
-                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", -1);
-                        clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
-                        CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
-                        DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
+                            int AI_ClientId = 998;
+                            BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", null);
+                            clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
+                            CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
+                            DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
+                        }
+                        else
+                        {
+                            DebugLog.PrintServerStates("Player " + ClientID + " begin standalone game.");
+                            Level level = BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Chapters[r.ChapterID].Levels[r.LevelID];
+                            if (level is Enemy enemy)
+                            {
+                                BattleProxy clientA = BattleProxy;
+
+                                int AI_ClientId = 998;
+                                BattleProxy clientB = new BattleProxyAI(AI_ClientId, "StoryAI", enemy);
+                                clientB.BuildInfo = enemy.BuildInfo.Clone();
+
+                                CurrentBattle = new Battle(clientA, clientB, DebugLog, delegate(int winnerClientID, BattleStatistics battleStatistics_ClientA, BattleStatistics battleStatistics_ClientB)
+                                {
+                                    if (clientB is BattleProxyAI AI)
+                                    {
+                                        if (winnerClientID == clientA.ClientID)
+                                        {
+                                            BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Crystal += battleStatistics_ClientA.totalCrystal;
+                                        }
+                                    }
+                                });
+
+                                DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
+                            }
+                        }
                     }
                     else
                     {
-                        DebugLog.PrintServerStates("Player " + ClientID + " begin standalone game.");
-
-                        BattleProxy clientA = BattleProxy;
-
-                        int AI_ClientId = 998;
-                        BattleProxy clientB = new BattleProxyAI(AI_ClientId, "StoryAI", r.LevelID);
-                        clientB.BuildInfo = ((Enemy) BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Chapters[r.ChapterID].Levels[r.LevelID]).BuildInfo.Clone();
-
-                        CurrentBattle = new Battle(clientA, clientB, DebugLog, delegate(int winnerClientID)
+                        Level level = BuildStoryDatabase.Instance.PlayerStoryStates[UserName].Chapters[r.ChapterID].Levels[r.LevelID];
+                        if (level is Shop shop)
                         {
-                            if (clientB is BattleProxyAI AI)
-                            {
-                                if (winnerClientID == clientA.ClientID)
-                                {
-                                    BeatEnemyRequest request2 = new BeatEnemyRequest(r.LevelID);
-                                    clientA.SendMessage(request2);
-                                }
-                            }
-                        });
-
-                        DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
+                            VisitShopRequestResponse request1 = new VisitShopRequestResponse(r.LevelID, (Shop) shop.Clone());
+                            SendMessage(request1);
+                        }
                     }
                 }
 
+                break;
+            }
+            case LeaveShopRequest r:
+            {
+                BeatLevelRequest _r = new BeatLevelRequest(r.LevelID);
+                SendMessage(_r);
+                Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
+                story.CurrentFightingChapter.LevelBeatedDictionary[r.LevelID] = true;
+                RefreshStoryRequest req = new RefreshStoryRequest(story);
+                SendMessage(req);
                 break;
             }
             case BonusGroupRequest r:
@@ -213,23 +238,11 @@ public class GameProxy
                             case Bonus_LifeUpperLimit b_LifeUpperLimit:
                             {
                                 story.StoryGamePlaySettings.DefaultLifeMax += b_LifeUpperLimit.LifeUpperLimit;
-                                //story.StoryGamePlaySettings.DefaultLife += b_LifeUpperLimit.LifeUpperLimit;
-                                foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
-                                {
-                                    //kv.Value.Life += b_LifeUpperLimit.LifeUpperLimit;
-                                }
-
                                 break;
                             }
                             case Bonus_EnergyUpperLimit b_EnergyUpperLimit:
                             {
                                 story.StoryGamePlaySettings.DefaultEnergyMax += b_EnergyUpperLimit.EnergyUpperLimit;
-                                //story.StoryGamePlaySettings.DefaultEnergy += b_EnergyUpperLimit.EnergyUpperLimit;
-                                foreach (KeyValuePair<int, BuildInfo> kv in story.PlayerBuildInfos)
-                                {
-                                    //kv.Value.Energy += b_EnergyUpperLimit.EnergyUpperLimit;
-                                }
-
                                 break;
                             }
                             case Bonus_Budget b_Budget:
@@ -243,14 +256,53 @@ public class GameProxy
 
                 break;
             }
-            case EndBattleRequest _:
+            case BuyShopItemRequest r:
             {
                 Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
+                if (story != null)
+                {
+                    switch (r.ShopItem)
+                    {
+                        case ShopItem_Card si_card:
+                        {
+                            story.EditAllCardLimitDict(si_card.GenerateCardID, 1);
+                            break;
+                        }
+                        case ShopItem_Budget si_budget:
+                        {
+                            story.StoryGamePlaySettings.DefaultCoin += si_budget.Budget;
+                            break;
+                        }
+                        case ShopItem_LifeUpperLimit si_life:
+                        {
+                            story.StoryGamePlaySettings.DefaultLifeMax += si_life.LifeUpperLimit;
+                            break;
+                        }
+                        case ShopItem_EnergyUpperLimit si_energy:
+                        {
+                            story.StoryGamePlaySettings.DefaultEnergyMax += si_energy.EnergyUpperLimit;
+                            break;
+                        }
+                    }
+
+                    story.Crystal -= r.ShopItem.Price;
+                    BuyShopItemRequestResponse response = new BuyShopItemRequestResponse(r.ShopItem);
+                    SendMessage(response);
+                }
+
+                break;
+            }
+
+            case EndBattleRequest r: // 战斗领取奖励，确认结束战斗
+            {
+                Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
+                story.Chapters[r.ChapterID].LevelBeatedDictionary[r.LevelID] = true;
+
+                BeatLevelRequest request2 = new BeatLevelRequest(r.LevelID);
+                SendMessage(request2);
+
                 RefreshStoryRequest response = new RefreshStoryRequest(story);
                 SendMessage(response);
-
-                EndBattleRequestResponse r = new EndBattleRequestResponse();
-                SendMessage(r);
                 break;
             }
 

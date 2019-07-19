@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using SideEffects;
 
 /// <summary>
 /// 为了兼容联机对战模式，单人模式的AI也用一个ClientProxy来处理逻辑
@@ -7,11 +9,11 @@
 /// </summary>
 public class BattleProxyAI : BattleProxy
 {
-    public int LevelID;
+    public Enemy Enemy;
 
-    public BattleProxyAI(int clientId, string userName, int levelID) : base(clientId, userName, null, null)
+    public BattleProxyAI(int clientId, string userName, Enemy enemy) : base(clientId, userName, null, null)
     {
-        LevelID = levelID;
+        Enemy = enemy;
         SendMessage = sendMessage;
     }
 
@@ -113,6 +115,8 @@ public class BattleProxyAI : BattleProxy
     private bool TryUseCard(CardBase card)
     {
         TargetInfo ti = card.CardInfo.TargetInfo;
+        HashSet<Type> sefs = GetSideEffectFunctionsByCardInfo(card.CardInfo);
+
         if (card.CardInfo.BaseInfo.CardType == CardTypes.Spell || card.CardInfo.BaseInfo.CardType == CardTypes.Energy)
         {
             if (ti.HasNoTarget)
@@ -122,10 +126,11 @@ public class BattleProxyAI : BattleProxy
             }
             else if (ti.HasTargetMech)
             {
-                ModuleMech mech = GetTargetMechByTargetInfo(ti);
+                ModuleMech mech = GetTargetMechByTargetInfo(sefs, ti);
                 if (mech != null)
                 {
-                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {mech.M_TargetMechID}));
+                    DebugLog.PrintError("SpelltoMech: " + card.CardInfo.BaseInfo.CardNames["zh"] + "  " + mech.CardInfo.BaseInfo.CardNames["zh"]);
+                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {(mech.M_MechID, false)}));
                     return true;
                 }
             }
@@ -198,7 +203,7 @@ public class BattleProxyAI : BattleProxy
 
             if (ti.HasTargetMech)
             {
-                ModuleMech mech = GetTargetMechByTargetInfo(ti);
+                ModuleMech mech = GetTargetMechByTargetInfo(sefs, ti);
                 if (mech != null)
                 {
                     BattleGameManager.OnClientSummonMechRequest(new SummonMechRequest(ClientID, card.M_CardInstanceId, MyPlayer.BattleGroundManager.MechCount, (int) Const.SpecialMechID.ClientTempMechIDNormal, new List<int> {mech.M_MechID}, new List<bool> {false}));
@@ -216,7 +221,8 @@ public class BattleProxyAI : BattleProxy
         }
         else if (card.CardInfo.BaseInfo.CardType == CardTypes.Equip)
         {
-            ModuleMech mech = SelectMechToEquipWeapon(MyPlayer.BattleGroundManager.Heroes, (CardInfo_Equip) card.CardInfo); //优先装备英雄
+            //筛选最适合装备的机甲
+            ModuleMech mech = SelectMechToEquipWeapon(MyPlayer.BattleGroundManager.Heroes, (CardInfo_Equip) card.CardInfo);
             if (mech == null) mech = SelectMechToEquipWeapon(MyPlayer.BattleGroundManager.Soldiers, (CardInfo_Equip) card.CardInfo);
 
             if (mech != null)
@@ -270,7 +276,76 @@ public class BattleProxyAI : BattleProxy
         return false;
     }
 
-    private ModuleMech GetTargetMechByTargetInfo(TargetInfo ti)
+    private HashSet<Type> GetSideEffectFunctionsByCardInfo(CardInfo_Base cardInfo)
+    {
+        HashSet<Type> res = new HashSet<Type>();
+
+        foreach (SideEffectExecute see in cardInfo.SideEffectBundle.SideEffectExecutes)
+        {
+            foreach (SideEffectBase se in see.SideEffectBases)
+            {
+                if (se is IPositive)
+                {
+                    res.Add(typeof(IPositive));
+                }
+
+                if (se is INegative)
+                {
+                    res.Add(typeof(INegative));
+                }
+
+                if (se is IStrengthen)
+                {
+                    res.Add(typeof(IStrengthen));
+                }
+
+                if (se is IWeaken)
+                {
+                    res.Add(typeof(IWeaken));
+                }
+
+                if (se is IPriorUsed)
+                {
+                    res.Add(typeof(IPriorUsed));
+                }
+
+                if (se is IPostUsed)
+                {
+                    res.Add(typeof(IPostUsed));
+                }
+
+                if (se is IDefend)
+                {
+                    res.Add(typeof(IDefend));
+                }
+
+                if (se is IShipEnergy)
+                {
+                    res.Add(typeof(IShipEnergy));
+                }
+
+                if (se is AddLife addLife)
+                {
+                    if ((addLife.TargetRange & TargetRange.SelfShip) != 0)
+                    {
+                        res.Add(typeof(IShipLife));
+                    }
+                }
+
+                if (se is Heal heal)
+                {
+                    if ((heal.TargetRange & TargetRange.SelfShip) != 0)
+                    {
+                        res.Add(typeof(IShipLife));
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+    private ModuleMech GetTargetMechByTargetInfo(HashSet<Type> sefs, TargetInfo ti)
     {
         BattlePlayer targetPlayer = null;
         MechTypes targetMechType = MechTypes.All;
@@ -299,11 +374,24 @@ public class BattleProxyAI : BattleProxy
         ModuleMech mech = null;
         if (targetPlayer != null)
         {
-            mech = targetPlayer.BattleGroundManager.GetRandomMech(targetMechType, -1);
+            mech = targetPlayer.BattleGroundManager.GetRandomAliveMechExcept(targetMechType, -1);
         }
-        else
+        else // 依据卡牌增减益效果确定施加于哪一方
         {
-            mech = BattleGameManager.GetRandomAliveMechExcept(targetMechType, -1);
+            if ((sefs.Contains(typeof(INegative))) || sefs.Contains(typeof(IWeaken)))
+            {
+                targetPlayer = BattleGameManager.PlayerA;
+                mech = targetPlayer.BattleGroundManager.GetRandomAliveMechExcept(targetMechType, -1);
+            }
+            else if (sefs.Contains(typeof(IPositive)) || sefs.Contains(typeof(IStrengthen)) || sefs.Contains(typeof(IShipEnergy)) || sefs.Contains(typeof(IShipLife)) || sefs.Contains(typeof(IDefend)))
+            {
+                targetPlayer = BattleGameManager.PlayerB;
+                mech = targetPlayer.BattleGroundManager.GetRandomAliveMechExcept(targetMechType, -1);
+            }
+            else
+            {
+                mech = BattleGameManager.GetRandomAliveMechExcept(targetMechType, -1);
+            }
         }
 
         return mech;

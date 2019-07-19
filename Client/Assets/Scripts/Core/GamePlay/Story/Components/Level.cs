@@ -118,6 +118,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         switch (levelType)
         {
             case LevelTypes.Enemy:
+            {
                 BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
                 EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
                 int level = reader.ReadSInt32();
@@ -128,8 +129,12 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                     BonusGroups.Add(BonusGroup.Deserialize(reader));
                 }
 
-                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, level, BonusGroups);
+                res = new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, level, BonusGroups);
+                break;
+            }
+
             case LevelTypes.Shop:
+            {
                 int count = reader.ReadSInt32();
                 List<ShopItem> shopItems = new List<ShopItem>();
                 for (int i = 0; i < count; i++)
@@ -140,6 +145,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
 
                 res = new Shop(levelThemeCategory, levelPicID, LevelNames, shopItems);
                 break;
+            }
         }
 
         res.LevelID = levelID;

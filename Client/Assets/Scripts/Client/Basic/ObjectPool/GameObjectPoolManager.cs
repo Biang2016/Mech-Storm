@@ -59,6 +59,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         SmallBonusItem,
         BonusButton,
 
+        ShopItemButton_Card,
+        ShopItemButton_Small,
+        ShopItemSmallContainer,
+
         StartMenuButton,
         ExitMenuButton,
 
@@ -131,6 +135,10 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.CardSelectWindowCardContainer, 30},
         {PrefabNames.SelectCard, 50},
         {PrefabNames.BuildButton, 5},
+
+        {PrefabNames.ShopItemButton_Card, 5},
+        {PrefabNames.ShopItemButton_Small, 5},
+        {PrefabNames.ShopItemSmallContainer, 5},
 
         {PrefabNames.FX_Hit0, 3},
         {PrefabNames.FX_Hit1, 3},

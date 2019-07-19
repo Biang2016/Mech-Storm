@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class DecreaseAttack : TargetSideEffect
+    public class DecreaseAttack : TargetSideEffect, IWeaken
     {
         public DecreaseAttack()
         {

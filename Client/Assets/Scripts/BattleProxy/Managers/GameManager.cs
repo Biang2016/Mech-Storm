@@ -91,6 +91,12 @@ internal partial class GameManager
         PlayerB.CardDeckManager.CardDeck = new CardDeck(ClientB.BuildInfo, PlayerB.OnCardDeckLeftChange, PlayerB.CardDeckManager.OnUpdatePlayerCoolDownCard, PlayerB.CardDeckManager.OnRemovePlayerCoolDownCard);
         PlayerB.MyClientProxy = ClientB;
 
+        if (ClientB is BattleProxyAI battleProxyAI && battleProxyAI.Enemy != null)
+        {
+            PlayerB.BattleStatistics.Level = battleProxyAI.Enemy.Level;
+            PlayerA.BattleStatistics.Level = battleProxyAI.Enemy.Level;
+        }
+
         PlayerA.MyEnemyPlayer = PlayerB;
         PlayerB.MyEnemyPlayer = PlayerA;
 
@@ -100,9 +106,9 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        if (ClientB is BattleProxyAI ai && ai.LevelID != -1)
+        if (ClientB is BattleProxyAI ai && ai.Enemy != null && ai.Enemy.LevelID != -1)
         {
-            StartFightingEnemyRequest request = new StartFightingEnemyRequest(ai.LevelID);
+            StartFightingEnemyRequest request = new StartFightingEnemyRequest(ai.Enemy.LevelID);
             BroadcastRequest(request);
         }
 
@@ -175,6 +181,7 @@ internal partial class GameManager
             CurrentPlayer.MetalMaxChange(GamePlaySettings.MetalIncrease);
         }
 
+        CurrentPlayer.BattleStatistics.Rounds++;
         CurrentPlayer.AddAllMetal();
         CurrentPlayer.HandManager.BeginRound();
         CurrentPlayer.BattleGroundManager.BeginRound();
@@ -412,8 +419,10 @@ internal partial class GameManager
     public void OnEndGame(BattlePlayer winner)
     {
         if (IsStopped) return;
-        OnEndGameHandler?.Invoke(winner.ClientId);
-        GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
+        winner.BattleStatistics.FinalHealth = winner.LifeLeft;
+        winner.BattleStatistics.FinalHealthRatio = (float) winner.LifeLeft / winner.LifeMax;
+        OnEndGameHandler?.Invoke(winner.ClientId, ClientA.MyPlayer.BattleStatistics, ClientB.MyPlayer.BattleStatistics);
+        GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId, winner.BattleStatistics);
         Broadcast_AddRequestToOperationResponse(request);
         IsStopped = true;
     }
@@ -446,7 +455,7 @@ internal partial class GameManager
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
-            OnEndGameHandler?.Invoke(PlayerA.ClientId);
+            OnEndGameHandler?.Invoke(PlayerA.ClientId, PlayerA.BattleStatistics, PlayerB.BattleStatistics);
 //            Server.SV.SGMM.RemoveGame(ClientA);
 
             PlayerA?.OnDestroyed();

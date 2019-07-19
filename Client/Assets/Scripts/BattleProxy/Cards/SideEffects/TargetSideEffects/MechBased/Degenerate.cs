@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class Degenerate : TargetSideEffect
+    public class Degenerate : TargetSideEffect, IStrengthen
     {
         public Degenerate()
         {

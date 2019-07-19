@@ -83,15 +83,18 @@ public partial class SelectBuildPanel : BaseUIForm
             //TODO 加载等待标志
         }
 
-        UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
         if (Client.Instance.IsPlaying())
         {
+            DragManager.Instance.CancelCurrentDrag();
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow_ReadOnly);
+            BattleManager.Instance.SelfBattlePlayer.HandManager.RefreshCardsPlace();
         }
         else if (Client.Instance.IsLogin())
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
         }
+
+        UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
 
         SelectWindowShowAnim.SetTrigger("Show");
         IsShow = true;
@@ -103,16 +106,25 @@ public partial class SelectBuildPanel : BaseUIForm
     {
         UIMaskMgr.Instance.CancelAllMaskWindow(UIType.UIForm_LucencyType);
         SelectWindowShowAnim.SetTrigger("Reset");
+        DragManager.Instance.IsCanceling = false;
         if (CurrentEditBuildButton)
         {
             SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
+        }
+
+        if (Client.Instance.IsPlaying())
+        {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+        }
+        else
+        {
+            MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
         }
 
         UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
 
         UIManager.Instance.CloseUIForm<AffixPanel>();
         currentPreviewCard?.PoolRecycle();
-        MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
         IsShow = false;
     }
 

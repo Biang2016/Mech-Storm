@@ -197,6 +197,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         baseInfo_ele.SetAttribute("coin", BaseInfo.Coin.ToString());
         baseInfo_ele.SetAttribute("limitNum", BaseInfo.LimitNum.ToString());
         baseInfo_ele.SetAttribute("cardRareLevel", BaseInfo.CardRareLevel.ToString());
+        baseInfo_ele.SetAttribute("shopPrice", BaseInfo.ShopPrice.ToString());
         baseInfo_ele.SetAttribute("cardType", BaseInfo.CardType.ToString());
 
         XmlElement upgradeInfo_ele = doc.CreateElement("CardInfo");

@@ -108,7 +108,7 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, false, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
         CardSelectPanel.gameObject.SetActive(false);
         ChapterMapContainer.gameObject.SetActive(true);
     }

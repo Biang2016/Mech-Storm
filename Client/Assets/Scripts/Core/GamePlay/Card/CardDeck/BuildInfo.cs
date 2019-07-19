@@ -137,11 +137,6 @@ public class BuildInfo : IClone<BuildInfo>
         if (Life != targetBuildInfo.Life) return false;
         if (Energy != targetBuildInfo.Energy) return false;
         if (BeginMetal != targetBuildInfo.BeginMetal) return false;
-        if (GamePlaySettings != null && targetBuildInfo.GamePlaySettings != null)
-        {
-            if (!GamePlaySettings.EqualsTo(targetBuildInfo.GamePlaySettings)) return false;
-        }
-
         return true;
     }
 

@@ -1,6 +1,6 @@
 ﻿public class Battle
 {
-    public delegate void OnEndGameDelegate(int winnerClientID);
+    public delegate void OnEndGameDelegate(int winnerClientID, BattleStatistics battleStatistics_ClientA, BattleStatistics battleStatistics_ClientB);
 
     public ILog DebugLog;
     private GameManager GameManager;

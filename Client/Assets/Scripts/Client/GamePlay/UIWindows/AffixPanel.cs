@@ -208,7 +208,7 @@ public class AffixPanel : BaseUIForm
         }
     }
 
-    private void ShowAffixPanel(HashSet<AffixType> affixTypes)
+    public void ShowAffixPanel(HashSet<AffixType> affixTypes)
     {
         if (affixTypes.Count == 0)
         {

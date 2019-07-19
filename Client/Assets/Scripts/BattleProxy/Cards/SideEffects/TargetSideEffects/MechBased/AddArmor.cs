@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddArmor : TargetSideEffect
+    public class AddArmor : TargetSideEffect, IStrengthen
     {
         public AddArmor()
         {

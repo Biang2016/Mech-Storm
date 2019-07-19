@@ -58,7 +58,7 @@ public class LevelEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
 
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, true, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
     }
 
     public override void Hide()
@@ -574,8 +574,7 @@ public class LevelEditorPanel : BaseUIForm
                                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
                                 },
                                 rightButtonClick: delegate { cp.CloseUIForm(); });
-                        },
-                        onStartSelectCard: OnStartSelectCard);
+                        });
                     break;
                 }
             }
@@ -589,7 +588,6 @@ public class LevelEditorPanel : BaseUIForm
     public enum SelectCardContents
     {
         SelectDeckCards,
-        SelectShopItemCards,
         SelectBonusCards,
     }
 
@@ -754,36 +752,6 @@ public class LevelEditorPanel : BaseUIForm
                 int count = Enemy_BuildCards.CardSelectInfos[card.CardInfo.CardID].CardSelectCount;
                 CardSelectPanel.RefreshCard(card.CardInfo.CardID, count);
                 Row_CardSelection.Refresh();
-                break;
-            }
-            case SelectCardContents.SelectShopItemCards:
-            {
-                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-                cp.Initialize(
-                    descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetPrice"),
-                    leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
-                    rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
-                    leftButtonClick: delegate
-                    {
-                        if (int.TryParse(cp.InputText1, out int price))
-                        {
-                            cp.CloseUIForm();
-                            Row_ShopItems.OnCurEditShopItemCardChangeCard(card.CardInfo.CardID, price);
-                            Row_ShopItems.Refresh();
-                            StartCoroutine(ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
-                            CardSelectPanel.SetCardLibraryPanelEnable(false);
-                        }
-                        else
-                        {
-                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
-                        }
-                    },
-                    rightButtonClick: delegate
-                    {
-                        CardSelectPanel.SetCardLibraryPanelEnable(false);
-                        cp.CloseUIForm();
-                    },
-                    inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder"));
                 break;
             }
             case SelectCardContents.SelectBonusCards:

@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class GetHandCardCopy : HandCardRelatedSideEffect
+    public class GetHandCardCopy : HandCardRelatedSideEffect, IPriorUsed, IPositive
     {
         public GetHandCardCopy()
         {

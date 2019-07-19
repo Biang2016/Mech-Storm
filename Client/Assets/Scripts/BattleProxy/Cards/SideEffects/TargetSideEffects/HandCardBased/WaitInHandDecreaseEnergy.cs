@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class WaitInHandDecreaseEnergy : HandCardRelatedSideEffect
+    public class WaitInHandDecreaseEnergy : HandCardRelatedSideEffect, IPostUsed
     {
         public WaitInHandDecreaseEnergy()
         {

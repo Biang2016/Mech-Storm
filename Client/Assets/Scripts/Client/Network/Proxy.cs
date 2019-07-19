@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
+using UnityEngine;
 
 public class Proxy : ProxyBase
 {
@@ -66,7 +67,7 @@ public class Proxy : ProxyBase
     public void OnBeginSingleMode(int chapterID, int levelID)
     {
         ClientState = ClientStates.Matching;
-        ClientRequestBase req = new MatchStandaloneRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, chapterID, levelID);
+        ClientRequestBase req = new StandaloneStartLevelRequest(ClientID, SelectBuildManager.Instance.CurrentSelectedBuildInfo.BuildID, chapterID, levelID);
         SendMessage(req);
     }
 
@@ -231,18 +232,11 @@ public class Proxy : ProxyBase
                 {
                     StartNewStoryRequestResponse request = (StartNewStoryRequestResponse) r;
                     StoryManager.Instance.InitializeStory(request.Story);
-                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
+                    UIManager.Instance.ShowUIForms<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
                     UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
-                    break;
-                }
-                case NetProtocols.REFRESH_STORY_REQUEST:
-                {
-                    RefreshStoryRequest request = (RefreshStoryRequest) r;
-                    StoryManager.Instance.InitializeStory(request.Story);
-                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     break;
                 }
                 case NetProtocols.CREATE_BUILD_REQUEST_RESPONSE:
@@ -276,27 +270,63 @@ public class Proxy : ProxyBase
                     StoryManager.Instance.StartFightEnemy(((StartFightingEnemyRequest) r).LevelID);
                     break;
                 }
-                case NetProtocols.BEAT_ENEMY_REQUEST:
-                {
-                    BeatEnemyRequest request = (BeatEnemyRequest) r;
-                    StoryManager.Instance.SetEnemyBeated(request.LevelID);
-                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().StartGameAction = null;
-                    break;
-                }
+
                 case NetProtocols.GAME_STOP_BY_LEAVE_REQUEST:
                 {
                     GameStopByLeaveRequest request = (GameStopByLeaveRequest) r;
                     RoundManager.Instance.OnGameStopByLeave(request);
                     break;
                 }
-                case NetProtocols.RANDOM_NUMBER_SEED_REQUEST:
-                {
-                    RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest) r);
-                    break;
-                }
+
                 case NetProtocols.GAME_STOP_BY_SERVER_ERROR_REQUEST:
                 {
                     RoundManager.Instance.OnGameStopByServerError((GameStopByServerErrorRequest) r);
+                    break;
+                }
+                case NetProtocols.BEAT_LEVEL_REQUEST:
+                {
+                    BeatLevelRequest request = (BeatLevelRequest) r;
+                    StoryManager.Instance.SetLevelBeated(request.LevelID);
+                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().StartGameAction = null;
+                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
+                    UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
+                    break;
+                }
+                case NetProtocols.REFRESH_STORY_REQUEST:
+                {
+                    RefreshStoryRequest request = (RefreshStoryRequest) r;
+                    StoryManager.Instance.InitializeStory(request.Story);
+                    UIManager.Instance.GetBaseUIForm<StoryPanel>().InitiateStoryCanvas();
+                    UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+                    SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
+                    break;
+                }
+                case NetProtocols.VISIT_SHOP_REQUEST_RESPONSE:
+                {
+                    VisitShopRequestResponse request = (VisitShopRequestResponse) r;
+                    UIManager.Instance.ShowUIForms<ShopPanel>().Initialize(request.Shop);
+                    UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+                    break;
+                }
+                case NetProtocols.BUY_SHOP_ITEM_REQUEST_RESPONSE:
+                {
+                    BuyShopItemRequestResponse request = (BuyShopItemRequestResponse) r;
+                    StoryManager.Instance.GetStory().Crystal -= request.ShopItem.Price;
+                    UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+                    UIManager.Instance.GetBaseUIForm<ShopPanel>().RefreshAllShopItemAffordable();
+                    UIManager.Instance.GetBaseUIForm<ShopPanel>().SetAllButtonLock(false);
+                    UIManager.Instance.GetBaseUIForm<ShopPanel>().SetShopItemSold(request.ShopItem.ShopItemID);
+
+                    if (request.ShopItem is ShopItem_Card si_card)
+                    {
+                        StoryManager.Instance.JustGetNewCards.Add(si_card.GenerateCardID);
+                    }
+
+                    break;
+                }
+                case NetProtocols.RANDOM_NUMBER_SEED_REQUEST:
+                {
+                    RoundManager.Instance.OnRandomNumberSeed((RandomNumberSeedRequest) r);
                     break;
                 }
             }

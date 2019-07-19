@@ -45,11 +45,8 @@ public class SettingPanel : BaseUIForm
             (SoundSliderText, "SettingMenu_SoundSliderText"),
             (BGMSliderText, "SettingMenu_BGMSliderText"),
         });
-    }
 
-    void Start()
-    {
-        float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
+ float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
         float soundVolume = PlayerPrefs.GetFloat("SoundVolume");
         float bgmVolume = PlayerPrefs.GetFloat("BGMVolume");
         MasterSlider.value = masterVolume;
@@ -58,6 +55,11 @@ public class SettingPanel : BaseUIForm
         OnSoundSliderValueChange(soundVolume);
         BGMSlider.value = bgmVolume;
         OnBGMSliderValueChange(soundVolume);
+    }
+
+    void Start()
+    {
+       
     }
 
     public override void Display()

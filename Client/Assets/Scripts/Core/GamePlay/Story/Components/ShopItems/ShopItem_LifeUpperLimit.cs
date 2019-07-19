@@ -2,7 +2,7 @@
 
 public class ShopItem_LifeUpperLimit : ShopItem
 {
-    public ShopItem_LifeUpperLimit(int price, int lifeUpperLimit) : base(ShopItemTypes.LifeUpperLimit, price)
+    public ShopItem_LifeUpperLimit(int price, int lifeUpperLimit, int probability, bool isSingleton) : base(ShopItemTypes.LifeUpperLimit, price, probability, isSingleton)
     {
         LifeUpperLimit = lifeUpperLimit;
     }
@@ -15,7 +15,7 @@ public class ShopItem_LifeUpperLimit : ShopItem
 
     public override ShopItem Clone()
     {
-        return new ShopItem_LifeUpperLimit(Price, LifeUpperLimit);
+        return new ShopItem_LifeUpperLimit(Price, LifeUpperLimit, Probability, IsSingleton);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)

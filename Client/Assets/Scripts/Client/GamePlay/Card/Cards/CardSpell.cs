@@ -48,6 +48,14 @@ public class CardSpell : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleMech, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
+
+        if (DragManager.Instance.IsCanceling)
+        {
+            DragManager.Instance.IsCanceling = false;
+            CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
+            return;
+        }
+
         if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //离开手牌区域
         {
             if (!CardInfo.TargetInfo.HasTargetMech && !CardInfo.TargetInfo.HasTargetEquip && !CardInfo.TargetInfo.HasTargetShip)
@@ -60,8 +68,7 @@ public class CardSpell : CardBase
                 //To Mech
                 if (moduleMech == null || moduleMech.IsDead)
                 {
-                    transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                 }
                 else
                 {
@@ -120,16 +127,14 @@ public class CardSpell : CardBase
                 //To Equip
                 if (slots.Count == 0)
                 {
-                    transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                 }
                 else
                 {
                     ModuleEquip equip = slots[0].Mech.MechEquipSystemComponent.GetEquipBySlotType(slots[0].MSlotTypes);
                     if (equip == null || equip.M_ModuleMech.IsDead)
                     {
-                        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                        CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                     }
                     else
                     {
@@ -187,10 +192,9 @@ public class CardSpell : CardBase
             else if (CardInfo.TargetInfo.HasTargetShip)
             {
                 // ToShip
-                if (!ship)
+                if (!ship) //带目标法术卡未指定目标，则收回
                 {
-                    transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                 }
                 else
                 {
@@ -228,6 +232,12 @@ public class CardSpell : CardBase
         }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+    }
+
+    private void CancelPlayOut(Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    {
+        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion);
         ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
     }
 

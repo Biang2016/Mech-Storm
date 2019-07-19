@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Damage : TargetSideEffect, IDamage
+    public class Damage : TargetSideEffect, IDamage, INegative
     {
         public Damage()
         {

@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class UseAllEnergyDamageShip : SideEffectBase
+    public class UseAllEnergyDamageShip : SideEffectBase, IPositive
     {
         public UseAllEnergyDamageShip()
         {

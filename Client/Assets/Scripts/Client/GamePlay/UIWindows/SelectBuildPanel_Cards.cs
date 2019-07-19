@@ -171,7 +171,7 @@ public partial class SelectBuildPanel
         {
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.EmptyCard) continue;
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.NoCard) continue;
-            if (cardInfo.BaseInfo.IsHide) continue;
+            //if (cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoCardSelectWindow(cardInfo.Clone());
         }

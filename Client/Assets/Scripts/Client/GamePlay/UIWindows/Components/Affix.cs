@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Affix : PoolObject
 {
-    [SerializeField] private TextMeshProUGUI Text;
-    [SerializeField] private Image BoardImage;
+    [SerializeField] private TextMeshPro Text;
+    [SerializeField] private SpriteRenderer BoardImage;
 
     internal AffixType AffixType;
 
     [SerializeField] private Color NoneColor;
+
+    [SerializeField] private Color LifeColor;
+    [SerializeField] private Color EnergyColor;
+    [SerializeField] private Color MetalColor;
+    [SerializeField] private Color DeckColor;
 
     [SerializeField] private Color AuraColor;
 
@@ -33,6 +37,10 @@ public class Affix : PoolObject
     [SerializeField] private Color GunColor;
     [SerializeField] private Color SniperGunColor;
 
+    [SerializeField] private Color DisposableColor;
+    [SerializeField] private Color ImmuneColor;
+    [SerializeField] private Color InactivityColor;
+
     private Dictionary<AffixType, Color> AffixColorDict;
 
     void Awake()
@@ -41,7 +49,12 @@ public class Affix : PoolObject
         {
             {AffixType.None, NoneColor},
 
-            {AffixType.Aura, AuraColor},
+            {AffixType.Life, LifeColor},
+            {AffixType.Energy, EnergyColor},
+            {AffixType.Metal, MetalColor},
+            {AffixType.Deck, DeckColor},
+
+            { AffixType.Aura, AuraColor},
 
             {AffixType.Die, DieColor},
             {AffixType.BattleCry, BattleCryColor},
@@ -62,9 +75,9 @@ public class Affix : PoolObject
             {AffixType.Gun, GunColor},
             {AffixType.SniperGun, SniperGunColor},
 
-            {AffixType.Disposable, AttackColor},
-            {AffixType.Immune, FrenzyColor},
-            {AffixType.Inactivity, ShieldColor},
+            {AffixType.Disposable, DisposableColor},
+            {AffixType.Immune, ImmuneColor},
+            {AffixType.Inactivity, InactivityColor},
         };
     }
 
@@ -85,6 +98,11 @@ public class Affix : PoolObject
             "zh", new Dictionary<AffixType, string>
             {
                 {AffixType.None, ""},
+
+                {AffixType.Life, "战舰生命"},
+                {AffixType.Energy, "战舰能量"},
+                {AffixType.Metal, "金属"},
+                {AffixType.Deck, "卡组"},
 
                 {AffixType.Aura, "光环"},
 
@@ -116,6 +134,11 @@ public class Affix : PoolObject
             "en", new Dictionary<AffixType, string>
             {
                 {AffixType.None, ""},
+
+                {AffixType.Life, "Battleship Life"},
+                {AffixType.Energy, "Battleship Energy "},
+                {AffixType.Metal, "Metal"},
+                {AffixType.Deck, "Deck"},
 
                 {AffixType.Aura, "Aura"},
 
@@ -152,6 +175,11 @@ public class Affix : PoolObject
             {
                 {AffixType.None, ""},
 
+                {AffixType.Life, "战舰生命为零的一方将输掉战斗;战斗结束剩余生命百分比将影响奖励水晶数量;可在战前进行生命上限的修改"},
+                {AffixType.Energy, "战舰能量主要用于使用法术牌;可在战前进行能量上限的修改"},
+                {AffixType.Metal, "金属资源主要用于召唤机甲和装备;金属每回合增加一点上限并回复至全满"},
+                {AffixType.Deck, "标示了您卡组中卡牌的数量;卡组可以在战前选牌界面进行修改"},
+
                 {AffixType.Aura, "若机甲或装备在场，在某些情况下触发"},
 
                 {AffixType.Die, "当机甲死亡或装备被摧毁时触发"},
@@ -182,6 +210,11 @@ public class Affix : PoolObject
             "en", new Dictionary<AffixType, string>
             {
                 {AffixType.None, ""},
+
+                {AffixType.Life, "Player with 0 life will lose the game. The life value affects Crystal Bonus when win. The upper limit can be adjust before battles."},
+                {AffixType.Energy, "Mainly used to play Spell cards. The upper limit can be adjust before battles."},
+                {AffixType.Metal, "Mainly used to summon Mechs and equipment. Increases by 1 point each round."},
+                {AffixType.Deck, "Indicates the number of cards in your deck. Can be modified before battles."},
 
                 {AffixType.Aura, "If mech or equip is on battlefield, something will be triggered in certain case. "},
 
@@ -215,6 +248,11 @@ public class Affix : PoolObject
 public enum AffixType
 {
     None,
+
+    Life,
+    Energy,
+    Metal,
+    Deck,
 
     Aura,
 

@@ -14,10 +14,11 @@ public struct BaseInfo
     public int EffectFactor;
     public int LimitNum;
     public int CardRareLevel;
+    public int ShopPrice;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool isHide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
+    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool isHide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, int shopPrice, CardTypes cardType)
     {
         PictureID = pictureID;
         CardNames = cardNames;
@@ -29,6 +30,7 @@ public struct BaseInfo
         EffectFactor = effectFactor;
         LimitNum = limitNum;
         CardRareLevel = cardRareLevel;
+        ShopPrice = shopPrice;
         DragPurpose = DragPurpose.None;
         CardType = cardType;
     }
@@ -66,6 +68,7 @@ public struct BaseInfo
         writer.WriteSInt32(EffectFactor);
         writer.WriteSInt32(LimitNum);
         writer.WriteSInt32(CardRareLevel);
+        writer.WriteSInt32(ShopPrice);
         writer.WriteSInt32((int) CardType);
     }
 
@@ -89,8 +92,9 @@ public struct BaseInfo
         int EffectFactor = reader.ReadSInt32();
         int LimitNum = reader.ReadSInt32();
         int CardRareLevel = reader.ReadSInt32();
+        int ShopPrice = reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardNames, IsTemp, IsHide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
+        return new BaseInfo(PictureID, CardNames, IsTemp, IsHide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, ShopPrice, CardType);
     }
 
     public static Dictionary<string, Dictionary<CardTypes, string>> CardTypeNameDict = new Dictionary<string, Dictionary<CardTypes, string>>

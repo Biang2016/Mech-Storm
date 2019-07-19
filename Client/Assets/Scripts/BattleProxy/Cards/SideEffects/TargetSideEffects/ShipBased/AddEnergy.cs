@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddEnergy : TargetSideEffect
+    public class AddEnergy : TargetSideEffect, IShipEnergy
     {
         public AddEnergy()
         {

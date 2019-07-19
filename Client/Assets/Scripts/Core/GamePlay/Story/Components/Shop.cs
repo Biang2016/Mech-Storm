@@ -12,7 +12,9 @@ public class Shop : Level
 
     public override Level Clone()
     {
-        return new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), CloneVariantUtils.List(ShopItems));
+        Shop shop = new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), CloneVariantUtils.List(ShopItems));
+        shop.LevelID = LevelID;
+        return shop;
     }
 
     public override Level Variant()
@@ -45,23 +47,6 @@ public class Shop : Level
     /// </summary>
     public override bool DeleteCard(int cardID)
     {
-        List<ShopItem> remove_SI = new List<ShopItem>();
-        foreach (ShopItem si in ShopItems)
-        {
-            if (si is ShopItem_Card si_card)
-            {
-                if (si_card.CardID == cardID)
-                {
-                    remove_SI.Add(si);
-                }
-            }
-        }
-
-        foreach (ShopItem si in remove_SI)
-        {
-            ShopItems.Remove(si);
-        }
-
         return false;
     }
 

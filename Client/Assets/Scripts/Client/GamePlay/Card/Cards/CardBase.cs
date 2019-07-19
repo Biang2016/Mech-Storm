@@ -550,7 +550,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public virtual void DragComponent_OnMouseDown()
     {
         ClientPlayer.BattlePlayer.HandManager.IsBeginDrag = true;
-//        iTween.Stop(gameObject);
     }
 
     public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Vector3 dragLastPosition)

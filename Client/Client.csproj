@@ -186,6 +186,10 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_ShopItemTypeDropdown.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\MetalBar\MetalBarBlock.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\MetalBar\MetalBarManager.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemButton.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemButton_Card.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemButton_Small.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemSmallContainer.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShrinkText.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StarsGroup.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StartMenuButton.cs" />
@@ -212,9 +216,11 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_Cards.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_SelectCards.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SettingPanel.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\ShopPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StartMenuPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryEditorPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryPanel.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryPlayerInformationPanel.cs" />
      <Compile Include="Assets\Scripts\Client\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Client\Network\NetworkManager.cs" />
      <Compile Include="Assets\Scripts\Client\Network\Proxy.cs" />

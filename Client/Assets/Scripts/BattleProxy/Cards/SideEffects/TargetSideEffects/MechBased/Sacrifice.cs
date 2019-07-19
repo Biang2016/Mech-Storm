@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class Sacrifice : TargetSideEffect
+    public class Sacrifice : TargetSideEffect, IDefend, IPostUsed
     {
         public Sacrifice()
         {

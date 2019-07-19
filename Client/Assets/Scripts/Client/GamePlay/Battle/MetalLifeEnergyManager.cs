@@ -63,6 +63,16 @@ public class MetalLifeEnergyManager : MonoBehaviour
         ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();
     }
 
+    public void OnMetalIconHoverShowAffixPanel()
+    {
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixPanel(new HashSet<AffixType> {AffixType.Metal});
+    }
+
+    public void OnMetalIconMouseLeaveHideAffixPanel()
+    {
+        UIManager.Instance.GetBaseUIForm<AffixPanel>().Hide();
+    }
+
     public void SetLife(int value, int change)
     {
         LifeNumber.text = value.ToString();
@@ -80,9 +90,25 @@ public class MetalLifeEnergyManager : MonoBehaviour
         {
             LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
             FXManager.Instance.PlayFX(LifeIcon.transform, FXManager.FXType.FX_Blade1, "#FFFFFF", 0.3f, 1.5f);
-            AudioManager.Instance.SoundPlay("sfx/OnHitShip");
-            AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
         }
+    }
+
+    public void LifeOverflowJump()
+    {
+        LifeIconAnim.SetTrigger("Jump");
+        LifeIconAnim.SetTrigger("Reset");
+        LifeNumberAnim.SetTrigger("Jump");
+        LifeTotalNumberAnim.SetTrigger("Jump");
+    }
+
+    public void OnLifeIconHoverShowAffixPanel()
+    {
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixPanel(new HashSet<AffixType> {AffixType.Life});
+    }
+
+    public void OnLifeIconMouseLeaveHideAffixPanel()
+    {
+        UIManager.Instance.GetBaseUIForm<AffixPanel>().Hide();
     }
 
     public void SetTotalLife(int value)
@@ -113,6 +139,24 @@ public class MetalLifeEnergyManager : MonoBehaviour
     public void SetTotalEnergy(int value)
     {
         TotalEnergyNumber.text = "/" + value;
+    }
+
+    public void EnergyOverflowJump()
+    {
+        EnergyIconAnim.SetTrigger("Jump");
+        EnergyIconAnim.SetTrigger("Reset");
+        EnergyNumberAnim.SetTrigger("Jump");
+        EnergyTotalNumberAnim.SetTrigger("Jump");
+    }
+
+    public void OnEnergyIconHoverShowAffixPanel()
+    {
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixPanel(new HashSet<AffixType> {AffixType.Energy});
+    }
+
+    public void OnEnergyIconMouseLeaveHideAffixPanel()
+    {
+        UIManager.Instance.GetBaseUIForm<AffixPanel>().Hide();
     }
 
     public void OnEnergyChange(int change)

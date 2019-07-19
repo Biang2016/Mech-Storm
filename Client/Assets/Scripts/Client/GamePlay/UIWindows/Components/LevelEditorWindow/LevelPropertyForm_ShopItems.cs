@@ -19,7 +19,6 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         GoToButton.onClick.RemoveAllListeners();
         AddButton.onClick.RemoveAllListeners();
         ClearButton.onClick.RemoveAllListeners();
-        OnStartSelectCard = null;
     }
 
     void Awake()
@@ -34,7 +33,6 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
     private List<ShopItem> Cur_ShopItems;
     private List<LevelPropertyForm_ShopItem> My_LevelPropertyForm_ShopItem = new List<LevelPropertyForm_ShopItem>();
     private List<LevelPropertyForm_ShopItemTypeDropdown> My_LevelPropertyForm_ShopItemTypeDropdown = new List<LevelPropertyForm_ShopItemTypeDropdown>();
-    private UnityAction<bool, int, int, LevelEditorPanel.SelectCardContents> OnStartSelectCard;
     private IEnumerator Co_refresh;
 
     public void Initialize(List<ShopItem> shopItems, IEnumerator co_refresh)
@@ -48,7 +46,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         Refresh();
     }
 
-    public void SetButtonActions(UnityAction gotoAction, UnityAction clearAction, UnityAction<bool, int, int, LevelEditorPanel.SelectCardContents> onStartSelectCard)
+    public void SetButtonActions(UnityAction gotoAction, UnityAction clearAction)
     {
         GoToButton.onClick.RemoveAllListeners();
         GoToButton.onClick.AddListener(gotoAction);
@@ -69,22 +67,22 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                 {
                     case ShopItem.ShopItemTypes.Card:
                     {
-                        si = new ShopItem_Card(100, (int) AllCards.EmptyCardTypes.EmptyCard);
+                        si = new ShopItem_Card(100, 1, 50, false);
                         break;
                     }
                     case ShopItem.ShopItemTypes.Budget:
                     {
-                        si = new ShopItem_Budget(100, 50);
+                        si = new ShopItem_Budget(100, 50, 10, false);
                         break;
                     }
                     case ShopItem.ShopItemTypes.LifeUpperLimit:
                     {
-                        si = new ShopItem_LifeUpperLimit(100, 2);
+                        si = new ShopItem_LifeUpperLimit(100, 2, 10, false);
                         break;
                     }
                     case ShopItem.ShopItemTypes.EnergyUpperLimit:
                     {
-                        si = new ShopItem_EnergyUpperLimit(100, 2);
+                        si = new ShopItem_EnergyUpperLimit(100, 2, 10, false);
                         break;
                     }
                 }
@@ -96,7 +94,6 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         });
         ClearButton.onClick.RemoveAllListeners();
         ClearButton.onClick.AddListener(clearAction);
-        OnStartSelectCard = onStartSelectCard;
     }
 
     private void Clear()
@@ -113,16 +110,15 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         }
 
         My_LevelPropertyForm_ShopItemTypeDropdown.Clear();
-        OnStartSelectCard?.Invoke(false, (int) AllCards.EmptyCardTypes.NoCard, 0, LevelEditorPanel.SelectCardContents.SelectShopItemCards);
     }
 
     private LevelPropertyForm_ShopItem CurEdit_ShopItem;
 
-    public void OnCurEditShopItemCardChangeCard(int cardID, int price)
+    public void OnCurEditShopItemCardChangeCard(int cardRareLevel, int price)
     {
         if (CurEdit_ShopItem.Cur_ShopItem is ShopItem_Card sic)
         {
-            sic.CardID = cardID;
+            sic.CardRareLevel = cardRareLevel;
             sic.Price = price;
             CurEdit_ShopItem.Refresh();
         }
@@ -159,7 +155,38 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                 {
                     case ShopItem_Card sic:
                     {
-                        OnStartSelectCard(true, sic.CardID, 1, LevelEditorPanel.SelectCardContents.SelectShopItemCards);
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(
+                            descText: LanguageManager.Instance.GetText("LevelEditorPanel_SetCardPrice"),
+                            leftButtonClick: delegate
+                            {
+                                if (int.TryParse(cp.InputText1, out int cardRareLevel))
+                                {
+                                    if (int.TryParse(cp.InputText2, out int probability))
+                                    {
+                                        cp.CloseUIForm();
+                                        sic.CardRareLevel = cardRareLevel;
+                                        sic.Probability = probability;
+                                        Refresh();
+                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                    }
+                                    else
+                                    {
+                                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                    }
+                                }
+                                else
+                                {
+                                    NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                }
+                            },
+                            rightButtonClick: delegate { cp.CloseUIForm(); },
+                            leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
+                            rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
+                            inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_CardRareLevelPlaceHolder"),
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_ProbabilityPlaceHolder")
+                        );
+
                         break;
                     }
                     case ShopItem_Budget sib:
@@ -173,11 +200,19 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                                 {
                                     if (int.TryParse(cp.InputText2, out int price))
                                     {
-                                        cp.CloseUIForm();
-                                        sib.Budget = budget;
-                                        sib.Price = price;
-                                        Refresh();
-                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                        if (int.TryParse(cp.InputText3, out int probability))
+                                        {
+                                            cp.CloseUIForm();
+                                            sib.Budget = budget;
+                                            sib.Price = price;
+                                            sib.Probability = probability;
+                                            Refresh();
+                                            StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                        }
+                                        else
+                                        {
+                                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                        }
                                     }
                                     else
                                     {
@@ -193,7 +228,8 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                             leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
                             rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
                             inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_BudgetPlaceHolder"),
-                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder")
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder"),
+                            inputFieldPlaceHolderText3: LanguageManager.Instance.GetText("LevelEditorPanel_ProbabilityPlaceHolder")
                         );
                         break;
                     }
@@ -208,11 +244,19 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                                 {
                                     if (int.TryParse(cp.InputText2, out int price))
                                     {
-                                        cp.CloseUIForm();
-                                        silu.LifeUpperLimit = lifeUpperLimit;
-                                        silu.Price = price;
-                                        Refresh();
-                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                        if (int.TryParse(cp.InputText3, out int probability))
+                                        {
+                                            cp.CloseUIForm();
+                                            silu.LifeUpperLimit = lifeUpperLimit;
+                                            silu.Price = price;
+                                            silu.Probability = probability;
+                                            Refresh();
+                                            StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                        }
+                                        else
+                                        {
+                                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                        }
                                     }
                                     else
                                     {
@@ -228,7 +272,8 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                             leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
                             rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
                             inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_LifeUpperLimitLabelValueText"),
-                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder")
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder"),
+                            inputFieldPlaceHolderText3: LanguageManager.Instance.GetText("LevelEditorPanel_ProbabilityPlaceHolder")
                         );
                         break;
                     }
@@ -243,11 +288,19 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                                 {
                                     if (int.TryParse(cp.InputText2, out int price))
                                     {
-                                        cp.CloseUIForm();
-                                        sieu.EnergyUpperLimit = energyUpperLimit;
-                                        sieu.Price = price;
-                                        Refresh();
-                                        StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                        if (int.TryParse(cp.InputText3, out int probability))
+                                        {
+                                            cp.CloseUIForm();
+                                            sieu.EnergyUpperLimit = energyUpperLimit;
+                                            sieu.Price = price;
+                                            sieu.Probability = probability;
+                                            Refresh();
+                                            StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ShopItemContainer));
+                                        }
+                                        else
+                                        {
+                                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_PleaseInputInteger"), 0f, 1f);
+                                        }
                                     }
                                     else
                                     {
@@ -263,7 +316,8 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
                             leftButtonText: LanguageManager.Instance.GetText("Common_Confirm"),
                             rightButtonText: LanguageManager.Instance.GetText("Common_Cancel"),
                             inputFieldPlaceHolderText1: LanguageManager.Instance.GetText("LevelEditorPanel_EnergyUpperLimitLabelValueText"),
-                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder")
+                            inputFieldPlaceHolderText2: LanguageManager.Instance.GetText("LevelEditorPanel_PricePlaceHolder"),
+                            inputFieldPlaceHolderText3: LanguageManager.Instance.GetText("LevelEditorPanel_ProbabilityPlaceHolder")
                         );
                         break;
                     }

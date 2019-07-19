@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class RunAway : TargetSideEffect
+    public class RunAway : TargetSideEffect, IDefend
     {
         public RunAway()
         {

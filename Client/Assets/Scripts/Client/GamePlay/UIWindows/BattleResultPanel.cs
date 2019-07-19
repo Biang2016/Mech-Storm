@@ -31,17 +31,13 @@ internal class BattleResultPanel : BaseUIForm
     [SerializeField] private Text SelectTipText;
 
     [SerializeField] private Text NoRewardText_OptionalBonus;
-    [SerializeField] private Text NoRewardText_ChapterBonus;
     [SerializeField] private Text NoRewardText_FixedBonus;
 
     [SerializeField] private GameObject OptionalBonus;
     [SerializeField] private GameObject OptionalBonusSeperator;
     [SerializeField] private Text OptionalBonusText;
     [SerializeField] private Transform OptionalBonusContainer;
-    [SerializeField] private GameObject ChapterBonus;
-    [SerializeField] private GameObject ChapterBonusSeperator;
-    [SerializeField] private Text ChapterBonusText;
-    [SerializeField] private Transform ChapterBonusContainer;
+
     [SerializeField] private GameObject FixedBonus;
     [SerializeField] private GameObject FixedBonusSeperator;
     [SerializeField] private Text FixedBonusText;
@@ -76,6 +72,14 @@ internal class BattleResultPanel : BaseUIForm
 
     void Awake()
     {
+        UIType.InitUIType(
+            isClearStack: false,
+            isESCClose: false,
+            isClickElsewhereClose: false,
+            uiForms_Type: UIFormTypes.Fixed,
+            uiForms_ShowMode: UIFormShowModes.Normal,
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
+
         LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
         {
             (SelectTipText, "WinLostPanelManager_SelectTipText"),
@@ -85,17 +89,19 @@ internal class BattleResultPanel : BaseUIForm
             (OnlineLostText, "WinLostPanelManager_OnlineLostText"),
             (LostTipTitle, "WinLostPanelManager_LostTipTitle"),
             (NoRewardText_OptionalBonus, "WinLostPanelManager_NoRewardText"),
-            (NoRewardText_ChapterBonus, "WinLostPanelManager_NoRewardText"),
             (NoRewardText_FixedBonus, "WinLostPanelManager_NoRewardText"),
             (OptionalBonusText, "WinLostPanelManager_OptionalBonusText"),
-            (ChapterBonusText, "WinLostPanelManager_ChapterBonusText"),
             (FixedBonusText, "WinLostPanelManager_FixedBonusText"),
             (ConfirmButtonText, "WinLostPanelManager_ConfirmButtonText"),
             (OnlineGoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
             (LostGoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
             (LostGoAheadButtonText, "WinLostPanelManager_GoAheadButtonText"),
-            (CardUpgradeUnlockText, "WinLostPanelManager_CardUpgradeUnlockText"),
-            (CardUpgradeUnlockDescText, "WinLostPanelManager_CardUpgradeUnlockDescText"),
+
+            (CrystalRewardText, "WinLostPanelManager_CrystalRewardText"),
+            (CrystalLevelLabel, "WinLostPanelManager_CrystalLevelLabel"),
+            (CrystalHealthLabel, "WinLostPanelManager_CrystalHealthLabel"),
+            (CrystalKillLabel, "WinLostPanelManager_CrystalKillEquation"),
+            (CrystalDamageLabel, "WinLostPanelManager_CrystalDamageLabel"),
         });
 
         OnlineGoAheadButton.onClick.AddListener(OnGoAheadButtonClick);
@@ -131,18 +137,15 @@ internal class BattleResultPanel : BaseUIForm
 
             Cur_SelectedBonusButton = null;
             WinContent.SetActive(true);
-
-            ResetCardUpgradeShowPanel();
         }
 
-        CardUpgradeUnlockContent.SetActive(false);
         OnlineResultContent.SetActive(false);
     }
 
     IEnumerator Co_OnGameStopByWin(bool isWin)
     {
         UIManager.Instance.CloseUIForm<SelectBuildPanel>();
-        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
+        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
         AudioManager.Instance.BGMStop();
         if (isWin)
         {
@@ -169,6 +172,39 @@ internal class BattleResultPanel : BaseUIForm
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;
         Reset();
     }
+
+    internal BattleStatistics BattleStatistics;
+
+    #region Crystal
+
+    [SerializeField] private GameObject CrystalRewardGO;
+    [SerializeField] private GameObject CrystalRewardSeperator;
+    [SerializeField] private Text CrystalRewardText;
+    [SerializeField] private Transform CrystalRewardContainer;
+
+    [SerializeField] private Text CrystalLevelLabel;
+    [SerializeField] private Text CrystalHealthLabel;
+    [SerializeField] private Text CrystalKillLabel;
+    [SerializeField] private Text CrystalDamageLabel;
+
+    [SerializeField] private Text CrystalLevelEquation;
+    [SerializeField] private Text CrystalHealthEquation;
+    [SerializeField] private Text CrystalKillEquation;
+    [SerializeField] private Text CrystalDamageEquation;
+
+    [SerializeField] private Text CrystalTotalText;
+
+    public void SetCrystalInfo()
+    {
+        CrystalLevelEquation.text = string.Format("Lv.{0} x{1} = {2}", BattleStatistics.Level, BattleStatistics.LEVEL_CRYSTAL, BattleStatistics.levelCrystal);
+        CrystalHealthEquation.text = string.Format("{0}% -> {1}", BattleStatistics.FinalHealthRatio * 100, BattleStatistics.healthCrystal);
+        CrystalKillEquation.text = string.Format("{0} x{1} = {2}", BattleStatistics.TotalKill, BattleStatistics.KILL_CRYSTAL, BattleStatistics.killCrystal) + (BattleStatistics.KILL_CRYSTAL == BattleStatistics.killCrystal ? "(max)" : "");
+        CrystalDamageEquation.text = string.Format("{0} x{1} = {2}", BattleStatistics.TotalDamage, BattleStatistics.DAMAGE_CRYSTAL, BattleStatistics.damageCrystal) + (BattleStatistics.DAMAGE_CRYSTAL == BattleStatistics.damageCrystal ? "(max)" : "");
+
+        CrystalTotalText.text = BattleStatistics.totalCrystal.ToString();
+    }
+
+    #endregion
 
     #endregion
 
@@ -239,13 +275,14 @@ internal class BattleResultPanel : BaseUIForm
 
             OptionalBonus.SetActive(true);
             OptionalBonusSeperator.SetActive(true);
-            ChapterBonus.SetActive(false);
-            ChapterBonusSeperator.SetActive(false);
+
             FixedBonus.SetActive(true);
             FixedBonusSeperator.SetActive(true);
 
+            CrystalRewardGO.SetActive(true);
+            CrystalRewardSeperator.SetActive(true);
+
             NoRewardText_OptionalBonus.enabled = OptionalBonusGroups.Count == 0;
-            NoRewardText_ChapterBonus.enabled = true; //TODO    
             NoRewardText_FixedBonus.enabled = AlwaysBonusGroups.Count == 0;
         }
         else
@@ -309,8 +346,10 @@ internal class BattleResultPanel : BaseUIForm
             true, new List<string>
             {
                 "Don't take too many useless cards, which would dilute your deck and decrease the chance to draw powerful cards.",
-                "Lost? Nerver mind! Go to buy some powerful cards. And spare more budget on adding your life.",
-                "Getting cards slowly? Try to increase the number of draw cards per round in the deck window.",
+                "Lost? Never mind! Go to buy some powerful cards. And spare more budget on adding your life.",
+                "Drawing cards slowly? Try to increase the number of draw cards per round in the deck window.",
+                "Enemy too strong? Try other enemies first to get more cards!",
+                "Increase the number of draw cards per round, decrease the number of cards in deck, and then speed up the circulation of cards to have more combo!",
             }
         },
         {
@@ -320,6 +359,8 @@ internal class BattleResultPanel : BaseUIForm
                 "太容易被击败? 尝试着花费更多预算来提高你的生命值吧! 就在选牌窗口哦~",
                 "抽牌太少? 去选牌窗口里调整每回合抽牌数吧!",
                 "不同的卡牌有不同的选牌上限~ 通常只能携带少量的强力卡牌",
+                "关卡太难? 可以先尝试其他关卡，待收集到更强力的卡片之后再来挑战哦~",
+                "增加每回合抽牌数，减少卡牌数量，能够有效加速卡组循环，更好地打出卡牌配合！",
             }
         }
     };
@@ -354,9 +395,8 @@ internal class BattleResultPanel : BaseUIForm
 
         ApplyBonusChange(getBonusGroups);
         EndWinLostPanel();
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
 
-        EndBattleRequest request = new EndBattleRequest(Client.Instance.Proxy.ClientID);
+        EndBattleRequest request = new EndBattleRequest(Client.Instance.Proxy.ClientID, StoryManager.Instance.GetStory().CurrentFightingChapterID, StoryManager.Instance.CurrentFightingEnemy.LevelID);
         Client.Instance.Proxy.SendMessage(request);
     }
 
@@ -413,7 +453,6 @@ internal class BattleResultPanel : BaseUIForm
             }
         }
 
-        UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
         UIManager.Instance.GetBaseUIForm<StoryPanel>().UnSelectNode();
         UIManager.Instance.GetBaseUIForm<StoryPanel>().Cur_ChapterMap.UnSelectAllNode();
     }
@@ -448,49 +487,6 @@ internal class BattleResultPanel : BaseUIForm
             CurrentPreivewCard = null;
             CardPreviewContainerAnim.SetTrigger("Exit");
             UIManager.Instance.CloseUIForm<AffixPanel>();
-        }
-    }
-
-    #endregion
-
-    #region CardUpgradeUnlock
-
-    [SerializeField] private GameObject CardUpgradeUnlockContent;
-
-    [SerializeField] private Animator CardUpgradeUnlockAnim;
-
-    [SerializeField] private Text CardUpgradeUnlockText;
-    [SerializeField] private Text CardUpgradeUnlockDescText;
-
-    [SerializeField] private Transform CardUpgradeUnlockCardContainter;
-    [SerializeField] private Transform CardUpgradeUnlockCardSample;
-
-    [SerializeField] private Transform CardUpgradeUnlockCardContainter_Upgrade;
-    [SerializeField] private Transform CardUpgradeUnlockCardSample_Upgrade;
-
-    private CardBase Cur_BaseCard;
-    private CardBase Cur_UpgradeCard;
-    private bool isBeginCardUpgradeShow = false; //是否正在展示中
-    private bool isOneCardUpgradeShowOver = false; //一个展示是否结束
-    private bool isMouseClickSkip = false;
-
-    private void ResetCardUpgradeShowPanel()
-    {
-        if (Cur_BaseCard != null) Cur_BaseCard.PoolRecycle();
-        if (Cur_UpgradeCard != null) Cur_UpgradeCard.PoolRecycle();
-        isBeginCardUpgradeShow = false;
-        isOneCardUpgradeShowOver = false;
-        isMouseClickSkip = false;
-        CardUpgradeUnlockContent.SetActive(false);
-        Cur_BaseCard = null;
-        Cur_UpgradeCard = null;
-    }
-
-    void Update()
-    {
-        if (isBeginCardUpgradeShow && Input.GetMouseButtonUp(0))
-        {
-            if (isOneCardUpgradeShowOver) isMouseClickSkip = true;
         }
     }
 

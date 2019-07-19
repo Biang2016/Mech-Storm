@@ -2,7 +2,7 @@
 
 public class ShopItem_EnergyUpperLimit : ShopItem
 {
-    public ShopItem_EnergyUpperLimit(int price, int energyUpperLimit) : base(ShopItemTypes.EnergyUpperLimit, price)
+    public ShopItem_EnergyUpperLimit(int price, int energyUpperLimit, int probability, bool isSingleton) : base(ShopItemTypes.EnergyUpperLimit, price, probability, isSingleton)
     {
         EnergyUpperLimit = energyUpperLimit;
     }
@@ -15,7 +15,7 @@ public class ShopItem_EnergyUpperLimit : ShopItem
 
     public override ShopItem Clone()
     {
-        return new ShopItem_EnergyUpperLimit(Price, EnergyUpperLimit);
+        return new ShopItem_EnergyUpperLimit(Price, EnergyUpperLimit, Probability, IsSingleton);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)

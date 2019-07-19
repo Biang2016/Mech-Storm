@@ -320,7 +320,10 @@ public class EventManager
             }
             else if (see.M_ExecuteSetting.TriggerTimes == 0)
             {
-                ObsoleteSEEs.Add(see.ID, see);
+                if (!ObsoleteSEEs.ContainsKey(see.ID))
+                {
+                    ObsoleteSEEs.Add(see.ID, see);
+                }
             }
         }
     }

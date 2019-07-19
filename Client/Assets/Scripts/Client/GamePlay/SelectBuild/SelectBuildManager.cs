@@ -29,7 +29,14 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         get { return currentEditBuildInfo; }
         set
         {
-            if (currentEditBuildInfo != null) OnSaveBuildInfo(currentEditBuildInfo);
+            if (currentEditBuildInfo != null && value != null)
+            {
+                if (currentEditBuildInfo.BuildID != value.BuildID)
+                {
+                    OnSaveBuildInfo(currentEditBuildInfo);
+                }
+            }
+
             currentEditBuildInfo = value;
             if (currentEditBuildInfo != null)
             {

@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class StealEnergyByMechCount : TargetSideEffect
+    public class StealEnergyByMechCount : TargetSideEffect, IShipEnergy
     {
         public StealEnergyByMechCount()
         {

@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 6049555199019880540}
   - component: {fileID: 1577692575955153526}
   m_Layer: 0
-  m_Name: '@HitManager'
+  m_Name: '@FXManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,10 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b505cc0a5534440bff1c31bc2652d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitFX_Pool:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &3598051529232504097
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +387,7 @@ Camera:
   field of view: 71.5
   orthographic: 1
   orthographic size: 7.5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 6400
@@ -576,6 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DragOutDamage: 0
+  IsCanceling: 0
   SummonMechTargetRange: 0
 --- !u!1 &7986502593659828708
 GameObject:

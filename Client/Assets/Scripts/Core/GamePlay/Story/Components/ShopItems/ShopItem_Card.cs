@@ -1,41 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Xml;
+﻿using System.Xml;
 
 public class ShopItem_Card : ShopItem
 {
-    public ShopItem_Card(int price, int cardID) : base(ShopItemTypes.Card, price)
+    public ShopItem_Card(int price, int cardRareLevel, int probability, bool isSingleton) : base(ShopItemTypes.Card, price, probability, isSingleton)
     {
-        CardID = cardID;
+        CardRareLevel = cardRareLevel;
     }
 
-    public int CardID;
+    public int CardRareLevel;
+    public int GenerateCardID; // Temp used by client.
 
     public override string Name
     {
-        get
-        {
-            if (AllCards.CardDict.ContainsKey(CardID))
-            {
-                SortedDictionary<string, string> names = AllCards.CardDict[CardID].BaseInfo.CardNames;
-                return names[LanguageManager_Common.GetCurrentLanguage()];
-            }
-
-            return "";
-        }
+        get { return string.Format(LanguageManager_Common.GetText("ShopPanel_CardRareLevelDesc"),  CardRareLevel); }
     }
 
     public override int PicID
     {
-        get
-        {
-            if (AllCards.CardDict.ContainsKey(CardID))
-            {
-                int picID = AllCards.CardDict[CardID].BaseInfo.PictureID;
-                return picID;
-            }
-
-            return (int) AllCards.EmptyCardTypes.EmptyCard;
-        }
+        get { return (int) AllCards.SpecialPicIDs.LevelCards; }
     }
 
     protected override void OnEdit()
@@ -45,18 +27,19 @@ public class ShopItem_Card : ShopItem
 
     public override ShopItem Clone()
     {
-        return new ShopItem_Card(Price, CardID);
+        return new ShopItem_Card(Price, CardRareLevel, Probability, IsSingleton);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)
     {
         base.ChildrenExportToXML(my_ele);
-        my_ele.SetAttribute("cardID", CardID.ToString());
+        my_ele.SetAttribute("cardRareLevel", CardRareLevel.ToString());
     }
 
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(CardID);
+        writer.WriteSInt32(CardRareLevel);
+        writer.WriteSInt32(GenerateCardID);
     }
 }

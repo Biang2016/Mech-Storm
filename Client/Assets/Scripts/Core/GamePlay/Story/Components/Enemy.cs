@@ -19,7 +19,9 @@ public class Enemy : Level
 
     public override Level Clone()
     {
-        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, Level, CloneVariantUtils.List(BonusGroups));
+        Enemy enemy = new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, Level, CloneVariantUtils.List(BonusGroups));
+        enemy.LevelID = LevelID;
+        return enemy;
     }
 
     public override Level Variant()

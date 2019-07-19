@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class AddEnergyForEachMech : TargetSideEffect
+    public class AddEnergyForEachMech : TargetSideEffect, IShipEnergy
     {
         public AddEnergyForEachMech()
         {

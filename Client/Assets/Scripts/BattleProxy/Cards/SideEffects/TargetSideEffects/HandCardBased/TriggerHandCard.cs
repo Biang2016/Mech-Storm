@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class TriggerHandCard : HandCardRelatedSideEffect
+    public class TriggerHandCard : HandCardRelatedSideEffect, IPriorUsed, IPositive
     {
         public TriggerHandCard()
         {

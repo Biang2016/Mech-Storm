@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <AllSideEffects>
   <SideEffect name="Kill" desc_zh="破坏{0}, " desc_en="destroy {0}. "></SideEffect>
@@ -20,6 +20,7 @@
   <SideEffect name="BreakEquip" desc_zh="破坏{0}一个装备" desc_en="break a equip of {0}"></SideEffect>
 
   <SideEffect name="AddAttack" desc_zh="为{0}增加{1}点攻击力, " desc_en="add {1} attack for {0}. "></SideEffect>
+  <SideEffect name="DecreaseAttack" desc_zh="为{0}减少{1}点攻击力, " desc_en="decrease {1} attack for {0}. "></SideEffect>
   <SideEffect name="AddArmor" desc_zh="为{0}增加{1}点护甲, " desc_en="add {1} armor for {0}. "></SideEffect>
   <SideEffect name="AddShield" desc_zh="为{0}增加{1}点护盾, " desc_en="add {1} shield for {0}. "></SideEffect>
 
@@ -49,5 +50,5 @@
   <SideEffect name="RunAway" desc_zh="消灭{0},将该机甲牌和其所有装备牌回收至手牌中, " desc_en="kill {0} and recycle its card and all equipment cards to your hand. "></SideEffect>
 
   <SideEffect name="TriggerHandCard" desc_zh="触发{0}手牌中{1}张法术牌或能量牌(无指定目标)的效果," desc_en="trigger the effects of {1} handcards of {0} (without targets). "></SideEffect>
-  <SideEffect name="AddEnergyForEachMech" desc_zh="场上每有一个{0},我方获得{1}点能量" desc_en="Get {1} energy for each {0}"></SideEffect>
+  <SideEffect name="AddEnergyForEachMech" desc_zh="场上每有{0},我方获得{1}点能量" desc_en="Get {1} energy for each {0}"></SideEffect>
 </AllSideEffects>

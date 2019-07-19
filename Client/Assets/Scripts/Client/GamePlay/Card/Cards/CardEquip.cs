@@ -10,9 +10,16 @@ public class CardEquip : CardBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleMech, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+        if (DragManager.Instance.IsCanceling)
+        {
+            DragManager.Instance.IsCanceling = false;
+            CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
+            return;
+        }
 
         ClientPlayer.BattlePlayer.BattleGroundManager.StopShowSlotBloom();
         if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //离开手牌区域
+        {
             foreach (Slot sa in slots)
             {
                 if (CheckMechCanEquipMe(sa, out string info))
@@ -24,10 +31,19 @@ public class CardEquip : CardBase
                 {
                     AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
                     NoticeManager.Instance.ShowInfoPanelCenter(info, 0, 1f);
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion); //收回
                 }
             }
+        }
+        else
+        {
+            CancelPlayOut(dragBeginPosition, dragBeginQuaternion); //收回
+        }
+    }
 
-        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+    private void CancelPlayOut(Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    {
+        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion);
         ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
     }
 

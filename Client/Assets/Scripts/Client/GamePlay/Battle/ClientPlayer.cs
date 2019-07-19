@@ -20,30 +20,31 @@ public class ClientPlayer : Player
         IsInitialized = true;
         SetTotalLife();
         SetTotalEnergy();
-        OnMetalChanged(0);
-        OnLifeChanged(0, false);
-        OnEnergyChanged(0, false);
+        SetTotalEnergy();
+
+        BattlePlayer.MetalLifeEnergyManager.SetMetal(MetalLeft);
+        BattlePlayer.MetalLifeEnergyManager.SetLife(LifeLeft, 0);
+        BattlePlayer.MetalLifeEnergyManager.SetEnergy(EnergyLeft, 0);
     }
 
     #region Metal
 
     protected override void OnMetalChanged(int change)
     {
-        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetMetal(MetalLeft);
+        base.OnMetalChanged(change);
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeMetal(), "Co_ChangeMetal");
     }
 
     public void DoChangeMetal(PlayerMetalChangeRequest request)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeMetal(request), "Co_ChangeMetal");
-    }
-
-    IEnumerator Co_ChangeMetal(PlayerMetalChangeRequest request)
-    {
         if (request.metal_max != MetalMax) MetalMaxChange(request.metal_max - MetalMax);
         if (request.metal_left != MetalLeft) MetalChange(request.metal_left - MetalLeft);
-
         BattlePlayer.HandManager.RefreshAllCardUsable();
+    }
 
+    IEnumerator Co_ChangeMetal()
+    {
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetMetal(MetalLeft);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -52,20 +53,6 @@ public class ClientPlayer : Player
 
     #region Life
 
-    protected override void OnLifeChanged(int change, bool isOverflow)
-    {
-        base.OnLifeChanged(change, isOverflow);
-        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetLife(LifeLeft, change);
-        if (change < 0)
-        {
-            BattlePlayer.Ship.transform.DOShakePosition(0.2f, new Vector3(0.5f, 0, 0.5f));
-        }
-        else if (change > 0)
-        {
-            BattlePlayer.Ship.ShipStyleManager.ShowShipShapeHoverForTime(0.5f);
-        }
-    }
-
     protected void SetTotalLife()
     {
         if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetTotalLife(LifeMax);
@@ -73,22 +60,40 @@ public class ClientPlayer : Player
 
     public void DoChangeLife(PlayerLifeChangeRequest request)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeLife(request), "Co_ChangeLife");
+        if (request.Life_left - LifeLeft > 0)
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeLife(LifeLeft, request.Life_left - LifeLeft, request.IsOverflow), "Co_ChangeLife");
+            Heal(request.Life_left - LifeLeft);
+        }
+        else if (request.Life_left - LifeLeft < 0)
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeLife(LifeLeft, request.Life_left - LifeLeft, request.IsOverflow), "Co_ChangeLife");
+            Damage(LifeLeft - request.Life_left);
+        }
+        else
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeLife(LifeLeft, 0, request.IsOverflow), "Co_ChangeLife");
+        }
     }
 
-    IEnumerator Co_ChangeLife(PlayerLifeChangeRequest request)
+    IEnumerator Co_ChangeLife(int lifeLeft, int change, bool isOverflow)
     {
-        if (request.life_left != LifeLeft)
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetLife(lifeLeft + change, change);
+        if (change < 0)
         {
-            if (request.life_left - LifeLeft > 0)
-            {
-                Heal(request.life_left - LifeLeft);
-                AudioManager.Instance.SoundPlay("sfx/OnHeal");
-            }
-            else if (request.life_left - LifeLeft < 0)
-            {
-                Damage(LifeLeft - request.life_left);
-            }
+            BattlePlayer.Ship.transform.DOShakePosition(0.2f, new Vector3(0.5f, 0, 0.5f));
+            AudioManager.Instance.SoundPlay("sfx/OnHitShip");
+            AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
+        }
+        else if (change > 0)
+        {
+            BattlePlayer.Ship.ShipStyleManager.ShowShipShapeHoverForTime(0.5f);
+            AudioManager.Instance.SoundPlay("sfx/OnHeal");
+        }
+        else if (isOverflow)
+        {
+            BattlePlayer.MetalLifeEnergyManager.LifeOverflowJump();
+            AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
         }
 
         yield return new WaitForSeconds(0.1f);
@@ -99,12 +104,6 @@ public class ClientPlayer : Player
 
     #region Energy
 
-    protected override void OnEnergyChanged(int change, bool isOverflow)
-    {
-        base.OnEnergyChanged(change, isOverflow);
-        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetEnergy(EnergyLeft, change);
-    }
-
     protected void SetTotalEnergy()
     {
         if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetTotalEnergy(EnergyMax);
@@ -112,26 +111,36 @@ public class ClientPlayer : Player
 
     public void DoChangeEnergy(PlayerEnergyChangeRequest request)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeEnergy(request), "Co_ChangeEnergy");
+        if (request.Energy_left - EnergyLeft > 0)
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeEnergy(EnergyLeft, request.Energy_left - EnergyLeft, request.IsOverflow), "Co_ChangeEnergy");
+            AddEnergy(request.Energy_left - EnergyLeft);
+        }
+        else if (request.Energy_left - EnergyLeft < 0)
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeEnergy(EnergyLeft, request.Energy_left - EnergyLeft, request.IsOverflow), "Co_ChangeEnergy");
+            UseEnergy(EnergyLeft - request.Energy_left);
+        }
+        else
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeEnergy(EnergyLeft, 0, request.IsOverflow), "Co_ChangeEnergy");
+        }
     }
 
-    IEnumerator Co_ChangeEnergy(PlayerEnergyChangeRequest request)
+    IEnumerator Co_ChangeEnergy(int energyLeft, int change, bool isOverflow)
     {
-        if (request.energy_left != EnergyLeft)
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetEnergy(energyLeft + change, change);
+        if (change > 0)
         {
-            if (request.energy_left - EnergyLeft > 0)
-            {
-                AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
-                AddEnergy(request.energy_left - EnergyLeft);
-            }
-            else if (request.energy_left - EnergyLeft < 0)
-            {
-                AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
-                UseEnergy(EnergyLeft - request.energy_left);
-            }
+            AudioManager.Instance.SoundPlay("sfx/OnEnergyAdd");
         }
-        else if (request.isOverflow)
+        else if (change < 0)
         {
+            AudioManager.Instance.SoundPlay("sfx/OnEnergyUse");
+        }
+        else if (isOverflow)
+        {
+            BattlePlayer.MetalLifeEnergyManager.EnergyOverflowJump();
             AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
         }
 

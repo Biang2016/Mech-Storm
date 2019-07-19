@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Core\GamePlay\BattleStatistics.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\AllBuffs.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\AllCards.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\AllColors.cs" />
@@ -80,6 +81,16 @@
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectBase.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectBundle.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectExecute.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IDefend.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\INegative.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IPositive.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IPostUsed.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IPriorUsed.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IShipEnergy.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IShipLife.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\ISideEffectFunctions.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IStrengthen.cs" />
+     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectFunctions\IWeaken.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectManager.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectParams.cs" />
      <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffects\Basic\Exile_Base.cs" />

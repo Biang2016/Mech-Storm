@@ -34,6 +34,11 @@ public class ExitMenuPanel : BaseUIForm
     {
         base.Display();
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.ExitMenu);
+        if (Client.Instance.IsPlaying())
+        {
+            DragManager.Instance.CancelCurrentDrag();
+            BattleManager.Instance.SelfBattlePlayer.HandManager.RefreshCardsPlace();
+        }
     }
 
     public override void Hide()

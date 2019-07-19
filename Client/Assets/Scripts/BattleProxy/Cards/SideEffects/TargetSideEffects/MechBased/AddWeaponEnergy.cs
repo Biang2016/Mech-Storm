@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class AddWeaponEnergy : TargetSideEffect
+    public class AddWeaponEnergy : TargetSideEffect, IStrengthen
     {
         public AddWeaponEnergy()
         {

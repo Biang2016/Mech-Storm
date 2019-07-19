@@ -1,14 +1,16 @@
 ﻿public class GameStopByWinRequest : ServerRequestBase
 {
-    public int winnerClientId;
+    public int WinnerClientId;
+    public BattleStatistics BattleStatistics;
 
     public GameStopByWinRequest()
     {
     }
 
-    public GameStopByWinRequest(int winnerClientId)
+    public GameStopByWinRequest(int winnerClientId, BattleStatistics battleStatistics)
     {
-        this.winnerClientId = winnerClientId;
+        WinnerClientId = winnerClientId;
+        BattleStatistics = battleStatistics;
     }
 
     public override NetProtocols GetProtocol()
@@ -19,12 +21,14 @@
     public override void Serialize(DataStream writer)
     {
         base.Serialize(writer);
-        writer.WriteSInt32(winnerClientId);
+        writer.WriteSInt32(WinnerClientId);
+        BattleStatistics.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
-        winnerClientId = reader.ReadSInt32();
+        WinnerClientId = reader.ReadSInt32();
+        BattleStatistics = BattleStatistics.Deserialize(reader);
     }
 }

@@ -10,10 +10,15 @@ internal class FXManager : MonoSingleton<FXManager>
 
     public void PlayFX(Transform parentTrans, FXType hitType, string colorText, float duration, float scale = 1)
     {
+        PlayFX(parentTrans.position, hitType, colorText, duration, scale);
+    }
+
+    public void PlayFX(Vector3 position, FXType hitType, string colorText, float duration, float scale = 1)
+    {
         GameObjectPoolManager.PrefabNames prefabName = (GameObjectPoolManager.PrefabNames) Enum.Parse(typeof(GameObjectPoolManager.PrefabNames), hitType.ToString());
         Color color = ClientUtils.HTMLColorToColor(colorText);
         FX_Base fx = GameObjectPoolManager.Instance.PoolDict[prefabName].AllocateGameObject<FX_Base>(transform);
-        fx.transform.position = parentTrans.position;
+        fx.transform.position = position;
         fx.Play(color, duration, scale);
     }
 

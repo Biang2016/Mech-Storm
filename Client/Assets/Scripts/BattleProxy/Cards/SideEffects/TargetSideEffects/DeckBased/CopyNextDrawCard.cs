@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class CopyNextDrawCard : TargetSideEffect
+    public class CopyNextDrawCard : TargetSideEffect, IPriorUsed, IPositive
     {
         public CopyNextDrawCard()
         {

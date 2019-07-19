@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class BreakEquip : TargetSideEffectEquip
+    public class BreakEquip : TargetSideEffectEquip, IWeaken, IPriorUsed
     {
         public BreakEquip()
         {

@@ -12,6 +12,9 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public GamePlaySettings StoryGamePlaySettings;
 
+    public const int DefaultStarterCrystal = 30;
+    public int Crystal; // 水晶，用于购物
+
     public int CurrentFightingChapterID;
     public Chapter CurrentFightingChapter => Chapters[CurrentFightingChapterID];
 
@@ -23,6 +26,8 @@ public class Story : IClone<Story>, IVariant<Story>
     {
         StoryName = storyName;
         Chapters = chapters;
+
+        Crystal = DefaultStarterCrystal;
 
         PlayerBuildInfos = playerBuildInfos;
 
@@ -89,6 +94,12 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public Story Clone()
     {
+        SortedDictionary<int, BuildInfo> newPlayerBuildInfos = CloneVariantUtils.SortedDictionary(PlayerBuildInfos);
+        foreach (KeyValuePair<int, BuildInfo> kv in newPlayerBuildInfos)
+        {
+            kv.Value.BuildID = kv.Key;
+        }
+
         SortedDictionary<int, Chapter> newChapters = CloneVariantUtils.SortedDictionary(Chapters);
         foreach (KeyValuePair<int, Chapter> kv in newChapters)
         {
@@ -100,7 +111,7 @@ public class Story : IClone<Story>, IVariant<Story>
         Story newStory = new Story(
             StoryName,
             newChapters,
-            PlayerBuildInfos,
+            newPlayerBuildInfos,
             cardUnlockInfos,
             StoryGamePlaySettings.Clone(),
             0);
@@ -244,6 +255,7 @@ public class Story : IClone<Story>, IVariant<Story>
 
         StoryGamePlaySettings.Serialize(writer);
         writer.WriteSInt32(CurrentFightingChapterID);
+        writer.WriteSInt32(Crystal);
     }
 
     public static Story Deserialize(DataStream reader)
@@ -308,9 +320,8 @@ public class Story : IClone<Story>, IVariant<Story>
         }
 
         newStory.StoryGamePlaySettings = GamePlaySettings.Deserialize(reader);
-
-        int currentFightingChapterID = reader.ReadSInt32();
-        newStory.CurrentFightingChapterID = currentFightingChapterID;
+        newStory.CurrentFightingChapterID = reader.ReadSInt32();
+        newStory.Crystal = reader.ReadSInt32();
         return newStory;
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class SummonMech : TargetSideEffect, ICardDeckLinked
+    public class SummonMech : TargetSideEffect, ICardDeckLinked, IPositive
     {
         public SummonMech()
         {
@@ -17,7 +17,7 @@
         public override string GenerateDesc()
         {
             int cardID = M_SideEffectParam.GetParam_ConstInt("SummonCardID");
-            if (cardID == (int) AllCards.EmptyCardTypes.NoCard || cardID == (int) AllCards.EmptyCardTypes.EmptyCard)
+            if (!AllCards.CardDict.ContainsKey(cardID))
             {
                 return "Error!!!";
             }
