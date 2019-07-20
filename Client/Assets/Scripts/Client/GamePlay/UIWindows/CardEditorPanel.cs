@@ -38,6 +38,8 @@ public class CardEditorPanel : BaseUIForm
                 (ResetCardButtonText, "CardEditorPanel_ResetCardButtonText"),
                 (DeleteCardButtonText, "CardEditorPanel_DeleteCardButtonText"),
                 (CardTotalCountText, "CardEditorPanel_CardTotalCountText"),
+                (CardRareLevelFilterLabel, "CardEditorPanel_CardRareLevelFilterLabel"),
+                (CardTypesFilterLabel, "CardEditorPanel_CardTypesFilterLabel"),
             });
 
         LanguageDropdown.ClearOptions();
@@ -49,6 +51,27 @@ public class CardEditorPanel : BaseUIForm
 
         PicSelectPanel.OnClickPicAction = SetCardPicID;
         PicSelectPanel.InitializePicSelectGrid("CardEditorPanel_PicSelectGridLabel");
+
+        CardRareLevelFilterDropdown.options.Clear();
+        CardRareLevelFilterDropdown.options.Add(new Dropdown.OptionData(LanguageManager.Instance.GetText("CardEditorPanel_DropdownAll")));
+
+        for (int i = 0; i < BaseInfo.CARD_RARE_LEVEL_MAX; i++)
+        {
+            CardRareLevelFilterDropdown.options.Add(new Dropdown.OptionData((i + 1).ToString()));
+        }
+
+        CardRareLevelFilterDropdown.onValueChanged.AddListener(OnCardRareLevelFilterChange);
+
+        CardTypesFilterDropdown.options.Clear();
+        CardTypesFilterDropdown.options.Add(new Dropdown.OptionData(LanguageManager.Instance.GetText("CardEditorPanel_DropdownAll")));
+
+        IEnumerable<CardTypes> types_card = Enum.GetValues(typeof(CardTypes)) as IEnumerable<CardTypes>;
+        foreach (CardTypes cardType in types_card)
+        {
+            CardTypesFilterDropdown.options.Add(new Dropdown.OptionData(cardType.ToString()));
+        }
+
+        CardTypesFilterDropdown.onValueChanged.AddListener(OnCardTypesFilterChange);
     }
 
     void Start()
@@ -1276,8 +1299,11 @@ public class CardEditorPanel : BaseUIForm
             {
                 if (kv.Key > curCardID)
                 {
-                    ChangeCard(kv.Key);
-                    break;
+                    if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
+                    {
+                        ChangeCard(kv.Key);
+                        break;
+                    }
                 }
             }
         }
@@ -1287,13 +1313,16 @@ public class CardEditorPanel : BaseUIForm
             int changeCardID = 0;
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
-                if (kv.Key >= curCardID)
+                if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
                 {
-                    ChangeCard(changeCardID);
-                    break;
-                }
+                    if (kv.Key >= curCardID)
+                    {
+                        ChangeCard(changeCardID);
+                        break;
+                    }
 
-                changeCardID = kv.Key;
+                    changeCardID = kv.Key;
+                }
             }
         }
 
@@ -1304,13 +1333,16 @@ public class CardEditorPanel : BaseUIForm
             int count = 0;
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
-                if (kv.Key > curCardID)
+                if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
                 {
-                    count++;
-                    if (count >= gridColumns)
+                    if (kv.Key > curCardID)
                     {
-                        ChangeCard(kv.Key);
-                        break;
+                        count++;
+                        if (count >= gridColumns)
+                        {
+                            ChangeCard(kv.Key);
+                            break;
+                        }
                     }
                 }
             }
@@ -1326,21 +1358,24 @@ public class CardEditorPanel : BaseUIForm
 
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
-                if (kv.Key >= curCardID)
+                if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
                 {
-                    if (before[0] != -1)
+                    if (kv.Key >= curCardID)
                     {
-                        ChangeCard(before[0]);
-                        break;
+                        if (before[0] != -1)
+                        {
+                            ChangeCard(before[0]);
+                            break;
+                        }
                     }
-                }
 
-                for (int i = 0; i < before.Length - 1; i++)
-                {
-                    before[i] = before[i + 1];
-                }
+                    for (int i = 0; i < before.Length - 1; i++)
+                    {
+                        before[i] = before[i + 1];
+                    }
 
-                before[before.Length - 1] = kv.Key;
+                    before[before.Length - 1] = kv.Key;
+                }
             }
         }
 
@@ -1584,6 +1619,11 @@ public class CardEditorPanel : BaseUIForm
     [SerializeField] private GridLayoutGroup ExistingCardGridContainer;
     private SortedDictionary<int, CardEditorPanel_CardPreviewButton> CardPreviewButtons = new SortedDictionary<int, CardEditorPanel_CardPreviewButton>();
 
+    [SerializeField] private Text CardRareLevelFilterLabel;
+    [SerializeField] private Dropdown CardRareLevelFilterDropdown;
+    [SerializeField] private Text CardTypesFilterLabel;
+    [SerializeField] private Dropdown CardTypesFilterDropdown;
+
     private void InitializePreviewCardGrid()
     {
         foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
@@ -1599,6 +1639,74 @@ public class CardEditorPanel : BaseUIForm
                 CardEditorPanel_CardPreviewButton cpb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardEditorPanel_CardPreviewButton].AllocateGameObject<CardEditorPanel_CardPreviewButton>(ExistingCardGridContainer.transform);
                 cpb.Initialize(kv.Value, delegate { ChangeCard(kv.Key); });
                 CardPreviewButtons.Add(kv.Key, cpb);
+            }
+        }
+    }
+
+    private int curFilter_CardRareLevel = 0;
+    private int curFilter_CardType = 0;
+
+    public void OnCardRareLevelFilterChange(int value)
+    {
+        curFilter_CardRareLevel = value;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            CardInfo_Base ci = AllCards.GetCard(kv.Key);
+            if (value == 0)
+            {
+                if (curFilter_CardType == 0)
+                {
+                    kv.Value.gameObject.SetActive(true);
+                }
+                else
+                {
+                    CardTypes cardType = (CardTypes) Enum.Parse(typeof(CardTypes), CardTypesFilterDropdown.options[curFilter_CardType].text);
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType);
+                }
+            }
+            else
+            {
+                if (curFilter_CardType == 0)
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardRareLevel == value);
+                }
+                else
+                {
+                    CardTypes cardType = (CardTypes) Enum.Parse(typeof(CardTypes), CardTypesFilterDropdown.options[curFilter_CardType].text);
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType && ci.BaseInfo.CardRareLevel == value);
+                }
+            }
+        }
+    }
+
+    public void OnCardTypesFilterChange(int value)
+    {
+        curFilter_CardType = value;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            CardInfo_Base ci = AllCards.GetCard(kv.Key);
+            if (value == 0)
+            {
+                if (curFilter_CardRareLevel == 0)
+                {
+                    kv.Value.gameObject.SetActive(true);
+                }
+                else
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardRareLevel == curFilter_CardRareLevel);
+                }
+            }
+            else
+            {
+                CardTypes cardType = (CardTypes) Enum.Parse(typeof(CardTypes), CardTypesFilterDropdown.options[curFilter_CardType].text);
+                if (curFilter_CardRareLevel == 0)
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType);
+                }
+                else
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType && ci.BaseInfo.CardRareLevel == curFilter_CardRareLevel);
+                }
             }
         }
     }

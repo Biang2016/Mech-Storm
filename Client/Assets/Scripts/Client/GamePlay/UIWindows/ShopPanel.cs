@@ -46,9 +46,9 @@ public class ShopPanel : BaseUIForm
     private SortedDictionary<int, ShopItemButton> ShopItemButtons = new SortedDictionary<int, ShopItemButton>();
     private List<ShopItemSmallContainer> ShopItemSmallContainers = new List<ShopItemSmallContainer>();
 
-    public const int ShopItemCardCount = 7; // 10 个商品里面7个是卡片
-    public const int ShopItemOthersCount = 3; // 10 个商品里面3个是其他的
-    public const int ShopItemOthersGroupCapacity = 4; // 其他奖励几个分在一个格子里
+    public const int SHOP_ITEM_CARD_COUNT = 7; // 10 个商品里面7个是卡片
+    public const int SHOP_ITEM_OTHERS_COUNT = 3; // 10 个商品里面3个是其他的
+    public const int SHOP_ITEM_OTHERS_GROUP_CAPACITY = 4; // 其他奖励几个分在一个格子里
 
     public void Initialize(Shop shop)
     {
@@ -72,24 +72,35 @@ public class ShopPanel : BaseUIForm
             }
         }
 
+        int shopItemCardCount = SHOP_ITEM_CARD_COUNT;
+        int shopItemOthersCount = SHOP_ITEM_OTHERS_COUNT;
+
         if (si_cards.Count > 0)
         {
-            List<ShopItem_Card> si_cards_random = Utils.GetRandomWithProbabilityFromList(si_cards, ShopItemCardCount); // 卡片按概率随机
+            List<ShopItem_Card> si_cards_random = Utils.GetRandomWithProbabilityFromList(si_cards, shopItemCardCount); // 卡片按概率随机
             HashSet<int> cardIdHashSet = new HashSet<int>();
             foreach (ShopItem_Card sic in si_cards_random)
             {
                 CardInfo_Base ci = AllCards.GetRandomCardInfoByLevelNum(sic.CardRareLevel, cardIdHashSet);
-                sic.GenerateCardID = ci.CardID;
-                sic.Price = Mathf.CeilToInt(Random.Range(ci.BaseInfo.ShopPrice * 0.8f, ci.BaseInfo.ShopPrice * 1.2f));
-                cardIdHashSet.Add(sic.GenerateCardID);
-                ShopItemButton btn = ShopItemButton.GenerateShopItemButton(sic, ShopItemSmallContainers, ShopItemContainer);
-                ShopItemButtons.Add(sic.ShopItemID, btn);
+                if (ci != null)
+                {
+                    sic.GenerateCardID = ci.CardID;
+                    sic.Price = Mathf.CeilToInt(Random.Range(ci.BaseInfo.ShopPrice * 0.8f, ci.BaseInfo.ShopPrice * 1.2f));
+                    cardIdHashSet.Add(sic.GenerateCardID);
+                    ShopItemButton btn = ShopItemButton.GenerateShopItemButton(sic, ShopItemSmallContainers, ShopItemContainer);
+                    ShopItemButtons.Add(sic.ShopItemID, btn);
+                }
+                else
+                {
+                    shopItemCardCount--;
+                    shopItemOthersCount++;
+                }
             }
         }
 
         if (si_others.Count > 0)
         {
-            List<ShopItem> si_others_random = Utils.GetRandomWithProbabilityFromList(si_others, ShopItemOthersCount * ShopItemOthersGroupCapacity); // 其他物品按概率随机
+            List<ShopItem> si_others_random = Utils.GetRandomWithProbabilityFromList(si_others, shopItemOthersCount * SHOP_ITEM_OTHERS_GROUP_CAPACITY); // 其他物品按概率随机
 
             foreach (ShopItem si in si_others_random)
             {

@@ -18,6 +18,8 @@ public struct BaseInfo
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
+    public const int CARD_RARE_LEVEL_MAX = 20;
+
     public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool isHide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, int shopPrice, CardTypes cardType)
     {
         PictureID = pictureID;

@@ -997,6 +997,18 @@
 		"zh": "删除卡片",
 		"en": "Delete Card"
 	},
+	"CardEditorPanel_CardRareLevelFilterLabel": {
+		"zh": "稀有度:",
+		"en": "Rare:"
+	},
+	"CardEditorPanel_CardTypesFilterLabel": {
+		"zh": "类型:",
+		"en": "Type:"
+	},
+	"CardEditorPanel_DropdownAll": {
+		"zh": "全部",
+		"en": "All"
+	},
 	"CardEditorPanel_SaveCardUpgradeIDNotExists": {
 		"zh": "升级卡牌ID错误，不存在该卡牌",
 		"en": "No card in library has the Upgrade Card ID."
