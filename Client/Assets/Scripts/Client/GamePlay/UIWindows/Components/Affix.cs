@@ -176,8 +176,8 @@ public class Affix : PoolObject
                 {AffixType.None, ""},
 
                 {AffixType.Life, "战舰生命为零的一方将输掉战斗;战斗结束剩余生命百分比将影响奖励水晶数量;可在战前进行生命上限的修改"},
-                {AffixType.Energy, "战舰能量主要用于使用法术牌;可在战前进行能量上限的修改"},
-                {AffixType.Metal, "金属资源主要用于召唤机甲和装备;金属每回合增加一点上限并回复至全满"},
+                {AffixType.Energy, "战舰能量主要用于使用法术牌;每回合开始时将回复1点能量,大多数能量牌可提供能量;可在战前进行能量上限的修改"},
+                {AffixType.Metal, "金属资源主要用于召唤机甲和装备;所有出牌均依赖至少1点金属;金属每回合增加一点上限并回复至全满"},
                 {AffixType.Deck, "标示了您卡组中卡牌的数量;卡组可以在战前选牌界面进行修改"},
 
                 {AffixType.Aura, "若机甲或装备在场，在某些情况下触发"},
@@ -212,8 +212,8 @@ public class Affix : PoolObject
                 {AffixType.None, ""},
 
                 {AffixType.Life, "Player with 0 life will lose the game. The life value affects Crystal Bonus when win. The upper limit can be adjust before battles."},
-                {AffixType.Energy, "Mainly used to play Spell cards. The upper limit can be adjust before battles."},
-                {AffixType.Metal, "Mainly used to summon Mechs and equipment. Increases by 1 point each round."},
+                {AffixType.Energy, "Mainly provided by Energy cards and used to play Spell cards. Replenishes by 1 naturally when your turn starts. The upper limit can be adjust before battles."},
+                {AffixType.Metal, "Mainly used to summon Mechs and equipment. Each card costs at least 1 Metal to play. Increases by 1 point each round."},
                 {AffixType.Deck, "Indicates the number of cards in your deck. Can be modified before battles."},
 
                 {AffixType.Aura, "If mech or equip is on battlefield, something will be triggered in certain case. "},

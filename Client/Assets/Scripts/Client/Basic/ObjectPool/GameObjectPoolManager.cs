@@ -98,6 +98,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         ChapterMap,
         ChapterMapRoute,
         ChapterMapNode,
+        LevelBadge_Arrow,
+        LevelBadge_Star,
 
         TabControl_TabButton,
         TabControl_Panel,
@@ -194,6 +196,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.ChapterMap, 2},
         {PrefabNames.ChapterMapRoute, 120},
         {PrefabNames.ChapterMapNode, 73},
+        {PrefabNames.LevelBadge_Arrow, 10},
+        {PrefabNames.LevelBadge_Star, 10},
 
         {PrefabNames.TabControl_TabButton, 5},
         {PrefabNames.TabControl_Panel, 5},

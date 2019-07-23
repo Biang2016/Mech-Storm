@@ -11,7 +11,6 @@ public class AllBuilds
 
     private static SortedDictionary<BuildGroups, string> BuildGroupXMLDict = new SortedDictionary<BuildGroups, string>
     {
-        {BuildGroups.CustomBuilds, BuildDirectory + "CustomBuilds.xml"},
         {BuildGroups.EnemyBuilds, BuildDirectory + "EnemyBuilds.xml"},
         {BuildGroups.OnlineBuilds, BuildDirectory + "OnlineBuilds.xml"},
     };
@@ -222,5 +221,4 @@ public enum BuildGroups
 {
     EnemyBuilds = 1,
     OnlineBuilds = 2,
-    CustomBuilds = 3
 }

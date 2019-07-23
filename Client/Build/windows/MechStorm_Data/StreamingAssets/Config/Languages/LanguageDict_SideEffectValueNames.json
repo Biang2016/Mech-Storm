@@ -11,6 +11,10 @@
 		"zh": "召唤卡片ID",
 		"en": "Summon Card ID"
 	},
+	"SideEffectValueNames_NumberOfSummon": {
+		"zh": "召唤个数",
+		"en": "Number of Summon"
+	},
 	"SideEffectValueNames_Value": {
 		"zh": "值",
 		"en": "Value"
@@ -52,6 +56,10 @@
 		"zh": "卡片数量",
 		"en": "Number of Cards"
 	},
+	"SideEffectValueNames_CopyCount": {
+		"zh": "副本数",
+		"en": "Number of Copies"
+	},
 	"SideEffectValueNames_CardID": {
 		"zh": "卡片ID",
 		"en": "Card ID"
@@ -71,6 +79,22 @@
 	"SideEffectValueNames_Damage": {
 		"zh": "伤害",
 		"en": "Damage"
+	},
+	"SideEffectValueNames_Chance": {
+		"zh": "几率%",
+		"en": "Chance(%)"
+	},
+	"SideEffectValueNames_AttackTimes": {
+		"zh": "攻击次数",
+		"en": "Attack Times"
+	},
+	"SideEffectValueNames_Times": {
+		"zh": "次数",
+		"en": "Times"
+	},
+	"SideEffectValueNames_DamageTimes": {
+		"zh": "伤害次数",
+		"en": "Damage Times"
 	},
 
 	"SideEffectValueNames_BuffPicId": {
@@ -132,6 +156,15 @@
 	"SideEffectValueNames_TargetRange": {
 		"zh": "对象范围",
 		"en": "Target Range"
+	},
+
+	"SideEffectValueNames_DropCardType": {
+		"zh": "弃牌类型",
+		"en": "Drop Card Types"
+	},
+	"SideEffectValueNames_DrawCardType": {
+		"zh": "抽牌类型",
+		"en": "Draw Card Types"
 	},
 	
 }

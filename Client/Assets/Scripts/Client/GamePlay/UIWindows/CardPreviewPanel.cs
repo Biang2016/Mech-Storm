@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class CardPreviewPanel : BaseUIForm
 {
+    public Camera CardPreviewCamera;
+
     [SerializeField] private Transform AllContainer;
     [SerializeField] private Transform PreviewContent;
     [SerializeField] private Transform PreviewCardPanelRightPivot;
@@ -114,7 +116,12 @@ public class CardPreviewPanel : BaseUIForm
         }
 
         PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
-        PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+
+        if (UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton)
+        {
+            PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+        }
+
         PreviewCard.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
         PreviewCard.transform.localScale = Vector3.one * 18;
         PreviewCard.transform.localPosition = new Vector3(0, 50, 0);

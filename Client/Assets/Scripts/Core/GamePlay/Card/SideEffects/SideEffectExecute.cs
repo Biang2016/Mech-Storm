@@ -238,7 +238,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnEquipDie,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
-                triggerTimes: 1,
+                triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
@@ -258,7 +258,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnMechAttack,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
-                triggerTimes: 1,
+                triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
@@ -268,7 +268,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnMechKill,
                 triggerRange: TriggerRange.Self,
                 triggerDelayTimes: 0,
-                triggerTimes: 1,
+                triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
@@ -278,7 +278,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnMechAttack,
                 triggerRange: TriggerRange.AttachedMech,
                 triggerDelayTimes: 0,
-                triggerTimes: 1,
+                triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
@@ -288,7 +288,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTime: TriggerTime.OnMechKill,
                 triggerRange: TriggerRange.AttachedMech,
                 triggerDelayTimes: 0,
-                triggerTimes: 1,
+                triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
@@ -468,73 +468,104 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
 
         OnBeginRound = 1 << 1,
         OnDrawCard = 1 << 2,
-        OnPlayCard = 1 << 3,
+        OnPlayCard = OnPlayMechCard | OnPlayEquipCard | OnPlaySpellCard | OnPlayEnergyCard,
+        OnPlayMechCard = 1 << 3,
+        OnPlayEquipCard = 1 << 4,
+        OnPlaySpellCard = 1 << 5,
+        OnPlayEnergyCard = 1 << 6,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechSummon = OnHeroSummon | OnSoldierSummon,
-        OnHeroSummon = 1 << 4,
-        OnSoldierSummon = 1 << 5,
+        OnHeroSummon = 1 << 7,
+        OnSoldierSummon = 1 << 8,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechAttack = OnHeroAttack | OnSoldierAttack,
-        OnHeroAttack = 1 << 6,
-        OnSoldierAttack = 1 << 7,
+        OnHeroAttack = 1 << 9,
+        OnSoldierAttack = 1 << 10,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechInjured = OnHeroInjured | OnSoldierInjured,
-        OnHeroInjured = 1 << 8,
-        OnSoldierInjured = 1 << 9,
+        OnHeroInjured = 1 << 11,
+        OnSoldierInjured = 1 << 12,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechKill = OnHeroKill | OnSoldierKill,
-        OnHeroKill = 1 << 10,
-        OnSoldierKill = 1 << 11,
+        OnHeroKill = 1 << 13,
+        OnSoldierKill = 1 << 14,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechMakeDamage = OnHeroMakeDamage | OnSoldierMakeDamage,
-        OnHeroMakeDamage = 1 << 12,
-        OnSoldierMakeDamage = 1 << 13,
+        OnHeroMakeDamage = 1 << 15,
+        OnSoldierMakeDamage = 1 << 16,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechBeHealed = OnHeroBeHealed | OnSoldierBeHealed,
-        OnHeroBeHealed = 1 << 14,
-        OnSoldierBeHealed = 1 << 15,
+        OnHeroBeHealed = 1 << 17,
+        OnSoldierBeHealed = 1 << 18,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMechDie = OnHeroDie | OnSoldierDie,
-        OnHeroDie = 1 << 16,
-        OnSoldierDie = 1 << 17,
+        OnHeroDie = 1 << 19,
+        OnSoldierDie = 1 << 20,
 
-        OnEquipDie = 1 << 18,
-        OnEquipEquiped = 1 << 19,
+        OnEquipDie = 1 << 21,
+        OnEquipEquiped = 1 << 22,
 
         /// <summary>
         /// Don't Invoke，otherwise it'll trigger multiple times.
         /// </summary>
         OnMakeDamage = OnMakeSpellDamage | OnMechMakeDamage,
-        OnMakeSpellDamage = 1 << 20,
+        OnMakeSpellDamage = 1 << 23,
 
-        OnPlayerGetEnergy = 1 << 21,
-        OnPlayerUseEnergy = 1 << 22,
-        OnPlayerAddLife = 1 << 23,
-        OnPlayerLostLife = 1 << 24,
-        OnEndRound = 1 << 25,
+        OnPlayerGetEnergy = 1 << 24,
+        OnPlayerEnergyFull = 1 << 25,
+        OnPlayerEnergyEmpty = 1 << 26,
+        OnPlayerUseEnergy = 1 << 27,
+        OnPlayerAddLife = 1 << 28,
+        OnPlayerLostLife = 1 << 29,
+        OnEndRound = 1 << 30,
 
-        OnUseMetal = 1 << 26,
+        OnUseMetal = 1 << 31,
+    }
+
+    public static TriggerTime GetTriggerTimeByCardType(CardTypes cardTypes)
+    {
+        switch (cardTypes)
+        {
+            case CardTypes.Mech:
+            {
+                return TriggerTime.OnPlayMechCard;
+            }
+            case CardTypes.Equip:
+            {
+                return TriggerTime.OnPlayEquipCard;
+            }
+            case CardTypes.Spell:
+            {
+                return TriggerTime.OnPlaySpellCard;
+            }
+            case CardTypes.Energy:
+            {
+                return TriggerTime.OnPlayEnergyCard;
+            }
+        }
+
+        return TriggerTime.OnPlayMechCard;
     }
 
     public static SortedDictionary<string, SortedDictionary<TriggerTime, string>> TriggerTimeDesc = new SortedDictionary<string, SortedDictionary<TriggerTime, string>>
@@ -548,6 +579,10 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnBeginRound, "当{0}回合开始时, "},
                 {TriggerTime.OnDrawCard, "当{0}抽牌时, "},
                 {TriggerTime.OnPlayCard, "当{0}出牌时, "},
+                {TriggerTime.OnPlayMechCard, "当{0}打出机甲牌时, "},
+                {TriggerTime.OnPlayEquipCard, "当{0}打出装备牌时, "},
+                {TriggerTime.OnPlaySpellCard, "当{0}使用法术牌时, "},
+                {TriggerTime.OnPlayEnergyCard, "当{0}使用法术牌时, "},
 
                 {TriggerTime.OnMechSummon, "当{0}召唤机甲时, "},
                 {TriggerTime.OnHeroSummon, "当{0}召唤英雄时, "},
@@ -584,6 +619,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnMakeSpellDamage, "{0}造成法术伤害时, "},
 
                 {TriggerTime.OnPlayerGetEnergy, "当{0}获得能量时, "},
+                {TriggerTime.OnPlayerEnergyFull, "当{0}能量满槽时, "},
+                {TriggerTime.OnPlayerEnergyEmpty, "当{0}能像耗尽时, "},
                 {TriggerTime.OnPlayerUseEnergy, "当{0}消耗能量时, "},
                 {TriggerTime.OnPlayerAddLife, "当{0}获得生命时, "},
                 {TriggerTime.OnPlayerLostLife, "当{0}生命减少时, "},
@@ -601,6 +638,10 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnBeginRound, "when {0} turn starts, "},
                 {TriggerTime.OnDrawCard, "when {0} draws, "},
                 {TriggerTime.OnPlayCard, "when {0} plays a card, "},
+                {TriggerTime.OnPlayMechCard, "when {0} plays a Mech card, "},
+                {TriggerTime.OnPlayEquipCard, "when {0} plays an Equip card, "},
+                {TriggerTime.OnPlaySpellCard, "when {0} plays a Spell card, "},
+                {TriggerTime.OnPlayEnergyCard, "when {0} plays an Energy card, "},
 
                 {TriggerTime.OnMechSummon, "when {0} mech summoned, "},
                 {TriggerTime.OnHeroSummon, "when {0} hero-mech summoned, "},
@@ -637,6 +678,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnMakeSpellDamage, "when {0} deal spell damage, "},
 
                 {TriggerTime.OnPlayerGetEnergy, "when {0} get energy, "},
+                {TriggerTime.OnPlayerEnergyFull, "when {0}'s energy is full, "},
+                {TriggerTime.OnPlayerEnergyEmpty, "when {0}'s energy is empty, "},
                 {TriggerTime.OnPlayerUseEnergy, "when {0} consume energy, "},
                 {TriggerTime.OnPlayerAddLife, "when {0} get healed, "},
                 {TriggerTime.OnPlayerLostLife, "when {0} lost life, "},
@@ -658,6 +701,10 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnBeginRound, "在此后的第{0}个{1}回合开始前, "},
                 {TriggerTime.OnDrawCard, "在此后的第{0}次{1}抽牌前, "},
                 {TriggerTime.OnPlayCard, "在此后的第{0}次{1}出牌前, "},
+                {TriggerTime.OnPlayMechCard, "在此后的第{0}次{1}打出机甲牌前, "},
+                {TriggerTime.OnPlayEquipCard, "在此后的第{0}次{1}打出装备牌前, "},
+                {TriggerTime.OnPlaySpellCard, "在此后的第{0}次{1}使用法术牌前, "},
+                {TriggerTime.OnPlayEnergyCard, "在此后的第{0}次{1}使用能量牌前, "},
 
                 {TriggerTime.OnMechSummon, "在此后的第{0}次{1}召唤机甲前, "},
                 {TriggerTime.OnHeroSummon, "在此后的第{0}次{1}召唤英雄前, "},
@@ -694,6 +741,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnMakeSpellDamage, "在此后的第{0}次{1}造成法术伤害前, "},
 
                 {TriggerTime.OnPlayerGetEnergy, "在此后的第{0}次{1}获得能量前, "},
+                {TriggerTime.OnPlayerEnergyFull, "在此后的第{0}次{1}能量满槽前, "},
+                {TriggerTime.OnPlayerEnergyEmpty, "在此后的第{0}次{1}能量耗尽前, "},
                 {TriggerTime.OnPlayerUseEnergy, "在此后的第{0}次{1}消耗能量前, "},
                 {TriggerTime.OnPlayerAddLife, "在此后的第{0}次{1}获得生命前, "},
                 {TriggerTime.OnPlayerLostLife, "在此后的第{0}次{1}生命减少前, "},
@@ -711,6 +760,10 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnBeginRound, "before {1} next {0}th turn starts, "},
                 {TriggerTime.OnDrawCard, "before {1}'s next {0}th draw, "},
                 {TriggerTime.OnPlayCard, "before {1}'s next {0}th playing card, "},
+                {TriggerTime.OnPlayMechCard, "before {1}'s next {0}th playing Mech card, "},
+                {TriggerTime.OnPlayEquipCard, "before {1}'s next {0}th playing Equip card, "},
+                {TriggerTime.OnPlaySpellCard, "before {1}'s next {0}th playing Spell card, "},
+                {TriggerTime.OnPlayEnergyCard, "before {1}'s next {0}th playing Energy card, "},
 
                 {TriggerTime.OnMechSummon, "before {1} next {0}th mech's summon, "},
                 {TriggerTime.OnHeroSummon, "before {1} next {0}th hero-mech's summon, "},
@@ -747,6 +800,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.OnMakeSpellDamage, "before {1} next {0}th spell damage dealt, "},
 
                 {TriggerTime.OnPlayerGetEnergy, "before {1} next {0}th player's getting energy, "},
+                {TriggerTime.OnPlayerEnergyFull, "before {1} next {0}th player's energy getting full, "},
+                {TriggerTime.OnPlayerEnergyEmpty, "before {1} next {0}th player's energy getting empty, "},
                 {TriggerTime.OnPlayerUseEnergy, "before {1} next {0}th player's using energy, "},
                 {TriggerTime.OnPlayerAddLife, "before {1} next {0}th spaceship's being healed, "},
                 {TriggerTime.OnPlayerLostLife, "before {1} next {0}th spaceship's being damaged, "},

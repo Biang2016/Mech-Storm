@@ -13,6 +13,8 @@ internal class BattlePlayer : Player
     public BattleGroundManager BattleGroundManager;
     public BattleStatistics BattleStatistics;
 
+    public int ExtraRounds = 0;
+
     public BattlePlayer(string username, int clientId, int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax, GameManager serverGameManager) : base(username, metalLeft, metalMax, lifeLeft, lifeMax, energyLeft, energyMax)
     {
         ClientId = clientId;
@@ -124,6 +126,10 @@ internal class BattlePlayer : Player
         base.OnEnergyIncrease(change, isOverflow);
         GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerGetEnergy, new ExecutorInfo(ClientId, value: change));
         BattleStatistics.TotalGetEnergy += change;
+        if (EnergyLeft == EnergyMax)
+        {
+            GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerEnergyFull, new ExecutorInfo(ClientId, value: change));
+        }
     }
 
     protected override void OnEnergyReduce(int change)
@@ -136,6 +142,10 @@ internal class BattlePlayer : Player
         base.OnEnergyUsed(change);
         GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerUseEnergy, new ExecutorInfo(ClientId, value: change));
         BattleStatistics.TotalUseEnergy += change;
+        if (EnergyLeft == 0)
+        {
+            GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerEnergyEmpty, new ExecutorInfo(ClientId, value: change));
+        }
     }
 
     #endregion

@@ -58,7 +58,7 @@ public class BattleStatistics
 
     #region Calculation
 
-    public const int LEVEL_CRYSTAL = 10;
+    public const int LEVEL_CRYSTAL = 5;
     public const float DAMAGE_CRYSTAL = 0.1f;
     public const int DAMAGE_CRYSTAL_MAX = 10;
     public const float KILL_CRYSTAL = 0.5f;

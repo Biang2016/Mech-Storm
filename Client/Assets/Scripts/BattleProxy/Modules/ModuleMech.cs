@@ -1026,7 +1026,7 @@ internal class ModuleMech : ModuleBase, ILife
     public bool BeforeAttack(ModuleMech targetMech, bool isCounterAttack)
     {
         if (M_IsDead) return false;
-        if (!isCounterAttack) OnAttack();
+        if (!isCounterAttack) OnAttack(new List<int> {targetMech.M_MechID}, new List<int>());
         return true;
     }
 
@@ -1225,7 +1225,7 @@ internal class ModuleMech : ModuleBase, ILife
         BattlePlayer.GameManager.EventManager.UnRegisterEvent(CardInfo.SideEffectBundle_BattleGroundAura);
     }
 
-    private void OnMakeDamage(int damage)
+    public void OnMakeDamage(int damage)
     {
         ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
 
@@ -1241,7 +1241,7 @@ internal class ModuleMech : ModuleBase, ILife
         BattlePlayer.BattleStatistics.TotalDamage += damage;
     }
 
-    private void OnBeDamaged(int damage)
+    public void OnBeDamaged(int damage)
     {
         ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
         if (CardInfo.MechInfo.IsSoldier)
@@ -1270,7 +1270,7 @@ internal class ModuleMech : ModuleBase, ILife
     public void AttackShip(BattlePlayer ship) //计算结果全部由服务器下发
     {
         if (M_IsDead) return;
-        OnAttack();
+        OnAttack(new List<int>(), new List<int> {ship.ClientId});
         int damage = 0;
 
         if (M_Weapon != null && M_MechWeaponEnergy != 0)
@@ -1323,9 +1323,9 @@ internal class ModuleMech : ModuleBase, ILife
         AttackTimesThisRound -= 1;
     }
 
-    private void OnAttack()
+    private void OnAttack(List<int> targetMechIds, List<int> targetClientIds)
     {
-        ExecutorInfo ei = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo ei = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, targetMechIds: targetMechIds, targetClientIds: targetClientIds);
         if (CardInfo.MechInfo.IsSoldier)
         {
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierAttack, ei);

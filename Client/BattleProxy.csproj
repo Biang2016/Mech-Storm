@@ -62,7 +62,12 @@
      <Compile Include="Assets\Scripts\BattleProxy\Cards\CardSpell.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\AttachedEquipSideEffects\AttachedEquipSideEffects.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\DropAndDrawCards.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\Exile.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\GetAnotherRound.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\GetChanceToAttackAgain.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\KillAllMechsAndDamageSelfShip.cs" />
+     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\MechDealExtraDamageToTargetUseEnergy.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\PlayerBuffSideEffects\AddPlayerBuff.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\PlayerBuffSideEffects\DoSthWhenTrigger_RemoveBySomeTime.cs" />
      <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TargetSideEffects\DeckBased\AddTempCardToDeck.cs" />

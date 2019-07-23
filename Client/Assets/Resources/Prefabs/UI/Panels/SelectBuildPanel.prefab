@@ -1612,7 +1612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000010628293}
+  m_AnchoredPosition: {x: 0, y: 0.000071662274}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6691626823319201842
@@ -1915,7 +1915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.000015258789}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.000000004871027}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3776524657462983685
@@ -2733,6 +2733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d14c65330a23d4689423a6fb078ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardCamera: {fileID: 456616855477673187}
   SelectWindowShowAnim: {fileID: 8785401248113022934}
   LeftWindowTransform: {fileID: 6496148131304302004}
   CenterWindowTransform: {fileID: 7796774833126857709}
@@ -3098,7 +3099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000026700382}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.0000419568}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7765827298561472003
@@ -6663,7 +6664,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 576019817061990998}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9364845
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7652,7 +7653,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 395351194976329587}
   m_HandleRect: {fileID: 4994472270270966495}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11586,7 +11587,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 244162864652098720}
   m_HandleRect: {fileID: 7230678844725726430}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.8326848
   m_NumberOfSteps: 0
   m_OnValueChanged:

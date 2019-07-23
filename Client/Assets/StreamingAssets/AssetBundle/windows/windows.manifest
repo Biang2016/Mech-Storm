@@ -7,12 +7,12 @@ CompatibilityAssetBundleManifest:
       CRC: 178277760
         Dependency_0: textures_ui_arrow        Dependency_1: textures_effects    Info_1:
       Name: materials
-      Hash: 081625feabae56b7ec6e63ea8a705d8c
-      CRC: 2716258428
+      Hash: a8b68b7c7a1378d698288c696a8d6b57
+      CRC: 1992040250
         Dependency_0: shaders        Dependency_1: textures_ui_arrow        Dependency_2: textures_card_cardcomponents        Dependency_3: textures_card_mechicons        Dependency_4: textures_card_ma        Dependency_5: textures_card_pack        Dependency_6: textures_card_shield        Dependency_7: textures_card_weapon        Dependency_8: textures_card_mechattrshapes        Dependency_9: textures_ui_menu        Dependency_10: textures_ships        Dependency_11: textures_ui_common        Dependency_12: fonts    Info_2:
       Name: shaders
-      Hash: 3d58055fef124d77557260946493b4b4
-      CRC: 909586742
+      Hash: bfdc25444fad802a8d5985b714864d16
+      CRC: 3730385411
       Dependencies: {}
     Info_3:
       Name: models
@@ -30,8 +30,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_6:
       Name: atlas_cardpics_0
-      Hash: 8443c8e0399114c52e91b2a5cdc0cf68
-      CRC: 1044533143
+      Hash: 51a9258d9e30d36588bb0bb4635f9e02
+      CRC: 3357480271
       Dependencies: {}
     Info_7:
       Name: atlas_cardpics_1
@@ -85,8 +85,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_17:
       Name: audio_sfx
-      Hash: ae15b1e03d893e793377b970bb447bf3
-      CRC: 943238298
+      Hash: 91c50bcc0d843fe91f302459b6dd57fc
+      CRC: 110429943
       Dependencies: {}
     Info_18:
       Name: audio_bgm_battle
@@ -110,8 +110,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_22:
       Name: textures_effects
-      Hash: 6e4a0bdb606552b16a4e3577e8213b77
-      CRC: 3951481315
+      Hash: dd5e74c54f77ad8b5617ca2fe5395e8f
+      CRC: 910530144
       Dependencies: {}
     Info_23:
       Name: textures_ships
@@ -140,8 +140,8 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_28:
       Name: textures_card_mechicons
-      Hash: 1c0bd346a5d00e3f490cc5b65892cef8
-      CRC: 2959843451
+      Hash: 9358416e0a1b5e5446f9b3067fd087e0
+      CRC: 1052987314
       Dependencies: {}
     Info_29:
       Name: textures_card_pack
@@ -160,13 +160,13 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_32:
       Name: textures_ui_arrow
-      Hash: ffe08727d0f18d9364fd41b30634292f
-      CRC: 1544089271
+      Hash: 1891ed010940da503ef0ba8ff11e0035
+      CRC: 562171143
       Dependencies: {}
     Info_33:
       Name: textures_ui_cardrelated
-      Hash: 4d4eb76a3ce5c664ab82c72eab787ec8
-      CRC: 3494681603
+      Hash: 530f3dd66be88e06b47f6dd0171028e6
+      CRC: 2599095088
       Dependencies: {}
     Info_34:
       Name: textures_ui_common
@@ -200,6 +200,6 @@ CompatibilityAssetBundleManifest:
       Dependencies: {}
     Info_40:
       Name: prefabs
-      Hash: aa37df9b80e4956988103fa754c2be6f
-      CRC: 3416202780
+      Hash: aac2caa52130ca40618a2a321d82e0c8
+      CRC: 3502412131
         Dependency_0: textures_ui_arrow        Dependency_1: shaders        Dependency_2: animations        Dependency_3: materials        Dependency_4: models        Dependency_5: textures_ships        Dependency_6: fonts        Dependency_7: textures_card_mechicons        Dependency_8: textures_ui_common        Dependency_9: textures_ui_playerbuff        Dependency_10: textures_card_cardcomponents        Dependency_11: textures_effects        Dependency_12: textures_card_pack        Dependency_13: textures_card_weapon        Dependency_14: textures_ui_cardrelated        Dependency_15: textures_card_ma        Dependency_16: textures_card_shield        Dependency_17: textures_ui_story        Dependency_18: textures_card_mechattrshapes        Dependency_19: textures_ui_menu        Dependency_20: textures_card_affix        Dependency_21: atlas_cardpics_7        Dependency_22: atlas_bgs        Dependency_23: textures_ui_tips

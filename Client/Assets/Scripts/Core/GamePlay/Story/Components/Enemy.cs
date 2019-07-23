@@ -5,21 +5,19 @@ public class Enemy : Level
 {
     public BuildInfo BuildInfo;
     public EnemyType EnemyType;
-    public int Level;
     public List<BonusGroup> BonusGroups;
 
-    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int level, List<BonusGroup> bonusGroups)
-        : base(LevelTypes.Enemy, levelThemeCategory, levelPicID, levelNames)
+    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType,  List<BonusGroup> bonusGroups)
+        : base(LevelTypes.Enemy, levelThemeCategory, levelPicID, levelNames, difficultyLevel)
     {
         BuildInfo = buildInfo;
         EnemyType = enemyType;
-        Level = level;
         BonusGroups = bonusGroups;
     }
 
     public override Level Clone()
     {
-        Enemy enemy = new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, Level, CloneVariantUtils.List(BonusGroups));
+        Enemy enemy = new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, BuildInfo.Clone(), EnemyType, CloneVariantUtils.List(BonusGroups));
         enemy.LevelID = LevelID;
         return enemy;
     }
@@ -51,7 +49,6 @@ public class Enemy : Level
         level_ele.AppendChild(enemy_ele);
 
         enemy_ele.SetAttribute("enemyType", EnemyType.ToString());
-        enemy_ele.SetAttribute("level", Level.ToString());
         BuildInfo.ExportToXML(enemy_ele);
 
         XmlElement bonusGroupInfos_ele = doc.CreateElement("BonusGroupInfos");
@@ -68,7 +65,6 @@ public class Enemy : Level
         base.Serialize(writer);
         BuildInfo.Serialize(writer);
         writer.WriteSInt32((int) EnemyType);
-        writer.WriteSInt32(Level);
 
         writer.WriteSInt32(BonusGroups.Count);
         foreach (BonusGroup bonus in BonusGroups)

@@ -17,10 +17,13 @@ public class StoryPanel : BaseUIForm
             uiForms_Type: UIFormTypes.Normal,
             uiForms_ShowMode: UIFormShowModes.HideOther,
             uiForm_LucencyType: UIFormLucencyTypes.Translucence);
+
+        ReturnButton.onClick.AddListener(OnReturnButtonClick);
     }
 
     [SerializeField] private RectTransform ChapterMapContainer;
     [SerializeField] private Button StartButton;
+    [SerializeField] private Button ReturnButton;
     [SerializeField] private Text ChapterNameText;
 
     public void InitiateStoryCanvas()
@@ -37,6 +40,7 @@ public class StoryPanel : BaseUIForm
     public override void Display()
     {
         base.Display();
+        AudioManager.Instance.BGMFadeIn("bgm/StoryPanel");
         UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().Display();
     }
 
@@ -99,4 +103,9 @@ public class StoryPanel : BaseUIForm
     }
 
     public UnityAction CurrentStartGameAction;
+
+    private void OnReturnButtonClick()
+    {
+        CloseUIForm();
+    }
 }

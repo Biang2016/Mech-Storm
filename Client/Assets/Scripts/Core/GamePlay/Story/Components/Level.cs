@@ -9,15 +9,17 @@ public abstract class Level : IClone<Level>, IVariant<Level>
     public LevelThemeCategory LevelThemeCategory;
     public int LevelPicID;
     public SortedDictionary<string, string> LevelNames;
+    public int DifficultyLevel;
 
     public int LevelID;
 
-    public Level(LevelTypes levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames)
+    public Level(LevelTypes levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, int difficultyLevel)
     {
         LevelThemeCategory = levelThemeCategory;
         LevelType = levelType;
         LevelPicID = levelPicId;
         LevelNames = levelNames;
+        DifficultyLevel = difficultyLevel;
     }
 
     public Story.InfoRefreshDelegate InfoRefresh; // 信息更新委托
@@ -50,6 +52,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         level_ele.SetAttribute("picID", LevelPicID.ToString());
         level_ele.SetAttribute("levelThemeCategory", LevelThemeCategory.ToString());
         level_ele.SetAttribute("levelType", LevelType.ToString());
+        level_ele.SetAttribute("difficultyLevel", DifficultyLevel.ToString());
 
         ChildrenExportToXML(level_ele);
     }
@@ -97,6 +100,8 @@ public abstract class Level : IClone<Level>, IVariant<Level>
             writer.WriteString8(kv.Key);
             writer.WriteString8(kv.Value);
         }
+
+        writer.WriteSInt32(DifficultyLevel);
     }
 
     public static Level BaseDeserialize(DataStream reader)
@@ -114,6 +119,8 @@ public abstract class Level : IClone<Level>, IVariant<Level>
             LevelNames[ls] = value;
         }
 
+        int difficultyLevel = reader.ReadSInt32();
+
         Level res = null;
         switch (levelType)
         {
@@ -121,7 +128,6 @@ public abstract class Level : IClone<Level>, IVariant<Level>
             {
                 BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
                 EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
-                int level = reader.ReadSInt32();
                 int bonusCount = reader.ReadSInt32();
                 List<BonusGroup> BonusGroups = new List<BonusGroup>();
                 for (int i = 0; i < bonusCount; i++)
@@ -129,7 +135,7 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                     BonusGroups.Add(BonusGroup.Deserialize(reader));
                 }
 
-                res = new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, level, BonusGroups);
+                res = new Enemy(levelThemeCategory, levelPicID, LevelNames, difficultyLevel, BuildInfo, EnemyType, BonusGroups);
                 break;
             }
 
@@ -143,7 +149,10 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                     shopItems.Add(si);
                 }
 
-                res = new Shop(levelThemeCategory, levelPicID, LevelNames, shopItems);
+                int shopItemCardCount = reader.ReadSInt32();
+                int shopItemOthersCount = reader.ReadSInt32();
+
+                res = new Shop(levelThemeCategory, levelPicID, LevelNames, difficultyLevel, shopItems, shopItemCardCount, shopItemOthersCount);
                 break;
             }
         }

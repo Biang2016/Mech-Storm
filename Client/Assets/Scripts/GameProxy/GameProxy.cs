@@ -164,10 +164,11 @@ public class GameProxy
                             DebugLog.PrintServerStates("Player " + ClientID + " begin standalone custom game.");
 
                             BattleProxy clientA = BattleProxy;
+                            clientA.BuildInfo.BeginMetal = 10;
 
                             int AI_ClientId = 998;
                             BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", null);
-                            clientB.BuildInfo = AllBuilds.GetBuildInfo(BuildGroups.EnemyBuilds, "CustomBattle");
+                            clientB.BuildInfo = ((Enemy) AllLevels.LevelDict[LevelTypes.Enemy]["CustomEnemy"]).BuildInfo.Clone();
                             CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
                             DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
                         }
@@ -310,7 +311,14 @@ public class GameProxy
             {
                 if (r.BuildInfo.BuildID == -1)
                 {
+                    if (r.isSingle && r.isStory)
+                    {
+                        Story story = BuildStoryDatabase.Instance.PlayerStoryStates[UserName];
+                        r.BuildInfo = story.PlayerBuildInfos[story.PlayerBuildInfos.Keys.ToList()[0]].Clone();
+                    }
+
                     r.BuildInfo.BuildID = BuildInfo.GenerateBuildID();
+
                     CreateBuildRequestResponse response = new CreateBuildRequestResponse(r.BuildInfo);
                     SendMessage(response);
                 }

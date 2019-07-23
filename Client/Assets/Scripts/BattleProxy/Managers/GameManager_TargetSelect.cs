@@ -234,7 +234,10 @@ internal partial class GameManager
             {
                 if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip)
                 {
-                    action(ship_players[0]);
+                    if (ship_players.Count > 0)
+                    {
+                        action(ship_players[0]);
+                    }
                 }
                 else
                 {
@@ -353,7 +356,11 @@ internal partial class GameManager
             }
             case TargetSelect.Single:
             {
-                action(GetMech(mechIds[0]));
+                if (mechIds.Count > 0)
+                {
+                    action(GetMech(mechIds[0]));
+                }
+
                 break;
             }
             case TargetSelect.SingleRandom:

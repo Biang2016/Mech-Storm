@@ -134,10 +134,10 @@ public class BuildStoryDatabase
 
     public void CreateSinglePlayer(string userName)
     {
-        foreach (BuildInfo bi in AllBuilds.BuildGroupDict[BuildGroups.CustomBuilds].Builds.Values)
-        {
-            AddOrModifyBuild(userName, bi.Clone());
-        }
+        //foreach (BuildInfo bi in AllBuilds.BuildGroupDict[BuildGroups.CustomBuilds].Builds.Values)
+        //{
+        //    AddOrModifyBuild(userName, new BuildInfo());
+        //}
     }
 
     #endregion

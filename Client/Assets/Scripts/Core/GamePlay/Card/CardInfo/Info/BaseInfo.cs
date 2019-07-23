@@ -120,6 +120,36 @@ public struct BaseInfo
             }
         }
     };
+    public static Dictionary<string, Dictionary<CardFilterTypes, string>> CardFilterTypeNameDict = new Dictionary<string, Dictionary<CardFilterTypes, string>>
+    {
+        {
+            "zh", new Dictionary<CardFilterTypes, string>
+            {
+                {CardFilterTypes.All, "牌"},
+                {CardFilterTypes.Mech, "机甲牌"},
+                {CardFilterTypes.SoldierMech, "士兵牌"},
+                {CardFilterTypes.HeroMech, "英雄牌"},
+                {CardFilterTypes.Spell, "法术牌"},
+                {CardFilterTypes.Energy, "能量牌"},
+                {CardFilterTypes.Equip, "装备牌"},
+            }
+        },
+        {
+            "en", new Dictionary<CardFilterTypes, string>
+            {
+                {CardFilterTypes.All, "cards "},
+                {CardFilterTypes.Mech, "Mech cards "},
+                {CardFilterTypes.SoldierMech, "Soldier Mech cards "},
+                {CardFilterTypes.HeroMech, "Hero Mech cards "},
+                {CardFilterTypes.Spell, "Spell cards "},
+                {CardFilterTypes.Energy, "Energy cards "},
+                {CardFilterTypes.Equip, "Equip cards "},
+            }
+        }
+    };
+
+
+
 }
 
 [JsonConverter(typeof(StringEnumConverter))]
@@ -140,6 +170,18 @@ public enum CardStatTypes
     Equip = 3,
     Spell = 4,
     Energy = 5,
+}
+
+[JsonConverter(typeof(StringEnumConverter))]
+public enum CardFilterTypes
+{
+All,
+Mech,
+SoldierMech,
+HeroMech,
+Equip,
+Spell,
+Energy,
 }
 
 [JsonConverter(typeof(StringEnumConverter))]

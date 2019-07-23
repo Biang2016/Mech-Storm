@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public partial class SelectBuildPanel : BaseUIForm
 {
+    public Camera CardCamera;
     [SerializeField] private Animator SelectWindowShowAnim;
     [SerializeField] private Transform LeftWindowTransform;
     [SerializeField] private Transform CenterWindowTransform;
@@ -80,7 +81,6 @@ public partial class SelectBuildPanel : BaseUIForm
         if (!gameObject.activeInHierarchy)
         {
             gameObject.SetActive(true);
-            //TODO 加载等待标志
         }
 
         if (Client.Instance.IsPlaying())
@@ -95,6 +95,8 @@ public partial class SelectBuildPanel : BaseUIForm
         }
 
         UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
+
+        AudioManager.Instance.BGMFadeIn("bgm/SelectBuildPanel");
 
         SelectWindowShowAnim.SetTrigger("Show");
         IsShow = true;

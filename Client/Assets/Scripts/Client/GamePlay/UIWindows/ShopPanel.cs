@@ -30,6 +30,7 @@ public class ShopPanel : BaseUIForm
     public override void Display()
     {
         base.Display();
+        AudioManager.Instance.BGMFadeIn("bgm/ShopPanel");
         UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().Display();
     }
 
@@ -46,8 +47,6 @@ public class ShopPanel : BaseUIForm
     private SortedDictionary<int, ShopItemButton> ShopItemButtons = new SortedDictionary<int, ShopItemButton>();
     private List<ShopItemSmallContainer> ShopItemSmallContainers = new List<ShopItemSmallContainer>();
 
-    public const int SHOP_ITEM_CARD_COUNT = 7; // 10 个商品里面7个是卡片
-    public const int SHOP_ITEM_OTHERS_COUNT = 3; // 10 个商品里面3个是其他的
     public const int SHOP_ITEM_OTHERS_GROUP_CAPACITY = 4; // 其他奖励几个分在一个格子里
 
     public void Initialize(Shop shop)
@@ -72,8 +71,8 @@ public class ShopPanel : BaseUIForm
             }
         }
 
-        int shopItemCardCount = SHOP_ITEM_CARD_COUNT;
-        int shopItemOthersCount = SHOP_ITEM_OTHERS_COUNT;
+        int shopItemCardCount = shop.ShopItemCardCount;
+        int shopItemOthersCount = shop.ShopItemOthersCount;
 
         if (si_cards.Count > 0)
         {

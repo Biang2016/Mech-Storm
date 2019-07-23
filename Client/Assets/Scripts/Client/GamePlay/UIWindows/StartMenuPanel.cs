@@ -104,6 +104,7 @@ public class StartMenuPanel : BaseUIForm
     public override void Display()
     {
         base.Display();
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
     }
 
@@ -184,8 +185,6 @@ public class StartMenuPanel : BaseUIForm
         }
 
         RefreshBuildInfoAbstract(SelectBuildManager.Instance.CurrentSelectedBuildInfo);
-
-        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
 
         state = newState;
 

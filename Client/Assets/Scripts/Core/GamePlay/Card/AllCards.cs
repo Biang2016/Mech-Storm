@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -66,7 +67,7 @@ public static class AllCards
         CardInfo_Base res = null;
         if (CardLevelDict.ContainsKey(levelNum))
         {
-            List<CardInfo_Base> levelCards = CardLevelDict[levelNum];
+            List<CardInfo_Base> levelCards = CloneVariantUtils.List(CardLevelDict[levelNum]);
             List<CardInfo_Base> removeLevelCards = new List<CardInfo_Base>();
             foreach (CardInfo_Base cb in levelCards)
             {
@@ -88,6 +89,117 @@ public static class AllCards
         }
 
         return res == null ? res : res.Clone();
+    }
+
+    public static List<int> GetRandomCardInfoByCardFilterType(CardFilterTypes cardFilterType, int count)
+    {
+        switch (cardFilterType)
+        {
+            case CardFilterTypes.All:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    cardIds.Add(kv.Key);
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+            case CardFilterTypes.SoldierMech:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Mech && kv.Value.MechInfo.IsSoldier)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+            case CardFilterTypes.HeroMech:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Mech && !kv.Value.MechInfo.IsSoldier)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+
+            case CardFilterTypes.Equip:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Equip)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+
+            case CardFilterTypes.Spell:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Spell)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+
+            case CardFilterTypes.Energy:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Energy)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+        }
+
+        return null;
     }
 
     public static void ReloadCardXML()

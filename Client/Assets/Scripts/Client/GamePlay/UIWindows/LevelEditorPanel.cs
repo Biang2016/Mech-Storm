@@ -188,13 +188,16 @@ public class LevelEditorPanel : BaseUIForm
         Row_LevelPicID.SetReadOnly(true);
         PropertyFormRow Row_LevelName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelNameLabelText_zh", OnLevelNameChange_zh, out SetLevelName_zh);
         PropertyFormRow Row_LevelName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelNameLabelText_en", OnLevelNameChange_en, out SetLevelName_en);
+        PropertyFormRow Row_LevelDifficultyLevel = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_LevelDifficultyLevel", OnLevelDifficultyLevelChange, out SetLevelDifficultyLevel);
 
         PropertyFormRow Row_EnemyType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "LevelEditorPanel_EnemyType", OnEnemyTypeChange, out SetEnemyType, enemyTypeList);
-        PropertyFormRow Row_EnemyLevel = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyLevel", OnEnemyLevelChange, out SetEnemyLevel);
         PropertyFormRow Row_EnemyDrawCardNum = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyDrawCardNum", OnEnemyDrawCardNumChange, out SetEnemyDrawCardNum);
         PropertyFormRow Row_EnemyLife = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyLife", OnEnemyLifeChange, out SetEnemyLife);
         PropertyFormRow Row_EnemyEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyEnergy", OnEnemyEnergyChange, out SetEnemyEnergy);
         PropertyFormRow Row_EnemyBeginMetal = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_EnemyBeginMetal", OnEnemyBeginMetalChange, out SetEnemyBeginMetal);
+
+        PropertyFormRow Row_ShopItemCardCount = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_ShopItemCardCount", OnShopItemCardCountChange, out SetShopItemCardCount);
+        PropertyFormRow Row_ShopItemOthersCount = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "LevelEditorPanel_ShopItemOthersCount", OnShopItemOthersCount, out SetShopItemOthersCount);
 
         Row_CardSelection = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_CardSelection].AllocateGameObject<LevelPropertyForm_CardSelection>(LevelPropertiesContainer);
         MyPropertiesRows.Add(Row_CardSelection);
@@ -209,12 +212,12 @@ public class LevelEditorPanel : BaseUIForm
             Row_LevelPicID,
             Row_LevelName_zh,
             Row_LevelName_en,
+            Row_LevelDifficultyLevel,
         };
 
         LevelTypePropertiesDict[LevelTypes.Enemy] = new List<PropertyFormRow>
         {
             Row_EnemyType,
-            Row_EnemyLevel,
             Row_EnemyDrawCardNum,
             Row_EnemyLife,
             Row_EnemyEnergy,
@@ -225,7 +228,9 @@ public class LevelEditorPanel : BaseUIForm
 
         LevelTypePropertiesDict[LevelTypes.Shop] = new List<PropertyFormRow>
         {
-            Row_ShopItems
+            Row_ShopItems,
+            Row_ShopItemCardCount,
+            Row_ShopItemOthersCount,
         };
 
         SetLevel(null);
@@ -287,6 +292,7 @@ public class LevelEditorPanel : BaseUIForm
                         levelThemeCategory: LevelThemeCategory.Energy,
                         levelPicID: 0,
                         levelNames: new SortedDictionary<string, string> {{"zh", "新敌人"}, {"en", "newEnemy"}},
+                        difficultyLevel: 1,
                         buildInfo: new BuildInfo(
                             buildID: -1,
                             buildName: "TempDeck",
@@ -297,7 +303,6 @@ public class LevelEditorPanel : BaseUIForm
                             beginMetal: 1,
                             gamePlaySettings: null),
                         enemyType: EnemyType.Soldier,
-                        level: 1,
                         bonusGroups: new List<BonusGroup>()
                     );
                     break;
@@ -308,7 +313,10 @@ public class LevelEditorPanel : BaseUIForm
                         levelThemeCategory: LevelThemeCategory.Energy,
                         levelPicId: 0,
                         levelNames: new SortedDictionary<string, string> {{"zh", "新商店"}, {"en", "newShop"}},
-                        shopItems: new List<ShopItem>());
+                        difficultyLevel: 1,
+                        shopItems: new List<ShopItem>(),
+                        5,
+                        0);
                     break;
                 }
             }
@@ -352,27 +360,24 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetEnemyLevel;
+    private UnityAction<string> SetLevelDifficultyLevel;
 
-    private void OnEnemyLevelChange(string value_str)
+    private void OnLevelDifficultyLevelChange(string value_str)
     {
         if (int.TryParse(value_str, out int value))
         {
             if (value < 1)
             {
-                SetEnemyLevel(1.ToString());
+                SetLevelDifficultyLevel(1.ToString());
             }
             else
             {
-                if (Cur_Level is Enemy enemy)
-                {
-                    enemy.Level = value;
-                }
+                Cur_Level.DifficultyLevel = value;
             }
         }
         else
         {
-            SetEnemyLevel(1.ToString());
+            SetLevelDifficultyLevel(1.ToString());
         }
     }
 
@@ -490,6 +495,62 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
+    private UnityAction<string> SetShopItemOthersCount;
+
+    private void OnShopItemOthersCount(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (value <= 0)
+            {
+                SetShopItemOthersCount(1.ToString());
+            }
+            else if (value <= Shop.SYSTEM_SHOP_MAX_ITEM)
+            {
+                if (Cur_Level is Shop shop)
+                {
+                    shop.ShopItemCardCount = value;
+                }
+            }
+            else
+            {
+                SetShopItemOthersCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString());
+            }
+        }
+        else
+        {
+            SetShopItemOthersCount(1.ToString());
+        }
+    }
+
+    private UnityAction<string> SetShopItemCardCount;
+
+    private void OnShopItemCardCountChange(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (value < 0)
+            {
+                SetShopItemCardCount(0.ToString());
+            }
+            else if (value <= Shop.SYSTEM_SHOP_MAX_ITEM)
+            {
+                if (Cur_Level is Shop shop)
+                {
+                    shop.ShopItemOthersCount = value;
+                }
+            }
+            else
+            {
+                SetShopItemCardCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString());
+            }
+        }
+        else
+        {
+            SetShopItemCardCount(0.ToString());
+        }
+    }
+
     #endregion
 
     private bool OnChangeLevelTypeByEdit;
@@ -514,12 +575,12 @@ public class LevelEditorPanel : BaseUIForm
             SetLevelName_en(Cur_Level.LevelNames["en"]);
             SetLevelName_zh(Cur_Level.LevelNames["zh"]);
             SetLevelPicID(Cur_Level.LevelPicID.ToString());
+            SetLevelDifficultyLevel(Cur_Level.DifficultyLevel.ToString());
             switch (Cur_Level)
             {
                 case Enemy enemy:
                 {
                     SetEnemyType(enemy.EnemyType.ToString());
-                    SetEnemyLevel(enemy.Level.ToString());
                     SetEnemyBeginMetal(enemy.BuildInfo.BeginMetal.ToString());
                     SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString());
                     SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
@@ -558,6 +619,8 @@ public class LevelEditorPanel : BaseUIForm
                     CardSelectPanel.UnselectAllCards();
                     CardSelectPanel.SetCardLibraryPanelEnable(false);
                     Row_ShopItems.Initialize(shop.ShopItems, ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
+                    SetShopItemCardCount(shop.ShopItemCardCount.ToString());
+                    SetShopItemOthersCount(shop.ShopItemOthersCount.ToString());
                     Row_ShopItems.SetButtonActions(
                         gotoAction: delegate { }, clearAction: delegate
                         {

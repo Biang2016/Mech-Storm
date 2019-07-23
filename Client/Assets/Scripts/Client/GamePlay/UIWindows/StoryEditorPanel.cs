@@ -466,15 +466,12 @@ public class StoryEditorPanel : BaseUIForm
             {
                 foreach (KeyValuePair<string, Level> _kv in kv.Value)
                 {
-                    if (_kv.Value is Enemy enemy)
+                    if (!sortedListByLevelDifficulty.ContainsKey(_kv.Value.DifficultyLevel))
                     {
-                        if (!sortedListByLevelDifficulty.ContainsKey(enemy.Level))
-                        {
-                            sortedListByLevelDifficulty.Add(enemy.Level, new List<Level>());
-                        }
-
-                        sortedListByLevelDifficulty[enemy.Level].Add(enemy);
+                        sortedListByLevelDifficulty.Add(_kv.Value.DifficultyLevel, new List<Level>());
                     }
+
+                    sortedListByLevelDifficulty[_kv.Value.DifficultyLevel].Add(_kv.Value);
                 }
 
                 foreach (KeyValuePair<int, List<Level>> KV in sortedListByLevelDifficulty)

@@ -29,22 +29,17 @@ public class ClientPlayer : Player
 
     #region Metal
 
-    protected override void OnMetalChanged(int change)
-    {
-        base.OnMetalChanged(change);
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeMetal(), "Co_ChangeMetal");
-    }
-
     public void DoChangeMetal(PlayerMetalChangeRequest request)
     {
-        if (request.metal_max != MetalMax) MetalMaxChange(request.metal_max - MetalMax);
-        if (request.metal_left != MetalLeft) MetalChange(request.metal_left - MetalLeft);
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ChangeMetal(request.metal_left), "Co_ChangeMetal");
+        MetalMaxChange(request.metal_max - MetalMax);
+        MetalChange(request.metal_left - MetalLeft);
         BattlePlayer.HandManager.RefreshAllCardUsable();
     }
 
-    IEnumerator Co_ChangeMetal()
+    IEnumerator Co_ChangeMetal(int metalLeft)
     {
-        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetMetal(MetalLeft);
+        if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetMetal(metalLeft);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

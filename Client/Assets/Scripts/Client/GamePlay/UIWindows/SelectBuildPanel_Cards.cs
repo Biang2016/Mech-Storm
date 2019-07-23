@@ -146,6 +146,12 @@ public partial class SelectBuildPanel
                 {
                     if (card && mouseRightDownCard == card)
                     {
+                        if (CurrentEditBuildButton == null)
+                        {
+                            OnCreateNewBuildButtonClick();
+                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
+                        }
+
                         UIManager.Instance.ShowUIForms<CardPreviewPanel>().ShowPreviewCardPanel(card, IsReadOnly);
                     }
                 }

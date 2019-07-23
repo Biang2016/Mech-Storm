@@ -1572,7 +1572,10 @@ public class CardEditorPanel : BaseUIForm
         InitializePreviewCardGrid();
         //cp.CloseUIForm();
         NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
-        CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
+
+        OnCardRareLevelFilterChange(curFilter_CardRareLevel);
+        OnCardTypesFilterChange(curFilter_CardType);
+
         ChangeCard(cur_PreviewCard.CardInfo.CardID);
         //},
         //cp.CloseUIForm);
@@ -1602,7 +1605,9 @@ public class CardEditorPanel : BaseUIForm
                     InitializePreviewCardGrid();
                     cp.CloseUIForm();
                     NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_DeleteCardSuccess"), 0, 1f);
-                    CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
+
+                    OnCardRareLevelFilterChange(curFilter_CardRareLevel);
+                    OnCardTypesFilterChange(curFilter_CardType);
                 },
                 cp.CloseUIForm);
         }
@@ -1677,6 +1682,17 @@ public class CardEditorPanel : BaseUIForm
                 }
             }
         }
+
+        int count = 0;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            if (kv.Value.gameObject.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+
+        CardTotalCountNumberText.text = count.ToString();
     }
 
     public void OnCardTypesFilterChange(int value)
@@ -1709,6 +1725,17 @@ public class CardEditorPanel : BaseUIForm
                 }
             }
         }
+
+        int count = 0;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            if (kv.Value.gameObject.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+
+        CardTotalCountNumberText.text = count.ToString();
     }
 
     #endregion

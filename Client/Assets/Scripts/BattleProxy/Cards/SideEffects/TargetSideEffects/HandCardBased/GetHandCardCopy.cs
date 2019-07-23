@@ -11,7 +11,8 @@ namespace SideEffects
         protected override void InitSideEffectParam()
         {
             base.InitSideEffectParam();
-            M_SideEffectParam.SetParam_MultipliedInt("CardCount", 0);
+            M_SideEffectParam.SetParam_ConstInt("CardCount", 1);
+            M_SideEffectParam.SetParam_MultipliedInt("CopyCount", 1);
         }
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.DeckBased;
@@ -20,8 +21,8 @@ namespace SideEffects
         {
             return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
-                M_SideEffectParam.GetParam_MultipliedInt("CardCount"),
-                M_SideEffectParam.GetParam_MultipliedInt("CardCount") <= 1 ? "" : "s");
+                M_SideEffectParam.GetParam_ConstInt("CardCount"),
+                M_SideEffectParam.GetParam_MultipliedInt("CopyCount"));
         }
 
         public override void Execute(ExecutorInfo executorInfo)
@@ -30,15 +31,16 @@ namespace SideEffects
             player.GameManager.SideEffect_ShipAction(
                 delegate(BattlePlayer sp)
                 {
+                    int cardCount = M_SideEffectParam.GetParam_ConstInt("CardCount");
+                    int copyCount = M_SideEffectParam.GetParam_MultipliedInt("CopyCount");
+
                     if (executorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE)
                     {
-                        int cardId = player.HandManager.GetRandomHandCardId(new HashSet<int> {executorInfo.CardInstanceId});
-                        if (cardId != -1)
+                        List<int> cardIds = player.HandManager.GetRandomHandCardIds(cardCount, new HashSet<int> {executorInfo.CardInstanceId});
+
+                        foreach (int cardId in cardIds)
                         {
-                            for (int i = 0; i < M_SideEffectParam.GetParam_MultipliedInt("CardCount"); i++)
-                            {
-                                player.HandManager.GetATempCardByID(cardId);
-                            }
+                            player.HandManager.GetTempCardsByID(cardId, copyCount);
                         }
                     }
                 },

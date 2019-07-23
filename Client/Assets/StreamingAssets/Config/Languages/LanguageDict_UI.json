@@ -1324,7 +1324,7 @@
 		"zh": "敌人类型",
 		"en": "Enemy Type"
 	},
-	"LevelEditorPanel_EnemyLevel": {
+	"LevelEditorPanel_LevelDifficultyLevel": {
 		"zh": "难度",
 		"en": "Level"
 	},
@@ -1343,6 +1343,14 @@
 	"LevelEditorPanel_EnemyBeginMetal": {
 		"zh": "敌人初始金属",
 		"en": "Initial Metal"
+	},
+	"LevelEditorPanel_ShopItemCardCount": {
+		"zh": "卡片商品格子",
+		"en": "Card Slots"
+	},
+	"LevelEditorPanel_ShopItemOthersCount": {
+		"zh": "其他商品格子",
+		"en": "Others Slots"
 	},
 	"LevelEditorPanel_CardSelection_SelectCount": {
 		"zh": "卡组卡片",
@@ -1555,7 +1563,7 @@
 		"zh": "关卡类型:",
 		"en": "Level type: "
 	},
-	"ChapterMap_EnemyLevelLabel":{
+	"ChapterMap_DifficultyLevelLabel":{
 		"zh": "难度:",
 		"en": "Level: "
 	},

@@ -243,7 +243,7 @@ MonoBehaviour:
   - guid: c66c08303cdae684c84ec0d62e06b4e8
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563375562
+    stamp: 1563846305
     type: 3
     UseGUIDs:
     - 5f5f6f2dbb69af8408fe8e93ba573ff8
@@ -2645,6 +2645,7 @@ MonoBehaviour:
     - KeyCode
     - UIManager
     - Display
+    - AudioManager
     - MouseHoverManager
     - Hide
     - UnityAction
@@ -2666,7 +2667,6 @@ MonoBehaviour:
     - KeyValuePair
     - RefreshBuildInfoAbstract
     - SelectBuildManager
-    - AudioManager
     - OnSwitchToOnlineMode
     - OnSwitchToSingleMode
     - DeckAbstract
@@ -2695,7 +2695,7 @@ MonoBehaviour:
     - ClientLog
     - NoticeManager
     - LogoutRequest
-    stamp: 1563342185
+    stamp: 1563807707
     type: 2
     UseGUIDs: []
   - guid: 550ecf93ad522404dad53ae3ff80988c
@@ -4284,13 +4284,12 @@ MonoBehaviour:
     - LifeLeft
     - EnergyLeft
     - Metal
-    - OnMetalChanged
-    - BattleEffectsManager
-    - Co_ChangeMetal
     - DoChangeMetal
     - PlayerMetalChangeRequest
-    - MetalMax
+    - BattleEffectsManager
+    - Co_ChangeMetal
     - MetalMaxChange
+    - MetalMax
     - MetalChange
     - IEnumerator
     - WaitForSeconds
@@ -4312,7 +4311,7 @@ MonoBehaviour:
     - UseEnergy
     - Self
     - Enemy
-    stamp: 1563424635
+    stamp: 1563768347
     type: 2
     UseGUIDs: []
   - guid: 9b273636ae741b245841e516f7703571
@@ -5028,7 +5027,7 @@ MonoBehaviour:
   - guid: 13bebb675fd54226940cc23b8cc60cc7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563110590
+    stamp: 1563774863
     type: 1
     UseGUIDs:
     - 6fbe7fcf448ab4b48994bfe48e81d448
@@ -5679,7 +5678,7 @@ MonoBehaviour:
     - Disposable
     - Immune
     - Inactivity
-    stamp: 1563430166
+    stamp: 1563776557
     type: 2
     UseGUIDs: []
   - guid: 4d4b01c87f3e5474f9e112f6f0b4db34
@@ -5830,7 +5829,7 @@ MonoBehaviour:
   - guid: 4dff3f19263574f60b43b74454c746d0
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559047810
+    stamp: 1563754607
     type: 1
     UseGUIDs:
     - a553a76be93d351439e665b543a79ec8
@@ -6103,7 +6102,7 @@ MonoBehaviour:
   - guid: 9286a489ff640374999415e5a260277d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563447783
+    stamp: 1563807993
     type: 1
     UseGUIDs:
     - 8d031d861498d204b933839693944d2c
@@ -6431,7 +6430,7 @@ MonoBehaviour:
   - guid: 216e5dd92c4124946b680fd26bc4c226
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563429898
+    stamp: 1563767017
     type: 1
     UseGUIDs:
     - 5cae4c4083a9c4f9dbbde42b99cea8ed
@@ -6811,7 +6810,7 @@ MonoBehaviour:
   - guid: 6c3a279a6cb94b1fb71916509dd7c6af
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563429619
+    stamp: 1563768347
     type: 1
     UseGUIDs:
     - 9f82076f9d056f8428cf094bfd958a35
@@ -6928,7 +6927,7 @@ MonoBehaviour:
   - guid: 3428ceba8eafb494f8058b1f2b50fa7d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559389266
+    stamp: 1563763637
     type: 1
     UseGUIDs:
     - ba11809309307564d8f58c127f36493d
@@ -7112,7 +7111,7 @@ MonoBehaviour:
   - guid: b71a3eea19e226a4eb42ff3ebdb38086
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1548061522
+    stamp: 1563795874
     type: 1
     UseGUIDs:
     - a3dba98c723a0d94d849c79037063301
@@ -7121,11 +7120,11 @@ MonoBehaviour:
     - 54fe0ead00ffc144bbb98f69e3e8bbac
     - dc5e60e3b68d94444a61a30765e290e2
     - f921e98cf3c71334ca75739b25c8c12a
-    - 4c5c1be9bbf776f499579b04d670ca1c
     - 0bade244e07b2b9428958ffad77f89a9
     - ac70b9f968c59d14ba8b1438d5c64613
     - d94102fec2ea56c4b84a9a2b36443744
     - 89608060bbdf6ca42912fd7057dc82de
+    - 4c5c1be9bbf776f499579b04d670ca1c
   - guid: 43ea77fabeae5bb48b780d12f6a33b00
     ScriptSymbols: []
     ScriptTokens: []
@@ -7360,7 +7359,7 @@ MonoBehaviour:
     - Camera
     - Input
     - HideCardPreview
-    stamp: 1563431103
+    stamp: 1563774892
     type: 2
     UseGUIDs: []
   - guid: c11c732b0fd230744860bbbe0b7e519e
@@ -7426,7 +7425,7 @@ MonoBehaviour:
   - guid: d2838e2b7a7714c32897ca88b06bcb8f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563421567
+    stamp: 1563787137
     type: 1
     UseGUIDs:
     - 6355f812468c74b239c225e2d6c8b5c0
@@ -7601,6 +7600,8 @@ MonoBehaviour:
     - BuildInfo
     - BuildRequest
     - SelectBuildManager
+    - UIManager
+    - StartMenuPanel
     - OnBeginMatch
     - ClientRequestBase
     - MatchRequest
@@ -7622,7 +7623,6 @@ MonoBehaviour:
     - NetProtocols
     - ClientIdRequest
     - NetworkManager
-    - UIManager
     - ClientVersionValidRequest
     - Client
     - RegisterRequest
@@ -7631,7 +7631,6 @@ MonoBehaviour:
     - NoticeManager
     - LanguageManager
     - LoginResultRequest
-    - StartMenuPanel
     - LogoutResultRequest
     - StartNewStoryRequestResponse
     - StoryManager
@@ -7654,7 +7653,7 @@ MonoBehaviour:
     - GameStart_ResponseBundle
     - EndRoundRequest_ResponseBundle
     - ServerRequestBase
-    stamp: 1563374761
+    stamp: 1563774884
     type: 2
     UseGUIDs: []
   - guid: ef127a7b966927147939d7359b7368fc
@@ -7993,7 +7992,7 @@ MonoBehaviour:
   - guid: 657a810cba5e428ea47259d01f429f21
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563536182
+    stamp: 1563807759
     type: 1
     UseGUIDs:
     - 615d2ce44777ffc45aec520500d95acc
@@ -8941,20 +8940,22 @@ MonoBehaviour:
     - ScriptableObject
     - MenuItem
     - CaptureScreen
-    - KeyValuePair
-    - CardBase
     - UIManager
+    - Co_Render
+    - IEnumerator
     - CardPreviewPanel
     - Camera
-    - BackGroundManager
+    - KeyValuePair
+    - CardBase
     - RenderTexture
     - Screen
+    - WaitForSeconds
     - Texture2D
     - TextureFormat
-    - GameObject
+    - Destroy
     - Application
     - System
-    stamp: 1562917878
+    stamp: 1563754607
     type: 2
     UseGUIDs: []
   - guid: 15d8241edee88dd4b8ad4adbf256de20
@@ -9277,9 +9278,10 @@ MonoBehaviour:
     - Quaternion
     - Transform
     - Text
+    - TextMeshPro
     - Animator
     - BuffDescAnim
-    stamp: 1562917878
+    stamp: 1563763637
     type: 2
     UseGUIDs: []
   - guid: 27007fae00e5eea498bab1b2da1e3e5b
@@ -9750,7 +9752,7 @@ MonoBehaviour:
   - guid: c253968f6e2d04149a6bad14abf06eed
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563447779
+    stamp: 1563807993
     type: 1
     UseGUIDs:
     - 1c19ec545738c8b469ce7fbd881e84e6
@@ -9866,12 +9868,13 @@ MonoBehaviour:
     - AllCards
     - BuildRequest
     - Client
+    - StartMenuPanel
     - NoticeManager
     - LanguageManager
     - OnCreateNewBuildResponse
     - OnDeleteBuildResponse
     - RefreshSomeBuild
-    stamp: 1563110590
+    stamp: 1563774863
     type: 2
     UseGUIDs: []
   - guid: f09952df4e618dc40b0ca3188a7a1df4
@@ -9992,9 +9995,11 @@ MonoBehaviour:
     - BuildRequest
     - Client
     - SelectBuildManager
+    - UIManager
+    - StartMenuPanel
     - CloseUIForm
     - NoticeManager
-    stamp: 1562917878
+    stamp: 1563774879
     type: 2
     UseGUIDs: []
   - guid: 7a29b561e597c5e47a7c1355dd3715eb
@@ -10754,6 +10759,7 @@ MonoBehaviour:
     - LanguageManager
     - SelectNode
     - Display
+    - AudioManager
     - UIManager
     - Hide
     - ChapterMap
@@ -10768,7 +10774,7 @@ MonoBehaviour:
     - Client
     - ConfirmPanel
     - UnSelectNode
-    stamp: 1563352144
+    stamp: 1563795851
     type: 2
     UseGUIDs: []
   - guid: 9a5b85ee418e44b4abd86ba9adb41c0d
@@ -10817,7 +10823,7 @@ MonoBehaviour:
   - guid: 85fc4391f34ec384b90b55151f0b2e54
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563414059
+    stamp: 1563724654
     type: 1
     UseGUIDs:
     - c4369894c60dde84298b46179e6414f5
@@ -10872,6 +10878,8 @@ MonoBehaviour:
     - CardPreviewPanel.UpgradeDegradeOperation
     ScriptTokens:
     - BaseUIForm
+    - Camera
+    - CardPreviewCamera
     - SerializeField
     - Transform
     - AllContainer
@@ -10928,7 +10936,7 @@ MonoBehaviour:
     - List
     - CardInfo_Base
     - Hide
-    stamp: 1562917878
+    stamp: 1563724636
     type: 2
     UseGUIDs: []
   - guid: a7aa60b397093ff41936fc8b07028dc1
@@ -11010,6 +11018,8 @@ MonoBehaviour:
     - SelectBuildPanel.States
     ScriptTokens:
     - BaseUIForm
+    - Camera
+    - CardCamera
     - SerializeField
     - Animator
     - SelectWindowShowAnim
@@ -11052,6 +11062,7 @@ MonoBehaviour:
     - MouseHoverManager
     - BattleManager
     - UIMaskMgr
+    - AudioManager
     - Hide
     - CurrentEditBuildButton
     - UIManager
@@ -11077,7 +11088,7 @@ MonoBehaviour:
     - ShowAllOnlineCards
     - SwitchToBuildButton
     - OnlineManager
-    stamp: 1563372955
+    stamp: 1563807759
     type: 2
     UseGUIDs: []
   - guid: b2bd25f5a21b74c4abe66b915f7796f8
@@ -11146,6 +11157,7 @@ MonoBehaviour:
     - CurrentGamePlaySettings
     - BuildRequest
     - Client
+    - StartMenuPanel
     - OnCreateNewBuildButton
     - ShowSliders
     - NoticeManager
@@ -11154,7 +11166,7 @@ MonoBehaviour:
     - UnSelectAllCard
     - SelectCardMethods
     - RefreshSomeBuild
-    stamp: 1562919608
+    stamp: 1563774889
     type: 2
     UseGUIDs: []
   - guid: c5bcb34da9479ed45ab178cf3f813845
@@ -11206,9 +11218,11 @@ MonoBehaviour:
     - Physics
     - GameManager
     - SelectCard
+    - CurrentEditBuildButton
+    - OnCreateNewBuildButtonClick
+    - NoticeManager
     - IsReadOnly
     - SetReadOnly_Cards
-    - CurrentEditBuildButton
     - CardInfo_Base
     - AllCards
     - AddCardIntoCardSelectWindow
@@ -11233,7 +11247,6 @@ MonoBehaviour:
     - SelectBuildManager
     - RefreshCardTextLanguage
     - UpdateCardUpgradeDegrade
-    - NoticeManager
     - CurrentGamePlaySettings
     - GetSelectedCardCount
     - UnSelectCard
@@ -11242,7 +11255,7 @@ MonoBehaviour:
     - ShowNewCardNotice
     - CardNoticeComponent
     - StoryManager
-    stamp: 1563495943
+    stamp: 1563762117
     type: 2
     UseGUIDs: []
   - guid: 02919a8e3d142574eb2e343bf38c7c91
@@ -11992,17 +12005,18 @@ MonoBehaviour:
   - guid: 0f028e0a82288ce479583dc349f29f96
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1555044706
+    stamp: 1563767017
     type: 5
     UseGUIDs:
-    - 12a9f82d57efebc4eb148027fccc840a
-    - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 9fe2732853d4041de8e6a74fc5d3486d
+    - 89f0137620f6af44b9ba852b4190e64e
     - d29b6254eceaf6d4eb82c71828a50d43
     - 1456c64201c049b46a7658495378a9c7
     - 97185125be34cf846b5a01f39c40f389
     - e9b20eae0e3d8b7439a451aaf1868ea7
     - 1a375d5bfb79d28489dc2234cc5f1977
     - fa45650caaf34d54e839b720ca70ed52
+    - 54d4562ee7b724d46a4ab4b9176f542a
     - 1e87fac2dfb7e954a8e39c075a7ee0d0
   - guid: 9aa5b43a23191474eb78942b7fe9efde
     ScriptSymbols: []
@@ -15220,12 +15234,23 @@ MonoBehaviour:
     - ResetCardButtonText
     - DeleteCardButtonText
     - CardTotalCountText
+    - CardRareLevelFilterLabel
+    - CardTypesFilterLabel
     - LanguageDropdown
     - CardTotalCountNumberText
     - AllCards
     - InitializeCardPropertyForm
     - InitializePreviewCardGrid
     - SetCardPicID
+    - CardRareLevelFilterDropdown
+    - Dropdown
+    - BaseInfo
+    - OnCardRareLevelFilterChange
+    - CardTypesFilterDropdown
+    - IEnumerable
+    - CardTypes
+    - Enum
+    - OnCardTypesFilterChange
     - Start
     - ChangeCard
     - Display
@@ -15233,7 +15258,6 @@ MonoBehaviour:
     - ConfirmPanel
     - UIManager
     - SceneManager
-    - Dropdown
     - Button
     - Left
     - CardProperties
@@ -15247,7 +15271,6 @@ MonoBehaviour:
     - WeaponPropertiesRows
     - ShieldPropertiesRows
     - Dictionary
-    - CardTypes
     - CardTypePropertiesDict
     - SlotTypes
     - SlotTypePropertiesDict
@@ -15258,8 +15281,6 @@ MonoBehaviour:
     - CardPropertyForm_SideEffectBundle
     - Row_SideEffectBundle
     - Row_SideEffectBundle_BattleGroundAura
-    - IEnumerable
-    - Enum
     - Row_CardType
     - GeneralizeRow
     - OnCardTypeChange
@@ -15419,7 +15440,7 @@ MonoBehaviour:
     - CardPics
     - GridLayoutGroup
     - SortedDictionary
-    stamp: 1563174207
+    stamp: 1563633563
     type: 2
     UseGUIDs: []
   - guid: 2459b42bf9825684981ea0b44716a967
@@ -15497,7 +15518,7 @@ MonoBehaviour:
   - guid: a0c24a8335cd414e9281c0652c97f577
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563430166
+    stamp: 1563776557
     type: 1
     UseGUIDs:
     - bf160db83ab4ab142949a05629f4fc57
@@ -15979,7 +16000,7 @@ MonoBehaviour:
   - guid: ca0075f0f1b076145b93e89cf28ea1f7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563248192
+    stamp: 1563724531
     type: 5
     UseGUIDs:
     - 8a27fde9170c96b48867d53c5be3a7f5
@@ -16126,7 +16147,7 @@ MonoBehaviour:
   - guid: aa74dfe2cb433b34c9c81b22d4d4b900
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559272271
+    stamp: 1563724654
     type: 5
     UseGUIDs:
     - fadcb351087e04f49bdbe604a306cf8e
@@ -16232,12 +16253,12 @@ MonoBehaviour:
   - guid: 2861e3a55a8585f4eb0a509223be6906
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559285219
+    stamp: 1563594491
     type: 5
     UseGUIDs:
     - f497240fd85b50945b832243a63b0e6b
-    - 415bf14de75a94243b6d8e857e39e92e
     - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - 415bf14de75a94243b6d8e857e39e92e
     - d71cfce5b124bdc44b26f992821b1b97
     - 391840e9a252a8f4d8ac5411a40fdaa1
     - 29263ca51d65d3e49944daa69e4ec8ff
@@ -16410,7 +16431,7 @@ MonoBehaviour:
   - guid: f52d4eca7f3144c46acc6d2278323b59
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1562847831
+    stamp: 1563549575
     type: 5
     UseGUIDs:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
@@ -17945,7 +17966,7 @@ MonoBehaviour:
   - guid: 648d712047bb04bb59a0fa58df2ef5ad
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563256496
+    stamp: 1563770134
     type: 1
     UseGUIDs:
     - 8569b79fdfa4849e4911e88a54785c81
@@ -17987,6 +18008,7 @@ MonoBehaviour:
     - BaseInfo
     - DragPurpose
     - CardTypes
+    - CardFilterTypes
     - CardStatTypes
     ScriptTokens:
     - PictureID
@@ -18002,6 +18024,7 @@ MonoBehaviour:
     - CardRareLevel
     - ShopPrice
     - CardType
+    - CARD_RARE_LEVEL_MAX
     - AddHighLightColorToText
     - Utils
     - AllColors
@@ -18013,6 +18036,7 @@ MonoBehaviour:
     - Deserialze
     - Dictionary
     - CardTypeNameDict
+    - CardFilterTypeNameDict
     - JsonConverter
     - StringEnumConverter
     - Mech
@@ -18021,10 +18045,11 @@ MonoBehaviour:
     - Total
     - HeroMech
     - SoldierMech
+    - All
     - None
     - Summon
     - Target
-    stamp: 1563173757
+    stamp: 1563699096
     type: 2
     UseGUIDs: []
   - guid: adab9e30564c04c58bd627856650ebbe
@@ -18947,7 +18972,7 @@ MonoBehaviour:
   - guid: 9f4b5254073444a35b6b536152effbed
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563343447
+    stamp: 1563596244
     type: 1
     UseGUIDs:
     - 7c03e94a7f9964acb8ae83e2b891cbac
@@ -19795,7 +19820,12 @@ MonoBehaviour:
     - Reset
     - GetRandomCardInfoByLevelNum
     - HashSet
+    - CloneVariantUtils
     - Utils
+    - GetRandomCardInfoByCardFilterType
+    - CardFilterTypes
+    - KeyValuePair
+    - CardTypes
     - ReloadCardXML
     - AddAllCards
     - NeedReload
@@ -19815,8 +19845,6 @@ MonoBehaviour:
     - PackInfo
     - MAInfo
     - SideEffectBundle
-    - KeyValuePair
-    - CardTypes
     - SlotTypes
     - WeaponTypes
     - ShieldTypes
@@ -19866,7 +19894,7 @@ MonoBehaviour:
     - LifeUpperLimit
     - EnergyUpperLimit
     - LevelCards
-    stamp: 1563173812
+    stamp: 1563702942
     type: 2
     UseGUIDs: []
   - guid: d70994889b35c4f3084b5243157e8812
@@ -19939,7 +19967,7 @@ MonoBehaviour:
   - guid: 91c95eb8a85c3487c8ab90331ec48fbc
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563422528
+    stamp: 1563611085
     type: 1
     UseGUIDs:
     - 18a570abbecd59e49b711390d3c64c3b
@@ -20106,7 +20134,7 @@ MonoBehaviour:
   - guid: 76f6b289f606d4fe183f0bce805be7c3
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563505128
+    stamp: 1563718923
     type: 1
     UseGUIDs:
     - de1bfcc530c98400096f3e4ab764b359
@@ -20643,6 +20671,10 @@ MonoBehaviour:
     - OnBeginRound
     - OnDrawCard
     - OnPlayCard
+    - OnPlayMechCard
+    - OnPlayEquipCard
+    - OnPlaySpellCard
+    - OnPlayEnergyCard
     - OnMechSummon
     - OnHeroSummon
     - OnSoldierSummon
@@ -20669,11 +20701,14 @@ MonoBehaviour:
     - OnMakeDamage
     - OnMakeSpellDamage
     - OnPlayerGetEnergy
+    - OnPlayerEnergyFull
+    - OnPlayerEnergyEmpty
     - OnPlayerUseEnergy
     - OnPlayerAddLife
     - OnPlayerLostLife
     - OnEndRound
     - OnUseMetal
+    - GetTriggerTimeByCardType
     - SortedDictionary
     - TriggerTimeDesc_ForRemoveTriggerTime
     - SelfPlayer
@@ -20691,7 +20726,7 @@ MonoBehaviour:
     - AllColors
     - EachTimeDesc
     - GetEachTimeDesc
-    stamp: 1563112879
+    stamp: 1563718923
     type: 2
     UseGUIDs: []
   - guid: d6db935c354fc45af967571c6116f564
@@ -20827,7 +20862,7 @@ MonoBehaviour:
   - guid: d180f9dcdd300405e82a33fb8ab75ed7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563173757
+    stamp: 1563699096
     type: 1
     UseGUIDs:
     - 6a4584302b64b4d89a553b5de2929227
@@ -20857,7 +20892,7 @@ MonoBehaviour:
   - guid: 2c8dc8fce075b4ecda72994715bec3d7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563173812
+    stamp: 1563702942
     type: 1
     UseGUIDs:
     - 550101b09845d450ea17e64f41607b3c
@@ -21286,7 +21321,7 @@ MonoBehaviour:
     - Serialize
     - DataStream
     - Deserialize
-    stamp: 1558845786
+    stamp: 1563770134
     type: 2
     UseGUIDs: []
   - guid: 18465a0f1f3164ac0a71dd39bb699a29
@@ -21495,7 +21530,7 @@ MonoBehaviour:
   - guid: 38dc03ee4800b4886a1a4e7c002c8b1b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563374761
+    stamp: 1563774884
     type: 1
     UseGUIDs:
     - a23e5ab0be1ea4c4a86dd51032721fc3
@@ -21542,7 +21577,7 @@ MonoBehaviour:
   - guid: b83b90b118d9c42b189657e2384237bf
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563502771
+    stamp: 1563754747
     type: 1
     UseGUIDs:
     - 5cfd8af58a691451988c1ae20bdf25b3
@@ -21686,14 +21721,17 @@ MonoBehaviour:
     - CardTypes
     - DrawHeroCards
     - PutCardsOnTopByID
-    - GetRandomHandCardId
+    - GetRandomHandCardIds
     - Utils
     - GetRandomSpellCardInstanceIds
     - CardSpell
-    - GetATempCardByID
+    - GetTempCardsByID
     - AllCards
     - OnPlayerGetCard
     - GetACardByID
+    - GetTempCardByCardTypes
+    - CardFilterTypes
+    - DropCardType
     - DropCard
     - GetCardByCardInstanceId
     - DropCardRequest
@@ -21706,7 +21744,7 @@ MonoBehaviour:
     - EndRound
     - SetAllCardUnusable
     - GetHandCardInfo
-    stamp: 1563506195
+    stamp: 1563763080
     type: 2
     UseGUIDs: []
   - guid: c26a3b75350a74e29a1ef412fabbcb3d
@@ -21728,11 +21766,12 @@ MonoBehaviour:
     - ExecutorInfo
     - BattlePlayer
     - Player
+    - List
     - HashSet
     - ChoiceCount
     - TargetRange
     - TargetSelect
-    stamp: 1563501380
+    stamp: 1563705796
     type: 2
     UseGUIDs: []
   - guid: abe22895c49984459aa08af8eab1134a
@@ -21851,7 +21890,7 @@ MonoBehaviour:
     - SideEffectExecute
     - SideEffectBase
     - PlayerBuffSideEffects
-    stamp: 1563496153
+    stamp: 1563762341
     type: 2
     UseGUIDs: []
   - guid: 467628c59a1ed4aabaaac5650128293c
@@ -21934,9 +21973,7 @@ MonoBehaviour:
     - RemovePlayerStory
     - SingleMode
     - CreateSinglePlayer
-    - AllBuilds
-    - BuildGroups
-    stamp: 1562917878
+    stamp: 1563596244
     type: 2
     UseGUIDs: []
   - guid: 2f5f69e5d54ca4c96b956d82d7ec03c4
@@ -21963,7 +22000,7 @@ MonoBehaviour:
     - ChoiceCount
     - TargetRange
     - TargetSelect
-    stamp: 1563501440
+    stamp: 1563631556
     type: 2
     UseGUIDs: []
   - guid: 5cfd8af58a691451988c1ae20bdf25b3
@@ -21988,7 +22025,7 @@ MonoBehaviour:
     - ChoiceCount
     - TargetRange
     - TargetSelect
-    stamp: 1563502741
+    stamp: 1563754747
     type: 2
     UseGUIDs: []
   - guid: b13351e69944840f685ac69c2f1f285c
@@ -22102,18 +22139,18 @@ MonoBehaviour:
     - M_AttackLevel
     - BeforeAttack
     - OnAttack
+    - List
     - MechOnAttackRequest
     - OnAttackShip
     - MechOnAttackShipRequest
     - Attack
     - Random
     - OnMakeDamage
-    - List
     - UnregisterEvent
     - AttackShip
     - OnBeginRound
     - OnEndRound
-    stamp: 1563329794
+    stamp: 1563596545
     type: 2
     UseGUIDs: []
   - guid: 7e74d4e629fa4e21a4b0ed16441fdf40
@@ -22228,17 +22265,17 @@ MonoBehaviour:
     - GenerateDesc
     - SideEffectBase
     - Sub_SideEffect
-    - DescRaws
-    - MyBuffSEE
     - HighlightStringFormat
+    - DescRaws
     - LanguageManager_Common
     - SideEffectExecute
+    - MyBuffSEE
     - Execute
     - ExecutorInfo
     - BattlePlayer
     - Player
     - M_ExecutorInfo
-    stamp: 1563513743
+    stamp: 1563594725
     type: 2
     UseGUIDs: []
   - guid: 3ede7587452144df681415569def089c
@@ -22357,7 +22394,7 @@ MonoBehaviour:
   - guid: a55d7b980c402432485397fd8bce7736
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563501493
+    stamp: 1563631556
     type: 1
     UseGUIDs:
     - c032d618c5ae2448fbd5886b6a56bf90
@@ -22540,8 +22577,7 @@ MonoBehaviour:
     - StringEnumConverter
     - EnemyBuilds
     - OnlineBuilds
-    - CustomBuilds
-    stamp: 1562919608
+    stamp: 1563596149
     type: 2
     UseGUIDs: []
   - guid: efb0a48a77b1742a29458e5cfda8a85a
@@ -22622,7 +22658,7 @@ MonoBehaviour:
   - guid: 3e60a35b384d7472789db4b1afee004a
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563329794
+    stamp: 1563596545
     type: 1
     UseGUIDs:
     - 8f3345aee0ef34fcd995a614013efa44
@@ -22641,7 +22677,7 @@ MonoBehaviour:
   - guid: f78f3ecb80c8e425da8ffc6506c45b0c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563513743
+    stamp: 1563594725
     type: 1
     UseGUIDs:
     - 221550d9ea7e44a54b455eb6b735553c
@@ -22770,7 +22806,7 @@ MonoBehaviour:
     ScriptSymbols:
     - SideEffects.UseAllEnergyDamageShip
     ScriptTokens:
-    - SideEffectBase, IPositive
+    - SideEffectBase
     - InitSideEffectParam
     - M_SideEffectParam
     - GenerateDesc
@@ -22781,7 +22817,7 @@ MonoBehaviour:
     - ExecutorInfo
     - BattlePlayer
     - Player
-    stamp: 1563502833
+    stamp: 1563609917
     type: 2
     UseGUIDs: []
   - guid: a72f869e989a4407d9c0922a8e658234
@@ -22879,7 +22915,7 @@ MonoBehaviour:
     - Mixed
     - OnlyMechs
     - OnlyShips
-    stamp: 1563504590
+    stamp: 1563593835
     type: 2
     UseGUIDs: []
   - guid: 251f18aedf5ef4c1ab8563c3526f4739
@@ -22897,6 +22933,7 @@ MonoBehaviour:
     - CardDeckManager
     - BattleGroundManager
     - BattleStatistics
+    - ExtraRounds
     - OnDestroyed
     - MetalChange
     - OnMetalChanged
@@ -22950,7 +22987,7 @@ MonoBehaviour:
     - List
     - PlayerBuffRemoveRequest
     - ServerRequestBase
-    stamp: 1563423026
+    stamp: 1563718774
     type: 2
     UseGUIDs: []
   - guid: 36034dced435b4871b0aca70895477ff
@@ -23103,7 +23140,7 @@ MonoBehaviour:
   - guid: b91bb522317f54c9cb57f0eab9fbfc64
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563506195
+    stamp: 1563763080
     type: 1
     UseGUIDs:
     - 651c9ec3f187847e7ab304fae13c170b
@@ -23199,7 +23236,7 @@ MonoBehaviour:
   - guid: eeb5a2a27322f31448b4c0bd3e55369c
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563374431
+    stamp: 1563775693
     type: 1
     UseGUIDs:
     - 8709d207f50874b4d9f7fba4a29461f2
@@ -23282,10 +23319,10 @@ MonoBehaviour:
     - StandaloneStartLevelRequest
     - AI_ClientId
     - BattleProxyAI
-    - AllBuilds
-    - BuildGroups
-    - Level
     - Enemy
+    - AllLevels
+    - LevelTypes
+    - Level
     - BattleStatistics
     - AI
     - Shop
@@ -23310,7 +23347,7 @@ MonoBehaviour:
     - CreateBuildRequestResponse
     - BuildUpdateRequest
     - DeleteBuildRequest
-    stamp: 1563374431
+    stamp: 1563775693
     type: 2
     UseGUIDs: []
   - guid: 5d966b660b282ce49a8e003b484eac57
@@ -23373,10 +23410,15 @@ MonoBehaviour:
   - guid: 68ac76b73d26c6e4cabe21b6256d8018
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563502833
+    stamp: 1563707548
     type: 1
     UseGUIDs:
+    - 1ceb36985fef1d048a4c9d27d0015917
     - 325e68aefd9bc604fa990e04a005b340
+    - 5d8c22c7e017be74191994de0667b0ce
+    - 58d61c5701d91694b93505cd3985a10a
+    - 2bf8037ac3fe2d84a9805112ea514f0b
+    - eed3ebfea1ef7634ca997645e192f935
     - 0fe9ae6e78b214697b2277123fcf874e
     - d4d88104742364fac94ad0f92c5df14b
     - f78f3ecb80c8e425da8ffc6506c45b0c
@@ -23410,7 +23452,7 @@ MonoBehaviour:
     - TargetSelect
     - SideEffectValue_ConstInt
     - GetCardIDSideEffectValue
-    stamp: 1563502771
+    stamp: 1563631572
     type: 2
     UseGUIDs: []
   - guid: b142c3495e8c8f64888ae23257babbaa
@@ -23760,7 +23802,7 @@ MonoBehaviour:
   - guid: 391840e9a252a8f4d8ac5411a40fdaa1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559549180
+    stamp: 1563549551
     type: 5
     UseGUIDs:
     - 3299d0cf80a75cc4b873f588f81a6634
@@ -24501,7 +24543,7 @@ MonoBehaviour:
   - guid: 5536fe9c98291164db3c73a6663f2b27
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1562854933
+    stamp: 1563549575
     type: 1
     UseGUIDs:
     - 75cd820891e9248179cfb4ab330555b0
@@ -24762,15 +24804,6 @@ MonoBehaviour:
     stamp: 1562917878
     type: 2
     UseGUIDs: []
-  - guid: 5c7a946cc6e500c45916eee177f67a21
-    ScriptSymbols: []
-    ScriptTokens: []
-    stamp: 1562916865
-    type: 1
-    UseGUIDs:
-    - c40958d93e0e11d4f921b46f3d39ea8b
-    - 2c676b4a5f98490ea6ebe817cb84a1d6
-    - 1fcc6f4412799e14ab078b788be5ea20
   - guid: 6fc837dd1efef3d4a8ef211d83b955a2
     ScriptSymbols: []
     ScriptTokens: []
@@ -25216,7 +25249,7 @@ MonoBehaviour:
   - guid: 55424c2c43e8fbd45b10efdbee0ea41e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563421522
+    stamp: 1563786847
     type: 1
     UseGUIDs:
     - 3114354d56c4d51439c26992c5d82f0b
@@ -27706,7 +27739,7 @@ MonoBehaviour:
   - guid: 34f42438a3aa7c546b2fde9a869a069e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563501408
+    stamp: 1563705796
     type: 1
     UseGUIDs:
     - c26a3b75350a74e29a1ef412fabbcb3d
@@ -28004,7 +28037,7 @@ MonoBehaviour:
   - guid: 3114354d56c4d51439c26992c5d82f0b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1563421567
+    stamp: 1563787137
     type: 1
     UseGUIDs: []
   - guid: bb0ee74dad1df8d47a49773076dae6d1
@@ -28424,6 +28457,7 @@ MonoBehaviour:
     - Cur_Shop
     - CloseUIForm
     - Display
+    - AudioManager
     - UIManager
     - Hide
     - SerializeField
@@ -28461,7 +28495,7 @@ MonoBehaviour:
     - SetAllButtonLock
     - KeyValuePair
     - SetShopItemSold
-    stamp: 1563536182
+    stamp: 1563795861
     type: 2
     UseGUIDs: []
   - guid: d9da3580b9cc47f44a52549fca592c4c
@@ -28706,7 +28740,7 @@ MonoBehaviour:
     - SlotTypes
     - WeaponTypes
     - ShieldTypes
-    stamp: 1563414140
+    stamp: 1563611085
     type: 2
     UseGUIDs: []
   - guid: 6355f812468c74b239c225e2d6c8b5c0
@@ -28912,5 +28946,1158 @@ MonoBehaviour:
     stamp: 1563502313
     type: 2
     UseGUIDs: []
-  timeStamp: 1563546800
+  - guid: 58d61c5701d91694b93505cd3985a10a
+    ScriptSymbols:
+    - SideEffects.GetChanceToAttackAgain
+    ScriptTokens:
+    - SideEffectBase
+    - InitSideEffectParam
+    - M_SideEffectParam
+    - GenerateDesc
+    - HighlightStringFormat
+    - DescRaws
+    - LanguageManager_Common
+    - Execute
+    - ExecutorInfo
+    - BattlePlayer
+    - Player
+    - ModuleMech
+    - Random
+    stamp: 1563631082
+    type: 2
+    UseGUIDs: []
+  - guid: eed3ebfea1ef7634ca997645e192f935
+    ScriptSymbols:
+    - SideEffects.MechDealExtraDamageToTargetUseEnergy
+    ScriptTokens:
+    - SideEffectBase
+    - InitSideEffectParam
+    - M_SideEffectParam
+    - GenerateDesc
+    - HighlightStringFormat
+    - DescRaws
+    - LanguageManager_Common
+    - Execute
+    - ExecutorInfo
+    - BattlePlayer
+    - Player
+    stamp: 1563596843
+    type: 2
+    UseGUIDs: []
+  - guid: 5d8c22c7e017be74191994de0667b0ce
+    ScriptSymbols:
+    - SideEffects.GetAnotherRound
+    ScriptTokens:
+    - SideEffectBase
+    - InitSideEffectParam
+    - M_SideEffectParam
+    - GenerateDesc
+    - HighlightStringFormat
+    - DescRaws
+    - LanguageManager_Common
+    - Execute
+    - ExecutorInfo
+    - BattlePlayer
+    - Player
+    - Random
+    stamp: 1563631078
+    type: 2
+    UseGUIDs: []
+  - guid: 2bf8037ac3fe2d84a9805112ea514f0b
+    ScriptSymbols:
+    - SideEffects.KillAllMechsAndDamageSelfShip
+    ScriptTokens:
+    - SideEffectBase, IPriorUsed
+    - InitSideEffectParam
+    - M_SideEffectParam
+    - GenerateDesc
+    - HighlightStringFormat
+    - DescRaws
+    - LanguageManager_Common
+    - Execute
+    - ExecutorInfo
+    - BattlePlayer
+    - Player
+    - List
+    - ModuleMech
+    stamp: 1563630044
+    type: 2
+    UseGUIDs: []
+  - guid: 1ceb36985fef1d048a4c9d27d0015917
+    ScriptSymbols:
+    - SideEffects.DropAndDrawCards
+    ScriptTokens:
+    - SideEffectBase, IPositive, IPriorUsed
+    - InitSideEffectParam
+    - M_SideEffectParam
+    - CardFilterTypes
+    - GenerateDesc
+    - HighlightStringFormat
+    - DescRaws
+    - LanguageManager_Common
+    - BaseInfo
+    - Execute
+    - ExecutorInfo
+    - BattlePlayer
+    - Player
+    - HashSet
+    stamp: 1563707548
+    type: 2
+    UseGUIDs: []
+  - guid: 067cb248593451640a9fae09007fb924
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1563727220
+    type: 1
+    UseGUIDs:
+    - 05f3b66653ba9bc46a510a5536d90878
+    - 4e2479f3baa7e9f469acf2281d45b723
+    - d03b6c4a47273dc459ad9e87dac88796
+    - 589b87a78ce9ca14d9b69cfc73999f3f
+    - bca3683993a442148b3b807e0ce9302b
+    - 95dc93e5204e88546a820db0cce6106c
+    - eb3baa26bb5325f418fd82374a11bb52
+    - d3e08997d5abcac44b6ff0b83a9cd296
+    - abb90c24909d31f458fba92d279307ef
+    - a921beaae9a63ec4db94ac2c1233ad3b
+    - 42ed55b5b66e2bc489a652f9d5b06a2f
+    - cd225939dcaeb0f45b1613e747747948
+    - 689b3c436ae93ad4e8e2ad3789f296de
+    - b1328c62860e1454f9ec808eb8faa382
+    - 68b3119311f167c4b9436073bc75ae84
+    - 68f6b35cf3b6cdf48a347a569d796060
+    - d93463d82124aa04e8b7d666e3d33f26
+    - dcdc7a037c2602a429977b05e4497292
+    - b69789b4b2512da4097b0b17b264d7e6
+    - 1668af4ffd32ac34fa8845d19eff8ef2
+    - a92de69322bb2ed4586194cd5a24332b
+    - 779768f01c97da2459b705ace37dcdf5
+    - 33e5c6e8583d60f4a864f2f3e470e806
+    - d3d25e056f791d44c9e61d09b0d7f198
+    - 74fe7b766ebfed54696a0b0b17662d0a
+    - 7ce46f5ea51ef1c4ea50deef634c243a
+    - 19dd652910de71046ba1651ce175dfbf
+    - fa67c9f15be8ec443a784f7750237228
+    - e37a1f002e43cfd4c87279a0a86ea31b
+    - b6e7dc5febc6ef3478f10ffbc15a583f
+    - 7fea7194c3f905f4d8570491d36f1aea
+    - bda2acb71c2665546abc13f1f2d1e4b1
+    - dff3bfa6a437c974a9e32a1f632fe155
+    - 675bcca3efd90a14d8838ffc340883f1
+    - 027f59cedba7d824d9c187f2b9b62d66
+    - e5cba12091004e641aff04f88de87db1
+    - 1f6f87a2927c39c459d5b0f921daa38e
+    - c295e43ae3b7d11488e73149f8d7884a
+    - e4ac63ce631667340b93c527dc73a7b5
+    - 238e9e7b761cf6344906ccd21c325ca9
+    - 048ed35dd63efcc4298c974b8bddaabf
+    - cbdbb5e21aae00f418fada7af80cc8f2
+    - 1fe9bb60bc894334d964e850f1d30d26
+    - 974131d0c2ddd6248b0f70e8d353cd19
+    - a54316fe24718c44780e5e623b430e5c
+    - 755280358fd499b42bfc0b77606b0820
+    - 65e4b25662d98fb4f842918658cdcf76
+    - 3401acad270a8a44186f6b217c74c8e0
+    - 5525703a6e101c646b2e739e1a5a7a1d
+    - bc2d8568b7a05604bb27e4dd88e1e43c
+    - 80096b4188c0f48499c26e0b67138ac5
+    - 5b0289616cfd3c74394a1dad8cce9312
+    - a029509a88bdd5c4a8d1e321d0114be6
+    - 60f9f45df1ab25c408fb26d47cfcb589
+    - 9c1f38756f337684baa05f55552fcd61
+    - bf3d0eefb7bc08143b0eb7928aeb386b
+    - e17b537ccd0bd4c419a738cf79621d22
+    - 455ba02b836ccba43bfded84051643d0
+    - 5682ffdca993ca04c95f2a017eefb47c
+    - cebcd1116fa469a47a608c7ac7578141
+    - 2172c702d9e52b04685d1d202dd0b09c
+    - dad1be1d4ab0ba444860b02204e69c48
+    - 9878a54cd3b0bc4458982286373c8429
+    - e47643c906b5a1742b650a829afb52ca
+    - 2e0e5776b1d42fe40ba099680c17d045
+    - 505bdb469d654854eaf994b0ffb9c6a3
+    - 768224d03f95e6742a5601939fe6c67c
+    - 2002e2349c789b447a48451ad4af23be
+    - 258f59dfc1d39eb419f0e5ed04d8b8fe
+    - 206702745675adf4b83582b1e1952051
+    - 4f7a9ce660da00747ab4e142b631e227
+    - d2e8ea0f1c1298e4f9be2424f6e7bc60
+    - 3bcb709da5564124bbb9f3d30cbe2ba7
+    - 3b22cc9c1df4658428922844b2dc4c93
+    - 5f641c3b29409da4ebb1a4618dd28a7e
+    - ed350b5b57bd2b947ac07bb6725c8440
+    - 3b5a09e07f216ee48b8a227e2796a3e7
+    - 8b508e06898a277418f81283bde39f09
+    - da4cd73e0f9f1f94a8ac9cd692bed1b3
+    - f34f0809c2f71a9438253e720255101c
+    - 73a64975db8442f4ab3956901e398d5c
+    - f4c2397c58995c8448383ee6873009a6
+    - 30d9be6b750618d4b994dfdb446f6eb1
+    - b4f92efd6166c5a43b009f7389b21170
+    - 91905ad2967d10044b96c71fd1719f19
+    - af34adfb17580cb4db0a6aab736bb489
+    - 5b7a84f3f10be8a43a2b30b49f6c8fc8
+    - 10c0ed5f73aaccd4390209d72e23538a
+    - 3b51a8fd8c923a14eb1bf8b83f04c437
+    - 407958878a180244c9bf0cb3c292c16d
+    - 374e9df969921ad409768745811d23be
+    - 17f95e106756bf0418e3fab9f57280db
+    - 89a6a5c9410e3ba498bfefa158590b79
+    - 80f51adf1f1be8a469017b8bc4a0926b
+    - 1a5e7f689d95f594ebb89d77202aeea2
+    - 767d597b9884bd046b1ec25acc1c22c3
+    - 3e042b21b6faa3242b6d123d05d578be
+    - f43468d5c0aa5934bae6dbc0837779c1
+    - 787053f62192bd044a64df220883e0cc
+    - 4511d853caf19ab4eaf0f67acbe5dd60
+    - 11c3148a308a8f14fa9a5b2b26e53e91
+    - 6e465b85e7375df4487383f68fc2b612
+    - b95bfbba9cdad4c4286896876fe0b63e
+    - b64d59620e7450c4d939eaf2e7419453
+    - 980f894d70f16984a8cc50a6cc37c449
+    - fe4fa533dbc561a4aa4a86ab23e9f512
+    - 17a45b6069090ec4bab2a2af1bafeecb
+    - 6716c8872bdae25439880a4c44d80ac0
+    - 8b488d280220fb9469bfd738cd8a7c3a
+    - 69e1496efd5830e43944c30a9bc2777e
+    - be5cc381cc0c6e04bbf24af57539d972
+    - e262b8215a7606647b59345ae4dd266d
+    - 58b4c1e8a56e6b3419bc52aa96e909bb
+    - 292f868b57149b9488bdf2debf0babf7
+    - 37a8da8688a05344f80bc2edb7bc35c4
+    - cc7f5226a2586f74b9335d3a4884228c
+    - 184cf2c20b213a84fb313113b2883f5d
+    - 63e9cb11eb00f304b956499f0bc66633
+    - ec2bf2435e599114db57e5cdd9f0142c
+    - c370411e8915dbc47ba27ce6103f729d
+    - 5f6f3530501a97c4c9873cc1c3e4dbae
+    - 3caeca5f22823c944a873a49c7bba93e
+    - bf2baa49bbadd2848a1286257acf375c
+    - aa9eff2b0cca5ad47b6849b6028c8e1b
+    - 6380340c6e6880a4cbc6cbf81b5b99e6
+    - 4d54a53003369db46a81aec9750d39e5
+    - 63caae59b49716c47a07e8612b218510
+    - 18bc5b1221d2f7d4eafa957b508858b2
+    - 85a88b0259790964eb652a324df668b2
+    - 1d89b3ef61ad8e64d8070d6f9c631d66
+    - 69fd4add42a1f1a468cd75e55571f9a5
+    - 8299f24e92992444681969ab6b29a519
+    - 3b179719a17d18945a8bb04dc8e47604
+    - 7df0c106be60c634bb969c712e3ab974
+    - 15b723f801d85fe4083678455c2b3cde
+    - 34e301aa1a91f194a9146266bb235600
+    - ed747a046a938d3458df96ab1e2cecff
+    - 158b77fc3fd7a3949af3d618f6277268
+    - fa7f7b3be5f45454280fe698f115c3c5
+    - 792895d259742b84a8e2148067497355
+    - 0edd5457699b6e7499512cecc84dc004
+    - cd59406ded50ba04fab81b0ffde1b3b7
+  - guid: e37a1f002e43cfd4c87279a0a86ea31b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 17f95e106756bf0418e3fab9f57280db
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: e5cba12091004e641aff04f88de87db1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 5f6f3530501a97c4c9873cc1c3e4dbae
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 4d54a53003369db46a81aec9750d39e5
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 17a45b6069090ec4bab2a2af1bafeecb
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 1fe9bb60bc894334d964e850f1d30d26
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 974131d0c2ddd6248b0f70e8d353cd19
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 768224d03f95e6742a5601939fe6c67c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3b5a09e07f216ee48b8a227e2796a3e7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 779768f01c97da2459b705ace37dcdf5
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: cebcd1116fa469a47a608c7ac7578141
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 63e9cb11eb00f304b956499f0bc66633
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: e262b8215a7606647b59345ae4dd266d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3e042b21b6faa3242b6d123d05d578be
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 80096b4188c0f48499c26e0b67138ac5
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 5b0289616cfd3c74394a1dad8cce9312
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: be5cc381cc0c6e04bbf24af57539d972
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: fa67c9f15be8ec443a784f7750237228
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 2172c702d9e52b04685d1d202dd0b09c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 85a88b0259790964eb652a324df668b2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 18bc5b1221d2f7d4eafa957b508858b2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b64d59620e7450c4d939eaf2e7419453
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b1328c62860e1454f9ec808eb8faa382
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 1f6f87a2927c39c459d5b0f921daa38e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 184cf2c20b213a84fb313113b2883f5d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 792895d259742b84a8e2148067497355
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 91905ad2967d10044b96c71fd1719f19
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: cbdbb5e21aae00f418fada7af80cc8f2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: dcdc7a037c2602a429977b05e4497292
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: fe4fa533dbc561a4aa4a86ab23e9f512
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: ec2bf2435e599114db57e5cdd9f0142c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 689b3c436ae93ad4e8e2ad3789f296de
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 4511d853caf19ab4eaf0f67acbe5dd60
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 68b3119311f167c4b9436073bc75ae84
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: a92de69322bb2ed4586194cd5a24332b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 675bcca3efd90a14d8838ffc340883f1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 5b7a84f3f10be8a43a2b30b49f6c8fc8
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 4e2479f3baa7e9f469acf2281d45b723
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: ed747a046a938d3458df96ab1e2cecff
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: abb90c24909d31f458fba92d279307ef
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 2002e2349c789b447a48451ad4af23be
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 206702745675adf4b83582b1e1952051
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 7fea7194c3f905f4d8570491d36f1aea
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b69789b4b2512da4097b0b17b264d7e6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: d3d25e056f791d44c9e61d09b0d7f198
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 755280358fd499b42bfc0b77606b0820
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 9c1f38756f337684baa05f55552fcd61
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 73a64975db8442f4ab3956901e398d5c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 6e465b85e7375df4487383f68fc2b612
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 42ed55b5b66e2bc489a652f9d5b06a2f
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: f43468d5c0aa5934bae6dbc0837779c1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 95dc93e5204e88546a820db0cce6106c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 7df0c106be60c634bb969c712e3ab974
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 8b508e06898a277418f81283bde39f09
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: cc7f5226a2586f74b9335d3a4884228c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: eb3baa26bb5325f418fd82374a11bb52
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 505bdb469d654854eaf994b0ffb9c6a3
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 65e4b25662d98fb4f842918658cdcf76
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 05f3b66653ba9bc46a510a5536d90878
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 2e0e5776b1d42fe40ba099680c17d045
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 74fe7b766ebfed54696a0b0b17662d0a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 37a8da8688a05344f80bc2edb7bc35c4
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: dff3bfa6a437c974a9e32a1f632fe155
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 4f7a9ce660da00747ab4e142b631e227
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 787053f62192bd044a64df220883e0cc
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 0edd5457699b6e7499512cecc84dc004
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 407958878a180244c9bf0cb3c292c16d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 6716c8872bdae25439880a4c44d80ac0
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: d3e08997d5abcac44b6ff0b83a9cd296
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 589b87a78ce9ca14d9b69cfc73999f3f
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: bda2acb71c2665546abc13f1f2d1e4b1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 8b488d280220fb9469bfd738cd8a7c3a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: bc2d8568b7a05604bb27e4dd88e1e43c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 1a5e7f689d95f594ebb89d77202aeea2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: d93463d82124aa04e8b7d666e3d33f26
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 58b4c1e8a56e6b3419bc52aa96e909bb
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 33e5c6e8583d60f4a864f2f3e470e806
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 15b723f801d85fe4083678455c2b3cde
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: f34f0809c2f71a9438253e720255101c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3b179719a17d18945a8bb04dc8e47604
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 19dd652910de71046ba1651ce175dfbf
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: bca3683993a442148b3b807e0ce9302b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: cd225939dcaeb0f45b1613e747747948
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: bf2baa49bbadd2848a1286257acf375c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 63caae59b49716c47a07e8612b218510
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: e47643c906b5a1742b650a829afb52ca
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 89a6a5c9410e3ba498bfefa158590b79
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 374e9df969921ad409768745811d23be
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 5525703a6e101c646b2e739e1a5a7a1d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: c295e43ae3b7d11488e73149f8d7884a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: d03b6c4a47273dc459ad9e87dac88796
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 11c3148a308a8f14fa9a5b2b26e53e91
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: a029509a88bdd5c4a8d1e321d0114be6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 34e301aa1a91f194a9146266bb235600
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: a921beaae9a63ec4db94ac2c1233ad3b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b95bfbba9cdad4c4286896876fe0b63e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 455ba02b836ccba43bfded84051643d0
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: aa9eff2b0cca5ad47b6849b6028c8e1b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: fa7f7b3be5f45454280fe698f115c3c5
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 5f641c3b29409da4ebb1a4618dd28a7e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: ed350b5b57bd2b947ac07bb6725c8440
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 30d9be6b750618d4b994dfdb446f6eb1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 767d597b9884bd046b1ec25acc1c22c3
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 238e9e7b761cf6344906ccd21c325ca9
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 292f868b57149b9488bdf2debf0babf7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: af34adfb17580cb4db0a6aab736bb489
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 6380340c6e6880a4cbc6cbf81b5b99e6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 9878a54cd3b0bc4458982286373c8429
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 68f6b35cf3b6cdf48a347a569d796060
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: e17b537ccd0bd4c419a738cf79621d22
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: f4c2397c58995c8448383ee6873009a6
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3b22cc9c1df4658428922844b2dc4c93
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 5682ffdca993ca04c95f2a017eefb47c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 158b77fc3fd7a3949af3d618f6277268
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: dad1be1d4ab0ba444860b02204e69c48
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 980f894d70f16984a8cc50a6cc37c449
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 048ed35dd63efcc4298c974b8bddaabf
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 60f9f45df1ab25c408fb26d47cfcb589
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: cd59406ded50ba04fab81b0ffde1b3b7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3bcb709da5564124bbb9f3d30cbe2ba7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3401acad270a8a44186f6b217c74c8e0
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 69fd4add42a1f1a468cd75e55571f9a5
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3b51a8fd8c923a14eb1bf8b83f04c437
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b4f92efd6166c5a43b009f7389b21170
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: c370411e8915dbc47ba27ce6103f729d
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: da4cd73e0f9f1f94a8ac9cd692bed1b3
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 8299f24e92992444681969ab6b29a519
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 7ce46f5ea51ef1c4ea50deef634c243a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 69e1496efd5830e43944c30a9bc2777e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: e4ac63ce631667340b93c527dc73a7b5
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 027f59cedba7d824d9c187f2b9b62d66
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: a54316fe24718c44780e5e623b430e5c
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: d2e8ea0f1c1298e4f9be2424f6e7bc60
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 1668af4ffd32ac34fa8845d19eff8ef2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3caeca5f22823c944a873a49c7bba93e
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: b6e7dc5febc6ef3478f10ffbc15a583f
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 10c0ed5f73aaccd4390209d72e23538a
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 258f59dfc1d39eb419f0e5ed04d8b8fe
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 80f51adf1f1be8a469017b8bc4a0926b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 1d89b3ef61ad8e64d8070d6f9c631d66
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: bf3d0eefb7bc08143b0eb7928aeb386b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: c3ad0bb1495a88f4090533a2640edcba
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1563845812
+    type: 1
+    UseGUIDs:
+    - e04edc5af5dc0ab49a9af714b692c0b1
+    - 10e825c00f5054a119477727602586c9
+    - 6fc837dd1efef3d4a8ef211d83b955a2
+    - 0c93058204c72e940a6c07e4764e00da
+  - guid: 0c93058204c72e940a6c07e4764e00da
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1563845791
+    type: 5
+    UseGUIDs:
+    - e3ecb20e8ce1912468a84ed12d0b5de2
+  - guid: 9bb160158345c5f44b4748344a6d0d51
+    ScriptSymbols:
+    - LevelBadge
+    ScriptTokens:
+    - PoolObject
+    - SerializeField
+    - Image
+    stamp: 1563845948
+    type: 2
+    UseGUIDs: []
+  - guid: a20a7c272c8ef194c9f87fe95f1ca061
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1563846262
+    type: 1
+    UseGUIDs:
+    - c40958d93e0e11d4f921b46f3d39ea8b
+    - 2c676b4a5f98490ea6ebe817cb84a1d6
+    - 1fcc6f4412799e14ab078b788be5ea20
+    - 9bb160158345c5f44b4748344a6d0d51
+  - guid: e3ecb20e8ce1912468a84ed12d0b5de2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 3a866db6edf4a9e49a799d93aec3b082
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 5
+    UseGUIDs: []
+  - guid: 40d14b1c72665624db0b1219d6a4b8c7
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  timeStamp: 1563844518
   priority: 5

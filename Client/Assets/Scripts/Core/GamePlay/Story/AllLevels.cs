@@ -95,13 +95,13 @@ public class AllLevels
         int picID = int.Parse(node_levelInfo.Attributes["picID"].Value);
         LevelTypes levelType = (LevelTypes) Enum.Parse(typeof(LevelTypes), node_levelInfo.Attributes["levelType"].Value);
         LevelThemeCategory levelThemeType = (LevelThemeCategory) Enum.Parse(typeof(LevelThemeCategory), node_levelInfo.Attributes["levelThemeCategory"].Value);
+        int difficultyLevel = int.Parse(node_levelInfo.Attributes["difficultyLevel"].Value);
         switch (levelType)
         {
             case LevelTypes.Enemy:
             {
                 XmlNode node_EnemyInfo = node_levelInfo.FirstChild;
                 EnemyType enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), node_EnemyInfo.Attributes["enemyType"].Value);
-                int level = int.Parse(node_EnemyInfo.Attributes["level"].Value);
 
                 BuildInfo bi = BuildInfo.GetBuildInfoFromXML(node_EnemyInfo.FirstChild, out bool _needRefresh_build, BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum);
                 needRefresh |= _needRefresh_build;
@@ -116,7 +116,7 @@ public class AllLevels
                     BonusGroups.Add(bg);
                 }
 
-                Enemy enemy = new Enemy(levelThemeType, picID, names, bi, enemyType, level, BonusGroups);
+                Enemy enemy = new Enemy(levelThemeType, picID, names, difficultyLevel, bi, enemyType, BonusGroups);
                 return enemy;
             }
             case LevelTypes.Shop:
@@ -131,7 +131,10 @@ public class AllLevels
                     if (si != null) shopItems.Add(si);
                 }
 
-                Shop shop = new Shop(levelThemeType, picID, names, shopItems);
+                int shopItemCardCount = int.Parse(node_ShopInfo.Attributes["shopItemCardCount"].Value);
+                int shopItemOthersCount = int.Parse(node_ShopInfo.Attributes["shopItemOthersCount"].Value);
+
+                Shop shop = new Shop(levelThemeType, picID, names, difficultyLevel, shopItems, shopItemCardCount, shopItemOthersCount);
                 return shop;
             }
         }

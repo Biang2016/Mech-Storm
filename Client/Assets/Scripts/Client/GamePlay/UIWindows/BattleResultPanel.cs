@@ -350,6 +350,7 @@ internal class BattleResultPanel : BaseUIForm
                 "Drawing cards slowly? Try to increase the number of draw cards per round in the deck window.",
                 "Enemy too strong? Try other enemies first to get more cards!",
                 "Increase the number of draw cards per round, decrease the number of cards in deck, and then speed up the circulation of cards to have more combo!",
+                "Cards stuck in hand? Get a broken energy cycle? Never mind! Take more Energy cards and less Spell cards.",
             }
         },
         {
@@ -361,6 +362,9 @@ internal class BattleResultPanel : BaseUIForm
                 "不同的卡牌有不同的选牌上限~ 通常只能携带少量的强力卡牌",
                 "关卡太难? 可以先尝试其他关卡，待收集到更强力的卡片之后再来挑战哦~",
                 "增加每回合抽牌数，减少卡牌数量，能够有效加速卡组循环，更好地打出卡牌配合！",
+                "卡手了? 能量循环跟不上? 多带一些能量牌，少带一些法术牌吧!",
+                "敌方机甲挡住了你胜利的步伐? 尝试使用直伤法术直取敌舰吧!",
+                "后期节奏跟不上时，说明卡组循环速度不足，可以提高抽牌数，或携带更多具有过牌效果的卡片。",
             }
         }
     };

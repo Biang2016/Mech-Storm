@@ -85,13 +85,6 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 
     public void RefreshLevelName()
     {
-        if (Cur_Level is Enemy enemy)
-        {
-            LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()] + " (Lv." + enemy.Level + ")";
-        }
-        else
-        {
-            LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
-        }
+        LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()] + " (Lv." + Cur_Level.DifficultyLevel + ")";
     }
 }

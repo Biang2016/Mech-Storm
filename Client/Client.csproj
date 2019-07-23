@@ -145,6 +145,10 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\BuildButton.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\SelectCard.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\SelectBuildManager.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\ChapterMap.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\ChapterMapNode.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\ChapterMapRoute.cs" />
+     <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\LevelBadge.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\StoryManager.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\AffixPanel.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\BattleResultPanel.cs" />
@@ -197,9 +201,6 @@
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_LevelButton.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_LevelButtonSliderBar.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_ShopButton.cs" />
-     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMap.cs" />
-     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMapNode.cs" />
-     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMapRoute.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Bonus.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Chapter.cs" />
      <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Chapters.cs" />

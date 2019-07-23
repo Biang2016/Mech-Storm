@@ -93,8 +93,8 @@ internal partial class GameManager
 
         if (ClientB is BattleProxyAI battleProxyAI && battleProxyAI.Enemy != null)
         {
-            PlayerB.BattleStatistics.Level = battleProxyAI.Enemy.Level;
-            PlayerA.BattleStatistics.Level = battleProxyAI.Enemy.Level;
+            PlayerB.BattleStatistics.Level = battleProxyAI.Enemy.DifficultyLevel;
+            PlayerA.BattleStatistics.Level = battleProxyAI.Enemy.DifficultyLevel;
         }
 
         PlayerA.MyEnemyPlayer = PlayerB;
@@ -183,6 +183,7 @@ internal partial class GameManager
 
         CurrentPlayer.BattleStatistics.Rounds++;
         CurrentPlayer.AddAllMetal();
+        CurrentPlayer.AddEnergy(1);
         CurrentPlayer.HandManager.BeginRound();
         CurrentPlayer.BattleGroundManager.BeginRound();
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
@@ -200,7 +201,16 @@ internal partial class GameManager
     {
         CurrentPlayer.HandManager.EndRound();
         CurrentPlayer.BattleGroundManager.EndRound();
-        OnSwitchPlayer();
+
+        if (CurrentPlayer.ExtraRounds > 0)
+        {
+            CurrentPlayer.ExtraRounds--;
+        }
+        else
+        {
+            OnSwitchPlayer();
+        }
+
         CurrentPlayer.CardDeckManager.EndRound();
         OnDrawCardPhase();
         OnBeginRound();

@@ -51,7 +51,7 @@ public class Proxy : ProxyBase
 
     public void OnSendBuildInfo(BuildInfo buildInfo)
     {
-        BuildRequest req = new BuildRequest(ClientID, buildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
+        BuildRequest req = new BuildRequest(ClientID, buildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single, UIManager.Instance.GetBaseUIForm<StartMenuPanel>().state == StartMenuPanel.States.Show_Single_HasStory);
         SendMessage(req);
         ClientState = ClientStates.Login;
     }
