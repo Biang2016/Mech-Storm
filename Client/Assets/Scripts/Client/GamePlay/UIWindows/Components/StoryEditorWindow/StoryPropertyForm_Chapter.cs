@@ -47,7 +47,7 @@ public class StoryPropertyForm_Chapter : PoolObject
     private List<PropertyFormRow> ChapterPropertyFormRows = new List<PropertyFormRow>();
     private PropertyFormRow Row_ChapterMapRoundCount = null;
 
-    public void Initialize(UnityAction onSelected, UnityAction onMoveUp, UnityAction onMoveDown, UnityAction onDeleteButtonClick, UnityAction onRefreshStory)
+    public void Initialize(UnityAction onSelected, UnityAction onMoveUp, UnityAction onMoveDown, UnityAction onDeleteButtonClick, UnityAction onSaveChapter, UnityAction onRefreshStory)
     {
         OnSelected = onSelected;
 
@@ -75,7 +75,7 @@ public class StoryPropertyForm_Chapter : PoolObject
 
         PropertyFormRow Row_ChapterName_zh = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterNameText_zh", OnChapterNameChange_zh, out SetChapterName_zh);
         PropertyFormRow Row_ChapterName_en = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterNameText_en", OnChapterNameChange_en, out SetChapterName_en);
-        Row_ChapterMapRoundCount = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterMapRoundCountLabelText", delegate(string value_str) { OnChapterMapRoundCountChange(value_str, onRefreshStory); }, out SetChapterMapRoundCount);
+        Row_ChapterMapRoundCount = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "StoryEditorPanel_ChapterMapRoundCountLabelText", delegate(string value_str) { OnChapterMapRoundCountChange(value_str, onSaveChapter, onRefreshStory); }, out SetChapterMapRoundCount);
         IsSelected = false;
     }
 
@@ -112,7 +112,7 @@ public class StoryPropertyForm_Chapter : PoolObject
     private UnityAction<string> SetChapterMapRoundCount;
     private bool isReturning = false;
 
-    private void OnChapterMapRoundCountChange(string value_str, UnityAction onRefreshStory)
+    private void OnChapterMapRoundCountChange(string value_str, UnityAction onSaveChapter ,UnityAction onRefreshStory)
     {
         if (int.TryParse(value_str, out int value))
         {
@@ -144,6 +144,7 @@ public class StoryPropertyForm_Chapter : PoolObject
                         {
                             cp.CloseUIForm();
                             Cur_Chapter.Levels.Clear();
+                            onSaveChapter();
                             onRefreshStory();
                         },
                         delegate

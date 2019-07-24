@@ -28,7 +28,6 @@ public class StoryManager : MonoSingleton<StoryManager>
     {
         Story.CurrentFightingChapter.LevelBeatedDictionary[levelID] = true;
         UIManager.Instance.GetBaseUIForm<StoryPanel>().CurrentStartGameAction = null;
-        UIManager.Instance.GetBaseUIForm<StoryPanel>().Cur_ChapterMap.RefreshKnownLevels();
         CurrentFightingEnemy = null;
     }
 

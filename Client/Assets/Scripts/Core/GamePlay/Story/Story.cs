@@ -142,7 +142,6 @@ public class Story : IClone<Story>, IVariant<Story>
     {
         foreach (KeyValuePair<int, Chapter> kv in Chapters)
         {
-            kv.Value.InfoRefresh = InfoRefresh;
             foreach (KeyValuePair<int, Level> _kv in kv.Value.Levels)
             {
                 _kv.Value.InfoRefresh = InfoRefresh;
@@ -350,8 +349,6 @@ public class Story : IClone<Story>, IVariant<Story>
             {
                 chapter.Levels.Remove(i);
             }
-
-            chapter.RefreshLevelMap();
         }
     }
 

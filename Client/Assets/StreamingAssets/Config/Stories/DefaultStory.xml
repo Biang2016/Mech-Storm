@@ -2,11 +2,121 @@
 <Story>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Story1" DrawCardNum="1" Life="10" Energy="6" BeginMetal="0" />
-    <Info name="cardIDs" ids="(-2,0,0);(10,0,0);(11,0,0);(20,0,0);(30,0,0);(40,0,0);(50,0,0);(51,0,0);(60,0,0);(70,0,0);(90,0,0);(110,0,0);(111,0,0);(120,0,0);(121,0,0);(130,0,0);(131,0,0);(140,0,0);(141,0,0);(170,0,0);(5011,0,0);(5012,0,0);(5013,0,0);(5014,0,0);(5021,0,0);(5022,0,0);(5023,0,0);(5031,0,0);(5032,0,0);(5040,0,0);(5041,0,0);(5050,0,0);(5060,0,0);(5070,0,0);(5080,0,0);(5081,0,0);(5090,0,0);(5100,0,0);(5110,0,0);(5120,0,0);(5121,0,0);(5130,0,0);(5140,0,0);(5150,0,0);(5151,0,0);(5160,0,0);(5171,0,1);(5172,0,0);(5173,0,0);(5180,0,0);(5190,0,0);(5200,0,0);(5210,0,0);(5220,0,0);(5230,0,0);(5240,0,0);(5250,0,0);(10011,0,0);(10012,0,0);(10013,0,0);(10020,0,0);(10031,0,0);(10032,0,0);(10033,0,0);(10041,0,0);(10042,0,0);(10043,0,0);(10050,0,0);(10061,0,0);(10062,0,0);(10063,0,0);(20011,0,0);(20012,0,0);(20013,0,0);(20021,0,0);(20022,0,0);(20023,0,0);(30010,0,0);(40010,0,0);(50011,0,1);(50012,0,0);(50013,0,0);(50021,0,1);(50022,0,0);(50030,0,0);(50031,0,0);(50032,0,0);(50060,0,0);(50070,0,0);(50071,0,0);(50080,0,0);(50090,0,1);(50100,0,0);(50110,0,0);(50120,0,0);(50130,0,0);(50141,0,0);(50142,0,0);(50150,0,0);(50160,0,0);(50171,0,0);(50180,0,1);(50200,0,0);(50210,0,0);(50231,0,2);(50232,0,1);(50233,0,0);(50240,0,0);(50250,0,0);(50261,0,2);(50262,0,2);(50263,0,0);(50271,0,1);(50272,0,0);(50273,0,0);(50281,0,0);(50282,0,0);(50283,0,0);(50300,0,0);(50320,0,0);(50330,0,0);(50340,0,0);(60011,0,2);(60012,0,0);(60013,0,0);(60020,0,0);(60031,0,0);(60032,0,0);(60040,0,0);(60041,0,0);(60050,0,0);(60060,0,0);(60070,0,0);(60110,0,0);(60210,0,0);(60220,0,0);(60230,0,0);(60231,0,0);(60232,0,0);(60240,0,0)" />
+    <Info name="cardIDs" ids="(-2,0,0);(10,0,0);(11,0,0);(20,0,0);(30,0,0);(40,0,0);(50,0,0);(51,0,0);(60,0,0);(70,0,0);(90,0,0);(110,0,0);(111,0,0);(120,0,0);(121,0,0);(130,0,0);(131,0,0);(140,0,0);(141,0,0);(170,0,0);(5011,0,0);(5012,0,0);(5013,0,0);(5014,0,0);(5021,0,0);(5022,0,0);(5023,0,0);(5031,0,0);(5032,0,0);(5040,0,0);(5041,0,0);(5050,0,0);(5060,0,0);(5070,0,0);(5080,0,0);(5081,0,0);(5090,0,0);(5100,0,0);(5110,0,0);(5120,0,0);(5121,0,0);(5130,0,0);(5140,0,0);(5150,0,0);(5151,0,0);(5160,0,0);(5171,0,1);(5172,0,0);(5173,0,0);(5180,0,0);(5190,0,0);(5200,0,0);(5210,0,0);(5220,0,0);(5230,0,0);(5240,0,0);(5250,0,0);(5260,0,0);(5270,0,0);(10011,0,0);(10012,0,0);(10013,0,0);(10020,0,0);(10031,0,0);(10032,0,0);(10033,0,0);(10041,0,0);(10042,0,0);(10043,0,0);(10050,0,0);(10061,0,0);(10062,0,0);(10063,0,0);(20011,0,0);(20012,0,0);(20013,0,0);(20021,0,0);(20022,0,0);(20023,0,0);(30010,0,0);(40010,0,0);(50011,0,1);(50012,0,0);(50013,0,0);(50021,0,1);(50022,0,0);(50030,0,0);(50031,0,0);(50032,0,0);(50060,0,0);(50070,0,0);(50071,0,0);(50080,0,0);(50090,0,1);(50100,0,0);(50110,0,0);(50120,0,0);(50130,0,0);(50141,0,0);(50142,0,0);(50150,0,0);(50160,0,0);(50171,0,0);(50180,0,1);(50200,0,0);(50210,0,0);(50231,0,2);(50232,0,1);(50233,0,0);(50240,0,0);(50250,0,0);(50261,0,2);(50262,0,2);(50263,0,0);(50271,0,1);(50272,0,0);(50273,0,0);(50281,0,0);(50282,0,0);(50283,0,0);(50300,0,0);(50320,0,0);(50330,0,0);(50340,0,0);(50350,0,0);(50360,0,0);(50370,0,0);(50380,0,0);(50390,0,0);(60011,0,2);(60012,0,0);(60013,0,0);(60020,0,0);(60031,0,0);(60032,0,0);(60040,0,0);(60041,0,0);(60050,0,0);(60060,0,0);(60070,0,0);(60110,0,0);(60210,0,0);(60220,0,0);(60221,0,0);(60230,0,0);(60231,0,0);(60232,0,0);(60240,0,0);(60241,0,0);(60250,0,0);(60260,0,0);(60271,0,0);(60272,0,0);(60273,0,0)" />
   </BuildInfo>
   <GamePlaySettings DefaultCoin="1800" DefaultDrawCardNum="1" DefaultEnergy="6" DefaultEnergyMax="6" DefaultLife="10" DefaultLifeMax="15" DefaultLifeMin="5" MaxDrawCardNum="5" MinDrawCardNum="1" />
   <Chapters>
-    <Chapter chapterID="0" name_en="Starter Chapter" name_zh="新手试炼" chapterMapRoundCount="2">
+    <Chapter chapterID="0" name_en="New Chapter" name_zh="新章节" chapterMapRoundCount="5">
+      <RouteInfos routeInfo="(0:1,2,3,4,5,6);(1:0,2,6,7,8,18);(2:0,1,3,8,9,10);(3:0,2,4,10,11,12);(4:0,3,5,12,13,14);(5:0,4,6,14,15,16);(6:0,5,1,16,17,18);(7:8,18,1,19,20,36);(8:7,9,1,2,20,21);(9:8,10,2,21,22,23);(10:9,11,2,3,23,24);(11:10,12,3,24,25,26);(12:11,13,3,4,26,27);(13:12,14,4,27,28,29);(14:13,15,4,5,29,30);(15:14,16,5,30,31,32);(16:15,17,5,6,32,33);(17:16,18,6,33,34,35);(18:17,7,1,6,35,36);(19:20,36,7,37,38,60);(20:19,21,7,8,38,39);(21:20,22,8,9,39,40);(22:21,23,9,40,41,42);(23:22,24,9,10,42,43);(24:23,25,10,11,43,44);(25:24,26,11,44,45,46);(26:25,27,11,12,46,47);(27:26,28,12,13,47,48);(28:27,29,13,48,49,50);(29:28,30,13,14,50,51);(30:29,31,14,15,51,52);(31:30,32,15,52,53,54);(32:31,33,15,16,54,55);(33:32,34,16,17,55,56);(34:33,35,17,56,57,58);(35:34,36,17,18,58,59);(36:35,19,7,18,59,60);(37:38,60,19,61,62,90);(38:37,39,19,20,62,63);(39:38,40,20,21,63,64);(40:39,41,21,22,64,65);(41:40,42,22,65,66,67);(42:41,43,22,23,67,68);(43:42,44,23,24,68,69);(44:43,45,24,25,69,70);(45:44,46,25,70,71,72);(46:45,47,25,26,72,73);(47:46,48,26,27,73,74);(48:47,49,27,28,74,75);(49:48,50,28,75,76,77);(50:49,51,28,29,77,78);(51:50,52,29,30,78,79);(52:51,53,30,31,79,80);(53:52,54,31,80,81,82);(54:53,55,31,32,82,83);(55:54,56,32,33,83,84);(56:55,57,33,34,84,85);(57:56,58,34,85,86,87);(58:57,59,34,35,87,88);(59:58,60,35,36,88,89);(60:59,37,19,36,89,90);(61:62,90,37,91);(62:61,63,37,38);(63:62,64,38,39,97);(64:63,65,39,40);(65:64,66,40,41);(66:65,67,41,92);(67:66,68,41,42);(68:67,69,42,43,98);(69:68,70,43,44);(70:69,71,44,45);(71:70,72,45,93);(72:71,73,45,46);(73:72,74,46,47,99);(74:73,75,47,48);(75:74,76,48,49);(76:75,77,49,94);(77:76,78,49,50);(78:77,79,50,51,100);(79:78,80,51,52);(80:79,81,52,53);(81:80,82,53,95);(82:81,83,53,54);(83:82,84,54,55,101);(84:83,85,55,56);(85:84,86,56,57);(86:85,87,57,96);(87:86,88,57,58);(88:87,89,58,59,102);(89:88,90,59,60);(90:89,61,37,60);(91:61);(92:66);(93:71);(94:76);(95:81);(96:86);(97:63);(98:68);(99:73);(100:78);(101:83);(102:88)" />
+      <EnemyInfos>
+        <EnemyInfo id="0" name="Boom~" />
+        <EnemyInfo id="1" name="Battle Supports" />
+        <EnemyInfo id="2" name="Battle Supports" />
+        <EnemyInfo id="3" name="Boom~" />
+        <EnemyInfo id="4" name="Recruit training2" />
+        <EnemyInfo id="5" name="Graduation" />
+        <EnemyInfo id="6" name="Extra Life" />
+        <EnemyInfo id="7" name="Battle Supports" />
+        <EnemyInfo id="8" name="Battle Supports" />
+        <EnemyInfo id="9" name="Battle Supports" />
+        <EnemyInfo id="10" name="Battle Supports" />
+        <EnemyInfo id="11" name="Weapons" />
+        <EnemyInfo id="12" name="Mine HQ" />
+        <EnemyInfo id="13" name="Training Recruit3" />
+        <EnemyInfo id="14" name="Wing of Water" />
+        <EnemyInfo id="15" name="Training Recruit3" />
+        <EnemyInfo id="16" name="Graduation" />
+        <EnemyInfo id="17" name="Fight together!" />
+        <EnemyInfo id="18" name="Strike~Heores!" />
+        <EnemyInfo id="19" name="Shields" />
+        <EnemyInfo id="20" name="Fight together!" />
+        <EnemyInfo id="21" name="BLACK TRI-STARS" />
+        <EnemyInfo id="22" name="Boom~" />
+        <EnemyInfo id="23" name="Battle Supports" />
+        <EnemyInfo id="24" name="Training Recruit" />
+        <EnemyInfo id="25" name="Taunt~GunCanon2" />
+        <EnemyInfo id="26" name="Nanoshield" />
+        <EnemyInfo id="27" name="Guns" />
+        <EnemyInfo id="28" name="Guns" />
+        <EnemyInfo id="29" name="Guns" />
+        <EnemyInfo id="30" name="Nanoshield" />
+        <EnemyInfo id="31" name="Strike~Heores!" />
+        <EnemyInfo id="32" name="Ifrit-Advanced" />
+        <EnemyInfo id="33" name="Recruit training2" />
+        <EnemyInfo id="34" name="BLACK TRI-STARS" />
+        <EnemyInfo id="35" name="Taunt~GunCanon2" />
+        <EnemyInfo id="36" name="Taunt~ GunCanon" />
+        <EnemyInfo id="37" name="Training Recruit3" />
+        <EnemyInfo id="38" name="Graduation" />
+        <EnemyInfo id="39" name="Boom~" />
+        <EnemyInfo id="40" name="Shields" />
+        <EnemyInfo id="41" name="Nanoshield" />
+        <EnemyInfo id="42" name="Training Recruit" />
+        <EnemyInfo id="43" name="Fight together!" />
+        <EnemyInfo id="44" name="Ifrit-Advanced" />
+        <EnemyInfo id="45" name="Weapon Master" />
+        <EnemyInfo id="46" name="Space Repare" />
+        <EnemyInfo id="47" name="Zaku" />
+        <EnemyInfo id="48" name="Ifrit" />
+        <EnemyInfo id="49" name="Wing of Water" />
+        <EnemyInfo id="50" name="Training Recruit3" />
+        <EnemyInfo id="51" name="Taunt~GunCanon3" />
+        <EnemyInfo id="52" name="Space Repare" />
+        <EnemyInfo id="53" name="Space Repare" />
+        <EnemyInfo id="54" name="Guns" />
+        <EnemyInfo id="55" name="Training Recruit" />
+        <EnemyInfo id="56" name="BLACK TRI-STARS" />
+        <EnemyInfo id="57" name="Boom~" />
+        <EnemyInfo id="58" name="Strike~Heores!" />
+        <EnemyInfo id="59" name="Recruit training2" />
+        <EnemyInfo id="60" name="Training Recruit3" />
+        <EnemyInfo id="61" name="Training Recruit3" />
+        <EnemyInfo id="62" name="Zaku" />
+        <EnemyInfo id="63" name="Training Recruit3" />
+        <EnemyInfo id="64" name="Ifrit-Advanced" />
+        <EnemyInfo id="65" name="Guns" />
+        <EnemyInfo id="66" name="Shields" />
+        <EnemyInfo id="67" name="Zaku" />
+        <EnemyInfo id="68" name="Weapon Master" />
+        <EnemyInfo id="69" name="Mine HQ" />
+        <EnemyInfo id="70" name="Recruit training2" />
+        <EnemyInfo id="71" name="Weapons" />
+        <EnemyInfo id="72" name="Training Recruit3" />
+        <EnemyInfo id="73" name="Taunt~GunCanon2" />
+        <EnemyInfo id="74" name="Nanoshield" />
+        <EnemyInfo id="75" name="Weapons" />
+        <EnemyInfo id="76" name="Fight together!" />
+        <EnemyInfo id="77" name="Extra Life" />
+        <EnemyInfo id="78" name="Battle Supports" />
+        <EnemyInfo id="79" name="Extra Life" />
+        <EnemyInfo id="80" name="Taunt~ GunCanon" />
+        <EnemyInfo id="81" name="Guns" />
+        <EnemyInfo id="82" name="Taunt~GunCanon3" />
+        <EnemyInfo id="83" name="Taunt~ GunCanon" />
+        <EnemyInfo id="84" name="Weapons" />
+        <EnemyInfo id="85" name="Guns" />
+        <EnemyInfo id="86" name="Guns" />
+        <EnemyInfo id="87" name="Training Recruit" />
+        <EnemyInfo id="88" name="Training Recruit" />
+        <EnemyInfo id="89" name="Taunt~ GunCanon" />
+        <EnemyInfo id="90" name="Ifrit" />
+        <EnemyInfo id="91" name="Wing of Water" />
+        <EnemyInfo id="92" name="Training Recruit3" />
+        <EnemyInfo id="93" name="Battle Supports" />
+        <EnemyInfo id="94" name="BLACK TRI-STARS" />
+        <EnemyInfo id="95" name="Nanoshield" />
+        <EnemyInfo id="96" name="Nanoshield" />
+        <EnemyInfo id="97" name="Taunt~ GunCanon" />
+        <EnemyInfo id="98" name="Graduation" />
+        <EnemyInfo id="99" name="Weapons" />
+        <EnemyInfo id="100" name="Taunt~ GunCanon" />
+        <EnemyInfo id="101" name="Strike~Heores!" />
+        <EnemyInfo id="102" name="Mine HQ" />
+      </EnemyInfos>
+      <ShopInfos />
+    </Chapter>
+    <Chapter chapterID="1" name_en="Starter Chapter" name_zh="新手试炼" chapterMapRoundCount="2">
+      <RouteInfos routeInfo="(0:1,2,3,4,5,6);(1:0,2,6,7,8,18);(2:0,1,3,8,9,10);(3:0,2,4,10,11,12);(4:0,3,5,12,13,14);(5:0,4,6,14,15,16);(6:0,5,1,16,17,18);(7:8,18,1,19);(8:7,9,1,2,25);(9:8,10,2,20);(10:9,11,2,3,26);(11:10,12,3,21);(12:11,13,3,4,27);(13:12,14,4,22);(14:13,15,4,5,28);(15:14,16,5,23);(16:15,17,5,6,29);(17:16,18,6,24);(18:17,7,1,6,30);(19:7);(20:9);(21:11);(22:13);(23:15);(24:17);(25:8);(26:10);(27:12);(28:14);(29:16);(30:18)" />
       <EnemyInfos>
         <EnemyInfo id="0" name="Training Recruit" />
         <EnemyInfo id="1" name="Battle Supports" />

@@ -380,6 +380,34 @@ public class ChapterMap : PoolObject
 
     private void GenerateRoute(int startIndex, int endIndex, List<RouteTypes> routeTypes)
     {
+        if (Cur_Chapter.Routes.Count != 0)
+        {
+            HashSet<int> endNodeIndices = Cur_Chapter.Routes[startIndex];
+            if (endNodeIndices.Contains(endIndex))
+            {
+                DrawRoute(startIndex, endIndex, routeTypes);
+            }
+        }
+        else
+        {
+            if (!Cur_Chapter.AllRoutes.ContainsKey(startIndex))
+            {
+                Cur_Chapter.AllRoutes.Add(startIndex, new HashSet<int>());
+            }
+
+            if (!Cur_Chapter.AllRoutes.ContainsKey(endIndex))
+            {
+                Cur_Chapter.AllRoutes.Add(endIndex, new HashSet<int>());
+            }
+
+            Cur_Chapter.AllRoutes[startIndex].Add(endIndex);
+            Cur_Chapter.AllRoutes[endIndex].Add(startIndex);
+            DrawRoute(startIndex, endIndex, routeTypes);
+        }
+    }
+
+    private void DrawRoute(int startIndex, int endIndex, List<RouteTypes> routeTypes)
+    {
         int index = routeIndex++;
         ChapterMapRoute r = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMapRoute].AllocateGameObject<ChapterMapRoute>(ChapterMapRoutesTransform);
         r.Refresh(nodeLocations[startIndex], nodeLocations[endIndex], index, startIndex, endIndex);
@@ -493,7 +521,7 @@ public class ChapterMap : PoolObject
         }
     }
 
-    // 仅用于关卡编辑器
+    // 仅用于剧情编辑器
     public void SaveChapter()
     {
         Cur_Chapter.Levels.Clear();

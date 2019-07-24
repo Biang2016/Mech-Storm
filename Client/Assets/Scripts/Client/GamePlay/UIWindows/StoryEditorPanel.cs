@@ -73,7 +73,7 @@ public class StoryEditorPanel : BaseUIForm
 
     void Start()
     {
-        SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
+        SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Variant));
     }
 
     void Update()
@@ -238,6 +238,7 @@ public class StoryEditorPanel : BaseUIForm
                 NoticeManager.Instance.ShowInfoPanelCenter(chapter.ChapterNames[LanguageManager.Instance.GetCurrentLanguage()], 0, 1f);
                 GenerateChapterMap(chapter, showAnimation);
             },
+            onSaveChapter: SaveChapter,
             onRefreshStory: delegate { SetStory(story); },
             onRefreshChapterTitle: OnRefreshChapterTitle);
 
@@ -248,11 +249,6 @@ public class StoryEditorPanel : BaseUIForm
                 CardSelectPanel.gameObject.SetActive(true);
                 ChapterMapContainer.gameObject.SetActive(false);
             });
-
-        if (story.Chapters.Count != 0)
-        {
-            GenerateChapterMap(story.Chapters[0], false);
-        }
     }
 
     [SerializeField] private Button SaveStoryButton;
@@ -262,7 +258,12 @@ public class StoryEditorPanel : BaseUIForm
 
     private void SaveStory()
     {
-        ChapterMap?.SaveChapter();
+        foreach (KeyValuePair<int, Chapter> kv in Cur_Story.Chapters)
+        {
+            GenerateChapterMap(kv.Value, false);
+            ChapterMap?.SaveChapter();
+        }
+
         AllStories.RefreshStoryXML(Cur_Story);
         AllStories.ReloadStoryXML();
         SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));
@@ -293,6 +294,7 @@ public class StoryEditorPanel : BaseUIForm
         OnRefreshChapterTitle(chapter);
         ChapterMap oldChapterMap = ChapterMap;
         ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
+        ChapterMap.transform.SetAsFirstSibling();
         ChapterMap.Initialize(chapter);
         if (showAnimation)
         {

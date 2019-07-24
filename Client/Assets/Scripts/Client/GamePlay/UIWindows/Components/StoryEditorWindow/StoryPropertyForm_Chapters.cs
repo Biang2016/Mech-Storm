@@ -30,7 +30,7 @@ public class StoryPropertyForm_Chapters : PoolObject
     private Chapter SelectedChapter;
     private SortedDictionary<int, StoryPropertyForm_Chapter> StoryChapterRows = new SortedDictionary<int, StoryPropertyForm_Chapter>();
 
-    public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction gotoAction, UnityAction<Chapter, bool> onChangeSelectedChapter, UnityAction onRefreshStory, UnityAction<Chapter> onRefreshChapterTitle)
+    public void Initialize(SortedDictionary<int, Chapter> chapters, UnityAction gotoAction, UnityAction<Chapter, bool> onChangeSelectedChapter, UnityAction onSaveChapter, UnityAction onRefreshStory, UnityAction<Chapter> onRefreshChapterTitle)
     {
         Cur_Chapters = chapters;
         LanguageManager.Instance.RegisterTextKey(Label, "StoryEditorPanel_ChaptersLabel");
@@ -54,10 +54,12 @@ public class StoryPropertyForm_Chapters : PoolObject
                     Cur_Chapters.Add(newChapterID, new Chapter(
                         newChapterID,
                         new SortedDictionary<string, string> {{"zh", "新章节"}, {"en", "New Chapter"}},
-                        new SortedDictionary<int, Level>(),
-                        4));
+                        chapterAllLevels: new SortedDictionary<int, Level>(),
+                        4,
+                        allRoutes: new SortedDictionary<int, HashSet<int>>()
+                    ));
 
-                    Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onRefreshStory, onRefreshChapterTitle);
+                    Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onSaveChapter, onRefreshStory, onRefreshChapterTitle);
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ChaptersRowContainer));
                     StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<StoryEditorPanel>().StoryPropertiesContainer));
                 }
@@ -148,8 +150,9 @@ public class StoryPropertyForm_Chapters : PoolObject
                 onDeleteButtonClick: delegate
                 {
                     Cur_Chapters.Remove(kv.Key);
-                    Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onRefreshStory, onRefreshChapterTitle);
+                    Initialize(Cur_Chapters, gotoAction, onChangeSelectedChapter, onSaveChapter, onRefreshStory, onRefreshChapterTitle);
                 },
+                onSaveChapter: onSaveChapter,
                 onRefreshStory: onRefreshStory);
             chapterRow.SetChapter(kv.Value);
             StoryChapterRows.Add(kv.Key, chapterRow);

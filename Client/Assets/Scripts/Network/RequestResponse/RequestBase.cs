@@ -36,11 +36,11 @@ public abstract class RequestBase
 
     public string DeserializeLog()
     {
-#if UNITY_EDITOR
-        return "[" + ProtocolName + "]:" + JsonConvert.SerializeObject(this, Formatting.None, Utils.JsonSettings);
-#else
+//#if UNITY_EDITOR
+        //return "[" + ProtocolName + "]:" + JsonConvert.SerializeObject(this, Formatting.None, Utils.JsonSettings);
+//#else
         return "[" + ProtocolName + "]:";
-#endif
+//#endif
     }
 }
 

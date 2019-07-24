@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -31,7 +32,7 @@ public class StoryPanel : BaseUIForm
         Cur_ChapterMap?.PoolRecycle();
         Cur_ChapterMap = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ChapterMap].AllocateGameObject<ChapterMap>(ChapterMapContainer);
         Cur_ChapterMap.Initialize(StoryManager.Instance.GetStory().Chapters[0]);
-        ChapterNameText.text = string.Format(LanguageManager.Instance.GetText("StoryEditorPanel_ChapterTitle"), Cur_ChapterMap.Cur_Chapter.ChapterID+1, Cur_ChapterMap.Cur_Chapter.ChapterNames[LanguageManager.Instance.GetCurrentLanguage()]);
+        ChapterNameText.text = string.Format(LanguageManager.Instance.GetText("StoryEditorPanel_ChapterTitle"), Cur_ChapterMap.Cur_Chapter.ChapterID + 1, Cur_ChapterMap.Cur_Chapter.ChapterNames[LanguageManager.Instance.GetCurrentLanguage()]);
         Cur_ChapterMap.OnSelectChapterNode = SelectNode;
         Cur_ChapterMap.RefreshKnownLevels();
         StartButton.gameObject.SetActive(false);
