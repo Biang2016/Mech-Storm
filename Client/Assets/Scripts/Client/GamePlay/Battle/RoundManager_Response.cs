@@ -203,11 +203,6 @@ public partial class RoundManager
                 OnMechAttackShip((MechAttackShipServerRequest) r);
                 break;
             }
-            case NetProtocols.SE_MECH_DODGE:
-            {
-                OnMechDodge((MechDodgeRequest) r);
-                break;
-            }
             case NetProtocols.SE_MECH_CANATTACK:
             {
                 OnMechCanAttackChange((MechCanAttackRequest) r);
@@ -520,13 +515,6 @@ public partial class RoundManager
         ClientPlayer cp_beAttack = cp_attack.WhichPlayer == Players.Self ? EnemyClientPlayer : SelfClientPlayer;
         ModuleMech attackMech = cp_attack.BattlePlayer.BattleGroundManager.GetMech(r.AttackMechId);
         attackMech.AttackShip(cp_beAttack);
-    }
-
-    private void OnMechDodge(MechDodgeRequest r)
-    {
-        ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
-        mech.MechSwordShieldArmorComponent.OnDodge();
     }
 
     private void OnMechCanAttackChange(MechCanAttackRequest r)

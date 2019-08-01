@@ -1,4 +1,6 @@
-﻿internal abstract class CardBase
+﻿using SideEffects;
+
+internal abstract class CardBase
 {
     internal BattlePlayer BattlePlayer;
     internal CardInfo_Base CardInfo; //卡牌原始数值信息
@@ -46,6 +48,18 @@
             {
                 se.Player = BattlePlayer;
                 se.M_ExecutorInfo = new ExecutorInfo(clientId: BattlePlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
+
+                if (se is AddPlayerBuff addPlayerBuff)
+                {
+                    foreach (SideEffectBase buff_se in addPlayerBuff.AttachedBuffSEE.SideEffectBases)
+                    {
+                        buff_se.Player = BattlePlayer;
+                        foreach (SideEffectBase sub_se in buff_se.Sub_SideEffect)
+                        {
+                            sub_se.Player = BattlePlayer;
+                        }
+                    }
+                }
             }
         }
 

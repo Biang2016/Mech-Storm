@@ -16,7 +16,7 @@ public class ExecutorInfo
     public List<int> TargetMechIds = new List<int>();
     public List<int> TargetCardInstanceIds = new List<int>();
     public List<int> TargetEquipIds = new List<int>();
-    public int Value;
+    public SortedDictionary<ExecutorInfoValues, int> ValueDictionary = new SortedDictionary<ExecutorInfoValues, int>();
     public bool IsPlayerBuff;
 
     public ExecutorInfo(
@@ -30,7 +30,7 @@ public class ExecutorInfo
         List<int> targetMechIds = null,
         List<int> targetCardInstanceIds = null,
         List<int> targetEquipIds = null,
-        int value = 0,
+        SortedDictionary<ExecutorInfoValues, int> valueDictionary = null,
         bool isPlayerBuff = false)
     {
         ClientId = clientId;
@@ -43,8 +43,30 @@ public class ExecutorInfo
         TargetMechIds = targetMechIds ?? new List<int>();
         TargetCardInstanceIds = targetCardInstanceIds ?? new List<int>();
         TargetEquipIds = targetEquipIds ?? new List<int>();
-        Value = value;
+        ValueDictionary = valueDictionary ?? new SortedDictionary<ExecutorInfoValues, int>();
         IsPlayerBuff = isPlayerBuff;
+    }
+
+    public enum ExecutorInfoValues
+    {
+        Metal_Use,
+        Energy_Add,
+        Energy_Use,
+        ShipLife_Add,
+        ShipLife_Injury,
+        MechLife_Add,
+        MechLife_Injury,
+        Damage,
+        DamageToHero,
+        DamageToSoldier,
+        DamageToShip,
+        Heal,
+        Armor_Add,
+        Armor_Reduce,
+        Shield_Add,
+        Shield_Reduce,
+        Mech_AffectedCount,
+        CardCount,
     }
 
     public ExecutorInfo Clone()
@@ -60,7 +82,7 @@ public class ExecutorInfo
             CloneVariantUtils.List(TargetMechIds),
             CloneVariantUtils.List(TargetCardInstanceIds),
             CloneVariantUtils.List(TargetEquipIds),
-            Value,
+            CloneVariantUtils.SortedDictionary(ValueDictionary),
             IsPlayerBuff);
     }
 
@@ -99,7 +121,13 @@ public class ExecutorInfo
             writer.WriteSInt32(targetEquipId);
         }
 
-        writer.WriteSInt32(Value);
+        writer.WriteSInt32(ValueDictionary.Count);
+        foreach (KeyValuePair<ExecutorInfoValues, int> kv in ValueDictionary)
+        {
+            writer.WriteSInt32((int) kv.Key);
+            writer.WriteSInt32(kv.Value);
+        }
+
         writer.WriteByte((byte) (IsPlayerBuff ? 0x01 : 0x00));
     }
 
@@ -142,7 +170,15 @@ public class ExecutorInfo
             TargetEquipIds.Add(reader.ReadSInt32());
         }
 
-        int Value = reader.ReadSInt32();
+        count = reader.ReadSInt32();
+        SortedDictionary<ExecutorInfoValues, int> valueDictionary = new SortedDictionary<ExecutorInfoValues, int>();
+        for (int i = 0; i < count; i++)
+        {
+            ExecutorInfoValues key = (ExecutorInfoValues) reader.ReadSInt32();
+            int value = reader.ReadSInt32();
+            valueDictionary.Add(key, value);
+        }
+
         bool IsPlayerBuff = reader.ReadByte() == 0x01;
 
         return new ExecutorInfo(
@@ -156,7 +192,7 @@ public class ExecutorInfo
             TargetMechIds,
             TargetCardInstanceIds,
             TargetEquipIds,
-            Value,
+            valueDictionary,
             IsPlayerBuff
         );
     }

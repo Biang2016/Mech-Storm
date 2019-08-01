@@ -348,7 +348,8 @@ public class ModuleMech : ModuleBase
                             (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsFrenzy) ||
                             (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsFrenzy);
 
-    public bool IsSentry => (CardInfo.MechInfo.IsSentry || (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry));
+    public bool IsSentry => (CardInfo.MechInfo.IsSentry ||
+                             (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry));
 
     public bool IsSniper => CardInfo.MechInfo.IsSniper ||
                             (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsSniper) ||
@@ -359,8 +360,6 @@ public class ModuleMech : ModuleBase
                               (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsDefense) ||
                               (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsDefense);
 
-    public int DodgeProp => MechEquipSystemComponent.M_Pack ? 0 : MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.DodgeProp;
-
     #endregion
 
     #region 模块交互
@@ -369,7 +368,14 @@ public class ModuleMech : ModuleBase
 
     public void SetCanAttack(bool value)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_SetCanAttack(value), "Co_SetCanAttack");
+        if (!value)
+        {
+            CanAttack = value;
+        }
+        else
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_SetCanAttack(value), "Co_SetCanAttack");
+        }
     }
 
     IEnumerator Co_SetCanAttack(bool value)

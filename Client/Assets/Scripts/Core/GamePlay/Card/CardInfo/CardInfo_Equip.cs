@@ -99,12 +99,6 @@ public class CardInfo_Equip : CardInfo_Base
                 if (PackInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy")) + ". ";
                 if (PackInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper")) + ". ";
                 if (PackInfo.IsDefense) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense")) + ". ";
-                if (PackInfo.DodgeProp != 0)
-                {
-                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Dodge")) + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_PRValue"), BaseInfo.AddHighLightColorToText(PackInfo.DodgeProp + "%"));
-                }
-
                 break;
             }
             case SlotTypes.MA:
@@ -209,7 +203,6 @@ public class CardInfo_Equip : CardInfo_Base
                 equipInfo_ele.SetAttribute("isFrenzy", PackInfo.IsFrenzy.ToString());
                 equipInfo_ele.SetAttribute("isDefense", PackInfo.IsDefense.ToString());
                 equipInfo_ele.SetAttribute("isSniper", PackInfo.IsSniper.ToString());
-                equipInfo_ele.SetAttribute("dodgeProp", PackInfo.DodgeProp.ToString());
                 break;
             }
             case SlotTypes.MA:

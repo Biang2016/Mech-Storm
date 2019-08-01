@@ -213,6 +213,8 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_SlotType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
 
         PropertyFormRow Row_WeaponType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_WeaponTypeLabelText", OnWeaponTypeChange, out SetWeaponType, weaponTypeList);
+        PropertyFormRow Row_WeaponIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnWeaponIsFrenzyChange, out SetWeaponIsFrenzy);
+        PropertyFormRow Row_WeaponIsSentry = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSentryLabelText", OnWeaponIsSentryChange, out SetWeaponIsSentry);
         PropertyFormRow Row_WeaponSwordAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordAttackLabelText", OnWeaponSwordAttackChange, out SetWeaponSwordAttack);
         PropertyFormRow Row_WeaponSwordEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordEnergyLabelText", OnWeaponSwordEnergyChange, out SetWeaponSwordEnergy);
         PropertyFormRow Row_WeaponSwordMaxEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordMaxEnergyLabelText", OnWeaponSwordMaxEnergyChange, out SetWeaponSwordMaxEnergy);
@@ -221,8 +223,17 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_WeaponGunMaxBullet = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponGunMaxBulletLabelText", OnWeaponGunMaxBulletChange, out SetWeaponGunMaxBullet);
 
         PropertyFormRow Row_ShieldType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_ShieldTypeLabelText", OnShieldTypeChange, out SetShieldType, shieldTypeList);
+        PropertyFormRow Row_ShieldIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnShieldIsDefenseChange, out SetShieldIsDefense);
         PropertyFormRow Row_ShieldBasicArmor = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_ShieldBasicArmorLabelText", OnShieldBasicArmorChange, out SetShieldBasicArmor);
         PropertyFormRow Row_ShieldBasicShield = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
+
+        PropertyFormRow Row_PackIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnPackIsFrenzyChange, out SetPackIsFrenzy);
+        PropertyFormRow Row_PackIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnPackIsSniperChange, out SetPackIsSniper);
+        PropertyFormRow Row_PackIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnPackIsDefenseChange, out SetPackIsDefense);
+
+        PropertyFormRow Row_MAIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnMAIsFrenzyChange, out SetMAIsFrenzy);
+        PropertyFormRow Row_MAIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnMAIsSniperChange, out SetMAIsSniper);
+        PropertyFormRow Row_MAIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnMAIsDefenseChange, out SetMAIsDefense);
 
         Row_SideEffectBundle?.PoolRecycle();
         Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
@@ -281,6 +292,8 @@ public class CardEditorPanel : BaseUIForm
         SlotPropertiesRows = new List<PropertyFormRow>
         {
             Row_WeaponType,
+            Row_WeaponIsFrenzy,
+            Row_WeaponIsSentry,
             Row_WeaponSwordAttack,
             Row_WeaponSwordEnergy,
             Row_WeaponSwordMaxEnergy,
@@ -288,16 +301,32 @@ public class CardEditorPanel : BaseUIForm
             Row_WeaponGunBullet,
             Row_WeaponGunMaxBullet,
             Row_ShieldType,
+            Row_ShieldIsDefense,
             Row_ShieldBasicArmor,
             Row_ShieldBasicShield
         };
         SlotTypePropertiesDict[SlotTypes.Weapon] = new List<PropertyFormRow>
         {
             Row_WeaponType,
+            Row_WeaponIsFrenzy,
+            Row_WeaponIsSentry,
         };
         SlotTypePropertiesDict[SlotTypes.Shield] = new List<PropertyFormRow>
         {
             Row_ShieldType,
+            Row_ShieldIsDefense,
+        };
+        SlotTypePropertiesDict[SlotTypes.Pack] = new List<PropertyFormRow>
+        {
+            Row_PackIsFrenzy,
+            Row_PackIsSniper,
+            Row_PackIsDefense,
+        };
+        SlotTypePropertiesDict[SlotTypes.MA] = new List<PropertyFormRow>
+        {
+            Row_MAIsFrenzy,
+            Row_MAIsSniper,
+            Row_MAIsDefense,
         };
 
         WeaponPropertiesRows = new List<PropertyFormRow>
@@ -963,6 +992,32 @@ public class CardEditorPanel : BaseUIForm
         FormatTwoToggleIntoOneRow();
     }
 
+    private UnityAction<string> SetWeaponIsFrenzy;
+
+    private void OnWeaponIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.WeaponInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetWeaponIsSentry;
+
+    private void OnWeaponIsSentryChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.WeaponInfo.IsSentry = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
     private UnityAction<string> SetWeaponSwordAttack;
 
     private void OnWeaponSwordAttackChange(string value_str)
@@ -1076,6 +1131,19 @@ public class CardEditorPanel : BaseUIForm
         FormatTwoToggleIntoOneRow();
     }
 
+    private UnityAction<string> SetShieldIsDefense;
+
+    private void OnShieldIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.ShieldInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
     private UnityAction<string> SetShieldBasicArmor;
 
     private void OnShieldBasicArmorChange(string value_str)
@@ -1103,6 +1171,84 @@ public class CardEditorPanel : BaseUIForm
                 cur_PreviewCard.RefreshCardTextLanguage();
                 cur_PreviewCard.RefreshCardAllColors();
             }
+        }
+    }
+
+    private UnityAction<string> SetPackIsFrenzy;
+
+    private void OnPackIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.PackInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetPackIsSniper;
+
+    private void OnPackIsSniperChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.PackInfo.IsSniper = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetPackIsDefense;
+
+    private void OnPackIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.PackInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetMAIsFrenzy;
+
+    private void OnMAIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MAInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetMAIsSniper;
+
+    private void OnMAIsSniperChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MAInfo.IsSniper = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetMAIsDefense;
+
+    private void OnMAIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MAInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
         }
     }
 
@@ -1224,6 +1370,22 @@ public class CardEditorPanel : BaseUIForm
                         SetShieldType(ci.ShieldInfo.ShieldType.ToString());
                         SetShieldBasicArmor(ci.ShieldInfo.Armor.ToString());
                         SetShieldBasicShield(ci.ShieldInfo.Shield.ToString());
+                        break;
+                    }
+
+                    case SlotTypes.Pack:
+                    {
+                        SetPackIsFrenzy(ci.PackInfo.IsFrenzy.ToString());
+                        SetPackIsSniper(ci.PackInfo.IsSniper.ToString());
+                        SetPackIsDefense(ci.PackInfo.IsDefense.ToString());
+                        break;
+                    }
+
+                    case SlotTypes.MA:
+                    {
+                        SetMAIsFrenzy(ci.MAInfo.IsFrenzy.ToString());
+                        SetMAIsSniper(ci.MAInfo.IsSniper.ToString());
+                        SetMAIsDefense(ci.MAInfo.IsDefense.ToString());
                         break;
                     }
                 }

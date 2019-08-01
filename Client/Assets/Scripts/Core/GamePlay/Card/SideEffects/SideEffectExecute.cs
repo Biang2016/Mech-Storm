@@ -576,57 +576,57 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
-                {TriggerTime.OnBeginRound, "当{0}回合开始时, "},
-                {TriggerTime.OnDrawCard, "当{0}抽牌时, "},
-                {TriggerTime.OnPlayCard, "当{0}出牌时, "},
-                {TriggerTime.OnPlayMechCard, "当{0}打出机甲牌时, "},
-                {TriggerTime.OnPlayEquipCard, "当{0}打出装备牌时, "},
-                {TriggerTime.OnPlaySpellCard, "当{0}使用法术牌时, "},
-                {TriggerTime.OnPlayEnergyCard, "当{0}使用法术牌时, "},
+                {TriggerTime.OnBeginRound, "每当{0}回合开始时, "},
+                {TriggerTime.OnDrawCard, "每当{0}抽牌时, "},
+                {TriggerTime.OnPlayCard, "每当{0}出牌时, "},
+                {TriggerTime.OnPlayMechCard, "每当{0}打出机甲牌时, "},
+                {TriggerTime.OnPlayEquipCard, "每当{0}打出装备牌时, "},
+                {TriggerTime.OnPlaySpellCard, "每当{0}使用法术牌时, "},
+                {TriggerTime.OnPlayEnergyCard, "每当{0}使用法术牌时, "},
 
-                {TriggerTime.OnMechSummon, "当{0}召唤机甲时, "},
-                {TriggerTime.OnHeroSummon, "当{0}召唤英雄时, "},
-                {TriggerTime.OnSoldierSummon, "当{0}召唤士兵时, "},
+                {TriggerTime.OnMechSummon, "每当{0}召唤机甲时, "},
+                {TriggerTime.OnHeroSummon, "每当{0}召唤英雄时, "},
+                {TriggerTime.OnSoldierSummon, "每当{0}召唤士兵时, "},
 
-                {TriggerTime.OnMechAttack, "当{0}机甲进攻时, "},
-                {TriggerTime.OnHeroAttack, "当{0}英雄进攻时, "},
-                {TriggerTime.OnSoldierAttack, "当{0}士兵进攻时, "},
+                {TriggerTime.OnMechAttack, "每当{0}机甲进攻时, "},
+                {TriggerTime.OnHeroAttack, "每当{0}英雄进攻时, "},
+                {TriggerTime.OnSoldierAttack, "每当{0}士兵进攻时, "},
 
-                {TriggerTime.OnMechInjured, "当{0}机甲受损时, "},
-                {TriggerTime.OnHeroInjured, "当{0}英雄受损时, "},
-                {TriggerTime.OnSoldierInjured, "当{0}士兵受损时, "},
+                {TriggerTime.OnMechInjured, "每当{0}机甲受损时, "},
+                {TriggerTime.OnHeroInjured, "每当{0}英雄受损时, "},
+                {TriggerTime.OnSoldierInjured, "每当{0}士兵受损时, "},
 
-                {TriggerTime.OnMechKill, "当{0}机甲成功击杀, "},
-                {TriggerTime.OnHeroKill, "当{0}英雄成功击杀, "},
-                {TriggerTime.OnSoldierKill, "当{0}士兵成功击杀, "},
+                {TriggerTime.OnMechKill, "每当{0}机甲成功击杀, "},
+                {TriggerTime.OnHeroKill, "每当{0}英雄成功击杀, "},
+                {TriggerTime.OnSoldierKill, "每当{0}士兵成功击杀, "},
 
-                {TriggerTime.OnMechMakeDamage, "当{0}机甲造成伤害时, "},
-                {TriggerTime.OnHeroMakeDamage, "当{0}英雄造成伤害时, "},
-                {TriggerTime.OnSoldierMakeDamage, "当{0}士兵造成伤害时, "},
+                {TriggerTime.OnMechMakeDamage, "每当{0}机甲造成伤害时, "},
+                {TriggerTime.OnHeroMakeDamage, "每当{0}英雄造成伤害时, "},
+                {TriggerTime.OnSoldierMakeDamage, "每当{0}士兵造成伤害时, "},
 
-                {TriggerTime.OnMechBeHealed, "当{0}机甲得到修复时, "},
-                {TriggerTime.OnHeroBeHealed, "当{0}英雄得到修复时, "},
-                {TriggerTime.OnSoldierBeHealed, "当{0}士兵得到修复时, "},
+                {TriggerTime.OnMechBeHealed, "每当{0}机甲得到修复时, "},
+                {TriggerTime.OnHeroBeHealed, "每当{0}英雄得到修复时, "},
+                {TriggerTime.OnSoldierBeHealed, "每当{0}士兵得到修复时, "},
 
-                {TriggerTime.OnMechDie, "当{0}机甲死亡时, "},
-                {TriggerTime.OnHeroDie, "当{0}英雄死亡时, "},
-                {TriggerTime.OnSoldierDie, "当{0}士兵死亡时, "},
+                {TriggerTime.OnMechDie, "每当{0}机甲死亡时, "},
+                {TriggerTime.OnHeroDie, "每当{0}英雄死亡时, "},
+                {TriggerTime.OnSoldierDie, "每当{0}士兵死亡时, "},
 
-                {TriggerTime.OnEquipDie, "当{0}装备破坏时, "},
-                {TriggerTime.OnEquipEquiped, "当{0}穿戴装备时, "},
+                {TriggerTime.OnEquipDie, "每当{0}装备破坏时, "},
+                {TriggerTime.OnEquipEquiped, "每当{0}穿戴装备时, "},
 
-                {TriggerTime.OnMakeDamage, "当{0}造成伤害时, "},
-                {TriggerTime.OnMakeSpellDamage, "{0}造成法术伤害时, "},
+                {TriggerTime.OnMakeDamage, "每当{0}造成伤害时, "},
+                {TriggerTime.OnMakeSpellDamage, "每当{0}造成法术伤害时, "},
 
-                {TriggerTime.OnPlayerGetEnergy, "当{0}获得能量时, "},
-                {TriggerTime.OnPlayerEnergyFull, "当{0}能量满槽时, "},
-                {TriggerTime.OnPlayerEnergyEmpty, "当{0}能像耗尽时, "},
-                {TriggerTime.OnPlayerUseEnergy, "当{0}消耗能量时, "},
-                {TriggerTime.OnPlayerAddLife, "当{0}获得生命时, "},
-                {TriggerTime.OnPlayerLostLife, "当{0}生命减少时, "},
-                {TriggerTime.OnEndRound, "当{0}回合结束时, "},
+                {TriggerTime.OnPlayerGetEnergy, "每当{0}获得能量时, "},
+                {TriggerTime.OnPlayerEnergyFull, "每当{0}能量满槽时, "},
+                {TriggerTime.OnPlayerEnergyEmpty, "每当{0}能像耗尽时, "},
+                {TriggerTime.OnPlayerUseEnergy, "每当{0}消耗能量时, "},
+                {TriggerTime.OnPlayerAddLife, "每当{0}获得生命时, "},
+                {TriggerTime.OnPlayerLostLife, "每当{0}生命减少时, "},
+                {TriggerTime.OnEndRound, "每当{0}回合结束时, "},
 
-                {TriggerTime.OnUseMetal, "当{0}消耗金属时, "},
+                {TriggerTime.OnUseMetal, "每当{0}消耗金属时, "},
             }
         },
         {
@@ -635,57 +635,57 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 {TriggerTime.None, ""},
                 {TriggerTime.OnTrigger, "{0}"},
 
-                {TriggerTime.OnBeginRound, "when {0} turn starts, "},
-                {TriggerTime.OnDrawCard, "when {0} draws, "},
-                {TriggerTime.OnPlayCard, "when {0} plays a card, "},
-                {TriggerTime.OnPlayMechCard, "when {0} plays a Mech card, "},
-                {TriggerTime.OnPlayEquipCard, "when {0} plays an Equip card, "},
-                {TriggerTime.OnPlaySpellCard, "when {0} plays a Spell card, "},
-                {TriggerTime.OnPlayEnergyCard, "when {0} plays an Energy card, "},
+                {TriggerTime.OnBeginRound, "each time when {0} turn starts, "},
+                {TriggerTime.OnDrawCard, "each time when {0} draws, "},
+                {TriggerTime.OnPlayCard, "each time when {0} plays a card, "},
+                {TriggerTime.OnPlayMechCard, "each time when {0} plays a Mech card, "},
+                {TriggerTime.OnPlayEquipCard, "each time when {0} plays an Equip card, "},
+                {TriggerTime.OnPlaySpellCard, "each time when {0} plays a Spell card, "},
+                {TriggerTime.OnPlayEnergyCard, "each time when {0} plays an Energy card, "},
 
-                {TriggerTime.OnMechSummon, "when {0} mech summoned, "},
-                {TriggerTime.OnHeroSummon, "when {0} hero-mech summoned, "},
-                {TriggerTime.OnSoldierSummon, "when {0} soldier-mech summoned, "},
+                {TriggerTime.OnMechSummon, "each time when {0} mech summoned, "},
+                {TriggerTime.OnHeroSummon, "each time when {0} hero-mech summoned, "},
+                {TriggerTime.OnSoldierSummon, "each time when {0} soldier-mech summoned, "},
 
-                {TriggerTime.OnMechAttack, "when {0} mech attacks, "},
-                {TriggerTime.OnHeroAttack, "when {0} hero-mech attacks, "},
-                {TriggerTime.OnSoldierAttack, "when {0} soldier-mech attacks, "},
+                {TriggerTime.OnMechAttack, "each time when {0} mech attacks, "},
+                {TriggerTime.OnHeroAttack, "each time when {0} hero-mech attacks, "},
+                {TriggerTime.OnSoldierAttack, "each time when {0} soldier-mech attacks, "},
 
-                {TriggerTime.OnMechInjured, "when {0} mech damaged, "},
-                {TriggerTime.OnHeroInjured, "when {0} hero-mech damaged, "},
-                {TriggerTime.OnSoldierInjured, "when {0} soldier-mech damaged, "},
+                {TriggerTime.OnMechInjured, "each time when {0} mech damaged, "},
+                {TriggerTime.OnHeroInjured, "each time when {0} hero-mech damaged, "},
+                {TriggerTime.OnSoldierInjured, "each time when {0} soldier-mech damaged, "},
 
-                {TriggerTime.OnMechKill, "when {0} mech kill enemy, "},
-                {TriggerTime.OnHeroKill, "when {0} hero-mech kill enemy, "},
-                {TriggerTime.OnSoldierKill, "when {0} soldier-mech kill enemy, "},
+                {TriggerTime.OnMechKill, "each time when {0} mech kill enemy, "},
+                {TriggerTime.OnHeroKill, "each time when {0} hero-mech kill enemy, "},
+                {TriggerTime.OnSoldierKill, "each time when {0} soldier-mech kill enemy, "},
 
-                {TriggerTime.OnMechMakeDamage, "when {0} mech make damage, "},
-                {TriggerTime.OnHeroMakeDamage, "when {0} hero-mech make damage, "},
-                {TriggerTime.OnSoldierMakeDamage, "when {0} soldier-mech make damage, "},
+                {TriggerTime.OnMechMakeDamage, "each time when {0} mech make damage, "},
+                {TriggerTime.OnHeroMakeDamage, "each time when {0} hero-mech make damage, "},
+                {TriggerTime.OnSoldierMakeDamage, "each time when {0} soldier-mech make damage, "},
 
-                {TriggerTime.OnMechBeHealed, "when {0} mech is healed, "},
-                {TriggerTime.OnHeroBeHealed, "when {0} hero-mech is healed, "},
-                {TriggerTime.OnSoldierBeHealed, "when {0} soldier-mech is healed, "},
+                {TriggerTime.OnMechBeHealed, "each time when {0} mech is healed, "},
+                {TriggerTime.OnHeroBeHealed, "each time when {0} hero-mech is healed, "},
+                {TriggerTime.OnSoldierBeHealed, "each time when {0} soldier-mech is healed, "},
 
-                {TriggerTime.OnMechDie, "when {0} mech died, "},
-                {TriggerTime.OnHeroDie, "when {0} hero-mech died, "},
-                {TriggerTime.OnSoldierDie, "when {0} soldier-mech died, "},
+                {TriggerTime.OnMechDie, "each time when {0} mech died, "},
+                {TriggerTime.OnHeroDie, "each time when {0} hero-mech died, "},
+                {TriggerTime.OnSoldierDie, "each time when {0} soldier-mech died, "},
 
-                {TriggerTime.OnEquipDie, "when {0} equipment broken, "},
-                {TriggerTime.OnEquipEquiped, "when {0} equipment equipped, "},
+                {TriggerTime.OnEquipDie, "each time when {0} equipment broken, "},
+                {TriggerTime.OnEquipEquiped, "each time when {0} equipment equipped, "},
 
-                {TriggerTime.OnMakeDamage, "when {0} deal damage, "},
-                {TriggerTime.OnMakeSpellDamage, "when {0} deal spell damage, "},
+                {TriggerTime.OnMakeDamage, "each time when {0} deal damage, "},
+                {TriggerTime.OnMakeSpellDamage, "each time when {0} deal spell damage, "},
 
-                {TriggerTime.OnPlayerGetEnergy, "when {0} get energy, "},
-                {TriggerTime.OnPlayerEnergyFull, "when {0}'s energy is full, "},
-                {TriggerTime.OnPlayerEnergyEmpty, "when {0}'s energy is empty, "},
-                {TriggerTime.OnPlayerUseEnergy, "when {0} consume energy, "},
-                {TriggerTime.OnPlayerAddLife, "when {0} get healed, "},
-                {TriggerTime.OnPlayerLostLife, "when {0} lost life, "},
-                {TriggerTime.OnEndRound, "when {0} turn ends, "},
+                {TriggerTime.OnPlayerGetEnergy, "each time when {0} get energy, "},
+                {TriggerTime.OnPlayerEnergyFull, "each time when {0}'s energy is full, "},
+                {TriggerTime.OnPlayerEnergyEmpty, "each time when {0}'s energy is empty, "},
+                {TriggerTime.OnPlayerUseEnergy, "each time when {0} consume energy, "},
+                {TriggerTime.OnPlayerAddLife, "each time when {0} get healed, "},
+                {TriggerTime.OnPlayerLostLife, "each time when {0} lost life, "},
+                {TriggerTime.OnEndRound, "each time when {0} turn ends, "},
 
-                {TriggerTime.OnUseMetal, "when {0} consume metal, "},
+                {TriggerTime.OnUseMetal, "each time when {0} consume metal, "},
             }
         }
     };
@@ -878,16 +878,5 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         string str_tt = TriggerTimeDesc_ForRemoveTriggerTime[LanguageManager_Common.GetCurrentLanguage()][removeTriggerTime];
         string str_tr = TriggerRangeDesc[LanguageManager_Common.GetCurrentLanguage()][tr];
         return Utils.HighlightStringFormat(str_tt, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], removeTriggerTimes, str_tr);
-    }
-
-    private static Dictionary<string, string> EachTimeDesc = new Dictionary<string, string>
-    {
-        {"zh", "每"},
-        {"en", "each time "},
-    };
-
-    public static string GetEachTimeDesc()
-    {
-        return EachTimeDesc[LanguageManager_Common.GetCurrentLanguage()];
     }
 }

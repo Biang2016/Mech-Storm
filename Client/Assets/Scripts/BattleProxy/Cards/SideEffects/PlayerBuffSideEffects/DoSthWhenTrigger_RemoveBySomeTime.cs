@@ -20,7 +20,6 @@
                 DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 new[] {false, false, false, false},
                 SideEffectExecute.GetRemoveTriggerTimeTriggerRangeDescCombination(MyBuffSEE.M_ExecuteSetting.RemoveTriggerTime, MyBuffSEE.M_ExecuteSetting.RemoveTriggerTimes, MyBuffSEE.M_ExecuteSetting.RemoveTriggerRange),
-                SideEffectExecute.GetEachTimeDesc(),
                 SideEffectExecute.GetTriggerTimeTriggerRangeDescCombination(MyBuffSEE.M_ExecuteSetting.TriggerTime, MyBuffSEE.M_ExecuteSetting.TriggerRange),
                 sub_desc);
         }

@@ -6,4 +6,7 @@
     void Change(int changeValue);
     void HealAll();
     void ChangeMaxLife(int change);
+
+    int GetLeftLife();
+    int GetTotalLife();
 }

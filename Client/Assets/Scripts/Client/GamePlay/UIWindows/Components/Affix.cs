@@ -31,7 +31,6 @@ public class Affix : PoolObject
     [SerializeField] private Color AttackColor;
     [SerializeField] private Color ShieldColor;
     [SerializeField] private Color ArmorColor;
-    [SerializeField] private Color DodgeColor;
 
     [SerializeField] private Color SwordColor;
     [SerializeField] private Color GunColor;
@@ -69,7 +68,6 @@ public class Affix : PoolObject
             {AffixType.Attack, AttackColor},
             {AffixType.Shield, ShieldColor},
             {AffixType.Armor, ArmorColor},
-            {AffixType.Dodge, DodgeColor},
 
             {AffixType.Sword, SwordColor},
             {AffixType.Gun, GunColor},
@@ -119,7 +117,6 @@ public class Affix : PoolObject
                 {AffixType.Attack, "攻击力"},
                 {AffixType.Shield, "护盾"},
                 {AffixType.Armor, "护甲"},
-                {AffixType.Dodge, "闪避"},
 
                 {AffixType.Sword, "刀剑"},
                 {AffixType.Gun, "枪"},
@@ -155,7 +152,6 @@ public class Affix : PoolObject
                 {AffixType.Attack, "Attack"},
                 {AffixType.Shield, "Shield"},
                 {AffixType.Armor, "Armor"},
-                {AffixType.Dodge, "Dodge"},
 
                 {AffixType.Sword, "Sword"},
                 {AffixType.Gun, "Gun"},
@@ -195,7 +191,6 @@ public class Affix : PoolObject
                 {AffixType.Attack, "若未装备武器，则伤害等于攻击力。装备武器时叠加此攻击力"},
                 {AffixType.Shield, "免疫小于护盾值的伤害，超出护盾值的伤害将使护盾受损"},
                 {AffixType.Armor, "抵御等同于护甲值的伤害"},
-                {AffixType.Dodge, "有一定概率闪避伤害"},
 
                 {AffixType.Sword, "伤害=攻击力*能量，每次攻击后能量提升"},
                 {AffixType.Gun, "打出所有子弹，每发子弹造成一定伤害，当对方无嘲讽机甲时可攻击战舰"},
@@ -231,7 +226,6 @@ public class Affix : PoolObject
                 {AffixType.Attack, "Damage equals to attack value without weapon. Attack value can be added to its weapons'."},
                 {AffixType.Shield, "Immune to all damage that lower than shield value. Be injured by overflow damage."},
                 {AffixType.Armor, "Defence the part of damage equal to armor value."},
-                {AffixType.Dodge, "Has probability(PR) to avoid attacks."},
 
                 {AffixType.Sword, "Damage = attack * energy. Energy increases after attack."},
                 {AffixType.Gun, "Bursts all bullets when attacks. Can shoot the ship when there's no defender."},
@@ -269,7 +263,6 @@ public enum AffixType
     Attack,
     Shield,
     Armor,
-    Dodge,
 
     Sword,
     Gun,

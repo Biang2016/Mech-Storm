@@ -53,7 +53,7 @@ public class CardEquip : CardBase
         {
             if (M_EquipType == SlotTypes.Weapon && CardInfo.WeaponInfo.WeaponType == WeaponTypes.SniperGun)
             {
-                if (sa.Mech.CardInfo.MechInfo.IsSniper)
+                if (sa.Mech.IsSniper)
                 {
                     info = "";
                     return true; //狙击枪只能装在狙击手上

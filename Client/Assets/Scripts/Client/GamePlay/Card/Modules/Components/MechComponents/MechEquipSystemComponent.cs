@@ -81,6 +81,11 @@ public class MechEquipSystemComponent : MechComponentBase
 
     #region 武器相关
 
+    private void EquipSystemRefresh()
+    {
+        Mech.MechAttrShapesComponent.Initialize(Mech);
+    }
+
     private ModuleWeapon m_Weapon;
 
     public ModuleWeapon M_Weapon
@@ -105,6 +110,8 @@ public class MechEquipSystemComponent : MechComponentBase
                 m_Weapon = value;
                 On_WeaponChanged();
             }
+
+            EquipSystemRefresh();
         }
     }
 
@@ -166,6 +173,8 @@ public class MechEquipSystemComponent : MechComponentBase
                 m_Shield = value;
                 On_ShieldChanged();
             }
+
+            EquipSystemRefresh();
         }
     }
 
@@ -227,6 +236,8 @@ public class MechEquipSystemComponent : MechComponentBase
                 m_Pack = value;
                 On_PackChanged();
             }
+
+            EquipSystemRefresh();
         }
     }
 
@@ -285,6 +296,8 @@ public class MechEquipSystemComponent : MechComponentBase
                 m_MA = value;
                 On_MAChanged();
             }
+
+            EquipSystemRefresh();
         }
     }
 

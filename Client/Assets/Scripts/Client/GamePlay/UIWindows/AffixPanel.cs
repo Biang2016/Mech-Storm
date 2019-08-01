@@ -161,14 +161,6 @@ public class AffixPanel : BaseUIForm
                 affixTypes.Add(AffixType.SniperGun);
             }
         }
-
-        if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.Pack)
-        {
-            if (cardInfo.PackInfo.DodgeProp != 0)
-            {
-                affixTypes.Add(AffixType.Dodge);
-            }
-        }
     }
 
     private static void GetAffixTypeFromSideEffectBundle(HashSet<AffixType> affixTypes, SideEffectBundle seb)

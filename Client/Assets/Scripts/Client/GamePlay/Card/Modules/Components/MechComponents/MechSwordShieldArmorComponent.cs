@@ -274,21 +274,4 @@ public class MechSwordShieldArmorComponent : MechComponentBase
     }
 
     #endregion
-
-    #region Dodge
-
-    public void OnDodge()
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnDodge(), "Co_OnDodge");
-    }
-
-    IEnumerator Co_OnDodge()
-    {
-        AudioManager.Instance.SoundPlay("sfx/HitShield");
-        DodgeNumberFly.SetText((LanguageManager.Instance.GetText("KeyWords_Dodge")), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
-        yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    #endregion
 }

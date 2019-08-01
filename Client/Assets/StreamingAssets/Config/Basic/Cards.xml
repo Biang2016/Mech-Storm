@@ -40,7 +40,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="4" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="4" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -54,7 +54,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechSummon" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="2" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -277,7 +277,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="5" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="5" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -290,7 +290,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="5" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="5" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -303,7 +303,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="Damage" TargetSelect="MultipleRandom" TargetRange="EnemyLife" ChoiceCount="3" Damage="3" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="MultipleRandom" TargetRange="EnemyLife" ChoiceCount="3" DamageTimes="1" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -450,12 +450,12 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemySoldiers" ChoiceCount="1" Damage="1" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemySoldiers" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnPlayerLostLife" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="1" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -703,21 +703,21 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="10041">
-    <CardInfo name="baseInfo" pictureID="204" cardName_en="Plasma Rifle I" cardName_zh="离子步枪Ⅰ" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="3" shopPrice="31" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="204" cardName_en="Plasma Rifle I" cardName_zh="离子步枪I" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="3" shopPrice="31" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="10042" degradeCardID="-1" />
     <CardInfo name="weaponInfo" energy="2" energyMax="2" attack="1" weaponType="Gun" isSentry="False" isFrenzy="True" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="10042">
-    <CardInfo name="baseInfo" pictureID="204" cardName_en="Plasma Rifle Ⅱ" cardName_zh="离子步枪Ⅱ" isTemp="False" isHide="False" metal="4" energy="0" coin="300" limitNum="0" cardRareLevel="5" shopPrice="38" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="204" cardName_en="Plasma Rifle II" cardName_zh="离子步枪II" isTemp="False" isHide="False" metal="4" energy="0" coin="300" limitNum="0" cardRareLevel="5" shopPrice="38" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="10043" degradeCardID="10041" />
     <CardInfo name="weaponInfo" energy="3" energyMax="3" attack="1" weaponType="Gun" isSentry="False" isFrenzy="True" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="10043">
-    <CardInfo name="baseInfo" pictureID="204" cardName_en="Plasma Rifle Ⅲ" cardName_zh="离子步枪Ⅲ" isTemp="False" isHide="False" metal="5" energy="0" coin="400" limitNum="0" cardRareLevel="7" shopPrice="45" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="204" cardName_en="Plasma Rifle III" cardName_zh="离子步枪III" isTemp="False" isHide="False" metal="5" energy="0" coin="400" limitNum="0" cardRareLevel="7" shopPrice="45" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10042" />
     <CardInfo name="weaponInfo" energy="4" energyMax="4" attack="1" weaponType="Gun" isSentry="False" isFrenzy="True" />
     <CardInfo name="sideEffectsBundle" />
@@ -731,63 +731,63 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="10061">
-    <CardInfo name="baseInfo" pictureID="206" cardName_en="Sniper Gun I" cardName_zh="狙击步枪Ⅰ" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="5" shopPrice="50" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="206" cardName_en="Sniper Gun I" cardName_zh="狙击步枪I" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="5" shopPrice="50" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="10062" degradeCardID="-1" />
     <CardInfo name="weaponInfo" energy="2" energyMax="2" attack="3" weaponType="SniperGun" isSentry="False" isFrenzy="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="10062">
-    <CardInfo name="baseInfo" pictureID="206" cardName_en="Sniper Gun Ⅱ" cardName_zh="狙击步枪Ⅱ" isTemp="False" isHide="False" metal="3" energy="0" coin="250" limitNum="0" cardRareLevel="6" shopPrice="80" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="206" cardName_en="Sniper Gun II" cardName_zh="狙击步枪II" isTemp="False" isHide="False" metal="3" energy="0" coin="250" limitNum="0" cardRareLevel="6" shopPrice="80" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="10063" degradeCardID="10061" />
     <CardInfo name="weaponInfo" energy="2" energyMax="2" attack="5" weaponType="SniperGun" isSentry="False" isFrenzy="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="10063">
-    <CardInfo name="baseInfo" pictureID="206" cardName_en="Sniper Gun Ⅲ" cardName_zh="狙击步枪Ⅲ" isTemp="False" isHide="False" metal="3" energy="0" coin="350" limitNum="0" cardRareLevel="7" shopPrice="110" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="206" cardName_en="Sniper Gun III" cardName_zh="狙击步枪III" isTemp="False" isHide="False" metal="3" energy="0" coin="350" limitNum="0" cardRareLevel="7" shopPrice="110" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10062" />
     <CardInfo name="weaponInfo" energy="1" energyMax="1" attack="10" weaponType="SniperGun" isSentry="False" isFrenzy="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20011">
-    <CardInfo name="baseInfo" pictureID="300" cardName_en="Shield Ⅰ" cardName_zh="护盾Ⅰ" isTemp="False" isHide="False" metal="2" energy="0" coin="300" limitNum="3" cardRareLevel="3" shopPrice="29" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="300" cardName_en="Shield I" cardName_zh="护盾I" isTemp="False" isHide="False" metal="2" energy="0" coin="300" limitNum="3" cardRareLevel="3" shopPrice="29" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20012" degradeCardID="-1" />
     <CardInfo name="shieldInfo" armor="0" shield="1" shieldType="Shield" isDefense="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20012">
-    <CardInfo name="baseInfo" pictureID="300" cardName_en="Shield Ⅱ" cardName_zh="护盾Ⅱ" isTemp="False" isHide="False" metal="2" energy="0" coin="400" limitNum="0" cardRareLevel="5" shopPrice="39" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="300" cardName_en="Shield II" cardName_zh="护盾II" isTemp="False" isHide="False" metal="2" energy="0" coin="400" limitNum="0" cardRareLevel="5" shopPrice="39" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20013" degradeCardID="20011" />
     <CardInfo name="shieldInfo" armor="0" shield="2" shieldType="Shield" isDefense="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20013">
-    <CardInfo name="baseInfo" pictureID="300" cardName_en="Shield Ⅲ" cardName_zh="护盾Ⅲ" isTemp="False" isHide="False" metal="3" energy="0" coin="500" limitNum="0" cardRareLevel="6" shopPrice="60" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="300" cardName_en="Shield III" cardName_zh="护盾III" isTemp="False" isHide="False" metal="3" energy="0" coin="500" limitNum="0" cardRareLevel="6" shopPrice="60" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20012" />
     <CardInfo name="shieldInfo" armor="0" shield="3" shieldType="Shield" isDefense="True" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20021">
-    <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor Ⅰ" cardName_zh="新兵盾牌Ⅰ" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="3" cardRareLevel="2" shopPrice="10" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor I" cardName_zh="新兵盾牌I" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="3" cardRareLevel="2" shopPrice="10" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20022" degradeCardID="-1" />
     <CardInfo name="shieldInfo" armor="2" shield="0" shieldType="Armor" isDefense="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20022">
-    <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor Ⅱ" cardName_zh="新兵盾牌Ⅱ" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="0" cardRareLevel="4" shopPrice="25" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor II" cardName_zh="新兵盾牌II" isTemp="False" isHide="False" metal="2" energy="0" coin="200" limitNum="0" cardRareLevel="4" shopPrice="25" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="20023" degradeCardID="20021" />
     <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefense="False" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="20023">
-    <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor Ⅲ" cardName_zh="新兵盾牌Ⅲ" isTemp="False" isHide="False" metal="3" energy="0" coin="300" limitNum="0" cardRareLevel="5" shopPrice="70" cardType="Equip" />
+    <CardInfo name="baseInfo" pictureID="350" cardName_en="Armor III" cardName_zh="新兵盾牌III" isTemp="False" isHide="False" metal="3" energy="0" coin="300" limitNum="0" cardRareLevel="5" shopPrice="70" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="20022" />
     <CardInfo name="shieldInfo" armor="6" shield="0" shieldType="Armor" isDefense="True" />
     <CardInfo name="sideEffectsBundle" />
@@ -796,7 +796,7 @@
   <Card id="30010">
     <CardInfo name="baseInfo" pictureID="401" cardName_en="Pack" cardName_zh="Pack测试" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="3" cardRareLevel="100" shopPrice="100" cardType="Equip" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="packInfo" isFrenzy="False" isDefense="False" isSniper="False" dodgeProp="30" />
+    <CardInfo name="packInfo" isFrenzy="True" isDefense="True" isSniper="True" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
@@ -812,7 +812,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50012" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" Damage="2" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -822,7 +822,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50013" degradeCardID="50011" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" Damage="3" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -832,7 +832,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50012" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" Damage="1" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -842,7 +842,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50022" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="MultipleRandom" TargetRange="EnemyMechs" ChoiceCount="2" Damage="2" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="MultipleRandom" TargetRange="EnemyMechs" ChoiceCount="2" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -852,7 +852,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50021" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" Damage="5" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="5" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -945,7 +945,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="10" DamageTimes="0" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="0" Damage="10" />
       </SideEffectExecute>
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnEndRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
         <SideEffect name="WaitInHandDecreaseEnergy" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DecValue="2" />
@@ -958,8 +958,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" Damage="1" DamageTimes="0" />
-        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" Damage="3" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" DamageTimes="0" Damage="1" />
+        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1065,7 +1065,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="Mechs" ChoiceCount="1" Damage="10" DamageTimes="0" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="Mechs" ChoiceCount="1" DamageTimes="0" Damage="10" />
         <SideEffect name="DrawTypeCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" DrawCardType="Equip" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
@@ -1106,8 +1106,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" Damage="5" DamageTimes="1" />
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" Damage="2" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="5" />
+        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1118,7 +1118,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="12" />
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" Damage="4" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="4" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1128,7 +1128,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50262" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="1" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1138,7 +1138,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50263" degradeCardID="50261" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="2" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1148,7 +1148,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50262" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="3" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1158,7 +1158,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50272" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="2" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
         <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
       </SideEffectExecute>
     </CardInfo>
@@ -1169,7 +1169,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50273" degradeCardID="50271" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="3" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="3" />
         <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="3" />
       </SideEffectExecute>
     </CardInfo>
@@ -1180,7 +1180,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50272" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="4" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="4" />
         <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="4" />
       </SideEffectExecute>
     </CardInfo>
@@ -1191,7 +1191,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50282" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="5" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="5" />
         <SideEffect name="Exile" />
       </SideEffectExecute>
     </CardInfo>
@@ -1203,7 +1203,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="Exile" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="7" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="7" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1214,7 +1214,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="Exile" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="9" DamageTimes="1" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="9" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1266,7 +1266,7 @@
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
           <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="741" PiledBy="RemoveTriggerTimes" HasNumberShow="False" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayerLostLife" triggerRange="EnemyPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="1">
-            <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" Damage="2" DamageTimes="1" />
+            <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="2" />
           </Buff>
         </SideEffect>
       </SideEffectExecute>
@@ -1278,7 +1278,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Damage="3" DamageTimes="3" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="3" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -1311,6 +1311,68 @@
         <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
           <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="600" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayerEnergyFull" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="3">
             <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="3" />
+          </Buff>
+        </SideEffect>
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50400">
+    <CardInfo name="baseInfo" pictureID="629" cardName_en="Palace" cardName_zh="殿堂" isTemp="False" isHide="False" metal="1" energy="3" coin="125" limitNum="3" cardRareLevel="2" shopPrice="25" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="HealLifeMaxPercent" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="10" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50410">
+    <CardInfo name="baseInfo" pictureID="732" cardName_en="Rebirth I" cardName_zh="新生I" isTemp="False" isHide="False" metal="1" energy="15" coin="250" limitNum="3" cardRareLevel="3" shopPrice="40" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="50411" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="732" PiledBy="RemoveTriggerTimes" HasNumberShow="False" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayerLostLife" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="2">
+            <SideEffect name="HealLifeMaxPercent" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="3" />
+          </Buff>
+        </SideEffect>
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50411">
+    <CardInfo name="baseInfo" pictureID="732" cardName_en="Rebirth II" cardName_zh="新生II" isTemp="False" isHide="False" metal="1" energy="10" coin="350" limitNum="3" cardRareLevel="3" shopPrice="50" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="50410" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="732" PiledBy="RemoveTriggerTimes" HasNumberShow="False" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayerLostLife" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="2">
+            <SideEffect name="HealLifeMaxPercent" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="5" />
+          </Buff>
+        </SideEffect>
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50420">
+    <CardInfo name="baseInfo" pictureID="745" cardName_en="Star Chain" cardName_zh="星辰连锁" isTemp="False" isHide="False" metal="1" energy="4" coin="250" limitNum="3" cardRareLevel="2" shopPrice="30" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="5" Damage="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="50430">
+    <CardInfo name="baseInfo" pictureID="617" cardName_en="Assassin's Will" cardName_zh="刺客意志" isTemp="False" isHide="False" metal="1" energy="4" coin="250" limitNum="3" cardRareLevel="2" shopPrice="30" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="617" PiledBy="RemoveTriggerTimes" HasNumberShow="False" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnTrigger" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="1">
+            <SideEffect name="SpellDamageDouble" />
           </Buff>
         </SideEffect>
       </SideEffectExecute>
@@ -1380,7 +1442,7 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="60040">
-    <CardInfo name="baseInfo" pictureID="705" cardName_en="Forge" cardName_zh="伪造" isTemp="False" isHide="False" metal="1" energy="0" coin="300" limitNum="3" cardRareLevel="1" shopPrice="25" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="705" cardName_en="Forge I" cardName_zh="伪造I" isTemp="False" isHide="False" metal="1" energy="0" coin="300" limitNum="3" cardRareLevel="1" shopPrice="25" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="60041" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
@@ -1515,7 +1577,7 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="60240">
-    <CardInfo name="baseInfo" pictureID="750" cardName_en="Creation" cardName_zh="创造" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="3" cardRareLevel="2" shopPrice="24" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="750" cardName_en="Creation I" cardName_zh="创造I" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="3" cardRareLevel="2" shopPrice="24" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="60241" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
@@ -1537,7 +1599,7 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="60250">
-    <CardInfo name="baseInfo" pictureID="713" cardName_en="Rebirth" cardName_zh="新生" isTemp="False" isHide="False" metal="1" energy="0" coin="700" limitNum="3" cardRareLevel="4" shopPrice="115" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="713" cardName_en="Cycle" cardName_zh="轮回" isTemp="False" isHide="False" metal="1" energy="0" coin="700" limitNum="3" cardRareLevel="4" shopPrice="115" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
@@ -1586,6 +1648,38 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="4" Energy="4" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60280">
+    <CardInfo name="baseInfo" pictureID="951" cardName_en="Rise" cardName_zh="崛起" isTemp="False" isHide="False" metal="1" energy="0" coin="500" limitNum="3" cardRareLevel="3" shopPrice="70" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Exile" />
+        <SideEffect name="AddArmor" TargetSelect="All" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="3" />
+        <SideEffect name="AddAttack" TargetSelect="All" TargetRange="SelfMechs" ChoiceCount="1" AttackValue="3" />
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="5" />
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="951" PiledBy="RemoveTriggerTimes" HasNumberShow="False" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnEndRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="1">
+            <SideEffect name="Kill" TargetSelect="All" TargetRange="SelfMechs" ChoiceCount="1" />
+          </Buff>
+        </SideEffect>
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60290">
+    <CardInfo name="baseInfo" pictureID="710" cardName_en="Transaction" cardName_zh="异动" isTemp="False" isHide="False" metal="1" energy="0" coin="250" limitNum="3" cardRareLevel="3" shopPrice="60" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="False" CanPiled="False" Singleton="True" BuffColor="#ffffff" triggerTime="OnTrigger" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="OnEndRound" removeTriggerRange="SelfPlayer" removeTriggerTimes="1">
+            <SideEffect name="NextCardTriggerTwice" />
+          </Buff>
+        </SideEffect>
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />

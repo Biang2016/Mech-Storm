@@ -1,8 +1,10 @@
-﻿namespace SideEffects
+﻿using System;
+
+namespace SideEffects
 {
-    public class SpellDamageDouble : TriggerTriggerSideEffects, IPriorUsed
+    public class NextCardTriggerTwice : TriggerTriggerSideEffects, IPriorUsed
     {
-        public SpellDamageDouble()
+        public NextCardTriggerTwice()
         {
         }
 
@@ -19,9 +21,12 @@
         {
             foreach (SideEffectBase se in PeekSEE.SideEffectBases)
             {
-                if (se is IDamage)
+                try
                 {
-                    se.M_SideEffectParam.Factor *= 2;
+                    se.Execute(executorInfo);
+                }
+                catch (Exception e)
+                {
                 }
             }
         }
@@ -34,21 +39,7 @@
                 CardBase card = player.HandManager.GetCardByCardInstanceId(ei.CardInstanceId);
                 if (card != null)
                 {
-                    if (card.CardInfo.BaseInfo.CardType != CardTypes.Spell && card.CardInfo.BaseInfo.CardType != CardTypes.Energy)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            foreach (SideEffectBase se in PeekSEE.SideEffectBases)
-            {
-                if (se is IDamage)
-                {
-                    if (se.M_SideEffectParam.HasParamCanBeMultiplied())
-                    {
-                        return true;
-                    }
+                    return card.CardInfo.BaseInfo.CardType == CardTypes.Spell || card.CardInfo.BaseInfo.CardType == CardTypes.Energy;
                 }
             }
 

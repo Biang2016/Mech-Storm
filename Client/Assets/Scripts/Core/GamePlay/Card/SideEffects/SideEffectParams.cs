@@ -143,7 +143,7 @@ public class SideEffectParam : IClone<SideEffectParam>
 
     public bool HasParamCanBeMultiplied()
     {
-        return ParamsDict[SideEffectValue.ValueTypes.MultipliedInt].Count == 1;
+        return ParamsDict[SideEffectValue.ValueTypes.MultipliedInt].Count >= 1;
     }
 
     private int CountSideEffectValue()

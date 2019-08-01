@@ -115,7 +115,6 @@
 
     SE_MECH_ATTACK_MECH_SERVER_REQUEST, //随从攻击随从
     SE_MECH_ATTACK_SHIP_SERVER_REQUEST, //随从攻击战舰
-    SE_MECH_DODGE, //随从成功闪避
     SE_MECH_ONATTACK, //随从发起进攻动作
     SE_MECH_ONATTACKSHIP, //随从对战舰发起进攻动作
     SE_MECH_SHIELD_DEFENSE, //随从护盾抵消攻击

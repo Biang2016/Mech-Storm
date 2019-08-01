@@ -264,6 +264,16 @@ public class Player : ILife
         MaxLifeChange(change);
     }
 
+    public int GetLeftLife()
+    {
+        return LifeLeft;
+    }
+
+    public int GetTotalLife()
+    {
+        return LifeMax;
+    }
+
     #endregion
 
     #endregion

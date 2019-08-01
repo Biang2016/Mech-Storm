@@ -18,7 +18,11 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             BattlePlayer player = (BattlePlayer) Player;
-            player.HandManager.GetCardByCardInstanceId(executorInfo.CardInstanceId).CardInfo.BaseInfo.IsTemp = true;
+            CardBase card = player.HandManager.GetCardByCardInstanceId(executorInfo.CardInstanceId);
+            if (card != null)
+            {
+                card.CardInfo.BaseInfo.IsTemp = true;
+            }
         }
     }
 }

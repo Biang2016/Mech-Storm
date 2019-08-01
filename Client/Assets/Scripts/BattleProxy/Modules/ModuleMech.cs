@@ -24,7 +24,7 @@ internal class ModuleMech : ModuleBase, ILife
             {
                 se.Player = BattlePlayer;
                 se.M_ExecutorInfo = new ExecutorInfo(
-                    BattlePlayer.ClientId,
+                    clientId: BattlePlayer.ClientId,
                     sideEffectExecutorID: see.ID,
                     mechId: M_MechID
                 );
@@ -37,7 +37,7 @@ internal class ModuleMech : ModuleBase, ILife
             {
                 se.Player = BattlePlayer;
                 se.M_ExecutorInfo = new ExecutorInfo(
-                    BattlePlayer.ClientId,
+                    clientId: BattlePlayer.ClientId,
                     sideEffectExecutorID: see.ID,
                     mechId: M_MechID
                 );
@@ -233,6 +233,16 @@ internal class ModuleMech : ModuleBase, ILife
     public void ChangeMaxLife(int change)
     {
         MaxLifeChange(change);
+    }
+
+    public int GetLeftLife()
+    {
+        return M_MechLeftLife;
+    }
+
+    public int GetTotalLife()
+    {
+        return M_MechTotalLife;
     }
 
     private int m_MechLeftLife;
@@ -468,10 +478,10 @@ internal class ModuleMech : ModuleBase, ILife
         if (m_Weapon != null)
         {
             if (!M_Weapon.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Weapon.OriginCardInstanceId);
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Weapon.M_EquipID));
             m_Weapon.UnRegisterSideEffect();
 
-            EquipWeaponServerRequest request = new EquipWeaponServerRequest(BattlePlayer.ClientId, null, M_MechID, m_Weapon.M_EquipID);
+            EquipWeaponServerRequest request = new EquipWeaponServerRequest(clientId: BattlePlayer.ClientId, cardInfo: null, mechId: M_MechID, equipID: m_Weapon.M_EquipID);
             BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
             m_Weapon = null;
 
@@ -491,7 +501,7 @@ internal class ModuleMech : ModuleBase, ILife
     void On_WeaponEquiped(ModuleWeapon newWeapon)
     {
         m_Weapon = newWeapon;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Weapon.M_EquipID));
         EquipWeaponServerRequest request = new EquipWeaponServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_MechID, m_Weapon.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
@@ -517,7 +527,7 @@ internal class ModuleMech : ModuleBase, ILife
         }
 
         m_Weapon = newWeapon;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Weapon.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Weapon.M_EquipID));
         EquipWeaponServerRequest request = new EquipWeaponServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newWeapon.GetCurrentCardInfo(), M_MechID, m_Weapon.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
@@ -582,7 +592,7 @@ internal class ModuleMech : ModuleBase, ILife
         if (m_Shield != null)
         {
             if (!M_Shield.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Shield.OriginCardInstanceId);
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Shield.M_EquipID));
             m_Shield.UnRegisterSideEffect();
 
             EquipShieldServerRequest request = new EquipShieldServerRequest(BattlePlayer.ClientId, null, M_MechID, m_Shield.M_EquipID);
@@ -609,7 +619,7 @@ internal class ModuleMech : ModuleBase, ILife
     void On_ShieldEquiped(ModuleShield newShield)
     {
         m_Shield = newShield;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Shield.M_EquipID));
         EquipShieldServerRequest request = new EquipShieldServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_MechID, m_Shield.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
@@ -631,7 +641,7 @@ internal class ModuleMech : ModuleBase, ILife
         }
 
         m_Shield = newShield;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Shield.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Shield.M_EquipID));
         EquipShieldServerRequest request = new EquipShieldServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newShield.GetCurrentCardInfo(), M_MechID, m_Shield.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
 
@@ -677,7 +687,7 @@ internal class ModuleMech : ModuleBase, ILife
         if (m_Pack != null)
         {
             if (!M_Pack.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_Pack.OriginCardInstanceId);
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Pack.M_EquipID));
             m_Pack.UnRegisterSideEffect();
 
             EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, null, M_MechID, m_Pack.M_EquipID);
@@ -689,8 +699,8 @@ internal class ModuleMech : ModuleBase, ILife
     void On_PackEquiped(ModulePack newPack)
     {
         m_Pack = newPack;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
-        EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Pack.M_EquipID));
+        EquipPackServerRequest request = new EquipPackServerRequest(clientId: BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
@@ -703,7 +713,7 @@ internal class ModuleMech : ModuleBase, ILife
         }
 
         m_Pack = newPack;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_Pack.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Pack.M_EquipID));
         EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
@@ -741,7 +751,7 @@ internal class ModuleMech : ModuleBase, ILife
         if (m_MA != null)
         {
             if (!M_MA.CardInfo.BaseInfo.IsTemp) BattlePlayer.CardDeckManager.CardDeck.RecycleCardInstanceID(m_MA.OriginCardInstanceId);
-            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
+            BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipDie, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_MA.M_EquipID));
             m_MA.UnRegisterSideEffect();
 
             EquipMAServerRequest request = new EquipMAServerRequest(BattlePlayer.ClientId, null, M_MechID, m_MA.M_EquipID);
@@ -753,7 +763,7 @@ internal class ModuleMech : ModuleBase, ILife
     void On_MAEquiped(ModuleMA newMA)
     {
         m_MA = newMA;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_MA.M_EquipID));
         EquipMAServerRequest request = new EquipMAServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_MechID, m_MA.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
@@ -767,7 +777,7 @@ internal class ModuleMech : ModuleBase, ILife
         }
 
         m_MA = newMA;
-        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(BattlePlayer.ClientId, M_MechID, equipId: m_MA.M_EquipID));
+        BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_MA.M_EquipID));
         EquipMAServerRequest request = new EquipMAServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newMA.GetCurrentCardInfo(), M_MechID, m_MA.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
@@ -812,15 +822,6 @@ internal class ModuleMech : ModuleBase, ILife
                    (M_Shield != null && M_Shield.CardInfo.ShieldInfo.IsDefense) ||
                    (M_Pack != null && M_Pack.CardInfo.PackInfo.IsDefense) ||
                    (M_MA != null && M_MA.CardInfo.MAInfo.IsDefense);
-        }
-    }
-
-    public int DodgeProp
-    {
-        get
-        {
-            if (M_Pack != null) return M_Pack.CardInfo.PackInfo.DodgeProp;
-            return 0;
         }
     }
 
@@ -999,12 +1000,6 @@ internal class ModuleMech : ModuleBase, ILife
     {
     }
 
-    public void OnDodge()
-    {
-        MechDodgeRequest request = new MechDodgeRequest(BattlePlayer.ClientId, M_MechID);
-        BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
-    }
-
     private enum AttackLevel
     {
         Sword = 0,
@@ -1056,21 +1051,11 @@ internal class ModuleMech : ModuleBase, ILife
                 {
                     damage = M_MechAttack * M_MechWeaponEnergy;
                     if (!isCounterAttack) OnAttack(WeaponTypes.Sword, targetMech.M_MechID); //机甲特效
-                    Random rd = new Random();
-                    int dodgeRandomNumber = rd.Next(0, 100);
-                    if (dodgeRandomNumber < DodgeProp) //闪避成功
-                    {
-                        targetMech.OnDodge();
-                    }
-                    else
-                    {
-                        targetMech.BeAttacked(damage);
-                        targetMech.OnBeDamaged(damage);
-                        BattlePlayer.BattleStatistics.DamageToMech += damage;
-                        OnMakeDamage(damage);
-                        if (M_MechWeaponEnergy < M_MechWeaponEnergyMax) M_MechWeaponEnergy++;
-                    }
-
+                    targetMech.BeAttacked(damage);
+                    targetMech.OnBeDamaged(damage);
+                    BattlePlayer.BattleStatistics.DamageToMech += damage;
+                    OnMakeDamage(damage);
+                    if (M_MechWeaponEnergy < M_MechWeaponEnergyMax) M_MechWeaponEnergy++;
                     if (canCounter) targetMech.Attack(this, true); //对方反击
                     break;
                 }
@@ -1093,19 +1078,10 @@ internal class ModuleMech : ModuleBase, ILife
                     for (int i = 0; i < repeatTimes; i++)
                     {
                         OnAttack(WeaponTypes.Gun, targetMech.M_MechID); //机甲特效
-                        Random rd = new Random();
-                        int dodgeRandomNumber = rd.Next(0, 100);
-                        if (dodgeRandomNumber < DodgeProp) //闪避成功
-                        {
-                            targetMech.OnDodge();
-                        }
-                        else
-                        {
-                            targetMech.BeAttacked(M_MechAttack);
-                            targetMech.OnBeDamaged(damage);
-                            BattlePlayer.BattleStatistics.DamageToMech += damage;
-                            OnMakeDamage(M_MechAttack);
-                        }
+                        targetMech.BeAttacked(M_MechAttack);
+                        targetMech.OnBeDamaged(damage);
+                        BattlePlayer.BattleStatistics.DamageToMech += damage;
+                        OnMakeDamage(M_MechAttack);
 
                         M_MechWeaponEnergy--;
                         if (targetMech.M_MechLeftLife <= 0 || M_MechWeaponEnergy <= 0) break;
@@ -1119,19 +1095,10 @@ internal class ModuleMech : ModuleBase, ILife
                 {
                     if (isCounterAttack) break; //狙击枪无法反击他人攻击
                     OnAttack(WeaponTypes.SniperGun, targetMech.M_MechID); //机甲特效
-                    Random rd = new Random();
-                    int dodgeRandomNumber = rd.Next(0, 100);
-                    if (dodgeRandomNumber < DodgeProp) //闪避成功
-                    {
-                        targetMech.OnDodge();
-                    }
-                    else
-                    {
-                        targetMech.BeAttacked(M_MechAttack);
-                        targetMech.OnBeDamaged(damage);
-                        BattlePlayer.BattleStatistics.DamageToMech += damage;
-                        OnMakeDamage(M_MechAttack);
-                    }
+                    targetMech.BeAttacked(M_MechAttack);
+                    targetMech.OnBeDamaged(damage);
+                    BattlePlayer.BattleStatistics.DamageToMech += damage;
+                    OnMakeDamage(M_MechAttack);
 
                     M_MechWeaponEnergy--;
                     if (targetMech.M_MechLeftLife <= 0) break;
@@ -1146,17 +1113,10 @@ internal class ModuleMech : ModuleBase, ILife
             if (!isCounterAttack) OnAttack(WeaponTypes.None, targetMech.M_MechID); //机甲特效
             Random rd = new Random();
             int dodgeRandomNumber = rd.Next(0, 100);
-            if (dodgeRandomNumber < DodgeProp) //闪避成功
-            {
-                targetMech.OnDodge();
-            }
-            else
-            {
-                targetMech.BeAttacked(damage);
-                targetMech.OnBeDamaged(damage);
-                BattlePlayer.BattleStatistics.DamageToMech += damage;
-                OnMakeDamage(damage);
-            }
+            targetMech.BeAttacked(damage);
+            targetMech.OnBeDamaged(damage);
+            BattlePlayer.BattleStatistics.DamageToMech += damage;
+            OnMakeDamage(damage);
 
             if (canCounter) targetMech.Attack(this, true); //对方反击
         }
@@ -1173,7 +1133,7 @@ internal class ModuleMech : ModuleBase, ILife
         else if (M_MechLeftLife != 0 && targetMech.M_MechLeftLife == 0) //反击方挂了
         {
             targetMech.OnDieTogether();
-            ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID, targetMechIds: new List<int> {targetMech.M_MechID});
+            ExecutorInfo ei = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, targetMechIds: new List<int> {targetMech.M_MechID});
             if (CardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierKill, ei);
             else BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroKill, ei);
         }
@@ -1214,7 +1174,7 @@ internal class ModuleMech : ModuleBase, ILife
         }
 
         BattlePlayer.GameManager.AddDieTogetherMechsInfo(M_MechID);
-        ExecutorInfo info = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo info = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID);
         if (CardInfo.MechInfo.IsSoldier) BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierDie, info);
         else BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnHeroDie, info);
     }
@@ -1227,7 +1187,7 @@ internal class ModuleMech : ModuleBase, ILife
 
     public void OnMakeDamage(int damage)
     {
-        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo ei = new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Damage, damage}});
 
         if (CardInfo.MechInfo.IsSoldier)
         {
@@ -1243,7 +1203,16 @@ internal class ModuleMech : ModuleBase, ILife
 
     public void OnBeDamaged(int damage)
     {
-        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo ei;
+        if (CardInfo.MechInfo.IsSoldier)
+        {
+            ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Damage, damage}, {ExecutorInfo.ExecutorInfoValues.DamageToSoldier, damage}, {ExecutorInfo.ExecutorInfoValues.MechLife_Injury, damage}});
+        }
+        else
+        {
+            ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Damage, damage}, {ExecutorInfo.ExecutorInfoValues.DamageToHero, damage}, {ExecutorInfo.ExecutorInfoValues.MechLife_Injury, damage}});
+        }
+
         if (CardInfo.MechInfo.IsSoldier)
         {
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierInjured, ei);
@@ -1256,7 +1225,7 @@ internal class ModuleMech : ModuleBase, ILife
 
     private void OnBeHealed(int heal)
     {
-        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID);
+        ExecutorInfo ei = new ExecutorInfo(BattlePlayer.ClientId, mechId: M_MechID, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Heal, heal}});
         if (CardInfo.MechInfo.IsSoldier)
         {
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnSoldierBeHealed, ei);

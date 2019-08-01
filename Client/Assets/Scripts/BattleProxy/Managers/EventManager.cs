@@ -292,7 +292,7 @@ public class EventManager
                                 if (sub_se is ITrigger triggerSEE)
                                 {
                                     triggerSEE.PeekSEE = InvokeStack.Peek();
-                                    if (triggerSEE.IsTrigger())
+                                    if (triggerSEE.IsTrigger(ei))
                                     {
                                         isTriggerTrigger = true;
                                     }

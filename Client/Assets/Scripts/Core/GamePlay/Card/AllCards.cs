@@ -337,8 +337,7 @@ public static class AllCards
                         packInfo = new PackInfo(
                             isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
                             isDefense: node_CardInfo.Attributes["isDefense"].Value == "True",
-                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
-                            dodgeProp: int.Parse(node_CardInfo.Attributes["dodgeProp"].Value)
+                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True"
                         );
                         equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
