@@ -151,11 +151,11 @@ internal partial class GameManager
             }
             case TargetSelect.Single:
             {
-                if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip)
+                if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip || targetRange == TargetRange.SelfDeck || targetRange == TargetRange.EnemyDeck)
                 {
                     action(players[0]);
                 }
-                else if (targetRange == TargetRange.Ships)
+                else if (targetRange == TargetRange.Ships || targetRange == TargetRange.Decks)
                 {
                     action(GetPlayerByClientId(targetClientIds[0]));
                 }
@@ -170,6 +170,12 @@ internal partial class GameManager
         }
     }
 
+    public void SideEffect_ForeachMech(Action<int> action, BattlePlayer callerPlayer, TargetRange targetRange)
+    {
+        int valueTargetCount = GetValidTargetCountByTargetRange(targetRange, callerPlayer);
+        action(valueTargetCount);
+    }
+
     public void SideEffect_ILifeAction(Action<ILife> action, BattlePlayer callerPlayer, int count, TargetRange targetRange, TargetSelect targetSelect, List<int> targetClientIds, List<int> targetMechIds)
     {
         List<BattlePlayer> mech_players = GetMechsPlayerByTargetRange(targetRange, callerPlayer);
@@ -180,7 +186,13 @@ internal partial class GameManager
             {
                 foreach (BattlePlayer player in mech_players)
                 {
+                    List<ModuleMech> remove = new List<ModuleMech>();
                     foreach (ModuleMech mech in player.BattleGroundManager.Mechs)
+                    {
+                        remove.Add(mech);
+                    }
+
+                    foreach (ModuleMech mech in remove)
                     {
                         action(mech);
                     }
@@ -222,7 +234,10 @@ internal partial class GameManager
             {
                 if (targetRange == TargetRange.SelfShip || targetRange == TargetRange.EnemyShip)
                 {
-                    action(ship_players[0]);
+                    if (ship_players.Count > 0)
+                    {
+                        action(ship_players[0]);
+                    }
                 }
                 else
                 {
@@ -341,7 +356,11 @@ internal partial class GameManager
             }
             case TargetSelect.Single:
             {
-                action(GetMech(mechIds[0]));
+                if (mechIds.Count > 0)
+                {
+                    action(GetMech(mechIds[0]));
+                }
+
                 break;
             }
             case TargetSelect.SingleRandom:
@@ -475,12 +494,48 @@ internal partial class GameManager
         return res;
     }
 
+    public static int GetValidTargetCountByTargetRange(TargetRange targetRange, BattlePlayer callerPlayer)
+    {
+        int count = 0;
+        if ((targetRange & TargetRange.SelfHeroes) != 0)
+        {
+            count += callerPlayer.BattleGroundManager.HeroCount;
+        }
+
+        if ((targetRange & TargetRange.SelfSoldiers) != 0)
+        {
+            count += callerPlayer.BattleGroundManager.SoldierCount;
+        }
+
+        if ((targetRange & TargetRange.EnemyHeroes) != 0)
+        {
+            count += callerPlayer.MyEnemyPlayer.BattleGroundManager.HeroCount;
+        }
+
+        if ((targetRange & TargetRange.EnemySoldiers) != 0)
+        {
+            count += callerPlayer.MyEnemyPlayer.BattleGroundManager.SoldierCount;
+        }
+
+        return count;
+    }
+
     public static List<BattlePlayer> GetShipsPlayerByTargetRange(TargetRange targetRange, BattlePlayer player)
     {
         List<BattlePlayer> res = new List<BattlePlayer>();
+        if ((targetRange & TargetRange.SelfDeck) != 0)
+        {
+            res.Add(player);
+        }
+
         if ((targetRange & TargetRange.SelfShip) != 0)
         {
             res.Add(player);
+        }
+
+        if ((targetRange & TargetRange.EnemyDeck) != 0)
+        {
+            res.Add(player.MyEnemyPlayer);
         }
 
         if ((targetRange & TargetRange.EnemyShip) != 0)

@@ -6,11 +6,12 @@ public class CardInfo_Equip : CardInfo_Base
     {
     }
 
-    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle)
+    public CardInfo_Equip(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, EquipInfo equipInfo, WeaponInfo weaponInfo, ShieldInfo shieldInfo, PackInfo packInfo, MAInfo maInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_BattleGroundAura)
         : base(cardID: cardID,
             baseInfo: baseInfo,
             upgradeInfo: upgradeInfo,
-            sideEffectBundle: sideEffectBundle)
+            sideEffectBundle: sideEffectBundle,
+            sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura)
     {
         switch (equipInfo.SlotType)
         {
@@ -98,12 +99,6 @@ public class CardInfo_Equip : CardInfo_Base
                 if (PackInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy")) + ". ";
                 if (PackInfo.IsSniper) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sniper")) + ". ";
                 if (PackInfo.IsDefense) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Defense")) + ". ";
-                if (PackInfo.DodgeProp != 0)
-                {
-                    CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Dodge")) + ". ";
-                    CardDescShow += string.Format(LanguageManager_Common.GetText("KeyWords_PRValue"), BaseInfo.AddHighLightColorToText(PackInfo.DodgeProp + "%"));
-                }
-
                 break;
             }
             case SlotTypes.MA:
@@ -167,7 +162,8 @@ public class CardInfo_Equip : CardInfo_Base
             shieldInfo: ShieldInfo,
             packInfo: PackInfo,
             maInfo: MAInfo,
-            sideEffectBundle: SideEffectBundle.Clone()
+            sideEffectBundle: SideEffectBundle.Clone(),
+            sideEffectBundle_BattleGroundAura: SideEffectBundle_BattleGroundAura.Clone()
         );
         return cb;
     }
@@ -207,7 +203,6 @@ public class CardInfo_Equip : CardInfo_Base
                 equipInfo_ele.SetAttribute("isFrenzy", PackInfo.IsFrenzy.ToString());
                 equipInfo_ele.SetAttribute("isDefense", PackInfo.IsDefense.ToString());
                 equipInfo_ele.SetAttribute("isSniper", PackInfo.IsSniper.ToString());
-                equipInfo_ele.SetAttribute("dodgeProp", PackInfo.DodgeProp.ToString());
                 break;
             }
             case SlotTypes.MA:

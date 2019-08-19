@@ -165,7 +165,6 @@ public class HandManager : MonoBehaviour
         {
             count++;
             Transform result = GetCardPlace(count, cardCount);
-            Debug.Log("Replace: " + count + "/" + cardCount);
             Vector3 position = result.position;
             Vector3 rotation = result.rotation.eulerAngles;
             Vector3 scale = result.localScale;
@@ -348,6 +347,18 @@ public class HandManager : MonoBehaviour
 
     public void UseCard(int handCardInstanceId, CardInfo_Base cardInfo)
     {
+        CardBase cardBase = GetCardByCardInstanceId(handCardInstanceId);
+        if (ClientPlayer == RoundManager.Instance.SelfClientPlayer)
+        {
+            if (cardBase)
+            {
+                cardBase.OnPlayOut();
+                cards.Remove(cardBase);
+                cardBase.PoolRecycle();
+                RefreshCardsPlace();
+            }
+        }
+
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UseCard(handCardInstanceId, cardInfo), "Co_UseCardShow");
     }
 
@@ -392,6 +403,8 @@ public class HandManager : MonoBehaviour
                 currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
                 currentShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
 
+                AudioManager.Instance.SoundPlay("sfx/OnShowUseCard", 0.5f);
+
                 RefreshCardsPlace();
                 yield return new WaitForSeconds(USE_CARD_SHOW_FLY_DURATION);
 
@@ -406,13 +419,6 @@ public class HandManager : MonoBehaviour
                 currentShowCard.PoolRecycle();
                 currentShowCard = null;
             }
-        }
-        else
-        {
-            cardBase.OnPlayOut();
-            cards.Remove(cardBase);
-            cardBase.PoolRecycle();
-            RefreshCardsPlace();
         }
 
         yield return null;
@@ -506,7 +512,7 @@ public class HandManager : MonoBehaviour
 
     private bool isEnlarge = false;
 
-    void HandCardEnlarge(CardBase focusCard)
+    public void HandCardEnlarge(CardBase focusCard)
     {
         if (ClientPlayer == null) return;
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;
@@ -531,7 +537,7 @@ public class HandManager : MonoBehaviour
         isEnlarge = true;
     }
 
-    void HandCardShrink(CardBase lostFocusCard)
+    public void HandCardShrink(CardBase lostFocusCard)
     {
         if (ClientPlayer == null) return;
         if (ClientPlayer.WhichPlayer == Players.Enemy) return;

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Xml;
 using Newtonsoft.Json;
 
 /// <summary>
@@ -115,32 +117,57 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
     {
     }
 
-    public static string HighlightStringFormat(string src, params object[] args)
+    protected static string HighlightStringFormat(string src, params object[] args)
     {
-        string[] colorStrings = new string[args.Length];
-        for (int i = 0; i < args.Length; i++)
-        {
-            colorStrings[i] = "<" + AllColors.ColorDict[AllColors.ColorType.CardHighLightColor] + ">" + args[i] + "</color>";
-        }
-
-        return string.Format(src, colorStrings);
+        return Utils.HighlightStringFormat(src, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], args);
     }
 
-    public static string HighlightStringFormat(string src, bool[] needTint, params object[] args)
+    protected static string HighlightStringFormat(string src, bool[] needTint, params object[] args)
     {
-        string[] colorStrings = new string[args.Length];
-        for (int i = 0; i < args.Length; i++)
+        return Utils.HighlightStringFormat(src, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor], needTint, args);
+    }
+
+    public void ExportToXML(XmlElement ele)
+    {
+        ele.SetAttribute("name", Name);
+        foreach (SideEffectValue sev in M_SideEffectParam.SideEffectValues)
         {
-            if (needTint[i])
+            switch (sev)
             {
-                colorStrings[i] = "<" + AllColors.ColorDict[AllColors.ColorType.CardHighLightColor] + ">" + args[i] + "</color>";
-            }
-            else
-            {
-                colorStrings[i] = args[i].ToString();
+                case SideEffectValue_ConstInt sev_ConstInt:
+                {
+                    if (sev_ConstInt.EnumType == typeof(CardDeck))
+                    {
+                        ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
+                    }
+                    else if (sev_ConstInt.EnumType != null)
+                    {
+                        string enum_name = Enum.ToObject(sev_ConstInt.EnumType, sev_ConstInt.Value).ToString();
+                        ele.SetAttribute(sev.Name, enum_name);
+                    }
+                    else
+                    {
+                        ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
+                    }
+
+                    break;
+                }
+                case SideEffectValue_MultipliedInt sev_MultipliedInt:
+                {
+                    ele.SetAttribute(sev.Name, sev_MultipliedInt.Value.ToString());
+                    break;
+                }
+                case SideEffectValue_Bool sev_Bool:
+                {
+                    ele.SetAttribute(sev.Name, sev_Bool.Value.ToString());
+                    break;
+                }
+                case SideEffectValue_String sev_String:
+                {
+                    ele.SetAttribute(sev.Name, sev_String.Value);
+                    break;
+                }
             }
         }
-
-        return string.Format(src, colorStrings);
     }
 }

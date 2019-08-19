@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_10;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_10;UNITY_2018_3;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -78,10 +78,11 @@
     <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIMaskMgr.cs" />
     <Compile Include="Assets\Scripts\Client\Basic\UI\UIFramework\UIType.cs" />
     <Compile Include="Assets\Scripts\Client\Basic\UI\UtilPanels\ConfirmPanel.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\Hit.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\HitManager.cs" />
-    <Compile Include="Assets\Scripts\Client\Effects\NormalParticle.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FX_Particle.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FX_Projectile.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FX_Sprite.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FXBase.cs" />
+    <Compile Include="Assets\Scripts\Client\Effects\FXManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleEffectsManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Battle\BattleManager.cs" />
@@ -140,12 +141,15 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\FunctionManagers\ShowCardDetailInBattleManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Online\OnlineManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\CardEditorManager.cs" />
-    <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SceneManagers\RootManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\BuildButton.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\Components\SelectCard.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\SelectBuild\SelectBuildManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\ChapterMap.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\ChapterMapNode.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\ChapterMapRoute.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\ChapterMap\LevelBadge.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\Storyline\StoryManager.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\AffixPanel.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\BattleResultPanel.cs" />
@@ -177,12 +181,20 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CostStatBar.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_HeroCardPicIcon.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_TypeCardCount.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_Bonus.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_BonusGroup.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_BonusGroups.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_BonusTypeDropdown.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_CardSelection.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_ShopItem.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_ShopItems.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelPropertyForm_ShopItemTypeDropdown.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\MetalBar\MetalBarBlock.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\MetalBar\MetalBarManager.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemButton_Card.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemButton_Small.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShopItems\ShopItemSmallContainer.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ShrinkText.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StarsGroup.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StartMenuButton.cs" />
@@ -190,9 +202,6 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_LevelButton.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_LevelButtonSliderBar.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\LevelButtons\StoryEditorPanel_ShopButton.cs" />
-    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMap.cs" />
-    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMapNode.cs" />
-    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryMap\ChapterMapRoute.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Bonus.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Chapter.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\StoryEditorWindow\StoryPropertyForm_Chapters.cs" />
@@ -209,9 +218,11 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_Cards.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SelectBuildPanel_SelectCards.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\SettingPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\ShopPanel.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StartMenuPanel.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryEditorPanel.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryPanel.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\StoryPlayerInformationPanel.cs" />
     <Compile Include="Assets\Scripts\Client\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Client\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Client\Network\Proxy.cs" />
@@ -311,9 +322,6 @@
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTrackingModule">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>

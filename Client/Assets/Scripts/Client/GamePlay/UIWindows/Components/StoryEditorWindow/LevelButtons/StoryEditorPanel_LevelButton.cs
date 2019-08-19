@@ -7,7 +7,6 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 {
     public override void PoolRecycle()
     {
-        SetButton.onClick.RemoveAllListeners();
         EditButton.onClick.RemoveAllListeners();
         DeleteButton.onClick.RemoveAllListeners();
 
@@ -22,7 +21,6 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
 
     [SerializeField] private Image PicImage;
     [SerializeField] private Text LevelNameText;
-    [SerializeField] private Button SetButton;
     [SerializeField] private Button EditButton;
     [SerializeField] private Button DeleteButton;
     [SerializeField] private Transform SliderBarContainer;
@@ -36,12 +34,12 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         StoryEditorPanel_LevelButton btn = null;
         switch (level.LevelType)
         {
-            case LevelType.Enemy:
+            case LevelTypes.Enemy:
             {
                 btn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_EnemyButton].AllocateGameObject<StoryEditorPanel_EnemyButton>(parent);
                 break;
             }
-            case LevelType.Shop:
+            case LevelTypes.Shop:
             {
                 btn = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryEditorPanel_ShopButton].AllocateGameObject<StoryEditorPanel_ShopButton>(parent);
                 break;
@@ -49,15 +47,13 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         }
 
         btn.Cur_Level = level;
-        btn.SetButton.onClick.RemoveAllListeners();
-        btn.SetButton.onClick.AddListener(delegate { onSetButtonClick(btn.Cur_Level); });
-        btn.EditButton.onClick.RemoveAllListeners();
+        btn.RefreshLevelName();
+        btn.OnSetButtonClickAction = delegate { onSetButtonClick(btn.Cur_Level); };
         btn.EditButton.onClick.AddListener(onEditButtonClick);
         btn.DeleteButton.onClick.RemoveAllListeners();
         btn.DeleteButton.onClick.AddListener(onDeleteButtonClick);
 
         ClientUtils.ChangeImagePicture(btn.PicImage, btn.Cur_Level.LevelPicID);
-        btn.LevelNameText.text = btn.Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
 
         foreach (StoryEditorPanel_LevelButtonSliderBar slider in btn.Sliders)
         {
@@ -70,6 +66,13 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         return btn;
     }
 
+    public UnityAction OnSetButtonClickAction;
+
+    public void OnSetButtonClick()
+    {
+        OnSetButtonClickAction?.Invoke();
+    }
+
     protected abstract void ChildrenInitialize();
 
     protected StoryEditorPanel_LevelButtonSliderBar AddSlider(string labelStrKey, Color color)
@@ -80,8 +83,8 @@ public abstract class StoryEditorPanel_LevelButton : PoolObject
         return slider;
     }
 
-    public void OnLanguageChange()
+    public void RefreshLevelName()
     {
-        LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
+        LevelNameText.text = Cur_Level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()] + " (Lv." + Cur_Level.DifficultyLevel + ")";
     }
 }

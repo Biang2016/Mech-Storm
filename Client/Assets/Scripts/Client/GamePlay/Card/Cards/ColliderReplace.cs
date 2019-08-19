@@ -17,7 +17,7 @@ public class ColliderReplace : PoolObject
         GetComponent<BoxCollider>().size = callerCard.GetComponent<BoxCollider>().size;
     }
 
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         MyCallerCard.ClientPlayer.BattlePlayer.HandManager.CardColliderReplaceOnMouseExit(MyCallerCard);
     }

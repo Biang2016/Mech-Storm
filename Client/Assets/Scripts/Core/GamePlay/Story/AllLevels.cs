@@ -5,25 +5,25 @@ using System.Xml;
 
 public class AllLevels
 {
-    public static SortedDictionary<LevelType, string> LevelDirectoryDict = new SortedDictionary<LevelType, string>
+    public static SortedDictionary<LevelTypes, string> LevelDirectoryDict = new SortedDictionary<LevelTypes, string>
     {
-        {LevelType.Enemy, LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Enemies/"},
-        {LevelType.Shop, LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Shops/"},
+        {LevelTypes.Enemy, LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Enemies/"},
+        {LevelTypes.Shop, LoadAllBasicXMLFiles.ConfigFolderPath + "/Stories/Shops/"},
     };
 
-    public static SortedDictionary<LevelType, string> LevelDefaultXMLDict = new SortedDictionary<LevelType, string>
+    public static SortedDictionary<LevelTypes, string> LevelDefaultXMLDict = new SortedDictionary<LevelTypes, string>
     {
-        {LevelType.Enemy, LevelDirectoryDict[LevelType.Enemy] + "DefaultEnemies.xml"},
-        {LevelType.Shop, LevelDirectoryDict[LevelType.Shop] + "DefaultShops.xml"},
+        {LevelTypes.Enemy, LevelDirectoryDict[LevelTypes.Enemy] + "DefaultEnemies.xml"},
+        {LevelTypes.Shop, LevelDirectoryDict[LevelTypes.Shop] + "DefaultShops.xml"},
     };
 
-    public static SortedDictionary<LevelType, SortedDictionary<string, Level>> LevelDict = new SortedDictionary<LevelType, SortedDictionary<string, Level>>
+    public static SortedDictionary<LevelTypes, SortedDictionary<string, Level>> LevelDict = new SortedDictionary<LevelTypes, SortedDictionary<string, Level>>
     {
-        {LevelType.Enemy, new SortedDictionary<string, Level>()},
-        {LevelType.Shop, new SortedDictionary<string, Level>()},
+        {LevelTypes.Enemy, new SortedDictionary<string, Level>()},
+        {LevelTypes.Shop, new SortedDictionary<string, Level>()},
     };
 
-    public static Level GetLevel(LevelType levelType, string levelName, CloneVariantUtils.OperationType operationType)
+    public static Level GetLevel(LevelTypes levelType, string levelName, CloneVariantUtils.OperationType operationType)
     {
         if (LevelDict[levelType].ContainsKey(levelName))
         {
@@ -42,7 +42,7 @@ public class AllLevels
 
     public static void Reset()
     {
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in LevelDict)
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in LevelDict)
         {
             kv.Value.Clear();
         }
@@ -53,9 +53,9 @@ public class AllLevels
     public static void AddAllLevels()
     {
         Reset();
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in LevelDict)
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in LevelDict)
         {
-            LevelType levelType = kv.Key;
+            LevelTypes levelType = kv.Key;
             foreach (string path in Directory.GetFiles(LevelDirectoryDict[levelType], "*.xml"))
             {
                 string text;
@@ -93,88 +93,53 @@ public class AllLevels
         string Name_en = node_levelInfo.Attributes["name_en"].Value;
         SortedDictionary<string, string> names = new SortedDictionary<string, string> {{"zh", Name_zh}, {"en", Name_en}};
         int picID = int.Parse(node_levelInfo.Attributes["picID"].Value);
-        LevelType levelType = (LevelType) Enum.Parse(typeof(LevelType), node_levelInfo.Attributes["levelType"].Value);
+        LevelTypes levelType = (LevelTypes) Enum.Parse(typeof(LevelTypes), node_levelInfo.Attributes["levelType"].Value);
         LevelThemeCategory levelThemeType = (LevelThemeCategory) Enum.Parse(typeof(LevelThemeCategory), node_levelInfo.Attributes["levelThemeCategory"].Value);
+        int difficultyLevel = int.Parse(node_levelInfo.Attributes["difficultyLevel"].Value);
         switch (levelType)
         {
-            case LevelType.Enemy:
+            case LevelTypes.Enemy:
             {
                 XmlNode node_EnemyInfo = node_levelInfo.FirstChild;
                 EnemyType enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), node_EnemyInfo.Attributes["enemyType"].Value);
 
-                BuildInfo bi = BuildInfo.GetBuildInfoFromXML(node_EnemyInfo.FirstChild, out bool _needRefresh);
-
-                needRefresh |= _needRefresh;
+                BuildInfo bi = BuildInfo.GetBuildInfoFromXML(node_EnemyInfo.FirstChild, out bool _needRefresh_build, BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum);
+                needRefresh |= _needRefresh_build;
 
                 XmlNode node_BonusGroupInfos = node_EnemyInfo.ChildNodes.Item(1);
-                List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
-                List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
+                List<BonusGroup> BonusGroups = new List<BonusGroup>();
                 for (int i = 0; i < node_BonusGroupInfos.ChildNodes.Count; i++)
                 {
                     XmlNode bonusGroupInfo = node_BonusGroupInfos.ChildNodes.Item(i);
-                    BonusGroup bg = GetBonusGroupFromXML(bonusGroupInfo);
-
-                    if (bg.IsAlways)
-                    {
-                        AlwaysBonusGroup.Add(bg);
-                    }
-                    else
-                    {
-                        OptionalBonusGroup.Add(bg);
-                    }
+                    BonusGroup bg = BonusGroup.GenerateBonusGroupFromXML(bonusGroupInfo, out bool _needRefresh_bonus);
+                    needRefresh |= _needRefresh_bonus;
+                    BonusGroups.Add(bg);
                 }
 
-                Enemy enemy = new Enemy(levelThemeType, picID, names, bi, enemyType, 100, AlwaysBonusGroup, OptionalBonusGroup);
+                Enemy enemy = new Enemy(levelThemeType, picID, names, difficultyLevel, bi, enemyType, BonusGroups);
                 return enemy;
             }
-            case LevelType.Shop:
+            case LevelTypes.Shop:
             {
                 XmlNode node_ShopInfo = node_levelInfo.FirstChild;
                 List<ShopItem> shopItems = new List<ShopItem>();
                 for (int i = 0; i < node_ShopInfo.ChildNodes.Count; i++)
                 {
                     XmlNode node_ShopItem = node_ShopInfo.ChildNodes.Item(i);
-                    ShopItem si = ShopItem.GenerateShopItemFroXML(node_ShopItem, out bool _needRefresh);
-                    needRefresh |= _needRefresh;
+                    ShopItem si = ShopItem.GenerateShopItemFromXML(node_ShopItem, out bool _needRefresh_shop);
+                    needRefresh |= _needRefresh_shop;
                     if (si != null) shopItems.Add(si);
                 }
 
-                Shop shop = new Shop(levelThemeType, picID, names, shopItems);
+                int shopItemCardCount = int.Parse(node_ShopInfo.Attributes["shopItemCardCount"].Value);
+                int shopItemOthersCount = int.Parse(node_ShopInfo.Attributes["shopItemOthersCount"].Value);
+
+                Shop shop = new Shop(levelThemeType, picID, names, difficultyLevel, shopItems, shopItemCardCount, shopItemOthersCount);
                 return shop;
             }
         }
 
         return null;
-    }
-
-    public static BonusGroup GetBonusGroupFromXML(XmlNode bonusGroupInfo)
-    {
-        bool isAlways = bonusGroupInfo.Attributes["isAlways"].Value == "True";
-        List<Bonus> bonuses = new List<Bonus>();
-        int probability = 0;
-        bool singleton = false;
-        if (isAlways)
-        {
-            probability = 0;
-            singleton = true;
-        }
-        else
-        {
-            probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
-            singleton = bonusGroupInfo.Attributes["singleton"].Value == "True";
-        }
-
-        BonusGroup bg = new BonusGroup(isAlways, bonuses, probability, singleton);
-        for (int i = 0; i < bonusGroupInfo.ChildNodes.Count; i++)
-        {
-            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(i);
-            Bonus.BonusType bonusType = (Bonus.BonusType) Enum.Parse(typeof(Bonus.BonusType), bonusInfo.Attributes["name"].Value);
-            HardFactorValue bonusBaseValue = new HardFactorValue(int.Parse(bonusInfo.Attributes["value"].Value));
-            Bonus bonus = new Bonus(bonusType, bonusBaseValue, 100);
-            bg.Bonuses.Add(bonus);
-        }
-
-        return bg;
     }
 
     public static void ReloadLevelXML()
@@ -185,7 +150,7 @@ public class AllLevels
     public static void RefreshAllLevelXML()
     {
         List<Level> allLevels = new List<Level>();
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in LevelDict)
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in LevelDict)
         {
             foreach (KeyValuePair<string, Level> _kv in kv.Value)
             {
@@ -201,6 +166,7 @@ public class AllLevels
 
     public static void RefreshLevelXML(Level level)
     {
+        if (level == null) return;
         level = level.Clone();
         SortedDictionary<string, Level> dict = LevelDict[level.LevelType];
         if (dict.ContainsKey(level.LevelNames["en"]))
@@ -232,7 +198,7 @@ public class AllLevels
     /// <summary>
     /// Can only be executed in StoryEditor/CardEditor/LevelEditor
     /// </summary>
-    public static void DeleteLevel(LevelType levelType, string levelName_en)
+    public static void DeleteLevel(LevelTypes levelType, string levelName_en)
     {
         string text;
         using (StreamReader sr = new StreamReader(LevelDefaultXMLDict[levelType]))
@@ -297,6 +263,72 @@ public class AllLevels
                 }
             }
 
+            AllStories.RefreshStoryXML(story);
+            AllStories.ReloadStoryXML();
+        }
+    }
+
+    /// <summary>
+    /// Can only be executed in StoryEditor/CardEditor/LevelEditor
+    /// </summary>
+    public static void RenameLevel(LevelTypes levelType, string levelName_en_ori, Level newLevel)
+    {
+        string text;
+        using (StreamReader sr = new StreamReader(LevelDefaultXMLDict[levelType]))
+        {
+            text = sr.ReadToEnd();
+        }
+
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(text);
+        XmlElement allLevel = doc.DocumentElement;
+
+        SortedDictionary<string, XmlElement> levelNodesDict = new SortedDictionary<string, XmlElement>();
+        foreach (XmlElement node in allLevel.ChildNodes)
+        {
+            string name = node.Attributes["name_en"].Value;
+            if (name != levelName_en_ori && name != newLevel.LevelNames["en"])
+            {
+                levelNodesDict.Add(name, node);
+            }
+        }
+
+        allLevel.RemoveAll();
+        newLevel.ExportToXML(allLevel);
+
+        foreach (KeyValuePair<string, XmlElement> kv in levelNodesDict)
+        {
+            allLevel.AppendChild(kv.Value);
+        }
+
+        using (StreamWriter sw = new StreamWriter(LevelDefaultXMLDict[levelType]))
+        {
+            doc.Save(sw);
+        }
+
+        ReloadLevelXML();
+
+        // 从Story中移除该Level
+        HashSet<string> changeList = new HashSet<string>();
+
+        foreach (KeyValuePair<string, Story> kv in AllStories.StoryDict)
+        {
+            foreach (KeyValuePair<int, Chapter> _kv in kv.Value.Chapters)
+            {
+                foreach (KeyValuePair<int, Level> KV in _kv.Value.Levels)
+                {
+                    if (KV.Value.LevelNames["en"].Equals(levelName_en_ori))
+                    {
+                        changeList.Add(kv.Key);
+                        KV.Value.LevelNames["en"] = newLevel.LevelNames["en"];
+                    }
+                }
+            }
+        }
+
+        foreach (string storyName in changeList)
+        {
+            Story story = AllStories.StoryDict[storyName];
             AllStories.RefreshStoryXML(story);
             AllStories.ReloadStoryXML();
         }

@@ -12,8 +12,6 @@ public class ServerLog : ILog
 
     private Queue<Log> LogQueue { get; set; }
 
-    public ServerLogVerbosity ServerLogVerbosity;
-
     private void Print(string logStr, ConsoleColor consoleColor)
     {
         Log log = new Log(logStr, consoleColor);
@@ -34,9 +32,11 @@ public class ServerLog : ILog
         }
     }
 
+    public LogVerbosity LogVerbosity { get; set; }
+
     public void Print(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.Normal) == ServerLogVerbosity.Normal)
+        if ((LogVerbosity & LogVerbosity.Normal) == LogVerbosity.Normal)
         {
             Print(logStr, ConsoleColor.White);
         }
@@ -44,7 +44,7 @@ public class ServerLog : ILog
 
     public void PrintWarning(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.Warning) == ServerLogVerbosity.Warning)
+        if ((LogVerbosity & LogVerbosity.Warning) == LogVerbosity.Warning)
         {
             Print(logStr, ConsoleColor.Yellow);
         }
@@ -52,7 +52,7 @@ public class ServerLog : ILog
 
     public void PrintError(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.Error) == ServerLogVerbosity.Error)
+        if ((LogVerbosity & LogVerbosity.Error) == LogVerbosity.Error)
         {
             Print(logStr, ConsoleColor.Red);
         }
@@ -60,7 +60,7 @@ public class ServerLog : ILog
 
     public void PrintClientStates(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.ClientState) == ServerLogVerbosity.ClientState)
+        if ((LogVerbosity & LogVerbosity.ClientState) == LogVerbosity.ClientState)
         {
             Print(logStr, ConsoleColor.Green);
         }
@@ -68,7 +68,7 @@ public class ServerLog : ILog
 
     public void PrintServerStates(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.ServerState) == ServerLogVerbosity.ServerState)
+        if ((LogVerbosity & LogVerbosity.ServerState) == LogVerbosity.ServerState)
         {
             Print(logStr, ConsoleColor.DarkGray);
         }
@@ -76,7 +76,7 @@ public class ServerLog : ILog
 
     public void PrintReceive(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.Receive) == ServerLogVerbosity.Receive)
+        if ((LogVerbosity & LogVerbosity.Receive) == LogVerbosity.Receive)
         {
             Print(logStr, ConsoleColor.Blue);
         }
@@ -84,7 +84,7 @@ public class ServerLog : ILog
 
     public void PrintSend(string logStr)
     {
-        if ((ServerLogVerbosity & ServerLogVerbosity.Send) == ServerLogVerbosity.Send)
+        if ((LogVerbosity & LogVerbosity.Send) == LogVerbosity.Send)
         {
             Print(logStr, ConsoleColor.Magenta);
         }
@@ -101,19 +101,4 @@ public class Log : LogBase
         ConsoleColor = consoleColor;
         Time = DateTime.Now.ToLongTimeString();
     }
-}
-
-[Flags]
-public enum ServerLogVerbosity
-{
-    Normal,
-    Warning,
-    Error,
-    ClientState,
-    ServerState,
-    Send,
-    Receive,
-    All = Normal | Warning | Error | ClientState | ServerState | Send | Receive,
-    States = ClientState | ServerState,
-    StatesAndLog = Normal | Warning | Error | ClientState | ServerState,
 }

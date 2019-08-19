@@ -20,7 +20,7 @@ public class LevelPropertyForm_ShopItemTypeDropdown : PoolObject
 
     void Awake()
     {
-        ClientUtils.ChangeImagePicture(Pic, 1001);
+        ClientUtils.ChangeImagePicture(Pic, (int) AllCards.SpecialPicIDs.Shop);
         List<string> shopItemTypes = Enum.GetNames(typeof(ShopItem.ShopItemTypes)).ToList();
         TypeDropdown.ClearOptions();
         TypeDropdown.options.Add(new Dropdown.OptionData(" "));

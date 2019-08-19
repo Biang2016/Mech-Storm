@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,11 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
     void Awake()
     {
+        FontDict = new Dictionary<string, Font>
+        {
+            {"zh", ChineseFont},
+            {"en", EnglishFont},
+        };
         string playerPrefLanguage = PlayerPrefs.GetString("Language");
         if (LanguagesAbbrDict.ContainsKey(playerPrefLanguage))
         {
@@ -39,14 +45,6 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         {
             CurrentLanguage = DefaultLanguage;
         }
-
-        FontDict = new Dictionary<string, Font>
-        {
-            {"zh", ChineseFont},
-            {"en", EnglishFont},
-        };
-
-        SettingPanel sp = UIManager.Instance.GetBaseUIForm<SettingPanel>();
     }
 
     void Start()
@@ -65,10 +63,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         return CurrentLanguage;
     }
 
-    public bool IsEnglish
-    {
-        get { return CurrentLanguage.Equals("en"); }
-    }
+    public bool IsEnglish => CurrentLanguage.Equals("en");
 
     public SortedDictionary<string, string> LanguagesAbbrDict = new SortedDictionary<string, string>
     {
@@ -128,6 +123,8 @@ public class LanguageManager : MonoSingleton<LanguageManager>
     }
 
     private Dictionary<Text, string> TextKeyMap = new Dictionary<Text, string>();
+    private Dictionary<TextMeshProUGUI, string> TextKeyMap_TextMeshProUGUI = new Dictionary<TextMeshProUGUI, string>();
+    private Dictionary<TextMeshPro, string> TextKeyMap_TextMeshPro = new Dictionary<TextMeshPro, string>();
     private Dictionary<string, Font> FontDict;
     private HashSet<Text> TextFontBindingList = new HashSet<Text>();
     private Dictionary<Text, Dictionary<string, FontStyle>> TextFontStyleMap = new Dictionary<Text, Dictionary<string, FontStyle>>();
@@ -137,6 +134,24 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         if (text)
         {
             TextKeyMap[text] = s;
+            text.text = GetText(s);
+        }
+    }
+
+    public void RegisterTextKey(TextMeshProUGUI text, string s)
+    {
+        if (text)
+        {
+            TextKeyMap_TextMeshProUGUI[text] = s;
+            text.text = GetText(s);
+        }
+    }
+
+    public void RegisterTextKey(TextMeshPro text, string s)
+    {
+        if (text)
+        {
+            TextKeyMap_TextMeshPro[text] = s;
             text.text = GetText(s);
         }
     }
@@ -158,6 +173,28 @@ public class LanguageManager : MonoSingleton<LanguageManager>
             if (TextFontStyleMap.ContainsKey(text))
             {
                 TextFontStyleMap.Remove(text);
+            }
+        }
+    }
+
+    public void UnregisterText(TextMeshProUGUI text)
+    {
+        if (text)
+        {
+            if (TextKeyMap_TextMeshProUGUI.ContainsKey(text))
+            {
+                TextKeyMap_TextMeshProUGUI.Remove(text);
+            }
+        }
+    }
+
+    public void UnregisterText(TextMeshPro text)
+    {
+        if (text)
+        {
+            if (TextKeyMap_TextMeshPro.ContainsKey(text))
+            {
+                TextKeyMap_TextMeshPro.Remove(text);
             }
         }
     }
@@ -230,6 +267,32 @@ public class LanguageManager : MonoSingleton<LanguageManager>
                 }
             }
 
+            foreach (KeyValuePair<TextMeshProUGUI, string> kv in TextKeyMap_TextMeshProUGUI)
+            {
+                CurrentLanguageDict.TryGetValue(kv.Value, out string text);
+                if (text != null)
+                {
+                    kv.Key.text = text;
+                }
+                else
+                {
+                    ClientLog.Instance.PrintWarning("LanguageKey [" + kv.Value + "] not exists --SetLanguage()");
+                }
+            }
+
+            foreach (KeyValuePair<TextMeshPro, string> kv in TextKeyMap_TextMeshPro)
+            {
+                CurrentLanguageDict.TryGetValue(kv.Value, out string text);
+                if (text != null)
+                {
+                    kv.Key.text = text;
+                }
+                else
+                {
+                    ClientLog.Instance.PrintWarning("LanguageKey [" + kv.Value + "] not exists --SetLanguage()");
+                }
+            }
+
             foreach (Text text in TextFontBindingList)
             {
                 if (text != null)
@@ -248,6 +311,7 @@ public class LanguageManager : MonoSingleton<LanguageManager>
 
             UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshCardTextLanguage();
             UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshSelectCardTextLanguage();
+            UIManager.Instance.GetBaseUIForm<ShopPanel>()?.OnLanguageChange();
             BattleManager.Instance?.SetLanguage(languageShort);
         }
     }

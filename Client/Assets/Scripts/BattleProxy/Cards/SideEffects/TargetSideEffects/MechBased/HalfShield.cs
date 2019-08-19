@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class HalfShield : TargetSideEffect
+    public class HalfShield : TargetSideEffect, IWeaken
     {
         public HalfShield()
         {

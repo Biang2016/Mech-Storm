@@ -25,6 +25,7 @@ public class StartMenuButton : PoolObject
     void Awake()
     {
         TipImageSpriteDict.Add(TipImageType.NewCard, (NewCardSprite, "StartMenu_NewCardTipText"));
+        SetTipImageTextShow(false);
     }
 
     public override void PoolRecycle()
@@ -33,6 +34,7 @@ public class StartMenuButton : PoolObject
         LanguageManager.Instance.UnregisterText(Text);
         LanguageManager.Instance.UnregisterText(TipText);
         LanguageManager.Instance.UnregisterText(TipImageText);
+        SetTipImageTextShow(false);
     }
 
     public void BindTextKey(string textKey, string tipTextKey, UnityAction buttonClick, TipImageType tipImageType)
@@ -47,8 +49,7 @@ public class StartMenuButton : PoolObject
         if (buttonClick != null) Button.onClick.AddListener(buttonClick);
         if (tipImageType == TipImageType.None)
         {
-            TipImage.gameObject.SetActive(false);
-            TipImageText.gameObject.SetActive(false);
+            SetTipImageTextShow(false);
         }
         else
         {

@@ -98,8 +98,8 @@ public class BattleGroundManager : MonoBehaviour
         HeroCount = 0;
         SoldierCount = 0;
         RemoveMechs.Clear();
-        addPrePassMechQueue.Clear();
-        clientMechTempId = 0;
+        AddPrePassMechQueue.Clear();
+        CLIENT_TEMP_ID = -100;
         relatedSlots.Clear();
         if (currentSummonPreviewMechCard) currentSummonPreviewMechCard.PoolRecycle();
         if (CurrentSummonPreviewMech) CurrentSummonPreviewMech.PoolRecycle();
@@ -144,20 +144,17 @@ public class BattleGroundManager : MonoBehaviour
     public ModuleMech AddMech_PrePass(CardInfo_Mech mechCardInfo, int mechId, int clientMechTempId)
     {
         if (ClientPlayer == null) return null;
-        if (previewMechPlace != PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW)
-        {
-            previewMechPlace = PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW;
-        }
+        previewMechPlace = PREVIEW_MECH_PLACES_NO_PREVIEW_MECH_NOW;
 
         bool isSummonedBeforeByPreview = false;
-        if (clientMechTempId >= 0)
+        if (clientMechTempId != (int) Const.SpecialMechID.ClientTempMechIDNormal)
         {
             foreach (ModuleMech moduleMech in Mechs)
             {
                 if (moduleMech.M_ClientTempMechID == clientMechTempId) //匹配
                 {
                     moduleMech.M_MechID = mechId; //赋予正常ID
-                    moduleMech.M_ClientTempMechID = Const.CLIENT_TEMP_MECH_ID_NORMAL; //恢复普通
+                    moduleMech.M_ClientTempMechID = (int) Const.SpecialMechID.ClientTempMechIDNormal; //恢复普通
                     isSummonedBeforeByPreview = true;
                     break;
                 }
@@ -171,7 +168,7 @@ public class BattleGroundManager : MonoBehaviour
             mech.Initiate(mechCardInfo, ClientPlayer);
             mech.transform.Rotate(Vector3.up, 180);
             mech.M_MechID = mechId;
-            addPrePassMechQueue.Enqueue(mech);
+            AddPrePassMechQueue.Enqueue(mech);
             MechCount++;
             if (!mechCardInfo.MechInfo.IsSoldier)
             {
@@ -188,7 +185,7 @@ public class BattleGroundManager : MonoBehaviour
         return null;
     }
 
-    private Queue<ModuleMech> addPrePassMechQueue = new Queue<ModuleMech>();
+    private Queue<ModuleMech> AddPrePassMechQueue = new Queue<ModuleMech>();
 
     public void AddMech(int mechPlaceIndex)
     {
@@ -237,8 +234,6 @@ public class BattleGroundManager : MonoBehaviour
                 {
                     Soldiers.Remove(mech);
                 }
-
-                ClientLog.Instance.Print("remove:" + mech.M_MechID);
             }
         }
     }
@@ -300,14 +295,12 @@ public class BattleGroundManager : MonoBehaviour
 
     #region 能指定目标的机甲的预召唤
 
-    private static int clientMechTempId = 0;
+    private static int CLIENT_TEMP_ID = -100;
 
-    public static int GenerateClientMechTempId()
+    private static int GenerateClientMechTempId()
     {
-        return clientMechTempId++;
+        return CLIENT_TEMP_ID--;
     }
-
-    public delegate void SummonMechTarget(int targetMechId, bool isClientMechTempId = false);
 
     private CardMech currentSummonPreviewMechCard;
     internal ModuleMech CurrentSummonPreviewMech;
@@ -315,27 +308,26 @@ public class BattleGroundManager : MonoBehaviour
     public void SummonMechPreview(CardMech mechCard, int mechPlaceIndex, TargetRange targetRange) //用于具有指定目标的副作用的机甲的召唤预览、显示指定箭头
     {
         currentSummonPreviewMechCard = mechCard;
-        ModuleMech mech = AddMech_PrePass((CardInfo_Mech) mechCard.CardInfo, (int) ModuleMech.MechID.Empty, (int) Const.CLIENT_TEMP_MECH_ID_NORMAL);
+        ModuleMech mech = AddMech_PrePass((CardInfo_Mech) mechCard.CardInfo, (int) Const.SpecialMechID.Empty, (int) Const.SpecialMechID.ClientTempMechIDNormal);
         CurrentSummonPreviewMech = mech;
         AddMech(mechPlaceIndex);
-        DragManager.Instance.SummonMechTargetHandler = SummonMechTargetConfirm;
-        DragManager.Instance.StartArrowAiming(mech, targetRange);
+        DragManager.Instance.StartSummonMechTargetArrowAiming(mech, targetRange);
     }
 
-    public void SummonMechTargetConfirm(int targetMechId, bool isClientMechTempId)
+    public void SummonMechTargetConfirm(List<int> targetMechIds, List<bool> isTargetMechIdTempIds)
     {
-        if (targetMechId == DragManager.TARGET_SELECT_NONE) //未选择目标
+        if (targetMechIds == null && isTargetMechIdTempIds == null)
         {
-            RemoveMech((int) ModuleMech.MechID.Empty);
+            RemoveMech((int) Const.SpecialMechID.Empty);
             ClientPlayer.BattlePlayer.HandManager.CancelSummonMechPreview();
         }
         else
         {
-            StartCoroutine(Co_RetrySummonRequest(CurrentSummonPreviewMech, currentSummonPreviewMechCard.M_CardInstanceId, targetMechId, isClientMechTempId));
+            StartCoroutine(Co_RetrySummonRequest(CurrentSummonPreviewMech, currentSummonPreviewMechCard.M_CardInstanceId, targetMechIds, isTargetMechIdTempIds));
         }
     }
 
-    IEnumerator Co_RetrySummonRequest(ModuleMech mech, int cardInstanceId, int targetMechId, bool isClientMechTempId)
+    IEnumerator Co_RetrySummonRequest(ModuleMech mech, int cardInstanceId, List<int> targetMechIds, List<bool> isTargetMechIdTempIds)
     {
         while (true)
         {
@@ -344,7 +336,7 @@ public class BattleGroundManager : MonoBehaviour
             if (battleGroundIndex != -1)
             {
                 mech.M_ClientTempMechID = GenerateClientMechTempId();
-                SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, cardInstanceId, battleGroundIndex, targetMechId, isClientMechTempId, mech.M_ClientTempMechID);
+                SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, cardInstanceId, battleGroundIndex, mech.M_ClientTempMechID, targetMechIds, isTargetMechIdTempIds);
                 Client.Instance.Proxy.SendMessage(request);
                 break;
             }
@@ -389,7 +381,7 @@ public class BattleGroundManager : MonoBehaviour
         bool isAddMech = mechPlaceIndex != (int) BattleGroundManager.mechPlaceIndex.NoNewMech;
         if (isAddMech) //新增机甲
         {
-            ModuleMech mech = addPrePassMechQueue.Dequeue();
+            ModuleMech mech = AddPrePassMechQueue.Dequeue();
 
             Mechs.Insert(mechPlaceIndex, mech);
             if (mech.CardInfo.MechInfo.IsSoldier)
@@ -650,7 +642,7 @@ public class BattleGroundManager : MonoBehaviour
             }
         }
 
-        foreach (ModuleMech moduleMech in addPrePassMechQueue) //预加载的机甲也要遍历一遍
+        foreach (ModuleMech moduleMech in AddPrePassMechQueue) //预加载的机甲也要遍历一遍
         {
             if (moduleMech.M_MechID == mechId)
             {
@@ -674,7 +666,7 @@ public class BattleGroundManager : MonoBehaviour
             }
         }
 
-        foreach (ModuleMech moduleMech in addPrePassMechQueue) //预加载的机甲也要遍历一遍
+        foreach (ModuleMech moduleMech in AddPrePassMechQueue) //预加载的机甲也要遍历一遍
         {
             if (moduleMech.M_MechID == mechId)
             {

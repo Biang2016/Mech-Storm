@@ -114,17 +114,23 @@ public class CardMech : CardBase
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleMech, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
+
+        if (DragManager.Instance.IsCanceling)
+        {
+            DragManager.Instance.IsCanceling = false;
+            CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
+            return;
+        }
+
         if (!CardInfo.TargetInfo.HasTargetMech) //无指定目标的副作用
         {
             if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //脱手即出牌
             {
-                summonMech(dragLastPosition, Const.TARGET_MECH_SELECT_NONE);
+                summonMech(dragLastPosition);
             }
-            else
+            else //如果脱手地方还在手中，则收回
             {
-                ClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechPreview();
-                transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-                ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
             }
         }
         else
@@ -135,17 +141,22 @@ public class CardMech : CardBase
             }
             else
             {
-                ClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechPreview();
-                transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
-                ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
             }
         }
+    }
+
+    private void CancelPlayOut(Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    {
+        ClientPlayer.BattlePlayer.BattleGroundManager.RemoveMechPreview();
+        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion);
+        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
     }
 
     #region 卡牌效果
 
     //召唤机甲
-    private void summonMech(Vector3 dragLastPosition, int targetMechId)
+    private void summonMech(Vector3 dragLastPosition)
     {
         if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsFull)
         {
@@ -154,7 +165,7 @@ public class CardMech : CardBase
         }
 
         int aliveIndex = ClientPlayer.BattlePlayer.BattleGroundManager.ComputePositionInAliveMechs(dragLastPosition);
-        SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, aliveIndex, targetMechId, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
+        SummonMechRequest request = new SummonMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, aliveIndex, (int) Const.SpecialMechID.ClientTempMechIDNormal, null, null);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }
@@ -172,7 +183,7 @@ public class CardMech : CardBase
 
         if (ClientPlayer.BattlePlayer.BattleGroundManager.BattleGroundIsEmpty) //场上为空直接召唤
         {
-            summonMech(dragLastPosition, Const.TARGET_MECH_SELECT_NONE);
+            summonMech(dragLastPosition);
         }
         else //预览
         {

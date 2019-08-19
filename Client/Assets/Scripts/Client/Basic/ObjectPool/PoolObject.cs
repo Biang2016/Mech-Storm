@@ -3,22 +3,20 @@ using UnityEngine;
 
 public class PoolObject : MonoBehaviour
 {
-    private GameObjectPool m_Pool;
+    private GameObjectPool Pool { get; set; }
 
-    public GameObjectPool Pool
-    {
-        get { return m_Pool; }
-    }
+    internal bool IsRecycled = false;
 
     public void SetObjectPool(GameObjectPool pool)
     {
-        m_Pool = pool;
+        Pool = pool;
     }
 
     public virtual void PoolRecycle()
     {
         transform.DOPause();
-        m_Pool.RecycleGameObject(this);
+        Pool.RecycleGameObject(this);
+        IsRecycled = true;
     }
 
     public void SoundPlay(string path)

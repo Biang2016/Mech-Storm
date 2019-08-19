@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -15,7 +16,6 @@ public static class AllCards
 
     public static SortedDictionary<int, CardInfo_Base> CardDict = new SortedDictionary<int, CardInfo_Base>();
     public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict = new SortedDictionary<int, List<CardInfo_Base>>();
-    public static SortedDictionary<int, List<CardInfo_Base>> CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>(); //某等级的卡片还剩哪些还没解锁
 
     [JsonConverter(typeof(StringEnumConverter))]
     public enum EmptyCardTypes
@@ -28,7 +28,6 @@ public static class AllCards
     {
         CardDict.Clear();
         CardLevelDict.Clear();
-        CardLevelDict_Remain.Clear();
     }
 
     private static void addCard(CardInfo_Base cardInfo)
@@ -49,12 +48,10 @@ public static class AllCards
                 if (!CardLevelDict.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
                 {
                     CardLevelDict.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
-                    CardLevelDict_Remain.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
                 }
                 else
                 {
                     CardLevelDict[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
-                    CardLevelDict_Remain[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
                 }
             }
         }
@@ -68,9 +65,9 @@ public static class AllCards
         }
 
         CardInfo_Base res = null;
-        if (CardLevelDict_Remain.ContainsKey(levelNum))
+        if (CardLevelDict.ContainsKey(levelNum))
         {
-            List<CardInfo_Base> levelCards = CardLevelDict_Remain[levelNum];
+            List<CardInfo_Base> levelCards = CloneVariantUtils.List(CardLevelDict[levelNum]);
             List<CardInfo_Base> removeLevelCards = new List<CardInfo_Base>();
             foreach (CardInfo_Base cb in levelCards)
             {
@@ -94,32 +91,115 @@ public static class AllCards
         return res == null ? res : res.Clone();
     }
 
-    public static void ResetCardLevelDictRemain(List<int> unlockedCards)
+    public static List<int> GetRandomCardInfoByCardFilterType(CardFilterTypes cardFilterType, int count)
     {
-        CardLevelDict_Remain = new SortedDictionary<int, List<CardInfo_Base>>();
-        foreach (KeyValuePair<int, List<CardInfo_Base>> kv in CardLevelDict)
+        switch (cardFilterType)
         {
-            foreach (CardInfo_Base cardInfo in kv.Value)
+            case CardFilterTypes.All:
             {
-                if (!CardLevelDict_Remain.ContainsKey(cardInfo.BaseInfo.CardRareLevel))
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
                 {
-                    CardLevelDict_Remain.Add(cardInfo.BaseInfo.CardRareLevel, new List<CardInfo_Base> {cardInfo});
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    cardIds.Add(kv.Key);
                 }
-                else
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+            case CardFilterTypes.SoldierMech:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
                 {
-                    CardLevelDict_Remain[cardInfo.BaseInfo.CardRareLevel].Add(cardInfo);
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Mech && kv.Value.MechInfo.IsSoldier)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
                 }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+            case CardFilterTypes.HeroMech:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Mech && !kv.Value.MechInfo.IsSoldier)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+
+            case CardFilterTypes.Equip:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Equip)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+
+            case CardFilterTypes.Spell:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Spell)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
+            }
+
+            case CardFilterTypes.Energy:
+            {
+                List<int> cardIds = new List<int>();
+                foreach (KeyValuePair<int, CardInfo_Base> kv in CardDict)
+                {
+                    if (kv.Value.CardID == (int) EmptyCardTypes.EmptyCard) continue;
+                    if (kv.Value.CardID == (int) EmptyCardTypes.NoCard) continue;
+                    if (kv.Value.BaseInfo.IsHide || kv.Value.BaseInfo.IsTemp) continue;
+                    if (kv.Value.BaseInfo.CardType == CardTypes.Energy)
+                    {
+                        cardIds.Add(kv.Key);
+                    }
+                }
+
+                List<int> res = Utils.GetRandomFromList(cardIds, count);
+                return res;
             }
         }
 
-        foreach (int id in unlockedCards)
-        {
-            CardInfo_Base cb = CardDict[id];
-            if (CardLevelDict_Remain.ContainsKey(cb.BaseInfo.CardRareLevel))
-            {
-                CardLevelDict_Remain[cb.BaseInfo.CardRareLevel].Remove(cb);
-            }
-        }
+        return null;
     }
 
     public static void ReloadCardXML()
@@ -173,6 +253,7 @@ public static class AllCards
             MAInfo maInfo = new MAInfo();
 
             SideEffectBundle sideEffectBundle = new SideEffectBundle();
+            SideEffectBundle sideEffectBundle_BattleGroundAura = new SideEffectBundle();
 
             for (int j = 0; j < node_Card.ChildNodes.Count; j++)
             {
@@ -198,6 +279,7 @@ public static class AllCards
                             effectFactor: 1,
                             limitNum: int.Parse(node_CardInfo.Attributes["limitNum"].Value),
                             cardRareLevel: int.Parse(node_CardInfo.Attributes["cardRareLevel"].Value),
+                            shopPrice: int.Parse(node_CardInfo.Attributes["shopPrice"].Value),
                             cardType: (CardTypes) Enum.Parse(typeof(CardTypes), node_CardInfo.Attributes["cardType"].Value));
                         break;
                     case "upgradeInfo":
@@ -217,8 +299,8 @@ public static class AllCards
                     case "battleInfo":
                         battleInfo = new BattleInfo(
                             basicAttack: int.Parse(node_CardInfo.Attributes["basicAttack"].Value),
-                            basicArmor: int.Parse(node_CardInfo.Attributes["basicShield"].Value),
-                            basicShield: int.Parse(node_CardInfo.Attributes["basicArmor"].Value));
+                            basicArmor: int.Parse(node_CardInfo.Attributes["basicArmor"].Value),
+                            basicShield: int.Parse(node_CardInfo.Attributes["basicShield"].Value));
                         break;
                     case "mechInfo":
                         mechInfo = new MechInfo(
@@ -227,6 +309,7 @@ public static class AllCards
                             isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
                             isCharger: node_CardInfo.Attributes["isCharger"].Value == "True",
                             isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
+                            isSentry: node_CardInfo.Attributes["isSentry"].Value == "True",
                             slot1: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot1"].Value),
                             slot2: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot2"].Value),
                             slot3: (SlotTypes) Enum.Parse(typeof(SlotTypes), node_CardInfo.Attributes["slot3"].Value),
@@ -254,8 +337,7 @@ public static class AllCards
                         packInfo = new PackInfo(
                             isFrenzy: node_CardInfo.Attributes["isFrenzy"].Value == "True",
                             isDefense: node_CardInfo.Attributes["isDefense"].Value == "True",
-                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True",
-                            dodgeProp: int.Parse(node_CardInfo.Attributes["dodgeProp"].Value)
+                            isSniper: node_CardInfo.Attributes["isSniper"].Value == "True"
                         );
                         equipInfo = new EquipInfo(SlotTypes.Pack);
                         break;
@@ -272,6 +354,11 @@ public static class AllCards
                         ExtractSideEffectBundle(baseInfo.CardType, node_CardInfo, sideEffectBundle);
                         break;
                     }
+                    case "sideEffectsBundle_Aura":
+                    {
+                        ExtractSideEffectBundle(baseInfo.CardType, node_CardInfo, sideEffectBundle_BattleGroundAura);
+                        break;
+                    }
                 }
             }
 
@@ -285,7 +372,8 @@ public static class AllCards
                         lifeInfo: lifeInfo,
                         battleInfo: battleInfo,
                         mechInfo: mechInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
                 case CardTypes.Equip:
                     addCard(new CardInfo_Equip(
@@ -297,21 +385,24 @@ public static class AllCards
                         shieldInfo: shieldInfo,
                         packInfo: packInfo,
                         maInfo: maInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
                 case CardTypes.Spell:
                     addCard(new CardInfo_Spell(
                         cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
                 case CardTypes.Energy:
                     addCard(new CardInfo_Spell(
                         cardID: cardID,
                         baseInfo: baseInfo,
                         upgradeInfo: upgradeInfo,
-                        sideEffectBundle: sideEffectBundle));
+                        sideEffectBundle: sideEffectBundle,
+                        sideEffectBundle_BattleGroundAura: sideEffectBundle_BattleGroundAura));
                     break;
             }
         }
@@ -663,7 +754,7 @@ public static class AllCards
 
         //Levels
         List<Level> refreshLevel = new List<Level>();
-        foreach (KeyValuePair<LevelType, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
+        foreach (KeyValuePair<LevelTypes, SortedDictionary<string, Level>> kv in AllLevels.LevelDict)
         {
             foreach (KeyValuePair<string, Level> _kv in kv.Value)
             {
@@ -858,5 +949,47 @@ public static class AllCards
     public static CardInfo_Base GetDegradeCardInfo(int cardId)
     {
         return GetDegradeCardInfo(GetCard(cardId));
+    }
+
+    public static int GetPicIDByCardID(int cardID)
+    {
+        CardDict.TryGetValue(cardID, out CardInfo_Base ci);
+        if (ci != null)
+        {
+            return ci.BaseInfo.PictureID;
+        }
+        else
+        {
+            return (int) SpecialPicIDs.Empty;
+        }
+    }
+
+    public static string GetCardNameByCardID(int cardID)
+    {
+        CardDict.TryGetValue(cardID, out CardInfo_Base ci);
+        if (ci != null)
+        {
+            return ci.BaseInfo.CardNames[LanguageManager_Common.GetCurrentLanguage()];
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public enum SpecialPicIDs
+    {
+        LockedEmeny = 1000,
+        Shop = 1001,
+        LockedShop = 1002,
+        LockedBoss = 1003,
+        Empty = 1004,
+        Treasure = 1005,
+        Rest = 1006,
+        Skills = 1007,
+        Budget = 1008,
+        LifeUpperLimit = 1009,
+        EnergyUpperLimit = 1010,
+        LevelCards = 1011,
     }
 }

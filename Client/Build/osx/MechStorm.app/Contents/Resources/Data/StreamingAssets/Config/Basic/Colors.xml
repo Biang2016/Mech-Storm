@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <AllColors>
   <Color name="SoldierCardColor" color="#505050" intensity="1.7"></Color>
@@ -34,7 +34,7 @@
 
   <Color name="BuildButtonEditColor" color="#FF4B00" intensity="1"></Color>
   <Color name="BuildButtonDefaultColor" color="#858585" intensity="1"></Color>
-  
+
   <Color name="SelfMetalBarColor" color="#9E00FF" intensity="1"></Color>
   <Color name="EnemyMetalBarColor" color="#9E00FF" intensity="1"></Color>
   <Color name="SelfCardDeckCardColor" color="#69B1FF" intensity="1"></Color>

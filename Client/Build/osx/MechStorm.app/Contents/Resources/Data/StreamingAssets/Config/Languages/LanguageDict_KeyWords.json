@@ -7,6 +7,10 @@
 		"zh": "亡语",
 		"en": "Die"
 	},
+	"TriggerTime_Auro": {
+		"zh": "光环",
+		"en": "Auro"
+	},
 
 	"TriggerTime_WhenAttack": {
 		"zh": "进攻时,",
@@ -19,7 +23,7 @@
 
 	"TriggerTime_Disposable": {
 		"zh": "移除",
-		"en": "Disposable. "
+		"en": "Disposable"
 	},
 
 	"KeyWords_Frenzy": {

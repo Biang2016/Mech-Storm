@@ -10,5 +10,5 @@ public interface ITrigger
     /// 由具体实现的TriggerSEE来决定自己是否被触发（PeekSEE可作为参考依据）
     /// </summary>
     /// <returns></returns>
-    bool IsTrigger();
+    bool IsTrigger(ExecutorInfo ei);
 }

@@ -72,27 +72,13 @@ public class AffixPanel : BaseUIForm
         Affixes.Clear();
     }
 
-    private void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
+    private static void GetAffixTypeByCardInfo(HashSet<AffixType> affixTypes, CardInfo_Base cardInfo)
     {
-        foreach (SideEffectExecute see in cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
+        GetAffixTypeFromSideEffectBundle(affixTypes, cardInfo.SideEffectBundle);
+        if (cardInfo.HasAuro)
         {
-            foreach (SideEffectBase se in see.SideEffectBases)
-            {
-                if (se is Exile_Base)
-                {
-                    affixTypes.Add(AffixType.Disposable);
-                }
-            }
-        }
-
-        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechDie, SideEffectExecute.TriggerRange.Self).Count != 0)
-        {
-            affixTypes.Add(AffixType.Die);
-        }
-
-        if (cardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechSummon, SideEffectExecute.TriggerRange.Self).Count != 0)
-        {
-            affixTypes.Add(AffixType.BattleCry);
+            affixTypes.Add(AffixType.Aura);
+            GetAffixTypeFromSideEffectBundle(affixTypes, cardInfo.SideEffectBundle_BattleGroundAura);
         }
 
         if (cardInfo.MechInfo.IsFrenzy || cardInfo.WeaponInfo.IsFrenzy || cardInfo.PackInfo.IsFrenzy || cardInfo.MAInfo.IsFrenzy)
@@ -115,7 +101,7 @@ public class AffixPanel : BaseUIForm
             affixTypes.Add(AffixType.Charger);
         }
 
-        if (cardInfo.WeaponInfo.IsSentry)
+        if (cardInfo.MechInfo.IsSentry || cardInfo.WeaponInfo.IsSentry)
         {
             affixTypes.Add(AffixType.Sentry);
         }
@@ -175,13 +161,29 @@ public class AffixPanel : BaseUIForm
                 affixTypes.Add(AffixType.SniperGun);
             }
         }
+    }
 
-        if (cardInfo.BaseInfo.CardType == CardTypes.Equip && cardInfo.EquipInfo.SlotType == SlotTypes.Pack)
+    private static void GetAffixTypeFromSideEffectBundle(HashSet<AffixType> affixTypes, SideEffectBundle seb)
+    {
+        foreach (SideEffectExecute see in seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
         {
-            if (cardInfo.PackInfo.DodgeProp != 0)
+            foreach (SideEffectBase se in see.SideEffectBases)
             {
-                affixTypes.Add(AffixType.Dodge);
+                if (se is Exile_Base)
+                {
+                    affixTypes.Add(AffixType.Disposable);
+                }
             }
+        }
+
+        if (seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechDie, SideEffectExecute.TriggerRange.Self).Count != 0)
+        {
+            affixTypes.Add(AffixType.Die);
+        }
+
+        if (seb.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnMechSummon, SideEffectExecute.TriggerRange.Self).Count != 0)
+        {
+            affixTypes.Add(AffixType.BattleCry);
         }
     }
 
@@ -198,7 +200,7 @@ public class AffixPanel : BaseUIForm
         }
     }
 
-    private void ShowAffixPanel(HashSet<AffixType> affixTypes)
+    public void ShowAffixPanel(HashSet<AffixType> affixTypes)
     {
         if (affixTypes.Count == 0)
         {

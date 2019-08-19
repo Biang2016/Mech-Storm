@@ -114,7 +114,10 @@ public class DragComponent : MonoBehaviour
                     isBegin = true;
                     if (DragManager.Instance.CurrentArrow) DragManager.Instance.CurrentArrow.PoolRecycle();
                     isOnDrag = value;
-                    MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+                    if ((MouseHoverManager.Instance.M_StateMachine.GetState() & MouseHoverManager.StateMachine.States.BattleSpecial) != 0)
+                    {
+                        MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+                    }
                 }
                 else
                 {

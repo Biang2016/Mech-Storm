@@ -20,6 +20,7 @@ public class CardNoticeComponent : CardComponentBase
     {
         None,
         Upgrade,
+        StorageIncrease,
     }
 
     public void SetBannerType(BannerTypes bannerType)
@@ -31,7 +32,7 @@ public class CardNoticeComponent : CardComponentBase
                 break;
             case BannerTypes.NewCard:
                 BannerBlock.SetActive(true);
-                BannerText.text = LanguageManager.Instance.GetText("CardBase_NewCardBanner");
+                LanguageManager.Instance.RegisterTextKey(BannerText, "CardBase_NewCardBanner");
                 break;
         }
     }
@@ -46,6 +47,10 @@ public class CardNoticeComponent : CardComponentBase
             case ArrowTypes.Upgrade:
                 ArrowBlock.SetActive(true);
                 ArrowText.text = LanguageManager.Instance.GetText("CardBase_Upgradable");
+                break;
+            case ArrowTypes.StorageIncrease:
+                ArrowBlock.SetActive(true);
+                ArrowText.text = LanguageManager.Instance.GetText("CardBase_StorageIncrease");
                 break;
         }
     }

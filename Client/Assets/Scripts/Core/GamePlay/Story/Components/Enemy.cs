@@ -5,29 +5,27 @@ public class Enemy : Level
 {
     public BuildInfo BuildInfo;
     public EnemyType EnemyType;
-    private int hardFactor;
-    public List<BonusGroup> AlwaysBonusGroup;
-    public List<BonusGroup> OptionalBonusGroup;
+    public List<BonusGroup> BonusGroups;
 
-    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, BuildInfo buildInfo, EnemyType enemyType, int hardFactor, List<BonusGroup> alwaysBonusGroup, List<BonusGroup> optionalBonusGroup)
-        : base(LevelType.Enemy, levelThemeCategory, levelPicID, levelNames)
+    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType,  List<BonusGroup> bonusGroups)
+        : base(LevelTypes.Enemy, levelThemeCategory, levelPicID, levelNames, difficultyLevel)
     {
         BuildInfo = buildInfo;
         EnemyType = enemyType;
-        this.hardFactor = hardFactor;
-        AlwaysBonusGroup = alwaysBonusGroup;
-        OptionalBonusGroup = optionalBonusGroup;
+        BonusGroups = bonusGroups;
     }
 
     public override Level Clone()
     {
-        return new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), BuildInfo.Clone(), EnemyType, hardFactor, CloneVariantUtils.List(AlwaysBonusGroup), CloneVariantUtils.List(OptionalBonusGroup));
+        Enemy enemy = new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, BuildInfo.Clone(), EnemyType, CloneVariantUtils.List(BonusGroups));
+        enemy.LevelID = LevelID;
+        return enemy;
     }
 
     public override Level Variant()
     {
         //TODO
-        return null;
+        return Clone();
     }
 
     /// <summary>
@@ -56,12 +54,7 @@ public class Enemy : Level
         XmlElement bonusGroupInfos_ele = doc.CreateElement("BonusGroupInfos");
         enemy_ele.AppendChild(bonusGroupInfos_ele);
 
-        foreach (BonusGroup bg in AlwaysBonusGroup)
-        {
-            bg.ExportToXML(bonusGroupInfos_ele);
-        }
-
-        foreach (BonusGroup bg in OptionalBonusGroup)
+        foreach (BonusGroup bg in BonusGroups)
         {
             bg.ExportToXML(bonusGroupInfos_ele);
         }
@@ -72,18 +65,16 @@ public class Enemy : Level
         base.Serialize(writer);
         BuildInfo.Serialize(writer);
         writer.WriteSInt32((int) EnemyType);
-        writer.WriteSInt32(hardFactor);
 
-        writer.WriteSInt32(AlwaysBonusGroup.Count);
-        foreach (BonusGroup bonus in AlwaysBonusGroup)
+        writer.WriteSInt32(BonusGroups.Count);
+        foreach (BonusGroup bonus in BonusGroups)
         {
             bonus.Serialize(writer);
         }
+    }
 
-        writer.WriteSInt32(OptionalBonusGroup.Count);
-        foreach (BonusGroup bonus in OptionalBonusGroup)
-        {
-            bonus.Serialize(writer);
-        }
+    public static string GetEnemyTypeDesc(EnemyType enemyType)
+    {
+        return LanguageManager_Common.GetText("EnemyType_" + enemyType);
     }
 }

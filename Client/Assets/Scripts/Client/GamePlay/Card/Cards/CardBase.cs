@@ -47,8 +47,8 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         CardShowModeComponentList.Add(CardShowMode.CardUpgradePreview,
             new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock, CardComponentTypes.Notice, CardComponentTypes.SelectCount});
         CardShowModeComponentList.Add(CardShowMode.SelectedCardPreview, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars, CardComponentTypes.CoinBlock});
-        CardShowModeComponentList.Add(CardShowMode.CardReward, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.CostBlock, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
-        CardShowModeComponentList.Add(CardShowMode.CardUpgradeAnim, new List<CardComponentTypes> {CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
+        CardShowModeComponentList.Add(CardShowMode.CardReward, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
+        CardShowModeComponentList.Add(CardShowMode.CardUpgradeAnim, new List<CardComponentTypes> {CardComponentTypes.Back, CardComponentTypes.Basic, CardComponentTypes.CostBlock, CardComponentTypes.Desc, CardComponentTypes.Slots, CardComponentTypes.Stars});
     }
 
     public enum CardShowMode
@@ -156,6 +156,7 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         M_Name = CardInfo.BaseInfo.CardNames[cur_Language] + (CardInfo.BaseInfo.IsTemp ? "*" : "");
         M_Desc = CardInfo.GetCardDescShow();
 
+        CardDescComponent.SetTempCard(false);
         ChangeCardPicture(CardInfo.BaseInfo.PictureID);
         CardDescComponent?.SetCardTypeText(CardInfo.GetCardTypeDesc());
         SetBlockCountValue(0, true);
@@ -261,7 +262,17 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
         }
     }
 
-    public int M_CardInstanceId;
+    public int m_CardInstanceId;
+
+    public int M_CardInstanceId
+    {
+        get { return m_CardInstanceId; }
+        set
+        {
+            m_CardInstanceId = value;
+            CardDescComponent.SetTempCard(value < 0);
+        }
+    }
 
     #endregion
 
@@ -539,7 +550,6 @@ public abstract class CardBase : PoolObject, IDragComponent, IMouseHoverComponen
     public virtual void DragComponent_OnMouseDown()
     {
         ClientPlayer.BattlePlayer.HandManager.IsBeginDrag = true;
-//        iTween.Stop(gameObject);
     }
 
     public virtual void DragComponent_OnMousePressed(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Vector3 dragLastPosition)

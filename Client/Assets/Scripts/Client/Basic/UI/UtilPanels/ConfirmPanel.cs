@@ -11,8 +11,10 @@ public class ConfirmPanel : BaseUIForm
     [SerializeField] private Button RightButton;
     [SerializeField] private InputField InputField1;
     [SerializeField] private InputField InputField2;
+    [SerializeField] private InputField InputField3;
     [SerializeField] private Text InputFieldPlaceHolderText1;
     [SerializeField] private Text InputFieldPlaceHolderText2;
+    [SerializeField] private Text InputFieldPlaceHolderText3;
 
     void Awake()
     {
@@ -36,7 +38,7 @@ public class ConfirmPanel : BaseUIForm
 
     private UnityAction ConfirmClick = null;
 
-    public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick, string inputFieldPlaceHolderText1 = null, string inputFieldPlaceHolderText2 = null)
+    public void Initialize(string descText, string leftButtonText, string rightButtonText, UnityAction leftButtonClick, UnityAction rightButtonClick, string inputFieldPlaceHolderText1 = null, string inputFieldPlaceHolderText2 = null, string inputFieldPlaceHolderText3 = null)
     {
         UIType.InitUIType(
             isClearStack: false,
@@ -47,12 +49,16 @@ public class ConfirmPanel : BaseUIForm
             uiForm_LucencyType: UIFormLucencyTypes.Blur);
         ConfirmClick = leftButtonClick;
         DescText.text = descText;
-        LeftButtonText.text = leftButtonText;
-        RightButtonText.text = rightButtonText;
+
         LeftButton.onClick.RemoveAllListeners();
+        LeftButton.gameObject.SetActive(leftButtonText != null);
+        LeftButtonText.text = leftButtonText;
+        LeftButton.onClick.AddListener(leftButtonClick ?? delegate { });
+
         RightButton.onClick.RemoveAllListeners();
-        LeftButton.onClick.AddListener(leftButtonClick);
-        RightButton.onClick.AddListener(rightButtonClick);
+        RightButton.gameObject.SetActive(rightButtonText != null);
+        RightButtonText.text = rightButtonText;
+        RightButton.onClick.AddListener(rightButtonClick ?? delegate { });
 
         if (inputFieldPlaceHolderText1 != null)
         {
@@ -69,8 +75,17 @@ public class ConfirmPanel : BaseUIForm
         }
 
         InputField2.gameObject.SetActive(inputFieldPlaceHolderText2 != null);
+
+        if (InputFieldPlaceHolderText3 != null)
+        {
+            InputFieldPlaceHolderText3.text = inputFieldPlaceHolderText3;
+            InputField3.ActivateInputField();
+        }
+
+        InputField3.gameObject.SetActive(inputFieldPlaceHolderText3 != null);
     }
 
     public string InputText1 => InputField1.text;
     public string InputText2 => InputField2.text;
+    public string InputText3 => InputField3.text;
 }

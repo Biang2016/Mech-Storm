@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public partial class SelectBuildPanel
@@ -200,8 +201,8 @@ public partial class SelectBuildPanel
 
     private void SelectCardOnMouseEnter(SelectCard selectCard)
     {
-        SelectCardPreviewRawImage.enabled = true;
         if (UIManager.Instance.IsPeekUIForm<CardPreviewPanel>()) return;
+        SelectCardPreviewRawImage.enabled = true;
         if (selectCard.transform.position.y > CurrentPreviewCardMaxPivot.position.y)
         {
             currentPreviewCardContainer.position = new Vector3(selectCard.transform.position.x, CurrentPreviewCardMaxPivot.position.y, selectCard.transform.position.z);
@@ -288,6 +289,9 @@ public partial class SelectBuildPanel
             return false;
         }
 
+        if ((selectCardMethod & SelectCardMethods.SingleSelect) == selectCardMethod) card.SetBannerType(CardNoticeComponent.BannerTypes.None);
+
+        StoryManager.Instance.JustGetNewCards.Remove(card.CardInfo.CardID);
         if (selectCards.ContainsKey(card.CardInfo.CardID))
         {
             SelectCard sc = selectCards[card.CardInfo.CardID];
@@ -439,7 +443,7 @@ public partial class SelectBuildPanel
             if (suc) buildLeftCoin -= cb.CardInfo.BaseInfo.Coin;
         }
 
-        RefreshCoinLifeEnergy();
+        RefreshCoinLifeEnergy(false);
         RefreshDrawCardNum();
     }
 
@@ -497,15 +501,30 @@ public partial class SelectBuildPanel
             OnCreateNewBuildButtonClick();
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
         }
+        else if (!CurrentEditBuildButton.BuildInfo.IsEnergyEnough())
+        {
+            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            cp.Initialize(LanguageManager.Instance.GetText("Notice_StartMenu_CardEnergyOverYourEnergy"),
+                LanguageManager.Instance.GetText("Common_GotIt"),
+                LanguageManager.Instance.GetText("Common_Ignore"),
+                cp.CloseUIForm,
+                new UnityAction(ConfirmDeck) + cp.CloseUIForm);
+        }
         else
         {
-            Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
-            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_UpdateDeckSuccess"), 0, 1f);
-            if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
-            CurrentSelectedBuildButton = CurrentEditBuildButton;
-            CurrentSelectedBuildButton.IsSelected = true;
-            CloseUIForm();
+            ConfirmDeck();
         }
+    }
+
+    private void ConfirmDeck()
+    {
+        Client.Instance.Proxy.OnSendBuildInfo(CurrentEditBuildButton.BuildInfo);
+        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_UpdateDeckSuccess"), 0, 1f);
+        if (CurrentSelectedBuildButton) CurrentSelectedBuildButton.IsSelected = false;
+        CurrentSelectedBuildButton = CurrentEditBuildButton;
+        CurrentSelectedBuildButton.IsSelected = true;
+        CloseUIForm();
+        StartGameAction?.Invoke();
     }
 
     public void OnCloseButtonClick()

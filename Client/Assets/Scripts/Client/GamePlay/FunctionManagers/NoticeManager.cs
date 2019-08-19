@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ public class NoticeManager : MonoSingleton<NoticeManager>
 
     [SerializeField] private Canvas InfoCanvas;
     [SerializeField] private Animator InfoPanelTopAnimator;
-    [SerializeField] private Text InfoTextTop;
+    [SerializeField] private TextMeshPro InfoTextTop;
 
     IEnumerator ShowInfoPanelTopCoroutine;
 
@@ -72,7 +73,7 @@ public class NoticeManager : MonoSingleton<NoticeManager>
     #region InfoPanelCenter
 
     [SerializeField] private Animator InfoPanelCenterAnimator;
-    [SerializeField] private Text InfoTextCenter;
+    [SerializeField] private TextMeshPro InfoTextCenter;
 
     IEnumerator ShowInfoPanelCenterCoroutine;
 

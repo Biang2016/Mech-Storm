@@ -10,6 +10,7 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     [SerializeField] private TextMeshPro Desc;
 
     [SerializeField] private Transform[] Trans_NeedRotate180ByPlayer;
+    [SerializeField] private Transform[] Trans_NeedRotateY180ByPlayer;
     public ShipStyleManager ShipStyleManager;
 
     public void Initialize(ClientPlayer clientPlayer)
@@ -20,6 +21,14 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
             if (t != null)
             {
                 t.localRotation = Quaternion.Euler(clientPlayer.WhichPlayer == Players.Enemy ? 180 : 0, clientPlayer.WhichPlayer == Players.Enemy ? 180 : 0, t.localRotation.z);
+            }
+        }
+
+        foreach (Transform t in Trans_NeedRotateY180ByPlayer)
+        {
+            if (t != null)
+            {
+                t.localRotation = Quaternion.Euler(0, clientPlayer.WhichPlayer == Players.Enemy ? 180 : 0, t.localRotation.z);
             }
         }
 

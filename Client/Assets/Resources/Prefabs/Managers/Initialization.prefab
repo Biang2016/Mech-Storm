@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsABMode: 1
-  Manager: {fileID: 6822180163831748953, guid: 8e89b4d3b31ea174ca07e91c54b710c3, type: 3}
+  ManagerType: 0
   StartUIPanel: 
   WarmUpUIPanels: []

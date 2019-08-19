@@ -32,11 +32,13 @@ public class MechSwordShieldArmorComponent : MechComponentBase
     private void Awake()
     {
         TextDefaultSortingOrder = SwordText.sortingOrder;
+        ArmorTextDefaultSortingOrder = ArmorText.sortingOrder;
         BarDefaultSortingOrder = SwordBar.canvas.sortingOrder;
         TroughDefaultSortingOrder = SwordTrough.sortingOrder;
     }
 
     private int TextDefaultSortingOrder;
+    private int ArmorTextDefaultSortingOrder;
     private int BarDefaultSortingOrder;
     private int TroughDefaultSortingOrder;
 
@@ -55,7 +57,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
     {
         SwordText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
         ShieldText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
-        ArmorText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
+        ArmorText.sortingOrder = cardSortingIndex * 50 + ArmorTextDefaultSortingOrder;
 
         SwordBar.canvas.sortingOrder = cardSortingIndex * 50 + BarDefaultSortingOrder;
         ShieldBar.canvas.sortingOrder = cardSortingIndex * 50 + BarDefaultSortingOrder;
@@ -102,6 +104,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
             if (change > 0)
             {
                 WeaponAttackChangeNumberFly.SetText(text + "+" + change, "#FFF500", "#FFF500", TextFly.FlyDirection.Up);
+                FXManager.Instance.PlayFX(SwordBar.transform, FXManager.FXType.FX_WeaponEnergyUp, "#FFFFFF", 0.3f);
             }
             else if (change < 0)
             {
@@ -121,13 +124,14 @@ public class MechSwordShieldArmorComponent : MechComponentBase
     {
         if (!cur_IsInitializing)
         {
+            string text = LanguageManager.Instance.GetText("ModuleMech_AttackMaxChangeNumberFly");
             if (change > 0)
             {
-                WeaponEnergyChangeNumberFly.SetText("Max +" + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Up);
+                WeaponEnergyChangeNumberFly.SetText(text + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Up);
             }
             else if (change < 0)
             {
-                WeaponEnergyChangeNumberFly.SetText("Max " + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Down);
+                WeaponEnergyChangeNumberFly.SetText(text + change, "#1CFF00", "#1CFF00", TextFly.FlyDirection.Down);
             }
         }
 
@@ -160,7 +164,6 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
     IEnumerator Co_ArmorChange(int armorValue, int change, float duration, bool cur_IsInitializing)
     {
-        NormalParticle particle = null;
         if (!cur_IsInitializing)
         {
             string text = LanguageManager.Instance.GetText("ModuleMech_ArmorChangeNumberFly");
@@ -170,17 +173,15 @@ public class MechSwordShieldArmorComponent : MechComponentBase
             }
             else if (change < 0)
             {
-                HitManager.Instance.ShowHit(ArmorIconAnim.transform, HitManager.HitType.LineLeftTopToRightButtom, "#FFD217", 0.3f);
+                FXManager.Instance.PlayFX(ArmorIconAnim.transform, FXManager.FXType.FX_Hit0, "#FFD217", 0.3f);
                 ArmorChangeNumberFly.SetText(text + change, "#FFA800", "#FFA800", TextFly.FlyDirection.Down);
+                FXManager.Instance.PlayFX(ArmorIcon.transform, FXManager.FXType.FX_Particle, "#FFA800", 1f, 1f);
                 if (armorValue != 0) AudioManager.Instance.SoundPlay("sfx/HitArmor", 0.5f);
             }
 
             if (armorValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakArmor", 1f);
-//                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ArmorIconAnim.transform);
-//                particle.ParticleSystem.Play(true);
-//                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
             }
         }
 
@@ -188,22 +189,15 @@ public class MechSwordShieldArmorComponent : MechComponentBase
         {
             ArmorIconAnim.gameObject.SetActive(false);
             ArmorTrough.color = ClientUtils.HTMLColorToColor("#333333");
-//            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ArmorIconAnim.transform);
-//            particle.ParticleSystem.Play(true);
-//            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#FFA800");
         }
         else
         {
             ArmorIconAnim.gameObject.SetActive(true);
-//            ArmorTrough.color = ClientUtils.HTMLColorToColor("#ffffff");
             ArmorText.text = armorValue.ToString();
         }
 
         ArmorIconAnim.SetTrigger("ArmorAdd");
-
         yield return new WaitForSeconds(duration);
-
-        if (particle != null) particle.PoolRecycle();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -220,7 +214,6 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
     IEnumerator Co_ShieldChange(int shieldValue, int change, float duration, bool cur_IsInitializing)
     {
-        NormalParticle particle = null;
         if (!cur_IsInitializing)
         {
             string text = LanguageManager.Instance.GetText("ModuleMech_ShieldChangeNumberFly");
@@ -232,17 +225,14 @@ public class MechSwordShieldArmorComponent : MechComponentBase
             else
             {
                 if (change < 0) ShieldChangeNumberFly.SetText(text + change, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
-                HitManager.Instance.ShowHit(ShieldBar.transform, HitManager.HitType.LineRightTopToLeftButtom, "#2BFFF8", 0.3f);
+                FXManager.Instance.PlayFX(ShieldBar.transform, FXManager.FXType.FX_Particle, "#00FFF2", 1f, 1f);
+                FXManager.Instance.PlayFX(ShieldBar.transform, FXManager.FXType.FX_Hit1, "#2BFFF8", 0.3f);
                 if (shieldValue != 0) AudioManager.Instance.SoundPlay("sfx/HitShield", 1f);
             }
 
             if (shieldValue == 0)
             {
                 AudioManager.Instance.SoundPlay("sfx/BreakShield", 1f);
-
-//                particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldIconAnim.transform);
-//                particle.ParticleSystem.Play(true);
-//                particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
             }
         }
         else
@@ -252,9 +242,6 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
         if (shieldValue == 0)
         {
-//            particle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.ParticleSystem].AllocateGameObject<NormalParticle>(ShieldIconAnim.transform);
-//            particle.ParticleSystem.Play(true);
-//            particle.ParticleSystem.startColor = ClientUtils.HTMLColorToColor("#00FFF2");
             ShieldTrough.color = ClientUtils.HTMLColorToColor("#333333");
             ShieldBar.fillAmount = 0;
             ShieldText.text = "";
@@ -268,7 +255,6 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
         ShieldIconAnim.SetTrigger("ShieldAdd");
         yield return new WaitForSeconds(duration);
-        if (particle != null) particle.PoolRecycle();
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -281,24 +267,8 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
     IEnumerator Co_ShieldChangeNumberFly(int decreaseValue)
     {
-        ShieldDefenceNumberFly.SetText(LanguageManager.Instance.GetText("ModuleMech_DecreaseDamageNumberFly") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Down);
-        yield return new WaitForSeconds(0.1f);
-        BattleEffectsManager.Instance.Effect_Main.EffectEnd();
-    }
-
-    #endregion
-
-    #region Dodge
-
-    public void OnDodge()
-    {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnDodge(), "Co_OnDodge");
-    }
-
-    IEnumerator Co_OnDodge()
-    {
-        AudioManager.Instance.SoundPlay("sfx/HitShield");
-        DodgeNumberFly.SetText((LanguageManager.Instance.GetText("KeyWords_Dodge")), "#AE70FF", "#AE70FF", TextFly.FlyDirection.Up, showArrow: false);
+        ShieldDefenceNumberFly.SetText(LanguageManager.Instance.GetText("ModuleMech_DecreaseDamageNumberFly") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
+        FXManager.Instance.PlayFX(ShieldBar.transform, FXManager.FXType.FX_Shield, "#FFFFFF", 0.2f, 1f);
         yield return new WaitForSeconds(0.1f);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

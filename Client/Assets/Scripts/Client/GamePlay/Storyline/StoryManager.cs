@@ -10,12 +10,7 @@ public class StoryManager : MonoSingleton<StoryManager>
 
     public void InitializeStory(Story story)
     {
-        if (story == null)
-        {
-            //TODO ResetAll
-            UnlockedCardLevelNum = 9;
-        }
-
+        ResetStoryBonusInfo();
         Story = story;
     }
 
@@ -24,42 +19,43 @@ public class StoryManager : MonoSingleton<StoryManager>
         return Story;
     }
 
-    public void SetStoryPaceBeated(int storyPaceID)
+    public void StartFightEnemy(int levelID)
     {
+        CurrentFightingEnemy = (Enemy) Story.CurrentFightingChapter.Levels[levelID];
     }
 
-    public void SetStoryPaceFailed(int storyPaceID)
+    public void SetLevelBeated(int levelID)
     {
+        Story.CurrentFightingChapter.LevelBeatedDictionary[levelID] = true;
+        UIManager.Instance.GetBaseUIForm<StoryPanel>().CurrentStartGameAction = null;
+        CurrentFightingEnemy = null;
     }
 
-    internal int UnlockedCardLevelNum = 9;
+    public List<BonusGroup> GetCurrentBonusGroup()
+    {
+        return CurrentFightingEnemy?.BonusGroups;
+    }
 
     internal bool HasStory => Story != null;
-    internal bool IsThisLevelNumberUp = false;
 
     #region Story模式过关奖励记录
 
-    internal bool JustGetSomeCard = false; //刚才是否选择了新卡片
-    internal bool JustLifeAdd = false; //刚才是否增加了生命
-    internal bool JustLifeLost = false; //刚才是否减少了生命
-    internal bool JustEnergyAdd = false; //刚才是否增加了能量
-    internal bool JustEnergyLost = false; //刚才是否减少了能量
-    internal bool JustBudgetAdd = false; //刚才是否新增了预算
-    internal bool JustBudgetLost = false; //刚才是否减少了预算
+    internal bool JustGetSomeCard => JustGetNewCards.Count != 0; //刚才是否选择了新卡片
+    internal int JustLifeChange = 0; //获取奖励后生命变化量
+    internal int JustEnergyChange = 0; //获取奖励后能量变化量
+    internal int JustBudgetChange = 0; //获取奖励后预算变化量
+
+    internal Enemy CurrentFightingEnemy; //正在进行战斗的敌人
+    internal bool JustBeatedChapter = false; //刚才是否通过章节
+
     internal HashSet<int> JustGetNewCards = new HashSet<int>();
-    internal HashSet<int> JustUpgradeCards = new HashSet<int>();
 
     public void ResetStoryBonusInfo()
     {
-        JustGetSomeCard = false;
-        JustLifeAdd = false;
-        JustLifeLost = false;
-        JustEnergyAdd = false;
-        JustEnergyLost = false;
-        JustBudgetAdd = false;
-        JustBudgetLost = false;
+        JustLifeChange = 0;
+        JustEnergyChange = 0;
+        JustBudgetChange = 0;
         JustGetNewCards.Clear();
-        JustUpgradeCards.Clear();
     }
 
     #endregion

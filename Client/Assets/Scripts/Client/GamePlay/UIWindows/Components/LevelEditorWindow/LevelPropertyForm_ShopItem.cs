@@ -8,12 +8,14 @@ public class LevelPropertyForm_ShopItem : PoolObject
     [SerializeField] private Button EditButton;
     [SerializeField] private Image Pic;
     [SerializeField] private Image EditBG;
+    [SerializeField] private Text TypeLabel;
+    [SerializeField] private Text TypeText;
     [SerializeField] private Text NameLabel;
     [SerializeField] private Text NameText;
     [SerializeField] private Text PriceLabel;
     [SerializeField] private Text PriceText;
-    [SerializeField] private Text TypeLabel;
-    [SerializeField] private Text TypeText;
+    [SerializeField] private Text ProbabilityLabel;
+    [SerializeField] private Text ProbabilityText;
 
     public override void PoolRecycle()
     {
@@ -25,9 +27,10 @@ public class LevelPropertyForm_ShopItem : PoolObject
 
     void Awake()
     {
+        LanguageManager.Instance.RegisterTextKey(TypeLabel, "LevelEditorPanel_ShopItemTypeLabel");
         LanguageManager.Instance.RegisterTextKey(NameLabel, "LevelEditorPanel_ShopItemNameLabel");
         LanguageManager.Instance.RegisterTextKey(PriceLabel, "LevelEditorPanel_ShopItemPriceLabel");
-        LanguageManager.Instance.RegisterTextKey(TypeLabel, "LevelEditorPanel_ShopItemTypeLabel");
+        LanguageManager.Instance.RegisterTextKey(ProbabilityLabel, "LevelEditorPanel_ShopItemProbabilityLabel");
     }
 
     public ShopItem Cur_ShopItem;
@@ -54,6 +57,7 @@ public class LevelPropertyForm_ShopItem : PoolObject
 
         ClientUtils.ChangeImagePicture(Pic, shopItem.PicID);
         PriceText.text = shopItem.Price.ToString();
+        ProbabilityText.text = shopItem.Probability.ToString();
         TypeText.text = shopItem.ShopItemType.ToString();
         switch (shopItem)
         {
@@ -83,6 +87,7 @@ public class LevelPropertyForm_ShopItem : PoolObject
     public void Refresh()
     {
         PriceText.text = Cur_ShopItem.Price.ToString();
+        ProbabilityText.text = Cur_ShopItem.Probability.ToString();
         TypeText.text = Cur_ShopItem.ShopItemType.ToString();
 
         switch (Cur_ShopItem)

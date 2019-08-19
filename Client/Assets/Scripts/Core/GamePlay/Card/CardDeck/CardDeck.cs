@@ -101,9 +101,12 @@ public class CardDeck
     public void RandomInsertTempCard(int cardId, int count)
     {
         if (cardId == (int) AllCards.EmptyCardTypes.NoCard) return;
-        CardInfo_Base cb = AllCards.GetCard(cardId);
-        int index = new Random().Next(0, Cards.Count);
-        AddCard(cb, index);
+        for (int i = 0; i < count; i++)
+        {
+            CardInfo_Base cb = AllCards.GetCard(cardId);
+            int index = new Random().Next(0, Cards.Count);
+            AddCard(cb, index);
+        }
     }
 
     public CardInfo_Type FindATypeOfCard<CardInfo_Type>() where CardInfo_Type : CardInfo_Base
@@ -293,7 +296,7 @@ public class CardDeck
 
     public void AddCardInstanceId(int cardId, int cardInstanceId)
     {
-        if (cardInstanceId == Const.CARD_INSTANCE_ID_NONE) return;
+        if (cardInstanceId < 0) return;
         if (CardInstanceIdDict.ContainsKey(cardInstanceId))
         {
             CardInstanceIdDict[cardInstanceId] = cardId;
@@ -306,6 +309,7 @@ public class CardDeck
 
     public void RecycleCardInstanceID(int cardInstanceId)
     {
+        if (cardInstanceId < 0) return; // 临时卡不参与卡组循环
         if (CardInstanceIdDict.ContainsKey(cardInstanceId))
         {
             CardInfo_Base cib = AllCards.GetCard(CardInstanceIdDict[cardInstanceId]);

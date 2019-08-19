@@ -17,11 +17,12 @@ internal partial class GameManager
 
     public ILog DebugLog => Battle.DebugLog;
 
-    public GameManager(Battle battle, BattleProxy clientA, BattleProxy clientB)
+    public GameManager(Battle battle, BattleProxy clientA, BattleProxy clientB, Battle.OnEndGameDelegate onEndGameDelegate)
     {
         Battle = battle;
         ClientA = clientA;
         ClientB = clientB;
+        OnEndGameHandler = onEndGameDelegate;
 
         ClientA.BattleGameManager = this;
         ClientB.BattleGameManager = this;
@@ -50,6 +51,13 @@ internal partial class GameManager
     public int GenerateNewCardInstanceId()
     {
         return gameCardInstanceIdGenerator++;
+    }
+
+    private int gameTempCardInstanceIdGenerator = -2000;
+
+    public int GenerateNewTempCardInstanceId()
+    {
+        return gameTempCardInstanceIdGenerator--;
     }
 
     private int gameEquipIdGenerator = 100;
@@ -83,6 +91,12 @@ internal partial class GameManager
         PlayerB.CardDeckManager.CardDeck = new CardDeck(ClientB.BuildInfo, PlayerB.OnCardDeckLeftChange, PlayerB.CardDeckManager.OnUpdatePlayerCoolDownCard, PlayerB.CardDeckManager.OnRemovePlayerCoolDownCard);
         PlayerB.MyClientProxy = ClientB;
 
+        if (ClientB is BattleProxyAI battleProxyAI && battleProxyAI.Enemy != null)
+        {
+            PlayerB.BattleStatistics.Level = battleProxyAI.Enemy.DifficultyLevel;
+            PlayerA.BattleStatistics.Level = battleProxyAI.Enemy.DifficultyLevel;
+        }
+
         PlayerA.MyEnemyPlayer = PlayerB;
         PlayerB.MyEnemyPlayer = PlayerA;
 
@@ -91,6 +105,12 @@ internal partial class GameManager
 
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
+
+        if (ClientB is BattleProxyAI ai && ai.Enemy != null && ai.Enemy.LevelID != -1)
+        {
+            StartFightingEnemyRequest request = new StartFightingEnemyRequest(ai.Enemy.LevelID);
+            BroadcastRequest(request);
+        }
 
         SetPlayerRequest request1 = new SetPlayerRequest(ClientA.UserName, ClientA.ClientID, 0, PA_BEGINMETAL, PA_LIFE, PA_LIFE, 0, PA_MAGIC);
         Broadcast_AddRequestToOperationResponse(request1);
@@ -156,8 +176,14 @@ internal partial class GameManager
 
     void OnBeginRound()
     {
-        CurrentPlayer.MetalMaxChange(GamePlaySettings.MetalIncrease);
+        if (CurrentPlayer.MetalMax < GamePlaySettings.MaxMetal)
+        {
+            CurrentPlayer.MetalMaxChange(GamePlaySettings.MetalIncrease);
+        }
+
+        CurrentPlayer.BattleStatistics.Rounds++;
         CurrentPlayer.AddAllMetal();
+        CurrentPlayer.AddEnergy(1);
         CurrentPlayer.HandManager.BeginRound();
         CurrentPlayer.BattleGroundManager.BeginRound();
         PlayerTurnRequest request = new PlayerTurnRequest(CurrentPlayer.ClientId);
@@ -175,7 +201,16 @@ internal partial class GameManager
     {
         CurrentPlayer.HandManager.EndRound();
         CurrentPlayer.BattleGroundManager.EndRound();
-        OnSwitchPlayer();
+
+        if (CurrentPlayer.ExtraRounds > 0)
+        {
+            CurrentPlayer.ExtraRounds--;
+        }
+        else
+        {
+            OnSwitchPlayer();
+        }
+
         CurrentPlayer.CardDeckManager.EndRound();
         OnDrawCardPhase();
         OnBeginRound();
@@ -192,14 +227,25 @@ internal partial class GameManager
 
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
         CardInfo_Mech info = (CardInfo_Mech) sp.HandManager.GetHandCardInfo(r.handCardInstanceId);
-        int targetMechId = r.targetMechId;
-        if (r.isTargetMechIdTempId)
+        List<int> targetMechIds = r.targetMechIds;
+        List<int> targetMechIds_real = new List<int>();
+        for (int i = 0; i < targetMechIds.Count; i++)
         {
-            targetMechId = sp.BattleGroundManager.GetMechIdByClientMechTempId(r.clientMechTempId);
+            bool isTemp = r.isTargetMechIdTempIds[i];
+            int realMechId = r.targetMechIds[i];
+            if (isTemp)
+            {
+                realMechId = sp.BattleGroundManager.GetMechIdByClientMechTempId(realMechId);
+            }
+
+            if (realMechId != -1)
+            {
+                targetMechIds_real.Add(realMechId);
+            }
         }
 
-        sp.HandManager.UseCard(r.handCardInstanceId, targetMechId);
-        sp.BattleGroundManager.AddMech(info, r.battleGroundIndex, targetMechId, r.clientMechTempId, r.handCardInstanceId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetMechIds);
+        sp.BattleGroundManager.AddMech(info, r.battleGroundIndex, targetMechIds_real, r.clientMechTempId, r.handCardInstanceId);
 
         Broadcast_SendOperationResponse();
     }
@@ -272,13 +318,15 @@ internal partial class GameManager
 
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
 
-        int targetMechId = r.targetMechId;
-        if (r.isTargetMechIdTempId)
+        List<(int, bool)> targetMechIds = r.targetMechIds;
+        List<int> targetMechIds_real = new List<int>();
+        for (int i = 0; i < targetMechIds.Count; i++)
         {
-            targetMechId = sp.BattleGroundManager.GetMechIdByClientMechTempId(r.clientMechTempId);
+            int realMechID = targetMechIds[i].Item2 ? sp.BattleGroundManager.GetMechIdByClientMechTempId(targetMechIds[i].Item1) : targetMechIds[i].Item1;
+            targetMechIds_real.Add(realMechID);
         }
 
-        sp.HandManager.UseCard(r.handCardInstanceId, targetMechId: targetMechId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetMechIds: targetMechIds_real);
         Broadcast_SendOperationResponse();
     }
 
@@ -287,7 +335,7 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
-        sp.HandManager.UseCard(r.handCardInstanceId, targetEquipId: r.targetEquipId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetEquipIds: r.targetEquipIds);
         Broadcast_SendOperationResponse();
     }
 
@@ -296,7 +344,7 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new UseSpellCardRequset_ResponseBundle();
         BattlePlayer sp = GetPlayerByClientId(r.clientId);
-        sp.HandManager.UseCard(r.handCardInstanceId, targetClientId: r.targetClientId);
+        sp.HandManager.UseCard(r.handCardInstanceId, targetClientIds: r.targetClientIds);
         Broadcast_SendOperationResponse();
     }
 
@@ -381,35 +429,15 @@ internal partial class GameManager
     public void OnEndGame(BattlePlayer winner)
     {
         if (IsStopped) return;
-        GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId);
+        winner.BattleStatistics.FinalHealth = winner.LifeLeft;
+        winner.BattleStatistics.FinalHealthRatio = (float) winner.LifeLeft / winner.LifeMax;
+        OnEndGameHandler?.Invoke(winner.ClientId, ClientA.MyPlayer.BattleStatistics, ClientB.MyPlayer.BattleStatistics);
+        GameStopByWinRequest request = new GameStopByWinRequest(winner.ClientId, winner.BattleStatistics);
         Broadcast_AddRequestToOperationResponse(request);
-        OnEndGameHandler(winner);
-        //if (ClientB is ClientProxyAI AI && AI.IsStoryMode)
-        //{
-        //    if (winner == PlayerA)
-        //    {
-        //        BeatEnemyRequest request2 = new BeatEnemyRequest();
-        //        ClientA.SendMessage(request2);
-
-        //        Story story = Database.Instance.PlayerStoryStates[ClientA.UserName];
-        //        story.BeatEnemy(AI.LevelID, AI.EnemyPicID);
-        //        if (AI.LevelID < story.Chapters.Count - 1)
-        //        {
-        //            story.UnlockChapterEnemies(AI.LevelID + 1);
-        //            List<int> nextLevelBossPicIDs = new List<int>();
-        //            nextLevelBossPicIDs = story.LevelUnlockBossInfo[AI.LevelID + 1];
-        //            NextChapterEnemiesRequest request3 = new NextChapterEnemiesRequest(AI.LevelID + 1, nextLevelBossPicIDs);
-        //            ClientA.SendMessage(request3);
-        //        }
-        //    }
-        //}
-
         IsStopped = true;
     }
 
-    public delegate void OnEndGameDelegate(BattlePlayer winner);
-
-    private OnEndGameDelegate OnEndGameHandler = null;
+    private Battle.OnEndGameDelegate OnEndGameHandler = null;
 
     public void OnEndGameByServerError()
     {
@@ -437,7 +465,7 @@ internal partial class GameManager
 
             ClientB.ClientState = ProxyBase.ClientStates.Login;
 
-            OnEndGameHandler?.Invoke(PlayerA);
+            OnEndGameHandler?.Invoke(PlayerA.ClientId, PlayerA.BattleStatistics, PlayerB.BattleStatistics);
 //            Server.SV.SGMM.RemoveGame(ClientA);
 
             PlayerA?.OnDestroyed();

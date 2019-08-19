@@ -12,6 +12,9 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     [SerializeField] private TextMeshPro MetalNumberText;
 
+    [SerializeField] private Transform CenterTrans;
+    [SerializeField] private Transform LeftTrans;
+    [SerializeField] private Transform RightTrans;
     [SerializeField] private Text LifeText;
     [SerializeField] private Text LifeNumber;
     [SerializeField] private Text TotalLifeNumber;
@@ -47,14 +50,9 @@ public class MetalLifeEnergyManager : MonoBehaviour
 
     public void SetEnemyIconImage()
     {
-        if (ClientPlayer.WhichPlayer == Players.Enemy)
-        {
-            PlayerIcon.SetActive(RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single);
-            if (RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single)
-            {
-                ClientUtils.ChangeImagePicture(PlayerIconImage, 0);
-            }
-        }
+        bool isShow = RoundManager.Instance.M_PlayMode == RoundManager.PlayMode.Single && ClientPlayer.WhichPlayer == Players.Enemy;
+        PlayerIcon.SetActive(isShow);
+        if (isShow) ClientUtils.ChangeImagePicture(PlayerIconImage, StoryManager.Instance.CurrentFightingEnemy.LevelPicID);
     }
 
     public void SetMetal(int value)
@@ -63,6 +61,16 @@ public class MetalLifeEnergyManager : MonoBehaviour
         MetalNumberText.text = value.ToString();
         MetalNumberText.transform.localPosition = Vector3.Lerp(MetalNumberMinPos.localPosition, MetalNumberMaxPos.localPosition, (float) value / GamePlaySettings.MaxMetal);
         ClientPlayer.BattlePlayer.HandManager.RefreshAllCardUsable();
+    }
+
+    public void OnMetalIconHoverShowAffixPanel()
+    {
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixPanel(new HashSet<AffixType> {AffixType.Metal});
+    }
+
+    public void OnMetalIconMouseLeaveHideAffixPanel()
+    {
+        UIManager.Instance.GetBaseUIForm<AffixPanel>().Hide();
     }
 
     public void SetLife(int value, int change)
@@ -81,10 +89,26 @@ public class MetalLifeEnergyManager : MonoBehaviour
         else if (change < 0)
         {
             LifeNumberFly.SetText(change.ToString(), "#FFFFFF", "#FFFFFF", TextFly.FlyDirection.Down);
-            HitManager.Instance.ShowHit(LifeIcon.transform, HitManager.HitType.Blade, "#FFFFFF", 0.2f);
-            AudioManager.Instance.SoundPlay("sfx/OnHitShip");
-            AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");
+            FXManager.Instance.PlayFX(LifeIcon.transform, FXManager.FXType.FX_Blade1, "#FFFFFF", 0.3f, 1.5f);
         }
+    }
+
+    public void LifeOverflowJump()
+    {
+        LifeIconAnim.SetTrigger("Jump");
+        LifeIconAnim.SetTrigger("Reset");
+        LifeNumberAnim.SetTrigger("Jump");
+        LifeTotalNumberAnim.SetTrigger("Jump");
+    }
+
+    public void OnLifeIconHoverShowAffixPanel()
+    {
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixPanel(new HashSet<AffixType> {AffixType.Life});
+    }
+
+    public void OnLifeIconMouseLeaveHideAffixPanel()
+    {
+        UIManager.Instance.GetBaseUIForm<AffixPanel>().Hide();
     }
 
     public void SetTotalLife(int value)
@@ -104,6 +128,7 @@ public class MetalLifeEnergyManager : MonoBehaviour
         if (change > 0)
         {
             EnergyNumberFly.SetText("+" + change, "#00D2FF", "#00D2FF", TextFly.FlyDirection.Up);
+            FXManager.Instance.PlayFX(RightTrans, FXManager.FXType.FX_ShipAddEnergy, "#FFFFFF", 0.7f, 4);
         }
         else if (change < 0)
         {
@@ -114,6 +139,24 @@ public class MetalLifeEnergyManager : MonoBehaviour
     public void SetTotalEnergy(int value)
     {
         TotalEnergyNumber.text = "/" + value;
+    }
+
+    public void EnergyOverflowJump()
+    {
+        EnergyIconAnim.SetTrigger("Jump");
+        EnergyIconAnim.SetTrigger("Reset");
+        EnergyNumberAnim.SetTrigger("Jump");
+        EnergyTotalNumberAnim.SetTrigger("Jump");
+    }
+
+    public void OnEnergyIconHoverShowAffixPanel()
+    {
+        UIManager.Instance.ShowUIForms<AffixPanel>().ShowAffixPanel(new HashSet<AffixType> {AffixType.Energy});
+    }
+
+    public void OnEnergyIconMouseLeaveHideAffixPanel()
+    {
+        UIManager.Instance.GetBaseUIForm<AffixPanel>().Hide();
     }
 
     public void OnEnergyChange(int change)

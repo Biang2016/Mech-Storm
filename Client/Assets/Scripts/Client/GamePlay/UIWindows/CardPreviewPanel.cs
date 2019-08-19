@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class CardPreviewPanel : BaseUIForm
 {
+    public Camera CardPreviewCamera;
+
     [SerializeField] private Transform AllContainer;
     [SerializeField] private Transform PreviewContent;
     [SerializeField] private Transform PreviewCardPanelRightPivot;
@@ -40,7 +42,7 @@ public class CardPreviewPanel : BaseUIForm
             isClearStack: false,
             isESCClose: true,
             isClickElsewhereClose: true,
-            uiForms_Type: UIFormTypes.Fixed,
+            uiForms_Type: UIFormTypes.Normal,
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
@@ -66,11 +68,9 @@ public class CardPreviewPanel : BaseUIForm
         RefreshPreviewCard();
         RefreshUpgradePanel();
 
-        StoryManager.Instance.JustUpgradeCards.Remove(card.CardInfo.CardID);
         StoryManager.Instance.JustGetNewCards.Remove(card.CardInfo.CardID);
 
-        bool hasNewCard = StoryManager.Instance.JustGetNewCards.Count != 0 || StoryManager.Instance.JustUpgradeCards.Count != 0;
-        UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetButtonTipImageShow("SingleDeckButton", hasNewCard);
+        UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
         AudioManager.Instance.SoundPlay("sfx/ShowCardDetail");
     }
 
@@ -116,7 +116,12 @@ public class CardPreviewPanel : BaseUIForm
         }
 
         PreviewCard = CardBase.InstantiateCardByCardInfo(PreviewCard_Src.CardInfo, PreviewContent, CardBase.CardShowMode.CardUpgradePreview);
-        PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+
+        if (UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton)
+        {
+            PreviewCard.ChangeCardSelectLimit(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().CurrentEditBuildButton.BuildInfo.M_BuildCards.CardSelectInfos[PreviewCard.CardInfo.CardID].CardSelectUpperLimit, true);
+        }
+
         PreviewCard.SetBlockCountValue(UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().GetSelectedCardCount(PreviewCard.CardInfo.CardID), true);
         PreviewCard.transform.localScale = Vector3.one * 18;
         PreviewCard.transform.localPosition = new Vector3(0, 50, 0);
@@ -132,8 +137,8 @@ public class CardPreviewPanel : BaseUIForm
         {
             int u_id = PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID;
             int d_id = PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID;
-            hasUpgradeCard = u_id != -1 && AllCards.GetCard(u_id).BaseInfo.CardRareLevel <= StoryManager.Instance.UnlockedCardLevelNum;
-            hasDegradeCard = d_id != -1 && AllCards.GetCard(d_id).BaseInfo.CardRareLevel <= StoryManager.Instance.UnlockedCardLevelNum;
+            hasUpgradeCard = u_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[u_id];
+            hasDegradeCard = d_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[d_id];
         }
         else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
         {
@@ -261,8 +266,8 @@ public class CardPreviewPanel : BaseUIForm
         {
             int u_id = PreviewCard_Src.CardInfo.UpgradeInfo.UpgradeCardID;
             int d_id = PreviewCard_Src.CardInfo.UpgradeInfo.DegradeCardID;
-            hasUpgradeCard = u_id != -1 && AllCards.GetCard(u_id).BaseInfo.CardRareLevel <= StoryManager.Instance.UnlockedCardLevelNum;
-            hasDegradeCard = d_id != -1 && AllCards.GetCard(d_id).BaseInfo.CardRareLevel <= StoryManager.Instance.UnlockedCardLevelNum;
+            hasUpgradeCard = u_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[u_id];
+            hasDegradeCard = d_id != -1 && StoryManager.Instance.GetStory().CardUnlockInfos[d_id];
         }
         else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
         {

@@ -235,8 +235,8 @@ public class Player : ILife
 
     public void AddLife(int addValue)
     {
-        MaxLifeChange(addValue, false);
-        LifeChange(addValue, false);
+        MaxLifeChange(addValue, true);
+        LifeChange(addValue, true);
     }
 
     public void Heal(int healValue)
@@ -262,6 +262,16 @@ public class Player : ILife
     public void ChangeMaxLife(int change)
     {
         MaxLifeChange(change);
+    }
+
+    public int GetLeftLife()
+    {
+        return LifeLeft;
+    }
+
+    public int GetTotalLife()
+    {
+        return LifeMax;
     }
 
     #endregion

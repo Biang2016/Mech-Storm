@@ -40,8 +40,16 @@ public partial class SelectBuildPanel
         set
         {
             currentSelectedBuildButton = value;
-            SelectBuildManager.Instance.CurrentSelectedBuildInfo = currentSelectedBuildButton.BuildInfo;
-            UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract(currentSelectedBuildButton.BuildInfo);
+            if (currentSelectedBuildButton != null)
+            {
+                SelectBuildManager.Instance.CurrentSelectedBuildInfo = currentSelectedBuildButton.BuildInfo;
+                UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract(currentSelectedBuildButton.BuildInfo);
+            }
+            else
+            {
+                SelectBuildManager.Instance.CurrentSelectedBuildInfo = null;
+                UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.RefreshBuildInfoAbstract(null);
+            }
         }
     }
 
@@ -165,12 +173,18 @@ public partial class SelectBuildPanel
 
     public void OnCreateNewBuildButtonClick()
     {
-        BuildInfo bi = new BuildInfo(-1, LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"), new BuildCards(new SortedDictionary<int, BuildCards.CardSelectInfo>()), CurrentGamePlaySettings.DefaultDrawCardNum, CurrentGamePlaySettings.DefaultLife,
+        BuildInfo bi = new BuildInfo(
+            -1,
+            LanguageManager.Instance.GetText("SelectBuildManagerBuild_NewDeck"),
+            new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum,
+                new SortedDictionary<int, BuildCards.CardSelectInfo>()),
+            CurrentGamePlaySettings.DefaultDrawCardNum,
+            CurrentGamePlaySettings.DefaultLife,
             CurrentGamePlaySettings.DefaultEnergy,
-            0, false, CurrentGamePlaySettings);
+            0, CurrentGamePlaySettings);
         CreateNewBuildButton.enabled = false; //接到回应前锁定
         DeleteBuildButton.enabled = false;
-        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, bi, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
+        BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, bi, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single, UIManager.Instance.GetBaseUIForm<StartMenuPanel>().state == StartMenuPanel.States.Show_Single_HasStory);
         Client.Instance.Proxy.SendMessage(request);
     }
 

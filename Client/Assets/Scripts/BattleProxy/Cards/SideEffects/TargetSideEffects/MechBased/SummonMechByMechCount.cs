@@ -2,7 +2,7 @@
 
 namespace SideEffects
 {
-    public class SummonMechByMechCount : TargetSideEffect, ICardDeckLinked
+    public class SummonMechByMechCount : TargetSideEffect, ICardDeckLinked, IPositive
     {
         public SummonMechByMechCount()
         {

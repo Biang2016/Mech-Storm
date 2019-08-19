@@ -29,10 +29,24 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         get { return currentEditBuildInfo; }
         set
         {
-            if (currentEditBuildInfo != null) OnSaveBuildInfo(currentEditBuildInfo);
+            if (currentEditBuildInfo != null && value != null)
+            {
+                if (currentEditBuildInfo.BuildID != value.BuildID)
+                {
+                    OnSaveBuildInfo(currentEditBuildInfo);
+                }
+            }
+
             currentEditBuildInfo = value;
-            lastSaveBuildInfo = currentEditBuildInfo.Clone();
-            lastSaveBuildInfo.BuildID = currentEditBuildInfo.BuildID;
+            if (currentEditBuildInfo != null)
+            {
+                lastSaveBuildInfo = currentEditBuildInfo.Clone();
+                lastSaveBuildInfo.BuildID = currentEditBuildInfo.BuildID;
+            }
+            else
+            {
+                lastSaveBuildInfo = null;
+            }
         }
     }
 
@@ -54,7 +68,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         if (!StoryManager.Instance.HasStory && gameMode == GameMode.Single) return;
         CurrentGameMode = gameMode;
         InitBuildInfos();
-        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().Init(true);
+        UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().Init(null, true);
     }
 
     private void InitBuildInfos()
@@ -103,7 +117,7 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
     {
         if (lastSaveBuildInfo == null || !lastSaveBuildInfo.EqualsTo(buildInfo))
         {
-            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, buildInfo, CurrentGameMode == GameMode.Single);
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, buildInfo, CurrentGameMode == GameMode.Single, UIManager.Instance.GetBaseUIForm<StartMenuPanel>().state == StartMenuPanel.States.Show_Single_HasStory);
             Client.Instance.Proxy.SendMessage(request);
 
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("SelectBuildManagerBuild_YourDeckIsSaved"), 0f, 0.5f);
@@ -149,10 +163,12 @@ public partial class SelectBuildManager : MonoSingleton<SelectBuildManager>
         if (CurrentGameMode == GameMode.Online)
         {
             OnlineManager.Instance.OnlineBuildInfos[buildInfo.BuildID] = buildInfo;
+            buildInfo.GamePlaySettings = OnlineManager.Instance.OnlineGamePlaySettings;
         }
         else if (CurrentGameMode == GameMode.Single)
         {
             StoryManager.Instance.GetStory().PlayerBuildInfos[buildInfo.BuildID] = buildInfo;
+            buildInfo.GamePlaySettings = StoryManager.Instance.GetStory().StoryGamePlaySettings;
         }
 
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>()?.RefreshSomeBuild(buildInfo);

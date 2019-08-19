@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -91,7 +92,7 @@ internal class PlayerBuff : PoolObject
     [SerializeField] private Image BuffBloom;
     [SerializeField] private Image BuffValuePanel;
     [SerializeField] private Text BuffValueText;
-    [SerializeField] private Text BuffDescText;
+    [SerializeField] private TextMeshPro BuffDescText;
     [SerializeField] private Animator BuffDescAnim;
     [SerializeField] private Animator BuffAnim;
     [SerializeField] private Image Image;

@@ -1,20 +1,19 @@
-﻿public class UseSpellCardToMechRequest : ClientRequestBase
+﻿using System;
+using System.Collections.Generic;
+
+public class UseSpellCardToMechRequest : ClientRequestBase
 {
     public int handCardInstanceId;
-    public int targetMechId; //-2表示无目标
-    public bool isTargetMechIdTempId; //目标ID是否也是临时ID
-    public int clientMechTempId; //客户端临时ID号，用于预召唤随从的匹配
+    public List<(int, bool)> targetMechIds = new List<(int, bool)>();
 
     public UseSpellCardToMechRequest()
     {
     }
 
-    public UseSpellCardToMechRequest(int clientId, int handCardInstanceId, int targetMechId, bool isTargetMechIdTempId, int clientMechTempId) : base(clientId)
+    public UseSpellCardToMechRequest(int clientId, int handCardInstanceId, List<(int, bool)> targetMechIds) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
-        this.targetMechId = targetMechId;
-        this.isTargetMechIdTempId = isTargetMechIdTempId;
-        this.clientMechTempId = clientMechTempId;
+        this.targetMechIds = targetMechIds ?? new List<ValueTuple<int, bool>>();
     }
 
     public override NetProtocols GetProtocol()
@@ -26,17 +25,24 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
-        writer.WriteSInt32(targetMechId);
-        writer.WriteByte(isTargetMechIdTempId ? (byte) 0x01 : (byte) 0x00);
-        writer.WriteSInt32(clientMechTempId);
+        writer.WriteSInt32(targetMechIds.Count);
+        foreach (ValueTuple<int, bool> var in targetMechIds)
+        {
+            writer.WriteSInt32(var.Item1);
+            writer.WriteByte((byte) (var.Item2 ? 0x01 : 0x00));
+        }
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
-        targetMechId = reader.ReadSInt32();
-        isTargetMechIdTempId = reader.ReadByte() == 0x01;
-        clientMechTempId = reader.ReadSInt32();
+        int count = reader.ReadSInt32();
+        for (int i = 0; i < count; i++)
+        {
+            int id = reader.ReadSInt32();
+            bool isTemp = reader.ReadByte() == 0x01;
+            targetMechIds.Add((id, isTemp));
+        }
     }
 }

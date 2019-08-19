@@ -34,5 +34,12 @@
         clientId = reader.ReadSInt32();
         buffId = reader.ReadSInt32();
         buffSEE = SideEffectExecute.Deserialize(reader);
+        foreach (SideEffectBase se in buffSEE.SideEffectBases)
+        {
+            if (se is PlayerBuffSideEffects buff)
+            {
+                buff.MyBuffSEE = buffSEE;
+            }
+        }
     }
 }

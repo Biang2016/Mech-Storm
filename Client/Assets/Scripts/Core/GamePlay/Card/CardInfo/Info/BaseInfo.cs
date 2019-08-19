@@ -14,10 +14,13 @@ public struct BaseInfo
     public int EffectFactor;
     public int LimitNum;
     public int CardRareLevel;
+    public int ShopPrice;
     public DragPurpose DragPurpose;
     public CardTypes CardType;
 
-    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool isHide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, CardTypes cardType)
+    public const int CARD_RARE_LEVEL_MAX = 20;
+
+    public BaseInfo(int pictureID, SortedDictionary<string, string> cardNames, bool isTemp, bool isHide, int metal, int energy, int coin, int effectFactor, int limitNum, int cardRareLevel, int shopPrice, CardTypes cardType)
     {
         PictureID = pictureID;
         CardNames = cardNames;
@@ -29,28 +32,19 @@ public struct BaseInfo
         EffectFactor = effectFactor;
         LimitNum = limitNum;
         CardRareLevel = cardRareLevel;
+        ShopPrice = shopPrice;
         DragPurpose = DragPurpose.None;
         CardType = cardType;
     }
 
-    private static string GetHighLightColor()
-    {
-        return AllColors.ColorDict[AllColors.ColorType.CardHighLightColor];
-    }
-
-    private static string GetImportantColor()
-    {
-        return AllColors.ColorDict[AllColors.ColorType.CardImportantColor];
-    }
-
     public static string AddHighLightColorToText(string highLightText)
     {
-        return "<" + GetHighLightColor() + ">" + highLightText + "</color>";
+        return Utils.AddHighLightColorToText(highLightText, AllColors.ColorDict[AllColors.ColorType.CardHighLightColor]);
     }
 
     public static string AddImportantColorToText(string highLightText)
     {
-        return "<" + GetImportantColor() + ">" + highLightText + "</color>";
+        return Utils.AddHighLightColorToText(highLightText, AllColors.ColorDict[AllColors.ColorType.CardImportantColor]);
     }
 
     public float BaseValue()
@@ -76,6 +70,7 @@ public struct BaseInfo
         writer.WriteSInt32(EffectFactor);
         writer.WriteSInt32(LimitNum);
         writer.WriteSInt32(CardRareLevel);
+        writer.WriteSInt32(ShopPrice);
         writer.WriteSInt32((int) CardType);
     }
 
@@ -99,8 +94,9 @@ public struct BaseInfo
         int EffectFactor = reader.ReadSInt32();
         int LimitNum = reader.ReadSInt32();
         int CardRareLevel = reader.ReadSInt32();
+        int ShopPrice = reader.ReadSInt32();
         CardTypes CardType = (CardTypes) reader.ReadSInt32();
-        return new BaseInfo(PictureID, CardNames, IsTemp, IsHide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, CardType);
+        return new BaseInfo(PictureID, CardNames, IsTemp, IsHide, Metal, Energy, Coin, EffectFactor, LimitNum, CardRareLevel, ShopPrice, CardType);
     }
 
     public static Dictionary<string, Dictionary<CardTypes, string>> CardTypeNameDict = new Dictionary<string, Dictionary<CardTypes, string>>
@@ -124,6 +120,36 @@ public struct BaseInfo
             }
         }
     };
+    public static Dictionary<string, Dictionary<CardFilterTypes, string>> CardFilterTypeNameDict = new Dictionary<string, Dictionary<CardFilterTypes, string>>
+    {
+        {
+            "zh", new Dictionary<CardFilterTypes, string>
+            {
+                {CardFilterTypes.All, "牌"},
+                {CardFilterTypes.Mech, "机甲牌"},
+                {CardFilterTypes.SoldierMech, "士兵牌"},
+                {CardFilterTypes.HeroMech, "英雄牌"},
+                {CardFilterTypes.Spell, "法术牌"},
+                {CardFilterTypes.Energy, "能量牌"},
+                {CardFilterTypes.Equip, "装备牌"},
+            }
+        },
+        {
+            "en", new Dictionary<CardFilterTypes, string>
+            {
+                {CardFilterTypes.All, "cards "},
+                {CardFilterTypes.Mech, "Mech cards "},
+                {CardFilterTypes.SoldierMech, "Soldier Mech cards "},
+                {CardFilterTypes.HeroMech, "Hero Mech cards "},
+                {CardFilterTypes.Spell, "Spell cards "},
+                {CardFilterTypes.Energy, "Energy cards "},
+                {CardFilterTypes.Equip, "Equip cards "},
+            }
+        }
+    };
+
+
+
 }
 
 [JsonConverter(typeof(StringEnumConverter))]
@@ -144,6 +170,18 @@ public enum CardStatTypes
     Equip = 3,
     Spell = 4,
     Energy = 5,
+}
+
+[JsonConverter(typeof(StringEnumConverter))]
+public enum CardFilterTypes
+{
+All,
+Mech,
+SoldierMech,
+HeroMech,
+Equip,
+Spell,
+Energy,
 }
 
 [JsonConverter(typeof(StringEnumConverter))]

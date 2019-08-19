@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Xml;
+using SideEffects;
 
 /// <summary>
 /// a bundle of SideEffectExecute to attach onto cards, mechs, equipment, battleships
@@ -178,6 +180,50 @@ public class SideEffectBundle : IClone<SideEffectBundle>
         }
 
         return copy;
+    }
+
+    public void ExportToXML(XmlElement card_ele, string postFix)
+    {
+        XmlDocument doc = card_ele.OwnerDocument;
+        XmlElement sideEffectsBundle_ele = doc.CreateElement("CardInfo");
+        card_ele.AppendChild(sideEffectsBundle_ele);
+        sideEffectsBundle_ele.SetAttribute("name", "sideEffectsBundle" + postFix);
+        foreach (SideEffectExecute see in SideEffectExecutes)
+        {
+            XmlElement sideEffectExecute_ele = doc.CreateElement("SideEffectExecute");
+            sideEffectsBundle_ele.AppendChild(sideEffectExecute_ele);
+            sideEffectExecute_ele.SetAttribute("ExecuteSettingTypes", see.ExecuteSettingType.ToString());
+            if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)
+            {
+                see.M_ExecuteSetting.ExportToXML(sideEffectExecute_ele);
+            }
+
+            foreach (SideEffectBase se in see.SideEffectBases)
+            {
+                XmlElement sideEffect_ele = doc.CreateElement("SideEffect");
+                sideEffectExecute_ele.AppendChild(sideEffect_ele);
+                se.ExportToXML(sideEffect_ele);
+
+                if (se is AddPlayerBuff_Base addBuff_SE)
+                {
+                    XmlElement buff_ele = doc.CreateElement("Buff");
+                    sideEffect_ele.AppendChild(buff_ele);
+                    addBuff_SE.ExportToXML(buff_ele);
+                    foreach (SideEffectBase _se in addBuff_SE.AttachedBuffSEE.SideEffectBases)
+                    {
+                        _se.ExportToXML(buff_ele);
+                    }
+
+                    addBuff_SE.AttachedBuffSEE.M_ExecuteSetting.ExportToXML(buff_ele);
+                    foreach (SideEffectBase buff_SubSE in addBuff_SE.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect)
+                    {
+                        XmlElement buff_SubSE_ele = doc.CreateElement("SideEffect");
+                        buff_ele.AppendChild(buff_SubSE_ele);
+                        buff_SubSE.ExportToXML(buff_SubSE_ele);
+                    }
+                }
+            }
+        }
     }
 
     public void Serialize(DataStream writer)

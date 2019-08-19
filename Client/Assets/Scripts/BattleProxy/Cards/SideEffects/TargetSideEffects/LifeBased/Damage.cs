@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Damage : TargetSideEffect, IDamage
+    public class Damage : TargetSideEffect, IDamage, INegative
     {
         public Damage()
         {
@@ -10,15 +10,18 @@
         {
             base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("Damage", 0);
+            M_SideEffectParam.SetParam_ConstInt("DamageTimes", 0);
         }
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.LifeBased;
 
         public override string GenerateDesc()
         {
+            int times = M_SideEffectParam.GetParam_ConstInt("DamageTimes");
             return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
-                M_SideEffectParam.GetParam_MultipliedInt("Damage"));
+                M_SideEffectParam.GetParam_MultipliedInt("Damage"),
+                times <= 1 ? "" : ("*" + M_SideEffectParam.GetParam_ConstInt("DamageTimes")));
         }
 
         public int CalculateDamage()
@@ -35,22 +38,22 @@
         {
             BattlePlayer player = (BattlePlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
-            if (TargetRange == TargetRange.Self) // 对自身
-            {
-                player.BattleGroundManager.GetMech(executorInfo.MechId).Damage(value);
-            }
-            else
-            {
-                player.GameManager.SideEffect_ILifeAction(
-                    delegate(ILife life) { life.Damage(value); },
-                    player,
-                    ChoiceCount,
-                    TargetRange,
-                    TargetSelect,
-                    executorInfo.TargetClientIds,
-                    executorInfo.TargetMechIds
-                );
-            }
+            int times = M_SideEffectParam.GetParam_ConstInt("DamageTimes");
+            player.GameManager.SideEffect_ILifeAction(
+                delegate(ILife life)
+                {
+                    for (int i = 0; i < times; i++)
+                    {
+                        life.Damage(value);
+                    }
+                },
+                player,
+                ChoiceCount,
+                TargetRange,
+                TargetSelect,
+                executorInfo.TargetClientIds,
+                executorInfo.TargetMechIds
+            );
         }
     }
 }

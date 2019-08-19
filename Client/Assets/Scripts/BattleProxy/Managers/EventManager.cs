@@ -292,7 +292,7 @@ public class EventManager
                                 if (sub_se is ITrigger triggerSEE)
                                 {
                                     triggerSEE.PeekSEE = InvokeStack.Peek();
-                                    if (triggerSEE.IsTrigger())
+                                    if (triggerSEE.IsTrigger(ei))
                                     {
                                         isTriggerTrigger = true;
                                     }
@@ -320,7 +320,10 @@ public class EventManager
             }
             else if (see.M_ExecuteSetting.TriggerTimes == 0)
             {
-                ObsoleteSEEs.Add(see.ID, see);
+                if (!ObsoleteSEEs.ContainsKey(see.ID))
+                {
+                    ObsoleteSEEs.Add(see.ID, see);
+                }
             }
         }
     }

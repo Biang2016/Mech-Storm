@@ -4,12 +4,12 @@ public class BuildCards : IClone<BuildCards>
 {
     public SortedDictionary<int, CardSelectInfo> CardSelectInfos; // Key: CardID
 
-    public BuildCards(SortedDictionary<int, CardSelectInfo> cardSelectInfos = null)
+    public BuildCards(DefaultCardLimitNumTypes defaultCardLimitNumType, SortedDictionary<int, CardSelectInfo> cardSelectInfos = null, SortedDictionary<int, bool> cardUnlockInfos = null)
     {
         CardSelectInfos = new SortedDictionary<int, CardSelectInfo>();
         foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
         {
-            CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, kv.Value.BaseInfo.LimitNum));
+            CardSelectInfos.Add(kv.Key, new CardSelectInfo(kv.Key, 0, (defaultCardLimitNumType == DefaultCardLimitNumTypes.BasedOnZero) ? 0 : kv.Value.BaseInfo.LimitNum));
         }
 
         if (cardSelectInfos != null)
@@ -24,11 +24,26 @@ public class BuildCards : IClone<BuildCards>
         }
     }
 
+    public enum DefaultCardLimitNumTypes
+    {
+        BasedOnCardBaseInfoLimitNum,
+        BasedOnZero,
+    }
+
     public void ClearAllCardCounts()
     {
         foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
         {
             kv.Value.CardSelectCount = 0;
+        }
+    }
+
+    public void ClearAllCardUpperLimit()
+    {
+        foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
+        {
+            kv.Value.CardSelectCount = 0;
+            kv.Value.CardSelectUpperLimit = 0;
         }
     }
 
@@ -76,16 +91,26 @@ public class BuildCards : IClone<BuildCards>
         return res;
     }
 
-    public List<int> GetHeroCardIDs()
+    public List<int> GetHeroCardIDs(Editor_CardSelectModes mode)
     {
         List<int> heroCardIDs = new List<int>();
         foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
         {
             if (AllCards.GetCard(kv.Key).CardStatType == CardStatTypes.HeroMech)
             {
-                for (int i = 0; i < kv.Value.CardSelectCount; i++)
+                if (mode == Editor_CardSelectModes.SelectCount)
                 {
-                    heroCardIDs.Add(kv.Key);
+                    for (int i = 0; i < kv.Value.CardSelectCount; i++)
+                    {
+                        heroCardIDs.Add(kv.Key);
+                    }
+                }
+                else if (mode == Editor_CardSelectModes.UpperLimit)
+                {
+                    for (int i = 0; i < kv.Value.CardSelectUpperLimit; i++)
+                    {
+                        heroCardIDs.Add(kv.Key);
+                    }
                 }
             }
         }
@@ -93,7 +118,7 @@ public class BuildCards : IClone<BuildCards>
         return heroCardIDs;
     }
 
-    public SortedDictionary<CardStatTypes, int> GetTypeCardCountDict()
+    public SortedDictionary<CardStatTypes, int> GetTypeCardCountDict(Editor_CardSelectModes mode)
     {
         SortedDictionary<CardStatTypes, int> res = new SortedDictionary<CardStatTypes, int>();
         res.Add(CardStatTypes.Total, 0);
@@ -105,14 +130,22 @@ public class BuildCards : IClone<BuildCards>
         foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
         {
             CardStatTypes type = AllCards.GetCard(kv.Key).CardStatType;
-            res[type] += kv.Value.CardSelectCount;
-            res[CardStatTypes.Total] += kv.Value.CardSelectCount;
+            if (mode == Editor_CardSelectModes.SelectCount)
+            {
+                res[type] += kv.Value.CardSelectCount;
+                res[CardStatTypes.Total] += kv.Value.CardSelectCount;
+            }
+            else if (mode == Editor_CardSelectModes.UpperLimit)
+            {
+                res[type] += kv.Value.CardSelectUpperLimit;
+                res[CardStatTypes.Total] += kv.Value.CardSelectUpperLimit;
+            }
         }
 
         return res;
     }
 
-    public SortedDictionary<int, int> GetCostDictByMetal(CardStatTypes cardStatType)
+    public SortedDictionary<int, int> GetCostDictByMetal(Editor_CardSelectModes mode, CardStatTypes cardStatType)
     {
         SortedDictionary<int, int> res = new SortedDictionary<int, int>();
         for (int i = 0; i <= 10; i++)
@@ -125,13 +158,27 @@ public class BuildCards : IClone<BuildCards>
             CardInfo_Base ci = AllCards.GetCard(kv.Key);
             if (cardStatType == CardStatTypes.Total || ci.CardStatType == cardStatType)
             {
-                if (ci.BaseInfo.Metal < 10)
+                if (mode == Editor_CardSelectModes.SelectCount)
                 {
-                    res[ci.BaseInfo.Metal] += kv.Value.CardSelectCount;
+                    if (ci.BaseInfo.Metal < 10)
+                    {
+                        res[ci.BaseInfo.Metal] += kv.Value.CardSelectCount;
+                    }
+                    else
+                    {
+                        res[10] += kv.Value.CardSelectCount;
+                    }
                 }
-                else
+                else if (mode == Editor_CardSelectModes.UpperLimit)
                 {
-                    res[10] += kv.Value.CardSelectCount;
+                    if (ci.BaseInfo.Metal < 10)
+                    {
+                        res[ci.BaseInfo.Metal] += kv.Value.CardSelectUpperLimit;
+                    }
+                    else
+                    {
+                        res[10] += kv.Value.CardSelectUpperLimit;
+                    }
                 }
             }
         }
@@ -139,7 +186,7 @@ public class BuildCards : IClone<BuildCards>
         return res;
     }
 
-    public SortedDictionary<int, int> GetCostDictByEnergy(CardStatTypes cardStatType)
+    public SortedDictionary<int, int> GetCostDictByEnergy(Editor_CardSelectModes mode, CardStatTypes cardStatType)
     {
         SortedDictionary<int, int> res = new SortedDictionary<int, int>();
         for (int i = 0; i <= 10; i++)
@@ -152,13 +199,27 @@ public class BuildCards : IClone<BuildCards>
             CardInfo_Base ci = AllCards.GetCard(kv.Key);
             if (cardStatType == CardStatTypes.Total || ci.CardStatType == cardStatType)
             {
-                if (ci.BaseInfo.Energy < 10)
+                if (mode == Editor_CardSelectModes.SelectCount)
                 {
-                    res[ci.BaseInfo.Energy] += kv.Value.CardSelectCount;
+                    if (ci.BaseInfo.Energy < 10)
+                    {
+                        res[ci.BaseInfo.Energy] += kv.Value.CardSelectCount;
+                    }
+                    else
+                    {
+                        res[10] += kv.Value.CardSelectCount;
+                    }
                 }
-                else
+                else if (mode == Editor_CardSelectModes.UpperLimit)
                 {
-                    res[10] += kv.Value.CardSelectCount;
+                    if (ci.BaseInfo.Energy < 10)
+                    {
+                        res[ci.BaseInfo.Energy] += kv.Value.CardSelectUpperLimit;
+                    }
+                    else
+                    {
+                        res[10] += kv.Value.CardSelectUpperLimit;
+                    }
                 }
             }
         }
@@ -168,13 +229,13 @@ public class BuildCards : IClone<BuildCards>
 
     public BuildCards Clone()
     {
-        SortedDictionary<int, CardSelectInfo> res = new SortedDictionary<int, CardSelectInfo>();
+        SortedDictionary<int, CardSelectInfo> cardSelectInfo = new SortedDictionary<int, CardSelectInfo>();
         foreach (KeyValuePair<int, CardSelectInfo> kv in CardSelectInfos)
         {
-            res.Add(kv.Key, kv.Value.Clone());
+            cardSelectInfo.Add(kv.Key, kv.Value.Clone());
         }
 
-        return new BuildCards(res);
+        return new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum, cardSelectInfo);
     }
 
     public bool Equals(BuildCards o)
@@ -217,7 +278,7 @@ public class BuildCards : IClone<BuildCards>
             cardSelectInfos.Add(csi.CardID, csi);
         }
 
-        return new BuildCards(cardSelectInfos);
+        return new BuildCards(BuildCards.DefaultCardLimitNumTypes.BasedOnCardBaseInfoLimitNum, cardSelectInfos);
     }
 
     public class CardSelectInfo : IClone<CardSelectInfo>
@@ -258,4 +319,10 @@ public class BuildCards : IClone<BuildCards>
             return new CardSelectInfo(cardID, cardSelectCount, cardSelectUpperLimit);
         }
     }
+}
+
+public enum Editor_CardSelectModes
+{
+    UpperLimit,
+    SelectCount,
 }

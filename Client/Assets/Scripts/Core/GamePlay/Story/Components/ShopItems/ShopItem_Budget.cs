@@ -2,7 +2,7 @@
 
 public class ShopItem_Budget : ShopItem
 {
-    public ShopItem_Budget(int price, int budget) : base(ShopItemTypes.Budget, price)
+    public ShopItem_Budget(int price, int budget, int probability, bool isSingleton) : base(ShopItemTypes.Budget, price, probability, isSingleton)
     {
         Budget = budget;
     }
@@ -11,11 +11,11 @@ public class ShopItem_Budget : ShopItem
 
     public override string Name => LanguageManager_Common.GetText("CardEditorPanel_CardCoinCostLabelText");
 
-    public override int PicID => 1008;
+    public override int PicID => (int) AllCards.SpecialPicIDs.Budget;
 
     public override ShopItem Clone()
     {
-        return new ShopItem_Budget(Price, Budget);
+        return new ShopItem_Budget(Price, Budget, Probability, IsSingleton);
     }
 
     protected override void ChildrenExportToXML(XmlElement my_ele)

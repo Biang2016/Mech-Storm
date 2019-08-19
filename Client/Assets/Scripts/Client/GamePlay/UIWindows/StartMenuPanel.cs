@@ -23,6 +23,10 @@ public class StartMenuPanel : BaseUIForm
     private Dictionary<string, StartMenuButton> StartMenuButtonDict = new Dictionary<string, StartMenuButton>();
     private Dictionary<States, List<string>> StateMenuButtonListDict = new Dictionary<States, List<string>>();
 
+    public StartMenuButton OnlineDeckButton;
+    public StartMenuButton SingleDeckButton;
+    public StartMenuButton SingleCustomDeckButton;
+
     void Awake()
     {
         UIType.InitUIType(
@@ -51,14 +55,14 @@ public class StartMenuPanel : BaseUIForm
 
         AddButton("OnlineStart", "StartMenu_OnlineStart", null, OnOnlineStartButtonClick);
         AddButton("CancelMatch", "StartMenu_CancelMatch", null, OnCancelMatchGameButtonClick);
-        AddButton("OnlineDeck", "StartMenu_OnlineDeck", "StartMenu_DeckTipText", OnOnlineDeckButtonClick, StartMenuButton.TipImageType.NewCard);
+        OnlineDeckButton = AddButton("OnlineDeck", "StartMenu_OnlineDeck", "StartMenu_DeckTipText", OnOnlineDeckButtonClick, StartMenuButton.TipImageType.NewCard);
 
         AddButton("SingleStart", "StartMenu_SingleStart", null, OnSingleStartButtonClick);
         AddButton("SingleResume", "StartMenu_SingleResume", "StartMenu_SingleResumeTipText", OnSingleResumeButtonClick);
-        AddButton("SingleDeck", "StartMenu_SingleDeck", "StartMenu_DeckTipText", OnSingleDeckButtonClick, StartMenuButton.TipImageType.NewCard);
+        SingleDeckButton = AddButton("SingleDeck", "StartMenu_SingleDeck", "StartMenu_DeckTipText", OnSingleDeckButtonClick, StartMenuButton.TipImageType.NewCard);
 
         AddButton("SingleCustomStart", "StartMenu_SingleCustomStart", null, OnSingleCustomStartButtonClick);
-        AddButton("SingleCustomDeck", "StartMenu_SingleCustomDeck", "StartMenu_DeckTipText", OnSingleCustomDeckButtonClick, StartMenuButton.TipImageType.NewCard);
+        SingleCustomDeckButton = AddButton("SingleCustomDeck", "StartMenu_SingleCustomDeck", "StartMenu_DeckTipText", OnSingleCustomDeckButtonClick, StartMenuButton.TipImageType.NewCard);
 
         StateMenuButtonListDict.Add(States.Show_Main_Standalone, new List<string> {"SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
         StateMenuButtonListDict.Add(States.Show_Main_Online, new List<string> {"OnlineMenu", "SingleMenu", "SingleCustomBattle", "Setting", "QuitGame"});
@@ -100,6 +104,7 @@ public class StartMenuPanel : BaseUIForm
     public override void Display()
     {
         base.Display();
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.StartMenu);
     }
 
@@ -108,21 +113,13 @@ public class StartMenuPanel : BaseUIForm
         base.Hide();
     }
 
-    private void AddButton(string goName, string textKey, string tipTextKey, UnityAction buttonClick, StartMenuButton.TipImageType tipImageType = StartMenuButton.TipImageType.None)
+    private StartMenuButton AddButton(string goName, string textKey, string tipTextKey, UnityAction buttonClick, StartMenuButton.TipImageType tipImageType = StartMenuButton.TipImageType.None)
     {
         StartMenuButton smb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StartMenuButton].AllocateGameObject<StartMenuButton>(ButtonContainer);
         smb.name = goName + "Button";
         smb.BindTextKey(textKey, tipTextKey, buttonClick, tipImageType);
         StartMenuButtonDict.Add(goName, smb);
-    }
-
-    public void SetButtonTipImageShow(string goName, bool isShow)
-    {
-        StartMenuButtonDict.TryGetValue(goName, out StartMenuButton smb);
-        if (smb != null)
-        {
-            smb.SetTipImageTextShow(isShow);
-        }
+        return smb;
     }
 
     public void OnClientChangeState(ProxyBase.ClientStates clientState)
@@ -157,7 +154,7 @@ public class StartMenuPanel : BaseUIForm
         }
     }
 
-    private States state;
+    public States state;
 
     [Flags]
     public enum States
@@ -188,8 +185,6 @@ public class StartMenuPanel : BaseUIForm
         }
 
         RefreshBuildInfoAbstract(SelectBuildManager.Instance.CurrentSelectedBuildInfo);
-
-        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/StartMenu_0", "bgm/StartMenu_1"});
 
         state = newState;
 
@@ -350,12 +345,11 @@ public class StartMenuPanel : BaseUIForm
             ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
             string desc = LanguageManager.Instance.GetText("Notice_StartMenu_DoYouWantToStartANewSingleGame") + (StoryManager.Instance.HasStory ? LanguageManager.Instance.GetText("Notice_StartMenu_CurrentGameWillBeRemoved") : "");
 
-            UnityAction action = StartNewStory;
             cp.Initialize(
                 desc,
                 LanguageManager.Instance.GetText("Common_Yes"),
                 LanguageManager.Instance.GetText("Common_Cancel"),
-                action + cp.CloseUIForm,
+                new UnityAction(StartNewStory) + cp.CloseUIForm,
                 cp.CloseUIForm
             );
         }
@@ -378,6 +372,8 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleResumeButtonClick()
     {
+        UIManager.Instance.ShowUIForms<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+        UIManager.Instance.ShowUIForms<StoryPanel>();
     }
 
     public void StartGameCore(RoundManager.PlayMode playMode, int chapterID, int levelID)
@@ -404,58 +400,31 @@ public class StartMenuPanel : BaseUIForm
                 }
             }
 
-            if (SelectBuildManager.Instance.CurrentSelectedBuildInfo == null) //未发送卡组则跳出选择卡组界面
-            {
-                OnSelectCardDeckWindowButtonClick();
-                return;
-            }
-            else if (SelectBuildManager.Instance.CurrentSelectedBuildInfo.CardCount == 0)
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_StartMenu_NoCardInDeck"), 0, 0.3f);
-                OnSelectCardDeckWindowButtonClick();
-                return;
-            }
-            else if (!SelectBuildManager.Instance.CurrentSelectedBuildInfo.IsEnergyEnough())
-            {
-                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-                cp.Initialize(LanguageManager.Instance.GetText("Notice_StartMenu_CardEnergyOverYourEnergy"),
-                    LanguageManager.Instance.GetText("Common_GoAhead"),
-                    LanguageManager.Instance.GetText("Common_Edit"),
-                    startGameAction + cp.CloseUIForm,
-                    new UnityAction(OnSelectCardDeckWindowButtonClick) + cp.CloseUIForm + delegate
-                    {
-                        //StoryManager.Instance.SetState(StoryManager.States.Hide);
-                    });
-                return;
-            }
-            else
-            {
-                startGameAction?.Invoke();
-            }
+            OnSelectCardDeckWindowButtonClick(startGameAction);
         }
     }
 
     private void StartOnlineMatch()
     {
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
         Client.Instance.Proxy.OnBeginMatch();
         ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginMatching"));
         NoticeManager.Instance.ShowInfoPanelTop(LanguageManager.Instance.GetText("StartMenu_Matching"), 0, float.PositiveInfinity);
         DeckAbstract.SetActive(true);
-        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Online;
     }
 
     private void StartSingleGame(int chapterID, int levelID)
     {
+        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
         Client.Instance.Proxy.OnBeginSingleMode(chapterID, levelID);
         ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginSingleMode"));
-        RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.Single;
     }
 
     private void StartSingleCustomGame()
     {
-        Client.Instance.Proxy.OnBeginSingleMode(-1, -1);
-        ClientLog.Instance.Print(LanguageManager.Instance.GetText("StartMenu_BeginCustomMode"));
         RoundManager.Instance.M_PlayMode = RoundManager.PlayMode.SingleCustom;
+        Client.Instance.Proxy.OnBeginSingleMode(-1, -1);
+        ClientLog.Instance.Print("Begin single custom mode");
     }
 
     public void OnCancelMatchGameButtonClick()
@@ -468,7 +437,12 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSelectCardDeckWindowButtonClick()
     {
-        UIManager.Instance.ShowUIForms<SelectBuildPanel>().Init();
+        UIManager.Instance.ShowUIForms<SelectBuildPanel>().Init(null);
+    }
+
+    private void OnSelectCardDeckWindowButtonClick(UnityAction startGameAction)
+    {
+        UIManager.Instance.ShowUIForms<SelectBuildPanel>().Init(startGameAction);
     }
 
     public void OnSettingButtonClick()

@@ -11,6 +11,9 @@ internal class BattlePlayer : Player
     public Battle_HandManager HandManager;
     public CardDeckManager CardDeckManager;
     public BattleGroundManager BattleGroundManager;
+    public BattleStatistics BattleStatistics;
+
+    public int ExtraRounds = 0;
 
     public BattlePlayer(string username, int clientId, int metalLeft, int metalMax, int lifeLeft, int lifeMax, int energyLeft, int energyMax, GameManager serverGameManager) : base(username, metalLeft, metalMax, lifeLeft, lifeMax, energyLeft, energyMax)
     {
@@ -19,6 +22,7 @@ internal class BattlePlayer : Player
         HandManager = new Battle_HandManager(this);
         CardDeckManager = new CardDeckManager(this);
         BattleGroundManager = new BattleGroundManager(this);
+        BattleStatistics = new BattleStatistics();
     }
 
     public void OnDestroyed()
@@ -48,7 +52,8 @@ internal class BattlePlayer : Player
     protected override void OnMetalUsed(int change)
     {
         base.OnMetalUsed(change);
-        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnUseMetal, new ExecutorInfo(clientId: ClientId, value: change));
+        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnUseMetal, new ExecutorInfo(clientId: ClientId, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Metal_Use, change}}));
+        BattleStatistics.TotalUseMetal += change;
     }
 
     protected override void OnMetalReduce(int change)
@@ -63,7 +68,7 @@ internal class BattlePlayer : Player
     protected override void OnLifeChanged(int change, bool isOverflow)
     {
         base.OnLifeChanged(change, isOverflow);
-        PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax);
+        PlayerLifeChangeRequest request = new PlayerLifeChangeRequest(ClientId, LifeLeft, LifeMax, isOverflow);
         BroadCastRequest(request);
         if (LifeLeft <= 0)
         {
@@ -74,13 +79,19 @@ internal class BattlePlayer : Player
     protected override void OnHeal(int change, bool isOverflow)
     {
         base.OnHeal(change, isOverflow);
-        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerAddLife, new ExecutorInfo(ClientId, value: change));
+        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerAddLife, new ExecutorInfo(clientId: ClientId, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Heal, change}, {ExecutorInfo.ExecutorInfoValues.ShipLife_Add, change}}));
+        BattleStatistics.TotalHeal += change;
+        BattleStatistics.ShipHeal += change;
     }
 
     protected override void OnDamage(int change)
     {
         base.OnDamage(change);
-        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerLostLife, new ExecutorInfo(ClientId, value: change));
+        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerLostLife, new ExecutorInfo(clientId: ClientId, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Damage, change}, {ExecutorInfo.ExecutorInfoValues.DamageToShip, change}, {ExecutorInfo.ExecutorInfoValues.ShipLife_Injury, change}}));
+        BattleStatistics.TotalInjury += change;
+        BattleStatistics.ShipInjury += change;
+        MyEnemyPlayer.BattleStatistics.DamageToShip += change;
+        MyEnemyPlayer.BattleStatistics.TotalDamage += change;
     }
 
     protected override void OnMaxLifeChanged(int change)
@@ -113,7 +124,12 @@ internal class BattlePlayer : Player
     protected override void OnEnergyIncrease(int change, bool isOverflow)
     {
         base.OnEnergyIncrease(change, isOverflow);
-        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerGetEnergy, new ExecutorInfo(ClientId, value: change));
+        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerGetEnergy, new ExecutorInfo(clientId: ClientId, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Energy_Add, change}}));
+        BattleStatistics.TotalGetEnergy += change;
+        if (EnergyLeft == EnergyMax)
+        {
+            GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerEnergyFull, new ExecutorInfo(clientId: ClientId));
+        }
     }
 
     protected override void OnEnergyReduce(int change)
@@ -124,7 +140,12 @@ internal class BattlePlayer : Player
     protected override void OnEnergyUsed(int change)
     {
         base.OnEnergyUsed(change);
-        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerUseEnergy, new ExecutorInfo(ClientId, value: change));
+        GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerUseEnergy, new ExecutorInfo(clientId: ClientId, valueDictionary: new SortedDictionary<ExecutorInfo.ExecutorInfoValues, int> {{ExecutorInfo.ExecutorInfoValues.Energy_Use, change}}));
+        BattleStatistics.TotalUseEnergy += change;
+        if (EnergyLeft == 0)
+        {
+            GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnPlayerEnergyEmpty, new ExecutorInfo(clientId: ClientId));
+        }
     }
 
     #endregion

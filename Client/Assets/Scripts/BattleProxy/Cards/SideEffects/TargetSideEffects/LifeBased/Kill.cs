@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Kill : TargetSideEffect
+    public class Kill : TargetSideEffect, INegative, IPriorUsed
     {
         public Kill()
         {

@@ -1,7 +1,8 @@
 {
     "name": "ServerConsole",
     "references": [
-        "Server"
+        "Server",
+        "Core"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardSpell : CardBase
@@ -47,11 +48,19 @@ public class CardSpell : CardBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleMech, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
+
+        if (DragManager.Instance.IsCanceling)
+        {
+            DragManager.Instance.IsCanceling = false;
+            CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
+            return;
+        }
+
         if (boardAreaType != ClientPlayer.BattlePlayer.HandArea) //离开手牌区域
         {
             if (!CardInfo.TargetInfo.HasTargetMech && !CardInfo.TargetInfo.HasTargetEquip && !CardInfo.TargetInfo.HasTargetShip)
             {
-                summonSpellRequest(dragLastPosition);
+                summonSpellRequest();
                 return;
             }
             else if (CardInfo.TargetInfo.HasTargetMech)
@@ -59,8 +68,7 @@ public class CardSpell : CardBase
                 //To Mech
                 if (moduleMech == null || moduleMech.IsDead)
                 {
-                    transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                 }
                 else
                 {
@@ -104,7 +112,7 @@ public class CardSpell : CardBase
 
                     if (validTarget)
                     {
-                        summonSpellRequestToMech(moduleMech, dragLastPosition);
+                        summonSpellRequestToMech(moduleMech);
                         return;
                     }
                     else
@@ -119,16 +127,14 @@ public class CardSpell : CardBase
                 //To Equip
                 if (slots.Count == 0)
                 {
-                    transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                 }
                 else
                 {
                     ModuleEquip equip = slots[0].Mech.MechEquipSystemComponent.GetEquipBySlotType(slots[0].MSlotTypes);
                     if (equip == null || equip.M_ModuleMech.IsDead)
                     {
-                        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                        CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                     }
                     else
                     {
@@ -172,7 +178,7 @@ public class CardSpell : CardBase
 
                         if (validTarget)
                         {
-                            summonSpellRequestToEquip(equip, dragLastPosition);
+                            summonSpellRequestToEquip(equip);
                             return;
                         }
                         else
@@ -186,10 +192,9 @@ public class CardSpell : CardBase
             else if (CardInfo.TargetInfo.HasTargetShip)
             {
                 // ToShip
-                if (!ship)
+                if (!ship) //带目标法术卡未指定目标，则收回
                 {
-                    transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //带目标法术卡未指定目标，则收回
-                    ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                 }
                 else
                 {
@@ -212,7 +217,7 @@ public class CardSpell : CardBase
 
                     if (validTarget)
                     {
-                        summonSpellRequestToShip(ship, dragLastPosition);
+                        summonSpellRequestToShip(ship);
                         return;
                     }
                     else
@@ -227,6 +232,12 @@ public class CardSpell : CardBase
         }
 
         transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion); //如果脱手地方还在手中，则收回
+        ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
+    }
+
+    private void CancelPlayOut(Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
+    {
+        transform.SetPositionAndRotation(dragBeginPosition, dragBeginQuaternion);
         ClientPlayer.BattlePlayer.HandManager.RefreshCardsPlace();
     }
 
@@ -261,40 +272,31 @@ public class CardSpell : CardBase
 
     #region 卡牌效果
 
-    private void summonSpellRequest(Vector3 dragLastPosition)
+    private void summonSpellRequest()
     {
         UseSpellCardRequest request = new UseSpellCardRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId);
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }
 
-    private void summonSpellRequestToMech(ModuleMech targetModuleMech, Vector3 dragLastPosition)
+    private void summonSpellRequestToMech(ModuleMech targetModuleMech)
     {
-        if (targetModuleMech.M_ClientTempMechID != Const.CLIENT_TEMP_MECH_ID_NORMAL)
-        {
-            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetModuleMech.M_MechID, true, targetModuleMech.M_ClientTempMechID);
-            Client.Instance.Proxy.SendMessage(request);
-        }
-        else
-        {
-            UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetModuleMech.M_MechID, false, Const.CLIENT_TEMP_MECH_ID_NORMAL);
-            Client.Instance.Proxy.SendMessage(request);
-        }
-
+        UseSpellCardToMechRequest request = new UseSpellCardToMechRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, new List<ValueTuple<int, bool>> {targetModuleMech.M_TargetMechID});
+        Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }
 
-    private void summonSpellRequestToEquip(ModuleEquip targetEquip, Vector3 dragLastPosition)
+    private void summonSpellRequestToEquip(ModuleEquip targetEquip)
     {
-        UseSpellCardToEquipRequest request = new UseSpellCardToEquipRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetEquip.M_EquipID);
+        UseSpellCardToEquipRequest request = new UseSpellCardToEquipRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, new List<int> {targetEquip.M_EquipID});
         Client.Instance.Proxy.SendMessage(request);
 
         Usable = false;
     }
 
-    private void summonSpellRequestToShip(Ship targetShip, Vector3 dragLastPosition)
+    private void summonSpellRequestToShip(Ship targetShip)
     {
-        UseSpellCardToShipRequest request = new UseSpellCardToShipRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, targetShip.ClientPlayer.ClientId);
+        UseSpellCardToShipRequest request = new UseSpellCardToShipRequest(Client.Instance.Proxy.ClientID, M_CardInstanceId, new List<int> {targetShip.ClientPlayer.ClientId});
         Client.Instance.Proxy.SendMessage(request);
         Usable = false;
     }

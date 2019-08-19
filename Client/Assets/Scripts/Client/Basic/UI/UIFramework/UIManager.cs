@@ -72,6 +72,7 @@ public class UIManager : MonoSingleton<UIManager>
                 break;
         }
 
+        //Debug.Log("showUI  " + uiFormName);
         return baseUIForms;
     }
 
@@ -110,19 +111,7 @@ public class UIManager : MonoSingleton<UIManager>
                 break;
         }
 
-        if (CurrentUIFormsStack.Count > 0)
-        {
-            Debug.Log(CurrentUIFormsStack.Peek().GetType());
-        }
-    }
-
-    public void ClickElsewhereClosePeekUIForm()
-    {
-        BaseUIForm ui = GetPeekUIForm();
-        if (ui && ui.UIType.IsClickElsewhereClose)
-        {
-            ui.CloseUIForm();
-        }
+        //Debug.Log("closeUI  " + uiFormName);
     }
 
     public T GetBaseUIForm<T>() where T : BaseUIForm
@@ -325,6 +314,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
+            if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
             baseUI.Hide();
         }
 
@@ -354,6 +344,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
+            if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
             baseUI.Hide();
         }
 
@@ -381,9 +372,24 @@ public class UIManager : MonoSingleton<UIManager>
         baseUIForm.Hide();
         CurrentShowUIFormDict.Remove(uiFormName);
 
+        bool showAll = true;
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
-            baseUI.Display();
+            if (baseUI.UIType.UIForms_ShowMode == UIFormShowModes.HideOther)
+            {
+                baseUI.Display();
+                showAll = false;
+                break;
+            }
+        }
+
+        if (showAll)
+        {
+            foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
+            {
+                if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
+                baseUI.Display();
+            }
         }
 
         foreach (BaseUIForm staUI in CurrentUIFormsStack)
@@ -409,6 +415,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (BaseUIForm baseUI in CurrentShowUIFormDict.Values)
         {
+            if (baseUI.UIType.UIForms_Type == UIFormTypes.Fixed) continue;
             baseUI.Display();
         }
 

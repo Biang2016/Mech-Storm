@@ -7,7 +7,7 @@ public class BonusGroup : Probability, IClone<BonusGroup>
     public List<Bonus> Bonuses = new List<Bonus>();
 
     public int Probability { get; set; }
-    public bool Singleton { get; set; }
+    public bool IsSingleton { get; set; }
 
     public Probability ProbabilityClone()
     {
@@ -23,12 +23,12 @@ public class BonusGroup : Probability, IClone<BonusGroup>
         IsAlways = isAlways;
         Bonuses = bonuses;
         Probability = probability;
-        Singleton = singleton;
+        IsSingleton = singleton;
     }
 
     public BonusGroup Clone()
     {
-        return new BonusGroup(IsAlways, CloneVariantUtils.List(Bonuses), Probability, Singleton);
+        return new BonusGroup(IsAlways, CloneVariantUtils.List(Bonuses), Probability, IsSingleton);
     }
 
     public void ExportToXML(XmlElement parent_ele)
@@ -41,17 +41,43 @@ public class BonusGroup : Probability, IClone<BonusGroup>
         if (!IsAlways)
         {
             bonusGroupInfo_ele.SetAttribute("probability", Probability.ToString());
-            bonusGroupInfo_ele.SetAttribute("singleton", Singleton.ToString());
+            bonusGroupInfo_ele.SetAttribute("isSingleton", IsSingleton.ToString());
         }
 
         foreach (Bonus b in Bonuses)
         {
-            XmlElement bonus_ele = doc.CreateElement("BonusInfo");
-            bonusGroupInfo_ele.AppendChild(bonus_ele);
-
-            bonus_ele.SetAttribute("name", b.M_BonusType.ToString());
-            bonus_ele.SetAttribute("value", b.BonusFinalValue.ToString());
+            b.ExportToXML(bonusGroupInfo_ele);
         }
+    }
+
+    public static BonusGroup GenerateBonusGroupFromXML(XmlNode bonusGroupInfo, out bool needRefresh)
+    {
+        needRefresh = false;
+        bool isAlways = bonusGroupInfo.Attributes["isAlways"].Value == "True";
+        List<Bonus> bonuses = new List<Bonus>();
+        int probability = 0;
+        bool singleton = false;
+        if (isAlways)
+        {
+            probability = 0;
+            singleton = true;
+        }
+        else
+        {
+            probability = int.Parse(bonusGroupInfo.Attributes["probability"].Value);
+            singleton = bonusGroupInfo.Attributes["isSingleton"].Value == "True";
+        }
+
+        BonusGroup bg = new BonusGroup(isAlways, bonuses, probability, singleton);
+        for (int i = 0; i < bonusGroupInfo.ChildNodes.Count; i++)
+        {
+            XmlNode bonusInfo = bonusGroupInfo.ChildNodes.Item(i);
+            Bonus bonus = Bonus.GenerateBonusFromXML(bonusInfo, out bool _needRefresh);
+            needRefresh |= _needRefresh;
+            bg.Bonuses.Add(bonus);
+        }
+
+        return bg;
     }
 
     public void Serialize(DataStream writer)
@@ -65,7 +91,7 @@ public class BonusGroup : Probability, IClone<BonusGroup>
         }
 
         writer.WriteSInt32(Probability);
-        writer.WriteByte((byte) (Singleton ? 0x01 : 0x00));
+        writer.WriteByte((byte) (IsSingleton ? 0x01 : 0x00));
     }
 
     public static BonusGroup Deserialize(DataStream reader)
@@ -81,7 +107,7 @@ public class BonusGroup : Probability, IClone<BonusGroup>
         }
 
         newBonusGroup.Probability = reader.ReadSInt32();
-        newBonusGroup.Singleton = reader.ReadByte() == 0x01;
+        newBonusGroup.IsSingleton = reader.ReadByte() == 0x01;
 
         return newBonusGroup;
     }
@@ -90,7 +116,7 @@ public class BonusGroup : Probability, IClone<BonusGroup>
 public interface Probability
 {
     int Probability { get; set; }
-    bool Singleton { get; set; }
+    bool IsSingleton { get; set; }
 
     Probability ProbabilityClone();
 }

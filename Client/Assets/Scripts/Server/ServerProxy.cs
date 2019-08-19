@@ -129,7 +129,7 @@ public class ServerProxy : ProxyBase
                                     }
                                     else
                                     {
-                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(BuildStoryDatabase.Instance.GetPlayerBuilds(UserName), GamePlaySettings.OnlineGamePlaySettings, false);
+                                        ClientBuildInfosRequest request1 = new ClientBuildInfosRequest(BuildStoryDatabase.Instance.GetPlayerBuilds(UserName), GamePlaySettings.OnlineGamePlaySettings);
                                         SendMessage(request1);
                                     }
                                 }

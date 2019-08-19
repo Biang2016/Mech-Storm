@@ -12,7 +12,7 @@ public class ModuleMech : ModuleBase
     public override void PoolRecycle()
     {
         MechEquipSystemComponent.PoolRecycle();
-        M_ClientTempMechID = -1;
+        M_ClientTempMechID = (int) Const.SpecialMechID.ClientTempMechIDNormal;
         base.PoolRecycle();
         ResetMech();
     }
@@ -98,7 +98,7 @@ public class ModuleMech : ModuleBase
 
         IsInitializing = false;
 
-        M_ClientTempMechID = -1;
+        M_ClientTempMechID = (int) Const.SpecialMechID.ClientTempMechIDNormal;
 
         CanAttack = false;
 
@@ -109,6 +109,7 @@ public class ModuleMech : ModuleBase
     {
         base.InitializeComponents();
         CardDescComponent.SetCardName(CardInfo.BaseInfo.CardNames[LanguageManager.Instance.GetCurrentLanguage()]);
+        CardDescComponent.SetTempCard(false);
         CardBasicComponent.ChangePicture(CardInfo.BaseInfo.PictureID);
         CardSlotsComponent.SetSlot(ClientPlayer, this, CardInfo.MechInfo);
         CardSlotsComponent.ShowAllSlotBlooms(false);
@@ -163,12 +164,17 @@ public class ModuleMech : ModuleBase
 
     public int M_MechID { get; set; }
 
-    public enum MechID
-    {
-        Empty = -1
-    }
-
     public int M_ClientTempMechID { get; set; }
+
+    public (int, bool) M_TargetMechID
+    {
+        get
+        {
+            bool isTemp = M_ClientTempMechID != (int) Const.SpecialMechID.ClientTempMechIDNormal;
+            int targetMechID = isTemp ? M_ClientTempMechID : M_MechID;
+            return (targetMechID, isTemp);
+        }
+    }
 
     private int m_ImmuneLeftRounds = 0;
 
@@ -342,7 +348,8 @@ public class ModuleMech : ModuleBase
                             (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsFrenzy) ||
                             (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsFrenzy);
 
-    public bool IsSentry => (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry);
+    public bool IsSentry => (CardInfo.MechInfo.IsSentry ||
+                             (MechEquipSystemComponent.M_Weapon != null && MechEquipSystemComponent.M_Weapon.CardInfo.WeaponInfo.IsSentry));
 
     public bool IsSniper => CardInfo.MechInfo.IsSniper ||
                             (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsSniper) ||
@@ -353,8 +360,6 @@ public class ModuleMech : ModuleBase
                               (MechEquipSystemComponent.M_Pack != null && MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.IsDefense) ||
                               (MechEquipSystemComponent.M_MA != null && MechEquipSystemComponent.M_MA.CardInfo.MAInfo.IsDefense);
 
-    public int DodgeProp => MechEquipSystemComponent.M_Pack ? 0 : MechEquipSystemComponent.M_Pack.CardInfo.PackInfo.DodgeProp;
-
     #endregion
 
     #region 模块交互
@@ -363,7 +368,14 @@ public class ModuleMech : ModuleBase
 
     public void SetCanAttack(bool value)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_SetCanAttack(value), "Co_SetCanAttack");
+        if (!value)
+        {
+            CanAttack = value;
+        }
+        else
+        {
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_SetCanAttack(value), "Co_SetCanAttack");
+        }
     }
 
     IEnumerator Co_SetCanAttack(bool value)
@@ -550,6 +562,13 @@ public class ModuleMech : ModuleBase
     {
         base.DragComponent_OnMouseUp(boardAreaType, slots, moduleMech, ship, dragLastPosition, dragBeginPosition, dragBeginQuaternion);
         RoundManager.Instance.HideTargetPreviewArrow();
+
+        if (DragManager.Instance.IsCanceling)
+        {
+            DragManager.Instance.IsCanceling = false;
+            return;
+        }
+
         if (moduleMech)
         {
             if (moduleMech.ClientPlayer != ClientPlayer)
@@ -801,14 +820,18 @@ public class ModuleMech : ModuleBase
 
     IEnumerator Co_OnAttack(WeaponTypes weaponType, ModuleMech targetMech)
     {
+        int order = MechOrder;
+        MechOrder = 50;
         switch (weaponType)
         {
             case WeaponTypes.None:
             {
                 Vector3 oriPos = transform.position;
                 transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f);
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.09f);
+                targetMech.transform.DOShakePosition(0.15f, 0.8f, 50, 0f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                yield return new WaitForSeconds(0.03f);
                 transform.DOMove(oriPos, 0.1f);
                 break;
             }
@@ -816,28 +839,37 @@ public class ModuleMech : ModuleBase
             {
                 Vector3 oriPos = transform.position;
                 transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f);
-                yield return new WaitForSeconds(0.15f);
-                transform.DOMove(oriPos, 0.1f);
+                yield return new WaitForSeconds(0.09f);
+                targetMech.transform.DOShakePosition(0.15f, 0.8f, 50, 0f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
+                yield return new WaitForSeconds(0.03f);
+                transform.DOMove(oriPos, 0.1f);
                 break;
             }
             case WeaponTypes.Gun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetMech.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetMech.transform.position, delegate
+                {
+                    FXManager.Instance.PlayFX(targetMech.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f);
+                    targetMech.transform.DOShakePosition(0.15f, (targetMech.transform.position - transform.position) * 0.8f, 50, 0f);
+                }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetMech.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetMech.transform.position, delegate
+                {
+                    FXManager.Instance.PlayFX(targetMech.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f);
+                    targetMech.transform.DOShakePosition(0.15f, (targetMech.transform.position - transform.position) * 0.8f, 50, 0f);
+                }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
             }
         }
 
         yield return null;
+        MechOrder = order;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -854,33 +886,31 @@ public class ModuleMech : ModuleBase
             {
                 Vector3 oriPos = transform.position;
                 transform.DOMove(targetShip.GetClosestHitPosition(transform.position), 0.15f);
-                yield return new WaitForSeconds(0.17f);
+                yield return new WaitForSeconds(0.10f);
                 AudioManager.Instance.SoundPlay("sfx/AttackNone");
                 transform.DOMove(oriPos, 0.15f);
-                yield return new WaitForSeconds(0.17f);
+                yield return new WaitForSeconds(0.05f);
                 break;
             }
             case WeaponTypes.Sword:
             {
                 Vector3 oriPos = transform.position;
                 transform.DOMove(targetShip.GetClosestHitPosition(transform.position), 0.15f);
-                yield return new WaitForSeconds(0.17f);
+                yield return new WaitForSeconds(0.10f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
                 transform.DOMove(oriPos, 0.15f);
-                yield return new WaitForSeconds(0.17f);
+                yield return new WaitForSeconds(0.05f);
                 break;
             }
             case WeaponTypes.Gun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetShip.transform.position, Color.white, Color.white, 1, 0.03f, 0.1f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                Bullet bl = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.Bullet].AllocateGameObject<Bullet>(transform);
-                bl.Move(transform.position, targetShip.transform.position, Color.yellow, Color.yellow, 1, 0.03f, 0.15f, 0);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
             }

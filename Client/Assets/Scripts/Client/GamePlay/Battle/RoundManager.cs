@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 
 public partial class RoundManager : MonoSingleton<RoundManager>
@@ -50,6 +51,11 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().SetState(SelectBuildPanel.States.ReadOnly);
         UIManager.Instance.CloseUIForm<SelectBuildPanel>();
+        UIManager.Instance.CloseUIForm<StoryPanel>();
+        UIManager.Instance.CloseUIForm<StoryPlayerInformationPanel>();
+        UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(true);
+        UIManager.Instance.CloseUIForm<ExitMenuPanel>();
+        DragManager.Instance.IsCanceling = false;
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
         SelfClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();
@@ -63,6 +69,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             SelfClientPlayer = new ClientPlayer(r.username, r.metalLeft, r.metalMax, r.lifeLeft, r.lifeMax, r.energyLeft, r.energyMax, Players.Self);
             SelfClientPlayer.ClientId = r.clientId;
             BattleManager.Instance.SelfBattlePlayer = SelfClientPlayer.BattlePlayer;
+            SelfClientPlayer.BattlePlayer.MetalLifeEnergyManager.SetEnemyIconImage();
         }
         else
         {
@@ -112,15 +119,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
 
     public void OnGameStop()
     {
-        if (M_PlayMode == PlayMode.Single)
-        {
-//            TransitPanel tp = UIManager.Instance.ShowUIForms<TransitPanel>();
-//            tp.ShowBlackShutTransit(1f, GameStopPreparation);
-        }
-        else
-        {
-            GameStopPreparation();
-        }
+        GameStopPreparation();
     }
 
     private void GameStopPreparation()
@@ -162,7 +161,8 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             }
             case PlayMode.Single:
             {
-                UIManager.Instance.ShowUIForms<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single);
+                UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StoryManager.Instance.HasStory ? StartMenuPanel.States.Show_Single_HasStory : StartMenuPanel.States.Show_Single);
+                UIManager.Instance.ShowUIForms<StoryPanel>();
                 break;
             }
             case PlayMode.SingleCustom:
@@ -197,6 +197,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
     {
         if (CurrentClientPlayer == SelfClientPlayer)
         {
+            StartCoroutine(Co_OnEndRoundButtonClickSFX());
             EndRoundRequest request = new EndRoundRequest(Client.Instance.Proxy.ClientID);
             Client.Instance.Proxy.SendMessage(request);
             BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(false);
@@ -205,6 +206,12 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         {
             ClientLog.Instance.PrintWarning("Not Your Round");
         }
+    }
+
+    IEnumerator Co_OnEndRoundButtonClickSFX()
+    {
+        AudioManager.Instance.SoundPlay("sfx/OnEndRoundButtonClick", 1f);
+        yield return null;
     }
 
     public void ShowMechAttackPreviewArrow(ModuleMech attackMech) //当某机甲被拖出进攻时，显示可选目标标记箭头

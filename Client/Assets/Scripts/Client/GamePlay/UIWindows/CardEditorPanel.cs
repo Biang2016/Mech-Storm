@@ -38,6 +38,8 @@ public class CardEditorPanel : BaseUIForm
                 (ResetCardButtonText, "CardEditorPanel_ResetCardButtonText"),
                 (DeleteCardButtonText, "CardEditorPanel_DeleteCardButtonText"),
                 (CardTotalCountText, "CardEditorPanel_CardTotalCountText"),
+                (CardRareLevelFilterLabel, "CardEditorPanel_CardRareLevelFilterLabel"),
+                (CardTypesFilterLabel, "CardEditorPanel_CardTypesFilterLabel"),
             });
 
         LanguageDropdown.ClearOptions();
@@ -49,6 +51,27 @@ public class CardEditorPanel : BaseUIForm
 
         PicSelectPanel.OnClickPicAction = SetCardPicID;
         PicSelectPanel.InitializePicSelectGrid("CardEditorPanel_PicSelectGridLabel");
+
+        CardRareLevelFilterDropdown.options.Clear();
+        CardRareLevelFilterDropdown.options.Add(new Dropdown.OptionData(LanguageManager.Instance.GetText("CardEditorPanel_DropdownAll")));
+
+        for (int i = 0; i < BaseInfo.CARD_RARE_LEVEL_MAX; i++)
+        {
+            CardRareLevelFilterDropdown.options.Add(new Dropdown.OptionData((i + 1).ToString()));
+        }
+
+        CardRareLevelFilterDropdown.onValueChanged.AddListener(OnCardRareLevelFilterChange);
+
+        CardTypesFilterDropdown.options.Clear();
+        CardTypesFilterDropdown.options.Add(new Dropdown.OptionData(LanguageManager.Instance.GetText("CardEditorPanel_DropdownAll")));
+
+        IEnumerable<CardTypes> types_card = Enum.GetValues(typeof(CardTypes)) as IEnumerable<CardTypes>;
+        foreach (CardTypes cardType in types_card)
+        {
+            CardTypesFilterDropdown.options.Add(new Dropdown.OptionData(cardType.ToString()));
+        }
+
+        CardTypesFilterDropdown.onValueChanged.AddListener(OnCardTypesFilterChange);
     }
 
     void Start()
@@ -111,6 +134,7 @@ public class CardEditorPanel : BaseUIForm
     private Dictionary<ShieldTypes, List<PropertyFormRow>> ShieldTypePropertiesDict = new Dictionary<ShieldTypes, List<PropertyFormRow>>();
 
     private CardPropertyForm_SideEffectBundle Row_SideEffectBundle = null;
+    private CardPropertyForm_SideEffectBundle Row_SideEffectBundle_BattleGroundAura = null;
 
     private void InitializeCardPropertyForm()
     {
@@ -166,6 +190,8 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_CardMetalCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardMetalCostLabelText", OnCardMetalCostChange, out SetCardMetalCost);
         PropertyFormRow Row_CardEnergyCost = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardEnergyCostLabelText", OnCardEnergyCostChange, out SetCardEnergyCost);
         PropertyFormRow Row_CardSelectLimit = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardSelectLimitLabelText", OnCardSelectLimitChange, out SetCardSelectLimit);
+        PropertyFormRow Row_CardRareLevel = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardRareLevelLabelText", OnCardRareLevelChange, out SetCardRareLevel);
+        PropertyFormRow Row_CardShopPrice = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_CardShopPriceLabelText", OnCardShopPriceChange, out SetCardShopPrice);
         PropertyFormRow Row_CardIsTemp = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_CardIsTempLabelText", OnCardIsTempChange, out SetCardIsTemp);
         PropertyFormRow Row_CardIsHide = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_CardIsHideLabelText", OnCardIsHideChange, out SetCardIsHide);
 
@@ -181,11 +207,14 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_MechIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnMechIsSniperChange, out SetMechIsSniper);
         PropertyFormRow Row_MechIsCharger = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsChargerLabelText", OnMechIsChargerChange, out SetMechIsCharger);
         PropertyFormRow Row_MechIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnMechIsFrenzyChange, out SetMechIsFrenzy);
+        PropertyFormRow Row_MechIsSentry = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSentryLabelText", OnMechIsSentryChange, out SetMechIsSentry);
         PropertyFormRow Row_MechIsSoldier = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSoldierLabelText", OnMechIsSoldierChange, out SetMechIsSoldier);
 
         PropertyFormRow Row_SlotType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_SlotType", OnSlotTypeChange, out SetSlotType, slotTypeList);
 
         PropertyFormRow Row_WeaponType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_WeaponTypeLabelText", OnWeaponTypeChange, out SetWeaponType, weaponTypeList);
+        PropertyFormRow Row_WeaponIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnWeaponIsFrenzyChange, out SetWeaponIsFrenzy);
+        PropertyFormRow Row_WeaponIsSentry = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSentryLabelText", OnWeaponIsSentryChange, out SetWeaponIsSentry);
         PropertyFormRow Row_WeaponSwordAttack = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordAttackLabelText", OnWeaponSwordAttackChange, out SetWeaponSwordAttack);
         PropertyFormRow Row_WeaponSwordEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordEnergyLabelText", OnWeaponSwordEnergyChange, out SetWeaponSwordEnergy);
         PropertyFormRow Row_WeaponSwordMaxEnergy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponSwordMaxEnergyLabelText", OnWeaponSwordMaxEnergyChange, out SetWeaponSwordMaxEnergy);
@@ -194,13 +223,25 @@ public class CardEditorPanel : BaseUIForm
         PropertyFormRow Row_WeaponGunMaxBullet = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_WeaponGunMaxBulletLabelText", OnWeaponGunMaxBulletChange, out SetWeaponGunMaxBullet);
 
         PropertyFormRow Row_ShieldType = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Dropdown, "CardEditorPanel_ShieldTypeLabelText", OnShieldTypeChange, out SetShieldType, shieldTypeList);
+        PropertyFormRow Row_ShieldIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnShieldIsDefenseChange, out SetShieldIsDefense);
         PropertyFormRow Row_ShieldBasicArmor = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_ShieldBasicArmorLabelText", OnShieldBasicArmorChange, out SetShieldBasicArmor);
         PropertyFormRow Row_ShieldBasicShield = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.InputField, "CardEditorPanel_ShieldBasicShieldLabelText", OnShieldBasicShieldChange, out SetShieldBasicShield);
 
+        PropertyFormRow Row_PackIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnPackIsFrenzyChange, out SetPackIsFrenzy);
+        PropertyFormRow Row_PackIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnPackIsSniperChange, out SetPackIsSniper);
+        PropertyFormRow Row_PackIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnPackIsDefenseChange, out SetPackIsDefense);
+
+        PropertyFormRow Row_MAIsFrenzy = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsFrenzyLabelText", OnMAIsFrenzyChange, out SetMAIsFrenzy);
+        PropertyFormRow Row_MAIsSniper = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsSniperLabelText", OnMAIsSniperChange, out SetMAIsSniper);
+        PropertyFormRow Row_MAIsDefense = GeneralizeRow(PropertyFormRow.CardPropertyFormRowType.Toggle, "CardEditorPanel_MechIsDefenseLabelText", OnMAIsDefenseChange, out SetMAIsDefense);
+
         Row_SideEffectBundle?.PoolRecycle();
         Row_SideEffectBundle = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
-
         Row_SideEffectBundle.Initialize(null, null, null);
+
+        Row_SideEffectBundle_BattleGroundAura?.PoolRecycle();
+        Row_SideEffectBundle_BattleGroundAura = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_SideEffectBundle].AllocateGameObject<CardPropertyForm_SideEffectBundle>(CardPropertiesContainer);
+        Row_SideEffectBundle_BattleGroundAura.Initialize(null, null, null);
 
         CardPropertiesCommon = new List<PropertyFormRow>
         {
@@ -215,6 +256,8 @@ public class CardEditorPanel : BaseUIForm
             Row_CardMetalCost,
             Row_CardEnergyCost,
             Row_CardSelectLimit,
+            Row_CardRareLevel,
+            Row_CardShopPrice,
             Row_CardIsTemp,
             Row_CardIsHide,
         };
@@ -233,6 +276,7 @@ public class CardEditorPanel : BaseUIForm
             Row_MechIsSniper,
             Row_MechIsCharger,
             Row_MechIsFrenzy,
+            Row_MechIsSentry,
         };
         CardTypePropertiesDict[CardTypes.Energy] = new List<PropertyFormRow>
         {
@@ -248,6 +292,8 @@ public class CardEditorPanel : BaseUIForm
         SlotPropertiesRows = new List<PropertyFormRow>
         {
             Row_WeaponType,
+            Row_WeaponIsFrenzy,
+            Row_WeaponIsSentry,
             Row_WeaponSwordAttack,
             Row_WeaponSwordEnergy,
             Row_WeaponSwordMaxEnergy,
@@ -255,16 +301,32 @@ public class CardEditorPanel : BaseUIForm
             Row_WeaponGunBullet,
             Row_WeaponGunMaxBullet,
             Row_ShieldType,
+            Row_ShieldIsDefense,
             Row_ShieldBasicArmor,
             Row_ShieldBasicShield
         };
         SlotTypePropertiesDict[SlotTypes.Weapon] = new List<PropertyFormRow>
         {
             Row_WeaponType,
+            Row_WeaponIsFrenzy,
+            Row_WeaponIsSentry,
         };
         SlotTypePropertiesDict[SlotTypes.Shield] = new List<PropertyFormRow>
         {
             Row_ShieldType,
+            Row_ShieldIsDefense,
+        };
+        SlotTypePropertiesDict[SlotTypes.Pack] = new List<PropertyFormRow>
+        {
+            Row_PackIsFrenzy,
+            Row_PackIsSniper,
+            Row_PackIsDefense,
+        };
+        SlotTypePropertiesDict[SlotTypes.MA] = new List<PropertyFormRow>
+        {
+            Row_MAIsFrenzy,
+            Row_MAIsSniper,
+            Row_MAIsDefense,
         };
 
         WeaponPropertiesRows = new List<PropertyFormRow>
@@ -614,6 +676,32 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
+    private UnityAction<string> SetCardRareLevel;
+
+    private void OnCardRareLevelChange(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (cur_PreviewCard)
+            {
+                cur_PreviewCard.CardInfo.BaseInfo.CardRareLevel = value;
+            }
+        }
+    }
+
+    private UnityAction<string> SetCardShopPrice;
+
+    private void OnCardShopPriceChange(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (cur_PreviewCard)
+            {
+                cur_PreviewCard.CardInfo.BaseInfo.ShopPrice = value;
+            }
+        }
+    }
+
     private UnityAction<string> SetCardIsTemp;
 
     private void OnCardIsTempChange(string value_str)
@@ -825,6 +913,19 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
+    private UnityAction<string> SetMechIsSentry;
+
+    private void OnMechIsSentryChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MechInfo.IsSentry = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
     private UnityAction<string> SetMechIsSoldier;
 
     private void OnMechIsSoldierChange(string value_str)
@@ -889,6 +990,32 @@ public class CardEditorPanel : BaseUIForm
         }
 
         FormatTwoToggleIntoOneRow();
+    }
+
+    private UnityAction<string> SetWeaponIsFrenzy;
+
+    private void OnWeaponIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.WeaponInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetWeaponIsSentry;
+
+    private void OnWeaponIsSentryChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.WeaponInfo.IsSentry = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
     }
 
     private UnityAction<string> SetWeaponSwordAttack;
@@ -1004,6 +1131,19 @@ public class CardEditorPanel : BaseUIForm
         FormatTwoToggleIntoOneRow();
     }
 
+    private UnityAction<string> SetShieldIsDefense;
+
+    private void OnShieldIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.ShieldInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
     private UnityAction<string> SetShieldBasicArmor;
 
     private void OnShieldBasicArmorChange(string value_str)
@@ -1034,9 +1174,83 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    #region SideEffect
+    private UnityAction<string> SetPackIsFrenzy;
 
-    #endregion
+    private void OnPackIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.PackInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetPackIsSniper;
+
+    private void OnPackIsSniperChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.PackInfo.IsSniper = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetPackIsDefense;
+
+    private void OnPackIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.PackInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetMAIsFrenzy;
+
+    private void OnMAIsFrenzyChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MAInfo.IsFrenzy = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetMAIsSniper;
+
+    private void OnMAIsSniperChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MAInfo.IsSniper = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
+
+    private UnityAction<string> SetMAIsDefense;
+
+    private void OnMAIsDefenseChange(string value_str)
+    {
+        bool value = value_str.Equals("True");
+        if (cur_PreviewCard)
+        {
+            cur_PreviewCard.CardInfo.MAInfo.IsDefense = value;
+            cur_PreviewCard.RefreshCardAllColors();
+            cur_PreviewCard.RefreshCardTextLanguage();
+        }
+    }
 
     #endregion
 
@@ -1055,10 +1269,7 @@ public class CardEditorPanel : BaseUIForm
         isPreviewExistingCards = true;
 
         cur_PreviewCard?.PoolRecycle();
-        cur_PreviewCard = CardBase.InstantiateCardByCardInfo(ci, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
-        cur_PreviewCard.transform.localScale = Vector3.one * 35;
-        cur_PreviewCard.transform.localPosition = new Vector3(-25, 0, 0);
-        cur_PreviewCard.ShowCardBloom(true);
+        cur_PreviewCard = null;
 
         cur_PreviewCard_Up?.PoolRecycle();
         cur_PreviewCard_Up = null;
@@ -1082,19 +1293,21 @@ public class CardEditorPanel : BaseUIForm
             cur_PreviewCard_De.ShowCardBloom(true);
         }
 
-        SetCardType(cur_PreviewCard.CardInfo.BaseInfo.CardType.ToString());
+        SetCardType(ci.BaseInfo.CardType.ToString());
         SetCardID(string.Format("{0:000}", ci.CardID));
         SetCardPicID(string.Format("{0:000}", ci.BaseInfo.PictureID));
         SetCardUpgradeID(ci.UpgradeInfo.UpgradeCardID.ToString());
         SetCardDegradeID(ci.UpgradeInfo.DegradeCardID.ToString());
-        SetCardName_zh(cur_PreviewCard.CardInfo.BaseInfo.CardNames["zh"]);
-        SetCardName_en(cur_PreviewCard.CardInfo.BaseInfo.CardNames["en"]);
-        SetCardCoinCost(cur_PreviewCard.CardInfo.BaseInfo.Coin.ToString());
-        SetCardMetalCost(cur_PreviewCard.CardInfo.BaseInfo.Metal.ToString());
-        SetCardEnergyCost(cur_PreviewCard.CardInfo.BaseInfo.Energy.ToString());
-        SetCardSelectLimit(cur_PreviewCard.CardInfo.BaseInfo.LimitNum.ToString());
-        SetCardIsTemp(cur_PreviewCard.CardInfo.BaseInfo.IsTemp.ToString());
-        SetCardIsHide(cur_PreviewCard.CardInfo.BaseInfo.IsHide.ToString());
+        SetCardName_zh(ci.BaseInfo.CardNames["zh"]);
+        SetCardName_en(ci.BaseInfo.CardNames["en"]);
+        SetCardCoinCost(ci.BaseInfo.Coin.ToString());
+        SetCardMetalCost(ci.BaseInfo.Metal.ToString());
+        SetCardEnergyCost(ci.BaseInfo.Energy.ToString());
+        SetCardSelectLimit(ci.BaseInfo.LimitNum.ToString());
+        SetCardRareLevel(ci.BaseInfo.CardRareLevel.ToString());
+        SetCardShopPrice(ci.BaseInfo.ShopPrice.ToString());
+        SetCardIsTemp(ci.BaseInfo.IsTemp.ToString());
+        SetCardIsHide(ci.BaseInfo.IsHide.ToString());
 
         switch (ci.BaseInfo.CardType)
         {
@@ -1109,6 +1322,7 @@ public class CardEditorPanel : BaseUIForm
                 SetMechIsSniper((ci.MechInfo.IsSniper).ToString());
                 SetMechIsCharger((ci.MechInfo.IsCharger).ToString());
                 SetMechIsFrenzy((ci.MechInfo.IsFrenzy).ToString());
+                SetMechIsSentry((ci.MechInfo.IsSentry).ToString());
                 SetMechWeaponSlot((ci.MechInfo.Slots[0] == SlotTypes.Weapon).ToString());
                 SetMechShieldSlot((ci.MechInfo.Slots[1] == SlotTypes.Shield).ToString());
                 SetMechPackSlot((ci.MechInfo.Slots[2] == SlotTypes.Pack).ToString());
@@ -1158,13 +1372,36 @@ public class CardEditorPanel : BaseUIForm
                         SetShieldBasicShield(ci.ShieldInfo.Shield.ToString());
                         break;
                     }
+
+                    case SlotTypes.Pack:
+                    {
+                        SetPackIsFrenzy(ci.PackInfo.IsFrenzy.ToString());
+                        SetPackIsSniper(ci.PackInfo.IsSniper.ToString());
+                        SetPackIsDefense(ci.PackInfo.IsDefense.ToString());
+                        break;
+                    }
+
+                    case SlotTypes.MA:
+                    {
+                        SetMAIsFrenzy(ci.MAInfo.IsFrenzy.ToString());
+                        SetMAIsSniper(ci.MAInfo.IsSniper.ToString());
+                        SetMAIsDefense(ci.MAInfo.IsDefense.ToString());
+                        break;
+                    }
                 }
 
                 break;
             }
         }
 
+        cur_PreviewCard = CardBase.InstantiateCardByCardInfo(ci, CardPreviewContainer, CardBase.CardShowMode.CardSelect);
+        cur_PreviewCard.transform.localScale = Vector3.one * 35;
+        cur_PreviewCard.transform.localPosition = new Vector3(-25, 0, 0);
+        cur_PreviewCard.ShowCardBloom(true);
+
         Row_SideEffectBundle.Initialize(cur_PreviewCard.CardInfo, cur_PreviewCard.CardInfo.SideEffectBundle, cur_PreviewCard.RefreshCardTextLanguage);
+        Row_SideEffectBundle_BattleGroundAura.gameObject.SetActive(cur_PreviewCard.CardInfo.BaseInfo.CardType == CardTypes.Mech);
+        Row_SideEffectBundle_BattleGroundAura.Initialize(cur_PreviewCard.CardInfo, cur_PreviewCard.CardInfo.SideEffectBundle_BattleGroundAura, cur_PreviewCard.RefreshCardTextLanguage);
 
         cur_PreviewCard.RefreshCardTextLanguage();
         cur_PreviewCard.RefreshCardAllColors();
@@ -1224,8 +1461,11 @@ public class CardEditorPanel : BaseUIForm
             {
                 if (kv.Key > curCardID)
                 {
-                    ChangeCard(kv.Key);
-                    break;
+                    if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
+                    {
+                        ChangeCard(kv.Key);
+                        break;
+                    }
                 }
             }
         }
@@ -1235,13 +1475,16 @@ public class CardEditorPanel : BaseUIForm
             int changeCardID = 0;
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
-                if (kv.Key >= curCardID)
+                if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
                 {
-                    ChangeCard(changeCardID);
-                    break;
-                }
+                    if (kv.Key >= curCardID)
+                    {
+                        ChangeCard(changeCardID);
+                        break;
+                    }
 
-                changeCardID = kv.Key;
+                    changeCardID = kv.Key;
+                }
             }
         }
 
@@ -1252,13 +1495,16 @@ public class CardEditorPanel : BaseUIForm
             int count = 0;
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
-                if (kv.Key > curCardID)
+                if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
                 {
-                    count++;
-                    if (count >= gridColumns)
+                    if (kv.Key > curCardID)
                     {
-                        ChangeCard(kv.Key);
-                        break;
+                        count++;
+                        if (count >= gridColumns)
+                        {
+                            ChangeCard(kv.Key);
+                            break;
+                        }
                     }
                 }
             }
@@ -1274,21 +1520,24 @@ public class CardEditorPanel : BaseUIForm
 
             foreach (KeyValuePair<int, CardInfo_Base> kv in AllCards.CardDict)
             {
-                if (kv.Key >= curCardID)
+                if (CardPreviewButtons.ContainsKey(kv.Key) && CardPreviewButtons[kv.Key].gameObject.activeInHierarchy)
                 {
-                    if (before[0] != -1)
+                    if (kv.Key >= curCardID)
                     {
-                        ChangeCard(before[0]);
-                        break;
+                        if (before[0] != -1)
+                        {
+                            ChangeCard(before[0]);
+                            break;
+                        }
                     }
-                }
 
-                for (int i = 0; i < before.Length - 1; i++)
-                {
-                    before[i] = before[i + 1];
-                }
+                    for (int i = 0; i < before.Length - 1; i++)
+                    {
+                        before[i] = before[i + 1];
+                    }
 
-                before[before.Length - 1] = kv.Key;
+                    before[before.Length - 1] = kv.Key;
+                }
             }
         }
 
@@ -1423,72 +1672,75 @@ public class CardEditorPanel : BaseUIForm
             info = string.Format(LanguageManager.Instance.GetText("CardEditorPanel_ConfirmCreateNewCard"), cur_PreviewCard.CardInfo.CardID);
         }
 
-        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-        cp.Initialize(
-            info,
-            LanguageManager.Instance.GetText("Common_Yes"),
-            LanguageManager.Instance.GetText("Common_No"),
-            delegate
+        //ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        //cp.Initialize(
+        //    info,
+        //    LanguageManager.Instance.GetText("Common_Yes"),
+        //    LanguageManager.Instance.GetText("Common_No"),
+        //    delegate
+        //    {
+        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
+        {
+            CardInfo_Base oriCurCardInfo = AllCards.GetCard(cur_PreviewCard.CardInfo.CardID);
+            bool removeUpgradeCardDegradeCardID = oriCurCardInfo.UpgradeInfo.UpgradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID == -1;
+            bool removeDegradeCardUpgradeCardID = oriCurCardInfo.UpgradeInfo.DegradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID == -1;
+
+            if (removeUpgradeCardDegradeCardID)
             {
-                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.CardID))
-                {
-                    CardInfo_Base oriCurCardInfo = AllCards.GetCard(cur_PreviewCard.CardInfo.CardID);
-                    bool removeUpgradeCardDegradeCardID = oriCurCardInfo.UpgradeInfo.UpgradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID == -1;
-                    bool removeDegradeCardUpgradeCardID = oriCurCardInfo.UpgradeInfo.DegradeCardID != -1 && cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID == -1;
+                CardInfo_Base ori_up_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.UpgradeCardID);
+                ori_up_ci.UpgradeInfo.DegradeCardID = -1;
+                AllCards.RefreshCardXML(ori_up_ci);
+            }
 
-                    if (removeUpgradeCardDegradeCardID)
-                    {
-                        CardInfo_Base ori_up_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.UpgradeCardID);
-                        ori_up_ci.UpgradeInfo.DegradeCardID = -1;
-                        AllCards.RefreshCardXML(ori_up_ci);
-                    }
+            if (removeDegradeCardUpgradeCardID)
+            {
+                CardInfo_Base ori_de_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.DegradeCardID);
+                ori_de_ci.UpgradeInfo.UpgradeCardID = -1;
+                AllCards.RefreshCardXML(ori_de_ci);
+            }
+        }
 
-                    if (removeDegradeCardUpgradeCardID)
-                    {
-                        CardInfo_Base ori_de_ci = AllCards.GetCard(oriCurCardInfo.UpgradeInfo.DegradeCardID);
-                        ori_de_ci.UpgradeInfo.UpgradeCardID = -1;
-                        AllCards.RefreshCardXML(ori_de_ci);
-                    }
-                }
+        AllCards.RefreshCardXML(cur_PreviewCard.CardInfo);
 
-                AllCards.RefreshCardXML(cur_PreviewCard.CardInfo);
+        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID))
+        {
+            CardInfo_Base up_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
+            CardInfo_Base up_ci_de_ori = AllCards.GetCard(up_ci.UpgradeInfo.DegradeCardID);
+            if (up_ci_de_ori != null && up_ci_de_ori.CardID != cur_PreviewCard.CardInfo.CardID)
+            {
+                up_ci_de_ori.UpgradeInfo.UpgradeCardID = -1;
+                AllCards.RefreshCardXML(up_ci_de_ori);
+            }
 
-                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID))
-                {
-                    CardInfo_Base up_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.UpgradeCardID);
-                    CardInfo_Base up_ci_de_ori = AllCards.GetCard(up_ci.UpgradeInfo.DegradeCardID);
-                    if (up_ci_de_ori != null && up_ci_de_ori.CardID != cur_PreviewCard.CardInfo.CardID)
-                    {
-                        up_ci_de_ori.UpgradeInfo.UpgradeCardID = -1;
-                        AllCards.RefreshCardXML(up_ci_de_ori);
-                    }
+            up_ci.UpgradeInfo.DegradeCardID = cur_PreviewCard.CardInfo.CardID;
+            AllCards.RefreshCardXML(up_ci);
+        }
 
-                    up_ci.UpgradeInfo.DegradeCardID = cur_PreviewCard.CardInfo.CardID;
-                    AllCards.RefreshCardXML(up_ci);
-                }
+        if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID))
+        {
+            CardInfo_Base de_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID);
+            CardInfo_Base de_ci_up_ori = AllCards.GetCard(de_ci.UpgradeInfo.UpgradeCardID);
+            if (de_ci_up_ori != null && de_ci_up_ori.CardID != cur_PreviewCard.CardInfo.CardID)
+            {
+                de_ci_up_ori.UpgradeInfo.DegradeCardID = -1;
+                AllCards.RefreshCardXML(de_ci_up_ori);
+            }
 
-                if (AllCards.CardDict.ContainsKey(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID))
-                {
-                    CardInfo_Base de_ci = AllCards.GetCard(cur_PreviewCard.CardInfo.UpgradeInfo.DegradeCardID);
-                    CardInfo_Base de_ci_up_ori = AllCards.GetCard(de_ci.UpgradeInfo.UpgradeCardID);
-                    if (de_ci_up_ori != null && de_ci_up_ori.CardID != cur_PreviewCard.CardInfo.CardID)
-                    {
-                        de_ci_up_ori.UpgradeInfo.DegradeCardID = -1;
-                        AllCards.RefreshCardXML(de_ci_up_ori);
-                    }
+            de_ci.UpgradeInfo.UpgradeCardID = cur_PreviewCard.CardInfo.CardID;
+            AllCards.RefreshCardXML(de_ci);
+        }
 
-                    de_ci.UpgradeInfo.UpgradeCardID = cur_PreviewCard.CardInfo.CardID;
-                    AllCards.RefreshCardXML(de_ci);
-                }
+        AllCards.ReloadCardXML();
+        InitializePreviewCardGrid();
+        //cp.CloseUIForm();
+        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
 
-                AllCards.ReloadCardXML();
-                InitializePreviewCardGrid();
-                cp.CloseUIForm();
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
-                CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
-                ChangeCard(cur_PreviewCard.CardInfo.CardID);
-            },
-            cp.CloseUIForm);
+        OnCardRareLevelFilterChange(curFilter_CardRareLevel);
+        OnCardTypesFilterChange(curFilter_CardType);
+
+        ChangeCard(cur_PreviewCard.CardInfo.CardID);
+        //},
+        //cp.CloseUIForm);
     }
 
     public void ResetCard()
@@ -1515,7 +1767,9 @@ public class CardEditorPanel : BaseUIForm
                     InitializePreviewCardGrid();
                     cp.CloseUIForm();
                     NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_DeleteCardSuccess"), 0, 1f);
-                    CardTotalCountNumberText.text = AllCards.CardDict.Count.ToString();
+
+                    OnCardRareLevelFilterChange(curFilter_CardRareLevel);
+                    OnCardTypesFilterChange(curFilter_CardType);
                 },
                 cp.CloseUIForm);
         }
@@ -1531,6 +1785,11 @@ public class CardEditorPanel : BaseUIForm
 
     [SerializeField] private GridLayoutGroup ExistingCardGridContainer;
     private SortedDictionary<int, CardEditorPanel_CardPreviewButton> CardPreviewButtons = new SortedDictionary<int, CardEditorPanel_CardPreviewButton>();
+
+    [SerializeField] private Text CardRareLevelFilterLabel;
+    [SerializeField] private Dropdown CardRareLevelFilterDropdown;
+    [SerializeField] private Text CardTypesFilterLabel;
+    [SerializeField] private Dropdown CardTypesFilterDropdown;
 
     private void InitializePreviewCardGrid()
     {
@@ -1549,6 +1808,96 @@ public class CardEditorPanel : BaseUIForm
                 CardPreviewButtons.Add(kv.Key, cpb);
             }
         }
+    }
+
+    private int curFilter_CardRareLevel = 0;
+    private int curFilter_CardType = 0;
+
+    public void OnCardRareLevelFilterChange(int value)
+    {
+        curFilter_CardRareLevel = value;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            CardInfo_Base ci = AllCards.GetCard(kv.Key);
+            if (value == 0)
+            {
+                if (curFilter_CardType == 0)
+                {
+                    kv.Value.gameObject.SetActive(true);
+                }
+                else
+                {
+                    CardTypes cardType = (CardTypes) Enum.Parse(typeof(CardTypes), CardTypesFilterDropdown.options[curFilter_CardType].text);
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType);
+                }
+            }
+            else
+            {
+                if (curFilter_CardType == 0)
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardRareLevel == value);
+                }
+                else
+                {
+                    CardTypes cardType = (CardTypes) Enum.Parse(typeof(CardTypes), CardTypesFilterDropdown.options[curFilter_CardType].text);
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType && ci.BaseInfo.CardRareLevel == value);
+                }
+            }
+        }
+
+        int count = 0;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            if (kv.Value.gameObject.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+
+        CardTotalCountNumberText.text = count.ToString();
+    }
+
+    public void OnCardTypesFilterChange(int value)
+    {
+        curFilter_CardType = value;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            CardInfo_Base ci = AllCards.GetCard(kv.Key);
+            if (value == 0)
+            {
+                if (curFilter_CardRareLevel == 0)
+                {
+                    kv.Value.gameObject.SetActive(true);
+                }
+                else
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardRareLevel == curFilter_CardRareLevel);
+                }
+            }
+            else
+            {
+                CardTypes cardType = (CardTypes) Enum.Parse(typeof(CardTypes), CardTypesFilterDropdown.options[curFilter_CardType].text);
+                if (curFilter_CardRareLevel == 0)
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType);
+                }
+                else
+                {
+                    kv.Value.gameObject.SetActive(ci.BaseInfo.CardType == cardType && ci.BaseInfo.CardRareLevel == curFilter_CardRareLevel);
+                }
+            }
+        }
+
+        int count = 0;
+        foreach (KeyValuePair<int, CardEditorPanel_CardPreviewButton> kv in CardPreviewButtons)
+        {
+            if (kv.Value.gameObject.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+
+        CardTotalCountNumberText.text = count.ToString();
     }
 
     #endregion

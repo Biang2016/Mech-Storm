@@ -4,15 +4,22 @@ using System.Xml;
 public class Shop : Level
 {
     public List<ShopItem> ShopItems = new List<ShopItem>();
+    public static int SYSTEM_SHOP_MAX_ITEM = 10;
+    public int ShopItemCardCount = 8; // 10 个商品里面几个是卡片
+    public int ShopItemOthersCount = 2; // 10 个商品里面几个是其他的
 
-    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, List<ShopItem> shopItems) : base(LevelType.Shop, levelThemeCategory, levelPicId, levelNames)
+    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, int difficultyLevel, List<ShopItem> shopItems, int shopItemCardCount, int shopItemOthersCount) : base(LevelTypes.Shop, levelThemeCategory, levelPicId, levelNames, difficultyLevel)
     {
         ShopItems = shopItems;
+        ShopItemCardCount = shopItemCardCount;
+        ShopItemOthersCount = shopItemOthersCount;
     }
 
     public override Level Clone()
     {
-        return new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), CloneVariantUtils.List(ShopItems));
+        Shop shop = new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, CloneVariantUtils.List(ShopItems), ShopItemCardCount, ShopItemOthersCount);
+        shop.LevelID = LevelID;
+        return shop;
     }
 
     public override Level Variant()
@@ -45,23 +52,6 @@ public class Shop : Level
     /// </summary>
     public override bool DeleteCard(int cardID)
     {
-        List<ShopItem> remove_SI = new List<ShopItem>();
-        foreach (ShopItem si in ShopItems)
-        {
-            if (si is ShopItem_Card si_card)
-            {
-                if (si_card.CardID == cardID)
-                {
-                    remove_SI.Add(si);
-                }
-            }
-        }
-
-        foreach (ShopItem si in remove_SI)
-        {
-            ShopItems.Remove(si);
-        }
-
         return false;
     }
 
@@ -75,6 +65,9 @@ public class Shop : Level
         {
             si.ExportToXML(shopInfo_ele);
         }
+
+        shopInfo_ele.SetAttribute("shopItemCardCount", ShopItemCardCount.ToString());
+        shopInfo_ele.SetAttribute("shopItemOthersCount", ShopItemOthersCount.ToString());
     }
 
     public override void Serialize(DataStream writer)
@@ -85,5 +78,8 @@ public class Shop : Level
         {
             si.Serialize(writer);
         }
+
+        writer.WriteSInt32(ShopItemCardCount);
+        writer.WriteSInt32(ShopItemOthersCount);
     }
 }

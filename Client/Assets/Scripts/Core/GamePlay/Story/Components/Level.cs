@@ -5,19 +5,21 @@ using Newtonsoft.Json.Converters;
 
 public abstract class Level : IClone<Level>, IVariant<Level>
 {
-    public LevelType LevelType;
+    public LevelTypes LevelType;
     public LevelThemeCategory LevelThemeCategory;
     public int LevelPicID;
     public SortedDictionary<string, string> LevelNames;
+    public int DifficultyLevel;
 
     public int LevelID;
 
-    public Level(LevelType levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames)
+    public Level(LevelTypes levelType, LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, int difficultyLevel)
     {
         LevelThemeCategory = levelThemeCategory;
         LevelType = levelType;
         LevelPicID = levelPicId;
         LevelNames = levelNames;
+        DifficultyLevel = difficultyLevel;
     }
 
     public Story.InfoRefreshDelegate InfoRefresh; // 信息更新委托
@@ -50,8 +52,38 @@ public abstract class Level : IClone<Level>, IVariant<Level>
         level_ele.SetAttribute("picID", LevelPicID.ToString());
         level_ele.SetAttribute("levelThemeCategory", LevelThemeCategory.ToString());
         level_ele.SetAttribute("levelType", LevelType.ToString());
+        level_ele.SetAttribute("difficultyLevel", DifficultyLevel.ToString());
 
         ChildrenExportToXML(level_ele);
+    }
+
+    private static int NewLevelID = 0;
+
+    private static int GenerateNewLevelID()
+    {
+        return NewLevelID++;
+    }
+
+    public static Level BaseGenerateEmptyLevel(LevelTypes levelType)
+    {
+        Level newLevel = null;
+        int levelIDPostFix = GenerateNewLevelID();
+        while (AllLevels.LevelDict[levelType].ContainsKey("New" + levelType + "_" + levelIDPostFix))
+        {
+            levelIDPostFix = GenerateNewLevelID();
+        }
+
+        newLevel = AllLevels.LevelDict[levelType]["New" + levelType]?.Clone();
+
+        if (newLevel != null)
+        {
+            newLevel.LevelNames["zh"] = "新关卡_" + levelIDPostFix;
+            newLevel.LevelNames["en"] = "New" + levelType + "_" + levelIDPostFix;
+            AllLevels.RefreshLevelXML(newLevel);
+            AllLevels.ReloadLevelXML();
+        }
+
+        return newLevel;
     }
 
     protected abstract void ChildrenExportToXML(XmlElement level_ele);
@@ -68,11 +100,13 @@ public abstract class Level : IClone<Level>, IVariant<Level>
             writer.WriteString8(kv.Key);
             writer.WriteString8(kv.Value);
         }
+
+        writer.WriteSInt32(DifficultyLevel);
     }
 
     public static Level BaseDeserialize(DataStream reader)
     {
-        LevelType levelType = (LevelType) reader.ReadSInt32();
+        LevelTypes levelType = (LevelTypes) reader.ReadSInt32();
         LevelThemeCategory levelThemeCategory = (LevelThemeCategory) reader.ReadSInt32();
         int levelID = reader.ReadSInt32();
         int levelPicID = reader.ReadSInt32();
@@ -85,30 +119,28 @@ public abstract class Level : IClone<Level>, IVariant<Level>
             LevelNames[ls] = value;
         }
 
+        int difficultyLevel = reader.ReadSInt32();
+
         Level res = null;
         switch (levelType)
         {
-            case LevelType.Enemy:
+            case LevelTypes.Enemy:
+            {
                 BuildInfo BuildInfo = BuildInfo.Deserialize(reader);
                 EnemyType EnemyType = (EnemyType) (reader.ReadSInt32());
-                int hardFactor = reader.ReadSInt32();
-
-                int alwaysBonusCount = reader.ReadSInt32();
-                List<BonusGroup> AlwaysBonusGroup = new List<BonusGroup>();
-                for (int i = 0; i < alwaysBonusCount; i++)
+                int bonusCount = reader.ReadSInt32();
+                List<BonusGroup> BonusGroups = new List<BonusGroup>();
+                for (int i = 0; i < bonusCount; i++)
                 {
-                    AlwaysBonusGroup.Add(BonusGroup.Deserialize(reader));
+                    BonusGroups.Add(BonusGroup.Deserialize(reader));
                 }
 
-                int optionalBonusCount = reader.ReadSInt32();
-                List<BonusGroup> OptionalBonusGroup = new List<BonusGroup>();
-                for (int i = 0; i < optionalBonusCount; i++)
-                {
-                    OptionalBonusGroup.Add(BonusGroup.Deserialize(reader));
-                }
+                res = new Enemy(levelThemeCategory, levelPicID, LevelNames, difficultyLevel, BuildInfo, EnemyType, BonusGroups);
+                break;
+            }
 
-                return new Enemy(levelThemeCategory, levelPicID, LevelNames, BuildInfo, EnemyType, hardFactor, AlwaysBonusGroup, OptionalBonusGroup);
-            case LevelType.Shop:
+            case LevelTypes.Shop:
+            {
                 int count = reader.ReadSInt32();
                 List<ShopItem> shopItems = new List<ShopItem>();
                 for (int i = 0; i < count; i++)
@@ -117,17 +149,26 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                     shopItems.Add(si);
                 }
 
-                res = new Shop(levelThemeCategory, levelPicID, LevelNames, shopItems);
+                int shopItemCardCount = reader.ReadSInt32();
+                int shopItemOthersCount = reader.ReadSInt32();
+
+                res = new Shop(levelThemeCategory, levelPicID, LevelNames, difficultyLevel, shopItems, shopItemCardCount, shopItemOthersCount);
                 break;
+            }
         }
 
         res.LevelID = levelID;
         return res;
     }
+
+    public static string GetLevelTypeDesc(LevelTypes levelType)
+    {
+        return LanguageManager_Common.GetText("LevelType_" + levelType);
+    }
 }
 
 [JsonConverter(typeof(StringEnumConverter))]
-public enum LevelType
+public enum LevelTypes
 {
     Enemy = 0,
     Shop = 1,

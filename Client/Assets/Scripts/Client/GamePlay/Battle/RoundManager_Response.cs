@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public partial class RoundManager
@@ -22,7 +23,11 @@ public partial class RoundManager
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
         BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
-        if (r.winnerClientId == Client.Instance.Proxy.ClientID)
+        brp.BattleStatistics = r.BattleStatistics;
+        brp.SetCrystalInfo();
+        UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(false);
+        UIManager.Instance.CloseUIForm<ExitMenuPanel>();
+        if (r.WinnerClientId == Client.Instance.Proxy.ClientID)
         {
             ClientLog.Instance.PrintClientStates("你赢了");
             brp.WinGame();
@@ -198,11 +203,6 @@ public partial class RoundManager
                 OnMechAttackShip((MechAttackShipServerRequest) r);
                 break;
             }
-            case NetProtocols.SE_MECH_DODGE:
-            {
-                OnMechDodge((MechDodgeRequest) r);
-                break;
-            }
             case NetProtocols.SE_MECH_CANATTACK:
             {
                 OnMechCanAttackChange((MechCanAttackRequest) r);
@@ -253,8 +253,9 @@ public partial class RoundManager
 
     private void OnSetPlayer_PrePass(ServerRequestBase r)
     {
+        SetPlayerRequest request = (SetPlayerRequest) r;
         NetworkManager.Instance.SuccessMatched();
-        InitializePlayers((SetPlayerRequest) r);
+        InitializePlayers(request);
     }
 
     private void OnSetPlayersMetal(PlayerMetalChangeRequest r)
@@ -265,13 +266,13 @@ public partial class RoundManager
 
     private void OnSetPlayersLife(PlayerLifeChangeRequest r)
     {
-        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        ClientPlayer cp = GetPlayerByClientId(r.ClientID);
         cp.DoChangeLife(r);
     }
 
     private void OnSetPlayersEnergy(PlayerEnergyChangeRequest r)
     {
-        ClientPlayer cp = GetPlayerByClientId(r.clinetId);
+        ClientPlayer cp = GetPlayerByClientId(r.ClientID);
         cp.DoChangeEnergy(r);
     }
 
@@ -294,7 +295,7 @@ public partial class RoundManager
         }
         else
         {
-            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(true);
+            BattleManager.Instance.BattleUIPanel.SetEndRoundButtonState(false);
             ClientLog.Instance.PrintClientStates("EnemyRound");
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("RoundManager_EnemyTurn"), 0, 0.8f);
             yield return new WaitForSeconds(0.5f);
@@ -351,27 +352,13 @@ public partial class RoundManager
 
     IEnumerator Co_MechDieShock(List<ModuleMech> dieMechs) //机甲一起死亡效果
     {
-        int shockTimes = 3;
         AudioManager.Instance.SoundPlay("sfx/OnDie");
-        for (int i = 0; i < shockTimes; i++)
+        foreach (ModuleMech moduleMech in dieMechs)
         {
-            foreach (ModuleMech moduleMech in dieMechs)
-            {
-                moduleMech.transform.Rotate(Vector3.up, 3, Space.Self);
-            }
-
-            yield return new WaitForSeconds(0.04f);
-            foreach (ModuleMech moduleMech in dieMechs)
-            {
-                moduleMech.transform.Rotate(Vector3.up, -6, Space.Self);
-            }
-
-            yield return new WaitForSeconds(0.04f);
-            foreach (ModuleMech moduleMech in dieMechs)
-            {
-                moduleMech.transform.Rotate(Vector3.up, 3, Space.Self);
-            }
+            moduleMech.transform.DOShakePosition(0.15f, new Vector3(1f, 0f, 1f) * 0.1f, 10, 20f);
         }
+
+        yield return new WaitForSeconds(0.3f);
 
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
@@ -385,7 +372,7 @@ public partial class RoundManager
     private void OnBattleGroundAddMech(BattleGroundAddMechRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        if (cp == SelfClientPlayer && r.clientMechTempId >= 0) return;
+        if (cp == SelfClientPlayer && r.clientMechTempId != (int) Const.SpecialMechID.ClientTempMechIDNormal) return;
         cp.BattlePlayer.BattleGroundManager.AddMech(r.battleGroundIndex);
     }
 
@@ -528,13 +515,6 @@ public partial class RoundManager
         ClientPlayer cp_beAttack = cp_attack.WhichPlayer == Players.Self ? EnemyClientPlayer : SelfClientPlayer;
         ModuleMech attackMech = cp_attack.BattlePlayer.BattleGroundManager.GetMech(r.AttackMechId);
         attackMech.AttackShip(cp_beAttack);
-    }
-
-    private void OnMechDodge(MechDodgeRequest r)
-    {
-        ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        ModuleMech mech = cp.BattlePlayer.BattleGroundManager.GetMech(r.mechId);
-        mech.MechSwordShieldArmorComponent.OnDodge();
     }
 
     private void OnMechCanAttackChange(MechCanAttackRequest r)

@@ -45,7 +45,7 @@ public class GamePlaySettings
 
     public static int LifeToCoin = 50;
     public static int EnergyToCoin = 50;
-    public static int[] DrawCardNumToCoin = new[] {0, 10000, 15000, 18000, 23000, 26000};
+    public static int[] DrawCardNumToCoin = new[] {0, 0, 1500, 4000, 7500, 12000};
 
     public int DefaultCoin = 1500;
     public int DefaultLife = 100;
@@ -168,5 +168,19 @@ public class GamePlaySettings
         res.MinDrawCardNum = reader.ReadSInt32();
         res.MaxDrawCardNum = reader.ReadSInt32();
         return res;
+    }
+
+    public bool EqualsTo(GamePlaySettings o)
+    {
+        if (DefaultCoin != o.DefaultCoin) return false;
+        if (DefaultLife != o.DefaultLife) return false;
+        if (DefaultLifeMax != o.DefaultLifeMax) return false;
+        if (DefaultLifeMin != o.DefaultLifeMin) return false;
+        if (DefaultEnergy != o.DefaultEnergy) return false;
+        if (DefaultEnergyMax != o.DefaultEnergyMax) return false;
+        if (DefaultDrawCardNum != o.DefaultDrawCardNum) return false;
+        if (MinDrawCardNum != o.MinDrawCardNum) return false;
+        if (MaxDrawCardNum != o.MaxDrawCardNum) return false;
+        return true;
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
-using SideEffects;
 
 public class CardInfo_Base : IClone<CardInfo_Base>
 {
@@ -20,17 +18,19 @@ public class CardInfo_Base : IClone<CardInfo_Base>
     public MAInfo MAInfo;
 
     public SideEffectBundle SideEffectBundle;
+    public SideEffectBundle SideEffectBundle_BattleGroundAura;
 
     public CardInfo_Base()
     {
     }
 
-    protected CardInfo_Base(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle)
+    protected CardInfo_Base(int cardID, BaseInfo baseInfo, UpgradeInfo upgradeInfo, SideEffectBundle sideEffectBundle, SideEffectBundle sideEffectBundle_BattleGroundAura)
     {
         CardID = cardID;
         BaseInfo = baseInfo;
         UpgradeInfo = upgradeInfo;
         SideEffectBundle = sideEffectBundle;
+        SideEffectBundle_BattleGroundAura = sideEffectBundle_BattleGroundAura;
         TargetInfo.Initialize(this);
         Pro_Initialize();
     }
@@ -83,10 +83,19 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         }
     }
 
+    public bool HasAuro => SideEffectBundle_BattleGroundAura.SideEffectExecutes.Count != 0;
+
     public virtual string GetCardDescShow()
     {
         string CardDescShow = "";
         CardDescShow += SideEffectBundle.GetSideEffectsDesc();
+        if (HasAuro)
+        {
+            string auroDesc = LanguageManager_Common.GetText("TriggerTime_Auro");
+            auroDesc = BaseInfo.AddImportantColorToText(auroDesc);
+            CardDescShow += auroDesc + ":" + SideEffectBundle_BattleGroundAura.GetSideEffectsDesc();
+        }
+
         return CardDescShow;
     }
 
@@ -107,7 +116,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
 
     public virtual CardInfo_Base Clone()
     {
-        return new CardInfo_Base(CardID, BaseInfo, UpgradeInfo, SideEffectBundle.Clone());
+        return new CardInfo_Base(CardID, BaseInfo, UpgradeInfo, SideEffectBundle.Clone(), SideEffectBundle_BattleGroundAura.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -126,6 +135,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         PackInfo.Serialize(writer);
         MAInfo.Serialize(writer);
         SideEffectBundle.Serialize(writer);
+        SideEffectBundle_BattleGroundAura.Serialize(writer);
     }
 
     public static CardInfo_Base Deserialze(DataStream reader)
@@ -145,7 +155,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         newCardInfo_Base.ShieldInfo = ShieldInfo.Deserialze(reader);
         newCardInfo_Base.PackInfo = PackInfo.Deserialze(reader);
         newCardInfo_Base.MAInfo = MAInfo.Deserialze(reader);
-        newCardInfo_Base.SideEffectBundle = global::SideEffectBundle.Deserialize(reader);
+        newCardInfo_Base.SideEffectBundle = SideEffectBundle.Deserialize(reader);
+        newCardInfo_Base.SideEffectBundle_BattleGroundAura = SideEffectBundle.Deserialize(reader);
         return newCardInfo_Base;
     }
 
@@ -186,6 +197,7 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         baseInfo_ele.SetAttribute("coin", BaseInfo.Coin.ToString());
         baseInfo_ele.SetAttribute("limitNum", BaseInfo.LimitNum.ToString());
         baseInfo_ele.SetAttribute("cardRareLevel", BaseInfo.CardRareLevel.ToString());
+        baseInfo_ele.SetAttribute("shopPrice", BaseInfo.ShopPrice.ToString());
         baseInfo_ele.SetAttribute("cardType", BaseInfo.CardType.ToString());
 
         XmlElement upgradeInfo_ele = doc.CreateElement("CardInfo");
@@ -196,95 +208,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
 
         ChildrenExportToXML(card_ele);
 
-        XmlElement sideEffectsBundle_ele = doc.CreateElement("CardInfo");
-        card_ele.AppendChild(sideEffectsBundle_ele);
-        sideEffectsBundle_ele.SetAttribute("name", "sideEffectsBundle");
-        foreach (SideEffectExecute see in SideEffectBundle.SideEffectExecutes)
-        {
-            XmlElement sideEffectExecute_ele = doc.CreateElement("SideEffectExecute");
-            sideEffectsBundle_ele.AppendChild(sideEffectExecute_ele);
-            sideEffectExecute_ele.SetAttribute("ExecuteSettingTypes", see.ExecuteSettingType.ToString());
-            if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)
-            {
-                ExportExecuteSettingsToElement(see.M_ExecuteSetting, sideEffectExecute_ele);
-            }
-
-            foreach (SideEffectBase se in see.SideEffectBases)
-            {
-                XmlElement sideEffect_ele = doc.CreateElement("SideEffect");
-                sideEffectExecute_ele.AppendChild(sideEffect_ele);
-                ExportSideEffectBaseToElement(se, sideEffect_ele);
-
-                if (se is AddPlayerBuff_Base addBuff_SE)
-                {
-                    XmlElement buff_ele = doc.CreateElement("Buff");
-                    sideEffect_ele.AppendChild(buff_ele);
-                    ExportSideEffectBaseToElement(addBuff_SE, buff_ele);
-                    ExportExecuteSettingsToElement(addBuff_SE.AttachedBuffSEE.M_ExecuteSetting, buff_ele);
-                    foreach (SideEffectBase buff_SubSE in addBuff_SE.AttachedBuffSEE.SideEffectBases[0].Sub_SideEffect)
-                    {
-                        XmlElement buff_SubSE_ele = doc.CreateElement("SideEffect");
-                        buff_ele.AppendChild(buff_SubSE_ele);
-                        ExportSideEffectBaseToElement(buff_SubSE, buff_SubSE_ele);
-                    }
-                }
-            }
-        }
-    }
-
-    private static void ExportExecuteSettingsToElement(SideEffectExecute.ExecuteSetting es, XmlElement ele)
-    {
-        ele.SetAttribute("triggerTime", es.TriggerTime.ToString());
-        ele.SetAttribute("triggerRange", es.TriggerRange.ToString());
-        ele.SetAttribute("triggerDelayTimes", es.TriggerDelayTimes.ToString());
-        ele.SetAttribute("triggerTimes", es.TriggerTimes.ToString());
-        ele.SetAttribute("removeTriggerTime", es.RemoveTriggerTime.ToString());
-        ele.SetAttribute("removeTriggerRange", es.RemoveTriggerRange.ToString());
-        ele.SetAttribute("removeTriggerTimes", es.RemoveTriggerTimes.ToString());
-    }
-
-    private static void ExportSideEffectBaseToElement(SideEffectBase se, XmlElement ele)
-    {
-        ele.SetAttribute("name", se.Name);
-        foreach (SideEffectValue sev in se.M_SideEffectParam.SideEffectValues)
-        {
-            switch (sev)
-            {
-                case SideEffectValue_ConstInt sev_ConstInt:
-                {
-                    if (sev_ConstInt.EnumType == typeof(CardDeck))
-                    {
-                        ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
-                    }
-                    else if (sev_ConstInt.EnumType != null)
-                    {
-                        string enum_name = Enum.ToObject(sev_ConstInt.EnumType, sev_ConstInt.Value).ToString();
-                        ele.SetAttribute(sev.Name, enum_name);
-                    }
-                    else
-                    {
-                        ele.SetAttribute(sev.Name, sev_ConstInt.Value.ToString());
-                    }
-
-                    break;
-                }
-                case SideEffectValue_MultipliedInt sev_MultipliedInt:
-                {
-                    ele.SetAttribute(sev.Name, sev_MultipliedInt.Value.ToString());
-                    break;
-                }
-                case SideEffectValue_Bool sev_Bool:
-                {
-                    ele.SetAttribute(sev.Name, sev_Bool.Value.ToString());
-                    break;
-                }
-                case SideEffectValue_String sev_String:
-                {
-                    ele.SetAttribute(sev.Name, sev_String.Value);
-                    break;
-                }
-            }
-        }
+        SideEffectBundle.ExportToXML(card_ele, "");
+        SideEffectBundle_BattleGroundAura.ExportToXML(card_ele, "_Aura");
     }
 
     protected virtual void ChildrenExportToXML(XmlElement card_ele)
@@ -317,7 +242,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                             new ShieldInfo(),
                             new PackInfo(),
                             new MAInfo(),
-                            ci.SideEffectBundle.Clone());
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Equip;
                         return (CardInfo_Equip) res;
                     }
@@ -325,7 +251,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                     {
                         CardInfo_Base res = new CardInfo_Spell(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
-                            ci.SideEffectBundle.Clone());
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Spell;
                         return (CardInfo_Spell) res;
                     }
@@ -333,7 +260,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                     {
                         CardInfo_Base res = new CardInfo_Spell(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
-                            ci.SideEffectBundle.Clone());
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Energy;
                         return (CardInfo_Spell) res;
                     }
@@ -351,8 +279,9 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
-                            new MechInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
-                            ci.SideEffectBundle.Clone());
+                            new MechInfo(false, false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Mech;
                         return (CardInfo_Mech) res;
                     }
@@ -364,7 +293,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                     {
                         CardInfo_Base res = new CardInfo_Spell(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
-                            ci.SideEffectBundle.Clone());
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Spell;
                         return (CardInfo_Spell) res;
                     }
@@ -372,7 +302,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                     {
                         CardInfo_Base res = new CardInfo_Spell(
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
-                            ci.SideEffectBundle.Clone());
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Energy;
                         return (CardInfo_Spell) res;
                     }
@@ -390,8 +321,9 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                             ci.CardID, ci.BaseInfo, ci.UpgradeInfo,
                             new LifeInfo(1, 1),
                             new BattleInfo(0, 0, 0),
-                            new MechInfo(false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
-                            ci.SideEffectBundle.Clone());
+                            new MechInfo(false, false, false, false, false, false, SlotTypes.None, SlotTypes.None, SlotTypes.None, SlotTypes.None),
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Mech;
                         return (CardInfo_Mech) res;
                     }
@@ -404,7 +336,8 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                             new ShieldInfo(),
                             new PackInfo(),
                             new MAInfo(),
-                            ci.SideEffectBundle.Clone());
+                            ci.SideEffectBundle.Clone(),
+                            ci.SideEffectBundle_BattleGroundAura.Clone());
                         res.BaseInfo.CardType = CardTypes.Equip;
                         return (CardInfo_Equip) res;
                     }

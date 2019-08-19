@@ -12,7 +12,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
     {
     }
 
-    public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory)
+    public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings)
     {
         foreach (BuildInfo bi in onlineBuildInfos)
         {
@@ -20,7 +20,7 @@ public class ClientBuildInfosRequest : ServerRequestBase
         }
 
         OnlineGamePlaySettings = onlineGamePlaySettings;
-        HasStory = hasStory;
+        HasStory = false;
     }
 
     public ClientBuildInfosRequest(List<BuildInfo> onlineBuildInfos, GamePlaySettings onlineGamePlaySettings, bool hasStory, Story story)

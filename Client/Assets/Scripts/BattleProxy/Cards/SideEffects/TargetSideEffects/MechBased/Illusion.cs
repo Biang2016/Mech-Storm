@@ -1,6 +1,6 @@
 ﻿namespace SideEffects
 {
-    public class Illusion : TargetSideEffect
+    public class Illusion : TargetSideEffect, IDefend
     {
         public Illusion()
         {

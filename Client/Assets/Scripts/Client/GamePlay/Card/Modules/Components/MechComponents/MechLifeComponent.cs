@@ -10,6 +10,7 @@ public class MechLifeComponent : MechComponentBase
     [SerializeField] private Animator LifeIconAnim;
     [SerializeField] private SortingGroup LifeIconSG;
     [SerializeField] private TextFlyPile LifeChangeNumberFly;
+    [SerializeField] private TextFlyPile TotalLifeChangeNumberFly;
 
     public void ChangeLifeIconColor(Color color)
     {
@@ -53,7 +54,7 @@ public class MechLifeComponent : MechComponentBase
             }
             else if (change < 0)
             {
-                HitManager.Instance.ShowHit(transform, HitManager.HitType.LineLeftTopToRightButtom, "#FFFFFF", 0.3f);
+                FXManager.Instance.PlayFX(LifeIcon.transform, FXManager.FXType.FX_Hit0, "#FFFFFF", 0.3f);
                 LifeChangeNumberFly.SetText(text + change, "#FF0A00", "#FF0A00", TextFly.FlyDirection.Down);
                 if (change <= -8)
                 {
@@ -102,12 +103,13 @@ public class MechLifeComponent : MechComponentBase
         {
             if (change > 0)
             {
-                LifeChangeNumberFly.SetText("Max +" + change, "#68FF00", "#68FF00", TextFly.FlyDirection.Up);
+                TotalLifeChangeNumberFly.SetText("Max +" + change, "#68FF00", "#68FF00", TextFly.FlyDirection.Up);
+                FXManager.Instance.PlayFX(transform.parent, FXManager.FXType.FX_MechAddLife, "#FFFFFF", 0.3f, 3f);
                 AudioManager.Instance.SoundPlay("sfx/OnAddLife");
             }
             else if (change < 0)
             {
-                LifeChangeNumberFly.SetText("Max " + change, "#A000FF", "#A000FF", TextFly.FlyDirection.Down);
+                TotalLifeChangeNumberFly.SetText("Max " + change, "#A000FF", "#A000FF", TextFly.FlyDirection.Down);
             }
         }
 

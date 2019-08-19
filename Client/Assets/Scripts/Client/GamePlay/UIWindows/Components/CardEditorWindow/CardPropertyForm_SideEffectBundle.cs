@@ -39,6 +39,15 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
 
         if (cardInfo != null)
         {
+            if (seb == cardInfo.SideEffectBundle)
+            {
+                LanguageManager.Instance.RegisterTextKey(SideEffectBundleText, "CardEditorPanel_SideEffectBundleText");
+            }
+            else
+            {
+                LanguageManager.Instance.RegisterTextKey(SideEffectBundleText, "CardEditorPanel_SideEffectBundleAuraText");
+            }
+
             AddSideEffectExecuteButton.onClick.RemoveAllListeners();
             AddSideEffectExecuteButton.onClick.AddListener(delegate
             {

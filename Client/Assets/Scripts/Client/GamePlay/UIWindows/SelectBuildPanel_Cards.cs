@@ -62,8 +62,10 @@ public partial class SelectBuildPanel
     {
         if (!IsInit) return;
         CardPreviewPanel previewPanel = UIManager.Instance.GetBaseUIForm<CardPreviewPanel>();
+        ConfirmPanel confirmPanel = UIManager.Instance.GetBaseUIForm<ConfirmPanel>();
         BuildRenamePanel buildRenamePanel = UIManager.Instance.GetBaseUIForm<BuildRenamePanel>();
         if (previewPanel != null && previewPanel.gameObject.activeInHierarchy) return;
+        if (confirmPanel != null && confirmPanel.gameObject.activeInHierarchy) return;
         if (buildRenamePanel != null && buildRenamePanel.gameObject.activeInHierarchy) return;
 
         if (Input.GetMouseButtonDown(0))
@@ -144,6 +146,12 @@ public partial class SelectBuildPanel
                 {
                     if (card && mouseRightDownCard == card)
                     {
+                        if (CurrentEditBuildButton == null)
+                        {
+                            OnCreateNewBuildButtonClick();
+                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("Notice_SelectBuildManagerSelect_DeckCreatedPleaseSelectCards"), 0f, 1f);
+                        }
+
                         UIManager.Instance.ShowUIForms<CardPreviewPanel>().ShowPreviewCardPanel(card, IsReadOnly);
                     }
                 }
@@ -169,7 +177,7 @@ public partial class SelectBuildPanel
         {
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.EmptyCard) continue;
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.NoCard) continue;
-            if (cardInfo.BaseInfo.IsHide) continue;
+            //if (cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoCardSelectWindow(cardInfo.Clone());
         }
@@ -402,29 +410,26 @@ public partial class SelectBuildPanel
         HideNoLimitCards();
     }
 
-    public void ShowNewCardBanner()
+    public void ShowNewCardNotice()
     {
         foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             kv.Value.SetBannerType(CardNoticeComponent.BannerTypes.None);
+            kv.Value.SetArrowType(CardNoticeComponent.ArrowTypes.None);
         }
 
         foreach (int cardID in StoryManager.Instance.JustGetNewCards)
         {
-            AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
-        }
-    }
-
-    public void ShowUpgradeCardBanner()
-    {
-        foreach (KeyValuePair<int, CardBase> kv in AllCards)
-        {
-            kv.Value.SetArrowType(CardNoticeComponent.ArrowTypes.None);
-        }
-
-        foreach (int cardID in StoryManager.Instance.JustUpgradeCards)
-        {
-            AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.Upgrade);
+            if (AllShownCards.ContainsKey(cardID))
+            {
+                AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.None);
+                AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.StorageIncrease);
+            }
+            else
+            {
+                AllCards[cardID].SetBannerType(CardNoticeComponent.BannerTypes.NewCard);
+                AllCards[cardID].SetArrowType(CardNoticeComponent.ArrowTypes.None);
+            }
         }
     }
 }

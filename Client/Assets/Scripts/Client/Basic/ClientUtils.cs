@@ -98,7 +98,7 @@ public class ClientUtils
         if (sprite == null)
         {
             Debug.LogError("所选卡片没有图片资源：" + pid_str);
-            return GetPicByID(1004);
+            return GetPicByID((int) AllCards.SpecialPicIDs.Empty);
         }
 
         return sprite;

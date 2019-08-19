@@ -34,7 +34,10 @@ public class BattleManager : MonoSingleton<BattleManager>
                 {
                     if (UIManager.Instance.GetPeekUIForm() == null)
                     {
-                        UIManager.Instance.ShowUIForms<ExitMenuPanel>();
+                        if (UIManager.Instance.GetBaseUIForm<BattleResultPanel>() == null || !UIManager.Instance.GetBaseUIForm<BattleResultPanel>().IsShow)
+                        {
+                            UIManager.Instance.ShowUIForms<ExitMenuPanel>();
+                        }
                     }
                 }
             }
@@ -48,7 +51,10 @@ public class BattleManager : MonoSingleton<BattleManager>
                 {
                     if (UIManager.Instance.GetPeekUIForm() == null)
                     {
-                        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+                        if (UIManager.Instance.GetBaseUIForm<BattleResultPanel>() == null || !UIManager.Instance.GetBaseUIForm<BattleResultPanel>().IsShow)
+                        {
+                            UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+                        }
                     }
                 }
             }

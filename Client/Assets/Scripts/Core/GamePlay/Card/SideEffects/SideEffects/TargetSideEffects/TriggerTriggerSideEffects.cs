@@ -2,5 +2,5 @@
 {
     public SideEffectExecute PeekSEE { get; set; }
 
-    public abstract bool IsTrigger();
+    public abstract bool IsTrigger(ExecutorInfo ei);
 }

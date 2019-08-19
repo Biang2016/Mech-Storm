@@ -1,16 +1,18 @@
-﻿public class UseSpellCardToShipRequest : ClientRequestBase
+﻿using System.Collections.Generic;
+
+public class UseSpellCardToShipRequest : ClientRequestBase
 {
     public int handCardInstanceId;
-    public int targetClientId;
+    public List<int> targetClientIds;
 
     public UseSpellCardToShipRequest()
     {
     }
 
-    public UseSpellCardToShipRequest(int clientId, int handCardInstanceId, int targetClientId) : base(clientId)
+    public UseSpellCardToShipRequest(int clientId, int handCardInstanceId, List<int> targetClientIds) : base(clientId)
     {
         this.handCardInstanceId = handCardInstanceId;
-        this.targetClientId = targetClientId;
+        this.targetClientIds = targetClientIds ?? new List<int>();
     }
 
     public override NetProtocols GetProtocol()
@@ -22,13 +24,23 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
-        writer.WriteSInt32(targetClientId);
+        writer.WriteSInt32(targetClientIds.Count);
+        foreach (int id in targetClientIds)
+        {
+            writer.WriteSInt32(id);
+        }
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
-        targetClientId = reader.ReadSInt32();
+        targetClientIds = new List<int>();
+        int count = reader.ReadSInt32();
+        for (int i = 0; i < count; i++)
+        {
+            int id = reader.ReadSInt32();
+            targetClientIds.Add(id);
+        }
     }
 }

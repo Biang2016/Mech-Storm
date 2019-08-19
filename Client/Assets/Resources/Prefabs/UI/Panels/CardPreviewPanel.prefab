@@ -1392,6 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49982067d3abcd94b8094c6a61f8a96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardPreviewCamera: {fileID: 3048434050882168768}
   AllContainer: {fileID: 285341892221558537}
   PreviewContent: {fileID: 6114174741094628675}
   PreviewCardPanelRightPivot: {fileID: 1826810650405003404}

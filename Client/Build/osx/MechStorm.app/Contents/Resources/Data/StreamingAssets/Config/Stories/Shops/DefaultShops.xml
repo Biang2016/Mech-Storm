@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AllShops>
-  <LevelInfo name_en="Rice car 4s" name_zh="跑车店" picID="735" levelThemeCategory="Soldiers" levelType="Shop">
-    <ShopInfo>
-      <ShopItem shopItemType="Card" price="23423" cardID="120" />
-      <ShopItem shopItemType="Card" price="23423" cardID="30" />
-      <ShopItem shopItemType="Card" price="23423" cardID="11" />
-      <ShopItem shopItemType="Card" price="23423" cardID="50" />
+  <LevelInfo name_en="NewShop" name_zh="新商店" picID="1001" levelThemeCategory="Energy" levelType="Shop" difficultyLevel="1">
+    <ShopInfo shopItemCardCount="5" shopItemOthersCount="2"/>
+  </LevelInfo>
+  <LevelInfo name_en="Border Shop" name_zh="边境商城" picID="1001" levelThemeCategory="Energy" levelType="Shop" difficultyLevel="3">
+    <ShopInfo shopItemCardCount="8" shopItemOthersCount="2">
+      <ShopItem shopItemType="Card" price="333" probability="20" isSingleton="False" cardRareLevel="1" />
+      <ShopItem shopItemType="Card" price="100" probability="50" isSingleton="False" cardRareLevel="2" />
+      <ShopItem shopItemType="Card" price="100" probability="30" isSingleton="False" cardRareLevel="3" />
+      <ShopItem shopItemType="LifeUpperLimit" price="10" probability="10" isSingleton="False" lifeUpperLimit="1" />
+      <ShopItem shopItemType="LifeUpperLimit" price="18" probability="10" isSingleton="False" lifeUpperLimit="2" />
+      <ShopItem shopItemType="LifeUpperLimit" price="25" probability="10" isSingleton="False" lifeUpperLimit="3" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="5" probability="10" isSingleton="False" energyUpperLimit="1" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="8" probability="10" isSingleton="False" energyUpperLimit="2" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="16" probability="10" isSingleton="False" energyUpperLimit="4" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="30" probability="5" isSingleton="False" energyUpperLimit="8" />
+      <ShopItem shopItemType="Budget" price="5" probability="10" isSingleton="False" budget="50" />
+      <ShopItem shopItemType="Budget" price="8" probability="10" isSingleton="False" budget="100" />
+      <ShopItem shopItemType="Budget" price="20" probability="10" isSingleton="False" budget="250" />
+      <ShopItem shopItemType="Budget" price="50" probability="2" isSingleton="False" budget="800" />
     </ShopInfo>
   </LevelInfo>
-  <LevelInfo name_en="Small Shop0" name_zh="小卖铺" picID="703" levelThemeCategory="Soldiers" levelType="Shop">
-    <ShopInfo>
-      <ShopItem shopItemType="Card" price="131" cardID="50110" />
-    </ShopInfo>
-  </LevelInfo>
-  <LevelInfo name_en="newShop" name_zh="新商店" picID="992" levelThemeCategory="Energy" levelType="Shop">
-    <ShopInfo>
-      <ShopItem shopItemType="Card" price="333" cardID="60050" />
-    <ShopItem shopItemType="Budget" price="6" budget="44" />
-      <ShopItem shopItemType="LifeUpperLimit" price="222" lifeUpperLimit="6" />
-      <ShopItem shopItemType="EnergyUpperLimit" price="212" energyUpperLimit="666" />
+  <LevelInfo name_en="Little Store" name_zh="街边小店" picID="1001" levelThemeCategory="Soldiers" levelType="Shop" difficultyLevel="2">
+    <ShopInfo shopItemCardCount="5" shopItemOthersCount="0">
+      <ShopItem shopItemType="Card" price="23423" probability="50" isSingleton="False" cardRareLevel="1" />
+      <ShopItem shopItemType="Card" price="23423" probability="50" isSingleton="False" cardRareLevel="2" />
     </ShopInfo>
   </LevelInfo>
 </AllShops>

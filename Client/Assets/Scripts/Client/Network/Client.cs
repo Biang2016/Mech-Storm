@@ -24,9 +24,9 @@
     }
 
 #if UNITY_EDITOR
-    private bool LocalSerailizeRequest = true;
+    private static bool LocalSerializeRequest = true;
 #else
-    private bool LocalSerailizeRequest = false;
+    private static bool LocalSerializeRequest = true;
 #endif
 
     public void SetNetwork(bool isOnline)
@@ -40,16 +40,18 @@
             NetworkManager.Instance.Closed();
             NetworkManager.Instance.TerminateConnection();
             Proxy.Socket = null;
-            if (LocalSerailizeRequest)
+            if (LocalSerializeRequest)
             {
+                ClientLog.Instance.Print("LocalSerializeRequest On.");
                 Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxyWithSerialization);
+                GameProxy = new GameProxy(999, "Player1", NetworkManager.ClientVersion, SendFromLocalGameProxyToClientWithSerialization, ClientLog.Instance);
             }
             else
             {
                 Proxy.SwitchSendMessageTarget(Proxy.MessageTarget.LocalGameProxy, SendToLocalGameProxy);
+                GameProxy = new GameProxy(999, "Player1", NetworkManager.ClientVersion, SendFromLocalGameProxyToClient, ClientLog.Instance);
             }
 
-            GameProxy = new GameProxy(999, "Player1", NetworkManager.ClientVersion, SendFromLocalGameProxyToClient, ClientLog.Instance);
             GameProxy.SendClientIDRequest();
         }
     }
@@ -64,6 +66,13 @@
         byte[] data = NetworkManager.SerializeRequest((ClientRequestBase) obj);
         DataStream stream = new DataStream(data, true);
         ProtoManager.TryLocalDeserialize(stream, GameProxy.ReceiveRequest);
+    }
+
+    private void SendFromLocalGameProxyToClientWithSerialization(ServerRequestBase request)
+    {
+        byte[] data = NetworkManager.SerializeRequest(request);
+        DataStream stream = new DataStream(data, true);
+        ProtoManager.TryLocalDeserialize(stream, Proxy.Response);
     }
 
     private void SendFromLocalGameProxyToClient(ServerRequestBase request)

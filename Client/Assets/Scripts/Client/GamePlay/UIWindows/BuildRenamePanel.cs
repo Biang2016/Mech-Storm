@@ -46,7 +46,7 @@ public class BuildRenamePanel : BaseUIForm
         if (!string.IsNullOrEmpty(InputField.text))
         {
             currentEditBuildInfo.BuildName = InputField.text;
-            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, currentEditBuildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single);
+            BuildRequest request = new BuildRequest(Client.Instance.Proxy.ClientID, currentEditBuildInfo, SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single, UIManager.Instance.GetBaseUIForm<StartMenuPanel>().state == StartMenuPanel.States.Show_Single_HasStory);
             Client.Instance.Proxy.SendMessage(request);
             CloseUIForm();
         }

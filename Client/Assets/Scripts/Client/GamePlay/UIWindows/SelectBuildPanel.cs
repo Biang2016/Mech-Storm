@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public partial class SelectBuildPanel : BaseUIForm
 {
+    public Camera CardCamera;
     [SerializeField] private Animator SelectWindowShowAnim;
     [SerializeField] private Transform LeftWindowTransform;
     [SerializeField] private Transform CenterWindowTransform;
@@ -17,7 +19,7 @@ public partial class SelectBuildPanel : BaseUIForm
             isClickElsewhereClose: false,
             uiForms_Type: UIFormTypes.Normal,
             uiForms_ShowMode: UIFormShowModes.HideOther,
-            uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
+            uiForm_LucencyType: UIFormLucencyTypes.Blur);
 
         Awake_Bars();
         Awake_Cards();
@@ -79,18 +81,22 @@ public partial class SelectBuildPanel : BaseUIForm
         if (!gameObject.activeInHierarchy)
         {
             gameObject.SetActive(true);
-            //TODO 加载等待标志
         }
 
-        UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
         if (Client.Instance.IsPlaying())
         {
+            DragManager.Instance.CancelCurrentDrag();
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow_ReadOnly);
+            BattleManager.Instance.SelfBattlePlayer.HandManager.RefreshCardsPlace();
         }
         else if (Client.Instance.IsLogin())
         {
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow);
         }
+
+        UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
+
+        AudioManager.Instance.BGMFadeIn("bgm/SelectBuildPanel");
 
         SelectWindowShowAnim.SetTrigger("Show");
         IsShow = true;
@@ -102,14 +108,25 @@ public partial class SelectBuildPanel : BaseUIForm
     {
         UIMaskMgr.Instance.CancelAllMaskWindow(UIType.UIForm_LucencyType);
         SelectWindowShowAnim.SetTrigger("Reset");
+        DragManager.Instance.IsCanceling = false;
         if (CurrentEditBuildButton)
         {
             SelectBuildManager.Instance.OnSaveBuildInfo(CurrentEditBuildButton.BuildInfo);
         }
 
+        if (Client.Instance.IsPlaying())
+        {
+            MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
+        }
+        else
+        {
+            MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
+        }
+
+        UIManager.Instance.GetBaseUIForm<StartMenuPanel>()?.SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
+
         UIManager.Instance.CloseUIForm<AffixPanel>();
         currentPreviewCard?.PoolRecycle();
-        MouseHoverManager.Instance.M_StateMachine.ReturnToPreviousState();
         IsShow = false;
     }
 
@@ -117,8 +134,11 @@ public partial class SelectBuildPanel : BaseUIForm
     public Dictionary<int, PoolObject> AllCardContainers = new Dictionary<int, PoolObject>(); // 每张卡片都有一个容器
     public Dictionary<int, CardBase> AllShownCards = new Dictionary<int, CardBase>(); // 所有显示的卡片
 
-    public void Init(bool force = false)
+    internal UnityAction StartGameAction;
+
+    public void Init(UnityAction startGameAction, bool force = false)
     {
+        StartGameAction = startGameAction;
         if (!force && IsInit) return;
 
         Init_Bars();

@@ -114,7 +114,7 @@ public class MechAttrShapesComponent : MechComponentBase
 
     public void HoverSniper(bool isSniper)
     {
-        if (Sniper)
+        if (isSniper)
         {
             Sniper.gameObject.SetActive(false);
             SniperHover.gameObject.SetActive(true);

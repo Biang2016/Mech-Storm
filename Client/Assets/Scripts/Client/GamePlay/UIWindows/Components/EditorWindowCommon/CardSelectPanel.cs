@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -6,40 +7,83 @@ using UnityEngine.UI;
 public class CardSelectPanel : MonoBehaviour
 {
     [SerializeField] private Toggle ShowAllCardToggle;
+    [SerializeField] private Text ShowAllCardToggleLabel;
+    [SerializeField] private Button UnselectAllButton;
+    [SerializeField] private Text UnselectAllButtonLabel;
+    [SerializeField] private Button SelectOneOfEachButton;
+    [SerializeField] private Text SelectOneOfEachButtonLabel;
     [SerializeField] private Image MaskPanelForCardLibrary;
 
     private Dictionary<int, CardBase> AllCards = new Dictionary<int, CardBase>();
     private Dictionary<int, CardSelectWindowCardContainer> AllCardContainers = new Dictionary<int, CardSelectWindowCardContainer>(); // 每张卡片都有一个容器
     [SerializeField] private GridLayoutGroup CardLibraryGridLayout;
 
-    internal void Initialize(UnityAction<CardBase> leftClickCard, UnityAction<CardBase> rightClickCard, LevelPropertyForm_CardSelection row_CardSelection)
+    void Awake()
     {
+        LanguageManager.Instance.RegisterTextKeys(new List<ValueTuple<Text, string>>
+        {
+            (ShowAllCardToggleLabel, "CardSelectPanel_ShowAllCardToggleLabel"),
+            (UnselectAllButtonLabel, "CardSelectPanel_UnselectAllButtonLabel"),
+            (SelectOneOfEachButtonLabel, "CardSelectPanel_SelectOneOfEachButtonLabel"),
+        });
+    }
+
+    private Editor_CardSelectModes M_SelectMode;
+
+    internal void Initialize(Editor_CardSelectModes selectModes, bool showHideCards, UnityAction<CardBase> leftClickCard, UnityAction<CardBase> rightClickCard, UnityAction<List<int>> selectOneOfEachActiveCards, UnityAction<List<int>> unselectAllActiveCards, LevelPropertyForm_CardSelection row_CardSelection)
+    {
+        M_SelectMode = selectModes;
+
         LeftClickCard = leftClickCard;
         RightClickCard = rightClickCard;
+        SelectOneOfEachActiveCardsAction = selectOneOfEachActiveCards;
+        UnselectAllActiveCardsAction = unselectAllActiveCards;
+
+        SelectOneOfEachButton.gameObject.SetActive(SelectOneOfEachActiveCardsAction != null);
+        UnselectAllButton.gameObject.SetActive(UnselectAllActiveCardsAction != null);
+
         Row_CardSelection = row_CardSelection;
+        UnselectAllButton.onClick.RemoveAllListeners();
+        UnselectAllButton.onClick.AddListener(UnselectAllActiveCards);
+        SelectOneOfEachButton.onClick.RemoveAllListeners();
+        SelectOneOfEachButton.onClick.AddListener(SelectOneOfEachActiveCards);
         ShowAllCardToggle.onValueChanged.RemoveAllListeners();
-        ShowAllCardToggle.isOn = false;
-        ShowAllCardToggle.onValueChanged.AddListener(ShowAllCardSwitch);
         ShowAllCardToggle.isOn = true;
+        ShowAllCardToggle.onValueChanged.AddListener(ShowAllCardSwitchForDeckSelect);
+        ShowAllCardToggle.isOn = false;
 
         foreach (CardInfo_Base cardInfo in global::AllCards.CardDict.Values)
         {
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.EmptyCard) continue;
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.NoCard) continue;
-            if (cardInfo.BaseInfo.IsHide) continue;
+            if (showHideCards && cardInfo.BaseInfo.IsHide) continue;
             if (cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoGridLayout(cardInfo.Clone());
         }
     }
 
+    internal void SwitchSingleSelect(bool isSingleSelect)
+    {
+        ShowAllCardsForSingleSelect(isSingleSelect);
+        if (isSingleSelect) UnselectAllCards();
+        ShowAllCardToggle.gameObject.SetActive(!isSingleSelect);
+        SelectOneOfEachButton.gameObject.SetActive(!isSingleSelect);
+        UnselectAllButton.gameObject.SetActive(!isSingleSelect);
+    }
+
     private BuildCards BuildCards;
 
-    internal void SetBuildCards(BuildCards buildCards, UnityAction gotoAction = null)
+    internal void SetBuildCards(BuildCards buildCards, UnityAction gotoAction)
     {
         BuildCards = buildCards;
-        Row_CardSelection.Initialize(buildCards);
+        Row_CardSelection.Initialize(M_SelectMode, buildCards);
         Row_CardSelection.SetButtonActions(
-            gotoAction: gotoAction ?? delegate { },
+            gotoAction: delegate
+            {
+                gotoAction();
+                SwitchSingleSelect(false);
+                SelectCardsByBuildCards(CardStatTypes.Total);
+            },
             clearAction: delegate
             {
                 ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
@@ -50,7 +94,15 @@ public class CardSelectPanel : MonoBehaviour
                     leftButtonClick: delegate
                     {
                         cp.CloseUIForm();
-                        buildCards.ClearAllCardCounts();
+                        if (M_SelectMode == Editor_CardSelectModes.SelectCount)
+                        {
+                            buildCards.ClearAllCardCounts();
+                        }
+                        else if (M_SelectMode == Editor_CardSelectModes.UpperLimit)
+                        {
+                            buildCards.ClearAllCardUpperLimit();
+                        }
+
                         Row_CardSelection.Refresh();
                         SelectCardsByBuildCards(CardStatTypes.Total);
                     },
@@ -60,11 +112,20 @@ public class CardSelectPanel : MonoBehaviour
         SelectCardsByBuildCards(CardStatTypes.Total);
     }
 
-    private void ShowAllCardSwitch(bool showAllCard)
+    private void ShowAllCardSwitchForDeckSelect(bool showAllCard)
     {
         if (BuildCards != null)
         {
             SelectCardsByBuildCards(Cur_CardStatType);
+        }
+    }
+
+    private void ShowAllCardsForSingleSelect(bool showAllCard)
+    {
+        UnselectAllCards();
+        foreach (KeyValuePair<int, CardSelectWindowCardContainer> kv in AllCardContainers)
+        {
+            kv.Value.gameObject.SetActive(true);
         }
     }
 
@@ -74,9 +135,16 @@ public class CardSelectPanel : MonoBehaviour
 
     private UnityAction<CardBase> LeftClickCard;
     private UnityAction<CardBase> RightClickCard;
+    private UnityAction<List<int>> SelectOneOfEachActiveCardsAction;
+    private UnityAction<List<int>> UnselectAllActiveCardsAction;
 
     internal void CardSelectPanelUpdate()
     {
+        if (UIManager.Instance.GetBaseUIForm<ConfirmPanel>())
+        {
+            if (UIManager.Instance.GetBaseUIForm<ConfirmPanel>().isActiveAndEnabled) return;
+        }
+
         if (gameObject.activeInHierarchy && MaskPanelForCardLibrary.enabled)
         {
             if (Input.GetMouseButtonDown(0))
@@ -213,12 +281,40 @@ public class CardSelectPanel : MonoBehaviour
         }
     }
 
-    internal void UnSelectAllCards()
+    internal void UnselectAllCards()
     {
         foreach (KeyValuePair<int, CardBase> kv in AllCards)
         {
             RefreshCard(kv.Key, 0);
         }
+    }
+
+    private void UnselectAllActiveCards()
+    {
+        List<int> activeCardIDs = new List<int>();
+        foreach (KeyValuePair<int, CardSelectWindowCardContainer> kv in AllCardContainers)
+        {
+            if (kv.Value.gameObject.activeInHierarchy)
+            {
+                activeCardIDs.Add(kv.Key);
+            }
+        }
+
+        UnselectAllActiveCardsAction.Invoke(activeCardIDs);
+    }
+
+    private void SelectOneOfEachActiveCards()
+    {
+        List<int> activeCardIDs = new List<int>();
+        foreach (KeyValuePair<int, CardSelectWindowCardContainer> kv in AllCardContainers)
+        {
+            if (kv.Value.gameObject.activeInHierarchy)
+            {
+                activeCardIDs.Add(kv.Key);
+            }
+        }
+
+        SelectOneOfEachActiveCardsAction?.Invoke(activeCardIDs);
     }
 
     private LevelPropertyForm_CardSelection Row_CardSelection;
@@ -234,9 +330,18 @@ public class CardSelectPanel : MonoBehaviour
                 if (AllCards.ContainsKey(kv.Key))
                 {
                     bool typeMatch = cardStatType == CardStatTypes.Total || AllCards[kv.Key].CardInfo.CardStatType == cardStatType;
-                    bool show = ((!ShowAllCardToggle.isOn && kv.Value.CardSelectCount > 0) || ShowAllCardToggle.isOn) && typeMatch;
-                    AllCardContainers[kv.Key].gameObject.SetActive(show);
-                    RefreshCard(kv.Key, kv.Value.CardSelectCount);
+                    if (M_SelectMode == Editor_CardSelectModes.SelectCount)
+                    {
+                        bool show = ((!ShowAllCardToggle.isOn && kv.Value.CardSelectCount > 0) || ShowAllCardToggle.isOn) && typeMatch;
+                        AllCardContainers[kv.Key].gameObject.SetActive(show);
+                        RefreshCard(kv.Key, kv.Value.CardSelectCount);
+                    }
+                    else if (M_SelectMode == Editor_CardSelectModes.UpperLimit)
+                    {
+                        bool show = ((!ShowAllCardToggle.isOn && kv.Value.CardSelectUpperLimit > 0) || ShowAllCardToggle.isOn) && typeMatch;
+                        AllCardContainers[kv.Key].gameObject.SetActive(show);
+                        RefreshCard(kv.Key, kv.Value.CardSelectUpperLimit);
+                    }
                 }
             }
         }

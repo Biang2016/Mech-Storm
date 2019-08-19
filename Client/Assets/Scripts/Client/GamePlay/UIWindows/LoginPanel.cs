@@ -81,6 +81,23 @@ public class LoginPanel : BaseUIForm
 
     void Start()
     {
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            LanguageManager.Instance.GetText("LoginMenu_NeedNetwork"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            delegate
+            {
+                ReturnToOnlineMode(true);
+                cp.CloseUIForm();
+            },
+            delegate
+            {
+                cp.CloseUIForm();
+                ReturnToSingleMode();
+            });
+        cp.UIType.IsESCClose = false;
+        cp.UIType.IsClickElsewhereClose = false;
     }
 
     void Update()
@@ -94,33 +111,9 @@ public class LoginPanel : BaseUIForm
         }
     }
 
-    private bool isFirstTimeDisplay = true;
-
     public override void Display()
     {
         base.Display();
-        if (isFirstTimeDisplay)
-        {
-            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-            cp.Initialize(
-                "是否要联网?",
-                "是",
-                "否",
-                delegate
-                {
-                    ReturnToOnlineMode(true);
-                    cp.CloseUIForm();
-                },
-                delegate
-                {
-                    cp.CloseUIForm();
-                    ReturnToSingleMode();
-                });
-            cp.UIType.IsESCClose = false;
-            cp.UIType.IsClickElsewhereClose = false;
-            isFirstTimeDisplay = false;
-        }
-
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.None);
         SelectBuildManager.Instance.CurrentGameMode = SelectBuildManager.GameMode.None;
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Login_0", "bgm/Login_1"});
@@ -237,13 +230,16 @@ public class LoginPanel : BaseUIForm
 
     public void ShowTipText(string text, float delay, float last, bool showDots)
     {
-        if (ShowTipTextCoroutine != null)
+        if (gameObject.activeInHierarchy)
         {
-            StopCoroutine(ShowTipTextCoroutine);
-        }
+            if (ShowTipTextCoroutine != null)
+            {
+                StopCoroutine(ShowTipTextCoroutine);
+            }
 
-        ShowTipTextCoroutine = Co_ShowTipText(text, delay, last, showDots);
-        StartCoroutine(ShowTipTextCoroutine);
+            ShowTipTextCoroutine = Co_ShowTipText(text, delay, last, showDots);
+            StartCoroutine(ShowTipTextCoroutine);
+        }
     }
 
     IEnumerator Co_ShowTipText(string text, float delay, float last, bool showDots)

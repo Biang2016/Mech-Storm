@@ -173,7 +173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90637884934693117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: 0, z: -1089}
+  m_LocalPosition: {x: -34.69, y: 33.9, z: -1089}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7796774833126857709}
@@ -205,7 +205,7 @@ Camera:
   far clip plane: 10.1
   field of view: 42
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 5.58
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1612,7 +1612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000018260795}
+  m_AnchoredPosition: {x: 0, y: 0.000071662274}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6691626823319201842
@@ -1915,7 +1915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000026517297}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.000000004871027}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3776524657462983685
@@ -2733,6 +2733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d14c65330a23d4689423a6fb078ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardCamera: {fileID: 456616855477673187}
   SelectWindowShowAnim: {fileID: 8785401248113022934}
   LeftWindowTransform: {fileID: 6496148131304302004}
   CenterWindowTransform: {fileID: 7796774833126857709}
@@ -3098,7 +3099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.0000036291124}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.0000419568}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7765827298561472003
@@ -4332,8 +4333,8 @@ MonoBehaviour:
   m_Direction: 2
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.542
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8958,7 +8959,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 1500}
+  m_SizeDelta: {x: 1500, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4774079103360573408
 CanvasRenderer:
@@ -10092,8 +10093,8 @@ MonoBehaviour:
   m_Direction: 2
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.49
+  m_WholeNumbers: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11586,7 +11587,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 244162864652098720}
   m_HandleRect: {fileID: 7230678844725726430}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 0.8326848
   m_NumberOfSteps: 0
   m_OnValueChanged:

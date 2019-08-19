@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -68,19 +69,21 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
             previousState = States.None;
         }
 
+        [Flags]
         public enum States
         {
-            None, //禁用
-            StartMenu, //开始界面
-            ExitMenu, //Exit菜单
-            SettingMenu, //Setting菜单
-            SelectCardWindow, //选卡界面
-            SelectCardWindow_ReadOnly, //选卡界面_战斗内
-            BattleNormal, //战斗一般状态
-            DragEquipment, //拖动装备牌过程中
-            DragMechTo, //机甲拖动攻击
-            DragSpellTo, //法术牌拖动瞄准
-            SummonMechTargetOn, //召唤带目标的机甲时，选择目标期间
+            None=1, //禁用
+            StartMenu=2, //开始界面
+            ExitMenu=4, //Exit菜单
+            SettingMenu=8, //Setting菜单
+            SelectCardWindow=16, //选卡界面
+            SelectCardWindow_ReadOnly=32, //选卡界面_战斗内
+            BattleNormal=64, //战斗一般状态
+            DragEquipment=128, //拖动装备牌过程中
+            DragMechTo=256, //机甲拖动攻击
+            DragSpellTo=512, //法术牌拖动瞄准
+            SummonMechTargetOn=1024, //召唤带目标的机甲时，选择目标期间
+            BattleSpecial = DragEquipment | DragMechTo | DragSpellTo| SummonMechTargetOn,
         }
 
         public static HashSet<States> OutGameState = new HashSet<States>
@@ -111,6 +114,10 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                 switch (state)
                 {
                     case States.None:
+                        if ((newState & States.BattleSpecial) != 0)
+                        {
+                            return;
+                        }
                         break;
                     case States.StartMenu:
                         Instance.hi_CardSelectHover.Release();
