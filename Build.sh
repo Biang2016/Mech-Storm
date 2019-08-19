@@ -38,7 +38,7 @@ cp ../Client/Assets/Scripts/ServerConsole/ServerConsole.cs ./
 chmod 777  ./*
 
 csc /reference:Core.dll /reference:BattleProxy.dll /reference:GameProxy.dll /reference:Network.dll /reference:Server.dll *.cs
-rm -f ./*.cs
+rm ./*.cs
 echo "Build ServerConsole.exe Suc."
 
 cp -r ../Client/Assets/StreamingAssets/Config ./ 
