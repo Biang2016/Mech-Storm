@@ -31,6 +31,10 @@
 		"zh": "生命值",
 		"en": "Life"
 	},
+	"SideEffectValueNames_Percent": {
+		"zh": "比例(%)",
+		"en": "Percent(%)"
+	},
 	"SideEffectValueNames_HealValue": {
 		"zh": "治疗量",
 		"en": "Heal Value"

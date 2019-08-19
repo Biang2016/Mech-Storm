@@ -5,6 +5,7 @@
   <SideEffect name="AddLife" desc_zh="使{0}增加{1}点生命, " desc_en="add {1} life for {0}. "></SideEffect>
   <SideEffect name="Damage" desc_zh="对{0}造成{1}{2}点伤害, " desc_en="deal {1}{2} damage to {0}. "></SideEffect>
   <SideEffect name="Heal" desc_zh="使{0}恢复{1}点生命, " desc_en="heal {1} life for {0}. "></SideEffect>
+  <SideEffect name="HealLifeMaxPercent" desc_zh="使{0}恢复最大生命值的{1}%, " desc_en="heal {1}% life for {0}. "></SideEffect>
 
   <SideEffect name="AddEnergy" desc_zh="为{0}增加{1}{2}点能量, " desc_en="add {1}{2} energy for {0}. "></SideEffect>
 
@@ -41,8 +42,6 @@
 
   <SideEffect name="AddPlayerBuff" desc_zh="{0}" desc_en="{0}. "></SideEffect>
 
-  <SideEffect name="SpellDamageDouble" desc_zh="{0}" desc_en="{0}. "></SideEffect>
-
   <SideEffect name="Exile" desc_zh="" desc_en=""></SideEffect>
 
   <SideEffect name="UseAllEnergyDamageShip" desc_zh="消耗全部能量,对敌舰造成{0}点伤害,每多消耗1点,对敌方造成额外的{1}点伤害, " desc_en="consume all energy. deal {0} damage to enemy ship. deal extra {1} damage per extra energy used. "></SideEffect>
@@ -56,4 +55,6 @@
   <SideEffect name="GetAnotherRound" desc_zh="本回合结束时,有{0}%的概率获得额外1个回合, " desc_en="get {0}% chance of an extra round after this round."></SideEffect>
   <SideEffect name="KillAllMechsAndDamageSelfShip" desc_zh="破坏场上所有机甲，每破坏一个机甲，对我方战舰造成{0}点伤害, " desc_en="destroy all mechs. For each mech destroyed, deal {0} damage to your spaceship. "></SideEffect>
   <SideEffect name="DropAndDrawCards" desc_zh="丢弃所有的{0}, 获得随机等量的{1}, " desc_en="discard all {0} and get the same amout of {1}. "></SideEffect>
+  <SideEffect name="SpellDamageDouble" desc_zh="下次由法术牌或能量牌造成的伤害翻倍, " desc_en="Double next damage dealt by Spell or Energy cards. "></SideEffect>
+  <SideEffect name="NextCardTriggerTwice" desc_zh="下一张法术牌或能量牌额外触发一次, " desc_en="Next Spell card or Energy card would be triggered twice. "></SideEffect>
 </AllSideEffects>

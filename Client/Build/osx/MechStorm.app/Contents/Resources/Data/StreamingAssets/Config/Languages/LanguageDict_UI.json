@@ -541,9 +541,25 @@
 		"zh": "可选\n奖励",
 		"en": "Optional Bonus"
 	},
-	"WinLostPanelManager_ChapterBonusText": {
-		"zh": "章节\n奖励",
-		"en": "Chapter Bonus"
+	"WinLostPanelManager_CrystalRewardText": {
+		"zh": "水晶\n奖励",
+		"en": "Crystals"
+	},
+	"WinLostPanelManager_CrystalLevelLabel": {
+		"zh": "难度:",
+		"en": "Level:"
+	},
+	"WinLostPanelManager_CrystalHealthLabel": {
+		"zh": "剩余生命:",
+		"en": "Health:"
+	},
+	"WinLostPanelManager_CrystalKillEquation": {
+		"zh": "击杀数:",
+		"en": "Kills:"
+	},
+	"WinLostPanelManager_CrystalDamageLabel": {
+		"zh": "总伤害:",
+		"en": "Damage:"
 	},
 	"WinLostPanelManager_ConfirmButtonText": {
 		"zh": "确认",
@@ -552,14 +568,6 @@
 	"WinLostPanelManager_GoAheadButtonText": {
 		"zh": "继续游戏",
 		"en": "Go ahead"
-	},
-	"WinLostPanelManager_CardUpgradeUnlockText": {
-		"zh": "卡片升级!",
-		"en": "Card Upgraded!"
-	},
-	"WinLostPanelManager_CardUpgradeUnlockDescText": {
-		"zh": "现在可以在牌库中升级该卡片了!",
-		"en": "You can upgrade this card in your deck now."
 	},
 	"WinLostPanelManager_YouNeedToChooseACard": {
 		"zh": "您需要选择一个奖励,不要客气!",
@@ -778,6 +786,10 @@
 		"zh": "可升级",
 		"en": "Upgrade!"
 	},
+	"CardBase_StorageIncrease": {
+		"zh": "库存增加",
+		"en": "Storage"
+	},
 	"CardSpell_SelectCorrectMech": {
 		"zh": "请选择正确的机甲",
 		"en": "You should select a correct mech!"
@@ -799,9 +811,13 @@
 		"zh": "剧情名称",
 		"en": "Story Name"
 	},
-	"StoryEditorPanel_ReturnToGamerButtonText": {
+	"StoryEditorPanel_ReturnToGameButtonText": {
 		"zh": "返回游戏",
 		"en": "Return to game"
+	},
+	"StoryEditorPanel_CardEditorButtonText": {
+		"zh": "卡牌编辑器",
+		"en": "Card Editor"
 	},
 	"StoryEditorPanel_NextChapterButtonText": {
 		"zh": "下一章",
@@ -940,6 +956,10 @@
 		"zh": "宝藏",
 		"en": "Treasures"
 	},
+	"StoryEditorPanel_AddNewButtonText": {
+		"zh": "新增",
+		"en": "Add new"
+	},
 	"Notice_StoryEditorPanel_ResetSuccess": {
 		"zh": "重置剧情成功",
 		"en": "Reset story successfully."
@@ -976,6 +996,18 @@
 	"CardEditorPanel_DeleteCardButtonText": {
 		"zh": "删除卡片",
 		"en": "Delete Card"
+	},
+	"CardEditorPanel_CardRareLevelFilterLabel": {
+		"zh": "稀有度:",
+		"en": "Rare:"
+	},
+	"CardEditorPanel_CardTypesFilterLabel": {
+		"zh": "类型:",
+		"en": "Type:"
+	},
+	"CardEditorPanel_DropdownAll": {
+		"zh": "全部",
+		"en": "All"
 	},
 	"CardEditorPanel_SaveCardUpgradeIDNotExists": {
 		"zh": "升级卡牌ID错误，不存在该卡牌",
@@ -1089,6 +1121,10 @@
 		"zh": "卡牌稀有度",
 		"en": "Rare Level"
 	},
+	"CardEditorPanel_CardShopPriceLabelText": {
+		"zh": "卡牌商店价格",
+		"en": "Shop Price"
+	},
 	"CardEditorPanel_CardIsTempLabelText": {
 		"zh": "临时卡",
 		"en": "Temp"
@@ -1136,6 +1172,10 @@
 	"CardEditorPanel_MechIsFrenzyLabelText": {
 		"zh": "狂暴",
 		"en": "Is Frenzy"
+	},
+	"CardEditorPanel_MechIsSentryLabelText": {
+		"zh": "哨戒",
+		"en": "Is Sentry"
 	},
 	"CardEditorPanel_MechWeaponSlotLabelText": {
 		"zh": "武器槽",
@@ -1284,6 +1324,10 @@
 		"zh": "敌人类型",
 		"en": "Enemy Type"
 	},
+	"LevelEditorPanel_LevelDifficultyLevel": {
+		"zh": "难度",
+		"en": "Level"
+	},
 	"LevelEditorPanel_EnemyDrawCardNum": {
 		"zh": "敌人抽牌数",
 		"en": "Draw Cards Number"
@@ -1299,6 +1343,14 @@
 	"LevelEditorPanel_EnemyBeginMetal": {
 		"zh": "敌人初始金属",
 		"en": "Initial Metal"
+	},
+	"LevelEditorPanel_ShopItemCardCount": {
+		"zh": "卡片商品格子",
+		"en": "Card Slots"
+	},
+	"LevelEditorPanel_ShopItemOthersCount": {
+		"zh": "其他商品格子",
+		"en": "Others Slots"
 	},
 	"LevelEditorPanel_CardSelection_SelectCount": {
 		"zh": "卡组卡片",
@@ -1324,6 +1376,10 @@
 		"zh": "价格: ",
 		"en": "Price: "
 	},
+	"LevelEditorPanel_ShopItemProbabilityLabel": {
+		"zh": "概率: ",
+		"en": "PR: "
+	},
 	"LevelEditorPanel_ShopItemTypeLabel": {
 		"zh": "类型: ",
 		"en": "Type: "
@@ -1344,13 +1400,29 @@
 		"zh": "请设置预算数值和相应的价格: ",
 		"en": "Please set the Coin Cost and its price: "
 	},
+	"LevelEditorPanel_SetMixedValuePrice": {
+		"zh": "请设置预算混合价值和相应的价格: ",
+		"en": "Please set the Mixed Value and its price: "
+	},
 	"LevelEditorPanel_PricePlaceHolder": {
 		"zh": "商品价格",
 		"en": "Price: "
 	},
+	"LevelEditorPanel_CardRareLevelPlaceHolder": {
+		"zh": "卡牌稀有度等级",
+		"en": "Card Rare Leve"
+	},
+	"LevelEditorPanel_ProbabilityPlaceHolder": {
+		"zh": "概率",
+		"en": "Probability"
+	},
 	"LevelEditorPanel_BudgetPlaceHolder": {
 		"zh": "预算量",
 		"en": "Coin"
+	},
+	"LevelEditorPanel_ValuePlaceHolder": {
+		"zh": "价值",
+		"en": "Value"
 	},
 	"LevelEditorPanel_BudgetValueText": {
 		"zh": "预算({0})",
@@ -1379,6 +1451,10 @@
 	"LevelEditorPanel_SetEnergyUpperLimitPrice": {
 		"zh": "请设置能量上限和相应的价格: ",
 		"en": "Please set the Energy upperlimit and its price: "
+	},
+	"LevelEditorPanel_SetCardPrice": {
+		"zh": "请设置卡牌稀有度等级:",
+		"en": "Please set the card's rare level:"
 	},
 	"LevelEditorPanel_BonusTypeLabel": {
 		"zh": "奖励类型: ",
@@ -1430,10 +1506,18 @@
 		"zh": "唯一出现",
 		"en": "Is Unique"
 	},
+	"LevelEditorPanel_OverrideExistedLevel": {
+		"zh": "已经存在名为“{0}”的关卡，是否覆盖？",
+		"en": "There exists a level named '{0}'. Sure to override?"
+	},
+	"LevelEditorPanel_DeleteOriginalLevel": {
+		"zh": "您修改了关卡名称，是否删除原关卡 '{0}' ?",
+		"en": "Level name is modified. Delete the original level '{0}'?"
+	},
 
 	"CardSelectPanel_ShowAllCardToggleLabel":{
-		"zh": "显示所有卡片",
-		"en": "Show all cards"
+		"zh": "所有卡片",
+		"en": "All"
 	},
 	"CardSelectPanel_UnselectAllButtonLabel":{
 		"zh": "清除所有选择",
@@ -1452,6 +1536,10 @@
 		"zh": "重置关卡成功",
 		"en": "Reset level successfully."
 	},
+	"Notice_LevelEditorPanel_SaveLevelInvalidName": {
+		"zh": "关卡英文名称不能为[{0}]",
+		"en": "Invalid level English name [{0}]"
+	},
 
 	"Notice_LevelEditorPanel_EnemyLifeMax": {
 		"zh": "敌人生命上限为{0}",
@@ -1463,8 +1551,8 @@
 	},
 
 	"Notice_ReturnWarningSave": {
-		"zh": "未保存的更改将会丢失，是否返回？",
-		"en": "Unsaved changes will be discarded. Proceed to return?"
+		"zh": "未保存的更改将会丢失，是否继续？",
+		"en": "Unsaved changes will be discarded. Proceed?"
 	},
 
 	"ChapterMap_LevelNameLabel":{
@@ -1475,8 +1563,70 @@
 		"zh": "关卡类型:",
 		"en": "Level type: "
 	},
+	"ChapterMap_DifficultyLevelLabel":{
+		"zh": "难度:",
+		"en": "Level: "
+	},
 	"ChapterMap_BeatedText":{
 		"zh": "通过",
-		"en": "Beated"
+		"en": "Passed"
+	},
+
+	"LevelType_Start":{
+		"zh": "起点",
+		"en": "Start"
+	},
+	"LevelType_Enemy":{
+		"zh": "敌人",
+		"en": "Enemy"
+	},
+	"LevelType_Shop":{
+		"zh": "商店",
+		"en": "Shop"
+	},
+	"LevelType_Rest":{
+		"zh": "休息区",
+		"en": "Rest"
+	},
+	"LevelType_Treasure":{
+		"zh": "宝藏",
+		"en": "Treasure"
+	},
+	"LevelType_Treasure":{
+		"zh": "宝藏",
+		"en": "Treasure"
+	},
+
+	"EnemyType_Soldier":{
+		"zh": "士兵",
+		"en": "Rest"
+	},
+	"EnemyType_Elite":{
+		"zh": "精英",
+		"en": "Elite"
+	},
+	"EnemyType_Boss":{
+		"zh": "Boss",
+		"en": "Boss"
+	},
+
+
+	"Card_TempCardText": {
+		"zh": "临",
+		"en": "T"
+	},
+
+	"ShopPanel_CardRareLevelDesc": {
+		"zh": "稀有度为({0})的卡片",
+		"en": "A card with rare level ({0})"
+	},
+	"ShopPanel_CannotAffordShopItem": {
+		"zh": "您的水晶好像有些不够了，请多攒些再来吧~",
+		"en": "You cannot afford this item. Please bring more crystal to buy it."
+	},
+
+	"StoryPanel_CannotStartBeatedLevel": {
+		"zh": "该关卡已经通过，请选择其他关卡~",
+		"en": "This level has been passed. Please select another level."
 	},
 }
