@@ -21,7 +21,7 @@
   </Card>
   <Card id="11">
     <CardInfo name="baseInfo" pictureID="16" cardName_en="FA Strike" cardName_zh="重装强袭" isTemp="False" isHide="False" metal="6" energy="0" coin="400" limitNum="1" cardRareLevel="5" shopPrice="95" cardType="Mech" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10" />
+    <CardInfo name="upgradeInfo" upgradeCardID="40" degradeCardID="10" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="8" totalLife="8" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="6" basicArmor="0" />
@@ -60,7 +60,7 @@
   </Card>
   <Card id="40">
     <CardInfo name="baseInfo" pictureID="4" cardName_en="Evil Gundam" cardName_zh="恶魔高达" isTemp="False" isHide="False" metal="3" energy="0" coin="250" limitNum="1" cardRareLevel="2" shopPrice="42" cardType="Mech" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="11" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="Pack" slot4="None" />
     <CardInfo name="lifeInfo" life="6" totalLife="6" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />

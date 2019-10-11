@@ -201,7 +201,19 @@ internal class BattleResultPanel : BaseUIForm
         CrystalKillEquation.text = string.Format("{0} x{1} = {2}", BattleStatistics.TotalKill, BattleStatistics.KILL_CRYSTAL, BattleStatistics.killCrystal) + (BattleStatistics.KILL_CRYSTAL == BattleStatistics.killCrystal ? "(max)" : "");
         CrystalDamageEquation.text = string.Format("{0} x{1} = {2}", BattleStatistics.TotalDamage, BattleStatistics.DAMAGE_CRYSTAL, BattleStatistics.damageCrystal) + (BattleStatistics.DAMAGE_CRYSTAL == BattleStatistics.damageCrystal ? "(max)" : "");
 
-        CrystalTotalText.text = BattleStatistics.totalCrystal.ToString();
+        CrystalTotalText.text = "x" + BattleStatistics.totalCrystal.ToString();
+    }
+
+    [SerializeField] private RectTransform CrystalDetails;
+
+    public void HideDetailsOfCrystal()
+    {
+        CrystalDetails.sizeDelta = new Vector2(CrystalDetails.sizeDelta.x, 120);
+    }
+
+    public void ShowDetailsOfCrystal()
+    {
+        CrystalDetails.sizeDelta = new Vector2(CrystalDetails.sizeDelta.x, 260);
     }
 
     #endregion
@@ -237,7 +249,7 @@ internal class BattleResultPanel : BaseUIForm
                 }
             }
 
-            List<BonusGroup> RandomOptionalBonusGroup = Utils.GetRandomWithProbabilityFromList(OptionalBonusGroups, 5);
+            List<BonusGroup> RandomOptionalBonusGroup = Utils.GetRandomWithProbabilityFromList(OptionalBonusGroups, 3);
 
             List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb> exceptionBudgetLifeEnergyComb = new List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb>();
             HashSet<int> exceptionCardIDs = new HashSet<int>();

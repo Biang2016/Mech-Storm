@@ -102,7 +102,6 @@ public class ShopItemButton : PoolObject
         }
 
         shopItemButton.Initialize(shopItem);
-
         shopItemButton.Button.onClick.AddListener(delegate
         {
             if (shopItemButton.Affordable)

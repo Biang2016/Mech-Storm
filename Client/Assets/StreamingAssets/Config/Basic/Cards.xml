@@ -1391,7 +1391,7 @@
   </Card>
   <Card id="60012">
     <CardInfo name="baseInfo" pictureID="701" cardName_en="M Energy Cube" cardName_zh="中型能量块" isTemp="False" isHide="False" metal="1" energy="0" coin="250" limitNum="0" cardRareLevel="2" shopPrice="25" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60011" />
+    <CardInfo name="upgradeInfo" upgradeCardID="60013" degradeCardID="60011" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="4" />
@@ -1401,7 +1401,7 @@
   </Card>
   <Card id="60013">
     <CardInfo name="baseInfo" pictureID="701" cardName_en="L Energy Cube" cardName_zh="大型能量块" isTemp="False" isHide="False" metal="1" energy="0" coin="300" limitNum="0" cardRareLevel="3" shopPrice="35" cardType="Energy" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="60012" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="6" />
@@ -1680,6 +1680,17 @@
             <SideEffect name="NextCardTriggerTwice" />
           </Buff>
         </SideEffect>
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="60300">
+    <CardInfo name="baseInfo" pictureID="717" cardName_en="Little Fireball" cardName_zh="小火球" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="3" cardRareLevel="1" shopPrice="10" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="2" Damage="1" />
+        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="2" Energy="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
