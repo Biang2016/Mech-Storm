@@ -237,6 +237,7 @@ public class Proxy : ProxyBase
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
                     UIManager.Instance.ShowUIForms<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
                     UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
+                    UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
                     break;
                 }

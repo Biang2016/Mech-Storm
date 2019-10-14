@@ -6100,7 +6100,7 @@ MonoBehaviour:
   - guid: 9286a489ff640374999415e5a260277d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1566183467
+    stamp: 1570915152
     type: 1
     UseGUIDs:
     - 8d031d861498d204b933839693944d2c
@@ -7328,6 +7328,11 @@ MonoBehaviour:
     - CrystalDamageEquation
     - CrystalTotalText
     - SetCrystalInfo
+    - RectTransform
+    - CrystalDetails
+    - HideDetailsOfCrystal
+    - Vector2
+    - ShowDetailsOfCrystal
     - WinBonusCountMin
     - WinBonusCountMax
     - WinGame
@@ -7359,7 +7364,7 @@ MonoBehaviour:
     - Camera
     - Input
     - HideCardPreview
-    stamp: 1564199063
+    stamp: 1568925401
     type: 2
     UseGUIDs: []
   - guid: c11c732b0fd230744860bbbe0b7e519e
@@ -7425,7 +7430,7 @@ MonoBehaviour:
   - guid: d2838e2b7a7714c32897ca88b06bcb8f
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1566183618
+    stamp: 1568923526
     type: 1
     UseGUIDs:
     - 6355f812468c74b239c225e2d6c8b5c0
@@ -7671,7 +7676,7 @@ MonoBehaviour:
   - guid: 3220118ba45ef724cb6413f68fba4aad
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1564199063
+    stamp: 1568925258
     type: 1
     UseGUIDs:
     - fadcb351087e04f49bdbe604a306cf8e
@@ -7992,7 +7997,7 @@ MonoBehaviour:
   - guid: 657a810cba5e428ea47259d01f429f21
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1565307553
+    stamp: 1568925401
     type: 1
     UseGUIDs:
     - 615d2ce44777ffc45aec520500d95acc
@@ -9217,7 +9222,7 @@ MonoBehaviour:
   - guid: 7d48f6aec4bef314c853db0247a02b09
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1564199063
+    stamp: 1568925443
     type: 1
     UseGUIDs:
     - d2d6567e560b7f24883717dd5c0f2576
@@ -9752,7 +9757,7 @@ MonoBehaviour:
   - guid: c253968f6e2d04149a6bad14abf06eed
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1566410391
+    stamp: 1570915152
     type: 1
     UseGUIDs:
     - 1c19ec545738c8b469ce7fbd881e84e6
@@ -10828,7 +10833,7 @@ MonoBehaviour:
   - guid: 85fc4391f34ec384b90b55151f0b2e54
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1564199063
+    stamp: 1568925301
     type: 1
     UseGUIDs:
     - c4369894c60dde84298b46179e6414f5
@@ -15445,7 +15450,7 @@ MonoBehaviour:
   - guid: 2459b42bf9825684981ea0b44716a967
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1564199063
+    stamp: 1568923698
     type: 1
     UseGUIDs:
     - 13f6860f420144535b05e7ab775ca200
@@ -16186,10 +16191,11 @@ MonoBehaviour:
   - guid: f25a2e847bfc98848b2e1b3492a1e864
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1564199063
+    stamp: 1568925301
     type: 5
     UseGUIDs:
     - 6fec9a8fc56ecc447bb5eac824eddbf3
+    - b8eb668450d83ed4187bcf90aac531d2
     - 295dc616b7c47b341951170f7fe0511a
     - 5d754945c45f7ce479eca473a45c8bed
     - 6a10ea1b88c5f644faf5e148f7d49f57
@@ -16415,7 +16421,7 @@ MonoBehaviour:
   - guid: 9db8b75a6125052448f267cf4adb47f7
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559365162
+    stamp: 1568901369
     type: 5
     UseGUIDs:
     - 95040811107b46644af00967899c338c
@@ -17187,7 +17193,7 @@ MonoBehaviour:
   - guid: b9bd96825c9a638418c28b4842b041e1
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1559089247
+    stamp: 1568923698
     type: 5
     UseGUIDs:
     - 0b73a549e18ab824c88b570193e7d286
@@ -25280,7 +25286,7 @@ MonoBehaviour:
   - guid: 55424c2c43e8fbd45b10efdbee0ea41e
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1566183578
+    stamp: 1568922175
     type: 1
     UseGUIDs:
     - 3114354d56c4d51439c26992c5d82f0b
@@ -27998,7 +28004,7 @@ MonoBehaviour:
   - guid: 3114354d56c4d51439c26992c5d82f0b
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1566183618
+    stamp: 1568923526
     type: 1
     UseGUIDs: []
   - guid: bb0ee74dad1df8d47a49773076dae6d1
@@ -28278,7 +28284,7 @@ MonoBehaviour:
   - guid: 5c5365d788e0c4f46976a79c7385a60d
     ScriptSymbols: []
     ScriptTokens: []
-    stamp: 1564199063
+    stamp: 1568925861
     type: 1
     UseGUIDs:
     - d991b6388daa34b43979328caf94549a
@@ -28318,7 +28324,7 @@ MonoBehaviour:
     - NoticeManager
     - LanguageManager
     - OnHover
-    stamp: 1564199063
+    stamp: 1568925861
     type: 2
     UseGUIDs: []
   - guid: 0e02b8199c3a05e44b3fbe4c28dc8c5b
@@ -30294,5 +30300,5 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
-  timeStamp: 1568901311
+  timeStamp: 1570994322
   priority: 5

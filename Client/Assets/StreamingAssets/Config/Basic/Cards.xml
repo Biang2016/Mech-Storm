@@ -217,6 +217,15 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
+  <Card id="180">
+    <CardInfo name="baseInfo" pictureID="77" cardName_en="Water Swing" cardName_zh="海豹部队" isTemp="False" isHide="False" metal="4" energy="3" coin="200" limitNum="1" cardRareLevel="1" shopPrice="18" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="4" totalLife="4" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="1" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
   <Card id="5011">
     <CardInfo name="baseInfo" pictureID="51" cardName_en="Repair Team X" cardName_zh="支援小队" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="2" cardRareLevel="1" shopPrice="10" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="5012" degradeCardID="-1" />
