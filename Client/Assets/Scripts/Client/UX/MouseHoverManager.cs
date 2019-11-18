@@ -52,7 +52,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
         phi_SlotsPressHoverShowBloom = new PressHoverImmediately(GameManager.Instance.Layer_Slots, BackGroundManager.Instance.BattleGroundCamera);
         phi_SlotsPressHoverShowBloom_Target = new PressHoverImmediately(GameManager.Instance.Layer_Modules, BackGroundManager.Instance.BattleGroundCamera);
 
-        hd_ModulesFocusShowPreview = new Hover2(GameManager.Instance.Layer_Modules | GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera, MECH_DETAIL_PREVIEW_DELAY_SECONDS, 100f);
+        hd_ModulesFocusShowPreview = new Hover2(GameManager.Instance.Layer_Modules | GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera, MECH_DETAIL_PREVIEW_DELAY_SECONDS, 10000f);
 
         hi_MechHoverShowTargetedBloom = new Hover1(GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera);
         hd_MechPressHoverShowTargetedBloom = new PressHoverImmediately(GameManager.Instance.Layer_Mechs, BackGroundManager.Instance.BattleGroundCamera);
@@ -72,18 +72,18 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
         [Flags]
         public enum States
         {
-            None=1, //禁用
-            StartMenu=2, //开始界面
-            ExitMenu=4, //Exit菜单
-            SettingMenu=8, //Setting菜单
-            SelectCardWindow=16, //选卡界面
-            SelectCardWindow_ReadOnly=32, //选卡界面_战斗内
-            BattleNormal=64, //战斗一般状态
-            DragEquipment=128, //拖动装备牌过程中
-            DragMechTo=256, //机甲拖动攻击
-            DragSpellTo=512, //法术牌拖动瞄准
-            SummonMechTargetOn=1024, //召唤带目标的机甲时，选择目标期间
-            BattleSpecial = DragEquipment | DragMechTo | DragSpellTo| SummonMechTargetOn,
+            None = 1, //禁用
+            StartMenu = 2, //开始界面
+            ExitMenu = 4, //Exit菜单
+            SettingMenu = 8, //Setting菜单
+            SelectCardWindow = 16, //选卡界面
+            SelectCardWindow_ReadOnly = 32, //选卡界面_战斗内
+            BattleNormal = 64, //战斗一般状态
+            DragEquipment = 128, //拖动装备牌过程中
+            DragMechTo = 256, //机甲拖动攻击
+            DragSpellTo = 512, //法术牌拖动瞄准
+            SummonMechTargetOn = 1024, //召唤带目标的机甲时，选择目标期间
+            BattleSpecial = DragEquipment | DragMechTo | DragSpellTo | SummonMechTargetOn,
         }
 
         public static HashSet<States> OutGameState = new HashSet<States>
@@ -118,6 +118,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                         {
                             return;
                         }
+
                         break;
                     case States.StartMenu:
                         Instance.hi_CardSelectHover.Release();
@@ -132,6 +133,7 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
                     case States.SelectCardWindow:
                         break;
                     case States.SelectCardWindow_ReadOnly:
+                        DragManager.Instance.ForbidDrag = false;
                         Instance.hi_CardHover.Release();
                         Instance.hi_CardFocus.Release();
                         Instance.hi_CardPressHover.Release();
@@ -162,6 +164,17 @@ public class MouseHoverManager : MonoSingleton<MouseHoverManager>
 
                 previousState = state;
                 state = newState;
+
+                switch (state)
+                {
+                    case States.SelectCardWindow_ReadOnly:
+                    {
+                        DragManager.Instance.ForbidDrag = true;
+                        DragManager.Instance.CancelCurrentDrag();
+                        BattleManager.Instance.SelfBattlePlayer.HandManager.RefreshCardsPlace();
+                        break;
+                    }
+                }
 
                 Debug.Log("MHM state: " + state.ToString());
             }

@@ -85,9 +85,7 @@ public partial class SelectBuildPanel : BaseUIForm
 
         if (Client.Instance.IsPlaying())
         {
-            DragManager.Instance.CancelCurrentDrag();
             MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.SelectCardWindow_ReadOnly);
-            BattleManager.Instance.SelfBattlePlayer.HandManager.RefreshCardsPlace();
         }
         else if (Client.Instance.IsLogin())
         {
@@ -95,8 +93,6 @@ public partial class SelectBuildPanel : BaseUIForm
         }
 
         UIMaskMgr.Instance.SetMaskWindow(gameObject, UIType.UIForms_Type, UIType.UIForm_LucencyType);
-
-        AudioManager.Instance.BGMFadeIn("bgm/SelectBuildPanel");
 
         SelectWindowShowAnim.SetTrigger("Show");
         IsShow = true;

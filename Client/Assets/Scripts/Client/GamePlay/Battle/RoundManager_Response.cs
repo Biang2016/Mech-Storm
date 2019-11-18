@@ -23,6 +23,10 @@ public partial class RoundManager
     public void OnGameStopByWin(GameStopByWinRequest r)
     {
         BattleResultPanel brp = UIManager.Instance.ShowUIForms<BattleResultPanel>();
+        DragManager.Instance.ResetCurrentDrag();
+        DragManager.Instance.ForbidDrag = true;
+        BattleManager.Instance.SelfBattlePlayer.HandManager.RefreshCardsPlace();
+        BattleManager.Instance.EnemyBattlePlayer.HandManager.RefreshCardsPlace();
         brp.BattleStatistics = r.BattleStatistics;
         brp.SetCrystalInfo();
         UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(false);

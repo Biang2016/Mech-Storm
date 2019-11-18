@@ -66,11 +66,6 @@ public class LoginPanel : BaseUIForm
                 (StoryEditorText, "LoginMenu_StoryEditorButtonText"),
                 (CardEditorText, "LoginMenu_CardEditorButtonText"),
             });
-
-        foreach (string serverTypeName in Enum.GetNames(typeof(ServerTypes)))
-        {
-            ServerDropdown.options[(int) Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
-        }
     }
 
     public enum ServerTypes
@@ -81,6 +76,11 @@ public class LoginPanel : BaseUIForm
 
     void Start()
     {
+        foreach (string serverTypeName in Enum.GetNames(typeof(ServerTypes)))
+        {
+            ServerDropdown.options[(int)Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
+        }
+
         ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
         cp.Initialize(
             LanguageManager.Instance.GetText("LoginMenu_NeedNetwork"),

@@ -62,12 +62,12 @@ public class ChapterMapNode : PoolObject
     {
         get
         {
-            if (isBeated) return false;
+            //if (isBeated) return false;
             return isHovered;
         }
         set
         {
-            if (isBeated) return;
+            //if (isBeated) return;
             isHovered = value;
             InfoPanel.SetActive(isHovered);
             if (isHovered)

@@ -55,9 +55,11 @@ public partial class RoundManager : MonoSingleton<RoundManager>
         UIManager.Instance.CloseUIForm<StoryPlayerInformationPanel>();
         UIManager.Instance.ShowUIForms<ExitMenuPanel>().SetSurrenderButtonShow(true);
         UIManager.Instance.CloseUIForm<ExitMenuPanel>();
+        DragManager.Instance.ResetCurrentDrag();
         DragManager.Instance.IsCanceling = false;
+        DragManager.Instance.ForbidDrag = false;
         MouseHoverManager.Instance.M_StateMachine.SetState(MouseHoverManager.StateMachine.States.BattleNormal);
-        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, 0.7f);
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/Battle_0", "bgm/Battle_1"}, volume: 0.7f);
         SelfClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();
         EnemyClientPlayer.BattlePlayer.CardDeckManager.ResetCardDeckNumberText();
     }

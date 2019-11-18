@@ -7,6 +7,15 @@ public class BaseUIForm : MonoBehaviour
 
     #region  窗体的四种(生命周期)状态
 
+    public bool IsPeekAndDisplayed
+    {
+        get
+        {
+            BaseUIForm peek = UIManager.Instance.GetPeekUIForm();
+            return peek == this;
+        }
+    }
+
     private bool closeFlag = false;
 
     void Update()

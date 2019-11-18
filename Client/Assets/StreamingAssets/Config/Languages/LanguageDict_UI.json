@@ -868,6 +868,10 @@
 		"en": "Min Number of Draws"
 	},
 
+	"StoryEditorPanel_SaveChapterButtonText": {
+		"zh": "保存章节修改",
+		"en": "Save Chapter"
+	},
 	"StoryEditorPanel_SaveStoryButtonText": {
 		"zh": "保存修改",
 		"en": "Save Changes"
@@ -980,6 +984,10 @@
 	"CardEditorPanel_CardPreviewButtonHideText": {
 		"zh": "隐",
 		"en": "H"
+	},
+	"CardEditorPanel_CreateCardButtonText": {
+		"zh": "新建卡片",
+		"en": "Create New"
 	},
 	"CardEditorPanel_SaveCardButtonText": {
 		"zh": "保存更改",
@@ -1270,7 +1278,10 @@
 		"zh": "效果移除触发次数",
 		"en": "Remove Trigger Times"
 	},
-
+	"CardEditorPanel_Arg_CardID": {
+		"zh": "卡牌ID",
+		"en": "Card ID"
+	},
 
 	"LevelEditorPanel_LevelEditorWindowText": {
 		"zh": "关卡编辑器",
@@ -1599,7 +1610,7 @@
 
 	"EnemyType_Soldier":{
 		"zh": "士兵",
-		"en": "Rest"
+		"en": "Soldier"
 	},
 	"EnemyType_Elite":{
 		"zh": "精英",

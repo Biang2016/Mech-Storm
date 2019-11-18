@@ -8,7 +8,7 @@ public class Shop : Level
     public int ShopItemCardCount = 8; // 10 个商品里面几个是卡片
     public int ShopItemOthersCount = 2; // 10 个商品里面几个是其他的
 
-    public Shop(LevelThemeCategory levelThemeCategory, int levelPicId, SortedDictionary<string, string> levelNames, int difficultyLevel, List<ShopItem> shopItems, int shopItemCardCount, int shopItemOthersCount) : base(LevelTypes.Shop, levelThemeCategory, levelPicId, levelNames, difficultyLevel)
+    public Shop(int levelPicId, SortedDictionary<string, string> levelNames, int difficultyLevel, List<ShopItem> shopItems, int shopItemCardCount, int shopItemOthersCount) : base(LevelTypes.Shop, levelPicId, levelNames, difficultyLevel)
     {
         ShopItems = shopItems;
         ShopItemCardCount = shopItemCardCount;
@@ -17,7 +17,7 @@ public class Shop : Level
 
     public override Level Clone()
     {
-        Shop shop = new Shop(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, CloneVariantUtils.List(ShopItems), ShopItemCardCount, ShopItemOthersCount);
+        Shop shop = new Shop(LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, CloneVariantUtils.List(ShopItems), ShopItemCardCount, ShopItemOthersCount);
         shop.LevelID = LevelID;
         return shop;
     }

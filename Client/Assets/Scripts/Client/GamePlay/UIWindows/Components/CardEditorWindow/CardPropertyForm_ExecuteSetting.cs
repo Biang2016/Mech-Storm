@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,6 +37,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
     }
 
     private List<PropertyFormRow> CardPropertyFormRows = new List<PropertyFormRow>();
+    private List<PropertyFormRow> CardPropertyFormRows_Args = new List<PropertyFormRow>();
 
     public void Initialize(SideEffectExecute see, UnityAction onRefreshText, bool isReadOnly)
     {
@@ -45,16 +47,55 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         }
 
         CardPropertyFormRows.Clear();
+        foreach (PropertyFormRow cpfr in CardPropertyFormRows_Args)
+        {
+            cpfr.PoolRecycle();
+        }
+
+        CardPropertyFormRows_Args.Clear();
+
+        bool needRefresh = false;
 
         PropertyFormRow cpfr_TriggerTime = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_TriggerTime",
             delegate(string value_str)
             {
                 SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime) Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
                 see.M_ExecuteSetting.TriggerTime = value;
+                if (SideEffectExecute.TriggerTimeArgNameSet.ContainsKey(value))
+                {
+                    foreach (string argName in SideEffectExecute.TriggerTimeArgNameSet[value])
+                    {
+                        if (!see.M_ExecuteSetting.ArgDict.ContainsKey("Arg_" + argName))
+                        {
+                            see.M_ExecuteSetting.ArgDict.Add("Arg_" + argName, 0);
+                            needRefresh = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (see.M_ExecuteSetting.ArgDict.Count > 0)
+                    {
+                        see.M_ExecuteSetting.ArgDict.Clear();
+                        needRefresh = true;
+                        foreach (PropertyFormRow cpfr in CardPropertyFormRows_Args)
+                        {
+                            cpfr.PoolRecycle();
+                        }
+
+                        CardPropertyFormRows_Args.Clear();
+                    }
+                }
+
+                if (needRefresh)
+                {
+                    Initialize(see, onRefreshText, isReadOnly);
+                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
+                }
+
                 onRefreshText?.Invoke();
             },
             out UnityAction<string> _setValueTriggerTime, triggerTimeTypeList);
-        _setValueTriggerTime(see.M_ExecuteSetting.TriggerTime.ToString());
         CardPropertyFormRows.Add(cpfr_TriggerTime);
         cpfr_TriggerTime.SetReadOnly(isReadOnly);
 
@@ -66,7 +107,6 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 onRefreshText?.Invoke();
             },
             out UnityAction<string> _setValueTriggerRange, triggerRangeTypeList);
-        _setValueTriggerRange(see.M_ExecuteSetting.TriggerRange.ToString());
         CardPropertyFormRows.Add(cpfr_TriggerRange);
         cpfr_TriggerRange.SetReadOnly(isReadOnly);
 
@@ -79,7 +119,6 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 }
             },
             out UnityAction<string> _setValueTriggerDelayTimes);
-        _setValueTriggerDelayTimes(see.M_ExecuteSetting.TriggerDelayTimes.ToString());
         CardPropertyFormRows.Add(cpfr_TriggerDelayTimes);
         cpfr_TriggerDelayTimes.SetReadOnly(isReadOnly);
 
@@ -93,7 +132,6 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 }
             },
             out UnityAction<string> _setValueTriggerTimes);
-        _setValueTriggerTimes(see.M_ExecuteSetting.TriggerTimes.ToString());
         CardPropertyFormRows.Add(cpfr_TriggerTimes);
         cpfr_TriggerTimes.SetReadOnly(isReadOnly);
 
@@ -105,7 +143,6 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 onRefreshText?.Invoke();
             },
             out UnityAction<string> _setValueRemoveTriggerTime, triggerTimeTypeList);
-        _setValueRemoveTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime.ToString());
         CardPropertyFormRows.Add(cpfr_RemoveTriggerTime);
         cpfr_RemoveTriggerTime.SetReadOnly(isReadOnly);
 
@@ -117,7 +154,6 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 onRefreshText?.Invoke();
             },
             out UnityAction<string> _setValueRemoveTriggerRange, triggerRangeTypeList);
-        _setValueRemoveTriggerRange(see.M_ExecuteSetting.RemoveTriggerRange.ToString());
         CardPropertyFormRows.Add(cpfr_RemoveTriggerRange);
         cpfr_RemoveTriggerRange.SetReadOnly(isReadOnly);
 
@@ -131,8 +167,33 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 }
             },
             out UnityAction<string> _setValueRemoveTriggerTimes);
-        _setValueRemoveTriggerTimes(see.M_ExecuteSetting.RemoveTriggerTimes.ToString());
         CardPropertyFormRows.Add(cpfr_RemoveTriggerTimes);
         cpfr_RemoveTriggerTimes.SetReadOnly(isReadOnly);
+
+        List<string> keys = see.M_ExecuteSetting.ArgDict.Keys.ToList();
+        foreach (string key in keys)
+        {
+            PropertyFormRow cpfr_Arg = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_" + key,
+                delegate(string value_str)
+                {
+                    if (int.TryParse(value_str, out int value))
+                    {
+                        see.M_ExecuteSetting.ArgDict[key] = value;
+                        onRefreshText?.Invoke();
+                    }
+                },
+                out UnityAction<string> _setValueArg);
+            _setValueArg(see.M_ExecuteSetting.ArgDict[key].ToString());
+            CardPropertyFormRows_Args.Add(cpfr_Arg);
+            cpfr_Arg.SetReadOnly(isReadOnly);
+        }
+
+        _setValueTriggerTime(see.M_ExecuteSetting.TriggerTime.ToString());
+        _setValueTriggerRange(see.M_ExecuteSetting.TriggerRange.ToString());
+        _setValueTriggerDelayTimes(see.M_ExecuteSetting.TriggerDelayTimes.ToString());
+        _setValueTriggerTimes(see.M_ExecuteSetting.TriggerTimes.ToString());
+        _setValueRemoveTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime.ToString());
+        _setValueRemoveTriggerRange(see.M_ExecuteSetting.RemoveTriggerRange.ToString());
+        _setValueRemoveTriggerTimes(see.M_ExecuteSetting.RemoveTriggerTimes.ToString());
     }
 }

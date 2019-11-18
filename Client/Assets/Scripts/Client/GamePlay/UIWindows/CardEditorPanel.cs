@@ -23,6 +23,7 @@ public class CardEditorPanel : BaseUIForm
             uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.ImPenetrable);
 
+        CreateNewCardButton.onClick.AddListener(CreateNewCard);
         SaveCardButton.onClick.AddListener(SaveCard);
         ResetCardButton.onClick.AddListener(ResetCard);
         DeleteCardButton.onClick.AddListener(DeleteCard);
@@ -34,6 +35,7 @@ public class CardEditorPanel : BaseUIForm
                 (CardEditorWindowText, "CardEditorPanel_CardEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
                 (ReturnToGameButtonText, "SettingMenu_ReturnToGameText"),
+                (CreateCardButtonText, "CardEditorPanel_CreateCardButtonText"),
                 (SaveCardButtonText, "CardEditorPanel_SaveCardButtonText"),
                 (ResetCardButtonText, "CardEditorPanel_ResetCardButtonText"),
                 (DeleteCardButtonText, "CardEditorPanel_DeleteCardButtonText"),
@@ -86,6 +88,7 @@ public class CardEditorPanel : BaseUIForm
         LanguageDropdown.value = LanguageManager.Instance.LanguagesShorts.IndexOf(LanguageManager.Instance.GetCurrentLanguage());
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/EditorBGM"});
     }
 
     private void OnLanguageChange(int _)
@@ -1423,9 +1426,11 @@ public class CardEditorPanel : BaseUIForm
         return false;
     }
 
+    [SerializeField] private Button CreateNewCardButton;
     [SerializeField] private Button SaveCardButton;
     [SerializeField] private Button ResetCardButton;
     [SerializeField] private Button DeleteCardButton;
+    [SerializeField] private Text CreateCardButtonText;
     [SerializeField] private Text SaveCardButtonText;
     [SerializeField] private Text ResetCardButtonText;
     [SerializeField] private Text DeleteCardButtonText;
@@ -1551,6 +1556,19 @@ public class CardEditorPanel : BaseUIForm
 
         float size = Mathf.Min(1800f, ((RectTransform) CardPreviewContainer.transform).rect.width);
         ((RectTransform) CardPreviewRawImage.transform).sizeDelta = new Vector2(size, size * 4 / 3);
+    }
+
+    public void CreateNewCard()
+    {
+        ChangeCard(-2);
+
+        int cardID = 0;
+        while (AllCards.CardDict.ContainsKey(cardID))
+        {
+            cardID++;
+        }
+
+        SetCardID(cardID.ToString());
     }
 
     public void SaveCard()
@@ -1732,15 +1750,12 @@ public class CardEditorPanel : BaseUIForm
 
         AllCards.ReloadCardXML();
         InitializePreviewCardGrid();
-        //cp.CloseUIForm();
         NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_SaveCardSuccess"), 0, 1f);
 
         OnCardRareLevelFilterChange(curFilter_CardRareLevel);
         OnCardTypesFilterChange(curFilter_CardType);
 
         ChangeCard(cur_PreviewCard.CardInfo.CardID);
-        //},
-        //cp.CloseUIForm);
     }
 
     public void ResetCard()

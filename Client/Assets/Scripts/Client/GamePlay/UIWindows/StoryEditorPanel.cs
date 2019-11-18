@@ -33,6 +33,7 @@ public class StoryEditorPanel : BaseUIForm
             {
                 (StoryEditorWindowText, "StoryEditorPanel_StoryEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
+                (SaveChapterButtonText, "StoryEditorPanel_SaveChapterButtonText"),
                 (SaveStoryButtonText, "StoryEditorPanel_SaveStoryButtonText"),
                 (ResetStoryButtonText, "StoryEditorPanel_ResetStoryButtonText"),
                 (ReturnToGameButtonText, "StoryEditorPanel_ReturnToGameButtonText"),
@@ -111,6 +112,7 @@ public class StoryEditorPanel : BaseUIForm
         CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, false, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
         CardSelectPanel.gameObject.SetActive(false);
         ChapterMapContainer.gameObject.SetActive(true);
+        AudioManager.Instance.BGMLoopInList(new List<string> { "bgm/EditorBGM" });
     }
 
     public override void Hide()
@@ -255,6 +257,7 @@ public class StoryEditorPanel : BaseUIForm
     [SerializeField] private Button ResetStoryButton;
     [SerializeField] private Text SaveStoryButtonText;
     [SerializeField] private Text ResetStoryButtonText;
+    [SerializeField] private Text SaveChapterButtonText;
 
     private void SaveStory()
     {

@@ -94,7 +94,6 @@ public class AllLevels
         SortedDictionary<string, string> names = new SortedDictionary<string, string> {{"zh", Name_zh}, {"en", Name_en}};
         int picID = int.Parse(node_levelInfo.Attributes["picID"].Value);
         LevelTypes levelType = (LevelTypes) Enum.Parse(typeof(LevelTypes), node_levelInfo.Attributes["levelType"].Value);
-        LevelThemeCategory levelThemeType = (LevelThemeCategory) Enum.Parse(typeof(LevelThemeCategory), node_levelInfo.Attributes["levelThemeCategory"].Value);
         int difficultyLevel = int.Parse(node_levelInfo.Attributes["difficultyLevel"].Value);
         switch (levelType)
         {
@@ -116,7 +115,7 @@ public class AllLevels
                     BonusGroups.Add(bg);
                 }
 
-                Enemy enemy = new Enemy(levelThemeType, picID, names, difficultyLevel, bi, enemyType, BonusGroups);
+                Enemy enemy = new Enemy(picID, names, difficultyLevel, bi, enemyType, BonusGroups);
                 return enemy;
             }
             case LevelTypes.Shop:
@@ -134,7 +133,7 @@ public class AllLevels
                 int shopItemCardCount = int.Parse(node_ShopInfo.Attributes["shopItemCardCount"].Value);
                 int shopItemOthersCount = int.Parse(node_ShopInfo.Attributes["shopItemOthersCount"].Value);
 
-                Shop shop = new Shop(levelThemeType, picID, names, difficultyLevel, shopItems, shopItemCardCount, shopItemOthersCount);
+                Shop shop = new Shop(picID, names, difficultyLevel, shopItems, shopItemCardCount, shopItemOthersCount);
                 return shop;
             }
         }

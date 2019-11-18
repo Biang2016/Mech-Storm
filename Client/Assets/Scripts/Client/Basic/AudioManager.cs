@@ -102,7 +102,7 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     private string currentBGM;
 
-    public void BGMFadeIn(string bgmName, float duration = 1f, float volume = 0.6f)
+    public void BGMFadeIn(string bgmName, float fadeInDuration = 0.5f, float volume = 1f, bool loop = false)
     {
         if (currentBGM != bgmName)
         {
@@ -112,10 +112,31 @@ public class AudioManager : MonoSingleton<AudioManager>
                 if (bgmSound != null)
                 {
                     currentBGM = bgmName;
-                    StartCoroutine(Co_BGMFadeOut(duration));
-                    PlayOnceBGMAudioClip(bgmSound, volume);
-                    StartCoroutine(Co_BGMFadeIn(duration, volume));
+                    StartCoroutine(Co_BGMFadeOut(fadeInDuration));
+                    if (loop)
+                    {
+                        PlayLoopBGMAudioClip(bgmSound, volume);
+                    }
+                    else
+                    {
+                        PlayOnceBGMAudioClip(bgmSound, volume);
+                    }
+
+                    StartCoroutine(Co_BGMFadeIn(fadeInDuration, volume));
                 }
+            }
+        }
+    }
+
+    public void BGMFadeOut(float fadeOutDuration)
+    {
+        if (!string.IsNullOrEmpty(currentBGM))
+        {
+            AudioClip bgmSound = GetAudioClip(currentBGM);
+            if (bgmSound != null)
+            {
+                StartCoroutine(Co_BGMFadeOut(fadeOutDuration));
+                currentBGM = null;
             }
         }
     }
@@ -123,8 +144,14 @@ public class AudioManager : MonoSingleton<AudioManager>
     private Coroutine BGMLoop;
     private List<string> CurrentLoopList = new List<string>();
 
-    public void BGMLoopInList(List<string> bgmNames, float volume = 1.0f)
+    public void BGMLoopInList(List<string> bgmNames, float fadeInDuration = 0.5f, float volume = 1.0f)
     {
+        if (bgmNames.Count == 1)
+        {
+            BGMFadeIn(bgmNames[0],fadeInDuration,volume,true);
+            return;
+        }
+
         bool isLoopingSameList = true;
         if (CurrentLoopList.Count == bgmNames.Count)
         {
@@ -141,40 +168,25 @@ public class AudioManager : MonoSingleton<AudioManager>
         if (isLoopingSameList) return;
         if (BGMLoop != null) StopCoroutine(BGMLoop);
         StartCoroutine(Co_BGMFadeOut(0.5f));
-        BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames, volume));
+        BGMLoop = StartCoroutine(Co_BGMLoopInList(bgmNames, fadeInDuration, volume));
         CurrentLoopList = bgmNames;
     }
 
-    IEnumerator Co_BGMLoopInList(List<string> bgmNames, float volume = 1.0f)
+    IEnumerator Co_BGMLoopInList(List<string> bgmNames, float fadeInDuration, float volume)
     {
-        if (bgmNames.Count == 1)
+        int lastIndex = Random.Range(0, bgmNames.Count);
+        while (true)
         {
-            while (true)
+            int index = Random.Range(0, bgmNames.Count);
+            if (index != lastIndex)
             {
+                lastIndex = index;
                 while (BGMAudioSource != null && BGMAudioSource.isPlaying)
                 {
                     yield return new WaitForSeconds(0.5f);
                 }
 
-                BGMFadeIn(bgmNames[0], volume: volume);
-            }
-        }
-        else
-        {
-            int lastIndex = Random.Range(0, bgmNames.Count);
-            while (true)
-            {
-                int index = Random.Range(0, bgmNames.Count);
-                if (index != lastIndex)
-                {
-                    lastIndex = index;
-                    while (BGMAudioSource != null && BGMAudioSource.isPlaying)
-                    {
-                        yield return new WaitForSeconds(0.5f);
-                    }
-
-                    BGMFadeIn(bgmNames[index], volume: volume);
-                }
+                BGMFadeIn(bgmNames[index], fadeInDuration, volume: volume);
             }
         }
     }
@@ -187,8 +199,15 @@ public class AudioManager : MonoSingleton<AudioManager>
             BGMAudioSource.volume = 0;
             for (int i = 0; i < 10; i++)
             {
-                BGMAudioSource.volume += increase;
-                yield return new WaitForSeconds(duration / 10);
+                if (BGMAudioSource != null)
+                {
+                    BGMAudioSource.volume += increase;
+                    yield return new WaitForSeconds(duration / 10);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }

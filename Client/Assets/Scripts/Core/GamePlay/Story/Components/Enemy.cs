@@ -7,8 +7,8 @@ public class Enemy : Level
     public EnemyType EnemyType;
     public List<BonusGroup> BonusGroups;
 
-    public Enemy(LevelThemeCategory levelThemeCategory, int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType,  List<BonusGroup> bonusGroups)
-        : base(LevelTypes.Enemy, levelThemeCategory, levelPicID, levelNames, difficultyLevel)
+    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType,  List<BonusGroup> bonusGroups)
+        : base(LevelTypes.Enemy, levelPicID, levelNames, difficultyLevel)
     {
         BuildInfo = buildInfo;
         EnemyType = enemyType;
@@ -17,7 +17,7 @@ public class Enemy : Level
 
     public override Level Clone()
     {
-        Enemy enemy = new Enemy(LevelThemeCategory, LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, BuildInfo.Clone(), EnemyType, CloneVariantUtils.List(BonusGroups));
+        Enemy enemy = new Enemy(LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, BuildInfo.Clone(), EnemyType, CloneVariantUtils.List(BonusGroups));
         enemy.LevelID = LevelID;
         return enemy;
     }

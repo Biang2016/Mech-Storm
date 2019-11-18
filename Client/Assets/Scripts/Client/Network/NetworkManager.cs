@@ -90,7 +90,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         Closed();
     }
 
-    #region 连接
+    #region Connect
 
     public void Connect(string serverIp, int serverPort, ConnectCallback connectCallback, ConnectCallback connectFailedCallback)
     {
@@ -167,7 +167,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     #endregion
 
-    #region 接收
+    #region Receive
 
     private void Response(RequestBase requestBase)
     {
@@ -231,7 +231,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     #endregion
 
-    #region 发送
+    #region Send
 
     public void Send(object obj)
     {

@@ -52,7 +52,7 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
             AddSideEffectExecuteButton.onClick.AddListener(delegate
             {
                 SideEffectExecute.SideEffectFrom sef = SideEffectExecute.SideEffectFrom.Unknown;
-                SideEffectExecute.ExecuteSetting executeSetting = SideEffectExecute.ExecuteSetting_Presets[SideEffectExecute.ExecuteSettingTypes.PlayOutEffect];
+                SideEffectExecute.ExecuteSetting executeSetting = SideEffectExecute.ExecuteSetting_Presets[SideEffectExecute.ExecuteSettingTypes.PlayOutEffect].Clone();
 
                 switch (cardInfo.BaseInfo.CardType)
                 {

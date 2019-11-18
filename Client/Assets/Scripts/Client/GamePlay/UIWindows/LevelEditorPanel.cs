@@ -289,7 +289,6 @@ public class LevelEditorPanel : BaseUIForm
                 case LevelTypes.Enemy:
                 {
                     Cur_Level = new Enemy(
-                        levelThemeCategory: LevelThemeCategory.Energy,
                         levelPicID: 0,
                         levelNames: new SortedDictionary<string, string> {{"zh", "新敌人"}, {"en", "newEnemy"}},
                         difficultyLevel: 1,
@@ -310,7 +309,6 @@ public class LevelEditorPanel : BaseUIForm
                 case LevelTypes.Shop:
                 {
                     Cur_Level = new Shop(
-                        levelThemeCategory: LevelThemeCategory.Energy,
                         levelPicId: 0,
                         levelNames: new SortedDictionary<string, string> {{"zh", "新商店"}, {"en", "newShop"}},
                         difficultyLevel: 1,

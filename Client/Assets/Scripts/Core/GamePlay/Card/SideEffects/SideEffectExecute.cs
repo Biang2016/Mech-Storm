@@ -83,7 +83,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         }
     }
 
-    public struct ExecuteSetting
+    public class ExecuteSetting
     {
         public TriggerTime TriggerTime; //when to trigger
         public TriggerRange TriggerRange; //which range of events can trigger this effect
@@ -92,8 +92,14 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         public TriggerTime RemoveTriggerTime; //when to remove this effect/decrease the remove time of this effect
         public TriggerRange RemoveTriggerRange; //which range of events can remove this effect
         public int RemoveTriggerTimes; //how many times of remove before we can remove the effect permenantly. (usually used in buffs)
+        public SortedDictionary<string, int> ArgDict;
 
-        public ExecuteSetting(TriggerTime triggerTime, TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, TriggerTime removeTriggerTime, TriggerRange removeTriggerRange, int removeTriggerTimes)
+        public ExecuteSetting()
+        {
+            ArgDict = new SortedDictionary<string, int>();
+        }
+
+        public ExecuteSetting(TriggerTime triggerTime, TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, TriggerTime removeTriggerTime, TriggerRange removeTriggerRange, int removeTriggerTimes, SortedDictionary<string, int> arg = null)
         {
             TriggerTime = triggerTime;
             TriggerRange = triggerRange;
@@ -102,6 +108,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             RemoveTriggerTime = removeTriggerTime;
             RemoveTriggerRange = removeTriggerRange;
             RemoveTriggerTimes = removeTriggerTimes;
+            ArgDict = arg ?? new SortedDictionary<string, int>();
         }
 
         public static ExecuteSetting GenerateFromXMLNode(XmlNode node)
@@ -121,7 +128,17 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 TriggerTime removeTriggerTime = (TriggerTime) Enum.Parse(typeof(TriggerTime), node.Attributes["removeTriggerTime"].Value);
                 TriggerRange removeTriggerRange = (TriggerRange) Enum.Parse(typeof(TriggerRange), node.Attributes["removeTriggerRange"].Value);
                 int removeTriggerTimes = int.Parse(node.Attributes["removeTriggerTimes"].Value);
-                ExecuteSetting newExecuteSetting = new ExecuteSetting(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
+
+                SortedDictionary<string, int> argDict = new SortedDictionary<string, int>();
+                foreach (XmlAttribute nodeAttribute in node.Attributes)
+                {
+                    if (nodeAttribute.Name.StartsWith("Arg_"))
+                    {
+                        argDict.Add(nodeAttribute.Name.Substring(4), int.Parse(nodeAttribute.Value));
+                    }
+                }
+
+                ExecuteSetting newExecuteSetting = new ExecuteSetting(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes, argDict);
                 return newExecuteSetting;
             }
             else
@@ -139,6 +156,22 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             if (RemoveTriggerTime != target.RemoveTriggerTime) return false;
             if (RemoveTriggerRange != target.RemoveTriggerRange) return false;
             if (RemoveTriggerTimes != target.RemoveTriggerTimes) return false;
+            if (ArgDict.Count != target.ArgDict.Count) return false;
+            foreach (string key in ArgDict.Keys)
+            {
+                if (target.ArgDict.ContainsKey(key))
+                {
+                    if (ArgDict[key] != target.ArgDict[key])
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -151,6 +184,11 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             ele.SetAttribute("removeTriggerTime", RemoveTriggerTime.ToString());
             ele.SetAttribute("removeTriggerRange", RemoveTriggerRange.ToString());
             ele.SetAttribute("removeTriggerTimes", RemoveTriggerTimes.ToString());
+
+            foreach (KeyValuePair<string, int> kv in ArgDict)
+            {
+                ele.SetAttribute(kv.Key, kv.Value.ToString());
+            }
         }
 
         public void Serialize(DataStream writer)
@@ -162,6 +200,13 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             writer.WriteSInt32((int) RemoveTriggerTime);
             writer.WriteSInt32((int) RemoveTriggerRange);
             writer.WriteSInt32(RemoveTriggerTimes);
+
+            writer.WriteSInt32(ArgDict.Count);
+            foreach (KeyValuePair<string, int> kv in ArgDict)
+            {
+                writer.WriteString8(kv.Key);
+                writer.WriteSInt32(kv.Value);
+            }
         }
 
         public static ExecuteSetting Deserialize(DataStream reader)
@@ -174,7 +219,22 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             es.RemoveTriggerTime = (TriggerTime) reader.ReadSInt32();
             es.RemoveTriggerRange = (TriggerRange) reader.ReadSInt32();
             es.RemoveTriggerTimes = reader.ReadSInt32();
+
+            es.ArgDict = new SortedDictionary<string, int>();
+            int argCount = reader.ReadSInt32();
+            for (int i = 0; i < argCount; i++)
+            {
+                string key = reader.ReadString8();
+                int value = reader.ReadSInt32();
+                es.ArgDict.Add(key, value);
+            }
+
             return es;
+        }
+
+        public ExecuteSetting Clone()
+        {
+            return new ExecuteSetting(TriggerTime, TriggerRange, TriggerTimes, TriggerDelayTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes, CloneVariantUtils.SortedDictionary(ArgDict));
         }
     }
 
@@ -365,7 +425,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         M_SideEffectFrom = sideEffectFrom;
         ID = GenerateID();
         SideEffectBases = sideEffectBases;
-        M_ExecuteSetting = executeSetting;
+        M_ExecuteSetting = executeSetting.Clone();
     }
 
     public SideEffectExecute Clone()
@@ -542,6 +602,11 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
 
         OnUseMetal = 1 << 31,
     }
+
+    public static SortedDictionary<TriggerTime, HashSet<string>> TriggerTimeArgNameSet = new SortedDictionary<TriggerTime, HashSet<string>>
+    {
+        {TriggerTime.OnPlayCard, new HashSet<string> {"CardID"}}
+    };
 
     public static TriggerTime GetTriggerTimeByCardType(CardTypes cardTypes)
     {

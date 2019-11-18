@@ -62,6 +62,8 @@ public class DragManager : MonoSingleton<DragManager>
 
     public int DragOutDamage = 0; //鼠标拖动时附带的预计伤害
 
+    public bool ForbidDrag = false;
+
     void Update()
     {
         if (!Client.Instance.IsPlaying())
@@ -70,13 +72,16 @@ public class DragManager : MonoSingleton<DragManager>
             return;
         }
 
-        if (!IsSummonPreview)
+        if (!ForbidDrag)
         {
-            CommonDrag();
-        }
-        else
-        {
-            SummonPreviewDrag();
+            if (!IsSummonPreview)
+            {
+                CommonDrag();
+            }
+            else
+            {
+                SummonPreviewDrag();
+            }
         }
     }
 
