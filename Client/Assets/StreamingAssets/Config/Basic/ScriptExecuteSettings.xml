@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AllScriptExecuteSettings>
+  <ScriptExecuteSetting name="OnPlaySpecifiedCardByID" desc_zh="当{0}打出{1}时, " desc_en="When {0} play {1}, "></ScriptExecuteSetting>
+</AllScriptExecuteSettings>

@@ -12,8 +12,11 @@ public class PropertyFormRow_Dropdown : PropertyFormRow
         base.PoolRecycle();
     }
 
+    public UnityAction<string> OnValueChangeAction;
+
     protected override void Child_Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, List<string> dropdownOptionList, UnityAction<string> onButtonClick = null)
     {
+        OnValueChangeAction = onValueChangeAction;
         Dropdown.options.Clear();
         foreach (string option in dropdownOptionList)
         {
@@ -23,10 +26,22 @@ public class PropertyFormRow_Dropdown : PropertyFormRow
         Dropdown.onValueChanged.RemoveAllListeners();
         Dropdown.value = -1;
         Dropdown.RefreshShownValue();
-        Dropdown.onValueChanged.AddListener(delegate { onValueChangeAction(Dropdown.options[Dropdown.value].text); });
+        Dropdown.onValueChanged.AddListener(delegate { OnValueChangeAction(Dropdown.options[Dropdown.value].text); });
     }
 
-    protected override void SetValue(string value_str)
+    public void RefreshDropdownOptionList(List<string> dropdownOptionList)
+    {
+        Dropdown.options.Clear();
+        foreach (string option in dropdownOptionList)
+        {
+            Dropdown.options.Add(new Dropdown.OptionData(option));
+        }
+
+        Dropdown.value = 0;
+        Dropdown.RefreshShownValue();
+    }
+
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
         int setValue = -1;
         for (int i = 0; i < Dropdown.options.Count; i++)
@@ -40,7 +55,18 @@ public class PropertyFormRow_Dropdown : PropertyFormRow
 
         if (setValue != -1)
         {
-            Dropdown.value = setValue;
+            if (Dropdown.value == setValue)
+            {
+                if (forceChange)
+                {
+                    OnValueChangeAction(value_str);
+                }
+            }
+            else
+            {
+                Dropdown.value = setValue;
+            }
+
             Dropdown.RefreshShownValue();
         }
     }

@@ -17,7 +17,11 @@
         <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="1" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
-    <CardInfo name="sideEffectsBundle_Aura" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
+      </SideEffectExecute>
+    </CardInfo>
   </Card>
   <Card id="1">
     <CardInfo name="baseInfo" pictureID="710" cardName_en="Tiny Energy" cardName_zh="微小能量" isTemp="True" isHide="True" metal="0" energy="0" coin="0" limitNum="1" cardRareLevel="0" shopPrice="100" cardType="Energy" />
@@ -30,15 +34,16 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="2">
-    <CardInfo name="baseInfo" pictureID="79" cardName_en="Discarded Lord" cardName_zh="废弃领主" isTemp="False" isHide="False" metal="3" energy="0" coin="100" limitNum="2" cardRareLevel="1" shopPrice="25" cardType="Mech" />
+    <CardInfo name="baseInfo" pictureID="79" cardName_en="Discarded Lord" cardName_zh="废弃领主" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="2" cardRareLevel="1" shopPrice="25" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
-      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="1" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1">
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="Heroes" ChoiceCount="1" DamageTimes="0" Damage="0" />
+      <SideEffectExecute ExecuteSettingTypes="Scripts" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="0" ScriptName="OnPlaySpecifiedCardByID" CardID="1">
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>

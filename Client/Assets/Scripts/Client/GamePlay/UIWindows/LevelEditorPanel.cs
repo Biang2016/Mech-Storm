@@ -236,7 +236,7 @@ public class LevelEditorPanel : BaseUIForm
         SetLevel(null);
     }
 
-    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         PropertyFormRow cpfr = PropertyFormRow.BaseInitialize(type, LevelPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         MyPropertiesRows.Add(cpfr);
@@ -261,7 +261,7 @@ public class LevelEditorPanel : BaseUIForm
         LevelPropertiesCommon.Clear();
     }
 
-    private UnityAction<string> SetLevelType;
+    private UnityAction<string, bool> SetLevelType;
 
     private void OnLevelTypeChange(string value_str)
     {
@@ -324,7 +324,7 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetLevelPicID;
+    private UnityAction<string, bool> SetLevelPicID;
 
     private void OnLevelPicIDChange(string value_str)
     {
@@ -334,21 +334,21 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetLevelName_zh;
+    private UnityAction<string, bool> SetLevelName_zh;
 
     private void OnLevelNameChange_zh(string value_str)
     {
         Cur_Level.LevelNames["zh"] = value_str;
     }
 
-    private UnityAction<string> SetLevelName_en;
+    private UnityAction<string, bool> SetLevelName_en;
 
     private void OnLevelNameChange_en(string value_str)
     {
         Cur_Level.LevelNames["en"] = value_str;
     }
 
-    private UnityAction<string> SetEnemyType;
+    private UnityAction<string, bool> SetEnemyType;
 
     private void OnEnemyTypeChange(string value_str)
     {
@@ -358,7 +358,7 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetLevelDifficultyLevel;
+    private UnityAction<string, bool> SetLevelDifficultyLevel;
 
     private void OnLevelDifficultyLevelChange(string value_str)
     {
@@ -366,7 +366,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value < 1)
             {
-                SetLevelDifficultyLevel(1.ToString());
+                SetLevelDifficultyLevel(1.ToString(), false);
             }
             else
             {
@@ -375,11 +375,11 @@ public class LevelEditorPanel : BaseUIForm
         }
         else
         {
-            SetLevelDifficultyLevel(1.ToString());
+            SetLevelDifficultyLevel(1.ToString(), false);
         }
     }
 
-    private UnityAction<string> SetEnemyDrawCardNum;
+    private UnityAction<string, bool> SetEnemyDrawCardNum;
 
     private void OnEnemyDrawCardNumChange(string value_str)
     {
@@ -387,7 +387,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value < 1)
             {
-                SetEnemyDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString());
+                SetEnemyDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString(), false);
             }
             else if (value <= GamePlaySettings.SystemMaxDrawCardNum)
             {
@@ -398,16 +398,16 @@ public class LevelEditorPanel : BaseUIForm
             }
             else
             {
-                SetEnemyDrawCardNum(GamePlaySettings.SystemMaxDrawCardNum.ToString());
+                SetEnemyDrawCardNum(GamePlaySettings.SystemMaxDrawCardNum.ToString(), false);
             }
         }
         else
         {
-            SetEnemyDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString());
+            SetEnemyDrawCardNum(GamePlaySettings.SystemMinDrawCardNum.ToString(), false);
         }
     }
 
-    private UnityAction<string> SetEnemyLife;
+    private UnityAction<string, bool> SetEnemyLife;
 
     private void OnEnemyLifeChange(string value_str)
     {
@@ -415,7 +415,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value <= 0)
             {
-                SetEnemyLife(GamePlaySettings.SystemMinLife.ToString());
+                SetEnemyLife(GamePlaySettings.SystemMinLife.ToString(), false);
             }
             else if (value <= GamePlaySettings.SystemMaxLife)
             {
@@ -427,16 +427,16 @@ public class LevelEditorPanel : BaseUIForm
             else
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyLifeMax"), GamePlaySettings.SystemMaxLife), 0, 0.5f);
-                SetEnemyLife(GamePlaySettings.SystemMaxLife.ToString());
+                SetEnemyLife(GamePlaySettings.SystemMaxLife.ToString(), false);
             }
         }
         else
         {
-            SetEnemyLife(GamePlaySettings.SystemMinLife.ToString());
+            SetEnemyLife(GamePlaySettings.SystemMinLife.ToString(), false);
         }
     }
 
-    private UnityAction<string> SetEnemyEnergy;
+    private UnityAction<string, bool> SetEnemyEnergy;
 
     private void OnEnemyEnergyChange(string value_str)
     {
@@ -444,7 +444,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value < 0)
             {
-                SetEnemyEnergy(0.ToString());
+                SetEnemyEnergy(0.ToString(), false);
             }
             else if (value <= GamePlaySettings.SystemMaxEnergy)
             {
@@ -456,16 +456,16 @@ public class LevelEditorPanel : BaseUIForm
             else
             {
                 NoticeManager.Instance.ShowInfoPanelCenter(string.Format(LanguageManager.Instance.GetText("Notice_LevelEditorPanel_EnemyEnergyMax"), GamePlaySettings.SystemMaxEnergy), 0, 0.5f);
-                SetEnemyEnergy(GamePlaySettings.SystemMaxEnergy.ToString());
+                SetEnemyEnergy(GamePlaySettings.SystemMaxEnergy.ToString(), false);
             }
         }
         else
         {
-            SetEnemyEnergy(0.ToString());
+            SetEnemyEnergy(0.ToString(), false);
         }
     }
 
-    private UnityAction<string> SetEnemyBeginMetal;
+    private UnityAction<string, bool> SetEnemyBeginMetal;
 
     private void OnEnemyBeginMetalChange(string value_str)
     {
@@ -473,7 +473,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value <= 0)
             {
-                SetEnemyBeginMetal(1.ToString());
+                SetEnemyBeginMetal(1.ToString(), false);
             }
             else if (value <= GamePlaySettings.SystemMaxMetal)
             {
@@ -484,16 +484,16 @@ public class LevelEditorPanel : BaseUIForm
             }
             else
             {
-                SetEnemyBeginMetal(GamePlaySettings.SystemMaxMetal.ToString());
+                SetEnemyBeginMetal(GamePlaySettings.SystemMaxMetal.ToString(), false);
             }
         }
         else
         {
-            SetEnemyBeginMetal(1.ToString());
+            SetEnemyBeginMetal(1.ToString(), false);
         }
     }
 
-    private UnityAction<string> SetShopItemOthersCount;
+    private UnityAction<string, bool> SetShopItemOthersCount;
 
     private void OnShopItemOthersCount(string value_str)
     {
@@ -501,7 +501,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value <= 0)
             {
-                SetShopItemOthersCount(1.ToString());
+                SetShopItemOthersCount(1.ToString(), false);
             }
             else if (value <= Shop.SYSTEM_SHOP_MAX_ITEM)
             {
@@ -512,16 +512,16 @@ public class LevelEditorPanel : BaseUIForm
             }
             else
             {
-                SetShopItemOthersCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString());
+                SetShopItemOthersCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString(), false);
             }
         }
         else
         {
-            SetShopItemOthersCount(1.ToString());
+            SetShopItemOthersCount(1.ToString(), false);
         }
     }
 
-    private UnityAction<string> SetShopItemCardCount;
+    private UnityAction<string, bool> SetShopItemCardCount;
 
     private void OnShopItemCardCountChange(string value_str)
     {
@@ -529,7 +529,7 @@ public class LevelEditorPanel : BaseUIForm
         {
             if (value < 0)
             {
-                SetShopItemCardCount(0.ToString());
+                SetShopItemCardCount(0.ToString(), false);
             }
             else if (value <= Shop.SYSTEM_SHOP_MAX_ITEM)
             {
@@ -540,12 +540,12 @@ public class LevelEditorPanel : BaseUIForm
             }
             else
             {
-                SetShopItemCardCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString());
+                SetShopItemCardCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString(), false);
             }
         }
         else
         {
-            SetShopItemCardCount(0.ToString());
+            SetShopItemCardCount(0.ToString(), false);
         }
     }
 
@@ -559,8 +559,8 @@ public class LevelEditorPanel : BaseUIForm
     {
         if (level == null)
         {
-            SetLevelType(LevelTypes.Shop.ToString());
-            SetLevelType(LevelTypes.Enemy.ToString());
+            SetLevelType(LevelTypes.Shop.ToString(), false);
+            SetLevelType(LevelTypes.Enemy.ToString(), false);
         }
         else
         {
@@ -568,21 +568,21 @@ public class LevelEditorPanel : BaseUIForm
             Cur_Level = level;
             LastLevelEnglishName = Cur_Level.LevelNames["en"];
             OnChangeLevelTypeByEdit = false;
-            SetLevelType(Cur_Level.LevelType.ToString());
+            SetLevelType(Cur_Level.LevelType.ToString(), false);
             OnChangeLevelTypeByEdit = true;
-            SetLevelName_en(Cur_Level.LevelNames["en"]);
-            SetLevelName_zh(Cur_Level.LevelNames["zh"]);
-            SetLevelPicID(Cur_Level.LevelPicID.ToString());
-            SetLevelDifficultyLevel(Cur_Level.DifficultyLevel.ToString());
+            SetLevelName_en(Cur_Level.LevelNames["en"], false);
+            SetLevelName_zh(Cur_Level.LevelNames["zh"], false);
+            SetLevelPicID(Cur_Level.LevelPicID.ToString(), false);
+            SetLevelDifficultyLevel(Cur_Level.DifficultyLevel.ToString(), false);
             switch (Cur_Level)
             {
                 case Enemy enemy:
                 {
-                    SetEnemyType(enemy.EnemyType.ToString());
-                    SetEnemyBeginMetal(enemy.BuildInfo.BeginMetal.ToString());
-                    SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString());
-                    SetEnemyEnergy(enemy.BuildInfo.Energy.ToString());
-                    SetEnemyLife(enemy.BuildInfo.Life.ToString());
+                    SetEnemyType(enemy.EnemyType.ToString(), false);
+                    SetEnemyBeginMetal(enemy.BuildInfo.BeginMetal.ToString(), false);
+                    SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString(), false);
+                    SetEnemyEnergy(enemy.BuildInfo.Energy.ToString(), false);
+                    SetEnemyLife(enemy.BuildInfo.Life.ToString(), false);
                     Row_BonusGroups.Initialize(enemy.BonusGroups, ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer),
                         addAction: delegate
                         {
@@ -617,8 +617,8 @@ public class LevelEditorPanel : BaseUIForm
                     CardSelectPanel.UnselectAllCards();
                     CardSelectPanel.SetCardLibraryPanelEnable(false);
                     Row_ShopItems.Initialize(shop.ShopItems, ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer));
-                    SetShopItemCardCount(shop.ShopItemCardCount.ToString());
-                    SetShopItemOthersCount(shop.ShopItemOthersCount.ToString());
+                    SetShopItemCardCount(shop.ShopItemCardCount.ToString(), false);
+                    SetShopItemOthersCount(shop.ShopItemOthersCount.ToString(), false);
                     Row_ShopItems.SetButtonActions(
                         gotoAction: delegate { }, clearAction: delegate
                         {

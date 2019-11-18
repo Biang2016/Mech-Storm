@@ -10,7 +10,7 @@
         {
             base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("Damage", 0);
-            M_SideEffectParam.SetParam_ConstInt("DamageTimes", 0);
+            M_SideEffectParam.SetParam_ConstInt("DamageTimes", 1);
         }
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.LifeBased;
@@ -21,7 +21,7 @@
             return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("Damage"),
-                times <= 1 ? "" : ("*" + M_SideEffectParam.GetParam_ConstInt("DamageTimes")));
+                times == 1 ? "" : ("*" + M_SideEffectParam.GetParam_ConstInt("DamageTimes")));
         }
 
         public int CalculateDamage()

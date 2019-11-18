@@ -17,7 +17,7 @@ public class PropertyFormRow_TwoToggleRow : PropertyFormRow
     {
     }
 
-    protected override void SetValue(string value_str)
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Events;
 
 public class EventManager
 {
@@ -148,11 +149,17 @@ public class EventManager
             if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent executed side effects from being executed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                foreach (SideEffectBase se in see.SideEffectBases)
+                bool isTrigger = false;
+                if (see.M_ExecuteSetting is ScriptExecuteSettingBase scriptExecuteSettingBase)
                 {
-                    bool isTrigger = IsExecuteTrigger(executorInfo, se.M_ExecutorInfo, see.M_ExecuteSetting.TriggerRange); //To check out if this event invokes any side effect.
-                    if (isTrigger) Trigger(see, executorInfo, tt, see.M_ExecuteSetting.TriggerRange); // invoke main trigger method. 
+                    isTrigger = scriptExecuteSettingBase.IsTrigger(executorInfo, see.M_ExecutorInfo);
                 }
+                else
+                {
+                    isTrigger = IsExecuteTrigger(executorInfo, see.M_ExecutorInfo, see.M_ExecuteSetting.TriggerRange); //To check out if this event invokes any side effect.
+                }
+
+                if (isTrigger) Trigger(see, executorInfo, tt, see.M_ExecuteSetting.TriggerRange); // invoke main trigger method. 
             }
         }
 
@@ -169,11 +176,8 @@ public class EventManager
             if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent removed side effects from being removed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                foreach (SideEffectBase se in see.SideEffectBases)
-                {
-                    bool isTrigger = IsExecuteTrigger(executorInfo, se.M_ExecutorInfo, see.M_ExecuteSetting.RemoveTriggerRange);
+                    bool isTrigger = IsExecuteTrigger(executorInfo, see.M_ExecutorInfo, see.M_ExecuteSetting.RemoveTriggerRange);
                     if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some side effects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
-                }
             }
         }
 
@@ -192,9 +196,10 @@ public class EventManager
             Dictionary<int, SideEffectExecute> removeEvent_sees = RemoveEvents[kv.Value.M_ExecuteSetting.TriggerTime];
             if (removeEvent_sees.ContainsKey(kv.Key)) removeEvent_sees.Remove(kv.Key);
 
+
             foreach (SideEffectBase se in kv.Value.SideEffectBases)
             {
-                if (se.M_ExecutorInfo.IsPlayerBuff) //PlayerBuff
+                if (kv.Value.M_ExecutorInfo.IsPlayerBuff) //PlayerBuff
                 {
                     if (se is PlayerBuffSideEffects buff)
                     {
@@ -306,7 +311,7 @@ public class EventManager
                 //Trigger's trigger End
 
                 see.M_ExecuteSetting.TriggerTimes--;
-                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.SideEffectBases[0].M_ExecutorInfo, tt, tr); //Send request to client
+                ShowSideEffectTriggeredRequest request = new ShowSideEffectTriggeredRequest(see.M_ExecutorInfo, tt, tr); //Send request to client
                 OnEventInvokeHandler(request);
 
                 InvokeStack.Push(see);

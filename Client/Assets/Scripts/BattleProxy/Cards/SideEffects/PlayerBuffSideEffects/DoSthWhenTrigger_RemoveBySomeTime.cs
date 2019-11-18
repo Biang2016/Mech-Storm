@@ -27,10 +27,11 @@
         public override void Execute(ExecutorInfo executorInfo)
         {
             BattlePlayer player = (BattlePlayer) Player;
-            player.PlayerBuffTrigger(M_ExecutorInfo.SideEffectExecutorID, this);
+            player.PlayerBuffTrigger(M_SideEffectExecute.M_ExecutorInfo.SideEffectExecutorID, this);
             foreach (SideEffectBase se in Sub_SideEffect)
             {
                 se.Player = player;
+                se.M_SideEffectExecute = M_SideEffectExecute;
                 se.Execute(executorInfo);
             }
         }

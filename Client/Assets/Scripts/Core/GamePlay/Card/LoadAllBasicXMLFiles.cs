@@ -7,6 +7,7 @@
         ConfigFolderPath = configFolderPath;
         AllColors.AddAllColors();
         AllSideEffects.AddAllSideEffects();
+        AllScriptExecuteSettings.AddAllScriptExecuteSettings();
         AllBuffs.AddAllBuffs();
         AllCards.AddAllCards();
         AllBuilds.AddAllBuilds();

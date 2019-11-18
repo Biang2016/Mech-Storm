@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -45,6 +46,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
 
     public int ID;
     public ExecuteSetting M_ExecuteSetting;
+    public ExecutorInfo M_ExecutorInfo;
     public List<SideEffectBase> SideEffectBases = new List<SideEffectBase>();
 
     /// <summary>
@@ -64,7 +66,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         WhenSelfMechKillOther,
         WhenAttachedMechAttack,
         WhenAttachedMechKillOther,
-        Others // 高级自定义
+        Others, // 高级自定义
+        Scripts // 源于脚本
     }
 
     public ExecuteSettingTypes ExecuteSettingType
@@ -79,7 +82,14 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 }
             }
 
-            return ExecuteSettingTypes.Others;
+            if (M_ExecuteSetting is ScriptExecuteSettingBase)
+            {
+                return ExecuteSettingTypes.Scripts;
+            }
+            else
+            {
+                return ExecuteSettingTypes.Others;
+            }
         }
     }
 
@@ -92,14 +102,12 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         public TriggerTime RemoveTriggerTime; //when to remove this effect/decrease the remove time of this effect
         public TriggerRange RemoveTriggerRange; //which range of events can remove this effect
         public int RemoveTriggerTimes; //how many times of remove before we can remove the effect permenantly. (usually used in buffs)
-        public SortedDictionary<string, int> ArgDict;
 
         public ExecuteSetting()
         {
-            ArgDict = new SortedDictionary<string, int>();
         }
 
-        public ExecuteSetting(TriggerTime triggerTime, TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, TriggerTime removeTriggerTime, TriggerRange removeTriggerRange, int removeTriggerTimes, SortedDictionary<string, int> arg = null)
+        public ExecuteSetting(TriggerTime triggerTime, TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, TriggerTime removeTriggerTime, TriggerRange removeTriggerRange, int removeTriggerTimes)
         {
             TriggerTime = triggerTime;
             TriggerRange = triggerRange;
@@ -108,7 +116,6 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             RemoveTriggerTime = removeTriggerTime;
             RemoveTriggerRange = removeTriggerRange;
             RemoveTriggerTimes = removeTriggerTimes;
-            ArgDict = arg ?? new SortedDictionary<string, int>();
         }
 
         public static ExecuteSetting GenerateFromXMLNode(XmlNode node)
@@ -119,7 +126,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 est = (ExecuteSettingTypes) Enum.Parse(typeof(ExecuteSettingTypes), node.Attributes["ExecuteSettingTypes"].Value);
             }
 
-            if (est == ExecuteSettingTypes.Others)
+            if (est == ExecuteSettingTypes.Others || est == ExecuteSettingTypes.Scripts)
             {
                 TriggerTime triggerTime = (TriggerTime) Enum.Parse(typeof(TriggerTime), node.Attributes["triggerTime"].Value);
                 TriggerRange triggerRange = (TriggerRange) Enum.Parse(typeof(TriggerRange), node.Attributes["triggerRange"].Value);
@@ -129,17 +136,24 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 TriggerRange removeTriggerRange = (TriggerRange) Enum.Parse(typeof(TriggerRange), node.Attributes["removeTriggerRange"].Value);
                 int removeTriggerTimes = int.Parse(node.Attributes["removeTriggerTimes"].Value);
 
-                SortedDictionary<string, int> argDict = new SortedDictionary<string, int>();
-                foreach (XmlAttribute nodeAttribute in node.Attributes)
+                if (est == ExecuteSettingTypes.Others)
                 {
-                    if (nodeAttribute.Name.StartsWith("Arg_"))
-                    {
-                        argDict.Add(nodeAttribute.Name.Substring(4), int.Parse(nodeAttribute.Value));
-                    }
+                    ExecuteSetting newExecuteSetting = new ExecuteSetting(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
+                    return newExecuteSetting;
                 }
-
-                ExecuteSetting newExecuteSetting = new ExecuteSetting(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes, argDict);
-                return newExecuteSetting;
+                else
+                {
+                    ScriptExecuteSettingBase copy = AllScriptExecuteSettings.GetScriptExecuteSetting(node.Attributes["ScriptName"].Value);
+                    GetScriptExecuteSettingParamsFromXMLNode(copy.M_SideEffectParam, node);
+                    copy.TriggerTime = triggerTime;
+                    copy.TriggerRange = triggerRange;
+                    copy.TriggerDelayTimes = triggerDelayTimes;
+                    copy.TriggerTimes = triggerTimes;
+                    copy.RemoveTriggerTime = removeTriggerTime;
+                    copy.RemoveTriggerRange = removeTriggerRange;
+                    copy.RemoveTriggerTimes = removeTriggerTimes;
+                    return copy;
+                }
             }
             else
             {
@@ -147,8 +161,38 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             }
         }
 
-        public bool IsEqual(ExecuteSetting target)
+        public static void GetScriptExecuteSettingParamsFromXMLNode(SideEffectParam sep, XmlNode node)
         {
+            List<XmlAttribute> notMatchAttrs = new List<XmlAttribute>();
+            for (int i = 0; i < node.Attributes.Count; i++)
+            {
+                XmlAttribute attr = node.Attributes[i];
+                if (!attr.Name.Equals("ExecuteSettingTypes") &&
+                    !attr.Name.Equals("ScriptName") &&
+                    !attr.Name.Equals("triggerTime") &&
+                    !attr.Name.Equals("triggerRange") &&
+                    !attr.Name.Equals("triggerDelayTimes") &&
+                    !attr.Name.Equals("triggerTimes") &&
+                    !attr.Name.Equals("removeTriggerTime") &&
+                    !attr.Name.Equals("removeTriggerRange") &&
+                    !attr.Name.Equals("removeTriggerTimes"))
+                {
+                    SideEffectValue sev = sep.GetParam(attr.Name);
+                    if (sev != null)
+                    {
+                        sev.SetValue(attr.Value);
+                    }
+                    else
+                    {
+                        notMatchAttrs.Add(attr);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsEqual(ExecuteSetting target)
+        {
+            if (GetType() != target.GetType()) return false;
             if (TriggerTime != target.TriggerTime) return false;
             if (TriggerRange != target.TriggerRange) return false;
             if (TriggerDelayTimes != target.TriggerDelayTimes) return false;
@@ -156,26 +200,10 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             if (RemoveTriggerTime != target.RemoveTriggerTime) return false;
             if (RemoveTriggerRange != target.RemoveTriggerRange) return false;
             if (RemoveTriggerTimes != target.RemoveTriggerTimes) return false;
-            if (ArgDict.Count != target.ArgDict.Count) return false;
-            foreach (string key in ArgDict.Keys)
-            {
-                if (target.ArgDict.ContainsKey(key))
-                {
-                    if (ArgDict[key] != target.ArgDict[key])
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
             return true;
         }
 
-        public void ExportToXML(XmlElement ele)
+        public virtual void ExportToXML(XmlElement ele)
         {
             ele.SetAttribute("triggerTime", TriggerTime.ToString());
             ele.SetAttribute("triggerRange", TriggerRange.ToString());
@@ -184,15 +212,11 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             ele.SetAttribute("removeTriggerTime", RemoveTriggerTime.ToString());
             ele.SetAttribute("removeTriggerRange", RemoveTriggerRange.ToString());
             ele.SetAttribute("removeTriggerTimes", RemoveTriggerTimes.ToString());
-
-            foreach (KeyValuePair<string, int> kv in ArgDict)
-            {
-                ele.SetAttribute(kv.Key, kv.Value.ToString());
-            }
         }
 
-        public void Serialize(DataStream writer)
+        public virtual void Serialize(DataStream writer)
         {
+            writer.WriteString8(GetType().ToString());
             writer.WriteSInt32((int) TriggerTime);
             writer.WriteSInt32((int) TriggerRange);
             writer.WriteSInt32(TriggerDelayTimes);
@@ -200,18 +224,21 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             writer.WriteSInt32((int) RemoveTriggerTime);
             writer.WriteSInt32((int) RemoveTriggerRange);
             writer.WriteSInt32(RemoveTriggerTimes);
-
-            writer.WriteSInt32(ArgDict.Count);
-            foreach (KeyValuePair<string, int> kv in ArgDict)
-            {
-                writer.WriteString8(kv.Key);
-                writer.WriteSInt32(kv.Value);
-            }
         }
 
         public static ExecuteSetting Deserialize(DataStream reader)
         {
-            ExecuteSetting es = new ExecuteSetting();
+            string type = reader.ReadString8();
+            ExecuteSetting es;
+            if (type != typeof(ExecuteSetting).ToString())
+            {
+                es = ScriptExecuteSettingManager.GetNewScriptExecuteSetting(type);
+            }
+            else
+            {
+                es = new ExecuteSetting();
+            }
+
             es.TriggerTime = (TriggerTime) reader.ReadSInt32();
             es.TriggerRange = (TriggerRange) reader.ReadSInt32();
             es.TriggerDelayTimes = reader.ReadSInt32();
@@ -219,22 +246,17 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             es.RemoveTriggerTime = (TriggerTime) reader.ReadSInt32();
             es.RemoveTriggerRange = (TriggerRange) reader.ReadSInt32();
             es.RemoveTriggerTimes = reader.ReadSInt32();
-
-            es.ArgDict = new SortedDictionary<string, int>();
-            int argCount = reader.ReadSInt32();
-            for (int i = 0; i < argCount; i++)
-            {
-                string key = reader.ReadString8();
-                int value = reader.ReadSInt32();
-                es.ArgDict.Add(key, value);
-            }
-
+            es.Child_Deserialize(reader);
             return es;
         }
 
-        public ExecuteSetting Clone()
+        public virtual void Child_Deserialize(DataStream reader)
         {
-            return new ExecuteSetting(TriggerTime, TriggerRange, TriggerTimes, TriggerDelayTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes, CloneVariantUtils.SortedDictionary(ArgDict));
+        }
+
+        public virtual ExecuteSetting Clone()
+        {
+            return new ExecuteSetting(TriggerTime, TriggerRange, TriggerTimes, TriggerDelayTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
         }
     }
 
@@ -363,6 +385,22 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 removeTriggerRange: TriggerRange.None,
                 removeTriggerTimes: 1)
         },
+        {
+            ExecuteSettingTypes.Scripts, new ScriptExecuteSettingBase(
+                name: "OnPlaySpecifiedCardByID",
+                descRaws: new SortedDictionary<string, string>
+                {
+                    {"en", "When play card ID"},
+                    {"zh", "当打出[ID]牌时"},
+                },
+                triggerTime: TriggerTime.None,
+                triggerRange: TriggerRange.None,
+                triggerDelayTimes: 0,
+                triggerTimes: 1,
+                removeTriggerTime: TriggerTime.None,
+                removeTriggerRange: TriggerRange.None,
+                removeTriggerTimes: 1)
+        },
     };
 
     public static Dictionary<SideEffectFrom, List<ExecuteSettingTypes>> ValidExecuteSettingTypesForSideEffectFrom = new Dictionary<SideEffectFrom, List<ExecuteSettingTypes>>
@@ -376,7 +414,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 ExecuteSettingTypes.AttachedEquipDie,
                 ExecuteSettingTypes.WhenSelfMechAttack,
                 ExecuteSettingTypes.WhenSelfMechKillOther,
-                ExecuteSettingTypes.Others
+                ExecuteSettingTypes.Others,
+                ExecuteSettingTypes.Scripts
             }
         },
         {
@@ -388,7 +427,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 ExecuteSettingTypes.SelfEquipDie,
                 ExecuteSettingTypes.WhenAttachedMechAttack,
                 ExecuteSettingTypes.WhenAttachedMechKillOther,
-                ExecuteSettingTypes.Others
+                ExecuteSettingTypes.Others,
+                ExecuteSettingTypes.Scripts
             }
         },
         {
@@ -397,6 +437,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             {
                 ExecuteSettingTypes.PlayOutEffect,
                 ExecuteSettingTypes.Others,
+                ExecuteSettingTypes.Scripts
             }
         },
         {
@@ -405,6 +446,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             {
                 ExecuteSettingTypes.PlayOutEffect,
                 ExecuteSettingTypes.Others,
+                ExecuteSettingTypes.Scripts
             }
         },
         {
@@ -412,6 +454,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             new List<ExecuteSettingTypes>
             {
                 ExecuteSettingTypes.Others,
+                ExecuteSettingTypes.Scripts
             }
         },
     };
@@ -430,7 +473,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
 
     public SideEffectExecute Clone()
     {
-        return new SideEffectExecute(M_SideEffectFrom, CloneVariantUtils.List(SideEffectBases), M_ExecuteSetting);
+        return new SideEffectExecute(M_SideEffectFrom, CloneVariantUtils.List(SideEffectBases), M_ExecuteSetting.Clone());
     }
 
     public void Serialize(DataStream writer)
@@ -465,7 +508,12 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
     public string GenerateDesc()
     {
         string res = "";
-        if (ExecuteSettingType == ExecuteSettingTypes.BattleCry || ExecuteSettingType == ExecuteSettingTypes.EquipBattleCry) res += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_BattleCry") + ": ");
+        if (ExecuteSettingType == ExecuteSettingTypes.Scripts)
+        {
+            ScriptExecuteSettingBase sesb = (ScriptExecuteSettingBase) M_ExecuteSetting;
+            res += sesb.GenerateDesc();
+        }
+        else if (ExecuteSettingType == ExecuteSettingTypes.BattleCry || ExecuteSettingType == ExecuteSettingTypes.EquipBattleCry) res += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_BattleCry") + ": ");
         else if (ExecuteSettingType == ExecuteSettingTypes.SelfMechDie || ExecuteSettingType == ExecuteSettingTypes.SelfEquipDie) res += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("TriggerTime_Die") + ": ");
         else if (ExecuteSettingType == ExecuteSettingTypes.WhenSelfMechAttack) res += LanguageManager_Common.GetText("TriggerTime_WhenAttack");
         else if (ExecuteSettingType == ExecuteSettingTypes.WhenSelfMechKillOther) res += LanguageManager_Common.GetText("TriggerTime_WhenKill");
@@ -603,10 +651,73 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
         OnUseMetal = 1 << 31,
     }
 
-    public static SortedDictionary<TriggerTime, HashSet<string>> TriggerTimeArgNameSet = new SortedDictionary<TriggerTime, HashSet<string>>
+    private static SortedDictionary<TriggerTime, HashSet<TriggerRange>> TriggerTimeToTriggerRangeMap = new SortedDictionary<TriggerTime, HashSet<TriggerRange>>
     {
-        {TriggerTime.OnPlayCard, new HashSet<string> {"CardID"}}
+        {TriggerTime.None, new HashSet<TriggerRange> {TriggerRange.None}},
+        {TriggerTime.OnTrigger, new HashSet<TriggerRange> {TriggerRange.None}},
+        {TriggerTime.OnBeginRound, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnDrawCard, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayCard, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayMechCard, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayEquipCard, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlaySpellCard, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayEnergyCard, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnMechSummon, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer}},
+        {TriggerTime.OnHeroSummon, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer}},
+        {TriggerTime.OnSoldierSummon, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer}},
+        {TriggerTime.OnMechAttack, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnHeroAttack, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnSoldierAttack, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnMechInjured, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnHeroInjured, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnSoldierInjured, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnMechKill, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnHeroKill, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnSoldierKill, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnMechMakeDamage, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnHeroMakeDamage, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnSoldierMakeDamage, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnMechBeHealed, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnHeroBeHealed, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnSoldierBeHealed, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnMechDie, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnHeroDie, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnSoldierDie, new HashSet<TriggerRange> {TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.AttachedMech}},
+        {TriggerTime.OnEquipDie, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.AttachedEquip, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.EnemyPlayer}},
+        {TriggerTime.OnEquipEquiped, new HashSet<TriggerRange> {TriggerRange.Self, TriggerRange.AttachedEquip, TriggerRange.SelfAnother, TriggerRange.Another, TriggerRange.EnemyPlayer}},
+        {TriggerTime.OnMakeDamage, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnMakeSpellDamage, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayerGetEnergy, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayerEnergyFull, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayerEnergyEmpty, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayerUseEnergy, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayerAddLife, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnPlayerLostLife, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnEndRound, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
+        {TriggerTime.OnUseMetal, new HashSet<TriggerRange> {TriggerRange.SelfPlayer, TriggerRange.EnemyPlayer, TriggerRange.OnePlayer}},
     };
+
+    public static List<string> GetTriggerRangeListByTriggerTime(TriggerTime tt)
+    {
+        List<string> res = new List<string>();
+        foreach (TriggerRange triggerRange in TriggerTimeToTriggerRangeMap[tt])
+        {
+            res.Add(triggerRange.ToString());
+        }
+
+        return res;
+    }
+
+    public static HashSet<TriggerTime> GetAllTriggerTimeSet()
+    {
+        HashSet<TriggerTime> res = new HashSet<TriggerTime>();
+        foreach (TriggerTime tr in Enum.GetValues(typeof(TriggerTime)))
+        {
+            res.Add(tr);
+        }
+
+        return res;
+    }
 
     public static TriggerTime GetTriggerTimeByCardType(CardTypes cardTypes)
     {

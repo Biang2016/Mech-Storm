@@ -1057,6 +1057,10 @@
 		"zh": "保存成功",
 		"en": "Save successfully."
 	},
+	"CardEditorPanel_CannotSaveToEmptyCard": {
+		"zh": "请勿保存至此模板卡牌，请修改卡牌ID",
+		"en": "Please don't save as this template card. You should change Card ID."
+	},
 	"CardEditorPanel_EmptyCardID": {
 		"zh": "卡牌ID为空，请填写完整",
 		"en": "Please input Card ID."

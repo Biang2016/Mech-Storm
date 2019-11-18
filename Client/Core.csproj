@@ -83,8 +83,11 @@
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\CardInfo\Info\UpgradeInfo.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\CardInfo\Info\WeaponInfo.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\LoadAllBasicXMLFiles.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\AllScriptExecuteSettings.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\AllSideEffects.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\ExecutorInfo.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\ScriptExecuteSettingManager.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\ScriptExecuteSettings\ScriptExecuteSettingBase.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectBase.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectBundle.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Card\SideEffects\SideEffectExecute.cs" />

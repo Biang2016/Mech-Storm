@@ -45,14 +45,14 @@ public class PicSelectPanel : MonoBehaviour
             PicPreviewButton ppb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.PicPreviewButton].AllocateGameObject<PicPreviewButton>(PicSelectGridContainer.transform);
             ppb.Initialize(kv.Value, delegate
             {
-                OnClickPicAction?.Invoke(kv.Key.ToString());
+                OnClickPicAction?.Invoke(kv.Key.ToString(), false);
                 OnPicSelectGridCloseButtonClick();
             });
             PicPreviewButtons.Add(ppb);
         }
     }
 
-    public UnityAction<string> OnClickPicAction;
+    public UnityAction<string, bool> OnClickPicAction;
     public UnityAction OnOpenPanelAction;
     public UnityAction OnClosePanelAction;
 

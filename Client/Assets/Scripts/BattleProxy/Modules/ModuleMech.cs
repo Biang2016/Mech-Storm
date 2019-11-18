@@ -20,27 +20,39 @@ internal class ModuleMech : ModuleBase, ILife
     {
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
+            see.M_ExecutorInfo = new ExecutorInfo(
+                clientId: BattlePlayer.ClientId,
+                sideEffectExecutorID: see.ID,
+                mechId: M_MechID
+            );
+            if (see.M_ExecuteSetting is ScriptExecuteSettingBase sesb)
+            {
+                sesb.Player = BattlePlayer;
+            }
+
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
-                se.M_ExecutorInfo = new ExecutorInfo(
-                    clientId: BattlePlayer.ClientId,
-                    sideEffectExecutorID: see.ID,
-                    mechId: M_MechID
-                );
+                se.M_SideEffectExecute = see;
             }
         }
 
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle_BattleGroundAura.SideEffectExecutes)
         {
+            see.M_ExecutorInfo = new ExecutorInfo(
+                clientId: BattlePlayer.ClientId,
+                sideEffectExecutorID: see.ID,
+                mechId: M_MechID
+            );
+            if (see.M_ExecuteSetting is ScriptExecuteSettingBase sesb)
+            {
+                sesb.Player = BattlePlayer;
+            }
+
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
-                se.M_ExecutorInfo = new ExecutorInfo(
-                    clientId: BattlePlayer.ClientId,
-                    sideEffectExecutorID: see.ID,
-                    mechId: M_MechID
-                );
+                se.M_SideEffectExecute = see;
             }
         }
     }

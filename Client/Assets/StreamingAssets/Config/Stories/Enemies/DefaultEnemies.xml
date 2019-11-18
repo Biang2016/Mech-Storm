@@ -4,7 +4,16 @@
     <EnemyInfo enemyType="Soldier">
       <BuildInfo>
         <Info name="baseInfo" BuildName="TempDeck" DrawCardNum="2" Life="25" Energy="5" BeginMetal="1" />
-        <Info name="cardIDs" ids="(-2,0,1)" />
+        <Info name="cardIDs" ids="(-2,0,1);(0,0,3);(1,0,1);(2,0,2)" />
+      </BuildInfo>
+      <BonusGroupInfos />
+    </EnemyInfo>
+  </LevelInfo>
+  <LevelInfo name_en="NewEnemy_0" name_zh="新关卡_0" picID="5" levelType="Enemy" difficultyLevel="1">
+    <EnemyInfo enemyType="Soldier">
+      <BuildInfo>
+        <Info name="baseInfo" BuildName="TempDeck" DrawCardNum="2" Life="25" Energy="5" BeginMetal="1" />
+        <Info name="cardIDs" ids="(-2,0,1);(0,2,0);(1,0,1);(2,0,0)" />
       </BuildInfo>
       <BonusGroupInfos />
     </EnemyInfo>

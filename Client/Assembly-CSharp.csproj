@@ -131,6 +131,7 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\StreamingAssets\Config\Builds\EnemyBuilds.xml" />
     <None Include="Assets\Materials\Stencil\Standard_BeMasked.shader" />
+    <None Include="Assets\StreamingAssets\Config\Basic\ScriptExecuteSettings.xml" />
     <None Include="Assets\Materials\Stencil\Mask.shader" />
     <None Include="Assets\Materials\builtin-shader\Standard.shader" />
     <None Include="Assets\StreamingAssets\Config\Basic\Colors.xml" />

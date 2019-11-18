@@ -23,7 +23,7 @@ public abstract class PropertyFormRow : PoolObject
         TwoToggle
     }
 
-    public static PropertyFormRow BaseInitialize(CardPropertyFormRowType type, Transform parent, string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    public static PropertyFormRow BaseInitialize(CardPropertyFormRowType type, Transform parent, string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         PropertyFormRow res = null;
         switch (type)
@@ -68,7 +68,7 @@ public abstract class PropertyFormRow : PoolObject
 
     internal string LabelStrKey = "";
 
-    protected void Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    protected void Initialize(string labelStrKey, UnityAction<string> onValueChangeAction, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         LabelStrKey = labelStrKey;
         if (LanguageManager.Instance.GetText(labelStrKey) != null)
@@ -98,5 +98,5 @@ public abstract class PropertyFormRow : PoolObject
     {
     }
 
-    protected abstract void SetValue(string value_str);
+    protected abstract void SetValue(string value_str, bool forceChange = false);
 }

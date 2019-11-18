@@ -32,7 +32,7 @@ public class PropertyFormRow_InputField : PropertyFormRow
         if (onButtonClick != null) Button.onClick.AddListener(delegate { onButtonClick(InputField.text); });
     }
 
-    protected override void SetValue(string value_str)
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
         InputField.text = value_str;
     }

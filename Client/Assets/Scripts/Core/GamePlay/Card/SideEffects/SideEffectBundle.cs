@@ -193,7 +193,7 @@ public class SideEffectBundle : IClone<SideEffectBundle>
             XmlElement sideEffectExecute_ele = doc.CreateElement("SideEffectExecute");
             sideEffectsBundle_ele.AppendChild(sideEffectExecute_ele);
             sideEffectExecute_ele.SetAttribute("ExecuteSettingTypes", see.ExecuteSettingType.ToString());
-            if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)
+            if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts)
             {
                 see.M_ExecuteSetting.ExportToXML(sideEffectExecute_ele);
             }

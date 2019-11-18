@@ -79,7 +79,7 @@ public class StoryPropertyForm_Chapter : PoolObject
         IsSelected = false;
     }
 
-    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         PropertyFormRow pfr = PropertyFormRow.BaseInitialize(type, ChapterPropertyRowContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         ChapterPropertyFormRows.Add(pfr);
@@ -89,19 +89,19 @@ public class StoryPropertyForm_Chapter : PoolObject
     public void SetChapter(Chapter chapter)
     {
         Cur_Chapter = chapter;
-        SetChapterName_zh(chapter.ChapterNames["zh"]);
-        SetChapterName_en(chapter.ChapterNames["en"]);
-        SetChapterMapRoundCount(chapter.ChapterMapRoundCount.ToString());
+        SetChapterName_zh(chapter.ChapterNames["zh"], false);
+        SetChapterName_en(chapter.ChapterNames["en"], false);
+        SetChapterMapRoundCount(chapter.ChapterMapRoundCount.ToString(), false);
     }
 
-    private UnityAction<string> SetChapterName_zh;
+    private UnityAction<string, bool> SetChapterName_zh;
 
     private void OnChapterNameChange_zh(string value_str)
     {
         Cur_Chapter.ChapterNames["zh"] = value_str;
     }
 
-    private UnityAction<string> SetChapterName_en;
+    private UnityAction<string, bool> SetChapterName_en;
 
     private void OnChapterNameChange_en(string value_str)
     {
@@ -109,10 +109,10 @@ public class StoryPropertyForm_Chapter : PoolObject
     }
 
     private int RoundCountBefore = 0;
-    private UnityAction<string> SetChapterMapRoundCount;
+    private UnityAction<string, bool> SetChapterMapRoundCount;
     private bool isReturning = false;
 
-    private void OnChapterMapRoundCountChange(string value_str, UnityAction onSaveChapter ,UnityAction onRefreshStory)
+    private void OnChapterMapRoundCountChange(string value_str, UnityAction onSaveChapter, UnityAction onRefreshStory)
     {
         if (int.TryParse(value_str, out int value))
         {
@@ -124,11 +124,11 @@ public class StoryPropertyForm_Chapter : PoolObject
 
             if (value < Chapter.SystemMinMapRoundCount)
             {
-                SetChapterMapRoundCount(Chapter.SystemMinMapRoundCount.ToString());
+                SetChapterMapRoundCount(Chapter.SystemMinMapRoundCount.ToString(), false);
             }
             else if (value > Chapter.SystemMaxMapRoundCount)
             {
-                SetChapterMapRoundCount(Chapter.SystemMaxMapRoundCount.ToString());
+                SetChapterMapRoundCount(Chapter.SystemMaxMapRoundCount.ToString(), false);
             }
             else
             {
@@ -151,7 +151,7 @@ public class StoryPropertyForm_Chapter : PoolObject
                         {
                             cp.CloseUIForm();
                             isReturning = true;
-                            SetChapterMapRoundCount(RoundCountBefore.ToString());
+                            SetChapterMapRoundCount(RoundCountBefore.ToString(), false);
                             isReturning = false;
                         });
                     cp.UIType.IsESCClose = false;
@@ -161,7 +161,7 @@ public class StoryPropertyForm_Chapter : PoolObject
         }
         else
         {
-            SetChapterMapRoundCount(Chapter.SystemMaxMapRoundCount.ToString());
+            SetChapterMapRoundCount(Chapter.SystemMaxMapRoundCount.ToString(), false);
         }
     }
 }

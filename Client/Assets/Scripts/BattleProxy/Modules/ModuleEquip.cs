@@ -15,29 +15,41 @@
     {
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
+            see.M_ExecutorInfo = new ExecutorInfo(
+                clientId: BattlePlayer.ClientId,
+                sideEffectExecutorID: see.ID,
+                mechId: M_ModuleMech.M_MechID,
+                equipId: M_EquipID
+            );
+
+            if (see.M_ExecuteSetting is ScriptExecuteSettingBase sesb)
+            {
+                sesb.Player = BattlePlayer;
+            }
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
-                se.M_ExecutorInfo = new ExecutorInfo(
-                    clientId: BattlePlayer.ClientId,
-                    sideEffectExecutorID: see.ID,
-                    mechId: M_ModuleMech.M_MechID,
-                    equipId: M_EquipID
-                );
+                se.M_SideEffectExecute = see;
+
             }
         }
 
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle_BattleGroundAura.SideEffectExecutes)
         {
+            see.M_ExecutorInfo = new ExecutorInfo(
+                clientId: BattlePlayer.ClientId,
+                sideEffectExecutorID: see.ID,
+                mechId: M_ModuleMech.M_MechID,
+                equipId: M_EquipID
+            );
+            if (see.M_ExecuteSetting is ScriptExecuteSettingBase sesb)
+            {
+                sesb.Player = BattlePlayer;
+            }
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
-                se.M_ExecutorInfo = new ExecutorInfo(
-                    clientId: BattlePlayer.ClientId,
-                    sideEffectExecutorID: see.ID,
-                    mechId: M_ModuleMech.M_MechID,
-                    equipId: M_EquipID
-                );
+                se.M_SideEffectExecute = see;
             }
         }
     }

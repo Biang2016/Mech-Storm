@@ -30271,5 +30271,129 @@ MonoBehaviour:
     stamp: 0
     type: 2
     UseGUIDs: []
-  timeStamp: 1573965528
+  - guid: fa38639b6eb607b41a44dd670a1639a1
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1574040092
+    type: 1
+    UseGUIDs:
+    - ba0eba29c8460824abe36adf83fe8e57
+  - guid: 10ea2827cf8560141a249ac6bb6efacd
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1574042309
+    type: 1
+    UseGUIDs:
+    - 4523d75d65089d7449dbaa49c39a1078
+  - guid: 4523d75d65089d7449dbaa49c39a1078
+    ScriptSymbols:
+    - ScriptExecuteSettingBase
+    ScriptTokens:
+    - SideEffectExecute.ExecuteSetting
+    - SideEffectExecute
+    - IsTrigger
+    - ExecutorInfo
+    stamp: 1574042217
+    type: 2
+    UseGUIDs: []
+  - guid: 426c1c669e55bde4cab211d5242cd332
+    ScriptSymbols:
+    - ScriptExecuteSettingManager
+    ScriptTokens:
+    - Dictionary
+    - AddScriptsExecuteSettingTypes
+    - ScriptExecuteSettingBase
+    - GetNewScriptExecuteSetting
+    - ScriptsExecuteSettingName
+    stamp: 1574043236
+    type: 2
+    UseGUIDs: []
+  - guid: d9d7c349489b859499258b37dededd71
+    ScriptSymbols:
+    - AllScriptExecuteSettings
+    ScriptTokens:
+    - ScriptExecuteSettingsXMLFile
+    - LoadAllBasicXMLFiles
+    - Dictionary
+    - ScriptExecuteSettingBase
+    - ScriptExecuteSettingsNameDict
+    - Reset
+    - GetScriptExecuteSetting
+    - Assembly
+    - CurrentAssembly
+    - AddAllScriptExecuteSettings
+    - SortedDictionary
+    - Enum
+    - LanguageShorts
+    - XmlDocument
+    - XmlElement
+    - XmlNode
+    - Utils
+    - KeyValuePair
+    stamp: 1574043611
+    type: 2
+    UseGUIDs: []
+  - guid: 20a503cc40985e749894668ad2f40ab2
+    ScriptSymbols:
+    - ScriptExecuteSettings.OnPlaySpecifiedCardByID
+    ScriptTokens:
+    - ScriptExecuteSettingBase
+    - InitSideEffectParam
+    - GenerateDesc
+    - IsTrigger
+    - ExecutorInfo
+    stamp: 1574043818
+    type: 2
+    UseGUIDs: []
+  - guid: b40f121eb8cda694294efced4a6efab8
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1574043826
+    type: 1
+    UseGUIDs:
+    - 20a503cc40985e749894668ad2f40ab2
+  - guid: b2f3c6edf5660484a8c8481c1e616eb2
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 0
+    type: 9
+    UseGUIDs: []
+  - guid: 47fd909da4aeba3488d8cfd55f911894
+    ScriptSymbols:
+    - CardEditorPanel_Params
+    - CardEditorPanel_Params.value_str
+    - CardEditorPanel_Params.{
+    - CardEditorPanel_Params.v_str
+    - CardEditorPanel_Params.a
+    ScriptTokens:
+    - GenerateParamRows
+    - SideEffectBase
+    - SideEffectParam
+    - UnityAction
+    - Transform
+    - List
+    - PropertyFormRow
+    - CardPropertyForm_SideEffectExecute
+    - SideEffectValue
+    - SideEffectValue_ConstInt
+    - TargetSideEffect
+    - TargetSelect
+    - CardDeck
+    - AllCards
+    - UIManager
+    - Enum
+    - Dictionary
+    - TargetRange
+    - TargetSelector
+    - SideEffectValue_MultipliedInt
+    - SideEffectValue_Bool
+    - AddPlayerBuff_Base
+    - SideEffectValue_String
+    - AllBuffs
+    - SideEffectExecute
+    - GameObjectPoolManager
+    stamp: 1574046561
+    type: 2
+    UseGUIDs: []
+  timeStamp: 1574088411
   priority: 5

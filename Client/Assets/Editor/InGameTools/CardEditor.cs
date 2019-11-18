@@ -17,6 +17,7 @@ public class CardBaseEditor : Editor
     public static void ReloadConfigs()
     {
         Utils.DebugLog = Debug.Log;
+        AllScriptExecuteSettings.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         LoadAllBasicXMLFiles.Load(Application.streamingAssetsPath + "/Config/");

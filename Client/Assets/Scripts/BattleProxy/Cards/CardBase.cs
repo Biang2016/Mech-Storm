@@ -44,19 +44,31 @@ internal abstract class CardBase
         isInitialized = true;
         foreach (SideEffectExecute see in CardInfo.SideEffectBundle.SideEffectExecutes)
         {
+            if (see.M_ExecuteSetting is ScriptExecuteSettingBase sesb)
+            {
+                sesb.Player = BattlePlayer;
+            }
+
+            see.M_ExecutorInfo = new ExecutorInfo(clientId: BattlePlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
-                se.M_ExecutorInfo = new ExecutorInfo(clientId: BattlePlayer.ClientId, sideEffectExecutorID: see.ID, cardId: CardInfo.CardID, cardInstanceId: M_CardInstanceId);
-
+                se.M_SideEffectExecute = see;
                 if (se is AddPlayerBuff addPlayerBuff)
                 {
+                    if (addPlayerBuff.AttachedBuffSEE.M_ExecuteSetting is ScriptExecuteSettingBase _sesb)
+                    {
+                        _sesb.Player = BattlePlayer;
+                    }
+
                     foreach (SideEffectBase buff_se in addPlayerBuff.AttachedBuffSEE.SideEffectBases)
                     {
                         buff_se.Player = BattlePlayer;
+                        buff_se.M_SideEffectExecute = addPlayerBuff.AttachedBuffSEE;
                         foreach (SideEffectBase sub_se in buff_se.Sub_SideEffect)
                         {
                             sub_se.Player = BattlePlayer;
+                            sub_se.M_SideEffectExecute = addPlayerBuff.AttachedBuffSEE;
                         }
                     }
                 }

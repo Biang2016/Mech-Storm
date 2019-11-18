@@ -117,7 +117,7 @@ public partial class Utils
 
     public static List<T> GetRandomFromList<T>(List<T> OriList, int number, List<T> exceptList = null)
     {
-        if (OriList == null) return new List<T>();
+        if (OriList == null || OriList.Count == 0) return new List<T>();
 
         List<T> ori = OriList.ToArray().ToList();
         if (exceptList != null)
@@ -161,7 +161,7 @@ public partial class Utils
 
     public static List<T> GetRandomWithProbabilityFromList<T>(List<T> OriList, int number) where T : Probability
     {
-        if (OriList == null) return new List<T>();
+        if (OriList == null || OriList.Count == 0) return new List<T>();
 
         int accu = 0;
         SortedDictionary<int, T> resDict = new SortedDictionary<int, T>();

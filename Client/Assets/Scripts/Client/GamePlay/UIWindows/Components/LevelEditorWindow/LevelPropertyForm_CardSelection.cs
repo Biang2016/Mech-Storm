@@ -36,7 +36,7 @@ public class LevelPropertyForm_CardSelection : PropertyFormRow
         LanguageManager.Instance.RegisterTextKey(Label, "LevelEditorPanel_CardSelection");
     }
 
-    protected override void SetValue(string value_str)
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
     }
 

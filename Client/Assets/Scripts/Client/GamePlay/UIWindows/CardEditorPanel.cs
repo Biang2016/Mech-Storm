@@ -382,13 +382,13 @@ public class CardEditorPanel : BaseUIForm
             Row_ShieldBasicShield
         };
 
-        SetCardType("Spell");
-        SetCardType("Mech");
+        SetCardType("Spell", false);
+        SetCardType("Mech", false);
 
         FormatTwoToggleIntoOneRow();
     }
 
-    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         PropertyFormRow cpfr = PropertyFormRow.BaseInitialize(type, CardPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         MyPropertiesRows.Add(cpfr);
@@ -412,7 +412,7 @@ public class CardEditorPanel : BaseUIForm
 
         int count = 0;
         PropertyFormRow_Toggle lastToggle = null;
-        UnityAction<string> temp = new UnityAction<string>(delegate(string arg0) { });
+        UnityAction<string, bool> temp = new UnityAction<string, bool>(delegate(string arg0, bool forceChange) { });
         foreach (PropertyFormRow row in MyPropertiesRows)
         {
             if (row is PropertyFormRow_Toggle toggleRow)
@@ -444,7 +444,7 @@ public class CardEditorPanel : BaseUIForm
     }
 
     private bool OnChangeCardTypeByEdit = false;
-    private UnityAction<string> SetCardType;
+    private UnityAction<string, bool> SetCardType;
 
     private void OnCardTypeChange(string value_str)
     {
@@ -465,7 +465,7 @@ public class CardEditorPanel : BaseUIForm
 
         if (!isPreviewExistingCards && type == CardTypes.Equip)
         {
-            SetSlotType("None");
+            SetSlotType("None", false);
         }
 
         if (cur_PreviewCard)
@@ -483,7 +483,7 @@ public class CardEditorPanel : BaseUIForm
         FormatTwoToggleIntoOneRow();
     }
 
-    private UnityAction<string> SetCardID;
+    private UnityAction<string, bool> SetCardID;
 
     private void OnCardIDChange(string value_str)
     {
@@ -512,7 +512,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardPicID;
+    private UnityAction<string, bool> SetCardPicID;
 
     private void OnCardPicIDChange(string value_str)
     {
@@ -535,7 +535,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardUpgradeID;
+    private UnityAction<string, bool> SetCardUpgradeID;
 
     private void OnCardUpgradeIDChange(string value_str)
     {
@@ -568,7 +568,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardDegradeID;
+    private UnityAction<string, bool> SetCardDegradeID;
 
     private void OnCardDegradeIDChange(string value_str)
     {
@@ -601,7 +601,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardName_zh;
+    private UnityAction<string, bool> SetCardName_zh;
 
     private void OnCardNameChange_zh(string value_str)
     {
@@ -612,7 +612,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardName_en;
+    private UnityAction<string, bool> SetCardName_en;
 
     private void OnCardNameChange_en(string value_str)
     {
@@ -623,7 +623,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardCoinCost;
+    private UnityAction<string, bool> SetCardCoinCost;
 
     private void OnCardCoinCostChange(string value_str)
     {
@@ -637,7 +637,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardMetalCost;
+    private UnityAction<string, bool> SetCardMetalCost;
 
     private void OnCardMetalCostChange(string value_str)
     {
@@ -651,7 +651,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardEnergyCost;
+    private UnityAction<string, bool> SetCardEnergyCost;
 
     private void OnCardEnergyCostChange(string value_str)
     {
@@ -665,7 +665,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardSelectLimit;
+    private UnityAction<string, bool> SetCardSelectLimit;
 
     private void OnCardSelectLimitChange(string value_str)
     {
@@ -679,7 +679,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardRareLevel;
+    private UnityAction<string, bool> SetCardRareLevel;
 
     private void OnCardRareLevelChange(string value_str)
     {
@@ -692,7 +692,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardShopPrice;
+    private UnityAction<string, bool> SetCardShopPrice;
 
     private void OnCardShopPriceChange(string value_str)
     {
@@ -705,7 +705,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardIsTemp;
+    private UnityAction<string, bool> SetCardIsTemp;
 
     private void OnCardIsTempChange(string value_str)
     {
@@ -717,7 +717,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetCardIsHide;
+    private UnityAction<string, bool> SetCardIsHide;
 
     private void OnCardIsHideChange(string value_str)
     {
@@ -729,7 +729,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechLife;
+    private UnityAction<string, bool> SetMechLife;
 
     private void OnMechLifeChange(string value_str)
     {
@@ -747,7 +747,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechAttack;
+    private UnityAction<string, bool> SetMechAttack;
 
     private void OnMechAttackChange(string value_str)
     {
@@ -766,7 +766,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechArmor;
+    private UnityAction<string, bool> SetMechArmor;
 
     private void OnMechArmorChange(string value_str)
     {
@@ -785,7 +785,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechShield;
+    private UnityAction<string, bool> SetMechShield;
 
     private void OnMechShieldChange(string value_str)
     {
@@ -804,7 +804,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechWeaponSlot;
+    private UnityAction<string, bool> SetMechWeaponSlot;
 
     private void OnMechWeaponSlotChange(string value_str)
     {
@@ -819,7 +819,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechShieldSlot;
+    private UnityAction<string, bool> SetMechShieldSlot;
 
     private void OnMechShieldSlotChange(string value_str)
     {
@@ -834,7 +834,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechPackSlot;
+    private UnityAction<string, bool> SetMechPackSlot;
 
     private void OnMechPackSlotChange(string value_str)
     {
@@ -849,7 +849,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechMASlot;
+    private UnityAction<string, bool> SetMechMASlot;
 
     private void OnMechMASlotChange(string value_str)
     {
@@ -864,7 +864,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechIsDefense;
+    private UnityAction<string, bool> SetMechIsDefense;
 
     private void OnMechIsDefenseChange(string value_str)
     {
@@ -877,7 +877,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechIsSniper;
+    private UnityAction<string, bool> SetMechIsSniper;
 
     private void OnMechIsSniperChange(string value_str)
     {
@@ -890,7 +890,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechIsCharger;
+    private UnityAction<string, bool> SetMechIsCharger;
 
     private void OnMechIsChargerChange(string value_str)
     {
@@ -903,7 +903,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechIsFrenzy;
+    private UnityAction<string, bool> SetMechIsFrenzy;
 
     private void OnMechIsFrenzyChange(string value_str)
     {
@@ -916,7 +916,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechIsSentry;
+    private UnityAction<string, bool> SetMechIsSentry;
 
     private void OnMechIsSentryChange(string value_str)
     {
@@ -929,7 +929,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMechIsSoldier;
+    private UnityAction<string, bool> SetMechIsSoldier;
 
     private void OnMechIsSoldierChange(string value_str)
     {
@@ -942,7 +942,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetSlotType;
+    private UnityAction<string, bool> SetSlotType;
 
     private void OnSlotTypeChange(string value_str)
     {
@@ -967,14 +967,14 @@ public class CardEditorPanel : BaseUIForm
 
         if (!isPreviewExistingCards)
         {
-            SetWeaponType("None");
-            SetShieldType("None");
+            SetWeaponType("None", false);
+            SetShieldType("None", false);
         }
 
         FormatTwoToggleIntoOneRow();
     }
 
-    private UnityAction<string> SetWeaponType;
+    private UnityAction<string, bool> SetWeaponType;
 
     private void OnWeaponTypeChange(string value_str)
     {
@@ -995,7 +995,7 @@ public class CardEditorPanel : BaseUIForm
         FormatTwoToggleIntoOneRow();
     }
 
-    private UnityAction<string> SetWeaponIsFrenzy;
+    private UnityAction<string, bool> SetWeaponIsFrenzy;
 
     private void OnWeaponIsFrenzyChange(string value_str)
     {
@@ -1008,7 +1008,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponIsSentry;
+    private UnityAction<string, bool> SetWeaponIsSentry;
 
     private void OnWeaponIsSentryChange(string value_str)
     {
@@ -1021,7 +1021,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponSwordAttack;
+    private UnityAction<string, bool> SetWeaponSwordAttack;
 
     private void OnWeaponSwordAttackChange(string value_str)
     {
@@ -1038,7 +1038,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponSwordEnergy;
+    private UnityAction<string, bool> SetWeaponSwordEnergy;
 
     private void OnWeaponSwordEnergyChange(string value_str)
     {
@@ -1053,7 +1053,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponSwordMaxEnergy;
+    private UnityAction<string, bool> SetWeaponSwordMaxEnergy;
 
     private void OnWeaponSwordMaxEnergyChange(string value_str)
     {
@@ -1068,7 +1068,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponGunAttack;
+    private UnityAction<string, bool> SetWeaponGunAttack;
 
     private void OnWeaponGunAttackChange(string value_str)
     {
@@ -1083,7 +1083,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponGunBullet;
+    private UnityAction<string, bool> SetWeaponGunBullet;
 
     private void OnWeaponGunBulletChange(string value_str)
     {
@@ -1098,7 +1098,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetWeaponGunMaxBullet;
+    private UnityAction<string, bool> SetWeaponGunMaxBullet;
 
     private void OnWeaponGunMaxBulletChange(string value_str)
     {
@@ -1113,7 +1113,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetShieldType;
+    private UnityAction<string, bool> SetShieldType;
 
     private void OnShieldTypeChange(string value_str)
     {
@@ -1134,7 +1134,7 @@ public class CardEditorPanel : BaseUIForm
         FormatTwoToggleIntoOneRow();
     }
 
-    private UnityAction<string> SetShieldIsDefense;
+    private UnityAction<string, bool> SetShieldIsDefense;
 
     private void OnShieldIsDefenseChange(string value_str)
     {
@@ -1147,7 +1147,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetShieldBasicArmor;
+    private UnityAction<string, bool> SetShieldBasicArmor;
 
     private void OnShieldBasicArmorChange(string value_str)
     {
@@ -1162,7 +1162,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetShieldBasicShield;
+    private UnityAction<string, bool> SetShieldBasicShield;
 
     private void OnShieldBasicShieldChange(string value_str)
     {
@@ -1177,7 +1177,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetPackIsFrenzy;
+    private UnityAction<string, bool> SetPackIsFrenzy;
 
     private void OnPackIsFrenzyChange(string value_str)
     {
@@ -1190,7 +1190,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetPackIsSniper;
+    private UnityAction<string, bool> SetPackIsSniper;
 
     private void OnPackIsSniperChange(string value_str)
     {
@@ -1203,7 +1203,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetPackIsDefense;
+    private UnityAction<string, bool> SetPackIsDefense;
 
     private void OnPackIsDefenseChange(string value_str)
     {
@@ -1216,7 +1216,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMAIsFrenzy;
+    private UnityAction<string, bool> SetMAIsFrenzy;
 
     private void OnMAIsFrenzyChange(string value_str)
     {
@@ -1229,7 +1229,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMAIsSniper;
+    private UnityAction<string, bool> SetMAIsSniper;
 
     private void OnMAIsSniperChange(string value_str)
     {
@@ -1242,7 +1242,7 @@ public class CardEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string> SetMAIsDefense;
+    private UnityAction<string, bool> SetMAIsDefense;
 
     private void OnMAIsDefenseChange(string value_str)
     {
@@ -1296,71 +1296,71 @@ public class CardEditorPanel : BaseUIForm
             cur_PreviewCard_De.ShowCardBloom(true);
         }
 
-        SetCardType(ci.BaseInfo.CardType.ToString());
-        SetCardID(string.Format("{0:000}", ci.CardID));
-        SetCardPicID(string.Format("{0:000}", ci.BaseInfo.PictureID));
-        SetCardUpgradeID(ci.UpgradeInfo.UpgradeCardID.ToString());
-        SetCardDegradeID(ci.UpgradeInfo.DegradeCardID.ToString());
-        SetCardName_zh(ci.BaseInfo.CardNames["zh"]);
-        SetCardName_en(ci.BaseInfo.CardNames["en"]);
-        SetCardCoinCost(ci.BaseInfo.Coin.ToString());
-        SetCardMetalCost(ci.BaseInfo.Metal.ToString());
-        SetCardEnergyCost(ci.BaseInfo.Energy.ToString());
-        SetCardSelectLimit(ci.BaseInfo.LimitNum.ToString());
-        SetCardRareLevel(ci.BaseInfo.CardRareLevel.ToString());
-        SetCardShopPrice(ci.BaseInfo.ShopPrice.ToString());
-        SetCardIsTemp(ci.BaseInfo.IsTemp.ToString());
-        SetCardIsHide(ci.BaseInfo.IsHide.ToString());
+        SetCardType(ci.BaseInfo.CardType.ToString(), false);
+        SetCardID(string.Format("{0:000}", ci.CardID), false);
+        SetCardPicID(string.Format("{0:000}", ci.BaseInfo.PictureID), false);
+        SetCardUpgradeID(ci.UpgradeInfo.UpgradeCardID.ToString(), false);
+        SetCardDegradeID(ci.UpgradeInfo.DegradeCardID.ToString(), false);
+        SetCardName_zh(ci.BaseInfo.CardNames["zh"], false);
+        SetCardName_en(ci.BaseInfo.CardNames["en"], false);
+        SetCardCoinCost(ci.BaseInfo.Coin.ToString(), false);
+        SetCardMetalCost(ci.BaseInfo.Metal.ToString(), false);
+        SetCardEnergyCost(ci.BaseInfo.Energy.ToString(), false);
+        SetCardSelectLimit(ci.BaseInfo.LimitNum.ToString(), false);
+        SetCardRareLevel(ci.BaseInfo.CardRareLevel.ToString(), false);
+        SetCardShopPrice(ci.BaseInfo.ShopPrice.ToString(), false);
+        SetCardIsTemp(ci.BaseInfo.IsTemp.ToString(), false);
+        SetCardIsHide(ci.BaseInfo.IsHide.ToString(), false);
 
         switch (ci.BaseInfo.CardType)
         {
             case CardTypes.Mech:
             {
-                SetMechLife(ci.LifeInfo.Life.ToString());
-                SetMechAttack(ci.BattleInfo.BasicAttack.ToString());
-                SetMechArmor(ci.BattleInfo.BasicArmor.ToString());
-                SetMechShield(ci.BattleInfo.BasicShield.ToString());
-                SetMechIsSoldier((ci.MechInfo.IsSoldier).ToString());
-                SetMechIsDefense((ci.MechInfo.IsDefense).ToString());
-                SetMechIsSniper((ci.MechInfo.IsSniper).ToString());
-                SetMechIsCharger((ci.MechInfo.IsCharger).ToString());
-                SetMechIsFrenzy((ci.MechInfo.IsFrenzy).ToString());
-                SetMechIsSentry((ci.MechInfo.IsSentry).ToString());
-                SetMechWeaponSlot((ci.MechInfo.Slots[0] == SlotTypes.Weapon).ToString());
-                SetMechShieldSlot((ci.MechInfo.Slots[1] == SlotTypes.Shield).ToString());
-                SetMechPackSlot((ci.MechInfo.Slots[2] == SlotTypes.Pack).ToString());
-                SetMechMASlot((ci.MechInfo.Slots[3] == SlotTypes.MA).ToString());
+                SetMechLife(ci.LifeInfo.Life.ToString(), false);
+                SetMechAttack(ci.BattleInfo.BasicAttack.ToString(), false);
+                SetMechArmor(ci.BattleInfo.BasicArmor.ToString(), false);
+                SetMechShield(ci.BattleInfo.BasicShield.ToString(), false);
+                SetMechIsSoldier((ci.MechInfo.IsSoldier).ToString(), false);
+                SetMechIsDefense((ci.MechInfo.IsDefense).ToString(), false);
+                SetMechIsSniper((ci.MechInfo.IsSniper).ToString(), false);
+                SetMechIsCharger((ci.MechInfo.IsCharger).ToString(), false);
+                SetMechIsFrenzy((ci.MechInfo.IsFrenzy).ToString(), false);
+                SetMechIsSentry((ci.MechInfo.IsSentry).ToString(), false);
+                SetMechWeaponSlot((ci.MechInfo.Slots[0] == SlotTypes.Weapon).ToString(), false);
+                SetMechShieldSlot((ci.MechInfo.Slots[1] == SlotTypes.Shield).ToString(), false);
+                SetMechPackSlot((ci.MechInfo.Slots[2] == SlotTypes.Pack).ToString(), false);
+                SetMechMASlot((ci.MechInfo.Slots[3] == SlotTypes.MA).ToString(), false);
                 break;
             }
             case CardTypes.Equip:
             {
-                SetSlotType(ci.EquipInfo.SlotType.ToString());
+                SetSlotType(ci.EquipInfo.SlotType.ToString(), false);
                 switch (ci.EquipInfo.SlotType)
                 {
                     case SlotTypes.Weapon:
                     {
-                        SetWeaponType(ci.WeaponInfo.WeaponType.ToString());
+                        SetWeaponType(ci.WeaponInfo.WeaponType.ToString(), false);
                         switch (ci.WeaponInfo.WeaponType)
                         {
                             case WeaponTypes.Sword:
                             {
-                                SetWeaponSwordAttack(ci.WeaponInfo.Attack.ToString());
-                                SetWeaponSwordEnergy(ci.WeaponInfo.Energy.ToString());
-                                SetWeaponSwordMaxEnergy(ci.WeaponInfo.EnergyMax.ToString());
+                                SetWeaponSwordAttack(ci.WeaponInfo.Attack.ToString(), false);
+                                SetWeaponSwordEnergy(ci.WeaponInfo.Energy.ToString(), false);
+                                SetWeaponSwordMaxEnergy(ci.WeaponInfo.EnergyMax.ToString(), false);
                                 break;
                             }
                             case WeaponTypes.Gun:
                             {
-                                SetWeaponGunAttack(ci.WeaponInfo.Attack.ToString());
-                                SetWeaponGunBullet(ci.WeaponInfo.Energy.ToString());
-                                SetWeaponGunMaxBullet(ci.WeaponInfo.EnergyMax.ToString());
+                                SetWeaponGunAttack(ci.WeaponInfo.Attack.ToString(), false);
+                                SetWeaponGunBullet(ci.WeaponInfo.Energy.ToString(), false);
+                                SetWeaponGunMaxBullet(ci.WeaponInfo.EnergyMax.ToString(), false);
                                 break;
                             }
                             case WeaponTypes.SniperGun:
                             {
-                                SetWeaponGunAttack(ci.WeaponInfo.Attack.ToString());
-                                SetWeaponGunBullet(ci.WeaponInfo.Energy.ToString());
-                                SetWeaponGunMaxBullet(ci.WeaponInfo.EnergyMax.ToString());
+                                SetWeaponGunAttack(ci.WeaponInfo.Attack.ToString(), false);
+                                SetWeaponGunBullet(ci.WeaponInfo.Energy.ToString(), false);
+                                SetWeaponGunMaxBullet(ci.WeaponInfo.EnergyMax.ToString(), false);
                                 break;
                             }
                         }
@@ -1370,25 +1370,25 @@ public class CardEditorPanel : BaseUIForm
 
                     case SlotTypes.Shield:
                     {
-                        SetShieldType(ci.ShieldInfo.ShieldType.ToString());
-                        SetShieldBasicArmor(ci.ShieldInfo.Armor.ToString());
-                        SetShieldBasicShield(ci.ShieldInfo.Shield.ToString());
+                        SetShieldType(ci.ShieldInfo.ShieldType.ToString(), false);
+                        SetShieldBasicArmor(ci.ShieldInfo.Armor.ToString(), false);
+                        SetShieldBasicShield(ci.ShieldInfo.Shield.ToString(), false);
                         break;
                     }
 
                     case SlotTypes.Pack:
                     {
-                        SetPackIsFrenzy(ci.PackInfo.IsFrenzy.ToString());
-                        SetPackIsSniper(ci.PackInfo.IsSniper.ToString());
-                        SetPackIsDefense(ci.PackInfo.IsDefense.ToString());
+                        SetPackIsFrenzy(ci.PackInfo.IsFrenzy.ToString(), false);
+                        SetPackIsSniper(ci.PackInfo.IsSniper.ToString(), false);
+                        SetPackIsDefense(ci.PackInfo.IsDefense.ToString(), false);
                         break;
                     }
 
                     case SlotTypes.MA:
                     {
-                        SetMAIsFrenzy(ci.MAInfo.IsFrenzy.ToString());
-                        SetMAIsSniper(ci.MAInfo.IsSniper.ToString());
-                        SetMAIsDefense(ci.MAInfo.IsDefense.ToString());
+                        SetMAIsFrenzy(ci.MAInfo.IsFrenzy.ToString(), false);
+                        SetMAIsSniper(ci.MAInfo.IsSniper.ToString(), false);
+                        SetMAIsDefense(ci.MAInfo.IsDefense.ToString(), false);
                         break;
                     }
                 }
@@ -1568,7 +1568,7 @@ public class CardEditorPanel : BaseUIForm
             cardID++;
         }
 
-        SetCardID(cardID.ToString());
+        SetCardID(cardID.ToString(), false);
     }
 
     public void SaveCard()
@@ -1576,6 +1576,12 @@ public class CardEditorPanel : BaseUIForm
         if (!cur_PreviewCard)
         {
             NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_EmptyCardID"), 0, 1f);
+            return;
+        }
+
+        if (cur_PreviewCard.CardInfo.CardID == (int) AllCards.EmptyCardTypes.EmptyCard)
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardEditorPanel_CannotSaveToEmptyCard"), 0, 2.5f);
             return;
         }
 

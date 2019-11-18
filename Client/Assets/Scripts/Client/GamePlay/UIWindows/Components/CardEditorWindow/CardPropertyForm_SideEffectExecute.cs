@@ -28,6 +28,8 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
 
     public void Initialize(SideEffectExecute.SideEffectFrom sideEffectFrom, SideEffectExecute see, UnityAction onRefreshText, UnityAction onDeleteButtonClick)
     {
+        bool isExecuteSettingReadOnly = (see.ExecuteSettingType != SideEffectExecute.ExecuteSettingTypes.Others) && see.ExecuteSettingType != SideEffectExecute.ExecuteSettingTypes.Scripts;
+
         ExecuteSettingTypeDropdown.onValueChanged.RemoveAllListeners();
         ExecuteSettingTypeDropdown.options.Clear();
 
@@ -42,7 +44,16 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
             {
                 string optionStr = ExecuteSettingTypeDropdown.options[value].text;
                 SideEffectExecute.ExecuteSettingTypes est = (SideEffectExecute.ExecuteSettingTypes) Enum.Parse(typeof(SideEffectExecute.ExecuteSettingTypes), optionStr);
-                see.M_ExecuteSetting = SideEffectExecute.ExecuteSetting_Presets[est];
+                if (est != SideEffectExecute.ExecuteSettingTypes.Scripts)
+                {
+                    see.M_ExecuteSetting = SideEffectExecute.ExecuteSetting_Presets[est];
+                }
+                else
+                {
+                    see.M_ExecuteSetting = AllScriptExecuteSettings.GetScriptExecuteSetting("OnPlaySpecifiedCardByID").Clone();
+                }
+
+                CardPropertyForm_ExecuteSettingRow.Initialize(see, onRefreshText, isExecuteSettingReadOnly, true);
                 Initialize(sideEffectFrom, see, onRefreshText, onDeleteButtonClick);
                 StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
             });
@@ -73,9 +84,8 @@ public class CardPropertyForm_SideEffectExecute : PoolObject
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
         });
 
-        bool isReadOnly = see.ExecuteSettingType != SideEffectExecute.ExecuteSettingTypes.Others;
         CardPropertyForm_ExecuteSettingRow = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.CardPropertyForm_ExecuteSetting].AllocateGameObject<CardPropertyForm_ExecuteSetting>(SideEffectRowContainer);
-        CardPropertyForm_ExecuteSettingRow.Initialize(see, onRefreshText, isReadOnly);
+        CardPropertyForm_ExecuteSettingRow.Initialize(see, onRefreshText, isExecuteSettingReadOnly, false);
 
         ExecuteSettingTypeDropdown.interactable = sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff;
         AddSideEffectButton.gameObject.SetActive(sideEffectFrom != SideEffectExecute.SideEffectFrom.Buff);

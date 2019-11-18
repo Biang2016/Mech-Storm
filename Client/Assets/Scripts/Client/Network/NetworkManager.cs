@@ -18,6 +18,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         mainThreadId = Thread.CurrentThread.ManagedThreadId;
         OnRestartProtocols();
         OnRestartSideEffects();
+        OnRestartScriptExecuteSettings();
     }
 
     private void OnRestartProtocols()
@@ -35,6 +36,19 @@ public class NetworkManager : MonoSingleton<NetworkManager>
         foreach (Type type in types)
         {
             if (Utils.IsBaseType(type, typeof(SideEffectBase)))
+            {
+                MethodInfo mi_temp = mi.MakeGenericMethod(type);
+                mi_temp.Invoke(null, null);
+            }
+        }
+    }
+    private void OnRestartScriptExecuteSettings() //所有的触发时机脚本在此注册
+    {
+        List<Type> types = Utils.GetClassesByNameSpace("ScriptExecuteSettings", Assembly.GetAssembly(typeof(Battle)));
+        MethodInfo mi = typeof(ScriptExecuteSettingManager).GetMethod("AddScriptsExecuteSettingTypes");
+        foreach (Type type in types)
+        {
+            if (Utils.IsBaseType(type, typeof(ScriptExecuteSettingBase)))
             {
                 MethodInfo mi_temp = mi.MakeGenericMethod(type);
                 mi_temp.Invoke(null, null);

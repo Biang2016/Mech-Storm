@@ -112,7 +112,7 @@ public class StoryEditorPanel : BaseUIForm
         CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, false, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
         CardSelectPanel.gameObject.SetActive(false);
         ChapterMapContainer.gameObject.SetActive(true);
-        AudioManager.Instance.BGMLoopInList(new List<string> { "bgm/EditorBGM" });
+        AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/EditorBGM"});
     }
 
     public override void Hide()
@@ -202,7 +202,7 @@ public class StoryEditorPanel : BaseUIForm
         Row_Chapters = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.StoryPropertyForm_Chapters].AllocateGameObject<StoryPropertyForm_Chapters>(StoryPropertiesContainer);
     }
 
-    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    private PropertyFormRow GeneralizeRow(PropertyFormRow.CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         PropertyFormRow row = PropertyFormRow.BaseInitialize(type, StoryPropertiesContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         MyPropertiesRows.Add(row);
@@ -211,7 +211,7 @@ public class StoryEditorPanel : BaseUIForm
 
     #endregion
 
-    private UnityAction<string> SetStoryName;
+    private UnityAction<string, bool> SetStoryName;
 
     private void OnStoryNameChange(string value_str)
     {
@@ -225,7 +225,7 @@ public class StoryEditorPanel : BaseUIForm
         resetStoryBackup = story.Clone();
         Cur_Story = story;
         Row_GamePlaySettings.SetGamePlaySettings(story.StoryGamePlaySettings);
-        SetStoryName(story.StoryName);
+        SetStoryName(story.StoryName, false);
         Row_Chapters.Initialize(
             chapters: Cur_Story.Chapters,
             gotoAction: delegate

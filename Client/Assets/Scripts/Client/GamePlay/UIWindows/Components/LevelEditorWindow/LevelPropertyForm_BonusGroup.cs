@@ -39,7 +39,7 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
     private PropertyFormRow Row_BonusGroupProbability;
     private PropertyFormRow Row_BonusGroupIsSingleton;
 
-    protected override void SetValue(string value_str)
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
     }
 
@@ -109,7 +109,7 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         SetBonusGroup(bonusGroup);
     }
 
-    public UnityAction<string> SetBonusGroupIsAlways;
+    public UnityAction<string, bool> SetBonusGroupIsAlways;
 
     private void OnBonusGroupIsAlwaysChange(string value_str)
     {
@@ -120,7 +120,7 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         UIManager.Instance.GetBaseUIForm<LevelEditorPanel>().StartCoroutine(Co_refresh);
     }
 
-    public UnityAction<string> SetBonusGroupProbability;
+    public UnityAction<string, bool> SetBonusGroupProbability;
 
     private void OnBonusGroupProbabilityChange(string value_str)
     {
@@ -128,7 +128,7 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         {
             if (value < 0)
             {
-                SetBonusGroupProbability(0.ToString());
+                SetBonusGroupProbability(0.ToString(), false);
             }
             else
             {
@@ -137,11 +137,11 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         }
         else
         {
-            SetBonusGroupProbability(0.ToString());
+            SetBonusGroupProbability(0.ToString(), false);
         }
     }
 
-    public UnityAction<string> SetBonusGroupIsSingleton;
+    public UnityAction<string, bool> SetBonusGroupIsSingleton;
     public UnityAction OnEditAction;
 
     private void OnBonusGroupIsSingletonChange(string value_str)
@@ -150,7 +150,7 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         Cur_BonusGroup.IsSingleton = isSingleton;
     }
 
-    private PropertyFormRow GeneralizeRow(CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
+    private PropertyFormRow GeneralizeRow(CardPropertyFormRowType type, string labelKey, UnityAction<string> onValueChange, out UnityAction<string, bool> setValue, List<string> dropdownOptionList = null, UnityAction<string> onButtonClick = null)
     {
         PropertyFormRow cpfr = BaseInitialize(type, BonusContainer, labelKey, onValueChange, out setValue, dropdownOptionList, onButtonClick);
         My_BonusGroupPropertyForm.Add(cpfr);
@@ -192,9 +192,9 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         }
 
         Cur_BonusGroup = bonusGroup;
-        SetBonusGroupIsAlways(Cur_BonusGroup.IsAlways.ToString());
-        SetBonusGroupProbability(Cur_BonusGroup.Probability.ToString());
-        SetBonusGroupIsSingleton(Cur_BonusGroup.IsSingleton.ToString());
+        SetBonusGroupIsAlways(Cur_BonusGroup.IsAlways.ToString(), false);
+        SetBonusGroupProbability(Cur_BonusGroup.Probability.ToString(), false);
+        SetBonusGroupIsSingleton(Cur_BonusGroup.IsSingleton.ToString(), false);
 
         foreach (Bonus bonus in Cur_BonusGroup.Bonuses)
         {

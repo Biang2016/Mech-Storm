@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\BattleProxy\Cards\CardEquip.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\CardMech.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\CardSpell.cs" />
+    <Compile Include="Assets\Scripts\BattleProxy\Cards\ScriptExecuteSettings\OnPlaySpecifiedCardByID.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\AttachedEquipSideEffects\AddSelfWeaponEnergy.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\AttachedEquipSideEffects\AttachedEquipSideEffects.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\DropAndDrawCards.cs" />
@@ -111,7 +112,6 @@
     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TriggerTriggerSideEffects\NextCardTriggerTwice.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\TriggerTriggerSideEffects\SpellDamageDouble.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Cards\SideEffects\UseAllEnergyDamageShip.cs" />
-    <Compile Include="Assets\Scripts\BattleProxy\Cards\SpecialTriggerTimes\SpecialTriggerTimeBase.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Managers\AISystem.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Managers\BattleGroundManager.cs" />
     <Compile Include="Assets\Scripts\BattleProxy\Managers\BattlePlayer.cs" />

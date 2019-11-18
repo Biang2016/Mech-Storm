@@ -26,7 +26,7 @@ public class LevelPropertyForm_ShopItems : PropertyFormRow
         LanguageManager.Instance.RegisterTextKey(Label, "LevelEditorPanel_ShopItems");
     }
 
-    protected override void SetValue(string value_str)
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
     }
 

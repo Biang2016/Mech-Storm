@@ -171,6 +171,7 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Bonus\BonusItem_Base.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\Bonus\SmallBonusItem.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardEditorPanel_CardPreviewButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardEditorPanel_Params.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_ExecuteSetting.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffect.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\CardEditorWindow\CardPropertyForm_SideEffectBundle.cs" />

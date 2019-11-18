@@ -22,7 +22,7 @@ namespace SideEffects
         {
             BattlePlayer player = (BattlePlayer) Player;
 
-            ModuleMech mech = player.GameManager.GetMechOnBattleGround(M_ExecutorInfo.MechId);
+            ModuleMech mech = player.GameManager.GetMechOnBattleGround(M_SideEffectExecute.M_ExecutorInfo.MechId);
             if (mech?.M_Weapon != null)
             {
                 int increase = Math.Min(mech.M_MechWeaponEnergyMax - mech.M_MechWeaponEnergy, M_SideEffectParam.GetParam_MultipliedInt("Energy"));

@@ -37,6 +37,7 @@ public class Server
     public void Start()
     {
         Utils.DebugLog = ServerLog.Instance.PrintError;
+        AllScriptExecuteSettings.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         LoadAllBasicXMLFiles.Load("./MechStorm/ServerBuild/" + "Config/");

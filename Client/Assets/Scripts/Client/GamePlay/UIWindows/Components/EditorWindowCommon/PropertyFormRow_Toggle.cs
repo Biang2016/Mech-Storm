@@ -18,7 +18,7 @@ public class PropertyFormRow_Toggle : PropertyFormRow
         Toggle.onValueChanged.AddListener(delegate { onValueChangeAction(Toggle.isOn.ToString()); });
     }
 
-    protected override void SetValue(string value_str)
+    protected override void SetValue(string value_str, bool forceChange = false)
     {
         Toggle.isOn = value_str.Equals("True");
     }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class CardPropertyForm_ExecuteSetting : PoolObject
 {
     [SerializeField] private Transform ExecuteRowContainer;
     private List<string> triggerTimeTypeList = new List<string>();
-    private List<string> triggerRangeTypeList = new List<string>();
+    [SerializeField] private Dropdown ScriptExecuteSettingTypeDropdown;
+    [SerializeField] private PropertyFormRow_Dropdown PFR_ScriptExecuteSettingType;
 
     void Awake()
     {
@@ -16,12 +18,6 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         foreach (SideEffectExecute.TriggerTime triggerTime in types_TriggerTime)
         {
             triggerTimeTypeList.Add(triggerTime.ToString());
-        }
-
-        IEnumerable<SideEffectExecute.TriggerRange> types_TriggerRange = Enum.GetValues(typeof(SideEffectExecute.TriggerRange)) as IEnumerable<SideEffectExecute.TriggerRange>;
-        foreach (SideEffectExecute.TriggerRange triggerRange in types_TriggerRange)
-        {
-            triggerRangeTypeList.Add(triggerRange.ToString());
         }
     }
 
@@ -37,9 +33,8 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
     }
 
     private List<PropertyFormRow> CardPropertyFormRows = new List<PropertyFormRow>();
-    private List<PropertyFormRow> CardPropertyFormRows_Args = new List<PropertyFormRow>();
 
-    public void Initialize(SideEffectExecute see, UnityAction onRefreshText, bool isReadOnly)
+    public void Initialize(SideEffectExecute see, UnityAction onRefreshText, bool isReadOnly, bool isExecuteSettingTypeChanged)
     {
         foreach (PropertyFormRow cpfr in CardPropertyFormRows)
         {
@@ -47,80 +42,70 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         }
 
         CardPropertyFormRows.Clear();
-        foreach (PropertyFormRow cpfr in CardPropertyFormRows_Args)
+
+        bool isScriptExecuteSetting = see.M_ExecuteSetting is ScriptExecuteSettingBase;
+        PFR_ScriptExecuteSettingType.gameObject.SetActive(isScriptExecuteSetting);
+        ScriptExecuteSettingBase sesb = null;
+        if (isScriptExecuteSetting)
         {
-            cpfr.PoolRecycle();
+            sesb = (ScriptExecuteSettingBase) see.M_ExecuteSetting;
+            ScriptExecuteSettingTypeDropdown.options.Clear();
+            foreach (string option in AllScriptExecuteSettings.ScriptExecuteSettingsNameDict.Keys.ToList())
+            {
+                ScriptExecuteSettingTypeDropdown.options.Add(new Dropdown.OptionData(option));
+            }
+
+            ScriptExecuteSettingTypeDropdown.onValueChanged.RemoveAllListeners();
+            SetScriptExecuteSettingType(sesb.Name);
+            ScriptExecuteSettingTypeDropdown.onValueChanged.AddListener(delegate(int index)
+            {
+                string scriptExecuteSettingName = ScriptExecuteSettingTypeDropdown.options[index].text;
+                ScriptExecuteSettingBase newSESB = AllScriptExecuteSettings.GetScriptExecuteSetting(scriptExecuteSettingName);
+                if (see != null)
+                {
+                    see.M_ExecuteSetting = newSESB;
+                }
+
+                Initialize(see, onRefreshText, isReadOnly, false);
+                onRefreshText();
+                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ExecuteRowContainer));
+                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
+            });
+
+            CardEditorPanel_Params.GenerateParamRows(null, sesb.M_SideEffectParam, onRefreshText, delegate { Initialize(see, onRefreshText, isReadOnly, false); }, ExecuteRowContainer, CardPropertyFormRows, null, delegate
+            {
+                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ExecuteRowContainer));
+                StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
+            });
         }
 
-        CardPropertyFormRows_Args.Clear();
-
-        bool needRefresh = false;
-
+        PropertyFormRow cpfr_TriggerRange = null;
+        UnityAction<string, bool> _setValueTriggerRange = null;
         PropertyFormRow cpfr_TriggerTime = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_TriggerTime",
             delegate(string value_str)
             {
                 SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime) Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
                 see.M_ExecuteSetting.TriggerTime = value;
-                if (SideEffectExecute.TriggerTimeArgNameSet.ContainsKey(value))
-                {
-                    foreach (string argName in SideEffectExecute.TriggerTimeArgNameSet[value])
-                    {
-                        if (!see.M_ExecuteSetting.ArgDict.ContainsKey("Arg_" + argName))
-                        {
-                            see.M_ExecuteSetting.ArgDict.Add("Arg_" + argName, 0);
-                            needRefresh = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (see.M_ExecuteSetting.ArgDict.Count > 0)
-                    {
-                        see.M_ExecuteSetting.ArgDict.Clear();
-                        needRefresh = true;
-                        foreach (PropertyFormRow cpfr in CardPropertyFormRows_Args)
-                        {
-                            cpfr.PoolRecycle();
-                        }
-
-                        CardPropertyFormRows_Args.Clear();
-                    }
-                }
-
-                if (needRefresh)
-                {
-                    Initialize(see, onRefreshText, isReadOnly);
-                    StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
-                }
-
+                List<string> trList = SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.TriggerTime);
+                ((PropertyFormRow_Dropdown) cpfr_TriggerRange).RefreshDropdownOptionList(trList);
+                if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others) _setValueTriggerRange(trList[0], true);
                 onRefreshText?.Invoke();
             },
-            out UnityAction<string> _setValueTriggerTime, triggerTimeTypeList);
+            out UnityAction<string, bool> _setValueTriggerTime, sesb != null ? ScriptExecuteSettingBase.HashSetTriggerTimeToListString(sesb.ValidTriggerTimes) : triggerTimeTypeList);
         CardPropertyFormRows.Add(cpfr_TriggerTime);
         cpfr_TriggerTime.SetReadOnly(isReadOnly);
 
-        PropertyFormRow cpfr_TriggerRange = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_TriggerRange",
+        cpfr_TriggerRange = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_TriggerRange",
             delegate(string value_str)
             {
                 SideEffectExecute.TriggerRange value = (SideEffectExecute.TriggerRange) Enum.Parse(typeof(SideEffectExecute.TriggerRange), value_str);
                 see.M_ExecuteSetting.TriggerRange = value;
                 onRefreshText?.Invoke();
             },
-            out UnityAction<string> _setValueTriggerRange, triggerRangeTypeList);
+            out _setValueTriggerRange, SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.TriggerTime));
         CardPropertyFormRows.Add(cpfr_TriggerRange);
         cpfr_TriggerRange.SetReadOnly(isReadOnly);
-
-        PropertyFormRow cpfr_TriggerDelayTimes = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_TriggerDelayTimes",
-            delegate(string value_str)
-            {
-                if (int.TryParse(value_str, out int value))
-                {
-                    onRefreshText?.Invoke();
-                }
-            },
-            out UnityAction<string> _setValueTriggerDelayTimes);
-        CardPropertyFormRows.Add(cpfr_TriggerDelayTimes);
-        cpfr_TriggerDelayTimes.SetReadOnly(isReadOnly);
+        ((PropertyFormRow_Dropdown) cpfr_TriggerRange).RefreshDropdownOptionList(SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.TriggerTime));
 
         PropertyFormRow cpfr_TriggerTimes = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_TriggerTimes",
             delegate(string value_str)
@@ -131,31 +116,49 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                     onRefreshText?.Invoke();
                 }
             },
-            out UnityAction<string> _setValueTriggerTimes);
+            out UnityAction<string, bool> _setValueTriggerTimes);
         CardPropertyFormRows.Add(cpfr_TriggerTimes);
-        cpfr_TriggerTimes.SetReadOnly(isReadOnly);
+        cpfr_TriggerTimes.SetReadOnly(sesb != null ? sesb.LockedTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES : isReadOnly);
 
+        PropertyFormRow cpfr_TriggerDelayTimes = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_TriggerDelayTimes",
+            delegate(string value_str)
+            {
+                if (int.TryParse(value_str, out int value))
+                {
+                    onRefreshText?.Invoke();
+                }
+            },
+            out UnityAction<string, bool> _setValueTriggerDelayTimes);
+        CardPropertyFormRows.Add(cpfr_TriggerDelayTimes);
+        cpfr_TriggerDelayTimes.SetReadOnly(sesb != null ? sesb.LockedTriggerDelayTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES : isReadOnly);
+
+        PropertyFormRow cpfr_RemoveTriggerRange = null;
+        UnityAction<string, bool> _setValueRemoveTriggerRange = null;
         PropertyFormRow cpfr_RemoveTriggerTime = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_RemoveTriggerTime",
             delegate(string value_str)
             {
                 SideEffectExecute.TriggerTime value = (SideEffectExecute.TriggerTime) Enum.Parse(typeof(SideEffectExecute.TriggerTime), value_str);
                 see.M_ExecuteSetting.RemoveTriggerTime = value;
+                List<string> trList = SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime);
+                ((PropertyFormRow_Dropdown) cpfr_RemoveTriggerRange).RefreshDropdownOptionList(trList);
+                if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others) _setValueRemoveTriggerRange(trList[0], true);
                 onRefreshText?.Invoke();
             },
-            out UnityAction<string> _setValueRemoveTriggerTime, triggerTimeTypeList);
+            out UnityAction<string, bool> _setValueRemoveTriggerTime, sesb != null ? ScriptExecuteSettingBase.HashSetTriggerTimeToListString(sesb.ValidRemoveTriggerTimes) : triggerTimeTypeList);
         CardPropertyFormRows.Add(cpfr_RemoveTriggerTime);
         cpfr_RemoveTriggerTime.SetReadOnly(isReadOnly);
 
-        PropertyFormRow cpfr_RemoveTriggerRange = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_RemoveTriggerRange",
+        cpfr_RemoveTriggerRange = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.Dropdown, ExecuteRowContainer, "CardEditorPanel_RemoveTriggerRange",
             delegate(string value_str)
             {
                 SideEffectExecute.TriggerRange value = (SideEffectExecute.TriggerRange) Enum.Parse(typeof(SideEffectExecute.TriggerRange), value_str);
                 see.M_ExecuteSetting.RemoveTriggerRange = value;
                 onRefreshText?.Invoke();
             },
-            out UnityAction<string> _setValueRemoveTriggerRange, triggerRangeTypeList);
+            out _setValueRemoveTriggerRange, SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime));
         CardPropertyFormRows.Add(cpfr_RemoveTriggerRange);
         cpfr_RemoveTriggerRange.SetReadOnly(isReadOnly);
+        ((PropertyFormRow_Dropdown) cpfr_RemoveTriggerRange).RefreshDropdownOptionList(SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime));
 
         PropertyFormRow cpfr_RemoveTriggerTimes = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_RemoveTriggerTimes",
             delegate(string value_str)
@@ -166,34 +169,35 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                     onRefreshText?.Invoke();
                 }
             },
-            out UnityAction<string> _setValueRemoveTriggerTimes);
+            out UnityAction<string, bool> _setValueRemoveTriggerTimes);
         CardPropertyFormRows.Add(cpfr_RemoveTriggerTimes);
-        cpfr_RemoveTriggerTimes.SetReadOnly(isReadOnly);
+        cpfr_RemoveTriggerTimes.SetReadOnly(sesb != null ? sesb.LockedRemoveTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES : isReadOnly);
 
-        List<string> keys = see.M_ExecuteSetting.ArgDict.Keys.ToList();
-        foreach (string key in keys)
+        _setValueTriggerTime(sesb != null ? (sesb.ValidTriggerTimes.Count != 0 ? sesb.ValidTriggerTimes.ToList()[0].ToString() : SideEffectExecute.TriggerTime.None.ToString()) : see.M_ExecuteSetting.TriggerTime.ToString(), isExecuteSettingTypeChanged);
+        _setValueTriggerRange(see.M_ExecuteSetting.TriggerRange.ToString(), isExecuteSettingTypeChanged);
+        _setValueTriggerTimes(sesb != null ? (sesb.LockedTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedTriggerTimes.ToString() : see.M_ExecuteSetting.TriggerTimes.ToString()) : see.M_ExecuteSetting.TriggerTimes.ToString(), isExecuteSettingTypeChanged);
+        _setValueTriggerDelayTimes(sesb != null ? (sesb.LockedTriggerDelayTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedTriggerDelayTimes.ToString() : see.M_ExecuteSetting.TriggerDelayTimes.ToString()) : see.M_ExecuteSetting.TriggerDelayTimes.ToString(), isExecuteSettingTypeChanged);
+        _setValueRemoveTriggerTime(sesb != null ? (sesb.ValidRemoveTriggerTimes.Count != 0 ? sesb.ValidRemoveTriggerTimes.ToList()[0].ToString() : SideEffectExecute.TriggerTime.None.ToString()) : see.M_ExecuteSetting.RemoveTriggerTimes.ToString(), isExecuteSettingTypeChanged);
+        _setValueRemoveTriggerRange(see.M_ExecuteSetting.RemoveTriggerRange.ToString(), isExecuteSettingTypeChanged);
+        _setValueRemoveTriggerTimes(sesb != null ? (sesb.LockedRemoveTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedRemoveTriggerTimes.ToString() : see.M_ExecuteSetting.RemoveTriggerTimes.ToString()) : see.M_ExecuteSetting.RemoveTriggerTimes.ToString(), isExecuteSettingTypeChanged);
+    }
+
+    private void SetScriptExecuteSettingType(string value_str)
+    {
+        int setValue = -1;
+        for (int i = 0; i < ScriptExecuteSettingTypeDropdown.options.Count; i++)
         {
-            PropertyFormRow cpfr_Arg = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_" + key,
-                delegate(string value_str)
-                {
-                    if (int.TryParse(value_str, out int value))
-                    {
-                        see.M_ExecuteSetting.ArgDict[key] = value;
-                        onRefreshText?.Invoke();
-                    }
-                },
-                out UnityAction<string> _setValueArg);
-            _setValueArg(see.M_ExecuteSetting.ArgDict[key].ToString());
-            CardPropertyFormRows_Args.Add(cpfr_Arg);
-            cpfr_Arg.SetReadOnly(isReadOnly);
+            if (value_str.Equals(ScriptExecuteSettingTypeDropdown.options[i].text))
+            {
+                setValue = i;
+                break;
+            }
         }
 
-        _setValueTriggerTime(see.M_ExecuteSetting.TriggerTime.ToString());
-        _setValueTriggerRange(see.M_ExecuteSetting.TriggerRange.ToString());
-        _setValueTriggerDelayTimes(see.M_ExecuteSetting.TriggerDelayTimes.ToString());
-        _setValueTriggerTimes(see.M_ExecuteSetting.TriggerTimes.ToString());
-        _setValueRemoveTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime.ToString());
-        _setValueRemoveTriggerRange(see.M_ExecuteSetting.RemoveTriggerRange.ToString());
-        _setValueRemoveTriggerTimes(see.M_ExecuteSetting.RemoveTriggerTimes.ToString());
+        if (setValue != -1)
+        {
+            ScriptExecuteSettingTypeDropdown.value = setValue;
+            ScriptExecuteSettingTypeDropdown.RefreshShownValue();
+        }
     }
 }
