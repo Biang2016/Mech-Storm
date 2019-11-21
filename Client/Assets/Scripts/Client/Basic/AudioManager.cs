@@ -148,7 +148,7 @@ public class AudioManager : MonoSingleton<AudioManager>
     {
         if (bgmNames.Count == 1)
         {
-            BGMFadeIn(bgmNames[0],fadeInDuration,volume,true);
+            BGMFadeIn(bgmNames[0], fadeInDuration, volume, true);
             return;
         }
 

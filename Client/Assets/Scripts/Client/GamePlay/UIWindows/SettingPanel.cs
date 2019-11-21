@@ -46,7 +46,7 @@ public class SettingPanel : BaseUIForm
             (BGMSliderText, "SettingMenu_BGMSliderText"),
         });
 
- float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
+        float masterVolume = PlayerPrefs.GetFloat("MasterVolume");
         float soundVolume = PlayerPrefs.GetFloat("SoundVolume");
         float bgmVolume = PlayerPrefs.GetFloat("BGMVolume");
         MasterSlider.value = masterVolume;
@@ -59,7 +59,6 @@ public class SettingPanel : BaseUIForm
 
     void Start()
     {
-       
     }
 
     public override void Display()

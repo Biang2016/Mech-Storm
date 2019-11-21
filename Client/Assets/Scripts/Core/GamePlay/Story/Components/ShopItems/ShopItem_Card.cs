@@ -12,7 +12,7 @@ public class ShopItem_Card : ShopItem
 
     public override string Name
     {
-        get { return string.Format(LanguageManager_Common.GetText("ShopPanel_CardRareLevelDesc"),  CardRareLevel); }
+        get { return string.Format(LanguageManager_Common.GetText("ShopPanel_CardRareLevelDesc"), CardRareLevel); }
     }
 
     public override int PicID

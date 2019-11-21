@@ -121,6 +121,6 @@ public class ShopItemButton : PoolObject
 
     public void OnHover()
     {
-        AudioManager.Instance.SoundPlay("sfx/BonusHover",0.5f);
+        AudioManager.Instance.SoundPlay("sfx/BonusHover", 0.5f);
     }
 }

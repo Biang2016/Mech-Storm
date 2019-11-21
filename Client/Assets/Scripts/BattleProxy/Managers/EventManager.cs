@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Events;
 
 public class EventManager
 {
@@ -176,8 +175,8 @@ public class EventManager
             if (ObsoleteSEEs.ContainsKey(see.ID)) continue; //To prevent removed side effects from being removed again.
             if (seeDict.ContainsKey(see.ID))
             {
-                    bool isTrigger = IsExecuteTrigger(executorInfo, see.M_ExecutorInfo, see.M_ExecuteSetting.RemoveTriggerRange);
-                    if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some side effects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
+                bool isTrigger = IsExecuteTrigger(executorInfo, see.M_ExecutorInfo, see.M_ExecuteSetting.RemoveTriggerRange);
+                if (isTrigger) Trigger_TryRemove(see); // invoke main trigger_remove method. (some side effects like buffs have a remove_time attribute. e.g. Remove this buff after 3 turns)
             }
         }
 
@@ -195,7 +194,6 @@ public class EventManager
 
             Dictionary<int, SideEffectExecute> removeEvent_sees = RemoveEvents[kv.Value.M_ExecuteSetting.TriggerTime];
             if (removeEvent_sees.ContainsKey(kv.Key)) removeEvent_sees.Remove(kv.Key);
-
 
             foreach (SideEffectBase se in kv.Value.SideEffectBases)
             {
@@ -335,7 +333,10 @@ public class EventManager
 
     private void Trigger_TryRemove(SideEffectExecute see)
     {
-        if (see.M_ExecuteSetting.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
+        if (see.M_ExecuteSetting.RemoveTriggerDelayTimes > 0)
+        {
+            see.M_ExecuteSetting.RemoveTriggerDelayTimes--;
+        }else if (see.M_ExecuteSetting.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
         {
             see.M_ExecuteSetting.RemoveTriggerTimes--;
             foreach (SideEffectBase se in see.SideEffectBases)

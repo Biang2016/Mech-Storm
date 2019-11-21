@@ -33,7 +33,7 @@ public class GamePlaySettings
     public static int SystemMaxDrawCardNum = 5;
     public static int SystemMinDrawCardNum = 1;
 
-    public static int MaxHandCard = 30;
+    public static int MaxHandCard = 20;
     public static int FirstDrawCard = 3;
     public static int SecondDrawCard = 3;
     public static int MaxMechNumber = 6;

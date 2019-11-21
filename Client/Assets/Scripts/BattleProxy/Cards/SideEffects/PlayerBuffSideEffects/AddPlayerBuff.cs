@@ -21,7 +21,7 @@
             {
                 sesb.Player = player;
             }
-            
+
             player.UpdatePlayerBuff(AttachedBuffSEE, true);
         }
     }

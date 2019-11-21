@@ -42,6 +42,7 @@ public class NetworkManager : MonoSingleton<NetworkManager>
             }
         }
     }
+
     private void OnRestartScriptExecuteSettings() //所有的触发时机脚本在此注册
     {
         List<Type> types = Utils.GetClassesByNameSpace("ScriptExecuteSettings", Assembly.GetAssembly(typeof(Battle)));

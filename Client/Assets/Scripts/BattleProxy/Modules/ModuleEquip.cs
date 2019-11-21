@@ -26,11 +26,11 @@
             {
                 sesb.Player = BattlePlayer;
             }
+
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;
                 se.M_SideEffectExecute = see;
-
             }
         }
 
@@ -46,6 +46,7 @@
             {
                 sesb.Player = BattlePlayer;
             }
+
             foreach (SideEffectBase se in see.SideEffectBases)
             {
                 se.Player = BattlePlayer;

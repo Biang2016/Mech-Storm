@@ -30,7 +30,7 @@ internal class PlayerBuff : PoolObject
         BuffDescText.text = buff.GenerateDesc();
     }
 
-    public IEnumerator Co_UpdateValue(SideEffectExecute buffSee)
+    public IEnumerator Co_UpdateValue(SideEffectExecute buffSee, PlayerBuffUpdateRequest.UpdateTypes updateType)
     {
         BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBases[0]).GenerateDesc();
         PlayerBuffSideEffects buff = (PlayerBuffSideEffects) buffSee.SideEffectBases[0];
@@ -38,8 +38,17 @@ internal class PlayerBuff : PoolObject
 
         if (buffValue >= 0)
         {
-            BuffAnim.SetTrigger("Jump");
-            AudioManager.Instance.SoundPlay("sfx/OnBuffTrigger", 0.7f);
+            if (updateType == PlayerBuffUpdateRequest.UpdateTypes.Trigger)
+            {
+                BuffAnim.SetTrigger("Jump");
+                AudioManager.Instance.SoundPlay("sfx/OnBuffTrigger", 0.7f);
+            }
+
+            else if (updateType == PlayerBuffUpdateRequest.UpdateTypes.Refresh)
+            {
+                BuffAnim.SetTrigger("Rotate");
+                AudioManager.Instance.SoundPlay("sfx/OnBuffTrigger", 0.7f);
+            }
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -58,6 +67,11 @@ internal class PlayerBuff : PoolObject
                 case PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes:
                 {
                     buffValue = buffSee.M_ExecuteSetting.RemoveTriggerTimes;
+                    break;
+                }
+                case PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerDelayTimes:
+                {
+                    buffValue = buffSee.M_ExecuteSetting.RemoveTriggerDelayTimes;
                     break;
                 }
                 case PlayerBuffSideEffects.BuffPiledBy.Value:

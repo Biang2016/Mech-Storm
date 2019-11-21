@@ -125,6 +125,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
             {
                 if (int.TryParse(value_str, out int value))
                 {
+                    see.M_ExecuteSetting.TriggerDelayTimes = value;
                     onRefreshText?.Invoke();
                 }
             },
@@ -173,13 +174,27 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         CardPropertyFormRows.Add(cpfr_RemoveTriggerTimes);
         cpfr_RemoveTriggerTimes.SetReadOnly(sesb != null ? sesb.LockedRemoveTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES : isReadOnly);
 
+        PropertyFormRow cpfr_RemoveTriggerDelayTimes = PropertyFormRow.BaseInitialize(PropertyFormRow.CardPropertyFormRowType.InputField, ExecuteRowContainer, "CardEditorPanel_RemoveTriggerDelayTimes",
+            delegate(string value_str)
+            {
+                if (int.TryParse(value_str, out int value))
+                {
+                    see.M_ExecuteSetting.RemoveTriggerDelayTimes = value;
+                    onRefreshText?.Invoke();
+                }
+            },
+            out UnityAction<string, bool> _setValueRemoveTriggerDelayTimes);
+        CardPropertyFormRows.Add(cpfr_RemoveTriggerDelayTimes);
+        cpfr_RemoveTriggerDelayTimes.SetReadOnly(sesb != null ? sesb.LockedRemoveTriggerDelayTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES : isReadOnly);
+
         _setValueTriggerTime(sesb != null ? (sesb.ValidTriggerTimes.Count != 0 ? sesb.ValidTriggerTimes.ToList()[0].ToString() : SideEffectExecute.TriggerTime.None.ToString()) : see.M_ExecuteSetting.TriggerTime.ToString(), isExecuteSettingTypeChanged);
         _setValueTriggerRange(see.M_ExecuteSetting.TriggerRange.ToString(), isExecuteSettingTypeChanged);
         _setValueTriggerTimes(sesb != null ? (sesb.LockedTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedTriggerTimes.ToString() : see.M_ExecuteSetting.TriggerTimes.ToString()) : see.M_ExecuteSetting.TriggerTimes.ToString(), isExecuteSettingTypeChanged);
         _setValueTriggerDelayTimes(sesb != null ? (sesb.LockedTriggerDelayTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedTriggerDelayTimes.ToString() : see.M_ExecuteSetting.TriggerDelayTimes.ToString()) : see.M_ExecuteSetting.TriggerDelayTimes.ToString(), isExecuteSettingTypeChanged);
-        _setValueRemoveTriggerTime(sesb != null ? (sesb.ValidRemoveTriggerTimes.Count != 0 ? sesb.ValidRemoveTriggerTimes.ToList()[0].ToString() : SideEffectExecute.TriggerTime.None.ToString()) : see.M_ExecuteSetting.RemoveTriggerTimes.ToString(), isExecuteSettingTypeChanged);
+        _setValueRemoveTriggerTime(sesb != null ? (sesb.ValidRemoveTriggerTimes.Count != 0 ? sesb.ValidRemoveTriggerTimes.ToList()[0].ToString() : SideEffectExecute.TriggerTime.None.ToString()) : see.M_ExecuteSetting.RemoveTriggerTime.ToString(), isExecuteSettingTypeChanged);
         _setValueRemoveTriggerRange(see.M_ExecuteSetting.RemoveTriggerRange.ToString(), isExecuteSettingTypeChanged);
         _setValueRemoveTriggerTimes(sesb != null ? (sesb.LockedRemoveTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedRemoveTriggerTimes.ToString() : see.M_ExecuteSetting.RemoveTriggerTimes.ToString()) : see.M_ExecuteSetting.RemoveTriggerTimes.ToString(), isExecuteSettingTypeChanged);
+        _setValueRemoveTriggerDelayTimes(sesb != null ? (sesb.LockedRemoveTriggerDelayTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedRemoveTriggerDelayTimes.ToString() : see.M_ExecuteSetting.RemoveTriggerDelayTimes.ToString()) : see.M_ExecuteSetting.RemoveTriggerDelayTimes.ToString(), isExecuteSettingTypeChanged);
     }
 
     private void SetScriptExecuteSettingType(string value_str)

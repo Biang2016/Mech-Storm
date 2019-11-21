@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class VisitShopRequestResponse : ServerRequestBase
+﻿public class VisitShopRequestResponse : ServerRequestBase
 {
     public int LevelID;
     public Shop Shop;

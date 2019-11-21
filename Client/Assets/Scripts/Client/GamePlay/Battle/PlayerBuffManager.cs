@@ -32,24 +32,23 @@ public class PlayerBuffManager : MonoBehaviour
         PlayerBuffID_PrepPass.Clear();
     }
 
-    public void UpdatePlayerBuff(SideEffectExecute buffSee, int buffId)
+    public void UpdatePlayerBuff(SideEffectExecute buffSee, int buffId,PlayerBuffUpdateRequest.UpdateTypes updateType)
     {
-        if (PlayerBuffID_PrepPass.Contains(buffId))
+        if (updateType == PlayerBuffUpdateRequest.UpdateTypes.Add)
         {
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateBuff(buffSee, buffId), "Co_UpdateBuff");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffSee, buffId), "Co_AddBuff");
         }
         else
         {
-            PlayerBuffID_PrepPass.Add(buffId);
-            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_AddBuff(buffSee, buffId), "Co_AddBuff");
+            BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_UpdateBuff(buffSee, buffId, updateType), "Co_UpdateBuff");
         }
     }
 
-    IEnumerator Co_UpdateBuff(SideEffectExecute buffSee, int buffId)
+    IEnumerator Co_UpdateBuff(SideEffectExecute buffSee, int buffId, PlayerBuffUpdateRequest.UpdateTypes updateType)
     {
         if (PlayerBuffs.ContainsKey(buffId))
         {
-            yield return PlayerBuffs[buffId].Co_UpdateValue(buffSee);
+            yield return PlayerBuffs[buffId].Co_UpdateValue(buffSee, updateType);
         }
 
         yield return null;

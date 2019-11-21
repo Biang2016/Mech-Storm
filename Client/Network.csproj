@@ -119,7 +119,6 @@
     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\MechOnAttackRequest.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\MechOnAttackShipRequest.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\MechShieldDefenseRequest.cs" />
-    <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\PlayerBuffRemoveRequest.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\PlayerBuffUpdateRequest.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\PlayerCoolDownCardRemoveRequest.cs" />
     <Compile Include="Assets\Scripts\Network\RequestResponse\ServerToClient\AttachedResponses\PlayerCoolDownCardUpdateRequest.cs" />

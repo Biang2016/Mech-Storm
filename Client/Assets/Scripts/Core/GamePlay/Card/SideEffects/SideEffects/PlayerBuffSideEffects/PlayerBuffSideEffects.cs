@@ -9,7 +9,8 @@ public abstract class PlayerBuffSideEffects : SideEffectBase
     public enum BuffPiledBy
     {
         RemoveTriggerTimes = 0,
-        Value = 1,
+        RemoveTriggerDelayTimes = 1,
+        Value = 2,
     }
 
     protected override void InitSideEffectParam()

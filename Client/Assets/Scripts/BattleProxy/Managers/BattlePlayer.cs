@@ -205,7 +205,7 @@ internal class BattlePlayer : Player
             if (sees.ContainsKey(seeID))
             {
                 SideEffectExecute see = sees[seeID];
-                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, seeID, see);
+                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, seeID, PlayerBuffUpdateRequest.UpdateTypes.Trigger, see);
                 BroadCastRequest(request);
             }
         }
@@ -251,9 +251,10 @@ internal class BattlePlayer : Player
                                 else
                                 {
                                     see.M_ExecuteSetting.RemoveTriggerTimes = newSee.M_ExecuteSetting.RemoveTriggerTimes;
+                                    see.M_ExecuteSetting.RemoveTriggerDelayTimes = newSee.M_ExecuteSetting.RemoveTriggerDelayTimes;
                                 }
 
-                                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see);
+                                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, PlayerBuffUpdateRequest.UpdateTypes.Refresh, see);
                                 BroadCastRequest(request);
                             }
                         }
@@ -269,9 +270,10 @@ internal class BattlePlayer : Player
                                 else
                                 {
                                     see.M_ExecuteSetting.RemoveTriggerTimes = newSee.M_ExecuteSetting.RemoveTriggerTimes;
+                                    see.M_ExecuteSetting.RemoveTriggerDelayTimes = newSee.M_ExecuteSetting.RemoveTriggerDelayTimes;
                                 }
 
-                                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, see);
+                                PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, see.ID, PlayerBuffUpdateRequest.UpdateTypes.Refresh, see);
                                 BroadCastRequest(request);
                             }
                             else //ID不存在场上，新建一个buff
@@ -302,7 +304,12 @@ internal class BattlePlayer : Player
         {
             if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerTimes)
             {
+                see.M_ExecuteSetting.RemoveTriggerDelayTimes += newSee.M_ExecuteSetting.RemoveTriggerDelayTimes;
                 see.M_ExecuteSetting.RemoveTriggerTimes += newSee.M_ExecuteSetting.RemoveTriggerTimes;
+            }
+            else if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.RemoveTriggerDelayTimes)
+            {
+                see.M_ExecuteSetting.RemoveTriggerDelayTimes += newSee.M_ExecuteSetting.RemoveTriggerDelayTimes;
             }
             else if ((PlayerBuffSideEffects.BuffPiledBy) buff.M_SideEffectParam.GetParam_ConstInt("PiledBy") == PlayerBuffSideEffects.BuffPiledBy.Value)
             {
@@ -361,7 +368,7 @@ internal class BattlePlayer : Player
     {
         sees.Remove(remove_see.ID);
         GameManager.EventManager.UnRegisterEvent(remove_see);
-        PlayerBuffRemoveRequest request = new PlayerBuffRemoveRequest(ClientId, remove_see.ID, buffName);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, remove_see.ID, PlayerBuffUpdateRequest.UpdateTypes.Remove, remove_see);
         BroadCastRequest(request);
     }
 
@@ -369,7 +376,7 @@ internal class BattlePlayer : Player
     {
         sees.Add(newSee.ID, newSee);
         GameManager.EventManager.RegisterEvent(newSee);
-        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, newSee);
+        PlayerBuffUpdateRequest request = new PlayerBuffUpdateRequest(ClientId, newSee.ID, PlayerBuffUpdateRequest.UpdateTypes.Add, newSee);
         BroadCastRequest(request);
     }
 

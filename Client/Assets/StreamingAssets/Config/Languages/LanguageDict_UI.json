@@ -1282,6 +1282,10 @@
 		"zh": "效果移除触发次数",
 		"en": "Remove Trigger Times"
 	},
+	"CardEditorPanel_RemoveTriggerDelayTimes": {
+		"zh": "效果移除延迟触发次数",
+		"en": "Remove Trigger Delay Times"
+	},
 	"CardEditorPanel_Arg_CardID": {
 		"zh": "卡牌ID",
 		"en": "Card ID"

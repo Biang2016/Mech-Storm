@@ -7,7 +7,7 @@ public class Enemy : Level
     public EnemyType EnemyType;
     public List<BonusGroup> BonusGroups;
 
-    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType,  List<BonusGroup> bonusGroups)
+    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType, List<BonusGroup> bonusGroups)
         : base(LevelTypes.Enemy, levelPicID, levelNames, difficultyLevel)
     {
         BuildInfo = buildInfo;

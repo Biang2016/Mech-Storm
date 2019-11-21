@@ -2,7 +2,7 @@
 <Story>
   <BuildInfo>
     <Info name="baseInfo" BuildName="Story1" DrawCardNum="1" Life="10" Energy="6" BeginMetal="0" />
-    <Info name="cardIDs" ids="(-2,0,0);(0,0,2);(2,0,2)" />
+    <Info name="cardIDs" ids="(-2,0,0);(0,0,4);(1,0,0);(2,0,4);(3,0,3)" />
   </BuildInfo>
   <GamePlaySettings DefaultCoin="1800" DefaultDrawCardNum="1" DefaultEnergy="6" DefaultEnergyMax="6" DefaultLife="10" DefaultLifeMax="15" DefaultLifeMin="5" MaxDrawCardNum="5" MinDrawCardNum="1" />
   <Chapters>

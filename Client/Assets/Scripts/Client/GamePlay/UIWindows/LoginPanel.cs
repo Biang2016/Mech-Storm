@@ -78,7 +78,7 @@ public class LoginPanel : BaseUIForm
     {
         foreach (string serverTypeName in Enum.GetNames(typeof(ServerTypes)))
         {
-            ServerDropdown.options[(int)Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
+            ServerDropdown.options[(int) Enum.Parse(typeof(ServerTypes), serverTypeName)] = new Dropdown.OptionData(LanguageManager.Instance.GetText("Server_" + serverTypeName));
         }
 
         ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();

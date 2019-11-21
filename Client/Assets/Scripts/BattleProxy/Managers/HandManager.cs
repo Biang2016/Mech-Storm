@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using SideEffects;
 
 internal class Battle_HandManager
 {
@@ -16,10 +14,16 @@ internal class Battle_HandManager
 
     #region DrawCards
 
-    private void HandAddCard(CardBase newCard)
+    private bool HandAddCard(CardBase newCard)
     {
+        if (Cards.Count >= GamePlaySettings.MaxHandCard)
+        {
+            return false;
+        }
+
         Cards.Add(newCard);
         BattlePlayer.BattleStatistics.Draws++;
+        return true;
     }
 
     internal void DrawCards(int cardNumber)
@@ -36,9 +40,12 @@ internal class Battle_HandManager
         foreach (CardInfo_Base cb in BattlePlayer.CardDeckManager.DrawCardsOnTop(maxDrawCardNumber))
         {
             CardBase newCard = CardBase.InstantiateCardByCardInfo(cb, BattlePlayer, BattlePlayer.GameManager.GenerateNewCardInstanceId());
-            HandAddCard(newCard);
-            BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
-            cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
+            bool checkHand = HandAddCard(newCard);
+            if (checkHand)
+            {
+                BattlePlayer.CardDeckManager.CardDeck.AddCardInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId);
+                cardInfos.Add(new DrawCardRequest.CardIdAndInstanceId(newCard.CardInfo.CardID, newCard.M_CardInstanceId));
+            }
         }
 
         OnPlayerGetCards(cardInfos);
@@ -104,8 +111,11 @@ internal class Battle_HandManager
         {
             CardInfo_Base cardInfo = AllCards.GetCard(cardID);
             CardBase newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, BattlePlayer.GameManager.GenerateNewTempCardInstanceId());
-            OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
-            HandAddCard(newCard);
+            bool checkHand = HandAddCard(newCard);
+            if (checkHand)
+            {
+                OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
+            }
         }
     }
 
@@ -122,8 +132,11 @@ internal class Battle_HandManager
             newCard = CardBase.InstantiateCardByCardInfo(cardInfo, BattlePlayer, overrideCardInstanceID);
         }
 
-        OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
-        HandAddCard(newCard);
+        bool checkHand = HandAddCard(newCard);
+        if (checkHand)
+        {
+            OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
+        }
     }
 
     internal void GetTempCardByCardTypes(CardFilterTypes cardFilterTypes, int count)

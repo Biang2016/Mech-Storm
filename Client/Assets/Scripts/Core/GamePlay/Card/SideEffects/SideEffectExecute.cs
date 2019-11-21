@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -97,17 +96,18 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
     {
         public TriggerTime TriggerTime; //when to trigger
         public TriggerRange TriggerRange; //which range of events can trigger this effect
-        public int TriggerTimes; //how many times we need to trigger it before it can realy trigger
-        public int TriggerDelayTimes; //the max times we can trigger it.
+        public int TriggerTimes; // the max times we can trigger it.
+        public int TriggerDelayTimes; //how many times we need to trigger it before it can really trigger
         public TriggerTime RemoveTriggerTime; //when to remove this effect/decrease the remove time of this effect
         public TriggerRange RemoveTriggerRange; //which range of events can remove this effect
-        public int RemoveTriggerTimes; //how many times of remove before we can remove the effect permenantly. (usually used in buffs)
+        public int RemoveTriggerTimes; //the max times we can remove it.
+        public int RemoveTriggerDelayTimes; //how many times of remove before we can remove the effect permanently. (usually used in buffs)
 
         public ExecuteSetting()
         {
         }
 
-        public ExecuteSetting(TriggerTime triggerTime, TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, TriggerTime removeTriggerTime, TriggerRange removeTriggerRange, int removeTriggerTimes)
+        public ExecuteSetting(TriggerTime triggerTime, TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, TriggerTime removeTriggerTime, TriggerRange removeTriggerRange, int removeTriggerTimes, int removeTriggerDelayTimes)
         {
             TriggerTime = triggerTime;
             TriggerRange = triggerRange;
@@ -116,6 +116,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             RemoveTriggerTime = removeTriggerTime;
             RemoveTriggerRange = removeTriggerRange;
             RemoveTriggerTimes = removeTriggerTimes;
+            RemoveTriggerDelayTimes = removeTriggerDelayTimes;
         }
 
         public static ExecuteSetting GenerateFromXMLNode(XmlNode node)
@@ -135,10 +136,11 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 TriggerTime removeTriggerTime = (TriggerTime) Enum.Parse(typeof(TriggerTime), node.Attributes["removeTriggerTime"].Value);
                 TriggerRange removeTriggerRange = (TriggerRange) Enum.Parse(typeof(TriggerRange), node.Attributes["removeTriggerRange"].Value);
                 int removeTriggerTimes = int.Parse(node.Attributes["removeTriggerTimes"].Value);
+                int removeTriggerDelayTimes = int.Parse(node.Attributes["removeTriggerDelayTimes"].Value);
 
                 if (est == ExecuteSettingTypes.Others)
                 {
-                    ExecuteSetting newExecuteSetting = new ExecuteSetting(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes);
+                    ExecuteSetting newExecuteSetting = new ExecuteSetting(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes, removeTriggerDelayTimes);
                     return newExecuteSetting;
                 }
                 else
@@ -152,6 +154,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                     copy.RemoveTriggerTime = removeTriggerTime;
                     copy.RemoveTriggerRange = removeTriggerRange;
                     copy.RemoveTriggerTimes = removeTriggerTimes;
+                    copy.RemoveTriggerDelayTimes = removeTriggerDelayTimes;
                     return copy;
                 }
             }
@@ -175,7 +178,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                     !attr.Name.Equals("triggerTimes") &&
                     !attr.Name.Equals("removeTriggerTime") &&
                     !attr.Name.Equals("removeTriggerRange") &&
-                    !attr.Name.Equals("removeTriggerTimes"))
+                    !attr.Name.Equals("removeTriggerTimes")&&
+                    !attr.Name.Equals("removeTriggerDelayTimes"))
                 {
                     SideEffectValue sev = sep.GetParam(attr.Name);
                     if (sev != null)
@@ -200,6 +204,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             if (RemoveTriggerTime != target.RemoveTriggerTime) return false;
             if (RemoveTriggerRange != target.RemoveTriggerRange) return false;
             if (RemoveTriggerTimes != target.RemoveTriggerTimes) return false;
+            if (RemoveTriggerDelayTimes != target.RemoveTriggerDelayTimes) return false;
             return true;
         }
 
@@ -212,6 +217,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             ele.SetAttribute("removeTriggerTime", RemoveTriggerTime.ToString());
             ele.SetAttribute("removeTriggerRange", RemoveTriggerRange.ToString());
             ele.SetAttribute("removeTriggerTimes", RemoveTriggerTimes.ToString());
+            ele.SetAttribute("removeTriggerDelayTimes", RemoveTriggerDelayTimes.ToString());
         }
 
         public virtual void Serialize(DataStream writer)
@@ -224,6 +230,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             writer.WriteSInt32((int) RemoveTriggerTime);
             writer.WriteSInt32((int) RemoveTriggerRange);
             writer.WriteSInt32(RemoveTriggerTimes);
+            writer.WriteSInt32(RemoveTriggerDelayTimes);
         }
 
         public static ExecuteSetting Deserialize(DataStream reader)
@@ -246,6 +253,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
             es.RemoveTriggerTime = (TriggerTime) reader.ReadSInt32();
             es.RemoveTriggerRange = (TriggerRange) reader.ReadSInt32();
             es.RemoveTriggerTimes = reader.ReadSInt32();
+            es.RemoveTriggerDelayTimes = reader.ReadSInt32();
             es.Child_Deserialize(reader);
             return es;
         }
@@ -256,7 +264,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
 
         public virtual ExecuteSetting Clone()
         {
-            return new ExecuteSetting(TriggerTime, TriggerRange, TriggerTimes, TriggerDelayTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes);
+            return new ExecuteSetting(TriggerTime, TriggerRange, TriggerTimes, TriggerDelayTimes, RemoveTriggerTime, RemoveTriggerRange, RemoveTriggerTimes, RemoveTriggerDelayTimes);
         }
     }
 
@@ -273,7 +281,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.BattleCry, new ExecuteSetting(
@@ -283,7 +292,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.EquipBattleCry, new ExecuteSetting(
@@ -293,7 +303,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.SelfMechDie, new ExecuteSetting(
@@ -303,7 +314,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.AttachedMechDie, new ExecuteSetting(
@@ -313,7 +325,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.SelfEquipDie, new ExecuteSetting(
@@ -323,7 +336,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.AttachedEquipDie, new ExecuteSetting(
@@ -333,7 +347,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.WhenSelfMechAttack, new ExecuteSetting(
@@ -343,7 +358,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.WhenSelfMechKillOther, new ExecuteSetting(
@@ -353,7 +369,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.WhenAttachedMechAttack, new ExecuteSetting(
@@ -363,7 +380,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.WhenAttachedMechKillOther, new ExecuteSetting(
@@ -373,7 +391,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 99999,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.Others, new ExecuteSetting(
@@ -383,7 +402,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
         {
             ExecuteSettingTypes.Scripts, new ScriptExecuteSettingBase(
@@ -399,7 +419,8 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                 triggerTimes: 1,
                 removeTriggerTime: TriggerTime.None,
                 removeTriggerRange: TriggerRange.None,
-                removeTriggerTimes: 1)
+                removeTriggerTimes: 1,
+                removeTriggerDelayTimes: 0)
         },
     };
 

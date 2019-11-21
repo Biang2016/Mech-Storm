@@ -129,11 +129,6 @@ public partial class RoundManager
                 OnUpdatePlayerBuff((PlayerBuffUpdateRequest) r);
                 break;
             }
-            case NetProtocols.SE_PLAYER_BUFF_REMOVE_REQUEST:
-            {
-                OnRemovePlayerBuff((PlayerBuffRemoveRequest) r);
-                break;
-            }
             case NetProtocols.SE_PLAYER_COOLDOWNCARD_UPDATE_REQUEST:
             {
                 OnUpdatePlayerCoolDownCard((PlayerCoolDownCardUpdateRequest) r);
@@ -405,13 +400,14 @@ public partial class RoundManager
     private void OnUpdatePlayerBuff(PlayerBuffUpdateRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.PlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId);
-    }
-
-    private void OnRemovePlayerBuff(PlayerBuffRemoveRequest r)
-    {
-        ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        cp.BattlePlayer.PlayerBuffManager.RemovePlayerBuff(r.buffId);
+        if (r.updateType == PlayerBuffUpdateRequest.UpdateTypes.Remove)
+        {
+            cp.BattlePlayer.PlayerBuffManager.RemovePlayerBuff(r.buffId);
+        }
+        else
+        {
+            cp.BattlePlayer.PlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId,r.updateType);
+        }
     }
 
     private void OnUpdatePlayerCoolDownCard(PlayerCoolDownCardUpdateRequest r)

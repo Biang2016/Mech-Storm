@@ -120,6 +120,7 @@ public struct BaseInfo
             }
         }
     };
+
     public static Dictionary<string, Dictionary<CardFilterTypes, string>> CardFilterTypeNameDict = new Dictionary<string, Dictionary<CardFilterTypes, string>>
     {
         {
@@ -147,9 +148,6 @@ public struct BaseInfo
             }
         }
     };
-
-
-
 }
 
 [JsonConverter(typeof(StringEnumConverter))]
@@ -175,13 +173,13 @@ public enum CardStatTypes
 [JsonConverter(typeof(StringEnumConverter))]
 public enum CardFilterTypes
 {
-All,
-Mech,
-SoldierMech,
-HeroMech,
-Equip,
-Spell,
-Energy,
+    All,
+    Mech,
+    SoldierMech,
+    HeroMech,
+    Equip,
+    Spell,
+    Energy,
 }
 
 [JsonConverter(typeof(StringEnumConverter))]

@@ -7,6 +7,7 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
 {
     [SerializeField] private Text SideEffectBundleText;
     [SerializeField] private Transform SideEffectExecuteRowContainer;
+    [SerializeField] private Button RefreshSideEffectBundleTransformButton;
     [SerializeField] private Button AddSideEffectExecuteButton;
 
     public override void PoolRecycle()
@@ -83,6 +84,10 @@ public class CardPropertyForm_SideEffectBundle : PoolObject
                 onRefreshText();
                 StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));
             });
+
+            RefreshSideEffectBundleTransformButton.onClick.RemoveAllListeners();
+            RefreshSideEffectBundleTransformButton.onClick.AddListener(delegate { StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer)); }
+            );
 
             foreach (SideEffectExecute see in seb.SideEffectExecutes)
             {

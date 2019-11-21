@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using SideEffects;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -125,7 +123,7 @@ public class CardPropertyForm_SideEffect : PoolObject
 
         CardPropertyForm_SideEffectExecuteRows.Clear();
 
-        CardEditorPanel_Params.GenerateParamRows(se,se.M_SideEffectParam, onRefreshText, delegate { Initialize(see, ses, se, onRefreshText, onDeleteButtonClick); }, ParamRowContainer, CardPropertyFormRows, CardPropertyForm_SideEffectExecuteRows, delegate
+        CardEditorPanel_Params.GenerateParamRows(se, se.M_SideEffectParam, onRefreshText, delegate { Initialize(see, ses, se, onRefreshText, onDeleteButtonClick); }, ParamRowContainer, CardPropertyFormRows, CardPropertyForm_SideEffectExecuteRows, delegate
         {
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) ParamRowContainer));
             StartCoroutine(ClientUtils.UpdateLayout((RectTransform) UIManager.Instance.GetBaseUIForm<CardEditorPanel>().CardPropertiesContainer));

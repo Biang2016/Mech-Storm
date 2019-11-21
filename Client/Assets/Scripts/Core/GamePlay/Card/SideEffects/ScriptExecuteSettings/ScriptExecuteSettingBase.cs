@@ -11,7 +11,7 @@ public class ScriptExecuteSettingBase : SideEffectExecute.ExecuteSetting
         InitSideEffectParam();
     }
 
-    public ScriptExecuteSettingBase(string name, SortedDictionary<string, string> descRaws, SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, SideEffectExecute.TriggerTime removeTriggerTime, SideEffectExecute.TriggerRange removeTriggerRange, int removeTriggerTimes) : base(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes)
+    public ScriptExecuteSettingBase(string name, SortedDictionary<string, string> descRaws, SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange, int triggerTimes, int triggerDelayTimes, SideEffectExecute.TriggerTime removeTriggerTime, SideEffectExecute.TriggerRange removeTriggerRange, int removeTriggerTimes, int removeTriggerDelayTimes) : base(triggerTime, triggerRange, triggerTimes, triggerDelayTimes, removeTriggerTime, removeTriggerRange, removeTriggerTimes, removeTriggerDelayTimes)
     {
         Name = name;
         DescRaws = descRaws;
@@ -50,6 +50,11 @@ public class ScriptExecuteSettingBase : SideEffectExecute.ExecuteSetting
     }
 
     public virtual int LockedRemoveTriggerTimes
+    {
+        get { return UNLOCKED_EXECUTESETTING_TIMES; }
+    }
+
+    public virtual int LockedRemoveTriggerDelayTimes
     {
         get { return UNLOCKED_EXECUTESETTING_TIMES; }
     }
@@ -101,6 +106,7 @@ public class ScriptExecuteSettingBase : SideEffectExecute.ExecuteSetting
         copy.RemoveTriggerTime = RemoveTriggerTime;
         copy.RemoveTriggerRange = RemoveTriggerRange;
         copy.RemoveTriggerTimes = RemoveTriggerTimes;
+        copy.RemoveTriggerDelayTimes = RemoveTriggerDelayTimes;
         if (withChange) copy.M_SideEffectParam = M_SideEffectParam.CloneWithFactor();
         else copy.M_SideEffectParam = M_SideEffectParam.Clone();
         return copy;

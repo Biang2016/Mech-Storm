@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-public abstract class RequestBase
+﻿public abstract class RequestBase
 {
     public string ProtocolName => GetProtocol().ToString();
 

@@ -53,7 +53,7 @@ public class Affix : PoolObject
             {AffixType.Metal, MetalColor},
             {AffixType.Deck, DeckColor},
 
-            { AffixType.Aura, AuraColor},
+            {AffixType.Aura, AuraColor},
 
             {AffixType.Die, DieColor},
             {AffixType.BattleCry, BattleCryColor},
