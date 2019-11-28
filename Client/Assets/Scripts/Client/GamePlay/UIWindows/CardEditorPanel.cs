@@ -28,6 +28,7 @@ public class CardEditorPanel : BaseUIForm
         ResetCardButton.onClick.AddListener(ResetCard);
         DeleteCardButton.onClick.AddListener(DeleteCard);
         ReturnToGameButton.onClick.AddListener(ReturnToGame);
+        GoToStoryEditorButton.onClick.AddListener(GoToStoryEditor);
 
         LanguageManager.Instance.RegisterTextKeys(
             new List<(Text, string)>
@@ -35,6 +36,7 @@ public class CardEditorPanel : BaseUIForm
                 (CardEditorWindowText, "CardEditorPanel_CardEditorWindowText"),
                 (LanguageLabelText, "SettingMenu_Languages"),
                 (ReturnToGameButtonText, "SettingMenu_ReturnToGameText"),
+                (GoToStoryEditorButtonText, "SettingMenu_GoToStoryEditorButtonText"),
                 (CreateCardButtonText, "CardEditorPanel_CreateCardButtonText"),
                 (SaveCardButtonText, "CardEditorPanel_SaveCardButtonText"),
                 (ResetCardButtonText, "CardEditorPanel_ResetCardButtonText"),
@@ -114,6 +116,21 @@ public class CardEditorPanel : BaseUIForm
             rightButtonClick: delegate { cp.CloseUIForm(); });
     }
 
+    private void GoToStoryEditor()
+    {
+        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+        cp.Initialize(
+            LanguageManager.Instance.GetText("Notice_ReturnWarningSave"),
+            LanguageManager.Instance.GetText("Common_Yes"),
+            LanguageManager.Instance.GetText("Common_No"),
+            leftButtonClick: delegate
+            {
+                SceneManager.LoadScene("StoryEditorScene");
+                cp.CloseUIForm();
+            },
+            rightButtonClick: delegate { cp.CloseUIForm(); });
+    }
+
     [SerializeField] private Text CardEditorWindowText;
     [SerializeField] private Text CardTotalCountText;
     [SerializeField] private Text CardTotalCountNumberText;
@@ -121,6 +138,8 @@ public class CardEditorPanel : BaseUIForm
     [SerializeField] private Dropdown LanguageDropdown;
     [SerializeField] private Button ReturnToGameButton;
     [SerializeField] private Text ReturnToGameButtonText;
+    [SerializeField] private Button GoToStoryEditorButton;
+    [SerializeField] private Text GoToStoryEditorButtonText;
 
     #region Left CardProperties
 
@@ -1569,6 +1588,8 @@ public class CardEditorPanel : BaseUIForm
         }
 
         SetCardID(cardID.ToString(), false);
+        SetCardIsTemp("False", false);
+        SetCardIsHide("False", false);
     }
 
     public void SaveCard()

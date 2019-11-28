@@ -32,5 +32,10 @@ namespace SideEffects
             int dropCardCount = player.HandManager.DropCardType(dropCardType, new HashSet<int> {executorInfo.CardInstanceId});
             player.HandManager.GetTempCardByCardTypes(drawCardType, dropCardCount);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 10;
+        }
     }
 }

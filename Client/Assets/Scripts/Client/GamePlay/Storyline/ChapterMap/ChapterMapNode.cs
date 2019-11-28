@@ -170,22 +170,39 @@ public class ChapterMapNode : PoolObject
 
     public void SetLevel(Level level)
     {
-        Cur_Level = level;
-        LevelNameText.text = level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
-
-        if (level.LevelType != LevelTypes.Enemy)
+        if (level == null)
         {
-            LevelTypeText.text = Level.GetLevelTypeDesc(level.LevelType);
+            Cur_Level = null;
+            LevelNameText.text = "";
+            LevelTypeText.text = "";
+            LevelBadgeNum = 0;
+            DifficultyLevelText.text = "";
+            ClientUtils.ChangeImagePicture(PicImage, (int) AllCards.SpecialPicIDs.Empty);
         }
         else
         {
-            LevelTypeText.text = Level.GetLevelTypeDesc(level.LevelType) + " (" + Enemy.GetEnemyTypeDesc(((Enemy) level).EnemyType) + ")";
+            Cur_Level = level;
+            LevelNameText.text = level.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
+
+            if (level.LevelType != LevelTypes.Enemy)
+            {
+                LevelTypeText.text = Level.GetLevelTypeDesc(level.LevelType);
+            }
+            else
+            {
+                LevelTypeText.text = Level.GetLevelTypeDesc(level.LevelType) + " (" + Enemy.GetEnemyTypeDesc(((Enemy) level).EnemyType) + ")";
+            }
+
+            LevelBadgeNum = level.DifficultyLevel;
+            DifficultyLevelText.text = "Lv." + level.DifficultyLevel;
+
+            ClientUtils.ChangeImagePicture(PicImage, Cur_Level.LevelPicID);
         }
+    }
 
-        LevelBadgeNum = level.DifficultyLevel;
-        DifficultyLevelText.text = "Lv." + level.DifficultyLevel;
-
-        ClientUtils.ChangeImagePicture(PicImage, Cur_Level.LevelPicID);
+    public void ClearLevel()
+    {
+        SetLevel(null);
     }
 
     #region  LevelBadges

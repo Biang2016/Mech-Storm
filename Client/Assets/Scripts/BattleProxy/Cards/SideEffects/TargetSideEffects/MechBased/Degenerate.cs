@@ -86,5 +86,10 @@ namespace SideEffects
             MechCardInfoSyncRequest request = new MechCardInfoSyncRequest(mech.BattlePlayer.ClientId, mech.M_MechID, mech.CardInfo.Clone());
             mech.BattlePlayer.GameManager.Broadcast_AddRequestToOperationResponse(request);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 5;
+        }
     }
 }

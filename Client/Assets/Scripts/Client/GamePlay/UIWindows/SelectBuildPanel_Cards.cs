@@ -52,6 +52,17 @@ public partial class SelectBuildPanel
 
     void Init_Cards()
     {
+        if (CurrentBuildButtons.Count == 0)
+        {
+            if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single)
+            {
+                SetCardLimit(StoryManager.Instance.GetStory().Base_CardLimitDict);
+            }
+            else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
+            {
+                ShowAllOnlineCards();
+            }
+        }
     }
 
     private CardBase mouseLeftDownCard;

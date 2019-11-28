@@ -50,5 +50,10 @@ namespace SideEffects
                 TargetSelect,
                 executorInfo.TargetClientIds);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return M_SideEffectParam.GetParam_ConstInt("CardCount") * M_SideEffectParam.GetParam_MultipliedInt("CopyCount") * 3;
+        }
     }
 }

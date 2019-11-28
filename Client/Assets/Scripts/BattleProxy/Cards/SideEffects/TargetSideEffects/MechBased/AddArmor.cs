@@ -43,5 +43,10 @@
                 );
             }
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return M_SideEffectParam.GetParam_MultipliedInt("ArmorValue");
+        }
     }
 }

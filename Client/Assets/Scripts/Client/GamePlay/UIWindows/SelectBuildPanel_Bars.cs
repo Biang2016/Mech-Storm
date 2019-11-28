@@ -67,11 +67,19 @@ public partial class SelectBuildPanel
 
     void Start_Bars()
     {
+        BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
     }
 
     void Init_Bars()
     {
+        BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
         InitializeSliders();
+        ShowSliders(CurrentBuildButtons.Count != 0);
+        if (CurrentBuildButtons.Count != 0)
+        {
+            RefreshCoinLifeEnergy();
+            RefreshDrawCardNum();
+        }
     }
 
     void SetReadOnly_Bars(bool isReadOnly)

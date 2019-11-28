@@ -45,5 +45,10 @@ namespace SideEffects
 
             return false;
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 5;
+        }
     }
 }

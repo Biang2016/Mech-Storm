@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public partial class SelectBuildPanel : BaseUIForm
 {
-    public Camera CardCamera;
     [SerializeField] private Animator SelectWindowShowAnim;
     [SerializeField] private Transform LeftWindowTransform;
     [SerializeField] private Transform CenterWindowTransform;
@@ -141,41 +140,6 @@ public partial class SelectBuildPanel : BaseUIForm
         Init_Cards();
         Init_Build();
         Init_SelectCards();
-
-        ShowSliders(CurrentBuildButtons.Count != 0);
-        if (CurrentBuildButtons.Count != 0)
-        {
-            RefreshCoinLifeEnergy();
-            RefreshDrawCardNum();
-        }
-        else
-        {
-            if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single)
-            {
-                SetCardLimit(StoryManager.Instance.GetStory().Base_CardLimitDict);
-            }
-            else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
-            {
-                ShowAllOnlineCards();
-            }
-        }
-
-        if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single)
-        {
-            if (StoryManager.Instance.GetStory().PlayerBuildInfos.Count != 0)
-            {
-                int buildID = StoryManager.Instance.GetStory().PlayerBuildInfos.Keys.ToList()[0];
-                SwitchToBuildButton(buildID);
-            }
-        }
-        else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
-        {
-            if (CurrentBuildButtons.ContainsKey(OnlineManager.Instance.CurrentOnlineBuildID))
-            {
-                SwitchToBuildButton(OnlineManager.Instance.CurrentOnlineBuildID);
-            }
-        }
-
         IsInit = true;
     }
 }

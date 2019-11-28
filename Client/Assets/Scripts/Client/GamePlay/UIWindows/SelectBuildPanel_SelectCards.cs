@@ -47,12 +47,34 @@ public partial class SelectBuildPanel
 
     void Start_SelectCards()
     {
-        BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
     }
 
     void Init_SelectCards()
     {
-        BudgetIcon.SetActive(!LanguageManager.Instance.IsEnglish);
+        if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Single)
+        {
+            if (StoryManager.Instance.GetStory().PlayerBuildInfos.Count != 0)
+            {
+                int buildID = StoryManager.Instance.GetStory().PlayerBuildInfos.Keys.ToList()[0];
+                SwitchToBuildButton(buildID);
+            }
+        }
+        else if (SelectBuildManager.Instance.CurrentGameMode == SelectBuildManager.GameMode.Online)
+        {
+            if (CurrentBuildButtons.Count == 0)
+            {
+                CurrentEditBuildButton = null;
+                ShowAllOnlineCards();
+                UnSelectAllCard(SelectCardMethods.SwitchBuildButton);
+            }
+            else
+            {
+                if (CurrentBuildButtons.ContainsKey(OnlineManager.Instance.CurrentOnlineBuildID))
+                {
+                    SwitchToBuildButton(OnlineManager.Instance.CurrentOnlineBuildID);
+                }
+            }
+        }
     }
 
     void SetReadOnly_SelectCards(bool isReadOnly)
@@ -411,8 +433,18 @@ public partial class SelectBuildPanel
                 if (SelectedCards.ContainsKey(kv.Value.CardInfo.CardID)) continue;
                 if (SelectedHeroes.ContainsKey(kv.Value.CardInfo.CardID)) continue;
 
-                bool suc = SelectCard(kv.Value, SelectCardMethods.ButtonClick, buildLeftCoin);
-                if (suc) buildLeftCoin -= kv.Value.CardInfo.BaseInfo.Coin;
+                while (true)
+                {
+                    bool suc = SelectCard(kv.Value, SelectCardMethods.ButtonClick, buildLeftCoin);
+                    if (suc)
+                    {
+                        buildLeftCoin -= kv.Value.CardInfo.BaseInfo.Coin;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             SortSelectCards();

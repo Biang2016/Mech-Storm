@@ -167,7 +167,7 @@ public class GameProxy
                             clientA.BuildInfo.BeginMetal = 10;
 
                             int AI_ClientId = 998;
-                            BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", null);
+                            BattleProxy clientB = new BattleProxyAI(AI_ClientId, "CustomAI", (Enemy) AllLevels.LevelDict[LevelTypes.Enemy]["CustomEnemy"].Clone(), true);
                             clientB.BuildInfo = ((Enemy) AllLevels.LevelDict[LevelTypes.Enemy]["CustomEnemy"]).BuildInfo.Clone();
                             CurrentBattle = new Battle(clientA, clientB, DebugLog, null);
                             DebugLog.PrintServerStates("Player " + clientA.ClientID + " and AI:" + clientB.ClientID + " begin game");
@@ -181,7 +181,7 @@ public class GameProxy
                                 BattleProxy clientA = BattleProxy;
 
                                 int AI_ClientId = 998;
-                                BattleProxy clientB = new BattleProxyAI(AI_ClientId, "StoryAI", enemy);
+                                BattleProxy clientB = new BattleProxyAI(AI_ClientId, "StoryAI", enemy, false);
                                 clientB.BuildInfo = enemy.BuildInfo.Clone();
 
                                 CurrentBattle = new Battle(clientA, clientB, DebugLog, delegate(int winnerClientID, BattleStatistics battleStatistics_ClientA, BattleStatistics battleStatistics_ClientB)

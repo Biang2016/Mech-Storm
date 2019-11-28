@@ -30,5 +30,10 @@
                 TargetSelect,
                 executorInfo.TargetClientIds);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 5;
+        }
     }
 }

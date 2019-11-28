@@ -92,7 +92,7 @@ internal class Battle_HandManager
         {
             if (card is CardSpell spellCard)
             {
-                if (spellCard.M_CardInstanceId != exceptCardInstanceID && spellCard.CardInfo.TargetInfo.HasNoTarget)
+                if (spellCard.M_CardInstanceId != exceptCardInstanceID && !spellCard.CardInfo.TargetInfo.HasTarget)
                 {
                     spellCards.Add(spellCard);
                 }
@@ -137,6 +137,19 @@ internal class Battle_HandManager
         {
             OnPlayerGetCard(cardID, newCard.M_CardInstanceId);
         }
+    }
+
+    internal CardBase SelectHandCardByCardID(int cardID)
+    {
+        foreach (CardBase cardBase in Cards)
+        {
+            if (cardBase.CardInfo.CardID == cardID)
+            {
+                return cardBase;
+            }
+        }
+
+        return null;
     }
 
     internal void GetTempCardByCardTypes(CardFilterTypes cardFilterTypes, int count)

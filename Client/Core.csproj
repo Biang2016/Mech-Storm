@@ -133,6 +133,8 @@
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\Bonus\BonusGroup.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\BuildGroup.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\BuildStoryDatabase.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Components\CardCombo.cs" />
+    <Compile Include="Assets\Scripts\Core\GamePlay\Story\Components\CardPriority.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\Components\Chapter.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\Components\Enemy.cs" />
     <Compile Include="Assets\Scripts\Core\GamePlay\Story\Components\EnemyType.cs" />

@@ -102,7 +102,7 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
     public Chapter Variant()
     {
         SortedDictionary<int, Level> levels = RandomizeLevelPosition();
-        SortedDictionary<int, HashSet<int>> routes = GenerateMazeRoutesByAllRoutes();
+        SortedDictionary<int, HashSet<int>> routes = GenerateMazeRoutesByAllRoutes(levels);
         SortedDictionary<int, HashSet<int>> allRoutes = new SortedDictionary<int, HashSet<int>>();
         foreach (KeyValuePair<int, HashSet<int>> kv in AllRoutes)
         {
@@ -118,23 +118,22 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         return new Chapter(ChapterID, CloneVariantUtils.SortedDictionary(ChapterNames), levels, ChapterMapRoundCount, allRoutes, routes: routes);
     }
 
-    private SortedDictionary<int, HashSet<int>> GenerateMazeRoutesByAllRoutes() // 根据AllRoutes中提供的图信息，随机生成具有连通性的迷宫，写入Routes中
+    private SortedDictionary<int, HashSet<int>> GenerateMazeRoutesByAllRoutes(SortedDictionary<int, Level> levels) // 根据AllRoutes中提供的图信息，随机生成具有连通性的迷宫，写入Routes中
     {
         int startPoint = 0;
         SortedDictionary<int, HashSet<int>> newRoutes = new SortedDictionary<int, HashSet<int>>();
         if (AllRoutes.Count != 0)
         {
-            // 生成树算法
-            int nodeCount = AllRoutes.Count;
+            // MST algorithm
             HashSet<int> curNodes = new HashSet<int> {startPoint};
             HashSet<int> adNodes = new HashSet<int>();
-            while (curNodes.Count != nodeCount)
+            while (curNodes.Count != levels.Count)
             {
                 foreach (int i in curNodes)
                 {
                     foreach (int ad_node in AllRoutes[i])
                     {
-                        if (!curNodes.Contains(ad_node))
+                        if (!curNodes.Contains(ad_node) && levels.ContainsKey(ad_node))
                         {
                             adNodes.Add(ad_node);
                         }
@@ -179,9 +178,9 @@ public class Chapter : IClone<Chapter>, IVariant<Chapter>
         return newRoutes;
     }
 
-    private SortedDictionary<int, Level> RandomizeLevelPosition() // 将各关卡依据等级信息，随机布置到章节地图中
+    private SortedDictionary<int, Level> RandomizeLevelPosition()
     {
-        //todo
+        //todo 将各关卡依据等级信息，随机布置到章节地图中
         foreach (KeyValuePair<int, Level> kv in Levels)
         {
             kv.Value.LevelID = kv.Key;

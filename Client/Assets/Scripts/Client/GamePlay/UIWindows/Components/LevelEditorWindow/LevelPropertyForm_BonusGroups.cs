@@ -85,7 +85,7 @@ public class LevelPropertyForm_BonusGroups : PropertyFormRow
             M_BonusGroups.Add(bg_row);
         }
 
-        UIManager.Instance.GetBaseUIForm<LevelEditorPanel>().StartCoroutine(Co_refresh);
+        StartCoroutine(Co_refresh);
     }
 
     public void OnLanguageChange()

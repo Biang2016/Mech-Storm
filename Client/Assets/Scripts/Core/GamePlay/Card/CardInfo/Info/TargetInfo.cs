@@ -7,9 +7,9 @@ public struct TargetInfo
     public bool HasTargetEquip;
     public bool HasTargetShip;
 
-    public bool HasNoTarget
+    public bool HasTarget
     {
-        get { return !HasTargetMech && !HasTargetEquip && !HasTargetShip; }
+        get { return HasTargetMech || HasTargetEquip || HasTargetShip; }
     }
 
     public TargetRange targetMechRange;
@@ -44,27 +44,25 @@ public struct TargetInfo
                 {
                     HasTargetEquip = true;
                     targetEquipRange = ((TargetSideEffectEquip) tse).TargetRange;
-                    return true;
                 }
                 else
                 {
                     TargetRange temp = tse.TargetRange;
-                    if ((temp & TargetRange.Ships) == TargetRange.None)
-                    {
-                        HasTargetMech = true;
-                        targetMechRange = tse.TargetRange;
-                        return true;
-                    }
-                    else
+                    if ((temp & TargetRange.Ships) != TargetRange.None || (temp & TargetRange.Decks) != TargetRange.None)
                     {
                         HasTargetShip = true;
-                        targetShipRange = tse.TargetRange;
-                        return true;
+                        targetShipRange = temp;
+                    }
+
+                    if ((temp & TargetRange.Mechs) != TargetRange.None)
+                    {
+                        HasTargetMech = true;
+                        targetMechRange = temp;
                     }
                 }
             }
         }
 
-        return false;
+        return HasTarget;
     }
 }

@@ -67,13 +67,35 @@ public class CardInfo_Base : IClone<CardInfo_Base>
         }
     }
 
+    /// <summary>
+    /// If Bias is positive, beneficial to self. If Bias is negative, harmful to self.
+    /// </summary>
+    /// <returns></returns>
+    public int GetCardUseBias()
+    {
+        int bias = 0;
+        foreach (SideEffectExecute see in SideEffectBundle.SideEffectExecutes)
+        {
+            foreach (SideEffectBase se in see.SideEffectBases)
+            {
+                if (se is ISideEffectFunctions sef)
+                {
+                    bias += sef.GetSideEffectFunctionBias();
+                }
+
+            }
+        }
+
+        return bias;
+    }
+
     protected void Pro_Initialize()
     {
         if (EquipInfo.SlotType != SlotTypes.None)
         {
             BaseInfo.DragPurpose = DragPurpose.Equip;
         }
-        else if (TargetInfo.HasNoTarget || BaseInfo.CardType == CardTypes.Mech)
+        else if (!TargetInfo.HasTarget || BaseInfo.CardType == CardTypes.Mech)
         {
             BaseInfo.DragPurpose = DragPurpose.Summon;
         }

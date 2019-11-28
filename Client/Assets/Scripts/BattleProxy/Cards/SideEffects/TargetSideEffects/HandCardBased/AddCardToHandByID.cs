@@ -53,5 +53,18 @@
         {
             return (SideEffectValue_ConstInt) M_SideEffectParam.GetParam("CardID");
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            CardInfo_Base card = AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("CardID"));
+            if (card != null)
+            {
+                return card.GetCardUseBias() + 3;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

@@ -73,5 +73,10 @@ namespace SideEffects
                 }
             }
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 0;
+        }
     }
 }

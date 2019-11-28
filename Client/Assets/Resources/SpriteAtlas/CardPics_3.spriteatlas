@@ -42,14 +42,66 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: ea5c7147563245d4ab83b5fe3604db31, type: 3}
-    totalSpriteSurfaceArea: 113152
+    totalSpriteSurfaceArea: 1584128
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 348310104fce1d6408b63ddd4e78f19f, type: 3}
+  - {fileID: 21300000, guid: 51f353d026d89d642ad0f6adecab5792, type: 3}
+  - {fileID: 21300000, guid: 502dddc149ac5064980e6b988a1cbe3b, type: 3}
+  - {fileID: 21300000, guid: 858d3863f1e8ed049972524b0e78e113, type: 3}
+  - {fileID: 21300000, guid: 06a6bc73ebf58a7439e06e7156f3ca0f, type: 3}
+  - {fileID: 21300000, guid: 6d1e39e426539d745b3a6a9979705bb7, type: 3}
+  - {fileID: 21300000, guid: e86743f46eeccf841ba49dcac51af31a, type: 3}
+  - {fileID: 21300000, guid: e5855605a77d2324b896cc77fee94ae7, type: 3}
+  - {fileID: 21300000, guid: e89b7225f5e5afb4e9c1919d58e290bd, type: 3}
+  - {fileID: 21300000, guid: 4021f606a61ffc9498e90a4e8eb30a63, type: 3}
+  - {fileID: 21300000, guid: bd5779a6b4ea0584589c59109207ddde, type: 3}
+  - {fileID: 21300000, guid: 7210acf6400803c44a91e0688ca5c5ac, type: 3}
+  - {fileID: 21300000, guid: d770ee98e6bf88c4dbf736ac00a95a91, type: 3}
+  - {fileID: 21300000, guid: 96ae7829689d69d45856b4de09392750, type: 3}
+  - {fileID: 21300000, guid: ad7737b91a536724cb3a147ff8c7eaed, type: 3}
+  - {fileID: 21300000, guid: 473db9c9a794a474888d7a0d40ea2a4e, type: 3}
+  - {fileID: 21300000, guid: d277678afcd1591449f213b34113387e, type: 3}
+  - {fileID: 21300000, guid: 72d51beb5f621dc4dbc0e97e009db5c1, type: 3}
+  - {fileID: 21300000, guid: 702913fbf5b92174d9cccc74a4db7f07, type: 3}
+  - {fileID: 21300000, guid: a727792cd0add8949988aef50429bdc3, type: 3}
+  - {fileID: 21300000, guid: 39a32a4cffe566f4aa519ea36a47b61d, type: 3}
+  - {fileID: 21300000, guid: 40e09e5c0b6b379458578c77d6ace155, type: 3}
+  - {fileID: 21300000, guid: 3536f6dcd2e27f94296bf784bc9a79eb, type: 3}
   - {fileID: 21300000, guid: b41c115d27d96a141a08d155356c01b6, type: 3}
+  - {fileID: 21300000, guid: 9c2f7e8d24e8e8840ad79136a68f9c88, type: 3}
+  - {fileID: 21300000, guid: 8cc00dcde2bdb3241ba1959d70882854, type: 3}
   - {fileID: 21300000, guid: 3b2a058f604f5824d8156eb8477e9cf1, type: 3}
+  - {fileID: 21300000, guid: 9f2b5c8fc20cc7449b765da50d41e4ac, type: 3}
   m_PackedSpriteNamesToIndex:
+  - 302
+  - 352
+  - 370
+  - 356
+  - 360
+  - 364
+  - 357
+  - 366
+  - 361
+  - 303
+  - 365
+  - 371
+  - 368
+  - 351
+  - 359
+  - 362
+  - 353
+  - 367
+  - 305
+  - 355
+  - 363
+  - 369
+  - 301
   - 350
+  - 372
+  - 304
   - 300
+  - 358
   m_Tag: CardPics_3
   m_IsVariant: 0

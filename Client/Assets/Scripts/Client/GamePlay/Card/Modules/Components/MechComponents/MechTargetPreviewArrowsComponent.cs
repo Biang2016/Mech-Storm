@@ -7,7 +7,6 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
     [SerializeField] private Animator TargetArrowsAnim;
     [SerializeField] private SpriteRenderer SniperTargetImage;
     [SerializeField] private TextMeshPro DamagePreviewBG;
-    [SerializeField] private TextMeshPro DamagePreview; //受攻击瞄准时的伤害预览
     [SerializeField] private TextMeshPro DefenderText;
     [SerializeField] private TextMeshPro SniperText;
 
@@ -67,14 +66,12 @@ public class MechTargetPreviewArrowsComponent : MechComponentBase
 
         SniperTargetImage.sortingOrder = cardSortingIndex * 50 + SniperTargetImageDefaultSortingOrder;
         DamagePreviewBG.sortingOrder = cardSortingIndex * 50 + DamagePreviewDefaultSortingOrder;
-        DamagePreview.sortingOrder = cardSortingIndex * 50 + DamagePreviewDefaultSortingOrder;
         DefenderText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
         SniperText.sortingOrder = cardSortingIndex * 50 + TextDefaultSortingOrder;
     }
 
     public void SetDamagePreviewText(string text)
     {
-        DamagePreview.text = text;
         DamagePreviewBG.text = text;
     }
 

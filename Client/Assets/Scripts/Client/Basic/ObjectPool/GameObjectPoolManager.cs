@@ -89,6 +89,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         LevelPropertyForm_BonusGroup,
         LevelPropertyForm_Bonus,
         LevelPropertyForm_BonusTypeDropdown,
+        LevelEditorPanel_CardRow,
+        LevelEditorPanel_CardCombo,
 
         StoryPropertyForm_GamePlaySettings,
         StoryPropertyForm_Chapters,
@@ -186,6 +188,8 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {PrefabNames.LevelPropertyForm_BonusGroup, 5},
         {PrefabNames.LevelPropertyForm_Bonus, 5},
         {PrefabNames.LevelPropertyForm_BonusTypeDropdown, 1},
+        {PrefabNames.LevelEditorPanel_CardRow, 5},
+        {PrefabNames.LevelEditorPanel_CardCombo, 3},
 
         {PrefabNames.StoryPropertyForm_GamePlaySettings, 1},
         {PrefabNames.StoryPropertyForm_Chapters, 1},
@@ -247,6 +251,23 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         foreach (KeyValuePair<PrefabNames, GameObjectPool> kv in PoolDict)
         {
             kv.Value.OptimizePool();
+        }
+    }
+
+    public void RefreshAllRecycledPoolObjectPosition()
+    {
+        foreach (KeyValuePair<PrefabNames, GameObjectPool> kv in PoolDict)
+        {
+            kv.Value.RefreshRecycledPoolObjectPosition();
+        }
+        
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            RefreshAllRecycledPoolObjectPosition();
         }
     }
 }

@@ -8,47 +8,46 @@
   </Card>
   <Card id="0">
     <CardInfo name="baseInfo" pictureID="78" cardName_en="Discarded Robot" cardName_zh="废弃机器人" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="3" cardRareLevel="1" shopPrice="12" cardType="Mech" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="upgradeInfo" upgradeCardID="20" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="1" CardCount="1" />
+        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="3" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="1">
-    <CardInfo name="baseInfo" pictureID="710" cardName_en="Tiny Energy" cardName_zh="微小能量" isTemp="True" isHide="True" metal="0" energy="0" coin="0" limitNum="1" cardRareLevel="0" shopPrice="100" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="68" cardName_en="Training Bot" cardName_zh="训练机器人" isTemp="False" isHide="True" metal="1" energy="0" coin="0" limitNum="1" cardRareLevel="1" shopPrice="5" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="2" totalLife="2" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
-      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
-          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="True" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnPlayCard" removeTriggerRange="SelfPlayer" removeTriggerTimes="5" removeTriggerDelayTimes="1">
-            <SideEffect name="AddCardToHandByID" TargetSelect="All" TargetRange="Decks" ChoiceCount="1" CardID="1" CardCount="1" />
-          </Buff>
-        </SideEffect>
+      <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
+        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="2">
     <CardInfo name="baseInfo" pictureID="79" cardName_en="Discarded Lord" cardName_zh="废弃领主" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="2" cardRareLevel="1" shopPrice="25" cardType="Mech" />
-    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="upgradeInfo" upgradeCardID="5" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
-      <SideEffectExecute ExecuteSettingTypes="Scripts" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="0" removeTriggerDelayTimes="0" ScriptName="OnPlaySpecifiedCardByID" CardID="1">
+      <SideEffectExecute ExecuteSettingTypes="Scripts" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="0" removeTriggerDelayTimes="0" ScriptName="OnPlaySpecifiedCardByID" CardID="3">
         <SideEffect name="Heal" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
   <Card id="3">
-    <CardInfo name="baseInfo" pictureID="600" cardName_en="123" cardName_zh="123" isTemp="False" isHide="False" metal="0" energy="0" coin="0" limitNum="1" cardRareLevel="0" shopPrice="100" cardType="Energy" />
+    <CardInfo name="baseInfo" pictureID="600" cardName_en="Tiny Impulse" cardName_zh="微小脉冲" isTemp="True" isHide="True" metal="0" energy="0" coin="25" limitNum="3" cardRareLevel="1" shopPrice="5" cardType="Spell" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
@@ -56,5 +55,328 @@
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="4">
+    <CardInfo name="baseInfo" pictureID="710" cardName_en="Energy Seed" cardName_zh="能量种子" isTemp="False" isHide="False" metal="1" energy="0" coin="25" limitNum="1" cardRareLevel="0" shopPrice="40" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="True" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnPlayCard" removeTriggerRange="SelfPlayer" removeTriggerTimes="5" removeTriggerDelayTimes="1">
+            <SideEffect name="AddCardToHandByID" TargetSelect="All" TargetRange="Decks" ChoiceCount="1" CardID="3" CardCount="1" />
+          </Buff>
+        </SideEffect>
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="5">
+    <CardInfo name="baseInfo" pictureID="79" cardName_en="Discarded Lord" cardName_zh="废弃领主" isTemp="False" isHide="False" metal="2" energy="0" coin="150" limitNum="2" cardRareLevel="2" shopPrice="30" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="2" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="5" totalLife="5" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="Scripts" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="0" removeTriggerDelayTimes="0" ScriptName="OnPlaySpecifiedCardByID" CardID="3">
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="3" />
+      </SideEffectExecute>
+    </CardInfo>
+  </Card>
+  <Card id="6">
+    <CardInfo name="baseInfo" pictureID="632" cardName_en="Attack" cardName_zh="攻击" isTemp="False" isHide="False" metal="0" energy="3" coin="25" limitNum="3" cardRareLevel="1" shopPrice="15" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="2" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="7">
+    <CardInfo name="baseInfo" pictureID="894" cardName_en="Energy Supply" cardName_zh="能源供给" isTemp="False" isHide="False" metal="1" energy="0" coin="25" limitNum="3" cardRareLevel="1" shopPrice="5" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="8" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="2" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="8">
+    <CardInfo name="baseInfo" pictureID="894" cardName_en="Energy Supply" cardName_zh="能源供给" isTemp="False" isHide="False" metal="1" energy="0" coin="75" limitNum="3" cardRareLevel="1" shopPrice="10" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="9" degradeCardID="7" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="3" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="9">
+    <CardInfo name="baseInfo" pictureID="894" cardName_en="Energy Supply" cardName_zh="能源供给" isTemp="False" isHide="False" metal="1" energy="0" coin="150" limitNum="3" cardRareLevel="1" shopPrice="15" cardType="Energy" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="8" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="5" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="10">
+    <CardInfo name="baseInfo" pictureID="634" cardName_en="Counter Attack" cardName_zh="反击" isTemp="False" isHide="False" metal="0" energy="2" coin="25" limitNum="3" cardRareLevel="1" shopPrice="15" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="3" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="11">
+    <CardInfo name="baseInfo" pictureID="89" cardName_en="Mercy" cardName_zh="天使" isTemp="False" isHide="False" metal="3" energy="5" coin="300" limitNum="1" cardRareLevel="2" shopPrice="35" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="4" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnSoldierInjured" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
+        <SideEffect name="AddShield" TargetSelect="SingleRandom" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="1" />
+      </SideEffectExecute>
+    </CardInfo>
+  </Card>
+  <Card id="12">
+    <CardInfo name="baseInfo" pictureID="82" cardName_en="Zaku (Char)" cardName_zh="扎古夏亚专用机" isTemp="False" isHide="False" metal="3" energy="0" coin="150" limitNum="1" cardRareLevel="3" shopPrice="30" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="3" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="BattleCry">
+        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="13">
+    <CardInfo name="baseInfo" pictureID="100" cardName_en="Heat Axe" cardName_zh="热能斧" isTemp="False" isHide="False" metal="1" energy="3" coin="50" limitNum="3" cardRareLevel="2" shopPrice="18" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="EquipBattleCry">
+        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="14">
+    <CardInfo name="baseInfo" pictureID="350" cardName_en="Basic Shield" cardName_zh="基础盾牌" isTemp="False" isHide="False" metal="2" energy="0" coin="100" limitNum="3" cardRareLevel="2" shopPrice="20" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="15" degradeCardID="-1" />
+    <CardInfo name="shieldInfo" armor="4" shield="0" shieldType="Armor" isDefense="False" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="15">
+    <CardInfo name="baseInfo" pictureID="350" cardName_en="Charge Shield" cardName_zh="充能盾牌" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="2" shopPrice="40" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="14" />
+    <CardInfo name="shieldInfo" armor="3" shield="0" shieldType="Armor" isDefense="False" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
+        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="16">
+    <CardInfo name="baseInfo" pictureID="54" cardName_en="Supply Mech" cardName_zh="战场工兵" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="3" cardRareLevel="1" shopPrice="5" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="BattleCry">
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" HealValue="1" />
+        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="17">
+    <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom" cardName_zh="大魔" isTemp="False" isHide="False" metal="3" energy="0" coin="150" limitNum="2" cardRareLevel="2" shopPrice="20" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="BattleCry">
+        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="18" NumberOfSummon="1" />
+        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="19" NumberOfSummon="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="18">
+    <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom-Attack" cardName_zh="大魔-攻击" isTemp="True" isHide="True" metal="2" energy="0" coin="150" limitNum="2" cardRareLevel="2" shopPrice="20" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="2" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="19">
+    <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom-Defense" cardName_zh="大魔-防守" isTemp="True" isHide="True" metal="2" energy="0" coin="150" limitNum="2" cardRareLevel="2" shopPrice="20" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="2" basicArmor="1" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="20">
+    <CardInfo name="baseInfo" pictureID="78" cardName_en="Discarded Robot" cardName_zh="废弃机器人" isTemp="False" isHide="False" metal="1" energy="0" coin="100" limitNum="3" cardRareLevel="1" shopPrice="18" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="0" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="1" totalLife="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
+        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="3" CardCount="2" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="21">
+    <CardInfo name="baseInfo" pictureID="605" cardName_en="Battle Loot" cardName_zh="战场战利品" isTemp="False" isHide="False" metal="0" energy="0" coin="25" limitNum="3" cardRareLevel="1" shopPrice="10" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="2" totalLife="2" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
+        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="4" CardCount="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="22">
+    <CardInfo name="baseInfo" pictureID="94" cardName_en="Doom Fist" cardName_zh="铁拳" isTemp="False" isHide="False" metal="3" energy="0" coin="150" limitNum="3" cardRareLevel="2" shopPrice="25" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
+        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="3" />
+      </SideEffectExecute>
+    </CardInfo>
+  </Card>
+  <Card id="23">
+    <CardInfo name="baseInfo" pictureID="87" cardName_en="Illidan" cardName_zh="伊利丹" isTemp="False" isHide="False" metal="7" energy="12" coin="400" limitNum="1" cardRareLevel="3" shopPrice="45" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="20" totalLife="20" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="3" basicArmor="5" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="24">
+    <CardInfo name="baseInfo" pictureID="91" cardName_en="Rathma" cardName_zh="亡灵法师" isTemp="False" isHide="False" metal="7" energy="0" coin="150" limitNum="1" cardRareLevel="2" shopPrice="28" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="Shield" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="10" totalLife="10" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechDie" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
+        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="0" NumberOfSummon="1" />
+      </SideEffectExecute>
+    </CardInfo>
+  </Card>
+  <Card id="25">
+    <CardInfo name="baseInfo" pictureID="97" cardName_en="Dungeon Army" cardName_zh="地下城军团" isTemp="False" isHide="False" metal="3" energy="0" coin="200" limitNum="3" cardRareLevel="1" shopPrice="15" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="2" totalLife="2" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="26">
+    <CardInfo name="baseInfo" pictureID="103" cardName_en="Dagger" cardName_zh="匕首" isTemp="False" isHide="False" metal="1" energy="3" coin="50" limitNum="3" cardRareLevel="1" shopPrice="12" cardType="Equip" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="weaponInfo" energy="1" energyMax="2" attack="0" weaponType="Sword" isSentry="False" isFrenzy="False" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="27">
+    <CardInfo name="baseInfo" pictureID="71" cardName_en="Hawk Scorpion" cardName_zh="鹰角蝎" isTemp="False" isHide="False" metal="3" energy="2" coin="100" limitNum="3" cardRareLevel="2" shopPrice="18" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="28" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="28">
+    <CardInfo name="baseInfo" pictureID="71" cardName_en="Hawk Scorpion" cardName_zh="鹰角蝎" isTemp="False" isHide="False" metal="3" energy="2" coin="150" limitNum="3" cardRareLevel="2" shopPrice="18" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="27" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="29">
+    <CardInfo name="baseInfo" pictureID="69" cardName_en="Red Lotus Killer" cardName_zh="红莲杀手" isTemp="False" isHide="False" metal="2" energy="2" coin="125" limitNum="2" cardRareLevel="2" shopPrice="18" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="3" totalLife="3" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
+        <SideEffect name="MechDealExtraDamageToTargetUseEnergy" Energy="1" Damage="3" />
+      </SideEffectExecute>
+    </CardInfo>
+  </Card>
+  <Card id="30">
+    <CardInfo name="baseInfo" pictureID="632" cardName_en="Attack" cardName_zh="攻击" isTemp="False" isHide="False" metal="0" energy="0" coin="25" limitNum="3" cardRareLevel="1" shopPrice="15" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="100" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="5230">
+    <CardInfo name="baseInfo" pictureID="81" cardName_en="TMK-35" cardName_zh="TMK-35" isTemp="False" isHide="False" metal="5" energy="0" coin="150" limitNum="3" cardRareLevel="1" shopPrice="24" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="6" totalLife="6" />
+    <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="BattleCry">
+        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="1" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="5250">
+    <CardInfo name="baseInfo" pictureID="73" cardName_en="North Guardian" cardName_zh="北方守护" isTemp="False" isHide="False" metal="7" energy="3" coin="100" limitNum="3" cardRareLevel="3" shopPrice="44" cardType="Mech" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="lifeInfo" life="7" totalLife="7" />
+    <CardInfo name="battleInfo" basicAttack="0" basicShield="1" basicArmor="0" />
+    <CardInfo name="sideEffectsBundle" />
+    <CardInfo name="sideEffectsBundle_Aura">
+      <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
+        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+      </SideEffectExecute>
+    </CardInfo>
   </Card>
 </AllCards>

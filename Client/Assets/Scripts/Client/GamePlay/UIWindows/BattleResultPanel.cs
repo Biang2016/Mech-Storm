@@ -265,9 +265,21 @@ internal class BattleResultPanel : BaseUIForm
             {
                 foreach (Bonus bonus in bg.Bonuses)
                 {
-                    SmallBonusItem sbi = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallBonusItem].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
-                    sbi.Initialize(bonus);
-                    M_CurrentFixedBonusItems.Add(sbi);
+                    if (bonus is Bonus_BudgetLifeEnergyMixed b_Mixed)
+                    {
+                        foreach (Bonus b in b_Mixed.GetBonusListFromBonusComb(b_Mixed.GetBudgetLifeEnergyComb(new List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb>())))
+                        {
+                            SmallBonusItem _sbi = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallBonusItem].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
+                            _sbi.Initialize(b);
+                            M_CurrentFixedBonusItems.Add(_sbi);
+                        }
+                    }
+                    else
+                    {
+                        SmallBonusItem sbi = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallBonusItem].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
+                        sbi.Initialize(bonus);
+                        M_CurrentFixedBonusItems.Add(sbi);
+                    }
                 }
             }
 
@@ -306,6 +318,7 @@ internal class BattleResultPanel : BaseUIForm
         }
 
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(true), "Co_OnGameStopByWin");
+        GameObjectPoolManager.Instance.RefreshAllRecycledPoolObjectPosition();
     }
 
     #endregion
@@ -345,6 +358,7 @@ internal class BattleResultPanel : BaseUIForm
         }
 
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_OnGameStopByWin(false), "Co_OnGameStopByWin");
+        GameObjectPoolManager.Instance.RefreshAllRecycledPoolObjectPosition();
     }
 
     public void OnGoAheadButtonClick()

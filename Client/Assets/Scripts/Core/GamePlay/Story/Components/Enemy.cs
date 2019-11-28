@@ -6,18 +6,22 @@ public class Enemy : Level
     public BuildInfo BuildInfo;
     public EnemyType EnemyType;
     public List<BonusGroup> BonusGroups;
+    public List<CardCombo> CardComboList; // sorted by combo priority
+    public CardPriority CardPriority;
 
-    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType, List<BonusGroup> bonusGroups)
+    public Enemy(int levelPicID, SortedDictionary<string, string> levelNames, int difficultyLevel, BuildInfo buildInfo, EnemyType enemyType, List<BonusGroup> bonusGroups, List<CardCombo> cardComboList, CardPriority cardPriority)
         : base(LevelTypes.Enemy, levelPicID, levelNames, difficultyLevel)
     {
         BuildInfo = buildInfo;
         EnemyType = enemyType;
         BonusGroups = bonusGroups;
+        CardComboList = cardComboList;
+        CardPriority = cardPriority;
     }
 
     public override Level Clone()
     {
-        Enemy enemy = new Enemy(LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, BuildInfo.Clone(), EnemyType, CloneVariantUtils.List(BonusGroups));
+        Enemy enemy = new Enemy(LevelPicID, CloneVariantUtils.SortedDictionary(LevelNames), DifficultyLevel, BuildInfo.Clone(), EnemyType, CloneVariantUtils.List(BonusGroups), CloneVariantUtils.List(CardComboList), CardPriority);
         enemy.LevelID = LevelID;
         return enemy;
     }
@@ -58,6 +62,16 @@ public class Enemy : Level
         {
             bg.ExportToXML(bonusGroupInfos_ele);
         }
+
+        CardPriority.ExportToXML(enemy_ele);
+
+        XmlElement cardComboList_ele = doc.CreateElement("CardComboList");
+        enemy_ele.AppendChild(cardComboList_ele);
+
+        foreach (CardCombo cc in CardComboList)
+        {
+            cc.ExportToXML(cardComboList_ele);
+        }
     }
 
     public override void Serialize(DataStream writer)
@@ -70,6 +84,14 @@ public class Enemy : Level
         foreach (BonusGroup bonus in BonusGroups)
         {
             bonus.Serialize(writer);
+        }
+
+        CardPriority.Serialize(writer);
+
+        writer.WriteSInt32(CardComboList.Count);
+        foreach (CardCombo cc in CardComboList)
+        {
+            cc.Serialize(writer);
         }
     }
 

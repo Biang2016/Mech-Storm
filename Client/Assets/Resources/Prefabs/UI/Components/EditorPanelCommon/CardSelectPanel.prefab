@@ -96,6 +96,7 @@ MonoBehaviour:
   SelectOneOfEachButtonLabel: {fileID: 8801124186826818492}
   MaskPanelForCardLibrary: {fileID: 231417794518838872}
   CardLibraryGridLayout: {fileID: 2554270681484186854}
+  MouseDragCardContainer: {fileID: 0}
 --- !u!1 &776755163100610242
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,5 +29,10 @@
                 ci.M_Energy -= M_SideEffectParam.GetParam_MultipliedInt("DecValue");
             }
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 0;
+        }
     }
 }

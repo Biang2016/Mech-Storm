@@ -33,5 +33,10 @@
                 }
             }
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 5;
+        }
     }
 }

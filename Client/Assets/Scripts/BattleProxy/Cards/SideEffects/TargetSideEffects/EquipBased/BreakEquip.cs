@@ -21,5 +21,10 @@ namespace SideEffects
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.RemoveEquipByEquipID(executorInfo.TargetEquipIds[0]);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return -5;
+        }
     }
 }

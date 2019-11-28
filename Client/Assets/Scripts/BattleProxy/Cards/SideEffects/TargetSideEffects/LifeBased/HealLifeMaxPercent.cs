@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace SideEffects
 {
@@ -49,6 +50,11 @@ namespace SideEffects
                     executorInfo.TargetMechIds
                 );
             }
+        }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return Mathf.RoundToInt(M_SideEffectParam.GetParam_MultipliedInt("Percent") / 10f) * 3;
         }
     }
 }

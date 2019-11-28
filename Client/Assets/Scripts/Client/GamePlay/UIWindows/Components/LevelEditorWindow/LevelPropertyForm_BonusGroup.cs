@@ -61,7 +61,9 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
             {
                 My_BonusGroupPropertyForm_BonusTypeDropdown.Remove(btd);
                 btd.PoolRecycle();
-            }, onAddBonusType: delegate(Bonus.BonusTypes type)
+                Refresh();
+            },
+                onAddBonusType: delegate(Bonus.BonusTypes type)
             {
                 My_BonusGroupPropertyForm_BonusTypeDropdown.Remove(btd);
                 btd.PoolRecycle();

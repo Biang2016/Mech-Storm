@@ -115,7 +115,20 @@ public class AllLevels
                     BonusGroups.Add(bg);
                 }
 
-                Enemy enemy = new Enemy(picID, names, difficultyLevel, bi, enemyType, BonusGroups);
+                XmlNode node_CardPriorityInfos = node_EnemyInfo.ChildNodes.Item(2);
+                CardPriority CardPriority = CardPriority.GenerateCardPriorityFromXML(node_CardPriorityInfos, out bool _needRefresh_priority);
+
+                XmlNode node_ComboListInfos = node_EnemyInfo.ChildNodes.Item(3);
+                List<CardCombo> ComboList = new List<CardCombo>();
+                for (int i = 0; i < node_ComboListInfos.ChildNodes.Count; i++)
+                {
+                    XmlNode comboInfo = node_ComboListInfos.ChildNodes.Item(i);
+                    CardCombo cc = CardCombo.GenerateCardComboFromXML(comboInfo, out bool _needRefresh_combo);
+                    needRefresh |= _needRefresh_combo;
+                    ComboList.Add(cc);
+                }
+
+                Enemy enemy = new Enemy(picID, names, difficultyLevel, bi, enemyType, BonusGroups, ComboList, CardPriority);
                 return enemy;
             }
             case LevelTypes.Shop:

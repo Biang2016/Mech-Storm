@@ -109,7 +109,7 @@ public class StoryEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, false, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, false, false, SelectCard, UnSelectCard, new UnityAction<CardBase>(delegate { }), SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
         CardSelectPanel.gameObject.SetActive(false);
         ChapterMapContainer.gameObject.SetActive(true);
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/EditorBGM"});
@@ -261,12 +261,7 @@ public class StoryEditorPanel : BaseUIForm
 
     private void SaveStory()
     {
-        foreach (KeyValuePair<int, Chapter> kv in Cur_Story.Chapters)
-        {
-            GenerateChapterMap(kv.Value, false);
-            ChapterMap?.SaveChapter();
-        }
-
+        ChapterMap?.SaveChapter();
         AllStories.RefreshStoryXML(Cur_Story);
         AllStories.ReloadStoryXML();
         SetStory(AllStories.GetStory("DefaultStory", CloneVariantUtils.OperationType.Clone));

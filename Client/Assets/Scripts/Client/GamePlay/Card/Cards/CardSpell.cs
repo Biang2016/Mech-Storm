@@ -7,41 +7,6 @@ public class CardSpell : CardBase
     public override void Initiate(CardInfo_Base cardInfo, CardShowMode cardShowMode, ClientPlayer clientPlayer = null)
     {
         base.Initiate(cardInfo, cardShowMode, clientPlayer);
-        CardInfo.TargetInfo.HasTargetMech = false;
-        CardInfo.TargetInfo.HasTargetEquip = false;
-        CardInfo.TargetInfo.HasTargetShip = false;
-
-        foreach (SideEffectExecute see in CardInfo.SideEffectBundle.GetSideEffectExecutes(SideEffectExecute.TriggerTime.OnPlayCard, SideEffectExecute.TriggerRange.Self))
-        {
-            foreach (SideEffectBase se in see.SideEffectBases)
-            {
-                if (se is TargetSideEffect && ((TargetSideEffect) se).IsNeedChoice)
-                {
-                    if (se is TargetSideEffectEquip && ((TargetSideEffectEquip) se).IsNeedChoice)
-                    {
-                        CardInfo.TargetInfo.HasTargetEquip = true;
-                        CardInfo.TargetInfo.targetEquipRange = ((TargetSideEffectEquip) se).TargetRange;
-                        break;
-                    }
-                    else
-                    {
-                        TargetRange temp = ((TargetSideEffect) se).TargetRange;
-                        if (temp != TargetRange.Ships && temp != TargetRange.SelfShip && temp != TargetRange.EnemyShip && temp != TargetRange.AllLife)
-                        {
-                            CardInfo.TargetInfo.HasTargetMech = true;
-                            CardInfo.TargetInfo.targetMechRange = ((TargetSideEffect) se).TargetRange;
-                            break;
-                        }
-                        else
-                        {
-                            CardInfo.TargetInfo.HasTargetShip = true;
-                            CardInfo.TargetInfo.targetShipRange = ((TargetSideEffect) se).TargetRange;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public override void DragComponent_OnMouseUp(BoardAreaTypes boardAreaType, List<Slot> slots, ModuleMech moduleMech, Ship ship, Vector3 dragLastPosition, Vector3 dragBeginPosition, Quaternion dragBeginQuaternion)
@@ -63,83 +28,19 @@ public class CardSpell : CardBase
                 summonSpellRequest();
                 return;
             }
-            else if (CardInfo.TargetInfo.HasTargetMech)
+            else
             {
-                //To Mech
-                if (moduleMech == null || moduleMech.IsDead)
+                if (CardInfo.TargetInfo.HasTargetMech)
                 {
-                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
-                }
-                else
-                {
-                    bool validTarget = false;
-                    switch (CardInfo.TargetInfo.targetMechRange)
-                    {
-                        case TargetRange.None:
-                            validTarget = false;
-                            break;
-                        case TargetRange.Mechs:
-                            validTarget = true;
-                            break;
-                        case TargetRange.SelfMechs:
-                            if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
-                            break;
-                        case TargetRange.EnemyMechs:
-                            if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
-                            break;
-                        case TargetRange.Heroes:
-                            if (!moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
-                            break;
-                        case TargetRange.SelfHeroes:
-                            if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
-                            break;
-                        case TargetRange.EnemyHeroes:
-                            if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
-                            break;
-                        case TargetRange.Soldiers:
-                            if (moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
-                            break;
-                        case TargetRange.SelfSoldiers:
-                            if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
-                            break;
-                        case TargetRange.EnemySoldiers:
-                            if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
-                            break;
-                        case TargetRange.AllLife:
-                            validTarget = true;
-                            break;
-                    }
-
-                    if (validTarget)
-                    {
-                        summonSpellRequestToMech(moduleMech);
-                        return;
-                    }
-                    else
-                    {
-                        AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
-                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectMech"), 0, 1f);
-                    }
-                }
-            }
-            else if (CardInfo.TargetInfo.HasTargetEquip)
-            {
-                //To Equip
-                if (slots.Count == 0)
-                {
-                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
-                }
-                else
-                {
-                    ModuleEquip equip = slots[0].Mech.MechEquipSystemComponent.GetEquipBySlotType(slots[0].MSlotTypes);
-                    if (equip == null || equip.M_ModuleMech.IsDead)
+                    //To Mech
+                    if (moduleMech == null || moduleMech.IsDead)
                     {
                         CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                     }
                     else
                     {
                         bool validTarget = false;
-                        switch (CardInfo.TargetInfo.targetEquipRange)
+                        switch (CardInfo.TargetInfo.targetMechRange)
                         {
                             case TargetRange.None:
                                 validTarget = false;
@@ -148,82 +49,178 @@ public class CardSpell : CardBase
                                 validTarget = true;
                                 break;
                             case TargetRange.SelfMechs:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
                                 break;
                             case TargetRange.EnemyMechs:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                                 break;
                             case TargetRange.Heroes:
-                                if (!equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                if (!moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.SelfHeroes:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.EnemyHeroes:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.Soldiers:
-                                if (equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                if (moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.SelfSoldiers:
-                                if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer && moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.EnemySoldiers:
-                                if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && moduleMech.CardInfo.MechInfo.IsSoldier) validTarget = true;
                                 break;
                             case TargetRange.AllLife:
                                 validTarget = true;
+                                break;
+                            case TargetRange.SelfLife:
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                break;
+                            case TargetRange.EnemyLife:
+                                if (moduleMech.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
                                 break;
                         }
 
                         if (validTarget)
                         {
-                            summonSpellRequestToEquip(equip);
+                            summonSpellRequestToMech(moduleMech);
                             return;
                         }
                         else
                         {
                             AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
-                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectEquip"), 0, 1f);
+                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectMech"), 0, 1f);
                         }
                     }
                 }
-            }
-            else if (CardInfo.TargetInfo.HasTargetShip)
-            {
-                // ToShip
-                if (!ship) //带目标法术卡未指定目标，则收回
-                {
-                    CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
-                }
-                else
-                {
-                    bool validTarget = false;
-                    switch (CardInfo.TargetInfo.targetShipRange)
-                    {
-                        case TargetRange.Ships:
-                            validTarget = true;
-                            break;
-                        case TargetRange.SelfShip:
-                            if (ship.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
-                            break;
-                        case TargetRange.EnemyShip:
-                            if (ship.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
-                            break;
-                        case TargetRange.AllLife:
-                            validTarget = true;
-                            break;
-                    }
 
-                    if (validTarget)
+                if (CardInfo.TargetInfo.HasTargetEquip)
+                {
+                    //To Equip
+                    if (slots.Count == 0)
                     {
-                        summonSpellRequestToShip(ship);
-                        return;
+                        CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
                     }
                     else
                     {
-                        AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
-                        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectShip"), 0, 1f);
+                        ModuleEquip equip = slots[0].Mech.MechEquipSystemComponent.GetEquipBySlotType(slots[0].MSlotTypes);
+                        if (equip == null || equip.M_ModuleMech.IsDead)
+                        {
+                            CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
+                        }
+                        else
+                        {
+                            bool validTarget = false;
+                            switch (CardInfo.TargetInfo.targetEquipRange)
+                            {
+                                case TargetRange.None:
+                                    validTarget = false;
+                                    break;
+                                case TargetRange.Mechs:
+                                    validTarget = true;
+                                    break;
+                                case TargetRange.SelfMechs:
+                                    if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                    break;
+                                case TargetRange.EnemyMechs:
+                                    if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                                    break;
+                                case TargetRange.Heroes:
+                                    if (!equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                    break;
+                                case TargetRange.SelfHeroes:
+                                    if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && !equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                    break;
+                                case TargetRange.EnemyHeroes:
+                                    if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && !equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                    break;
+                                case TargetRange.Soldiers:
+                                    if (equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                    break;
+                                case TargetRange.SelfSoldiers:
+                                    if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer && equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                    break;
+                                case TargetRange.EnemySoldiers:
+                                    if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer && equip.CardInfo.MechInfo.IsSoldier) validTarget = true;
+                                    break;
+                                case TargetRange.AllLife:
+                                    validTarget = true;
+                                    break;
+                                case TargetRange.SelfLife:
+                                    if (equip.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                    break;
+                                case TargetRange.EnemyLife:
+                                    if (equip.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                                    break;
+                            }
+
+                            if (validTarget)
+                            {
+                                summonSpellRequestToEquip(equip);
+                                return;
+                            }
+                            else
+                            {
+                                AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
+                                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectEquip"), 0, 1f);
+                            }
+                        }
+                    }
+                }
+
+                if (CardInfo.TargetInfo.HasTargetShip)
+                {
+                    // ToShip
+                    if (!ship) //带目标法术卡未指定目标，则收回
+                    {
+                        CancelPlayOut(dragBeginPosition, dragBeginQuaternion);
+                    }
+                    else
+                    {
+                        bool validTarget = false;
+                        switch (CardInfo.TargetInfo.targetShipRange)
+                        {
+                            case TargetRange.Ships:
+                                validTarget = true;
+                                break;
+                            case TargetRange.SelfShip:
+                                if (ship.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                break;
+                            case TargetRange.EnemyShip:
+                                if (ship.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                                break;
+                            case TargetRange.Decks:
+                                validTarget = true;
+                                break;
+                            case TargetRange.SelfDeck:
+                                if (ship.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                break;
+                            case TargetRange.EnemyDeck:
+                                if (ship.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                                break;
+                            case TargetRange.AllLife:
+                                validTarget = true;
+                                break;
+                            case TargetRange.SelfLife:
+                                if (ship.ClientPlayer == RoundManager.Instance.SelfClientPlayer) validTarget = true;
+                                break;
+                            case TargetRange.EnemyLife:
+                                if (ship.ClientPlayer == RoundManager.Instance.EnemyClientPlayer) validTarget = true;
+                                break;
+                        }
+
+                        if (validTarget)
+                        {
+                            summonSpellRequestToShip(ship);
+                            return;
+                        }
+                        else
+                        {
+                            AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
+                            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("CardSpell_SelectCorrectShip"), 0, 1f);
+                        }
                     }
                 }
             }

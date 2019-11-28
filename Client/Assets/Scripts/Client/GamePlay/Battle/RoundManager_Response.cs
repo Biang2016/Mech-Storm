@@ -572,14 +572,14 @@ public partial class RoundManager
 
         if (r.ExecutorInfo.MechId != ExecutorInfo.EXECUTE_INFO_NONE) //随从触发
         {
-            if (r.ExecutorInfo.EquipId == ExecutorInfo.EXECUTE_INFO_NONE)
-            {
+            //if (r.ExecutorInfo.EquipId == ExecutorInfo.EXECUTE_INFO_NONE)
+            //{
                 cp.BattlePlayer.BattleGroundManager.GetMech(r.ExecutorInfo.MechId).OnShowEffects(r.TriggerTime, r.TriggerRange);
-            }
-            else
-            {
-                cp.BattlePlayer.BattleGroundManager.GetEquip(r.ExecutorInfo.MechId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
-            }
+            //}
+            //else
+            //{
+            //    cp.BattlePlayer.BattleGroundManager.GetEquip(r.ExecutorInfo.MechId, r.ExecutorInfo.EquipId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+            //}
         }
         else if (r.ExecutorInfo.CardInstanceId != ExecutorInfo.EXECUTE_INFO_NONE) //手牌触发
         {

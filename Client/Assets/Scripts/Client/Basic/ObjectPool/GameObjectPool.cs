@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 public class GameObjectPool : MonoBehaviour
 {
-    PoolObject[] gameObjectPool; //对象池
+    [SerializeField] private PoolObject[] gameObjectPool; //对象池
 
-    bool[] isUsed; //已使用的对象
+    [SerializeField] private bool[] isUsed; //已使用的对象
 
     private int capacity; //对象池容量，根据场景中可能出现的最多数量的该对象预估一个容量
     private int used; //已使用多少个对象
@@ -107,7 +108,6 @@ public class GameObjectPool : MonoBehaviour
                     if (gameObjectPool[i])
                     {
                         newGameObjectPool[index] = gameObjectPool[i];
-                        newGameObjectPool[index].PoolRecycle();
                         newIsUsed[index] = true;
                         index++;
                     }
@@ -136,16 +136,33 @@ public class GameObjectPool : MonoBehaviour
         {
             if (gameObjectPool[i] == recGameObject)
             {
+                if (isUsed[i])
+                {
+                    used--;
+                    notUsed++;
+                }
+
                 isUsed[i] = false;
                 recGameObject.transform.SetParent(transform);
                 recGameObject.transform.localPosition = gameObjectDefaultPosition;
-                used--;
-                notUsed++;
+
                 return;
             }
         }
 
         Destroy(recGameObject.gameObject, 0.1f);
+    }
+
+    public void RefreshRecycledPoolObjectPosition()
+    {
+        for (int i = 0; i < capacity; i++)
+        {
+            if (gameObjectPool[i] != null && !isUsed[i])
+            {
+                gameObjectPool[i].transform.SetParent(transform);
+                gameObjectPool[i].transform.localPosition = gameObjectDefaultPosition;
+            }
+        }
     }
 
     void expandCapacity()

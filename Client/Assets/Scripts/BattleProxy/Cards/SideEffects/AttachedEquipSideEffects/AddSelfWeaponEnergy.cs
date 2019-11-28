@@ -29,5 +29,10 @@ namespace SideEffects
                 mech.M_MechWeaponEnergy += increase;
             }
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return M_SideEffectParam.GetParam_MultipliedInt("Energy");
+        }
     }
 }

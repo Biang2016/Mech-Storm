@@ -38,5 +38,10 @@ namespace SideEffects
 
             player.GameManager.KillMechs(killMechIds);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 15 - M_SideEffectParam.GetParam_ConstInt("Damage") * 3;
+        }
     }
 }

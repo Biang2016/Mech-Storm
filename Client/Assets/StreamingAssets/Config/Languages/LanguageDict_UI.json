@@ -81,6 +81,10 @@
 		"zh": "返回游戏",
 		"en": "Return to game"
 	},
+	"SettingMenu_GoToStoryEditorButtonText": {
+		"zh": "关卡编辑器",
+		"en": "Level Editor"
+	},
 	"SettingMenu_MasterSliderText": {
 		"zh": "主音量",
 		"en": "Master"
@@ -1362,6 +1366,22 @@
 	"LevelEditorPanel_EnemyBeginMetal": {
 		"zh": "敌人初始金属",
 		"en": "Initial Metal"
+	},
+	"LevelEditorPanel_CardCombo": {
+		"zh": "出牌连招",
+		"en": "Card Combo"
+	},
+	"LevelEditorPanel_CardComboList": {
+		"zh": "出牌连招表",
+		"en": "Card Combo List"
+	},
+	"LevelEditorPanel_CardPriority": {
+		"zh": "出牌优先级",
+		"en": "Card Priority"
+	},
+	"LevelEditorPanel_MouseMiddleButtonToSelect": {
+		"zh": "请点击鼠标中键点选卡牌以添加到该框内",
+		"en": "Click mouse middle button to add cards into this box"
 	},
 	"LevelEditorPanel_ShopItemCardCount": {
 		"zh": "卡片商品格子",

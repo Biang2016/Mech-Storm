@@ -382,10 +382,13 @@ public class ChapterMap : PoolObject
     {
         if (Cur_Chapter.Routes.Count != 0)
         {
-            HashSet<int> endNodeIndices = Cur_Chapter.Routes[startIndex];
-            if (endNodeIndices.Contains(endIndex))
+            if (Cur_Chapter.Routes.ContainsKey(startIndex))
             {
-                DrawRoute(startIndex, endIndex, routeTypes);
+                HashSet<int> endNodeIndices = Cur_Chapter.Routes[startIndex];
+                if (endNodeIndices.Contains(endIndex))
+                {
+                    DrawRoute(startIndex, endIndex, routeTypes);
+                }
             }
         }
         else

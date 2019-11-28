@@ -34,5 +34,10 @@
                 TargetSelect,
                 executorInfo.TargetClientIds);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return 3 * M_SideEffectParam.GetParam_MultipliedInt("CardCount");
+        }
     }
 }

@@ -185,6 +185,11 @@
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\EditorWindowCommon\PropertyFormRow_Toggle.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\EditorWindowCommon\PropertyFormRow_TwoToggleRow.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\ExitMenuButton.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\ILevelEditorPanel_CardComboPriorityList.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CardCombo.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CardComboList.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CardPriority.cs" />
+    <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CardRow.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_CostStatBar.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_HeroCardPicIcon.cs" />
     <Compile Include="Assets\Scripts\Client\GamePlay\UIWindows\Components\LevelEditorWindow\LevelEditorPanel_TypeCardCount.cs" />

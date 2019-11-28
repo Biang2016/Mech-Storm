@@ -32,5 +32,10 @@ namespace SideEffects
             player.AddEnergy(finalValue);
             player.MyEnemyPlayer.UseEnergy(finalValue);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return M_SideEffectParam.GetParam_MultipliedInt("Energy") * 3;
+        }
     }
 }

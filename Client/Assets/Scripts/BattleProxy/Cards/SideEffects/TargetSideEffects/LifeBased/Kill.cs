@@ -18,5 +18,10 @@
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.KillMechs(ChoiceCount, executorInfo.TargetMechIds, player, TargetRange, TargetSelect, -1);
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return -5;
+        }
     }
 }

@@ -106,7 +106,7 @@ internal partial class GameManager
         ClientA.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
         ClientB.CurrentClientRequestResponseBundle = new GameStart_ResponseBundle();
 
-        if (ClientB is BattleProxyAI ai && ai.Enemy != null && ai.Enemy.LevelID != -1)
+        if (ClientB is BattleProxyAI ai && ai.Enemy != null && ai.Enemy.LevelID != -1 && !ai.IsCustomizeBattle)
         {
             StartFightingEnemyRequest request = new StartFightingEnemyRequest(ai.Enemy.LevelID);
             BroadcastRequest(request);

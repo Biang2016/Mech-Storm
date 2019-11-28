@@ -10,11 +10,13 @@ using SideEffects;
 public class BattleProxyAI : BattleProxy
 {
     public Enemy Enemy;
+    public bool IsCustomizeBattle = false;
 
-    public BattleProxyAI(int clientId, string userName, Enemy enemy) : base(clientId, userName, null, null)
+    public BattleProxyAI(int clientId, string userName, Enemy enemy, bool isCustomizeBattle) : base(clientId, userName, null, null)
     {
         Enemy = enemy;
         SendMessage = sendMessage;
+        IsCustomizeBattle = isCustomizeBattle;
     }
 
     private void sendMessage(ServerRequestBase request)
@@ -60,13 +62,29 @@ public class BattleProxyAI : BattleProxy
             bool failedAgain = false;
             while (true)
             {
+                // Try preset combo first
+                CardCombo cc = FindCardComboInHand();
+                if (cc != null)
+                {
+                    foreach (int cardID in cc.ComboCardIDList)
+                    {
+                        CardBase cb = MyPlayer.HandManager.SelectHandCardByCardID(cardID);
+                        if (cb != null)
+                        {
+                            TryUseCard(cb);
+                        }
+                    }
+                }
+
+                // Try cards by card priority
+
                 CardBase card = FindCardUsable();
                 ModuleMech mech = FindMechMovable();
                 if (card == null && mech == null)
                 {
                     if (!lastOperation)
                     {
-                        failedAgain = true; //如果连续两次失败，则停止
+                        failedAgain = true; //try twice and both failed, then stop
                     }
 
                     break;
@@ -75,25 +93,25 @@ public class BattleProxyAI : BattleProxy
                 {
                     if (card != null)
                     {
-                        if (TryUseCard(card)) //成功
+                        if (TryUseCard(card)) //succeed
                         {
                             lastOperation = true;
                         }
                         else
                         {
-                            TriedCards.Add(card.M_CardInstanceId); //尝试过的卡牌不再尝试
+                            TriedCards.Add(card.M_CardInstanceId); //don't try the cards already tried
                         }
                     }
 
                     if (mech != null)
                     {
-                        if (TryAttack(mech)) //成功
+                        if (TryAttack(mech)) //succeed
                         {
                             lastOperation = true;
                         }
                         else
                         {
-                            TriedMechs.Add(mech.M_MechID); //尝试过的随从不再尝试
+                            TriedMechs.Add(mech.M_MechID); //don't try the mechs already tried
                         }
                     }
                 }
@@ -119,64 +137,169 @@ public class BattleProxyAI : BattleProxy
 
         if (card.CardInfo.BaseInfo.CardType == CardTypes.Spell || card.CardInfo.BaseInfo.CardType == CardTypes.Energy)
         {
-            if (ti.HasNoTarget)
+            if (!ti.HasTarget)
             {
                 BattleGameManager.OnClientUseSpellCardRequest(new UseSpellCardRequest(ClientID, card.M_CardInstanceId));
                 return true;
             }
-            else if (ti.HasTargetMech)
+            else
             {
-                ModuleMech mech = GetTargetMechByTargetInfo(sefs, ti);
-                if (mech != null)
+                if (ti.HasTargetMech)
                 {
-                    DebugLog.PrintError("SpelltoMech: " + card.CardInfo.BaseInfo.CardNames["zh"] + "  " + mech.CardInfo.BaseInfo.CardNames["zh"]);
-                    BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {(mech.M_MechID, false)}));
-                    return true;
-                }
-            }
-            else if (ti.HasTargetShip)
-            {
-                switch (ti.targetShipRange)
-                {
-                    case TargetRange.EnemyShip:
+                    ModuleMech mech = GetTargetMechByTargetInfo(sefs, ti);
+                    if (mech != null)
                     {
-                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
-                        return true;
-                    }
-                    case TargetRange.SelfShip:
-                    {
-                        BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                        DebugLog.PrintError("SpelltoMech: " + card.CardInfo.BaseInfo.CardNames["zh"] + "  " + mech.CardInfo.BaseInfo.CardNames["zh"]);
+                        BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {(mech.M_MechID, false)}));
                         return true;
                     }
                 }
-            }
-            else if (ti.HasTargetEquip) //Todo
-            {
-                switch (ti.targetMechRange)
+
+                if (ti.HasTargetShip)
                 {
-                    case TargetRange.EnemyMechs:
+                    switch (ti.targetShipRange)
                     {
-                        break;
+                        case TargetRange.Ships:
+                        {
+                            if (card.CardInfo.GetCardUseBias() < 0)
+                            {
+                                BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                            }
+                            else if (card.CardInfo.GetCardUseBias() > 0)
+                            {
+                                BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                            }
+                            else
+                            {
+                                Random rd = new Random();
+                                int ran = rd.Next(0, 2);
+                                if (ran == 0)
+                                {
+                                    BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                                }
+                                else
+                                {
+                                    BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                                }
+                            }
+
+                            return true;
+                        }
+                        case TargetRange.SelfShip:
+                        {
+                            BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                            return true;
+                        }
+                        case TargetRange.EnemyShip:
+                        {
+                            BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                            return true;
+                        }
+
+                        case TargetRange.AllLife:
+                        {
+                            if (card.CardInfo.GetCardUseBias() < 0)
+                            {
+                                BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                            }
+                            else if (card.CardInfo.GetCardUseBias() > 0)
+                            {
+                                BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                            }
+                            else
+                            {
+                                Random rd = new Random();
+                                int ran = rd.Next(0, 2);
+                                if (ran == 0)
+                                {
+                                    BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                                }
+                                else
+                                {
+                                    BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                                }
+                            }
+
+                            return true;
+                        }
+                        case TargetRange.SelfLife:
+                        {
+                            BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                            return true;
+                        }
+                        case TargetRange.EnemyLife:
+                        {
+                            BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                            return true;
+                        }
+
+                        case TargetRange.Decks:
+                        {
+                            if (card.CardInfo.GetCardUseBias() < 0)
+                            {
+                                BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                            }
+                            else if (card.CardInfo.GetCardUseBias() > 0)
+                            {
+                                BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                            }
+                            else
+                            {
+                                Random rd = new Random();
+                                int ran = rd.Next(0, 2);
+                                if (ran == 0)
+                                {
+                                    BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                                }
+                                else
+                                {
+                                    BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                                }
+                            }
+
+                            return true;
+                        }
+                        case TargetRange.SelfDeck:
+                        {
+                            BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {ClientID}));
+                            return true;
+                        }
+                        case TargetRange.EnemyDeck:
+                        {
+                            BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
+                            return true;
+                        }
                     }
-                    case TargetRange.EnemyHeroes:
+                }
+
+                if (ti.HasTargetEquip) //Todo
+                {
+                    switch (ti.targetMechRange)
                     {
-                        break;
-                    }
-                    case TargetRange.EnemySoldiers:
-                    {
-                        break;
-                    }
-                    case TargetRange.SelfMechs:
-                    {
-                        break;
-                    }
-                    case TargetRange.SelfHeroes:
-                    {
-                        break;
-                    }
-                    case TargetRange.SelfSoldiers:
-                    {
-                        break;
+                        case TargetRange.EnemyMechs:
+                        {
+                            break;
+                        }
+                        case TargetRange.EnemyHeroes:
+                        {
+                            break;
+                        }
+                        case TargetRange.EnemySoldiers:
+                        {
+                            break;
+                        }
+                        case TargetRange.SelfMechs:
+                        {
+                            break;
+                        }
+                        case TargetRange.SelfHeroes:
+                        {
+                            break;
+                        }
+                        case TargetRange.SelfSoldiers:
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -186,7 +309,7 @@ public class BattleProxyAI : BattleProxy
             if (MyPlayer.BattleGroundManager.BattleGroundIsFull) return false;
 
             bool canSummonDirectly = false;
-            canSummonDirectly |= ti.HasNoTarget;
+            canSummonDirectly |= !ti.HasTarget;
             canSummonDirectly |= (ti.targetMechRange == TargetRange.SelfMechs && MyPlayer.BattleGroundManager.MechCount == 0);
             canSummonDirectly |= (ti.targetMechRange == TargetRange.SelfHeroes && MyPlayer.BattleGroundManager.HeroCount == 0);
             canSummonDirectly |= (ti.targetMechRange == TargetRange.SelfSoldiers && MyPlayer.BattleGroundManager.SoldierCount == 0);
@@ -432,6 +555,81 @@ public class BattleProxyAI : BattleProxy
         return false;
     }
 
+    private CardCombo FindCardComboInHand()
+    {
+        List<int> cardIDs = new List<int>();
+        foreach (CardBase cb in MyPlayer.HandManager.Cards)
+        {
+            cardIDs.Add(cb.CardInfo.CardID);
+        }
+
+        foreach (CardCombo cardCombo in Enemy.CardComboList)
+        {
+            if (HasCombo(cardCombo, cardIDs))
+            {
+                return cardCombo;
+            }
+        }
+
+        return null;
+    }
+
+    public bool HasCombo(CardCombo cardCombo, List<int> cardIDs)
+    {
+        HashSet<int> tempComboCardIDHashSet = CloneVariantUtils.HashSet(cardCombo.ComboCardIDHashSet);
+        foreach (int cardID in cardIDs)
+        {
+            tempComboCardIDHashSet.Remove(cardID);
+        }
+
+        if (tempComboCardIDHashSet.Count == 0)
+        {
+            int energyLeft = MyPlayer.EnergyLeft;
+            int metalLeft = MyPlayer.MetalLeft;
+
+            foreach (int cardID in cardCombo.ComboCardIDList)
+            {
+                CardInfo_Base ci = AllCards.GetCard(cardID);
+                if (ci.BaseInfo.Metal <= metalLeft && ci.BaseInfo.Energy <= energyLeft)
+                {
+                    energyLeft -= ci.BaseInfo.Energy;
+                    metalLeft -= ci.BaseInfo.Metal;
+                    energyLeft += CheckEnergyAddedDirectlyInSideEffectBundle(ci.SideEffectBundle);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int CheckEnergyAddedDirectlyInSideEffectBundle(SideEffectBundle seb)
+    {
+        int energyAdded = 0;
+        foreach (SideEffectExecute see in seb.SideEffectExecutes)
+        {
+            if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.PlayOutEffect || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.BattleCry)
+            {
+                foreach (SideEffectBase se in see.SideEffectBases)
+                {
+                    if (se is AddEnergy addEnergy)
+                    {
+                        energyAdded += addEnergy.M_SideEffectParam.GetParam_MultipliedInt("Energy") * addEnergy.M_SideEffectParam.GetParam_ConstInt("Times");
+                    }
+                }
+            }
+        }
+
+        return energyAdded;
+    }
+
     private CardBase FindCardUsable()
     {
         List<int> noTriedUsableCards = new List<int>();
@@ -444,55 +642,75 @@ public class BattleProxyAI : BattleProxy
         }
 
         if (noTriedUsableCards.Count == 1) return MyPlayer.HandManager.GetCardByCardInstanceId(noTriedUsableCards[0]);
-        CardBase energyCardID = null;
-        CardBase spellCardID = null;
-        CardBase equipCardID = null;
-        CardBase mechCardID = null;
+
+        // Play card by priority
+        int mostPriority = 99999;
+        CardBase mostPriorCard = null;
         foreach (int id in noTriedUsableCards)
         {
             CardBase card = MyPlayer.HandManager.GetCardByCardInstanceId(id);
-            if (card.CardInfo.BaseInfo.CardType == CardTypes.Energy)
+            int cardID = card.CardInfo.CardID;
+            int index = Enemy.CardPriority.CardIDListByPriority.IndexOf(cardID);
+            if (index != -1 && index < mostPriority)
             {
-                energyCardID = card;
-            }
-
-            if (card.CardInfo.BaseInfo.CardType == CardTypes.Spell)
-            {
-                spellCardID = card;
-            }
-
-            if (card.CardInfo.BaseInfo.CardType == CardTypes.Equip)
-            {
-                equipCardID = card;
-            }
-
-            if (card.CardInfo.BaseInfo.CardType == CardTypes.Mech)
-            {
-                mechCardID = card;
+                mostPriority = index;
+                mostPriorCard = card;
             }
         }
 
-        if (energyCardID != null)
+        // Fallback stupid play cards
+        if (mostPriorCard == null) 
         {
-            return energyCardID;
+            CardBase energyCardID = null;
+            CardBase spellCardID = null;
+            CardBase equipCardID = null;
+            CardBase mechCardID = null;
+            foreach (int id in noTriedUsableCards)
+            {
+                CardBase card = MyPlayer.HandManager.GetCardByCardInstanceId(id);
+                if (card.CardInfo.BaseInfo.CardType == CardTypes.Energy)
+                {
+                    energyCardID = card;
+                }
+
+                if (card.CardInfo.BaseInfo.CardType == CardTypes.Spell)
+                {
+                    spellCardID = card;
+                }
+
+                if (card.CardInfo.BaseInfo.CardType == CardTypes.Equip)
+                {
+                    equipCardID = card;
+                }
+
+                if (card.CardInfo.BaseInfo.CardType == CardTypes.Mech)
+                {
+                    mechCardID = card;
+                }
+            }
+
+            if (energyCardID != null)
+            {
+                return energyCardID;
+            }
+
+            if (spellCardID != null)
+            {
+                return spellCardID;
+            }
+
+            if (equipCardID != null)
+            {
+                return equipCardID;
+            }
+
+            if (mechCardID != null)
+            {
+                return mechCardID;
+            }
         }
 
-        if (spellCardID != null)
-        {
-            return spellCardID;
-        }
-
-        if (equipCardID != null)
-        {
-            return equipCardID;
-        }
-
-        if (mechCardID != null)
-        {
-            return mechCardID;
-        }
-
-        return null;
+        return mostPriorCard;
     }
 
     private ModuleMech FindMechMovable()

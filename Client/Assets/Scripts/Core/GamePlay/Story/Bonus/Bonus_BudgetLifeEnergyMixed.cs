@@ -58,6 +58,65 @@ public class Bonus_BudgetLifeEnergyMixed : Bonus
         return BudgetLifeEnergyComb;
     }
 
+    public BudgetLifeEnergyComb GetBudgetLifeEnergyComb(List<BudgetLifeEnergyComb> exceptionBudgetLifeEnergyComb)
+    {
+        BudgetLifeEnergyComb comb = null;
+        bool needRetry = true;
+        int retryTime = 100;
+        while (needRetry && retryTime > 0)
+        {
+            comb = GetBonusFromMixedBonus(TotalValue, retryTime);
+            if (comb == null)
+            {
+                needRetry = true;
+            }
+            else
+            {
+                needRetry = false;
+                foreach (BudgetLifeEnergyComb c in exceptionBudgetLifeEnergyComb)
+                {
+                    if (c.HaveSameMeaningTo(comb))
+                    {
+                        needRetry = true;
+                    }
+                }
+
+                if (needRetry)
+                {
+                    comb = null;
+                }
+            }
+
+            retryTime--;
+        }
+
+        return comb;
+    }
+
+    public List<Bonus> GetBonusListFromBonusComb(BudgetLifeEnergyComb comb)
+    {
+        List<Bonus> res = new List<Bonus>();
+        if (comb.Budget != 0)
+        {
+            Bonus_Budget bb = new Bonus_Budget(comb.Budget);
+            res.Add(bb);
+        }
+
+        if (comb.LifeUpperLimit != 0)
+        {
+            Bonus_LifeUpperLimit bl = new Bonus_LifeUpperLimit(comb.LifeUpperLimit);
+            res.Add(bl);
+        }
+
+        if (comb.EnergyUpperLimit != 0)
+        {
+            Bonus_EnergyUpperLimit be = new Bonus_EnergyUpperLimit(comb.EnergyUpperLimit);
+            res.Add(be);
+        }
+
+        return res;
+    }
+
     public class BudgetLifeEnergyComb
     {
         public int Budget;

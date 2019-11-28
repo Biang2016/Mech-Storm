@@ -30,12 +30,13 @@ public class CardSelectPanel : MonoBehaviour
 
     private Editor_CardSelectModes M_SelectMode;
 
-    internal void Initialize(Editor_CardSelectModes selectModes, bool showHideCards, UnityAction<CardBase> leftClickCard, UnityAction<CardBase> rightClickCard, UnityAction<List<int>> selectOneOfEachActiveCards, UnityAction<List<int>> unselectAllActiveCards, LevelPropertyForm_CardSelection row_CardSelection)
+    internal void Initialize(Editor_CardSelectModes selectModes, bool showHideCards, bool showTempCards, UnityAction<CardBase> leftClickCard, UnityAction<CardBase> rightClickCard, UnityAction<CardBase> middleClickCard, UnityAction<List<int>> selectOneOfEachActiveCards, UnityAction<List<int>> unselectAllActiveCards, LevelPropertyForm_CardSelection row_CardSelection)
     {
         M_SelectMode = selectModes;
 
         LeftClickCard = leftClickCard;
         RightClickCard = rightClickCard;
+        MiddleClickCard = middleClickCard;
         SelectOneOfEachActiveCardsAction = selectOneOfEachActiveCards;
         UnselectAllActiveCardsAction = unselectAllActiveCards;
 
@@ -56,8 +57,8 @@ public class CardSelectPanel : MonoBehaviour
         {
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.EmptyCard) continue;
             if (cardInfo.CardID == (int) global::AllCards.EmptyCardTypes.NoCard) continue;
-            if (showHideCards && cardInfo.BaseInfo.IsHide) continue;
-            if (cardInfo.BaseInfo.IsTemp) continue;
+            if (!showHideCards && cardInfo.BaseInfo.IsHide) continue;
+            if (!showTempCards && cardInfo.BaseInfo.IsTemp) continue;
             AddCardIntoGridLayout(cardInfo.Clone());
         }
     }
@@ -130,11 +131,13 @@ public class CardSelectPanel : MonoBehaviour
     }
 
     private CardBase mouseLeftDownCard;
+    private CardBase mouseMiddleDownCard;
     private CardBase mouseRightDownCard;
     private Vector3 mouseDownPosition;
 
     private UnityAction<CardBase> LeftClickCard;
     private UnityAction<CardBase> RightClickCard;
+    private UnityAction<CardBase> MiddleClickCard;
     private UnityAction<List<int>> SelectOneOfEachActiveCardsAction;
     private UnityAction<List<int>> UnselectAllActiveCardsAction;
 
@@ -149,91 +152,120 @@ public class CardSelectPanel : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycast;
-                Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
-                if (raycast.collider)
+                CardBase card = RaycastGetCard();
+                if (card)
                 {
-                    CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
-                    if (card)
-                    {
-                        mouseDownPosition = Input.mousePosition;
-                        mouseLeftDownCard = card;
-                    }
+                    mouseDownPosition = Input.mousePosition;
+                    mouseLeftDownCard = card;
                 }
                 else
                 {
-                    mouseRightDownCard = null;
-                    mouseLeftDownCard = null;
+                    ResetClickRecord();
                 }
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycast;
-                Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
-                if (raycast.collider != null)
+                CardBase card = RaycastGetCard();
+                if (card)
                 {
-                    CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
-                    if (card)
-                    {
-                        mouseDownPosition = Input.mousePosition;
-                        mouseRightDownCard = card;
-                    }
+                    mouseDownPosition = Input.mousePosition;
+                    mouseRightDownCard = card;
                 }
                 else
                 {
-                    mouseRightDownCard = null;
-                    mouseLeftDownCard = null;
+                    ResetClickRecord();
+                }
+            }
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                CardBase card = RaycastGetCard();
+                if (card)
+                {
+                    mouseDownPosition = Input.mousePosition;
+                    mouseMiddleDownCard = card;
+                }
+                else
+                {
+                    ResetClickRecord();
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycast;
-                Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
-                if (raycast.collider != null)
+                CardBase card = RaycastGetCard();
+                if (card)
                 {
-                    CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
-                    if (card)
+                    if ((Input.mousePosition - mouseDownPosition).magnitude < 50)
                     {
-                        if ((Input.mousePosition - mouseDownPosition).magnitude < 50)
+                        if (mouseLeftDownCard == card)
                         {
-                            if (mouseLeftDownCard == card)
-                            {
-                                LeftClickCard(card);
-                            }
+                            LeftClickCard(card);
+                        }
+                        else
+                        {
+                            ResetClickRecord();
                         }
                     }
+                    else
+                    {
+                        ResetClickRecord();
+                    }
                 }
-
-                mouseLeftDownCard = null;
-                mouseRightDownCard = null;
+                else
+                {
+                    ResetClickRecord();
+                }
             }
 
             if (Input.GetMouseButtonUp(1))
             {
-                Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycast;
-                Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
-                if (raycast.collider != null)
+                CardBase card = RaycastGetCard();
+                if (card && mouseRightDownCard == card)
                 {
-                    CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
-                    if (Input.GetMouseButtonUp(1))
-                    {
-                        if (card && mouseRightDownCard == card)
-                        {
-                            RightClickCard(card);
-                        }
-                    }
+                    RightClickCard(card);
                 }
+                else
+                {
+                    ResetClickRecord();
+                }
+            }
 
-                mouseLeftDownCard = null;
-                mouseRightDownCard = null;
+            if (Input.GetMouseButtonUp(2))
+            {
+                CardBase card = RaycastGetCard();
+                if (card && mouseMiddleDownCard == card)
+                {
+                    MiddleClickCard(card);
+                }
+                else
+                {
+                    ResetClickRecord();
+                }
             }
         }
+    }
+
+    private CardBase RaycastGetCard()
+    {
+        Ray ray = UIManager.Instance.UICamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycast;
+        Physics.Raycast(ray, out raycast, 500f, GameManager.Instance.Layer_Cards);
+        if (raycast.collider != null)
+        {
+            CardBase card = raycast.collider.gameObject.GetComponent<CardBase>();
+            return card;
+        }
+
+        return null;
+    }
+
+    private void ResetClickRecord()
+    {
+        mouseLeftDownCard = null;
+        mouseMiddleDownCard = null;
+        mouseRightDownCard = null;
     }
 
     internal void SetCardLibraryPanelEnable(bool enable)

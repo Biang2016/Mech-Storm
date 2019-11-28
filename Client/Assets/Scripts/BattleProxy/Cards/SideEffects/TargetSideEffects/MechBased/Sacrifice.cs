@@ -17,7 +17,7 @@ namespace SideEffects
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
 
-        public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.Single};
+        public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.All};
 
         public override string GenerateDesc()
         {
@@ -99,6 +99,11 @@ namespace SideEffects
             }
 
             player.GameManager.KillMechs(new List<int> {mech.M_MechID});
+        }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return (M_SideEffectParam.GetParam_MultipliedInt("ValueBasic") + M_SideEffectParam.GetParam_MultipliedInt("ValuePlus")) * 2;
         }
     }
 }

@@ -41,5 +41,10 @@
                 -1
             );
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return M_SideEffectParam.GetParam_MultipliedInt("ShieldValue") * 3;
+        }
     }
 }

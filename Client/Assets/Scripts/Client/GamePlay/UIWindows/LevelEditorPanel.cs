@@ -58,7 +58,7 @@ public class LevelEditorPanel : BaseUIForm
         LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
 
         OnLanguageChange(0);
-        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, true, SelectCard, UnSelectCard, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
+        CardSelectPanel.Initialize(Editor_CardSelectModes.SelectCount, true, true, SelectCard, UnSelectCard, AddCardToCardPriorityComboList, SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
     }
 
     public override void Hide()
@@ -72,6 +72,8 @@ public class LevelEditorPanel : BaseUIForm
         CardSelectPanel.OnLanguageChange(_);
         Row_ShopItems.OnLanguageChange();
         Row_BonusGroups.OnLanguageChange();
+        LevelEditorPanel_CardComboList.OnLanguageChange();
+        LevelEditorPanel_CardPriority.OnLanguageChange();
     }
 
     private void ReturnToStoryEditor()
@@ -283,6 +285,7 @@ public class LevelEditorPanel : BaseUIForm
         if (OnChangeLevelTypeByEdit)
         {
             OnChangeLevelTypeByEdit = false;
+            LevelEditorPanel_CardComboList.gameObject.SetActive(type == LevelTypes.Enemy);
 
             switch (type)
             {
@@ -302,8 +305,12 @@ public class LevelEditorPanel : BaseUIForm
                             beginMetal: 1,
                             gamePlaySettings: null),
                         enemyType: EnemyType.Soldier,
-                        bonusGroups: new List<BonusGroup>()
+                        bonusGroups: new List<BonusGroup>(),
+                        cardComboList: new List<CardCombo>(),
+                        cardPriority: new CardPriority(new List<int>())
                     );
+                    LevelEditorPanel_CardPriority.Initialize(((Enemy) Cur_Level).CardPriority);
+                    LevelEditorPanel_CardComboList.Initialize(((Enemy) Cur_Level).CardComboList, Initialize_Right);
                     break;
                 }
                 case LevelTypes.Shop:
@@ -315,6 +322,7 @@ public class LevelEditorPanel : BaseUIForm
                         shopItems: new List<ShopItem>(),
                         5,
                         0);
+
                     break;
                 }
             }
@@ -583,7 +591,9 @@ public class LevelEditorPanel : BaseUIForm
                     SetEnemyDrawCardNum(enemy.BuildInfo.DrawCardNum.ToString(), false);
                     SetEnemyEnergy(enemy.BuildInfo.Energy.ToString(), false);
                     SetEnemyLife(enemy.BuildInfo.Life.ToString(), false);
-                    Row_BonusGroups.Initialize(enemy.BonusGroups, ClientUtils.UpdateLayout((RectTransform) LevelPropertiesContainer),
+                    Row_BonusGroups.Initialize(
+                        enemy.BonusGroups,
+                        ClientUtils.UpdateLayout(UIManager.Instance.GetBaseUIForm<LevelEditorPanel>().RightPanel),
                         addAction: delegate
                         {
                             enemy.BonusGroups.Add(new BonusGroup(false, new List<Bonus>(), 1, false));
@@ -610,6 +620,14 @@ public class LevelEditorPanel : BaseUIForm
                         M_SelectCardContents = SelectCardContents.SelectDeckCards;
                         CardSelectPanel.SetCardLibraryPanelEnable(true);
                     });
+
+                    M_SelectCardContents = SelectCardContents.SelectDeckCards;
+                    CardSelectPanel.SetCardLibraryPanelEnable(true);
+                    CardSelectPanel.SwitchSingleSelect(false);
+                    CardSelectPanel.SelectCardsByBuildCards(CardStatTypes.Total);
+
+                    LevelEditorPanel_CardPriority.Initialize(enemy.CardPriority);
+                    LevelEditorPanel_CardComboList.Initialize(enemy.CardComboList, Initialize_Right);
                     break;
                 }
                 case Shop shop:
@@ -838,9 +856,61 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
+    private void AddCardToCardPriorityComboList(CardBase card)
+    {
+        if (Cur_Level is Enemy enemy)
+        {
+            Cur_Selected_ILevelEditorPanel_CardComboPriorityCardContainer?.AddCard(card.CardInfo.CardID);
+        }
+    }
+
     #endregion
 
-    #region Right Selection
+    #region Right AI
+
+    public RectTransform RightPanel;
+    [SerializeField] private LevelEditorPanel_CardPriority LevelEditorPanel_CardPriority;
+    [SerializeField] private LevelEditorPanel_CardComboList LevelEditorPanel_CardComboList;
+    private ILevelEditorPanel_CardComboPriorityCardContainer Cur_Selected_ILevelEditorPanel_CardComboPriorityCardContainer;
+
+    List<ILevelEditorPanel_CardComboPriorityCardContainer> ILevelEditorPanel_CardComboPriorityCardContainers = new List<ILevelEditorPanel_CardComboPriorityCardContainer>();
+
+    public void Initialize_Right()
+    {
+        ILevelEditorPanel_CardComboPriorityCardContainers.Clear();
+        Cur_Selected_ILevelEditorPanel_CardComboPriorityCardContainer = null;
+
+        foreach (LevelEditorPanel_CardCombo lep_cc in LevelEditorPanel_CardComboList.LevelEditorPanel_CardCombos)
+        {
+            ILevelEditorPanel_CardComboPriorityCardContainers.Add(lep_cc);
+        }
+
+        ILevelEditorPanel_CardComboPriorityCardContainers.Add(LevelEditorPanel_CardPriority);
+
+        foreach (ILevelEditorPanel_CardComboPriorityCardContainer c in ILevelEditorPanel_CardComboPriorityCardContainers)
+        {
+            c.OnSelect = OnSelect_CardComboPriorityCardContainer;
+        }
+
+        foreach (ILevelEditorPanel_CardComboPriorityCardContainer c in ILevelEditorPanel_CardComboPriorityCardContainers)
+        {
+            c.IsSelected = false;
+        }
+    }
+
+    private void OnSelect_CardComboPriorityCardContainer(ILevelEditorPanel_CardComboPriorityCardContainer c_selected)
+    {
+        foreach (ILevelEditorPanel_CardComboPriorityCardContainer c in ILevelEditorPanel_CardComboPriorityCardContainers)
+        {
+            if (c_selected != c)
+            {
+                c.IsSelected = false;
+            }
+        }
+
+        Cur_Selected_ILevelEditorPanel_CardComboPriorityCardContainer = c_selected;
+        NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("LevelEditorPanel_MouseMiddleButtonToSelect"), 0f, 0.5f);
+    }
 
     #endregion
 }

@@ -27,9 +27,9 @@ public class CardInfo_Mech : CardInfo_Base
         if (MechInfo.IsCharger) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Charger") + ". ");
         if (MechInfo.IsFrenzy) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Frenzy") + ". ");
         if (MechInfo.IsSentry) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Sentry") + ". ");
-        if (BattleInfo.BasicAttack != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_AttackValue")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicAttack) + ". ";
-        if (BattleInfo.BasicArmor != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Armor")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicArmor) + ". ";
-        if (BattleInfo.BasicShield != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Shield")) + " " + BaseInfo.AddHighLightColorToText("+" + BattleInfo.BasicShield) + ". ";
+        if (BattleInfo.BasicAttack != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_AttackValue")) + " " + BaseInfo.AddHighLightColorToText("=" + BattleInfo.BasicAttack.ToString()) + ". ";
+        if (BattleInfo.BasicArmor != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Armor")) + " " + BaseInfo.AddHighLightColorToText("=" + BattleInfo.BasicArmor.ToString()) + ". ";
+        if (BattleInfo.BasicShield != 0) CardDescShow += BaseInfo.AddImportantColorToText(LanguageManager_Common.GetText("KeyWords_Shield")) + " " + BaseInfo.AddHighLightColorToText("=" + BattleInfo.BasicShield.ToString()) + ". ";
 
         CardDescShow += base.GetCardDescShow();
 

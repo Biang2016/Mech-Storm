@@ -130,7 +130,16 @@ public abstract class Level : IClone<Level>, IVariant<Level>
                     BonusGroups.Add(BonusGroup.Deserialize(reader));
                 }
 
-                res = new Enemy(levelPicID, LevelNames, difficultyLevel, BuildInfo, EnemyType, BonusGroups);
+                CardPriority cp = CardPriority.Deserialize(reader);
+
+                int cardComboCount = reader.ReadSInt32();
+                List<CardCombo> cardComboList = new List<CardCombo>();
+                for (int i = 0; i < cardComboCount; i++)
+                {
+                    cardComboList.Add(CardCombo.Deserialize(reader));
+                }
+
+                res = new Enemy(levelPicID, LevelNames, difficultyLevel, BuildInfo, EnemyType, BonusGroups, cardComboList, cp);
                 break;
             }
 

@@ -33,5 +33,10 @@ namespace SideEffects
                 player.HandManager.UseCard(cardInstanceId, onlyTriggerNotUse: true);
             }
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return M_SideEffectParam.GetParam_MultipliedInt("CardCount") * 5;
+        }
     }
 }

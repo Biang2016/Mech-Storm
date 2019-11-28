@@ -55,5 +55,10 @@
                 executorInfo.TargetMechIds
             );
         }
+
+        public int GetSideEffectFunctionBias()
+        {
+            return -M_SideEffectParam.GetParam_MultipliedInt("Damage") * M_SideEffectParam.GetParam_ConstInt("DamageTimes");
+        }
     }
 }

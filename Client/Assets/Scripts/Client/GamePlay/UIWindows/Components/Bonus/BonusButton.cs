@@ -95,35 +95,7 @@ internal class BonusButton : PoolObject
 
             if (bonus is Bonus_BudgetLifeEnergyMixed b_mixed)
             {
-                Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb comb = null;
-                bool needRetry = true;
-                int retryTime = 100;
-                while (needRetry && retryTime > 0)
-                {
-                    comb = Bonus_BudgetLifeEnergyMixed.GetBonusFromMixedBonus(b_mixed.TotalValue, retryTime);
-                    if (comb == null)
-                    {
-                        needRetry = true;
-                    }
-                    else
-                    {
-                        needRetry = false;
-                        foreach (Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb c in exceptionBudgetLifeEnergyComb)
-                        {
-                            if (c.HaveSameMeaningTo(comb))
-                            {
-                                needRetry = true;
-                            }
-                        }
-
-                        if (needRetry)
-                        {
-                            comb = null;
-                        }
-                    }
-
-                    retryTime--;
-                }
+                Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb comb = b_mixed.GetBudgetLifeEnergyComb(exceptionBudgetLifeEnergyComb);
 
                 removeBonuses.Add(bonus);
 
