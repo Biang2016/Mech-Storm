@@ -139,7 +139,14 @@ public partial class SelectBuildPanel : BaseUIForm
         Init_Bars();
         Init_Cards();
         Init_Build();
+        ShowSliders(CurrentBuildButtons.Count != 0);
+        if (CurrentBuildButtons.Count != 0)
+        {
+            RefreshCoinLifeEnergy();
+            RefreshDrawCardNum();
+        }
         Init_SelectCards();
+        
         IsInit = true;
     }
 }

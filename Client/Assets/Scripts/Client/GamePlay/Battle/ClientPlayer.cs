@@ -76,6 +76,7 @@ public class ClientPlayer : Player
         if (IsInitialized) BattlePlayer.MetalLifeEnergyManager.SetLife(lifeLeft + change, change);
         if (change < 0)
         {
+            BattlePlayer.Ship.ResetPosition();
             BattlePlayer.Ship.transform.DOShakePosition(0.2f, new Vector3(0.5f, 0, 0.5f));
             AudioManager.Instance.SoundPlay("sfx/OnHitShip");
             AudioManager.Instance.SoundPlay("sfx/OnHitShipDuuu");

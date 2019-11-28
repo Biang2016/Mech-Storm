@@ -45,11 +45,12 @@ public class LanguageManager : MonoSingleton<LanguageManager>
         {
             CurrentLanguage = DefaultLanguage;
         }
+
+        SetLanguage(CurrentLanguage, true);
     }
 
     void Start()
     {
-        SetLanguage(CurrentLanguage, true);
     }
 
     public Font EnglishFont;

@@ -104,14 +104,17 @@ public class StoryEditorPanel : BaseUIForm
     public override void Display()
     {
         base.Display();
-        LanguageDropdown.onValueChanged.RemoveAllListeners();
-        LanguageDropdown.value = LanguageManager.Instance.LanguagesShorts.IndexOf(LanguageManager.Instance.GetCurrentLanguage());
-        LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
-        LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
-        OnLanguageChange(0);
+
         CardSelectPanel.Initialize(Editor_CardSelectModes.UpperLimit, false, false, SelectCard, UnSelectCard, new UnityAction<CardBase>(delegate { }), SelectOneForEachActiveCards, UnSelectAllActiveCards, Row_CardSelection);
         CardSelectPanel.gameObject.SetActive(false);
         ChapterMapContainer.gameObject.SetActive(true);
+
+        LanguageDropdown.onValueChanged.RemoveAllListeners();
+        LanguageDropdown.onValueChanged.AddListener(LanguageManager.Instance.LanguageDropdownChange);
+        LanguageDropdown.onValueChanged.AddListener(OnLanguageChange);
+        LanguageDropdown.value = LanguageManager.Instance.LanguagesShorts.IndexOf(LanguageManager.Instance.GetCurrentLanguage());
+        LanguageDropdown.onValueChanged.Invoke(LanguageDropdown.value);
+
         AudioManager.Instance.BGMLoopInList(new List<string> {"bgm/EditorBGM"});
     }
 
@@ -130,6 +133,16 @@ public class StoryEditorPanel : BaseUIForm
                 btn.RefreshLevelName();
             }
         }
+
+        if (ChapterMap != null)
+        {
+            if (ChapterMap.Cur_Chapter != null)
+            {
+                OnRefreshChapterTitle(ChapterMap.Cur_Chapter);
+            }
+        }
+
+        CardSelectPanel.OnLanguageChange(_);
     }
 
     private void ReturnToGame()

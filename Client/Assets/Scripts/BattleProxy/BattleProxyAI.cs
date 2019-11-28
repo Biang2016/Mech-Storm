@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using SideEffects;
 
 /// <summary>
-/// 为了兼容联机对战模式，单人模式的AI也用一个ClientProxy来处理逻辑
-/// AI不需要任何Socket有关的功能
-/// 固定PlayerA为玩家，PlayerB为AI
+/// This AI class inherit from BattleProxy for online compatibility
+/// This AI class has no need of any Socket functions
+/// If vs AI, PlayerA always is player, and PlayerB always is AI
 /// </summary>
 public class BattleProxyAI : BattleProxy
 {
@@ -25,7 +25,7 @@ public class BattleProxyAI : BattleProxy
         {
             foreach (ServerRequestBase req in r.AttachedRequests)
             {
-                if (req is PlayerTurnRequest ptr) //只监听回合开始
+                if (req is PlayerTurnRequest ptr) // Only listen to round start
                 {
                     if (ptr.clientId == ClientID)
                     {
@@ -127,6 +127,7 @@ public class BattleProxyAI : BattleProxy
     }
 
     /// <summary>
+    /// Try use card. If card need target and there is no available target, return false
     /// 尝试使用卡牌，如果卡牌需要指定目标，但没有合适目标，则使用失败，返回false
     /// </summary>
     /// <returns></returns>
@@ -344,9 +345,9 @@ public class BattleProxyAI : BattleProxy
         }
         else if (card.CardInfo.BaseInfo.CardType == CardTypes.Equip)
         {
-            //筛选最适合装备的机甲
-            ModuleMech mech = SelectMechToEquipWeapon(MyPlayer.BattleGroundManager.Heroes, (CardInfo_Equip) card.CardInfo);
-            if (mech == null) mech = SelectMechToEquipWeapon(MyPlayer.BattleGroundManager.Soldiers, (CardInfo_Equip) card.CardInfo);
+            // Select suitable mech to equip
+            ModuleMech mech = SelectMechToEquip(MyPlayer.BattleGroundManager.Heroes, card.CardInfo.EquipInfo.SlotType, (CardInfo_Equip) card.CardInfo); //Hero first
+            if (mech == null) mech = SelectMechToEquip(MyPlayer.BattleGroundManager.Soldiers, card.CardInfo.EquipInfo.SlotType, (CardInfo_Equip) card.CardInfo);
 
             if (mech != null)
             {
@@ -381,7 +382,7 @@ public class BattleProxyAI : BattleProxy
 
     private bool TryAttack(ModuleMech mech)
     {
-        if (EnemyPlayer.CheckModuleMechCanAttackMe(mech)) //优先打脸
+        if (EnemyPlayer.CheckModuleMechCanAttackMe(mech)) // Attack ship first
         {
             BattleGameManager.OnClientMechAttackShipRequest(new MechAttackShipRequest(ClientID, mech.M_MechID));
             return true;
@@ -499,7 +500,7 @@ public class BattleProxyAI : BattleProxy
         {
             mech = targetPlayer.BattleGroundManager.GetRandomAliveMechExcept(targetMechType, -1);
         }
-        else // 依据卡牌增减益效果确定施加于哪一方
+        else // According to card beneficial bias, determine exert on which side 
         {
             if ((sefs.Contains(typeof(INegative))) || sefs.Contains(typeof(IWeaken)))
             {
@@ -528,7 +529,7 @@ public class BattleProxyAI : BattleProxy
             {
                 if (mech.CardInfo.MechInfo.IsSniper)
                 {
-                    return true; //狙击枪只能装在狙击手上
+                    return true; // Sniper gun only on sniper
                 }
                 else
                 {
@@ -659,7 +660,7 @@ public class BattleProxyAI : BattleProxy
         }
 
         // Fallback stupid play cards
-        if (mostPriorCard == null) 
+        if (mostPriorCard == null)
         {
             CardBase energyCardID = null;
             CardBase spellCardID = null;
@@ -735,12 +736,12 @@ public class BattleProxyAI : BattleProxy
 
     #region AI_Mark_System 评分系统
 
-    private ModuleMech SelectMechToEquipWeapon(List<ModuleMech> mechs, CardInfo_Equip cardInfo)
+    private ModuleMech SelectMechToEquip(List<ModuleMech> mechs, SlotTypes slotType, CardInfo_Equip cardInfo)
     {
-        List<ModuleMech> mechs_NoWeapon = new List<ModuleMech>(); //优先给没有武器的装备
+        List<ModuleMech> mechs_NoEquip = new List<ModuleMech>(); // Give priority to those who have no such equipment
 
         List<ModuleMech> optionalMech = new List<ModuleMech>();
-        foreach (ModuleMech mech in mechs) //满足可以装备的前提
+        foreach (ModuleMech mech in mechs) 
         {
             if (CheckMechCanEquipMe(mech, cardInfo))
             {
@@ -750,20 +751,75 @@ public class BattleProxyAI : BattleProxy
 
         foreach (ModuleMech mech in optionalMech)
         {
-            if (mech.M_Weapon == null)
+            switch (slotType)
             {
-                mechs_NoWeapon.Add(mech);
+                case SlotTypes.Weapon:
+                {
+                    if (mech.M_Weapon == null)
+                    {
+                        mechs_NoEquip.Add(mech);
+                    }
+
+                    break;
+                }
+                case SlotTypes.Shield:
+                {
+                    if (mech.M_Shield == null)
+                    {
+                        mechs_NoEquip.Add(mech);
+                    }
+
+                    break;
+                }
+                case SlotTypes.Pack:
+                {
+                    if (mech.M_Pack == null)
+                    {
+                        mechs_NoEquip.Add(mech);
+                    }
+
+                    break;
+                }
+                case SlotTypes.MA:
+                {
+                    if (mech.M_MA == null)
+                    {
+                        mechs_NoEquip.Add(mech);
+                    }
+
+                    break;
+                }
             }
         }
 
-        if (mechs_NoWeapon.Count != 0) //没有武器的里面，挑最强的
+        if (mechs_NoEquip.Count != 0) //Give priority to the strongest among those who have no such equipment
         {
-            return GetMechByEvaluation(mechs_NoWeapon, EvaluationOption.Mech, EvaluationDirection.Max);
+            return GetMechByEvaluation(mechs_NoEquip, EvaluationOption.Mech, EvaluationDirection.Max);
         }
-        else //都有武器情况下，给武器最差的装备
+        else // Give priority to the weakest one if they all have equipment
         {
-            return GetMechByEvaluation(mechs_NoWeapon, EvaluationOption.Weapon, EvaluationDirection.Min);
+            switch (slotType)
+            {
+                case SlotTypes.Weapon:
+                {
+                    return GetMechByEvaluation(mechs_NoEquip, EvaluationOption.Weapon, EvaluationDirection.Min);
+                }
+                case SlotTypes.Shield:
+                {
+                    return GetMechByEvaluation(mechs_NoEquip, EvaluationOption.Shield, EvaluationDirection.Min);
+                }
+                case SlotTypes.Pack:
+                {
+                    return GetMechByEvaluation(mechs_NoEquip, EvaluationOption.Pack, EvaluationDirection.Min);
+                }
+                case SlotTypes.MA:
+                {
+                    return GetMechByEvaluation(mechs_NoEquip, EvaluationOption.MA, EvaluationDirection.Min);
+                }
+            }
         }
+
+        return null;
     }
 
     enum EvaluationOption

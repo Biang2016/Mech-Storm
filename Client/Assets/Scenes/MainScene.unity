@@ -225,7 +225,7 @@ PrefabInstance:
     - target: {fileID: 3236308121717095129, guid: 34f1c0918f0dd4661b115de28c599e16,
         type: 3}
       propertyPath: WarmUpUIPanels.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3236308121717095129, guid: 34f1c0918f0dd4661b115de28c599e16,
         type: 3}
@@ -250,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 3236308121717095129, guid: 34f1c0918f0dd4661b115de28c599e16,
         type: 3}
       propertyPath: WarmUpUIPanels.Array.data[1]
-      value: ExitMenuPanel
+      value: SettingPanel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34f1c0918f0dd4661b115de28c599e16, type: 3}

@@ -197,6 +197,7 @@ public class ShowCardDetailInBattleManager : MonoBehaviour
             }
         }
 
+        detailCard.transform.rotation = Quaternion.Euler(DETAIL_ROTATION.x, DETAIL_ROTATION.y, DETAIL_ROTATION.z);
         detailCard.transform.position = targetPos;
         detailCard.BoxCollider.enabled = false;
         detailCard.BeBrightColor();

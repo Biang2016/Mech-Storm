@@ -62,7 +62,7 @@
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
         <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
-          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="True" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnPlayCard" removeTriggerRange="SelfPlayer" removeTriggerTimes="5" removeTriggerDelayTimes="1">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="True" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnPlayCard" removeTriggerRange="SelfPlayer" removeTriggerTimes="3" removeTriggerDelayTimes="1">
             <SideEffect name="AddCardToHandByID" TargetSelect="All" TargetRange="Decks" ChoiceCount="1" CardID="3" CardCount="1" />
           </Buff>
         </SideEffect>
@@ -142,8 +142,8 @@
     <CardInfo name="battleInfo" basicAttack="2" basicShield="4" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
-      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnSoldierInjured" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
-        <SideEffect name="AddShield" TargetSelect="SingleRandom" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="1" />
+      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechInjured" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -204,7 +204,7 @@
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="17">
-    <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom" cardName_zh="大魔" isTemp="False" isHide="False" metal="3" energy="0" coin="150" limitNum="2" cardRareLevel="2" shopPrice="20" cardType="Mech" />
+    <CardInfo name="baseInfo" pictureID="57" cardName_en="Dom" cardName_zh="大魔" isTemp="False" isHide="False" metal="3" energy="0" coin="400" limitNum="2" cardRareLevel="2" shopPrice="20" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
@@ -231,7 +231,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="True" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="Shield" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="1" totalLife="1" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="2" basicArmor="1" />
+    <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="1" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
@@ -315,14 +315,14 @@
   <Card id="27">
     <CardInfo name="baseInfo" pictureID="71" cardName_en="Hawk Scorpion" cardName_zh="鹰角蝎" isTemp="False" isHide="False" metal="3" energy="2" coin="100" limitNum="3" cardRareLevel="2" shopPrice="18" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="28" degradeCardID="-1" />
-    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
+    <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
-    <CardInfo name="battleInfo" basicAttack="2" basicShield="2" basicArmor="0" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura" />
   </Card>
   <Card id="28">
-    <CardInfo name="baseInfo" pictureID="71" cardName_en="Hawk Scorpion" cardName_zh="鹰角蝎" isTemp="False" isHide="False" metal="3" energy="2" coin="150" limitNum="3" cardRareLevel="2" shopPrice="18" cardType="Mech" />
+    <CardInfo name="baseInfo" pictureID="71" cardName_en="Hawk Scorpion" cardName_zh="鹰角蝎" isTemp="False" isHide="False" metal="3" energy="2" coin="200" limitNum="3" cardRareLevel="2" shopPrice="18" cardType="Mech" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="27" />
     <CardInfo name="mechInfo" isSoldier="True" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="Weapon" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
@@ -335,7 +335,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="mechInfo" isSoldier="False" isDefense="False" isSniper="False" isCharger="False" isFrenzy="False" isSentry="False" slot1="None" slot2="None" slot3="None" slot4="None" />
     <CardInfo name="lifeInfo" life="3" totalLife="3" />
-    <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="2" />
+    <CardInfo name="battleInfo" basicAttack="2" basicShield="1" basicArmor="2" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
@@ -344,11 +344,21 @@
     </CardInfo>
   </Card>
   <Card id="30">
-    <CardInfo name="baseInfo" pictureID="632" cardName_en="Attack" cardName_zh="攻击" isTemp="False" isHide="False" metal="0" energy="0" coin="25" limitNum="3" cardRareLevel="1" shopPrice="15" cardType="Spell" />
+    <CardInfo name="baseInfo" pictureID="627" cardName_en="Repair" cardName_zh="修复" isTemp="False" isHide="False" metal="1" energy="0" coin="50" limitNum="3" cardRareLevel="1" shopPrice="12" cardType="Energy" />
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="100" />
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
+      </SideEffectExecute>
+    </CardInfo>
+    <CardInfo name="sideEffectsBundle_Aura" />
+  </Card>
+  <Card id="31">
+    <CardInfo name="baseInfo" pictureID="623" cardName_en="Charge Repair" cardName_zh="充能修复" isTemp="False" isHide="False" metal="0" energy="2" coin="50" limitNum="3" cardRareLevel="1" shopPrice="12" cardType="Spell" />
+    <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
+    <CardInfo name="sideEffectsBundle">
+      <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
+        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />

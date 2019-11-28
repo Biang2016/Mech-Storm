@@ -6,12 +6,19 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
     internal ClientPlayer ClientPlayer;
     public Transform[] M_Ship_AttackPoints;
 
+    private Vector3 DefaultPosition;
+
     [SerializeField] private TextMeshPro DamageNumberPreviewTextMesh;
     [SerializeField] private TextMeshPro Desc;
 
     [SerializeField] private Transform[] Trans_NeedRotate180ByPlayer;
     [SerializeField] private Transform[] Trans_NeedRotateY180ByPlayer;
     public ShipStyleManager ShipStyleManager;
+
+    public void ResetPosition()
+    {
+        transform.position = DefaultPosition;
+    }
 
     public void Initialize(ClientPlayer clientPlayer)
     {
@@ -31,6 +38,8 @@ public class Ship : MonoBehaviour, IMouseHoverComponent
                 t.localRotation = Quaternion.Euler(0, clientPlayer.WhichPlayer == Players.Enemy ? 180 : 0, t.localRotation.z);
             }
         }
+
+        DefaultPosition = transform.position;
 
         ClientPlayer = clientPlayer;
         DamageNumberPreviewTextMesh.gameObject.SetActive(clientPlayer.WhichPlayer == Players.Enemy);
