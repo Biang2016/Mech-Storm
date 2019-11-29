@@ -112,7 +112,7 @@ public abstract class ModuleEquip : ModuleBase
         ClientUtils.ChangeColor(M_BloomSE, color);
         ClientUtils.ChangeColor(M_BloomSE_Sub, color);
         AudioManager.Instance.SoundPlay("sfx/OnSE");
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration * BattleEffectsManager.AnimationSpeed);
         BloomSEAnim.SetTrigger("Reset");
         BloomSE_SubAnim.SetTrigger("Reset");
         M_BloomSE.gameObject.SetActive(false);

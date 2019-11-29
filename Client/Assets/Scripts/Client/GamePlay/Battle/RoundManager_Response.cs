@@ -357,7 +357,7 @@ public partial class RoundManager
             moduleMech.transform.DOShakePosition(0.15f, new Vector3(1f, 0f, 1f) * 0.1f, 10, 20f);
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.3f * BattleEffectsManager.AnimationSpeed);
 
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }

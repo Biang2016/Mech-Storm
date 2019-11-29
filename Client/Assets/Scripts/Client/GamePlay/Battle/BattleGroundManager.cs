@@ -495,14 +495,14 @@ public class BattleGroundManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.4f * BattleEffectsManager.AnimationSpeed);
             foreach (Slot sa in relatedSlots)
             {
                 sa.ShowSlotBloom(false, false);
                 sa.Mech.ShowSniperTipText(false);
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.4f * BattleEffectsManager.AnimationSpeed);
         }
     }
 
@@ -558,7 +558,7 @@ public class BattleGroundManager : MonoBehaviour
             mech.MechEquipSystemComponent.M_Weapon = null;
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -579,7 +579,7 @@ public class BattleGroundManager : MonoBehaviour
             mech.MechEquipSystemComponent.M_Shield = null;
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -600,7 +600,7 @@ public class BattleGroundManager : MonoBehaviour
             mech.MechEquipSystemComponent.M_Pack = null;
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -621,7 +621,7 @@ public class BattleGroundManager : MonoBehaviour
             mech.MechEquipSystemComponent.M_MA = null;
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

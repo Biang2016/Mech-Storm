@@ -16,6 +16,8 @@ public class BattleEffectsManager : MonoSingleton<BattleEffectsManager>
     public bool isExecuting_RefreshBattleGroundOnAddMech;
     public bool isExecuting_TipSlotBloom;
 
+    public static float AnimationSpeed = 1.5f;
+
     void Start()
     {
         Effect_Main = new Effects("Effect_M");

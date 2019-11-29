@@ -63,7 +63,7 @@ public class CoolDownCardManager : MonoBehaviour
         cdci.SetRotation(ClientPlayer.WhichPlayer);
         cdci.Init(cdc, ClientPlayer);
         CoolDownCardIcons.Add(cdc.CardInstanceID, cdci);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
         yield return null;
     }
@@ -78,7 +78,7 @@ public class CoolDownCardManager : MonoBehaviour
         if (CoolDownCardIcons.ContainsKey(cardInstanceID))
         {
             CoolDownCardIcons[cardInstanceID].OnRemove();
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.3f * BattleEffectsManager.AnimationSpeed);
             CoolDownCardIcons[cardInstanceID].PoolRecycle();
             CoolDownCardIcons.Remove(cardInstanceID);
             BattleEffectsManager.Instance.Effect_Main.EffectEnd();

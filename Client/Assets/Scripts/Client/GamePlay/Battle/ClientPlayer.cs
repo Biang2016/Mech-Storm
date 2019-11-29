@@ -83,7 +83,7 @@ public class ClientPlayer : Player
         }
         else if (change > 0)
         {
-            BattlePlayer.Ship.ShipStyleManager.ShowShipShapeHoverForTime(0.5f);
+            BattlePlayer.Ship.ShipStyleManager.ShowShipShapeHoverForTime(0.5f * BattleEffectsManager.AnimationSpeed);
             AudioManager.Instance.SoundPlay("sfx/OnHeal");
         }
         else if (isOverflow)
@@ -92,7 +92,7 @@ public class ClientPlayer : Player
             AudioManager.Instance.SoundPlay("sfx/OnSelectMechFalse");
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

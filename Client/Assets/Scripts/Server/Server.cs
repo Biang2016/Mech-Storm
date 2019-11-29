@@ -27,7 +27,7 @@ public class Server
 
     private string IP;
     private int Port;
-    public static string ServerVersion = "1.0.1";
+    public static string ServerVersion = "1.0.4";
     private Socket SeverSocket;
     private Dictionary<int, ServerProxy> ClientsDict = new Dictionary<int, ServerProxy>();
     private Queue<ReceiveSocketData> ReceiveDataQueue = new Queue<ReceiveSocketData>();

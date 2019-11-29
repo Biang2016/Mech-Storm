@@ -92,7 +92,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
         float duration = Mech.IsInitializing ? 0 : 0.1f;
         if (!Mech.IsInitializing)
             BattleEffectsManager.Instance.Effect_Main.EffectsShow(
-                Co_MechWeaponEnergyMaxChange(Mech.M_MechWeaponEnergy, value, value - Mech.M_MechWeaponEnergyMax, duration, Mech.IsInitializing), "Co_MechWeaponEnergyMaxChange");
+                Co_MechWeaponEnergyMaxChange(Mech.M_MechWeaponEnergy, value, value - Mech.M_MechWeaponEnergyMax, duration * BattleEffectsManager.AnimationSpeed, Mech.IsInitializing), "Co_MechWeaponEnergyMaxChange");
     }
 
     IEnumerator Co_MechAttackChange(int mechAttackValue, int mechEnergy, int mechEnergyMax, int change, float duration, bool cur_IsInitializing)
@@ -159,7 +159,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
     public void ArmorChange(int mechArmor, int before_mechArmor, bool cur_IsInitializing)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorChange(mechArmor, mechArmor - before_mechArmor, 0, cur_IsInitializing), "Co_ArmorChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ArmorChange(mechArmor, mechArmor - before_mechArmor, 0 * BattleEffectsManager.AnimationSpeed, cur_IsInitializing), "Co_ArmorChange");
     }
 
     IEnumerator Co_ArmorChange(int armorValue, int change, float duration, bool cur_IsInitializing)
@@ -197,7 +197,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
         }
 
         ArmorIconAnim.SetTrigger("ArmorAdd");
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
@@ -207,7 +207,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
 
     public void ShieldChange(int mechShield, int before_mechShield, bool cur_IsInitializing)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(mechShield, mechShield - before_mechShield, 0, cur_IsInitializing), "Co_ShieldChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(mechShield, mechShield - before_mechShield, 0 * BattleEffectsManager.AnimationSpeed, cur_IsInitializing), "Co_ShieldChange");
     }
 
     private int MechShieldFull;
@@ -254,14 +254,14 @@ public class MechSwordShieldArmorComponent : MechComponentBase
         }
 
         ShieldIconAnim.SetTrigger("ShieldAdd");
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 
     public void ShieldDefenceDamage(int decreaseValue, int shieldValue)
     {
         float duration = 0;
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(shieldValue, 0, duration, Mech.IsInitializing), "Co_ShieldChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChange(shieldValue, 0, duration * BattleEffectsManager.AnimationSpeed, Mech.IsInitializing), "Co_ShieldChange");
         BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShieldChangeNumberFly(decreaseValue), "Co_ShieldChangeNumberFly");
     }
 
@@ -269,7 +269,7 @@ public class MechSwordShieldArmorComponent : MechComponentBase
     {
         ShieldDefenceNumberFly.SetText(LanguageManager.Instance.GetText("ModuleMech_DecreaseDamageNumberFly") + decreaseValue, "#00FFF2", "#00FFF2", TextFly.FlyDirection.Up);
         FXManager.Instance.PlayFX(ShieldBar.transform, FXManager.FXType.FX_Shield, "#FFFFFF", 0.2f, 1f);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

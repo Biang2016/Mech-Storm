@@ -36,7 +36,7 @@ public class MechLifeComponent : MechComponentBase
     public void LifeChange(int leftLife, int totalLife, int before_leftLife, bool cur_IsInitializing)
     {
         float duration = Mech.IsInitializing ? 0 : 0.1f;
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(leftLife, totalLife, leftLife - before_leftLife, duration, IsTotalLifeChanging, cur_IsInitializing), "Co_LifeChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_LifeChange(leftLife, totalLife, leftLife - before_leftLife, duration * BattleEffectsManager.AnimationSpeed, IsTotalLifeChanging, cur_IsInitializing), "Co_LifeChange");
     }
 
     private IEnumerator Co_LifeChange(int leftLifeValue, int totalLifeValue, int change, float duration, bool isTotalLifeChanging, bool cur_IsInitializing)
@@ -94,7 +94,7 @@ public class MechLifeComponent : MechComponentBase
     public void TotalLifeChange(int leftLife, int totalLife, int before_totalLife, bool cur_IsInitializing)
     {
         float duration = Mech.IsInitializing ? 0 : 0.1f;
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(leftLife, totalLife, totalLife - before_totalLife, duration, cur_IsInitializing), "Co_TotalLifeChange");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_TotalLifeChange(leftLife, totalLife, totalLife - before_totalLife, duration * BattleEffectsManager.AnimationSpeed, cur_IsInitializing), "Co_TotalLifeChange");
     }
 
     private IEnumerator Co_TotalLifeChange(int leftLifeValue, int totalLifeValue, int change, float duration, bool cur_IsInitializing)
@@ -114,7 +114,7 @@ public class MechLifeComponent : MechComponentBase
         }
 
         LifeTextChange(leftLifeValue, totalLifeValue);
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
     }
 

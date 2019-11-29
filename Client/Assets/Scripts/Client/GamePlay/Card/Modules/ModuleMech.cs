@@ -780,7 +780,7 @@ public class ModuleMech : ModuleBase
 
     public override void OnShowEffects(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange)
     {
-        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(triggerTime, triggerRange, ClientUtils.HTMLColorToColor("#00FFDA"), 0.4f), "ShowSideEffectBloom");
+        BattleEffectsManager.Instance.Effect_Main.EffectsShow(Co_ShowSideEffectBloom(triggerTime, triggerRange, ClientUtils.HTMLColorToColor("#00FFDA"), 0.4f * BattleEffectsManager.AnimationSpeed), "ShowSideEffectBloom");
     }
 
     IEnumerator Co_ShowSideEffectBloom(SideEffectExecute.TriggerTime triggerTime, SideEffectExecute.TriggerRange triggerRange, Color color, float duration)
@@ -829,11 +829,11 @@ public class ModuleMech : ModuleBase
                 case WeaponTypes.None:
                 {
                     Vector3 oriPos = transform.position;
-                    transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f);
+                    transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f );
                     yield return new WaitForSeconds(0.09f);
                     targetMech.transform.DOShakePosition(0.15f, 0.8f, 50, 0f);
                     AudioManager.Instance.SoundPlay("sfx/AttackSword");
-                    yield return new WaitForSeconds(0.03f);
+                    yield return new WaitForSeconds(0.03f );
                     transform.DOMove(oriPos, 0.1f);
                     break;
                 }
@@ -841,11 +841,11 @@ public class ModuleMech : ModuleBase
                 {
                     Vector3 oriPos = transform.position;
                     transform.DOMove(targetMech.GetClosestHitPos(transform.position), 0.1f);
-                    yield return new WaitForSeconds(0.09f);
-                    targetMech.transform.DOShakePosition(0.15f, 0.8f, 50, 0f);
+                    yield return new WaitForSeconds(0.09f );
+                    targetMech.transform.DOShakePosition(0.15f , 0.8f, 50, 0f);
                     AudioManager.Instance.SoundPlay("sfx/AttackSword");
-                    yield return new WaitForSeconds(0.03f);
-                    transform.DOMove(oriPos, 0.1f);
+                    yield return new WaitForSeconds(0.03f );
+                    transform.DOMove(oriPos, 0.1f );
                     break;
                 }
                 case WeaponTypes.Gun:
@@ -853,7 +853,7 @@ public class ModuleMech : ModuleBase
                     FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetMech.transform.position, delegate
                     {
                         FXManager.Instance.PlayFX(targetMech.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f);
-                        targetMech.transform.DOShakePosition(0.15f, (targetMech.transform.position - transform.position) * 0.8f, 50, 0f);
+                        targetMech.transform.DOShakePosition(0.15f , (targetMech.transform.position - transform.position) * 0.8f, 50, 0f);
                     }, "#FFFFFF", 0.2f, 1f);
                     AudioManager.Instance.SoundPlay("sfx/AttackGun");
                     break;
@@ -863,8 +863,8 @@ public class ModuleMech : ModuleBase
                     FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetMech.transform.position, delegate
                     {
                         FXManager.Instance.PlayFX(targetMech.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f);
-                        targetMech.transform.DOShakePosition(0.15f, (targetMech.transform.position - transform.position) * 0.8f, 50, 0f);
-                    }, "#FFFFFF", 0.2f, 1f);
+                        targetMech.transform.DOShakePosition(0.15f , (targetMech.transform.position - transform.position) * 0.8f, 50, 0f);
+                    }, "#FFFFFF", 0.2f , 1f);
                     AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                     break;
                 }
@@ -903,19 +903,19 @@ public class ModuleMech : ModuleBase
                 transform.DOMove(targetShip.GetClosestHitPosition(transform.position), 0.15f);
                 yield return new WaitForSeconds(0.10f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSword");
-                transform.DOMove(oriPos, 0.15f);
-                yield return new WaitForSeconds(0.05f);
+                transform.DOMove(oriPos, 0.15f );
+                yield return new WaitForSeconds(0.05f );
                 break;
             }
             case WeaponTypes.Gun:
             {
-                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f , 1f); }, "#FFFFFF", 0.2f , 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackGun");
                 break;
             }
             case WeaponTypes.SniperGun:
             {
-                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f, 1f); }, "#FFFFFF", 0.2f, 1f);
+                FXManager.Instance.PlayProjectile(FXManager.FXType_Projectile.FX_GunBullet, transform.position, targetShip.transform.position, delegate { FXManager.Instance.PlayFX(targetShip.transform, FXManager.FXType.FX_GunBulletHit, "#FFFFFF", 0.2f , 1f); }, "#FFFFFF", 0.2f , 1f);
                 AudioManager.Instance.SoundPlay("sfx/AttackSniper");
                 break;
             }

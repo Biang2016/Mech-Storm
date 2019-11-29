@@ -31,7 +31,7 @@ internal class CoolDownCardIcon : PoolObject
             CooldDownIconAnim.SetTrigger("Jump");
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         CoolDownRoundText.text = cdc.LeftRounds.ToString();
         yield return new WaitForSeconds(0.1f);
         yield return null;

@@ -72,8 +72,8 @@ public class NetworkManager : MonoSingleton<NetworkManager>
 
     Queue<ReceiveSocketData> receiveDataQueue = new Queue<ReceiveSocketData>();
 
-    public static string ClientVersion = "1.0.1";
-    public static string ServerVersion = "1.0.1";
+    public static string ClientVersion = "1.0.4";
+    public static string ServerVersion = "1.0.4";
 
     public bool ClientInvalid => ServerSocket != null && ServerSocket.Connected && ClientVersion != ServerVersion;
 

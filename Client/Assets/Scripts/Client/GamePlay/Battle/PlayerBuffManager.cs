@@ -62,7 +62,7 @@ public class PlayerBuffManager : MonoBehaviour
         pb.SetRotation(ClientPlayer.WhichPlayer);
         pb.Init(buffSee, buffId);
         PlayerBuffs.Add(buffId, pb);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f * BattleEffectsManager.AnimationSpeed);
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
         yield return null;
     }
@@ -77,7 +77,7 @@ public class PlayerBuffManager : MonoBehaviour
         if (PlayerBuffs.ContainsKey(buffId))
         {
             PlayerBuffs[buffId].OnRemove();
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.3f * BattleEffectsManager.AnimationSpeed);
             PlayerBuffs[buffId].PoolRecycle();
             PlayerBuffs.Remove(buffId);
             AudioManager.Instance.SoundPlay("sfx/OnBuffRemove", 0.5f);
