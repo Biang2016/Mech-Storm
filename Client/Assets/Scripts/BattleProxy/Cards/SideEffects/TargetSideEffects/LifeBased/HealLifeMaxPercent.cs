@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace SideEffects
 {
@@ -54,7 +53,7 @@ namespace SideEffects
 
         public int GetSideEffectFunctionBias()
         {
-            return Mathf.RoundToInt(M_SideEffectParam.GetParam_MultipliedInt("Percent") / 10f) * 3;
+            return (int) Math.Round(M_SideEffectParam.GetParam_MultipliedInt("Percent") / 10f) * 3;
         }
     }
 }
