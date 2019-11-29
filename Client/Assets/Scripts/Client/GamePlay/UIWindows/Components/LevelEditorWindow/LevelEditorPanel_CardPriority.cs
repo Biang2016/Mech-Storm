@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -16,9 +15,11 @@ public class LevelEditorPanel_CardPriority : PropertyFormRow, ILevelEditorPanel_
 
     private bool isSelected = false;
 
-    public bool IsSelected {
+    public bool IsSelected
+    {
         get { return isSelected; }
-        set {
+        set
+        {
             if (isSelected != value)
             {
                 if (!isSelected && value)

@@ -261,7 +261,7 @@ public class HandManager : MonoBehaviour
         {
             count++;
             StartCoroutine(SubCo_GetCard(currentCount + count, currentCount + cardIdAndInstanceIds.Count, cardIdAndInstanceId, DRAW_CARD_FLY_TIME));
-            yield return new WaitForSeconds(DRAW_CARD_INTERVAL_TIME );
+            yield return new WaitForSeconds(DRAW_CARD_INTERVAL_TIME);
         }
 
         yield return new WaitForSeconds(DRAW_CARD_FLY_TIME - DRAW_CARD_INTERVAL_TIME);
@@ -381,8 +381,8 @@ public class HandManager : MonoBehaviour
                     lastShowCard.transform.DOPause();
 
                     lastShowCard.transform.DOMove(USE_CARD_SHOW_POSITION, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
-                    lastShowCard.transform.DORotate(new Vector3(0, 180, 0), USE_CARD_SHOW_FLY_DURATION ).SetEase(Ease.Linear);
-                    lastShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION ).SetEase(Ease.Linear);
+                    lastShowCard.transform.DORotate(new Vector3(0, 180, 0), USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
+                    lastShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
                 }
 
                 currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, CardBase.CardShowMode.ShowCard, ClientPlayer);
@@ -399,8 +399,8 @@ public class HandManager : MonoBehaviour
                 currentShowCard.BeBrightColor();
                 currentShowCard.CardOrder = 200;
 
-                currentShowCard.transform.DOMove(USE_CARD_SHOW_POSITION_OVERLAY, USE_CARD_SHOW_FLY_DURATION ).SetEase(Ease.Linear);
-                currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), USE_CARD_SHOW_FLY_DURATION ).SetEase(Ease.Linear);
+                currentShowCard.transform.DOMove(USE_CARD_SHOW_POSITION_OVERLAY, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
+                currentShowCard.transform.DORotate(new Vector3(-90, 180, 0), USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
                 currentShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
 
                 AudioManager.Instance.SoundPlay("sfx/OnShowUseCard", 0.5f);
@@ -414,7 +414,7 @@ public class HandManager : MonoBehaviour
                     lastShowCard = null;
                 }
 
-                yield return new WaitForSeconds(USE_CARD_SHOW_DURATION * BattleEffectsManager.AnimationSpeed - USE_CARD_SHOW_FLY_DURATION );
+                yield return new WaitForSeconds(USE_CARD_SHOW_DURATION * BattleEffectsManager.AnimationSpeed - USE_CARD_SHOW_FLY_DURATION);
 
                 currentShowCard.PoolRecycle();
                 currentShowCard = null;

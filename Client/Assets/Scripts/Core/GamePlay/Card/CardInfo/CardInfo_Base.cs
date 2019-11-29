@@ -82,7 +82,6 @@ public class CardInfo_Base : IClone<CardInfo_Base>
                 {
                     bias += sef.GetSideEffectFunctionBias();
                 }
-
             }
         }
 

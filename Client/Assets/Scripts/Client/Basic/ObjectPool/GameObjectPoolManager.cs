@@ -260,7 +260,6 @@ public class GameObjectPoolManager : MonoSingleton<GameObjectPoolManager>
         {
             kv.Value.RefreshRecycledPoolObjectPosition();
         }
-        
     }
 
     void Update()

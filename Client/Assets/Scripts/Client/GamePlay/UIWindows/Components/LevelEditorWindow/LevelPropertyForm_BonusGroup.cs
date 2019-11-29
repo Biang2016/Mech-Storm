@@ -58,53 +58,53 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         {
             LevelPropertyForm_BonusTypeDropdown btd = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.LevelPropertyForm_BonusTypeDropdown].AllocateGameObject<LevelPropertyForm_BonusTypeDropdown>(BonusContainer);
             btd.Initialize(onDeleteButtonClick: delegate
-            {
-                My_BonusGroupPropertyForm_BonusTypeDropdown.Remove(btd);
-                btd.PoolRecycle();
-                Refresh();
-            },
-                onAddBonusType: delegate(Bonus.BonusTypes type)
-            {
-                My_BonusGroupPropertyForm_BonusTypeDropdown.Remove(btd);
-                btd.PoolRecycle();
-                Bonus bonus = null;
-                switch (type)
                 {
-                    case Bonus.BonusTypes.UnlockCardByID:
+                    My_BonusGroupPropertyForm_BonusTypeDropdown.Remove(btd);
+                    btd.PoolRecycle();
+                    Refresh();
+                },
+                onAddBonusType: delegate(Bonus.BonusTypes type)
+                {
+                    My_BonusGroupPropertyForm_BonusTypeDropdown.Remove(btd);
+                    btd.PoolRecycle();
+                    Bonus bonus = null;
+                    switch (type)
                     {
-                        bonus = new Bonus_UnlockCardByID((int) AllCards.EmptyCardTypes.EmptyCard);
-                        break;
+                        case Bonus.BonusTypes.UnlockCardByID:
+                        {
+                            bonus = new Bonus_UnlockCardByID((int) AllCards.EmptyCardTypes.EmptyCard);
+                            break;
+                        }
+                        case Bonus.BonusTypes.UnlockCardByLevelNum:
+                        {
+                            bonus = new Bonus_UnlockCardByLevelNum(1);
+                            break;
+                        }
+                        case Bonus.BonusTypes.Budget:
+                        {
+                            bonus = new Bonus_Budget(25);
+                            break;
+                        }
+                        case Bonus.BonusTypes.BudgetLifeEnergyMixed:
+                        {
+                            bonus = new Bonus_BudgetLifeEnergyMixed(150);
+                            break;
+                        }
+                        case Bonus.BonusTypes.LifeUpperLimit:
+                        {
+                            bonus = new Bonus_LifeUpperLimit(2);
+                            break;
+                        }
+                        case Bonus.BonusTypes.EnergyUpperLimit:
+                        {
+                            bonus = new Bonus_EnergyUpperLimit(2);
+                            break;
+                        }
                     }
-                    case Bonus.BonusTypes.UnlockCardByLevelNum:
-                    {
-                        bonus = new Bonus_UnlockCardByLevelNum(1);
-                        break;
-                    }
-                    case Bonus.BonusTypes.Budget:
-                    {
-                        bonus = new Bonus_Budget(25);
-                        break;
-                    }
-                    case Bonus.BonusTypes.BudgetLifeEnergyMixed:
-                    {
-                        bonus = new Bonus_BudgetLifeEnergyMixed(150);
-                        break;
-                    }
-                    case Bonus.BonusTypes.LifeUpperLimit:
-                    {
-                        bonus = new Bonus_LifeUpperLimit(2);
-                        break;
-                    }
-                    case Bonus.BonusTypes.EnergyUpperLimit:
-                    {
-                        bonus = new Bonus_EnergyUpperLimit(2);
-                        break;
-                    }
-                }
 
-                Cur_BonusGroup.Bonuses.Add(bonus);
-                Refresh();
-            });
+                    Cur_BonusGroup.Bonuses.Add(bonus);
+                    Refresh();
+                });
             My_BonusGroupPropertyForm_BonusTypeDropdown.Add(btd);
         });
 

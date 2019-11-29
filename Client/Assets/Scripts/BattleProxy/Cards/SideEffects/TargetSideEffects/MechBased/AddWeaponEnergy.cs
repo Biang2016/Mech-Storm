@@ -58,7 +58,7 @@ namespace SideEffects
 
         public int GetSideEffectFunctionBias()
         {
-            return M_SideEffectParam.GetParam_MultipliedInt("Energy")*2;
+            return M_SideEffectParam.GetParam_MultipliedInt("Energy") * 2;
         }
     }
 }

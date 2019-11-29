@@ -178,7 +178,7 @@ public sealed class SideEffectExecute : IClone<SideEffectExecute>
                     !attr.Name.Equals("triggerTimes") &&
                     !attr.Name.Equals("removeTriggerTime") &&
                     !attr.Name.Equals("removeTriggerRange") &&
-                    !attr.Name.Equals("removeTriggerTimes")&&
+                    !attr.Name.Equals("removeTriggerTimes") &&
                     !attr.Name.Equals("removeTriggerDelayTimes"))
                 {
                     SideEffectValue sev = sep.GetParam(attr.Name);

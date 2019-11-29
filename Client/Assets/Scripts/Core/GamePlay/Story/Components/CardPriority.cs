@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 
 public class CardPriority : IClone<CardPriority>
 {
-    public List<int> CardIDListByPriority = new List<int>();// sorted by card priority
+    public List<int> CardIDListByPriority = new List<int>(); // sorted by card priority
 
     public CardPriority(List<int> cardIDListByPriority)
     {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -145,8 +144,9 @@ public partial class SelectBuildPanel : BaseUIForm
             RefreshCoinLifeEnergy();
             RefreshDrawCardNum();
         }
+
         Init_SelectCards();
-        
+
         IsInit = true;
     }
 }

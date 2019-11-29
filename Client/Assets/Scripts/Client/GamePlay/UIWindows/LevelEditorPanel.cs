@@ -501,7 +501,6 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
-
     private UnityAction<string, bool> SetShopItemCardCount;
 
     private void OnShopItemCardCountChange(string value_str)
@@ -557,7 +556,6 @@ public class LevelEditorPanel : BaseUIForm
             SetShopItemOthersCount(1.ToString(), false);
         }
     }
-
 
     #endregion
 

@@ -32,7 +32,7 @@ public class PlayerBuffManager : MonoBehaviour
         PlayerBuffID_PrepPass.Clear();
     }
 
-    public void UpdatePlayerBuff(SideEffectExecute buffSee, int buffId,PlayerBuffUpdateRequest.UpdateTypes updateType)
+    public void UpdatePlayerBuff(SideEffectExecute buffSee, int buffId, PlayerBuffUpdateRequest.UpdateTypes updateType)
     {
         if (updateType == PlayerBuffUpdateRequest.UpdateTypes.Add)
         {

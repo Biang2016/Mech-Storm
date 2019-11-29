@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -39,9 +37,9 @@ public class LevelEditorPanel_CardRow : PropertyFormRow
         MoveDownButton.onClick.RemoveAllListeners();
         RemoveButton.onClick.RemoveAllListeners();
 
-        MoveUpButton.onClick.AddListener(delegate { onMoveUp(CardInfo.CardID);});
-        MoveDownButton.onClick.AddListener(delegate { onMoveDown(CardInfo.CardID);});
-        RemoveButton.onClick.AddListener(delegate { onRemove(CardInfo.CardID);});
+        MoveUpButton.onClick.AddListener(delegate { onMoveUp(CardInfo.CardID); });
+        MoveDownButton.onClick.AddListener(delegate { onMoveDown(CardInfo.CardID); });
+        RemoveButton.onClick.AddListener(delegate { onRemove(CardInfo.CardID); });
     }
 
     protected override void SetValue(string value_str, bool forceChange = false)

@@ -336,7 +336,8 @@ public class EventManager
         if (see.M_ExecuteSetting.RemoveTriggerDelayTimes > 0)
         {
             see.M_ExecuteSetting.RemoveTriggerDelayTimes--;
-        }else if (see.M_ExecuteSetting.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
+        }
+        else if (see.M_ExecuteSetting.RemoveTriggerTimes > 0) //RemoveTriggerTimes decreases every time it triggers and removes when it's 0
         {
             see.M_ExecuteSetting.RemoveTriggerTimes--;
             foreach (SideEffectBase se in see.SideEffectBases)
