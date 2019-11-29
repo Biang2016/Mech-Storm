@@ -145,17 +145,6 @@ public class BattleProxyAI : BattleProxy
             }
             else
             {
-                if (ti.HasTargetMech)
-                {
-                    ModuleMech mech = GetTargetMechByTargetInfo(sefs, ti);
-                    if (mech != null)
-                    {
-                        DebugLog.PrintError("SpelltoMech: " + card.CardInfo.BaseInfo.CardNames["zh"] + "  " + mech.CardInfo.BaseInfo.CardNames["zh"]);
-                        BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {(mech.M_MechID, false)}));
-                        return true;
-                    }
-                }
-
                 if (ti.HasTargetShip)
                 {
                     switch (ti.targetShipRange)
@@ -270,6 +259,17 @@ public class BattleProxyAI : BattleProxy
                             BattleGameManager.OnClientUseSpellCardToShipRequest(new UseSpellCardToShipRequest(ClientID, card.M_CardInstanceId, new List<int> {BattleGameManager.PlayerA.ClientId}));
                             return true;
                         }
+                    }
+                }
+
+                if (ti.HasTargetMech)
+                {
+                    ModuleMech mech = GetTargetMechByTargetInfo(sefs, ti);
+                    if (mech != null)
+                    {
+                        DebugLog.PrintError("SpelltoMech: " + card.CardInfo.BaseInfo.CardNames["zh"] + "  " + mech.CardInfo.BaseInfo.CardNames["zh"]);
+                        BattleGameManager.OnClientUseSpellCardToMechRequest(new UseSpellCardToMechRequest(ClientID, card.M_CardInstanceId, new List<(int, bool)> {(mech.M_MechID, false)}));
+                        return true;
                     }
                 }
 
@@ -388,15 +388,20 @@ public class BattleProxyAI : BattleProxy
             return true;
         }
 
+        List<int> targetMechIDs = new List<int>();
+
         foreach (ModuleMech targetMech in EnemyPlayer.BattleGroundManager.Mechs)
         {
             if (targetMech.CheckMechCanAttackMe(mech))
             {
-                BattleGameManager.OnClientMechAttackMechRequest(new MechAttackMechRequest(ClientID, mech.M_MechID, EnemyPlayer.ClientId, targetMech.M_MechID));
-                return true;
+                targetMechIDs.Add(targetMech.M_MechID);
             }
         }
 
+        if (targetMechIDs.Count == 0) return false;
+
+        int targetMechID = Utils.GetRandomFromList(targetMechIDs, 1)[0];
+        BattleGameManager.OnClientMechAttackMechRequest(new MechAttackMechRequest(ClientID, mech.M_MechID, EnemyPlayer.ClientId, targetMechID));
         return false;
     }
 
@@ -741,7 +746,7 @@ public class BattleProxyAI : BattleProxy
         List<ModuleMech> mechs_NoEquip = new List<ModuleMech>(); // Give priority to those who have no such equipment
 
         List<ModuleMech> optionalMech = new List<ModuleMech>();
-        foreach (ModuleMech mech in mechs) 
+        foreach (ModuleMech mech in mechs)
         {
             if (CheckMechCanEquipMe(mech, cardInfo))
             {

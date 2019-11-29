@@ -34,8 +34,11 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
 
     private List<PropertyFormRow> CardPropertyFormRows = new List<PropertyFormRow>();
 
+    private bool Initializing = false;
+
     public void Initialize(SideEffectExecute see, UnityAction onRefreshText, bool isReadOnly, bool isExecuteSettingTypeChanged)
     {
+        Initializing = true;
         foreach (PropertyFormRow cpfr in CardPropertyFormRows)
         {
             cpfr.PoolRecycle();
@@ -88,7 +91,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 see.M_ExecuteSetting.TriggerTime = value;
                 List<string> trList = SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.TriggerTime);
                 ((PropertyFormRow_Dropdown) cpfr_TriggerRange).RefreshDropdownOptionList(trList);
-                if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others) _setValueTriggerRange(trList[0], true);
+                if (!Initializing && (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)) _setValueTriggerRange(trList[0], true);
                 onRefreshText?.Invoke();
             },
             out UnityAction<string, bool> _setValueTriggerTime, sesb != null ? ScriptExecuteSettingBase.HashSetTriggerTimeToListString(sesb.ValidTriggerTimes) : triggerTimeTypeList);
@@ -142,7 +145,7 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
                 see.M_ExecuteSetting.RemoveTriggerTime = value;
                 List<string> trList = SideEffectExecute.GetTriggerRangeListByTriggerTime(see.M_ExecuteSetting.RemoveTriggerTime);
                 ((PropertyFormRow_Dropdown) cpfr_RemoveTriggerRange).RefreshDropdownOptionList(trList);
-                if (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others) _setValueRemoveTriggerRange(trList[0], true);
+                if (!Initializing && (see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Scripts || see.ExecuteSettingType == SideEffectExecute.ExecuteSettingTypes.Others)) _setValueRemoveTriggerRange(trList[0], true);
                 onRefreshText?.Invoke();
             },
             out UnityAction<string, bool> _setValueRemoveTriggerTime, sesb != null ? ScriptExecuteSettingBase.HashSetTriggerTimeToListString(sesb.ValidRemoveTriggerTimes) : triggerTimeTypeList);
@@ -195,6 +198,8 @@ public class CardPropertyForm_ExecuteSetting : PoolObject
         _setValueRemoveTriggerRange(see.M_ExecuteSetting.RemoveTriggerRange.ToString(), isExecuteSettingTypeChanged);
         _setValueRemoveTriggerTimes(sesb != null ? (sesb.LockedRemoveTriggerTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedRemoveTriggerTimes.ToString() : see.M_ExecuteSetting.RemoveTriggerTimes.ToString()) : see.M_ExecuteSetting.RemoveTriggerTimes.ToString(), isExecuteSettingTypeChanged);
         _setValueRemoveTriggerDelayTimes(sesb != null ? (sesb.LockedRemoveTriggerDelayTimes != ScriptExecuteSettingBase.UNLOCKED_EXECUTESETTING_TIMES ? sesb.LockedRemoveTriggerDelayTimes.ToString() : see.M_ExecuteSetting.RemoveTriggerDelayTimes.ToString()) : see.M_ExecuteSetting.RemoveTriggerDelayTimes.ToString(), isExecuteSettingTypeChanged);
+
+        Initializing = false;
     }
 
     private void SetScriptExecuteSettingType(string value_str)

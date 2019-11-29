@@ -738,7 +738,7 @@
 	},
 	"Notice_SelectBuildManagerSelect_OnlyTakeSeveralCards": {
 		"zh": "该卡牌只能携带{0}张",
-		"en": "You can only take %s copy of this card."
+		"en": "You can only take {0} copy of this card."
 	},
 	"Notice_SelectBuildManagerSelect_UpdateDeckSuccess": {
 		"zh": "更新卡组成功",

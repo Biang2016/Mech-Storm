@@ -55,6 +55,7 @@ internal class BattleResultPanel : BaseUIForm
 
     private List<BonusGroup> AllBonusGroups;
     private List<BonusGroup> AlwaysBonusGroups;
+    private BonusGroup AlwaysBonusGroupsResults;
     private List<BonusGroup> OptionalBonusGroups;
 
     #endregion
@@ -251,10 +252,40 @@ internal class BattleResultPanel : BaseUIForm
 
             List<BonusGroup> RandomOptionalBonusGroup = Utils.GetRandomWithProbabilityFromList(OptionalBonusGroups, 3);
 
+            List<BonusGroup> firstCheckBGs = new List<BonusGroup>();
+            List<BonusGroup> secondCheckBGs = new List<BonusGroup>();
+            foreach (BonusGroup bg in RandomOptionalBonusGroup)
+            {
+                bool findUnlockCardByID = false;
+                foreach (Bonus b in bg.Bonuses)
+                {
+                    if (b is Bonus_UnlockCardByID b_id)
+                    {
+                        findUnlockCardByID = true;
+                        break;
+                    }
+                }
+
+                if (findUnlockCardByID)
+                {
+                    firstCheckBGs.Add(bg);
+                }
+                else
+                {
+                    secondCheckBGs.Add(bg);
+                }
+            }
+
             List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb> exceptionBudgetLifeEnergyComb = new List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb>();
             HashSet<int> exceptionCardIDs = new HashSet<int>();
+            foreach (BonusGroup bg in firstCheckBGs)
+            {
+                BonusButton bb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BonusButton].AllocateGameObject<BonusButton>(OptionalBonusContainer);
+                bb.Initialize(bg, onClickAction: delegate { SetBonusButtonSelected(bb); }, exceptionCardIDs, exceptionBudgetLifeEnergyComb);
+                M_CurrentBonusButtons.Add(bb);
+            }
 
-            foreach (BonusGroup bg in RandomOptionalBonusGroup)
+            foreach (BonusGroup bg in secondCheckBGs)
             {
                 BonusButton bb = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.BonusButton].AllocateGameObject<BonusButton>(OptionalBonusContainer);
                 bb.Initialize(bg, onClickAction: delegate { SetBonusButtonSelected(bb); }, exceptionCardIDs, exceptionBudgetLifeEnergyComb);
@@ -263,12 +294,14 @@ internal class BattleResultPanel : BaseUIForm
 
             foreach (BonusGroup bg in AlwaysBonusGroups)
             {
+                AlwaysBonusGroupsResults = new BonusGroup(true, new List<Bonus>(), 0, false);
                 foreach (Bonus bonus in bg.Bonuses)
                 {
                     if (bonus is Bonus_BudgetLifeEnergyMixed b_Mixed)
                     {
                         foreach (Bonus b in b_Mixed.GetBonusListFromBonusComb(b_Mixed.GetBudgetLifeEnergyComb(new List<Bonus_BudgetLifeEnergyMixed.BudgetLifeEnergyComb>())))
                         {
+                            AlwaysBonusGroupsResults.Bonuses.Add(b.Clone());
                             SmallBonusItem _sbi = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallBonusItem].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
                             _sbi.Initialize(b);
                             M_CurrentFixedBonusItems.Add(_sbi);
@@ -279,6 +312,7 @@ internal class BattleResultPanel : BaseUIForm
                         SmallBonusItem sbi = GameObjectPoolManager.Instance.PoolDict[GameObjectPoolManager.PrefabNames.SmallBonusItem].AllocateGameObject<SmallBonusItem>(FixedBonusContainer);
                         sbi.Initialize(bonus);
                         M_CurrentFixedBonusItems.Add(sbi);
+                        AlwaysBonusGroupsResults.Bonuses.Add(bonus.Clone());
                     }
                 }
             }
@@ -371,6 +405,7 @@ internal class BattleResultPanel : BaseUIForm
         {
             true, new List<string>
             {
+                "Prepare different decks for different enemies. You can create new deck in the deck window",
                 "Don't take too many useless cards, which would dilute your deck and decrease the chance to draw powerful cards.",
                 "Lost? Never mind! Go to buy some powerful cards. And spare more budget on adding your life.",
                 "Drawing cards slowly? Try to increase the number of draw cards per round in the deck window.",
@@ -382,6 +417,7 @@ internal class BattleResultPanel : BaseUIForm
         {
             false, new List<string>
             {
+                "准备多套卡组以应付不同类型的敌人; 在选牌窗口可以新建卡组",
                 "没有用的卡牌不要拿太多哦~ 那样会稀释你的牌库，减少抽到好牌的概率",
                 "太容易被击败? 尝试着花费更多预算来提高你的生命值吧! 就在选牌窗口哦~",
                 "抽牌太少? 去选牌窗口里调整每回合抽牌数吧!",
@@ -421,7 +457,7 @@ internal class BattleResultPanel : BaseUIForm
             getBonusGroups.Add(Cur_SelectedBonusButton.BonusGroup);
         }
 
-        getBonusGroups.AddRange(AlwaysBonusGroups.ToArray());
+        getBonusGroups.Add(AlwaysBonusGroupsResults);
 
         ApplyBonusChange(getBonusGroups);
         EndWinLostPanel();
@@ -443,11 +479,8 @@ internal class BattleResultPanel : BaseUIForm
 
     private void SendAlwaysBonusRequest()
     {
-        foreach (BonusGroup bg in AlwaysBonusGroups)
-        {
-            BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, bg);
-            Client.Instance.Proxy.SendMessage(request);
-        }
+        BonusGroupRequest request = new BonusGroupRequest(Client.Instance.Proxy.ClientID, AlwaysBonusGroupsResults);
+        Client.Instance.Proxy.SendMessage(request);
     }
 
     private void ApplyBonusChange(List<BonusGroup> getBonusGroups)

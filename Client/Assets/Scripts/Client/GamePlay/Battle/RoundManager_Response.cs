@@ -406,7 +406,7 @@ public partial class RoundManager
         }
         else
         {
-            cp.BattlePlayer.PlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId,r.updateType);
+            cp.BattlePlayer.PlayerBuffManager.UpdatePlayerBuff(r.buffSEE, r.buffId, r.updateType);
         }
     }
 
@@ -543,7 +543,7 @@ public partial class RoundManager
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
         ModuleMech mech = FindMech(r.mechId);
         ModuleMech targetMech = FindMech(r.targetMechId);
-        mech.OnAttack(r.weaponType, targetMech);
+        mech.OnAttack(r.weaponType, targetMech, targetMech.IsDead);
     }
 
     private void OnMechOnAttackShip(MechOnAttackShipRequest r)
@@ -574,7 +574,7 @@ public partial class RoundManager
         {
             //if (r.ExecutorInfo.EquipId == ExecutorInfo.EXECUTE_INFO_NONE)
             //{
-                cp.BattlePlayer.BattleGroundManager.GetMech(r.ExecutorInfo.MechId).OnShowEffects(r.TriggerTime, r.TriggerRange);
+            cp.BattlePlayer.BattleGroundManager.GetMech(r.ExecutorInfo.MechId).OnShowEffects(r.TriggerTime, r.TriggerRange);
             //}
             //else
             //{

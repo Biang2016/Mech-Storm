@@ -12,7 +12,7 @@ public class Story : IClone<Story>, IVariant<Story>
 
     public GamePlaySettings StoryGamePlaySettings;
 
-    public const int DefaultStarterCrystal = 30;
+    public const int DefaultStarterCrystal = 10;
     public int Crystal; // 水晶，用于购物
 
     public int CurrentFightingChapterID;

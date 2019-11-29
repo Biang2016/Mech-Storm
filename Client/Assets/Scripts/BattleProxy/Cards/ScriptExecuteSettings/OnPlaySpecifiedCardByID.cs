@@ -70,7 +70,10 @@ namespace ScriptExecuteSettings
                     break;
             }
 
-            if (playerCheck && executorInfo.CardId == M_SideEffectParam.GetParam_ConstInt("CardID"))
+            int cardID = M_SideEffectParam.GetParam_ConstInt("CardID");
+            List<int> cardIDSeries = AllCards.GetCardSeries(cardID);
+
+            if (playerCheck && cardIDSeries.Contains(executorInfo.CardId))
             {
                 executorInfo.MechId = se_ExecutorInfo.MechId;
                 return true;

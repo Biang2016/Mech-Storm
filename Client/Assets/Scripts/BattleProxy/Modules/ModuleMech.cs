@@ -1051,6 +1051,17 @@ internal class ModuleMech : ModuleBase, ILife
 
     public void Attack(ModuleMech targetMech, bool isCounterAttack) //服务器客户单分别计算
     {
+        if (targetMech.M_IsDead)
+        {
+            AttackTimesThisRound -= 1;
+            return;
+        }
+
+        if (M_IsDead)
+        {
+            return;
+        }
+
         int damage = 0;
 
         bool canCounter = !isCounterAttack && M_AttackLevel <= targetMech.M_AttackLevel; //对方能否反击

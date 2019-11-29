@@ -30,16 +30,18 @@
             {
                 player.GameManager.GetMech(executorInfo.MechId).M_MechShield += value;
             }
-
-            player.GameManager.SideEffect_MechAction(
-                delegate(ModuleMech mech) { mech.M_MechShield += value; },
-                player,
-                0,
-                executorInfo.TargetMechIds,
-                TargetRange,
-                TargetSelect,
-                -1
-            );
+            else
+            {
+                player.GameManager.SideEffect_MechAction(
+                    delegate(ModuleMech mech) { mech.M_MechShield += value; },
+                    player,
+                    0,
+                    executorInfo.TargetMechIds,
+                    TargetRange,
+                    TargetSelect,
+                    -1
+                );
+            }
         }
 
         public int GetSideEffectFunctionBias()

@@ -501,33 +501,6 @@ public class LevelEditorPanel : BaseUIForm
         }
     }
 
-    private UnityAction<string, bool> SetShopItemOthersCount;
-
-    private void OnShopItemOthersCount(string value_str)
-    {
-        if (int.TryParse(value_str, out int value))
-        {
-            if (value <= 0)
-            {
-                SetShopItemOthersCount(1.ToString(), false);
-            }
-            else if (value <= Shop.SYSTEM_SHOP_MAX_ITEM)
-            {
-                if (Cur_Level is Shop shop)
-                {
-                    shop.ShopItemCardCount = value;
-                }
-            }
-            else
-            {
-                SetShopItemOthersCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString(), false);
-            }
-        }
-        else
-        {
-            SetShopItemOthersCount(1.ToString(), false);
-        }
-    }
 
     private UnityAction<string, bool> SetShopItemCardCount;
 
@@ -543,7 +516,7 @@ public class LevelEditorPanel : BaseUIForm
             {
                 if (Cur_Level is Shop shop)
                 {
-                    shop.ShopItemOthersCount = value;
+                    shop.ShopItemCardCount = value;
                 }
             }
             else
@@ -556,6 +529,35 @@ public class LevelEditorPanel : BaseUIForm
             SetShopItemCardCount(0.ToString(), false);
         }
     }
+
+    private UnityAction<string, bool> SetShopItemOthersCount;
+
+    private void OnShopItemOthersCount(string value_str)
+    {
+        if (int.TryParse(value_str, out int value))
+        {
+            if (value <= 0)
+            {
+                SetShopItemOthersCount(1.ToString(), false);
+            }
+            else if (value <= Shop.SYSTEM_SHOP_MAX_ITEM)
+            {
+                if (Cur_Level is Shop shop)
+                {
+                    shop.ShopItemOthersCount = value;
+                }
+            }
+            else
+            {
+                SetShopItemOthersCount(Shop.SYSTEM_SHOP_MAX_ITEM.ToString(), false);
+            }
+        }
+        else
+        {
+            SetShopItemOthersCount(1.ToString(), false);
+        }
+    }
+
 
     #endregion
 

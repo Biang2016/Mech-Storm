@@ -194,6 +194,14 @@ public class LevelPropertyForm_BonusGroup : PropertyFormRow
         }
 
         Cur_BonusGroup = bonusGroup;
+        foreach (Bonus bonus in Cur_BonusGroup.Bonuses)
+        {
+            if (bonus is Bonus_UnlockCardByID)
+            {
+                Cur_BonusGroup.IsSingleton = true;
+            }
+        }
+
         SetBonusGroupIsAlways(Cur_BonusGroup.IsAlways.ToString(), false);
         SetBonusGroupProbability(Cur_BonusGroup.Probability.ToString(), false);
         SetBonusGroupIsSingleton(Cur_BonusGroup.IsSingleton.ToString(), false);

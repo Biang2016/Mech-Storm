@@ -17,7 +17,7 @@ namespace SideEffects
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.MechBased;
 
-        public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.All};
+        public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.Single};
 
         public override string GenerateDesc()
         {

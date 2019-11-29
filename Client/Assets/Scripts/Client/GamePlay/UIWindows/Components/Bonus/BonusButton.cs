@@ -123,11 +123,6 @@ internal class BonusButton : PoolObject
             BonusGroup.Bonuses.Remove(removeBonus);
         }
 
-        if (BonusGroup.Bonuses.Count == 0)
-        {
-            int a = 0;
-        }
-
         foreach (Bonus bonus in BonusGroup.Bonuses)
         {
             BonusItem_Base bi = BonusItem_Base.InstantiateBonusItem(bonus, Container);
