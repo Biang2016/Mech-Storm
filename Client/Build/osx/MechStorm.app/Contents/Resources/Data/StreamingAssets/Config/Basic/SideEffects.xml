@@ -12,7 +12,8 @@
   <SideEffect name="DrawCards" desc_zh="{0}抽{1}张牌, " desc_en="{0} draw {1} card{2}. "></SideEffect>
   <SideEffect name="CopyNextDrawCard" desc_zh="{0}抽1张牌, 并获得该牌的{1}张复制, " desc_en="{0} draw 1 card and get {1} copy of that card. "></SideEffect>
   <SideEffect name="DrawTypeCards" desc_zh="{0}抽{1}张{2}, " desc_en="{0} draw {1} {2} card{3}. "></SideEffect>
-  <SideEffect name="AddTempCardToDeck" desc_zh="将{1}张临时的{2}放入{0}的牌堆, " desc_en="put {1} temporary {2} into {0} deck. "></SideEffect>
+  <SideEffect name="AddTempCardToDeck" desc_zh="将{1}张临时的{2}放入{0}牌堆, " desc_en="put {1} temporary {2} into {0} deck. "></SideEffect>
+  <SideEffect name="AddCardToHandByID" desc_zh="将{1}张临时的{2}放入{0}手牌, " desc_en="put {1} temporary {2} into {0} hand. "></SideEffect>
 
   <SideEffect name="GetHandCardCopy" desc_zh="{0}获得{1}张随机手牌的{2}张复制, " desc_en="{0} get {2} temporary copy(s) of {1} random hand card{2}."></SideEffect>
 
