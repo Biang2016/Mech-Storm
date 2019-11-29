@@ -712,7 +712,7 @@ internal class ModuleMech : ModuleBase, ILife
     {
         m_Pack = newPack;
         BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.TriggerTime.OnEquipEquiped, new ExecutorInfo(clientId: BattlePlayer.ClientId, mechId: M_MechID, equipId: m_Pack.M_EquipID));
-        EquipPackServerRequest request = new EquipPackServerRequest(clientId: BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
+        EquipPackServerRequest request = new EquipPackServerRequest(BattlePlayer.ClientId, (CardInfo_Equip) newPack.GetCurrentCardInfo(), M_MechID, m_Pack.M_EquipID);
         BattlePlayer.MyClientProxy.BattleGameManager.Broadcast_AddRequestToOperationResponse(request);
     }
 
