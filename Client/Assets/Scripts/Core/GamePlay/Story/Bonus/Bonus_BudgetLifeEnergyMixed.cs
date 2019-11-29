@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
-using UnityEngine;
 
 public class Bonus_BudgetLifeEnergyMixed : Bonus
 {
@@ -38,15 +38,15 @@ public class Bonus_BudgetLifeEnergyMixed : Bonus
 
     public static BudgetLifeEnergyComb GetBonusFromMixedBonus(int value, int seed)
     {
-        Random.InitState(seed);
+        Random rd = new Random(seed);
 
-        int minValue = Mathf.CeilToInt(0.8f * value / 25);
-        int maxValue = Mathf.CeilToInt(1.5f * value / 25);
-        int curCount_25 = Random.Range(minValue, maxValue + 1);
+        int minValue = (int) Math.Ceiling(0.8f * value / 25);
+        int maxValue = (int) Math.Ceiling(1.5f * value / 25);
+        int curCount_25 = rd.Next(minValue, maxValue + 1);
 
-        int lifeEnergyTotal = Random.Range(0, curCount_25 / 2 + 1);
+        int lifeEnergyTotal = rd.Next(0, curCount_25 / 2 + 1);
         int budget = (curCount_25 - lifeEnergyTotal) * 25;
-        int life = Random.Range(0, lifeEnergyTotal + 1);
+        int life = rd.Next(0, lifeEnergyTotal + 1);
         int energy = lifeEnergyTotal - life;
 
         if (budget == 0 && life == 0 && energy == 0)

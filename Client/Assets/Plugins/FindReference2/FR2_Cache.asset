@@ -31242,5 +31242,11 @@ MonoBehaviour:
     stamp: 0
     type: 9
     UseGUIDs: []
+  - guid: 3114354d56c4d51439c26992c5d82f0b
+    ScriptSymbols: []
+    ScriptTokens: []
+    stamp: 1574994034
+    type: 1
+    UseGUIDs: []
   timeStamp: 1574957385
   priority: 5
