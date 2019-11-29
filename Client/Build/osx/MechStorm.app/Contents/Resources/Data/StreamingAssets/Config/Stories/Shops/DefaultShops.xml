@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <AllShops>
   <LevelInfo name_en="NewShop" name_zh="新商店" picID="1001" levelType="Shop" difficultyLevel="1">
     <ShopInfo shopItemCardCount="5" shopItemOthersCount="2" />
