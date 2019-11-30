@@ -291,6 +291,22 @@ public class Proxy : ProxyBase
                     UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().StartGameAction = null;
                     UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SingleDeckButton.SetTipImageTextShow(StoryManager.Instance.JustGetSomeCard);
+
+                    if (StoryManager.Instance.JustGetSomeCard)
+                    {
+                        ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+                        cp.Initialize(
+                            LanguageManager.Instance.GetText("RoundManager_JustGotANewCard"),
+                            LanguageManager.Instance.GetText("RoundManager_GoToDeck"),
+                            LanguageManager.Instance.GetText("RoundManager_GotIt"),
+                            delegate
+                            {
+                                cp.CloseUIForm();
+                                UIManager.Instance.ShowUIForms<SelectBuildPanel>();
+                            },
+                            cp.CloseUIForm);
+                    }
+
                     break;
                 }
                 case NetProtocols.REFRESH_STORY_REQUEST:

@@ -19,6 +19,7 @@
         <EnemyInfo id="36" name="Rathma" />
       </EnemyInfos>
       <ShopInfos>
+        <ShopInfo id="3" name="Shop" />
         <ShopInfo id="21" name="Shop" />
         <ShopInfo id="57" name="Supermarket" />
         <ShopInfo id="60" name="Supermarket" />

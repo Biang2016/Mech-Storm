@@ -66,6 +66,11 @@ public class ShopItemButton : PoolObject
     public virtual void Initialize(ShopItem shopItem)
     {
         Cur_ShopItem = shopItem.Clone();
+        if (shopItem is ShopItem_Card si_card)
+        {
+            ((ShopItem_Card) Cur_ShopItem).GenerateCardID = si_card.GenerateCardID;
+        }
+
         PriceText.text = shopItem.Price.ToString();
         IsSold = false;
     }

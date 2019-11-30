@@ -174,24 +174,6 @@ public partial class RoundManager : MonoSingleton<RoundManager>
                 break;
             }
         }
-
-        if (M_PlayMode == PlayMode.Single)
-        {
-            if (StoryManager.Instance.JustGetSomeCard)
-            {
-                ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
-                cp.Initialize(
-                    LanguageManager.Instance.GetText("RoundManager_JustGotANewCard"),
-                    LanguageManager.Instance.GetText("RoundManager_GoToDeck"),
-                    LanguageManager.Instance.GetText("RoundManager_GotIt"),
-                    delegate
-                    {
-                        cp.CloseUIForm();
-                        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
-                    },
-                    cp.CloseUIForm);
-            }
-        }
     }
 
     #region 交互
