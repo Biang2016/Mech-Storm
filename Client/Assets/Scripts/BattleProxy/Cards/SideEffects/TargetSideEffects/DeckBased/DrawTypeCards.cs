@@ -17,7 +17,7 @@
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(
+            return base.GenerateDesc() + HighlightStringFormat(
                 DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("CardCount"),
@@ -25,8 +25,9 @@
                 M_SideEffectParam.GetParam_MultipliedInt("CardCount") <= 1 ? "" : "s");
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.SideEffect_ShipAction(
                 delegate(BattlePlayer sp) { sp.HandManager.DrawCardsByType((CardTypes) M_SideEffectParam.GetParam_ConstInt("DrawCardType"), M_SideEffectParam.GetParam_MultipliedInt("CardCount")); },
@@ -35,6 +36,7 @@
                 TargetRange,
                 TargetSelect,
                 executorInfo.TargetClientIds);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

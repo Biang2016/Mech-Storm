@@ -24,15 +24,16 @@
             }
 
             BaseInfo bi = AllCards.GetCard(cardID).BaseInfo;
-            return HighlightStringFormat(
+            return base.GenerateDesc() + HighlightStringFormat(
                 DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("CardCount"),
                 "[" + bi.CardNames[LanguageManager_Common.GetCurrentLanguage()] + "]");
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.SideEffect_ShipAction(
                 delegate(BattlePlayer sp)
@@ -47,6 +48,7 @@
                 TargetRange,
                 TargetSelect,
                 executorInfo.TargetClientIds);
+            return true;
         }
 
         public SideEffectValue_ConstInt GetCardIDSideEffectValue()

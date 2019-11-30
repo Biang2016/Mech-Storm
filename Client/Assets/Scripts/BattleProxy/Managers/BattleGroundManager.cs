@@ -345,6 +345,14 @@ internal class BattleGroundManager
 
         foreach (ModuleMech mech in BattlePlayer.MyEnemyPlayer.BattleGroundManager.Mechs)
         {
+            if (!mech.M_IsDead)
+            {
+                mech.IsFirstRound = false;
+            }
+        }
+
+        foreach (ModuleMech mech in BattlePlayer.MyEnemyPlayer.BattleGroundManager.Mechs)
+        {
             if (mech.M_ImmuneLeftRounds > 0) mech.M_ImmuneLeftRounds--;
             if (mech.M_InactivityRounds > 0) mech.M_InactivityRounds--;
         }

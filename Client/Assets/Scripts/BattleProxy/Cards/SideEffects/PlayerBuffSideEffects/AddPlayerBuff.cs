@@ -6,8 +6,9 @@
         {
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
 
             AttachedBuffSEE.M_ExecutorInfo = new ExecutorInfo(clientId: player.ClientId, sideEffectExecutorID: AttachedBuffSEE.ID, isPlayerBuff: true);
@@ -23,6 +24,7 @@
             }
 
             player.UpdatePlayerBuff(AttachedBuffSEE, true);
+            return true;
         }
     }
 }

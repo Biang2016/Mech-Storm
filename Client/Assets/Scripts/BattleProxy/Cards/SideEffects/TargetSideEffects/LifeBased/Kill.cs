@@ -10,13 +10,15 @@
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.KillMechs(ChoiceCount, executorInfo.TargetMechIds, player, TargetRange, TargetSelect, -1);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

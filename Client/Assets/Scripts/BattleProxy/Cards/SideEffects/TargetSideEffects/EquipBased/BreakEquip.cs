@@ -10,16 +10,18 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
         public override TargetSelector.TargetSelectorTypes TargetSelectorType => TargetSelector.TargetSelectorTypes.EquipBased;
         public override List<TargetSelect> ValidTargetSelects => new List<TargetSelect> {TargetSelect.Single, TargetSelect.SingleRandom};
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             player.GameManager.RemoveEquipByEquipID(executorInfo.TargetEquipIds[0]);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

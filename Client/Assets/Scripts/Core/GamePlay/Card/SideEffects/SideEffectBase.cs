@@ -32,7 +32,10 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
 
     public SideEffectParam M_SideEffectParam = new SideEffectParam(new List<SideEffectValue>(), 1);
 
-    protected abstract void InitSideEffectParam();
+    protected virtual void InitSideEffectParam()
+    {
+        M_SideEffectParam.SetParam_ConstInt("Chance", 100);
+    }
 
     //序列化时无视player，和M_ExecutorInfo，也就是说效果是无关玩家和执行者的
     public virtual void Serialize(DataStream writer)
@@ -110,11 +113,22 @@ public abstract class SideEffectBase : IClone<SideEffectBase>
 
     public virtual string GenerateDesc()
     {
-        return "";
+        int chance = M_SideEffectParam.GetParam_ConstInt("Chance");
+        string changeDesc = "(" + chance + "%) ";
+        if (chance == 100)
+        {
+            changeDesc = "";
+        }
+
+        return changeDesc;
     }
 
-    public virtual void Execute(ExecutorInfo eventTriggerInfo)
+    public virtual bool Execute(ExecutorInfo eventTriggerInfo)
     {
+        int chance = M_SideEffectParam.GetParam_ConstInt("Chance");
+        Random r = new Random();
+        int next = r.Next(0, 100);
+        return next < chance;
     }
 
     protected static string HighlightStringFormat(string src, params object[] args)

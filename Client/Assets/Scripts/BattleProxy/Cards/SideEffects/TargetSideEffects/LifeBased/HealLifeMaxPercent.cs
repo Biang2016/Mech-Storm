@@ -18,13 +18,14 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("Percent"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int healPercent = M_SideEffectParam.GetParam_MultipliedInt("Percent");
             if (TargetRange == TargetRange.Self) // 对自身
@@ -49,6 +50,7 @@ namespace SideEffects
                     executorInfo.TargetMechIds
                 );
             }
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

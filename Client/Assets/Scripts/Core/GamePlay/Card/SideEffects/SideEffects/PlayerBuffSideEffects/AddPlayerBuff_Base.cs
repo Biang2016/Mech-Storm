@@ -28,6 +28,7 @@ namespace SideEffects
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_String("BuffName", "");
         }
 
@@ -39,7 +40,7 @@ namespace SideEffects
                 desc += se.GenerateDesc() + ",";
             }
 
-            return desc.TrimEnd(",".ToCharArray());
+            return base.GenerateDesc() + desc.TrimEnd(",".ToCharArray());
         }
 
         public override SideEffectBase Clone()

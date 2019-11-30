@@ -10,26 +10,21 @@ namespace SideEffects
 
         protected override void InitSideEffectParam()
         {
-            M_SideEffectParam.SetParam_ConstInt("Chance", 50);
+            base.InitSideEffectParam();
         }
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_ConstInt("Chance"));
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()]);
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
 
-            int chance = M_SideEffectParam.GetParam_ConstInt("Chance");
-            var r = new Random();
-            int random = r.Next(0, 100);
-
-            if (random < chance)
-            {
-                player.ExtraRounds++;
-            }
+            player.ExtraRounds++;
+            return true;
         }
     }
 }

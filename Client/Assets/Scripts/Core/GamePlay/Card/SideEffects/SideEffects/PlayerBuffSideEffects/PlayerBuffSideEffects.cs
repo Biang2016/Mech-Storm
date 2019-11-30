@@ -15,6 +15,7 @@ public abstract class PlayerBuffSideEffects : SideEffectBase
 
     protected override void InitSideEffectParam()
     {
+        base.InitSideEffectParam();
         M_SideEffectParam.SetParam_ConstInt("BuffPicId", 0);
         M_SideEffectParam.SetParam_String("BuffColor", "#ffffff");
         M_SideEffectParam.SetParam_Bool("HasNumberShow", false);

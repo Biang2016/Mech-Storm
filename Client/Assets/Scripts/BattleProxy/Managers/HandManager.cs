@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SideEffects;
 
 internal class Battle_HandManager
 {
@@ -85,21 +86,29 @@ internal class Battle_HandManager
         return res;
     }
 
-    internal List<int> GetRandomSpellCardInstanceIds(int count, int exceptCardInstanceID)
+    internal List<int> GetRandomHandCardInstanceIds(int count, int exceptCardInstanceID, TriggerHandCard.CheckValid checkValid)
     {
-        List<CardBase> spellCards = new List<CardBase>();
+        List<CardBase> validCards = new List<CardBase>();
         Cards.ForEach(card =>
         {
-            if (card is CardSpell spellCard)
-            {
-                if (spellCard.M_CardInstanceId != exceptCardInstanceID && !spellCard.CardInfo.TargetInfo.HasTarget)
+                if (card.M_CardInstanceId != exceptCardInstanceID && !card.CardInfo.TargetInfo.HasTarget)
                 {
-                    spellCards.Add(spellCard);
+                    if (checkValid != null)
+                    {
+                        bool valid = checkValid(card.CardInfo);
+                        if (valid)
+                        {
+                            validCards.Add(card);
+                        }
+                    }
+                    else
+                    {
+                        validCards.Add(card);
+                    }
                 }
-            }
         });
-        if (count > spellCards.Count) count = spellCards.Count;
-        List<CardBase> res = Utils.GetRandomFromList(spellCards, count);
+        if (count > validCards.Count) count = validCards.Count;
+        List<CardBase> res = Utils.GetRandomFromList(validCards, count);
         List<int> resIDs = new List<int>();
         res.ForEach(card => { resIDs.Add(card.M_CardInstanceId); });
         return resIDs;
@@ -312,6 +321,7 @@ internal class Battle_HandManager
         if (onlyTriggerNotUse)
         {
             CardBase copyCard = CardBase.InstantiateCardByCardInfo(useCard.CardInfo.Clone(), useCard.BattlePlayer, BattlePlayer.GameManager.GenerateNewTempCardInstanceId());
+
             BattlePlayer.GameManager.EventManager.Invoke(SideEffectExecute.GetTriggerTimeByCardType(copyCard.CardInfo.BaseInfo.CardType),
                 new ExecutorInfo(
                     clientId: BattlePlayer.ClientId,

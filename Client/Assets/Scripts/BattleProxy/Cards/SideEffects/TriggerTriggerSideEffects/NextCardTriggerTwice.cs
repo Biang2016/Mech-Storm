@@ -10,15 +10,17 @@ namespace SideEffects
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
         }
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()]);
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()]);
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             foreach (SideEffectBase se in PeekSEE.SideEffectBases)
             {
                 try
@@ -29,6 +31,7 @@ namespace SideEffects
                 {
                 }
             }
+            return true;
         }
 
         public override bool IsTrigger(ExecutorInfo ei)

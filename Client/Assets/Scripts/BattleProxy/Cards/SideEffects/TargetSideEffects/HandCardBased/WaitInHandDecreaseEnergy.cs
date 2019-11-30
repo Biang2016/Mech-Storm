@@ -16,11 +16,12 @@
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("DecValue"));
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("DecValue"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer sp = (BattlePlayer) Player;
             CardBase ci = sp.HandManager.GetCardByCardInstanceId(executorInfo.CardInstanceId);
 
@@ -28,6 +29,7 @@
             {
                 ci.M_Energy -= M_SideEffectParam.GetParam_MultipliedInt("DecValue");
             }
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

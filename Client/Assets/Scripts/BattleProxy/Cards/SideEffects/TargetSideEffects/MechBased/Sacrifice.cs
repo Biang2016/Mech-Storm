@@ -21,7 +21,7 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("ValueBasic"),
                 M_SideEffectParam.GetParam_MultipliedInt("ValuePlus"));
@@ -37,8 +37,9 @@ namespace SideEffects
             get { return IDamageType.UnknownValue; }
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             ModuleMech mech;
             if (TargetRange == TargetRange.Self)
@@ -99,6 +100,7 @@ namespace SideEffects
             }
 
             player.GameManager.KillMechs(new List<int> {mech.M_MechID});
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

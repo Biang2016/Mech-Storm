@@ -19,14 +19,15 @@
         {
             int times = M_SideEffectParam.GetParam_ConstInt("Times");
 
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("Energy"),
                 times > 1 ? ("*" + M_SideEffectParam.GetParam_ConstInt("Times")) : "");
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Energy");
             int times = M_SideEffectParam.GetParam_ConstInt("Times");
@@ -43,6 +44,7 @@
                 TargetRange,
                 TargetSelect,
                 executorInfo.TargetClientIds);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

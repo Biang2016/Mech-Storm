@@ -10,16 +10,18 @@ namespace SideEffects
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("Energy", 0);
         }
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("Energy"));
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("Energy"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
 
             ModuleMech mech = player.GameManager.GetMechOnBattleGround(M_SideEffectExecute.M_ExecutorInfo.MechId);
@@ -28,6 +30,7 @@ namespace SideEffects
                 int increase = Math.Min(mech.M_MechWeaponEnergyMax - mech.M_MechWeaponEnergy, M_SideEffectParam.GetParam_MultipliedInt("Energy"));
                 mech.M_MechWeaponEnergy += increase;
             }
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

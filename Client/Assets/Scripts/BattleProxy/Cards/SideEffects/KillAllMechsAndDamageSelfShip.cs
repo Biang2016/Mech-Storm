@@ -10,16 +10,18 @@ namespace SideEffects
 
         protected override void InitSideEffectParam()
         {
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("Damage", 3);
         }
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("Damage"));
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("Damage"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
 
             int count = player.BattleGroundManager.MechCount + player.MyEnemyPlayer.BattleGroundManager.MechCount;
@@ -37,6 +39,7 @@ namespace SideEffects
             }
 
             player.GameManager.KillMechs(killMechIds);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

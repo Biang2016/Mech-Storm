@@ -18,7 +18,7 @@
         public override string GenerateDesc()
         {
             int times = M_SideEffectParam.GetParam_ConstInt("DamageTimes");
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("Damage"),
                 times == 1 ? "" : ("*" + M_SideEffectParam.GetParam_ConstInt("DamageTimes")));
@@ -34,8 +34,9 @@
             get { return IDamageType.Known; }
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Damage");
             int times = M_SideEffectParam.GetParam_ConstInt("DamageTimes");
@@ -54,6 +55,7 @@
                 executorInfo.TargetClientIds,
                 executorInfo.TargetMechIds
             );
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

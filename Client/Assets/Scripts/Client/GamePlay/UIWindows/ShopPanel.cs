@@ -9,6 +9,7 @@ public class ShopPanel : BaseUIForm
     {
     }
 
+    [SerializeField] private RawImage CardRenderRawImage;
     [SerializeField] private Text LeftClickTipText;
     [SerializeField] private Text RightClickTipText;
     [SerializeField] private Text MyDeckText;

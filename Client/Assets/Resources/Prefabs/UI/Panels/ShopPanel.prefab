@@ -277,8 +277,8 @@ Camera:
   m_GameObject: {fileID: 1849243960634201072}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 0.35686275}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 35.5, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -294,13 +294,13 @@ Camera:
   far clip plane: 5
   field of view: 42
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.95
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2304
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: d78907998afe13a4c99f6a06d06e8b6a, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1051,6 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569edfbdfa4f59d4496e5d54c07c3875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardRenderRawImage: {fileID: 4748431093971815236}
   LeftClickTipText: {fileID: 2031262486312264885}
   RightClickTipText: {fileID: 4041774325867067165}
   MyDeckText: {fileID: 1034011342258379398}

@@ -11,35 +11,30 @@ namespace SideEffects
 
         protected override void InitSideEffectParam()
         {
-            M_SideEffectParam.SetParam_ConstInt("Chance", 50);
+            base.InitSideEffectParam();
             M_SideEffectParam.SetParam_MultipliedInt("AttackTimes", 1);
         }
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_ConstInt("Chance"), M_SideEffectParam.GetParam_MultipliedInt("AttackTimes"));
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], M_SideEffectParam.GetParam_MultipliedInt("AttackTimes"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             ModuleMech mech = player.BattleGroundManager.GetMech(executorInfo.MechId);
             if (mech != null)
             {
-                int chance = M_SideEffectParam.GetParam_ConstInt("Chance");
                 int attackTimes = M_SideEffectParam.GetParam_MultipliedInt("AttackTimes");
-
-                var r = new Random();
-                int random = r.Next(0, 100);
 
                 if (!mech.IsSentry)
                 {
-                    if (random < chance)
-                    {
-                        mech.AttackTimesThisRound += attackTimes;
-                    }
+                    mech.AttackTimesThisRound += attackTimes;
                 }
             }
+            return true;
         }
     }
 }

@@ -16,19 +16,21 @@
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("Energy"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int value = M_SideEffectParam.GetParam_MultipliedInt("Energy");
             player.GameManager.SideEffect_ForeachMech(
                 delegate(int validTargetCount) { player.AddEnergy(value * validTargetCount); },
                 player,
                 TargetRange);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

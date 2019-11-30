@@ -14,7 +14,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="3" CardCount="1" />
+        <SideEffect name="AddCardToHandByID" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="3" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -27,7 +27,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="1" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="All" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -41,8 +41,8 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Scripts" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="0" removeTriggerDelayTimes="0" ScriptName="OnPlaySpecifiedCardByID" CardID="3">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -51,7 +51,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -61,9 +61,9 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddPlayerBuff" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
-          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="True" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnPlayCard" removeTriggerRange="SelfPlayer" removeTriggerTimes="3" removeTriggerDelayTimes="1">
-            <SideEffect name="AddCardToHandByID" TargetSelect="All" TargetRange="Decks" ChoiceCount="1" CardID="3" CardCount="1" />
+        <SideEffect name="AddPlayerBuff" Chance="100" BuffName="DoSthWhenTrigger_RemoveBySomeTime">
+          <Buff name="DoSthWhenTrigger_RemoveBySomeTime" Chance="100" BuffName="DoSthWhenTrigger_RemoveBySomeTime" BuffPicId="710" PiledBy="RemoveTriggerTimes" HasNumberShow="True" CanPiled="True" Singleton="True" BuffColor="#ffffff" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="OnPlayCard" removeTriggerRange="SelfPlayer" removeTriggerTimes="3" removeTriggerDelayTimes="1">
+            <SideEffect name="AddCardToHandByID" Chance="100" TargetSelect="All" TargetRange="Decks" ChoiceCount="1" CardID="3" CardCount="1" />
           </Buff>
         </SideEffect>
       </SideEffectExecute>
@@ -79,8 +79,8 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Scripts" triggerTime="OnPlayCard" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="0" removeTriggerDelayTimes="0" ScriptName="OnPlaySpecifiedCardByID" CardID="3">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" HealValue="2" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -89,7 +89,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="35" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="2" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -99,7 +99,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="8" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="2" />
+        <SideEffect name="AddEnergy" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -109,7 +109,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="9" degradeCardID="7" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="3" />
+        <SideEffect name="AddEnergy" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -119,7 +119,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="8" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="5" />
+        <SideEffect name="AddEnergy" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="5" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -129,8 +129,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="37" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="3" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="3" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" DamageTimes="1" Damage="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -144,7 +144,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechInjured" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="1" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -156,7 +156,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="3" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+        <SideEffect name="TriggerHandCard" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -167,7 +167,7 @@
     <CardInfo name="weaponInfo" energy="1" energyMax="3" attack="1" weaponType="Sword" isSentry="False" isFrenzy="False" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="EquipBattleCry">
-        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+        <SideEffect name="DrawCards" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -185,7 +185,7 @@
     <CardInfo name="shieldInfo" armor="3" shield="0" shieldType="Armor" isDefense="False" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
+        <SideEffect name="AddArmor" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -198,8 +198,8 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" HealValue="1" />
-        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="1" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" HealValue="1" />
+        <SideEffect name="AddArmor" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -212,8 +212,8 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="18" NumberOfSummon="1" />
-        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="19" NumberOfSummon="1" />
+        <SideEffect name="SummonMech" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="18" NumberOfSummon="1" />
+        <SideEffect name="SummonMech" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="19" NumberOfSummon="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -244,7 +244,7 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="3" CardCount="2" />
+        <SideEffect name="AddCardToHandByID" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="3" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -257,7 +257,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="SelfMechDie">
-        <SideEffect name="AddCardToHandByID" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="4" CardCount="1" />
+        <SideEffect name="AddCardToHandByID" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardID="4" CardCount="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -271,8 +271,8 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="3" />
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="1" />
+        <SideEffect name="AddArmor" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="3" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -294,7 +294,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechDie" triggerRange="Another" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
-        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="0" NumberOfSummon="1" />
+        <SideEffect name="SummonMech" Chance="50" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="0" NumberOfSummon="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -341,7 +341,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="Damage" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="2" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="SingleRandom" TargetRange="EnemyMechs" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -350,7 +350,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="50" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="3" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -360,7 +360,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="52" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -374,7 +374,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" DamageTimes="2" Damage="3" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" DamageTimes="2" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -387,7 +387,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" DamageTimes="2" Damage="5" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" DamageTimes="2" Damage="5" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -400,7 +400,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechInjured" triggerRange="SelfAnother" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
-        <SideEffect name="Heal" TargetSelect="All" TargetRange="SelfLife" ChoiceCount="1" HealValue="1" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="All" TargetRange="SelfLife" ChoiceCount="1" HealValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -409,7 +409,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="36" degradeCardID="6" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="4" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="1" Damage="4" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -419,7 +419,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="35" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="2" Damage="3" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyLife" ChoiceCount="1" DamageTimes="2" Damage="3" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -429,8 +429,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="10" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="5" />
-        <SideEffect name="Damage" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" DamageTimes="1" Damage="5" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -447,7 +447,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Sacrifice" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ValueBasic="3" ValuePlus="1" />
+        <SideEffect name="Sacrifice" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ValueBasic="3" ValuePlus="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -466,7 +466,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Illusion" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" Rounds="1" />
+        <SideEffect name="Illusion" Chance="100" TargetSelect="Single" TargetRange="EnemyMechs" ChoiceCount="1" Rounds="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -476,8 +476,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="15" />
-        <SideEffect name="Damage" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" DamageTimes="1" Damage="2" />
+        <SideEffect name="AddEnergy" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="1" Energy="15" />
+        <SideEffect name="Damage" Chance="100" TargetSelect="All" TargetRange="AllLife" ChoiceCount="1" DamageTimes="1" Damage="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -491,11 +491,11 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
-        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="1" NumberOfSummon="1" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
+        <SideEffect name="SummonMech" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="1" NumberOfSummon="1" />
       </SideEffectExecute>
       <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnBeginRound" triggerRange="SelfPlayer" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
-        <SideEffect name="HealLifeMaxPercent" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="50" />
+        <SideEffect name="HealLifeMaxPercent" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="50" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -507,14 +507,14 @@
     <CardInfo name="battleInfo" basicAttack="1" basicShield="1" basicArmor="1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="HealLifeMaxPercent" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="100" />
+        <SideEffect name="HealLifeMaxPercent" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Percent="100" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="AddAttack" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
-        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
+        <SideEffect name="AddAttack" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
+        <SideEffect name="AddArmor" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -527,10 +527,10 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="2" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="2" />
       </SideEffectExecute>
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -539,8 +539,8 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="5" Energy="2" />
-        <SideEffect name="AddEnergy" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Times="3" Energy="2" />
+        <SideEffect name="AddEnergy" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" Times="5" Energy="2" />
+        <SideEffect name="AddEnergy" Chance="100" TargetSelect="Single" TargetRange="EnemyShip" ChoiceCount="1" Times="3" Energy="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -550,7 +550,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="DrawCards" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+        <SideEffect name="DrawCards" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -560,7 +560,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+        <SideEffect name="TriggerHandCard" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -580,7 +580,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="30" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="5" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="5" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -590,11 +590,11 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="AddLife" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" LifeValue="2" />
-        <SideEffect name="AddAttack" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" AttackValue="2" />
-        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="2" />
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="2" />
-        <SideEffect name="Exile" />
+        <SideEffect name="AddLife" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" LifeValue="2" />
+        <SideEffect name="AddAttack" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" AttackValue="2" />
+        <SideEffect name="AddArmor" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ArmorValue="2" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="2" />
+        <SideEffect name="Exile" Chance="100" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -604,7 +604,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="31" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="Heal" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="5" />
+        <SideEffect name="Heal" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" HealValue="5" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -618,7 +618,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -631,9 +631,9 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="AddAttack" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
-        <SideEffect name="AddArmor" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
+        <SideEffect name="AddAttack" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" AttackValue="1" />
+        <SideEffect name="AddArmor" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ArmorValue="1" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -646,7 +646,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechAttack">
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="Self" ChoiceCount="1" ShieldValue="1" />
       </SideEffectExecute>
     </CardInfo>
   </Card>
@@ -655,7 +655,7 @@
     <CardInfo name="upgradeInfo" upgradeCardID="-1" degradeCardID="-1" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="PlayOutEffect">
-        <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="25" NumberOfSummon="2" />
+        <SideEffect name="SummonMech" Chance="100" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="25" NumberOfSummon="2" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -668,7 +668,7 @@
     <CardInfo name="battleInfo" basicAttack="3" basicShield="0" basicArmor="0" />
     <CardInfo name="sideEffectsBundle">
       <SideEffectExecute ExecuteSettingTypes="BattleCry">
-        <SideEffect name="AddShield" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="1" />
+        <SideEffect name="AddShield" Chance="100" TargetSelect="Single" TargetRange="SelfMechs" ChoiceCount="1" ShieldValue="1" />
       </SideEffectExecute>
     </CardInfo>
     <CardInfo name="sideEffectsBundle_Aura" />
@@ -682,7 +682,7 @@
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
       <SideEffectExecute ExecuteSettingTypes="WhenSelfMechKillOther">
-        <SideEffect name="TriggerHandCard" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
+        <SideEffect name="TriggerHandCard" Chance="100" TargetSelect="Single" TargetRange="SelfDeck" ChoiceCount="1" CardCount="2" />
       </SideEffectExecute>
     </CardInfo>
   </Card>

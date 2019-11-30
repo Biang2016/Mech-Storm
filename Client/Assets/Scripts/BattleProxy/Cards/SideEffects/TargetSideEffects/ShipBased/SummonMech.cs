@@ -1,4 +1,6 @@
-﻿namespace SideEffects
+﻿using System;
+
+namespace SideEffects
 {
     public class SummonMech : TargetSideEffect, ICardDeckLinked, IPositive
     {
@@ -25,11 +27,12 @@
             }
 
             BaseInfo bi = AllCards.GetCard(cardID).BaseInfo;
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], bi.CardNames[LanguageManager_Common.GetCurrentLanguage()], count <= 1 ? "" : ("*" + count), GetDescOfTargetRange());
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], bi.CardNames[LanguageManager_Common.GetCurrentLanguage()], count <= 1 ? "" : ("*" + count), GetDescOfTargetRange());
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int count = M_SideEffectParam.GetParam_ConstInt("NumberOfSummon");
 
@@ -46,6 +49,7 @@
                 TargetRange,
                 TargetSelect,
                 executorInfo.TargetClientIds);
+            return true;
         }
 
         public SideEffectValue_ConstInt GetCardIDSideEffectValue()

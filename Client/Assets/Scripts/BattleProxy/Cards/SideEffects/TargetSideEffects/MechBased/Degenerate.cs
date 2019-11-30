@@ -12,11 +12,12 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()], GetDescOfTargetRange());
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             if ((TargetRange & TargetRange.Mechs) != 0)
             {
@@ -48,6 +49,7 @@ namespace SideEffects
                     }
                 }
             }
+            return true;
         }
 
         private void AddRandomAttrToMech(ModuleMech mech)

@@ -26,13 +26,14 @@ namespace SideEffects
             }
 
             BaseInfo bi = AllCards.GetCard(cardID).BaseInfo;
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 bi.CardNames[LanguageManager_Common.GetCurrentLanguage()]);
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int value = player.GameManager.CountMechsByTargetRange(TargetRange, player);
 
@@ -44,6 +45,7 @@ namespace SideEffects
                     player.BattleGroundManager.AddMech((CardInfo_Mech) AllCards.GetCard(M_SideEffectParam.GetParam_ConstInt("SummonCardID")));
                 }
             }
+            return true;
         }
 
         public SideEffectValue_ConstInt GetCardIDSideEffectValue()

@@ -18,19 +18,21 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("Energy"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             int energyValue = M_SideEffectParam.GetParam_MultipliedInt("Energy");
             int finalValue = energyValue * player.GameManager.CountMechsByTargetRange(TargetRange, player);
             finalValue = Math.Min(finalValue, player.MyEnemyPlayer.EnergyLeft);
             player.AddEnergy(finalValue);
             player.MyEnemyPlayer.UseEnergy(finalValue);
+            return true;
         }
 
         public int GetSideEffectFunctionBias()

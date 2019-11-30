@@ -4,6 +4,7 @@ public abstract class TargetSideEffect : SideEffectBase
 {
     protected override void InitSideEffectParam()
     {
+        base.InitSideEffectParam();
         M_SideEffectParam.SetParam_ConstInt("TargetSelect", (int) TargetSelect.All, typeof(TargetSelect));
         M_SideEffectParam.SetParam_ConstInt("TargetRange", (int) TargetRange.None, typeof(TargetRange));
         M_SideEffectParam.SetParam_ConstInt("ChoiceCount", 1);

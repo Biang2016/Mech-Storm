@@ -49,11 +49,11 @@
 
   <SideEffect name="RunAway" desc_zh="消灭{0},将该机甲牌和其所有装备牌回收至手牌中, " desc_en="kill {0} and recycle its card and all equipment cards to your hand. "></SideEffect>
 
-  <SideEffect name="TriggerHandCard" desc_zh="触发{0}手牌中{1}张法术牌或能量牌(无指定目标)的效果," desc_en="trigger the effects of {1} handcards of {0} (without targets). "></SideEffect>
+  <SideEffect name="TriggerHandCard" desc_zh="触发{0}手牌中{1}张法术牌或能量牌(无指定目标)的效果," desc_en="trigger the effects of {1} spell/energy handcards of {0} (without targets). "></SideEffect>
   <SideEffect name="AddEnergyForEachMech" desc_zh="场上每有{0},我方获得{1}点能量" desc_en="Get {1} energy for each {0}"></SideEffect>
   <SideEffect name="MechDealExtraDamageToTargetUseEnergy" desc_zh="消耗{0}点战舰能量,对攻击目标造成额外{1}点伤害, " desc_en="Uses {0} energy to deal extra {1} damage to target. "></SideEffect>
-  <SideEffect name="GetChanceToAttackAgain" desc_zh="有{0}%的概率获得额外{1}次攻击机会, " desc_en="get {0}% chance of extra {1} attack(s)."></SideEffect>
-  <SideEffect name="GetAnotherRound" desc_zh="本回合结束时,有{0}%的概率获得额外1个回合, " desc_en="get {0}% chance of an extra round after this round."></SideEffect>
+  <SideEffect name="GetChanceToAttackAgain" desc_zh="获得额外{1}次攻击机会, " desc_en="Get extra {1} attack(s)."></SideEffect>
+  <SideEffect name="GetAnotherRound" desc_zh="本回合结束时, 获得额外1个回合, " desc_en="Get an extra round after this round."></SideEffect>
   <SideEffect name="KillAllMechsAndDamageSelfShip" desc_zh="破坏场上所有机甲，每破坏一个机甲，对我方战舰造成{0}点伤害, " desc_en="destroy all mechs. For each mech destroyed, deal {0} damage to your spaceship. "></SideEffect>
   <SideEffect name="DropAndDrawCards" desc_zh="丢弃所有的{0}, 获得随机等量的{1}, " desc_en="discard all {0} and get the same amout of {1}. "></SideEffect>
   <SideEffect name="SpellDamageDouble" desc_zh="下次由法术牌或能量牌造成的伤害翻倍, " desc_en="Double next damage dealt by Spell or Energy cards. "></SideEffect>

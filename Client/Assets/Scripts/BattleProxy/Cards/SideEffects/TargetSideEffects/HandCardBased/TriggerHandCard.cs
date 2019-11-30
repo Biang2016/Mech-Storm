@@ -18,25 +18,54 @@ namespace SideEffects
 
         public override string GenerateDesc()
         {
-            return HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
+            return base.GenerateDesc() + HighlightStringFormat(DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 GetDescOfTargetRange(),
                 M_SideEffectParam.GetParam_MultipliedInt("CardCount"));
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
 
-            List<int> cardInstanceIds = player.HandManager.GetRandomSpellCardInstanceIds(M_SideEffectParam.GetParam_MultipliedInt("CardCount"), executorInfo.CardInstanceId);
+            CheckValidFunction = delegate(CardInfo_Base ci)
+            {
+                if (ci.BaseInfo.CardType == CardTypes.Spell)
+                {
+                    foreach (SideEffectExecute see in ci.SideEffectBundle.SideEffectExecutes)
+                    {
+                        foreach (SideEffectBase sb in see.SideEffectBases)
+                        {
+                            if (sb is TriggerHandCard)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            };
+
+            List<int> cardInstanceIds = player.HandManager.GetRandomHandCardInstanceIds(M_SideEffectParam.GetParam_MultipliedInt("CardCount"), executorInfo.CardInstanceId,CheckValidFunction);
             foreach (int cardInstanceId in cardInstanceIds)
             {
                 player.HandManager.UseCard(cardInstanceId, onlyTriggerNotUse: true);
             }
+            return true;
         }
 
         public int GetSideEffectFunctionBias()
         {
             return M_SideEffectParam.GetParam_MultipliedInt("CardCount") * 5;
         }
+
+        public delegate bool CheckValid(CardInfo_Base cb);
+
+        public CheckValid CheckValidFunction;
     }
 }

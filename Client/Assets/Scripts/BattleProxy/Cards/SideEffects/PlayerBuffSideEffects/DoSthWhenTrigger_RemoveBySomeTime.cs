@@ -16,7 +16,7 @@
 
             sub_desc = sub_desc.TrimEnd("& ".ToCharArray());
 
-            return HighlightStringFormat(
+            return base.GenerateDesc() + HighlightStringFormat(
                 DescRaws[LanguageManager_Common.GetCurrentLanguage()],
                 new[] {false, false, false, false},
                 SideEffectExecute.GetRemoveTriggerTimeTriggerRangeDescCombination(MyBuffSEE.M_ExecuteSetting.RemoveTriggerTime, MyBuffSEE.M_ExecuteSetting.RemoveTriggerTimes, MyBuffSEE.M_ExecuteSetting.RemoveTriggerRange),
@@ -24,8 +24,9 @@
                 sub_desc);
         }
 
-        public override void Execute(ExecutorInfo executorInfo)
+        public override bool Execute(ExecutorInfo executorInfo)
         {
+            if (!base.Execute(executorInfo)) return false;
             BattlePlayer player = (BattlePlayer) Player;
             player.PlayerBuffTrigger(M_SideEffectExecute.M_ExecutorInfo.SideEffectExecutorID, this);
             foreach (SideEffectBase se in Sub_SideEffect)
@@ -34,6 +35,7 @@
                 se.M_SideEffectExecute = M_SideEffectExecute;
                 se.Execute(executorInfo);
             }
+            return true;
         }
     }
 }
