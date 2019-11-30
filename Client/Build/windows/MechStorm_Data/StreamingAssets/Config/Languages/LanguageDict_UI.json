@@ -117,7 +117,7 @@
 	},
 	"StartMenu_SingleMode": {
 		"zh": "单人模式",
-		"en": "Single Mode"
+		"en": "Solo Mode"
 	},
 	"StartMenu_CustomizeBattle": {
 		"zh": "自定义人机",
@@ -254,7 +254,7 @@
 	},
 	"StartMenu_BeginSingleMode": {
 		"zh": "开始单人模式",
-		"en": "Begin single mode"
+		"en": "Begin solo mode"
 	},
 	"StartMenu_NewCardTipText": {
 		"zh": "新卡片",
@@ -263,7 +263,7 @@
 
 	"Notice_StartMenu_DoYouWantToStartANewSingleGame": {
 		"zh": "是否开始一个新的游戏？",
-		"en": "Do you want to start a new Single Game?"
+		"en": "Do you want to start a new Solo Game?"
 	},
 	"Notice_StartMenu_CurrentGameWillBeRemoved": {
 		"zh": " 当前游戏将被清除。",
@@ -311,7 +311,7 @@
 
 	"LoginMenu_ReturnToSingleModeText": {
 		"zh": "返回单机模式",
-		"en": "Return to Single Mode"
+		"en": "Return to Solo Mode"
 	},
 	"LoginMenu_StoryEditorButtonText": {
 		"zh": "剧情编辑器",
