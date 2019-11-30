@@ -164,6 +164,7 @@ public partial class RoundManager : MonoSingleton<RoundManager>
             case PlayMode.Single:
             {
                 UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StoryManager.Instance.HasStory ? StartMenuPanel.States.Show_Single_HasStory : StartMenuPanel.States.Show_Single);
+                UIManager.Instance.CloseUIForm<StartMenuPanel>();
                 UIManager.Instance.ShowUIForms<StoryPanel>();
                 break;
             }

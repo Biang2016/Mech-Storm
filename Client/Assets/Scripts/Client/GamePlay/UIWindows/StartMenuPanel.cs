@@ -372,6 +372,7 @@ public class StartMenuPanel : BaseUIForm
 
     public void OnSingleResumeButtonClick()
     {
+        UIManager.Instance.CloseUIForm<StartMenuPanel>();
         UIManager.Instance.ShowUIForms<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
         UIManager.Instance.ShowUIForms<StoryPanel>();
     }

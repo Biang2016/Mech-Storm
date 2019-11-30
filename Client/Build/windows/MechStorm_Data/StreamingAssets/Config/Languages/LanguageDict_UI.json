@@ -39,6 +39,10 @@
 		"zh": "编辑",
 		"en": "Edit"
 	},
+	"Common_Leave": {
+		"zh": "离开",
+		"en": "Leave"
+	},
 
 	"CardType_HeroMech": {
 		"zh": "英雄卡",
@@ -1663,9 +1667,27 @@
 		"zh": "您的水晶好像有些不够了，请多攒些再来吧~",
 		"en": "You cannot afford this item. Please bring more crystal to buy it."
 	},
+	"ShopPanel_LeftClickTipText": {
+		"zh": "购买",
+		"en": "Buy"
+	},
+	"ShopPanel_RightClickTipText": {
+		"zh": "退货",
+		"en": "Cancel Order"
+	},
+	"ShopPanel_MyDeckText": {
+		"zh": "我的卡组",
+		"en": "My Deck"
+	},
+	"ShopPanel_LeaveWarning": {
+		"zh": "离开商店就无法再回来，是否离开？",
+		"en": "You cannot come back after leaving. Continue to leave?"
+	},
 
 	"StoryPanel_CannotStartBeatedLevel": {
 		"zh": "该关卡已经通过，请选择其他关卡~",
 		"en": "This level has been passed. Please select another level."
 	},
+
+
 }

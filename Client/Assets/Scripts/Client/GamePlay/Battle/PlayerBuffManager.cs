@@ -89,4 +89,12 @@ public class PlayerBuffManager : MonoBehaviour
             yield return null;
         }
     }
+
+    public void OnLanguageChange()
+    {
+        foreach (KeyValuePair<int, PlayerBuff> kv in PlayerBuffs)
+        {
+            kv.Value.OnLanguageChange();
+        }
+    }
 }

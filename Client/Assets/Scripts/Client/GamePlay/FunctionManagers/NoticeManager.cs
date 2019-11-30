@@ -26,6 +26,7 @@ public class NoticeManager : MonoSingleton<NoticeManager>
     public void ShowInfoPanelTop(string text, float delay, float last)
     {
         if (Instance == null) return;
+        if (!gameObject.activeInHierarchy) return;
         if (ShowInfoPanelTopCoroutine != null)
         {
             StopCoroutine(ShowInfoPanelTopCoroutine);

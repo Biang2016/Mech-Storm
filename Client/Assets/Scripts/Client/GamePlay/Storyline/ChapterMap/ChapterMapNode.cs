@@ -202,7 +202,14 @@ public class ChapterMapNode : PoolObject
 
     public void ClearLevel()
     {
-        SetLevel(null);
+        if (StoryManager.Instance != null)
+        {
+            return;
+        }
+        else
+        {
+            SetLevel(null);
+        }
     }
 
     #region  LevelBadges

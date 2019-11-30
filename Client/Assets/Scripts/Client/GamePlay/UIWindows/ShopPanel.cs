@@ -9,6 +9,10 @@ public class ShopPanel : BaseUIForm
     {
     }
 
+    [SerializeField] private Text LeftClickTipText;
+    [SerializeField] private Text RightClickTipText;
+    [SerializeField] private Text MyDeckText;
+
     void Awake()
     {
         UIType.InitUIType(
@@ -16,14 +20,37 @@ public class ShopPanel : BaseUIForm
             isESCClose: false,
             isClickElsewhereClose: false,
             uiForms_Type: UIFormTypes.Normal,
-            uiForms_ShowMode: UIFormShowModes.HideOther,
+            uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.Penetrable);
 
         LeaveShopButton.onClick.AddListener(delegate
         {
-            LeaveShopRequest request = new LeaveShopRequest(Client.Instance.Proxy.ClientID, StoryManager.Instance.GetStory().CurrentFightingChapterID, Cur_Shop.LevelID);
-            Client.Instance.Proxy.SendMessage(request);
-            CloseUIForm();
+            ConfirmPanel cp = UIManager.Instance.ShowUIForms<ConfirmPanel>();
+            cp.Initialize(LanguageManager.Instance.GetText("ShopPanel_LeaveWarning"), LanguageManager.Instance.GetText("Common_Leave"), LanguageManager.Instance.GetText("Common_Cancel"),
+                leftButtonClick: delegate
+                {
+                    StoryManager.Instance.GetStory().Crystal = CrystalWhenEnter;
+                    foreach (ShopItem shopItem in Cur_BoughtShopItem)
+                    {
+                        BuyShopItemRequest si_request = new BuyShopItemRequest(Client.Instance.Proxy.ClientID, shopItem);
+                        Client.Instance.Proxy.SendMessage(si_request);
+                    }
+
+                    LeaveShopRequest request = new LeaveShopRequest(Client.Instance.Proxy.ClientID, StoryManager.Instance.GetStory().CurrentFightingChapterID, Cur_Shop.LevelID);
+                    Client.Instance.Proxy.SendMessage(request);
+                    CloseUIForm();
+                    UIManager.Instance.ShowUIForms<StoryPanel>();
+                    cp.CloseUIForm();
+                },
+                rightButtonClick: delegate { cp.CloseUIForm(); }
+            );
+        });
+
+        LanguageManager.Instance.RegisterTextKeys(new List<(Text, string)>
+        {
+            (LeftClickTipText, "ShopPanel_LeftClickTipText"),
+            (RightClickTipText, "ShopPanel_RightClickTipText"),
+            (MyDeckText, "ShopPanel_MyDeckText"),
         });
     }
 
@@ -47,12 +74,17 @@ public class ShopPanel : BaseUIForm
     private SortedDictionary<int, ShopItemButton> ShopItemButtons = new SortedDictionary<int, ShopItemButton>();
     private List<ShopItemSmallContainer> ShopItemSmallContainers = new List<ShopItemSmallContainer>();
 
+    public List<ShopItem> Cur_BoughtShopItem = new List<ShopItem>();
+
     public const int SHOP_ITEM_OTHERS_GROUP_CAPACITY = 4; // 其他奖励几个分在一个格子里
+
+    public int CrystalWhenEnter = 0;
 
     public void Initialize(Shop shop)
     {
         Reset();
 
+        CrystalWhenEnter = StoryManager.Instance.GetStory().Crystal;
         Cur_Shop = (Shop) shop.Clone();
 
         ShopNameText.text = Cur_Shop.LevelNames[LanguageManager.Instance.GetCurrentLanguage()];
@@ -173,5 +205,11 @@ public class ShopPanel : BaseUIForm
         }
 
         ShopItemSmallContainers.Clear();
+        Cur_BoughtShopItem.Clear();
+    }
+
+    public void OnDeckButtonClick()
+    {
+        UIManager.Instance.ShowUIForms<SelectBuildPanel>();
     }
 }

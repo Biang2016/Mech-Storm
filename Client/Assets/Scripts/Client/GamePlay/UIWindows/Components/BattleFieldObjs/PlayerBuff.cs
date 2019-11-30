@@ -13,26 +13,28 @@ internal class PlayerBuff : PoolObject
 
     [SerializeField] private int BuffId;
 
+    private PlayerBuffSideEffects Cur_Buff;
+
     public void Init(SideEffectExecute buffSee, int buffId)
     {
-        PlayerBuffSideEffects buff = ((PlayerBuffSideEffects) buffSee.SideEffectBases[0]);
-        int buffValue = GetBuffValue(buffSee, buff);
+        Cur_Buff = ((PlayerBuffSideEffects) buffSee.SideEffectBases[0]);
+        int buffValue = GetBuffValue(buffSee, Cur_Buff);
 
         BuffValueText.text = buffValue == 0 ? "" : buffValue.ToString();
         BuffId = buffId;
-        ClientUtils.ChangeImagePicture(Image, buff.M_SideEffectParam.GetParam_ConstInt("BuffPicId"));
-        Color buffColor = ClientUtils.HTMLColorToColor(AllBuffs.GetBuff((buff.Name)).M_SideEffectParam.GetParam_String("BuffColor"));
+        ClientUtils.ChangeImagePicture(Image, Cur_Buff.M_SideEffectParam.GetParam_ConstInt("BuffPicId"));
+        Color buffColor = ClientUtils.HTMLColorToColor(AllBuffs.GetBuff((Cur_Buff.Name)).M_SideEffectParam.GetParam_String("BuffColor"));
         BuffBloom.color = buffColor;
         BuffDescText.color = buffColor;
-        BuffValuePanel.enabled = buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
-        BuffValueText.enabled = buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
+        BuffValuePanel.enabled = Cur_Buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
+        BuffValueText.enabled = Cur_Buff.M_SideEffectParam.GetParam_Bool("HasNumberShow");
         BuffAnim.SetTrigger("Add");
-        BuffDescText.text = buff.GenerateDesc();
+        BuffDescText.text = Utils.TextMeshProColorStringConvertToText(Cur_Buff.GenerateDesc());
     }
 
     public IEnumerator Co_UpdateValue(SideEffectExecute buffSee, PlayerBuffUpdateRequest.UpdateTypes updateType)
     {
-        BuffDescText.text = ((PlayerBuffSideEffects) buffSee.SideEffectBases[0]).GenerateDesc();
+        BuffDescText.text = Utils.TextMeshProColorStringConvertToText(((PlayerBuffSideEffects) buffSee.SideEffectBases[0]).GenerateDesc());
         PlayerBuffSideEffects buff = (PlayerBuffSideEffects) buffSee.SideEffectBases[0];
         int buffValue = GetBuffValue(buffSee, buff);
 
@@ -106,8 +108,13 @@ internal class PlayerBuff : PoolObject
     [SerializeField] private Image BuffBloom;
     [SerializeField] private Image BuffValuePanel;
     [SerializeField] private Text BuffValueText;
-    [SerializeField] private TextMeshPro BuffDescText;
+    [SerializeField] private Text BuffDescText;
     [SerializeField] private Animator BuffDescAnim;
     [SerializeField] private Animator BuffAnim;
     [SerializeField] private Image Image;
+
+    public void OnLanguageChange()
+    {
+        BuffDescText.text = Utils.TextMeshProColorStringConvertToText(Cur_Buff.GenerateDesc());
+    }
 }

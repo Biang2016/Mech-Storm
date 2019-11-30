@@ -1,16 +1,18 @@
-﻿public class UseSpellCardServerRequset : ServerRequestBase
+﻿public class UseSpellCardServerRequest : ServerRequestBase
 {
     public int clientId;
     public int handCardInstanceId;
+    public CardInfo_Base cardInfo;
 
-    public UseSpellCardServerRequset()
+    public UseSpellCardServerRequest()
     {
     }
 
-    public UseSpellCardServerRequset(int clientId, int handCardInstanceId)
+    public UseSpellCardServerRequest(int clientId, int handCardInstanceId, CardInfo_Base cardInfo)
     {
         this.clientId = clientId;
         this.handCardInstanceId = handCardInstanceId;
+        this.cardInfo = cardInfo;
     }
 
     public override NetProtocols GetProtocol()
@@ -22,11 +24,13 @@
     {
         base.Serialize(writer);
         writer.WriteSInt32(handCardInstanceId);
+        cardInfo.Serialize(writer);
     }
 
     public override void Deserialize(DataStream reader)
     {
         base.Deserialize(reader);
         handCardInstanceId = reader.ReadSInt32();
+        cardInfo = CardInfo_Base.Deserialze(reader);
     }
 }

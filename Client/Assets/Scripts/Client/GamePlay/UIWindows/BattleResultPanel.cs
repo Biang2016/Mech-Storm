@@ -14,6 +14,7 @@ internal class BattleResultPanel : BaseUIForm
 
     internal bool IsShow = false;
 
+    [SerializeField] private Camera CardCamera;
     [SerializeField] private Animator PanelAnimator;
 
     [SerializeField] private GameObject OnlineResultContent;
@@ -159,6 +160,7 @@ internal class BattleResultPanel : BaseUIForm
 
         PanelAnimator.SetTrigger("Show");
         IsShow = true;
+        CardCamera.gameObject.SetActive(true);
         RootManager.Instance.StartBlurBackGround();
         yield return null;
         BattleEffectsManager.Instance.Effect_Main.EffectEnd();
@@ -168,6 +170,7 @@ internal class BattleResultPanel : BaseUIForm
     {
         PanelAnimator.SetTrigger("Hide");
         IsShow = false;
+        CardCamera.gameObject.SetActive(false);
         RootManager.Instance.StopBlurBackGround();
         RoundManager.Instance.OnGameStop();
         Client.Instance.Proxy.ClientState = ProxyBase.ClientStates.Login;

@@ -802,6 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a10ea1b88c5f644faf5e148f7d49f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardCamera: {fileID: 5588187366958995976}
   PanelAnimator: {fileID: 1421086767248899626}
   OnlineResultContent: {fileID: 4325929015248800977}
   OnlineWinText: {fileID: 2013192396359538706}
@@ -2746,7 +2747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3386756649498633735
 RectTransform:
   m_ObjectHideFlags: 0

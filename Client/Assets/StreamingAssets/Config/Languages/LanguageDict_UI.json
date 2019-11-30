@@ -39,6 +39,10 @@
 		"zh": "编辑",
 		"en": "Edit"
 	},
+	"Common_Leave": {
+		"zh": "离开",
+		"en": "Leave"
+	},
 
 	"CardType_HeroMech": {
 		"zh": "英雄卡",
@@ -113,7 +117,7 @@
 	},
 	"StartMenu_SingleMode": {
 		"zh": "单人模式",
-		"en": "Single Mode"
+		"en": "Solo Mode"
 	},
 	"StartMenu_CustomizeBattle": {
 		"zh": "自定义人机",
@@ -250,7 +254,7 @@
 	},
 	"StartMenu_BeginSingleMode": {
 		"zh": "开始单人模式",
-		"en": "Begin single mode"
+		"en": "Begin solo mode"
 	},
 	"StartMenu_NewCardTipText": {
 		"zh": "新卡片",
@@ -259,7 +263,7 @@
 
 	"Notice_StartMenu_DoYouWantToStartANewSingleGame": {
 		"zh": "是否开始一个新的游戏？",
-		"en": "Do you want to start a new Single Game?"
+		"en": "Do you want to start a new Solo Game?"
 	},
 	"Notice_StartMenu_CurrentGameWillBeRemoved": {
 		"zh": " 当前游戏将被清除。",
@@ -307,7 +311,7 @@
 
 	"LoginMenu_ReturnToSingleModeText": {
 		"zh": "返回单机模式",
-		"en": "Return to Single Mode"
+		"en": "Return to Solo Mode"
 	},
 	"LoginMenu_StoryEditorButtonText": {
 		"zh": "剧情编辑器",
@@ -1663,9 +1667,27 @@
 		"zh": "您的水晶好像有些不够了，请多攒些再来吧~",
 		"en": "You cannot afford this item. Please bring more crystal to buy it."
 	},
+	"ShopPanel_LeftClickTipText": {
+		"zh": "购买",
+		"en": "Buy"
+	},
+	"ShopPanel_RightClickTipText": {
+		"zh": "退货",
+		"en": "Cancel Order"
+	},
+	"ShopPanel_MyDeckText": {
+		"zh": "我的卡组",
+		"en": "My Deck"
+	},
+	"ShopPanel_LeaveWarning": {
+		"zh": "离开商店就无法再回来，是否离开？",
+		"en": "You cannot come back after leaving. Continue to leave?"
+	},
 
 	"StoryPanel_CannotStartBeatedLevel": {
 		"zh": "该关卡已经通过，请选择其他关卡~",
 		"en": "This level has been passed. Please select another level."
 	},
+
+
 }

@@ -12,6 +12,7 @@ public class BattleUIPanel : MonoBehaviour
         DirectlyWinButton.gameObject.SetActive(true);
         DirectlyWinButton.onClick.AddListener(DirectlyWin);
         EndRoundButton.onClick.AddListener(RoundManager.Instance.OnEndRoundButtonClick);
+        LanguageManager.Instance.RegisterTextKey(EndRoundButtonText, "InGameUIManager_EndTurn");
     }
 
     [SerializeField] private Button DirectlyWinButton;
@@ -25,7 +26,6 @@ public class BattleUIPanel : MonoBehaviour
         EndRoundButtonAnim.SetTrigger(enable ? "OnEnable" : "OnDisable");
         EndRoundButton.interactable = enable;
         EndRoundButton.image.color = enable ? Color.yellow : Color.gray;
-        EndRoundButtonText.text = enable ? LanguageManager.Instance.GetText("InGameUIManager_EndTurn") : LanguageManager.Instance.GetText("InGameUIManager_EnemyTurn");
     }
 
     public void DirectlyWin()

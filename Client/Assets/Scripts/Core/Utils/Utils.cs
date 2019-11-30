@@ -267,7 +267,12 @@ public partial class Utils
         Regex rg = new Regex(colorStringPattern);
         if (rg.IsMatch(colorString))
         {
-            string replace = rg.Replace(colorString, "$1<color=#$3$4");
+            string replace = colorString;
+            while (rg.IsMatch(replace))
+            {
+                replace = rg.Replace(replace, "$1<color=#$3$4");
+            }
+
             return replace;
         }
 

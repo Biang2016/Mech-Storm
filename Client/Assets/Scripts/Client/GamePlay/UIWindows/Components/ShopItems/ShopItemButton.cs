@@ -56,6 +56,10 @@ public class ShopItemButton : PoolObject
             {
                 PriceText.color = Color.red;
             }
+            else
+            {
+                PriceText.color = Color.white;
+            }
         }
     }
 
@@ -102,25 +106,45 @@ public class ShopItemButton : PoolObject
         }
 
         shopItemButton.Initialize(shopItem);
-        shopItemButton.Button.onClick.AddListener(delegate
-        {
-            if (shopItemButton.Affordable)
-            {
-                AudioManager.Instance.SoundPlay("sfx/OnBuyShopItem");
-                UIManager.Instance.GetBaseUIForm<ShopPanel>().SetAllButtonLock(true);
-                BuyShopItemRequest request = new BuyShopItemRequest(Client.Instance.Proxy.ClientID, shopItem);
-                Client.Instance.Proxy.SendMessage(request);
-            }
-            else
-            {
-                NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ShopPanel_CannotAffordShopItem"), 0f, 1f);
-            }
-        });
         return shopItemButton;
     }
 
     public void OnHover()
     {
         AudioManager.Instance.SoundPlay("sfx/BonusHover", 0.5f);
+    }
+
+    public void ShopItemButtonLeftClick()
+    {
+        if (Affordable)
+        {
+            AudioManager.Instance.SoundPlay("sfx/OnBuyShopItem");
+            ShopPanel sp = UIManager.Instance.GetBaseUIForm<ShopPanel>();
+            sp.SetAllButtonLock(true);
+            sp.Cur_BoughtShopItem.Add(Cur_ShopItem);
+            StoryManager.Instance.GetStory().Crystal -= Cur_ShopItem.Price;
+            IsSold = true;
+            SetButtonLocked(true);
+            UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+            sp.RefreshAllShopItemAffordable();
+        }
+        else
+        {
+            NoticeManager.Instance.ShowInfoPanelCenter(LanguageManager.Instance.GetText("ShopPanel_CannotAffordShopItem"), 0f, 1f);
+        }
+    }
+
+    public void ShopItemButtonRightClick()
+    {
+        ShopPanel sp = UIManager.Instance.GetBaseUIForm<ShopPanel>();
+        if (sp.Cur_BoughtShopItem.Contains(Cur_ShopItem))
+        {
+            sp.Cur_BoughtShopItem.Remove(Cur_ShopItem);
+            StoryManager.Instance.GetStory().Crystal += Cur_ShopItem.Price;
+            UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+            IsSold = false;
+            SetButtonLocked(false);
+            sp.RefreshAllShopItemAffordable();
+        }
     }
 }

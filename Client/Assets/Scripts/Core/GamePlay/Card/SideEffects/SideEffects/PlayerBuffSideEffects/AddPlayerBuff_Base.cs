@@ -53,5 +53,17 @@ namespace SideEffects
 
             return copy;
         }
+
+        public override void Serialize(DataStream writer)
+        {
+            base.Serialize(writer);
+            AttachedBuffSEE.Serialize(writer);
+        }
+
+        protected override void Deserialize(DataStream reader)
+        {
+            base.Deserialize(reader);
+            AttachedBuffSEE = SideEffectExecute.Deserialize(reader);
+        }
     }
 }

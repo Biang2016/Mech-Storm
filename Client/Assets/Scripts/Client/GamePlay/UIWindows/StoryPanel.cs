@@ -12,13 +12,21 @@ public class StoryPanel : BaseUIForm
     {
         UIType.InitUIType(
             isClearStack: false,
-            isESCClose: true,
+            isESCClose: false,
             isClickElsewhereClose: false,
             uiForms_Type: UIFormTypes.Normal,
-            uiForms_ShowMode: UIFormShowModes.HideOther,
+            uiForms_ShowMode: UIFormShowModes.Normal,
             uiForm_LucencyType: UIFormLucencyTypes.Translucence);
 
         ReturnButton.onClick.AddListener(OnReturnButtonClick);
+    }
+
+    void LateUpdate()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            OnReturnButtonClick();
+        }
     }
 
     [SerializeField] private RectTransform ChapterMapContainer;
@@ -107,5 +115,6 @@ public class StoryPanel : BaseUIForm
     private void OnReturnButtonClick()
     {
         CloseUIForm();
+        UIManager.Instance.ShowUIForms<StartMenuPanel>();
     }
 }

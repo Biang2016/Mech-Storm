@@ -385,6 +385,10 @@ public class HandManager : MonoBehaviour
                     lastShowCard.transform.DOScale(Vector3.one * USE_CARD_SHOW_SIZE, USE_CARD_SHOW_FLY_DURATION).SetEase(Ease.Linear);
                 }
 
+                if (cardInfo.CardID == 4)
+                {
+                    int a = 0;
+                }
                 currentShowCard = CardBase.InstantiateCardByCardInfo(cardInfo, transform, CardBase.CardShowMode.ShowCard, ClientPlayer);
                 currentShowCard.transform.position = cardBase.transform.position;
                 currentShowCard.transform.rotation = cardBase.transform.rotation;

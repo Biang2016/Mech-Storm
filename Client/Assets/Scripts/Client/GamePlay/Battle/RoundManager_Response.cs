@@ -189,7 +189,7 @@ public partial class RoundManager
             }
             case NetProtocols.SE_USE_SPELLCARD_SERVER_REQUEST:
             {
-                OnUseSpellCard((UseSpellCardServerRequset) r);
+                OnUseSpellCard((UseSpellCardServerRequest) r);
                 break;
             }
             case NetProtocols.SE_MECH_ATTACK_MECH_SERVER_REQUEST:
@@ -493,11 +493,10 @@ public partial class RoundManager
         cp.BattlePlayer.BattleGroundManager.EquipMA(r.cardInfo, r.mechId, r.equipID);
     }
 
-    private void OnUseSpellCard(UseSpellCardServerRequset r)
+    private void OnUseSpellCard(UseSpellCardServerRequest r)
     {
         ClientPlayer cp = GetPlayerByClientId(r.clientId);
-        CardInfo_Base cb = cp.BattlePlayer.HandManager.GetCardByCardInstanceId(r.handCardInstanceId).CardInfo;
-        cp.BattlePlayer.HandManager.UseCard(r.handCardInstanceId, cb);
+        cp.BattlePlayer.HandManager.UseCard(r.handCardInstanceId, r.cardInfo);
     }
 
     public void OnMechAttackMech(MechAttackMechServerRequest r)

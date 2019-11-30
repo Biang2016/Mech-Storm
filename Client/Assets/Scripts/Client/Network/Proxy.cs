@@ -234,6 +234,7 @@ public class Proxy : ProxyBase
                     SelectBuildManager.Instance.SwitchGameMode(SelectBuildManager.GameMode.Single, true);
                     UIManager.Instance.GetBaseUIForm<StartMenuPanel>().SetState(StartMenuPanel.States.Show_Single_HasStory);
                     UIManager.Instance.ShowUIForms<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
+                    UIManager.Instance.CloseUIForm<StartMenuPanel>();
                     UIManager.Instance.ShowUIForms<StoryPanel>().InitiateStoryCanvas();
                     UIManager.Instance.GetBaseUIForm<SelectBuildPanel>().ShowNewCardNotice();
                     AudioManager.Instance.SoundPlay("sfx/OnStoryStart");
@@ -304,6 +305,7 @@ public class Proxy : ProxyBase
                 case NetProtocols.VISIT_SHOP_REQUEST_RESPONSE:
                 {
                     VisitShopRequestResponse request = (VisitShopRequestResponse) r;
+                    UIManager.Instance.CloseUIForm<StoryPanel>();
                     UIManager.Instance.ShowUIForms<ShopPanel>().Initialize(request.Shop);
                     UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
                     break;
@@ -315,7 +317,6 @@ public class Proxy : ProxyBase
                     UIManager.Instance.GetBaseUIForm<StoryPlayerInformationPanel>().SetCrystal(StoryManager.Instance.GetStory().Crystal);
                     UIManager.Instance.GetBaseUIForm<ShopPanel>().RefreshAllShopItemAffordable();
                     UIManager.Instance.GetBaseUIForm<ShopPanel>().SetAllButtonLock(false);
-                    UIManager.Instance.GetBaseUIForm<ShopPanel>().SetShopItemSold(request.ShopItem.ShopItemID);
 
                     if (request.ShopItem is ShopItem_Card si_card)
                     {
