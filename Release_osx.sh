@@ -11,6 +11,7 @@ if [ -n "$1" ]; then
     echo "归档压缩包名称: $zip_name"
     if [ ! -f "$zip_name" ];then
       cd /root/GameServer/MechStorm/Client/Build/osx/
+      chmod +x ./MechStorm.app/Contents/MacOS/MechStorm 
       zip -r $zip_name ./*
     else
       echo "已存在该版本zip，取消归档"
