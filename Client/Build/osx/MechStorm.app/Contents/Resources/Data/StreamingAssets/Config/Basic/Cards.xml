@@ -293,7 +293,7 @@
     <CardInfo name="battleInfo" basicAttack="0" basicShield="3" basicArmor="0" />
     <CardInfo name="sideEffectsBundle" />
     <CardInfo name="sideEffectsBundle_Aura">
-      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechDie" triggerRange="Self" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
+      <SideEffectExecute ExecuteSettingTypes="Others" triggerTime="OnMechDie" triggerRange="Another" triggerDelayTimes="0" triggerTimes="99999" removeTriggerTime="None" removeTriggerRange="None" removeTriggerTimes="1" removeTriggerDelayTimes="0">
         <SideEffect name="SummonMech" TargetSelect="Single" TargetRange="SelfShip" ChoiceCount="1" SummonCardID="0" NumberOfSummon="1" />
       </SideEffectExecute>
     </CardInfo>
