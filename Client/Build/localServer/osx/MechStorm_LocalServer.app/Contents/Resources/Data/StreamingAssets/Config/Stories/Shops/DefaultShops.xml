@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AllShops>
+  <LevelInfo name_en="NewShop" name_zh="新商店" picID="1001" levelType="Shop" difficultyLevel="1">
+    <ShopInfo shopItemCardCount="5" shopItemOthersCount="2" />
+  </LevelInfo>
+  <LevelInfo name_en="Supermarket" name_zh="商店" picID="1001" levelType="Shop" difficultyLevel="2">
+    <ShopInfo shopItemCardCount="8" shopItemOthersCount="2">
+      <ShopItem shopItemType="LifeUpperLimit" price="20" probability="10" isSingleton="False" lifeUpperLimit="3" />
+      <ShopItem shopItemType="LifeUpperLimit" price="16" probability="10" isSingleton="False" lifeUpperLimit="2" />
+      <ShopItem shopItemType="LifeUpperLimit" price="10" probability="20" isSingleton="False" lifeUpperLimit="1" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="10" probability="20" isSingleton="False" energyUpperLimit="1" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="15" probability="10" isSingleton="False" energyUpperLimit="2" />
+      <ShopItem shopItemType="Budget" price="12" probability="10" isSingleton="False" budget="200" />
+      <ShopItem shopItemType="Budget" price="20" probability="10" isSingleton="False" budget="400" />
+      <ShopItem shopItemType="Card" price="100" probability="20" isSingleton="False" cardRareLevel="2" />
+      <ShopItem shopItemType="Card" price="100" probability="20" isSingleton="False" cardRareLevel="3" />
+    </ShopInfo>
+  </LevelInfo>
+  <LevelInfo name_en="Shop" name_zh="商店来了" picID="1001" levelType="Shop" difficultyLevel="1">
+    <ShopInfo shopItemCardCount="8" shopItemOthersCount="2">
+      <ShopItem shopItemType="LifeUpperLimit" price="20" probability="10" isSingleton="False" lifeUpperLimit="3" />
+      <ShopItem shopItemType="LifeUpperLimit" price="16" probability="10" isSingleton="False" lifeUpperLimit="2" />
+      <ShopItem shopItemType="LifeUpperLimit" price="10" probability="20" isSingleton="False" lifeUpperLimit="1" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="10" probability="20" isSingleton="False" energyUpperLimit="1" />
+      <ShopItem shopItemType="EnergyUpperLimit" price="15" probability="10" isSingleton="False" energyUpperLimit="2" />
+      <ShopItem shopItemType="Budget" price="12" probability="10" isSingleton="False" budget="200" />
+      <ShopItem shopItemType="Budget" price="20" probability="10" isSingleton="False" budget="400" />
+      <ShopItem shopItemType="Card" price="100" probability="30" isSingleton="False" cardRareLevel="1" />
+      <ShopItem shopItemType="Card" price="100" probability="20" isSingleton="False" cardRareLevel="2" />
+    </ShopInfo>
+  </LevelInfo>
+</AllShops>
