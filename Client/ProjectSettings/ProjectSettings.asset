@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: BiangStudio
-  productName: Mechstorm
+  productName: MechStorm_LocalServer
   defaultCursor: {fileID: 2800000, guid: b3b96b3fc59680b45a42aed0ac20a1d2, type: 3}
   cursorHotspot: {x: 19, y: 15}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}

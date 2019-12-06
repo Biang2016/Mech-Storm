@@ -7,7 +7,6 @@ public abstract class ProxyBase
     //发包读包基础
     public Socket Socket;
     public int ClientID;
-    public BuildInfo CurrentBuildInfo;
     public DataHolder DataHolder = new DataHolder();
     public bool IsStopReceive;
 

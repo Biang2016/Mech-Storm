@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
+#if UNITY_EDITOR || UNITY_STANDALONE
+using UnityEngine;
+#endif
 
 public class Server
 {
@@ -40,9 +44,28 @@ public class Server
         AllScriptExecuteSettings.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllSideEffects.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
         AllBuffs.CurrentAssembly = Assembly.GetAssembly(typeof(Battle));
-        LoadAllBasicXMLFiles.Load("./MechStorm/ServerBuild/" + "Config/");
-
-        ServerLog.Instance.PrintServerStates("CardDeck Loaded");
+        string configFolderPath_FormalServer = "./MechStorm/ServerBuild/Config/";
+        string configFolderPath1_LocalServer = "./Config/";
+#if UNITY_EDITOR || UNITY_STANDALONE
+        string configFolderPath1_UnityLocalServer = Application.streamingAssetsPath + "/Config/";
+#endif
+        if (Directory.Exists(configFolderPath_FormalServer))
+        {
+            LoadAllBasicXMLFiles.Load(configFolderPath_FormalServer);
+            ServerLog.Instance.PrintServerStates("Load Config Folder at: " + configFolderPath_FormalServer);
+        }
+        else if (Directory.Exists(configFolderPath1_LocalServer))
+        {
+            LoadAllBasicXMLFiles.Load(configFolderPath1_LocalServer);
+            ServerLog.Instance.PrintServerStates("Load Config Folder at: " + configFolderPath1_LocalServer);
+        }
+#if UNITY_EDITOR || UNITY_STANDALONE
+        else if (Directory.Exists(configFolderPath1_UnityLocalServer))
+        {
+            LoadAllBasicXMLFiles.Load(configFolderPath1_UnityLocalServer);
+            ServerLog.Instance.PrintServerStates("Load Config Folder at: " + configFolderPath1_UnityLocalServer);
+        }
+#endif
 
         //Here to test cards, sideEffects, buffs
 

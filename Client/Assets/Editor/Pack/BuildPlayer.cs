@@ -30,6 +30,18 @@ public class BuildPlayer
         Build(BuildTarget.StandaloneOSX);
     }
 
+    [MenuItem("Build/Windows local server")]
+    public static void Build_Windows_LocalServer()
+    {
+        BuildLocalServer(BuildTarget.StandaloneWindows64);
+    }
+
+    [MenuItem("Build/MacOS local server")]
+    public static void Build_MacOS_LocalServer()
+    {
+        BuildLocalServer(BuildTarget.StandaloneOSX);
+    }
+
     private static void Build(BuildTarget build_target)
     {
         string platform = AssetBundlePacker.GetPlatformForPackRes(build_target);
@@ -55,6 +67,7 @@ public class BuildPlayer
         };
 
         BuildOptions option_build = BuildOptions.CompressWithLz4;
+        PlayerSettings.productName = "MechStorm";
 
         string res = Application.dataPath + "/Resources/";
         string res_back = Application.dataPath + "/Resources_back/";
@@ -166,6 +179,134 @@ public class BuildPlayer
                 {
                     Directory.Move(ab_Windows_back, ab_Windows);
                 }
+            }
+        }
+    }
+
+    private static void BuildLocalServer(BuildTarget build_target)
+    {
+        string platform = AssetBundlePacker.GetPlatformForPackRes(build_target);
+        string build_path = "";
+        string build_ExecutableFile = "";
+        if (platform == "windows")
+        {
+            build_path = Application.dataPath + "/../Build/localServer/" + platform + "/";
+            build_ExecutableFile = build_path + "MechStorm_LocalServer.exe";
+        }
+        else if (platform == "osx")
+        {
+            build_path = Application.dataPath + "/../Build/localServer/" + platform + "/";
+            build_ExecutableFile = build_path + "MechStorm_LocalServer.app";
+        }
+
+        string[] levels =
+        {
+            "Assets/Scenes/ServerScene.unity",
+        };
+
+        BuildOptions option_build = BuildOptions.CompressWithLz4;
+        PlayerSettings.productName = "MechStorm_LocalServer";
+
+        string res = Application.dataPath + "/Resources/";
+        string res_back = Application.dataPath + "/Resources_back/";
+
+        string res_asset = "Assets/Resources";
+        string res_back_asset = "Assets/Resources_back";
+
+        string ab_Windows = Application.streamingAssetsPath + "/AssetBundle/windows/";
+        string ab_MacOS = Application.streamingAssetsPath + "/AssetBundle/osx/";
+
+        string ab_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/";
+        string ab_Windows_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/windows/";
+        string ab_MacOS_back = Application.dataPath + "/StreamingAsset_back/AssetBundle/osx/";
+
+        if (Directory.Exists(ab_back))
+        {
+            Directory.Delete(ab_back, true);
+        }
+
+        Directory.CreateDirectory(ab_back);
+
+        if (Directory.Exists(ab_Windows_back))
+        {
+            Directory.Delete(ab_Windows_back, true);
+        }
+
+        if (Directory.Exists(ab_MacOS_back))
+        {
+            Directory.Delete(ab_MacOS_back, true);
+        }
+
+        if (Directory.Exists(build_path))
+        {
+            Directory.Delete(build_path, true);
+        }
+
+        Directory.CreateDirectory(build_path);
+
+        if (Directory.Exists(res_back))
+        {
+            Directory.Delete(res_back, true);
+        }
+
+        if (Directory.Exists(res))
+        {
+            if (Directory.Exists(res_back))
+            {
+                AssetDatabase.MoveAssetToTrash(res_back_asset);
+            }
+
+            string msg = AssetDatabase.MoveAsset(res_asset, res_back_asset);
+            if (!string.IsNullOrEmpty(msg))
+            {
+                Debug.LogError(msg);
+            }
+        }
+
+        if (Directory.Exists(ab_MacOS))
+        {
+            Directory.Move(ab_MacOS, ab_MacOS_back);
+        }
+
+        if (Directory.Exists(ab_Windows))
+        {
+            Directory.Move(ab_Windows, ab_Windows_back);
+        }
+
+        try
+        {
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+            BuildPipeline.BuildPlayer(levels, build_ExecutableFile, build_target, option_build);
+        }
+        catch
+        {
+            // ignored
+        }
+        finally
+        {
+            if (Directory.Exists(res_back))
+            {
+                if (Directory.Exists(res))
+                {
+                    AssetDatabase.MoveAssetToTrash(res_asset);
+                }
+
+                string msg = AssetDatabase.MoveAsset(res_back_asset, res_asset);
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    Debug.LogError(msg);
+                }
+            }
+
+            if (Directory.Exists(ab_MacOS_back))
+            {
+                Directory.Move(ab_MacOS_back, ab_MacOS);
+            }
+
+            if (Directory.Exists(ab_Windows_back))
+            {
+                Directory.Move(ab_Windows_back, ab_Windows);
             }
         }
     }

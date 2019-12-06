@@ -46,7 +46,7 @@ public class DebugConsole : MonoBehaviour
 
     readonly List<Log> logs = new List<Log>();
     Vector2 scrollPosition;
-    bool visible;
+    public bool visible;
     bool collapse = true;
 
     // Visual elements:
@@ -73,7 +73,14 @@ public class DebugConsole : MonoBehaviour
     void OnEnable()
     {
         Application.logMessageReceived += HandleLog;
-        logShow = RootManager.Instance.ShowClientLogs;
+        if (RootManager.Instance != null)
+        {
+            logShow = RootManager.Instance.ShowClientLogs;
+        }
+        else
+        {
+            logShow = true;
+        }
     }
 
     void OnDisable()

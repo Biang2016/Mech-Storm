@@ -187,7 +187,7 @@ public class ServerProxy : ProxyBase
 
                     if (ClientState == ClientStates.Login)
                     {
-                        CurrentBuildInfo = BuildStoryDatabase.Instance.GetBuildInfoByID(r.buildID);
+                        GameProxy.BattleProxy.BuildInfo = BuildStoryDatabase.Instance.GetBuildInfoByID(r.buildID);
                         ClientState = ClientStates.Matching;
                         Server.SV.SGMM.OnClientMatchGames(this);
                     }

@@ -5,6 +5,10 @@ public class ServerLog : ILog
 {
     public static ServerLog Instance = new ServerLog();
 
+    public delegate void LogDelegate(string log);
+
+    public LogDelegate LodDelegate;
+
     private ServerLog()
     {
         LogQueue = new Queue<Log>();
@@ -26,6 +30,7 @@ public class ServerLog : ILog
             Log tmp = LogQueue.Dequeue();
             if (tmp != null)
             {
+                LodDelegate?.Invoke(tmp.Time + "  " + tmp.LogStr);
                 Console.ForegroundColor = tmp.ConsoleColor;
                 Console.WriteLine(tmp.Time + "  " + tmp.LogStr);
             }
