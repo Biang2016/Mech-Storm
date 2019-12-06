@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AllBuilds>
+  <BuildInfo>
+    <Info name="baseInfo" BuildName="Freshman Deck1" DrawCardNum="3" Life="100" Energy="50" BeginMetal="10" />
+    <Info name="cardIDs" ids="" />
+  </BuildInfo>
+</AllBuilds>
